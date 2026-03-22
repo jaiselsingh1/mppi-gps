@@ -27,7 +27,7 @@ class HalfCheetah(MuJoCoEnv):
 
         xvel = states[..., self._nq] # (K, H)
         ctrl = np.sum(actions ** 2, axis = -1) # (K, H)
-        return -xvel + self._ctrl_w * ctrl # (K, H)
+        return - 5.0 * xvel + self._ctrl_w * ctrl # (K, H)
     
     def terminal_cost(self, states: np.ndarray) -> np.ndarray:
           # no terminal cost to start
@@ -39,5 +39,4 @@ class HalfCheetah(MuJoCoEnv):
             self.data.qpos[1:],
             self.data.qvel,
         ])
-    
     
