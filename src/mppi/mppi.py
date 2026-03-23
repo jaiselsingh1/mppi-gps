@@ -60,6 +60,7 @@ class MPPI:
         # compute weights 
         lam = self.lam 
         weights = compute_weights(costs, lam, log_prior, log_proposal)
+        self._last_weights = weights
         n_eff = effective_sample_size(weights)
         
         # you want to make sure that the weights don't collapse aka lambda is not too small 

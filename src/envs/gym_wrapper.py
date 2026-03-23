@@ -11,8 +11,8 @@ from src.envs.base import BaseEnv
 class GymEnv(BaseEnv):
     """Wraps a Gymnasium MuJoCo env, adding batch_rollout and state access."""
 
-    def __init__(self, env_id: str, nthread: int | None = None):
-        self.gym_env = gym.make(env_id)
+    def __init__(self, env_id: str, nthread: int | None = None, render_mode = "human"):
+        self.gym_env = gym.make(env_id, render_mode = render_mode)
         unwrapped = self.gym_env.unwrapped
 
         # access the underlying MuJoCo model/data from Gymnasium
@@ -66,7 +66,6 @@ class GymEnv(BaseEnv):
         xvel = states[..., self.model.nq]          # qvel[0]
         ctrl = np.sum(actions ** 2, axis=-1)
         # Gymnasium HalfCheetah: reward = forward_reward - ctrl_cost
-        # our cost = -reward = -xvel + ctrl_cost_weight * ctrl
         return -xvel + 0.1 * ctrl
 
     def terminal_cost(self, states):

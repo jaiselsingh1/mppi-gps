@@ -11,7 +11,7 @@ _XML = str(
 
 class HalfCheetah(MuJoCoEnv):
 
-    def __init__(self, ctrl_cost_weight: float = 0.1, frame_skip: int = 5,**kwargs):
+    def __init__(self, ctrl_cost_weight: float = 0.0, frame_skip: int = 5,**kwargs):
         super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
         self._ctrl_w = ctrl_cost_weight 
         self._nq = self.model.nq # 9 
