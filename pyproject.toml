@@ -19,5 +19,6 @@ dependencies = [
     "tqdm>=4.66.0",
 ]
 
-
-
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
