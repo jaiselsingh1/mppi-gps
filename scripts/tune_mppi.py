@@ -5,24 +5,22 @@ from src.envs.half_cheetah import HalfCheetah
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
 
-# fixed
-K = 256
-H = 50
+# fixed (match run_mppi.py)
+K = 128
+H = 10
 eval_steps = 300
 n_seeds = 2
 
 def objective(trial: optuna.Trial) -> float:
     noise_sigma = trial.suggest_float("noise_sigma", 0.1, 3.0, log = True)
-    lam = trial.suggest_float("lam", 0.01, 10.0, log = True)
-    n_eff_frac = trial.suggest_float( "n_eff_frac", 0.1, 0.5)
+    lam = trial.suggest_float("lam", 0.001, 0.1, log = True)
 
     cfg = MPPIConfig(
-        K = K, 
-        H = H, 
-        lam = lam, 
-        noise_sigma = noise_sigma, 
-        adaptive_lam = False, 
-        n_eff_threshold = n_eff_frac * K
+        K = K,
+        H = H,
+        lam = lam,
+        noise_sigma = noise_sigma,
+        adaptive_lam = False,
     )
 
     total_cost = 0.0 
