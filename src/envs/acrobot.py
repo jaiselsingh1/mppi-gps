@@ -10,9 +10,9 @@ from src.envs.mujoco_env import MuJoCoEnv
 _XML = str(Path(__file__).resolve().parents[2] / "assets" / "acrobot.xml")
 
 class Acrobot(MuJoCoEnv):
-    def __init__(self, frame_skip: int = 1, **kwargs):
+    def __init__(self, frame_skip: int = 5, **kwargs):
         super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
-        self._nq = self.model.nq # 2 
+        self._nq = self.model.nq #2 
         self._nv = self.model.nv #2 
 
         # this is upright, zero velocity and then the angles for the two joints 
@@ -21,7 +21,7 @@ class Acrobot(MuJoCoEnv):
         # cost weights 
         self._Q = np.array([10.0, 1.0, 0.1, 0.1])  # [shoulder, elbow, dshoul, delbow])
         self._R = 0.01 
-        self._P_scale = 1000.0 # terminal cost multiplier 
+        self._P_scale = 653.4290426276586 # terminal cost multiplier 
 
     
     def running_cost(self,

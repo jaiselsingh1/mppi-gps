@@ -13,7 +13,7 @@ N_SEEDS = 2
 
 def objective(trial: optuna.Trial) -> float:
     noise_sigma = trial.suggest_float("noise_sigma", 0.1, 2.0, log=True)
-    lam = trial.suggest_float("lam", 0.01, 10.0, log=True)
+    lam = trial.suggest_float("lam", 10.0, 1000.0, log=True)
     P_scale = trial.suggest_float("P_scale", 100.0, 10000.0, log=True)
 
     cfg = MPPIConfig(
