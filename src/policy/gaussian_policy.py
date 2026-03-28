@@ -11,6 +11,7 @@ class GaussianPolicy(nn.Module):
                  obs_dim: int, 
                  act_dim: int, 
                  cfg: PolicyConfig = PolicyConfig()):
+        super().__init__()
         
         self.obs_dim = obs_dim 
         self.act_dim = act_dim 
@@ -40,7 +41,7 @@ class GaussianPolicy(nn.Module):
         return mu, log_sigma 
     
     # this is used when GPS compares to the mppi for scoring actions 
-    # how likely is action given my current policy 
+    # how likely is the action given my current policy 
     def log_prob(self,
                  obs: torch.Tensor, 
                  actions: torch.Tensor) -> torch.Tensor:
@@ -54,13 +55,42 @@ class GaussianPolicy(nn.Module):
         mu, log_sigma = self.forward(obs)
         return mu + log_sigma.exp() * torch.randn_like(mu)
     
+    # supervised destillation of mppi into the neural network
     def train_weighted(
             self, 
             obs: np.ndarray, 
             actions: np.ndarray, 
             weights: np.ndarray, 
     ) -> float:
-        pass
+        obs_t = torch.as_tensor(obs, dtype = torch.float32)
+        act_t = torch.as_tensor(actions, dtype = torch.float32)
+        w_t = torch.as_tensor(weights, dtype = torch.float32)
+
+        lp = self.log_prob(obs_t, act_t) # (N, )
+        # this is just the negative weight * log likelihood 
+        loss = -(w_t * lp).sum()
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+        return loss.item()
+    
+    # this is the numpy variant for the log prob function since mppi uses numpy 
+    @torch.no_grad()
+    def log_prob_np(self, 
+                    obs: np.ndarray, 
+                    actions: np.ndarray) -> np.ndarray:
+        obs_t = torch.as_tensor(obs, dtype = torch.float32)
+        act_t = torch.as_tensor(actions, dtype = torch.float32)
+        return self.log_prob(obs_t, act_t).numpy()
+    
+    
+
+        
+    
+
+
+        
 
         
     
