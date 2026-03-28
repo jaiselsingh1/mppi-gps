@@ -8,7 +8,7 @@ from src.utils.config import MPPIConfig
 K = 2048
 H = 100
 EVAL_STEPS = 500
-N_SEEDS = 2
+N_SEEDS = 5
 
 
 def objective(trial: optuna.Trial) -> float:
@@ -27,11 +27,15 @@ def objective(trial: optuna.Trial) -> float:
     total_cost = 0.0
 
     for seed in range(N_SEEDS):
-        np.random.seed(seed)
         env = Acrobot()
         env._P_scale = P_scale
         controller = MPPI(env, cfg)
         env.reset()
+        
+        rng = np.random.default_rng(seed)
+        env.data.qpos[:] += rng.normal(0, 0.1, size = env.model.nq)
+        env.data.qvel[:] += rng.normal(0, 0.1, size = env.model.nv)
+
         state = env.get_state()
 
         episode_cost = 0.0

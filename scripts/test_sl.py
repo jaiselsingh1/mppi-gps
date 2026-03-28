@@ -9,8 +9,8 @@ from pathlib import Path
 from src.envs.acrobot import Acrobot
 import mediapy 
 
-import os
-os.environ["MUJOCO_GL"] = "egl"
+# import os
+# os.environ["MUJOCO_GL"] = "egl"
 
 import mujoco 
 
