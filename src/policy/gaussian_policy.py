@@ -1,4 +1,6 @@
 """Diagonal Gaussian MLP for GPS"""
+# c step refers to controller step 
+# s step refers to supervised step 
 
 import numpy as np 
 import torch 
@@ -84,7 +86,7 @@ class GaussianPolicy(nn.Module):
         act_t = torch.as_tensor(actions, dtype = torch.float32)
         return self.log_prob(obs_t, act_t).numpy()
     
-    
+
 
         
     
