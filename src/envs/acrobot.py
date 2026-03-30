@@ -10,7 +10,7 @@ from src.envs.mujoco_env import MuJoCoEnv
 _XML = str(Path(__file__).resolve().parents[2] / "assets" / "acrobot.xml")
 
 class Acrobot(MuJoCoEnv):
-    def __init__(self, frame_skip: int = 5, **kwargs):
+    def __init__(self, frame_skip: int = 1, **kwargs):
         super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
         self._nq = self.model.nq #2 
         self._nv = self.model.nv #2 
@@ -19,17 +19,20 @@ class Acrobot(MuJoCoEnv):
         self._x_goal = np.array([np.pi, 0.0, 0.0, 0.0])
 
         # cost weights 
-        self._Q = np.array([10.0, 1.0, 0.1, 0.1])  # [shoulder, elbow, dshoul, delbow])
-        self._R = 0.01 
-        self._P_scale = 653.4290426276586 # terminal cost multiplier 
+        self._Q = np.array([1.0, 1.0, 1.0, 1.0])
+        self._R = 0
+        self._P_scale = 1.0 # terminal cost multiplier 
 
-    
+    def reset(self):
+        qvel = np.random.normal(0, 0.0001, size = self._nv)
+        self.data.qvel = qvel
+
     def running_cost(self,
                      states: np.ndarray, 
                      actions: np.ndarray) -> float:
         # states: (K, H, nstate), actions: (K, H, nu)
-        qpos = states[:, :, :self._nq]
-        qvel = states[:, :, self._nq:self._nq + self._nv]
+        qpos = states[:, :, 1:self._nq+1]
+        qvel = states[:, :, 1+self._nq:]
 
         # angle error (wrap the shoulder between negative pi and pi)
         angle_err_shoulder = _angle_diff(qpos[:, :, 0], self._x_goal[0])
