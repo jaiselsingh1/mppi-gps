@@ -3,6 +3,7 @@
 import os
 import numpy as np 
 import mujoco 
+from jaxtyping import Array, Float
 from mujoco import rollout 
 
 from src.envs.base import BaseEnv
@@ -61,6 +62,20 @@ class MuJoCoEnv(BaseEnv):
             mujoco.mjtState.mjSTATE_FULLPHYSICS,
         )
 
+    def state_qpos(
+        self,
+        states: Float[Array, "... nstate"],
+    ) -> Float[Array, "... nq"]:
+        return states[..., 1 : 1 + self.model.nq]
+
+    def state_qvel(
+        self,
+        states: Float[Array, "... nstate"],
+    ) -> Float[Array, "... nv"]:
+        start = 1 + self.model.nq
+        end = start + self.model.nv
+        return states[..., start:end]
+
     def batch_rollout(
             self, 
             initial_state: np.ndarray, 
@@ -107,5 +122,4 @@ class MuJoCoEnv(BaseEnv):
 
     def close(self):
         self._rollout_ctx.__exit__(None, None, None)
-
 

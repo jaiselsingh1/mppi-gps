@@ -49,7 +49,7 @@ def main():
                 data = controller.get_rollout_data()
 
                 # extract obs from the full physics state 
-                obs_rollout = data["states"][:, :, : obs_dim]
+                obs_rollout = data["states"][:, :, 1 : 1 + obs_dim]
 
                 step_grp = grp.create_group(f"step{t}")
                 step_grp.create_dataset("obs", data=obs_rollout)           # (K, H, 4)

@@ -1,5 +1,6 @@
-import optuna
 import numpy as np
+import optuna
+
 from src.envs.acrobot import Acrobot
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
@@ -12,7 +13,7 @@ N_SEEDS = 5
 def objective(trial: optuna.Trial) -> float:
     K = trial.suggest_int("K", 10, 100, log=True)
     H = trial.suggest_int("H", 4, 100, log=True)
-    noise_sigma = trial.suggest_float("noise_sigma", 0.05, 0.5, log=True) 
+    noise_sigma = trial.suggest_float("noise_sigma", 0.05, 0.3, log=True)
     lam = trial.suggest_float("lam", 0.05, 10.0, log=True)
     # P_scale = trial.suggest_float("P_scale", 100.0, 10000.0, log=True)
 
@@ -28,10 +29,10 @@ def objective(trial: optuna.Trial) -> float:
 
     for seed in range(N_SEEDS):
         env = Acrobot()
-        env._P_scale = 1.0 
+        env._P_scale = 1.0
         controller = MPPI(env, cfg)
         env.reset()
-        
+
         rng = np.random.default_rng(seed)
         # env.data.qpos[:] += rng.normal(0, 0.1, size = env.model.nq)
         # env.data.qvel[:] += rng.normal(0, 0.1, size = env.model.nv)
@@ -48,11 +49,10 @@ def objective(trial: optuna.Trial) -> float:
             if done:
                 break
 
-        trial.report(total_cost / (seed + 1), step = seed)
+        trial.report(total_cost / (seed + 1), step=seed)
         if trial.should_prune():
             env.close()
             raise optuna.TrialPruned()
-
 
         env.close()
         total_cost += episode_cost

@@ -1,12 +1,20 @@
-import numpy as np 
+import mujoco
+import numpy as np
+
 from src.envs.acrobot import Acrobot
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
-import mujoco
+
 
 def main():
     env = Acrobot()
-    cfg = MPPIConfig(K=52, H=52, lam=0.49018734695563076, noise_sigma=0.16642620469024377, adaptive_lam=False)
+    cfg = MPPIConfig(
+        K=26,
+        H=49,
+        lam=0.47053760801299965,
+        noise_sigma=0.1304382228717613,
+        adaptive_lam=False,
+    )
     controller = MPPI(env, cfg)
 
     env.reset()
@@ -17,7 +25,6 @@ def main():
 
     for t in range(500):
         action, info = controller.plan_step(state)
-        action = np.zeros_like(action)
         obs, cost, done, _ = env.step(action)
         state = env.get_state()
 
@@ -25,12 +32,16 @@ def main():
         frames.append(renderer.render().copy())
 
         if t % 100 == 0:
-            print(f"step={t:4d}  cost_min={info['cost_min']:.2f}  "
-                f"shoulder={env.data.qpos[0]:.2f}  elbow={env.data.qpos[1]:.2f}")
+            print(
+                f"step={t:4d}  cost_min={info['cost_min']:.2f}  "
+                f"shoulder={env.data.qpos[0]:.2f}  elbow={env.data.qpos[1]:.2f}"
+            )
 
     import mediapy
-    mediapy.write_video("acrobot_mppi.mp4", frames, fps=30*5)
+
+    mediapy.write_video("acrobot_mppi.mp4", frames, fps=30 * 5)
     env.close()
+
 
 if __name__ == "__main__":
     main()
