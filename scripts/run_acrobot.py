@@ -6,7 +6,7 @@ import mujoco
 
 def main():
     env = Acrobot()
-    cfg = MPPIConfig(K=2048, H=100, lam=716.7028104220127, noise_sigma=0.641222666442091, adaptive_lam=False)
+    cfg = MPPIConfig(K=500, H=10, lam=716.7028104220127, noise_sigma=0.641222666442091, adaptive_lam=False)
     controller = MPPI(env, cfg)
 
     env.reset()

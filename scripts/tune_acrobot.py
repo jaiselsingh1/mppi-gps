@@ -5,13 +5,13 @@ from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
 
 # fixed
-K = 2048
-H = 100
 EVAL_STEPS = 500
 N_SEEDS = 5
 
 
 def objective(trial: optuna.Trial) -> float:
+    K = trial.suggest_int("K", 10, 100, log=True)
+    H = trial.suggest_int("H", 10, 100, log=True)
     noise_sigma = trial.suggest_float("noise_sigma", 0.1, 2.0, log=True)
     lam = trial.suggest_float("lam", 10.0, 1000.0, log=True)
     P_scale = trial.suggest_float("P_scale", 100.0, 10000.0, log=True)
