@@ -41,9 +41,20 @@ class Acrobot(MuJoCoEnv):
             sensordata: Float[Array, "K H nsensor"] | None = None,
     ) -> Float[Array, "K H"]:
         tip_pos = sensordata[:, :, :3]
-        target_radius = 0.20
+        target_radius = 0.20 # hardset based on xml
         dist = np.linalg.norm(tip_pos - _TARGET, axis=-1)
-        return (dist > target_radius).astype(dtype=np.float32) + (dist**2 * 0.05)
+        margin = 4.0 # where the decay hits a specific value
+        # adding a gaussian tolerance 
+        _value_at_margin = 0.1 
+        scale = np.sqrt(-2.0 * np.log(_value_at_margin)) # how steep do you want the decay to be
+        d_beyond = np.maximum(dist - target_radius, 0.0)
+        reward = np.where(
+            dist <= target_radius, 
+            1.0, 
+            np.exp(-0.5 * (d_beyond * scale / margin) ** 2), 
+        )
+        return 1.0 - reward 
+
 
     def terminal_cost(
             self,

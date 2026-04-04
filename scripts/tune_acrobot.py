@@ -8,13 +8,13 @@ from src.utils.config import MPPIConfig
 # fixed
 EVAL_STEPS = 500
 N_SEEDS = 10
-H = 128
+# H = 256
 
 def objective(trial: optuna.Trial) -> float:
     # MPPI hyperparameters
-    K = trial.suggest_int("K", 2, 500, log=True)
-    # H = trial.suggest_int("H", 10, 100, log=True)
-    noise_sigma = trial.suggest_float("noise_sigma", 0.001, 0.3, log=True)
+    K = trial.suggest_int("K", 2, 1000, log=True)
+    H = trial.suggest_int("H", 50, 500, log=True)
+    noise_sigma = trial.suggest_float("noise_sigma", 0.001, 0.7, log=True)
     lam = trial.suggest_float("lam", 0.0001, 5.0, log=True)
 
     cfg = MPPIConfig(

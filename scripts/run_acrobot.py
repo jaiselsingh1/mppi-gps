@@ -8,10 +8,10 @@ from src.utils.config import MPPIConfig
 def main():
     env = Acrobot()
     cfg = MPPIConfig(
-        K=62,
-        H=128,
-        lam=0.020763742101859592,
-        noise_sigma=0.1358457078633617,
+        K=1000,
+        H=174,
+        lam=0.00010000000,
+        noise_sigma=0.11239984567550243,
         adaptive_lam=False,
     )
     controller = MPPI(env, cfg)
