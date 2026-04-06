@@ -8,10 +8,10 @@ from src.utils.config import MPPIConfig
 def main():
     env = Acrobot()
     cfg = MPPIConfig(
-        K=1000,
-        H=174,
-        lam=0.00010000000,
-        noise_sigma=0.11239984567550243,
+        K=512,
+        H=161,
+        lam=0.0743556503761203,
+        noise_sigma=0.22102217055428525,
         adaptive_lam=False,
     )
     controller = MPPI(env, cfg)
@@ -25,11 +25,11 @@ def main():
         controller.reset()
         print(env.data.qpos)
         state = env.get_state()
-
-        for t in range(500):
+        total_cost = 0.0 
+        for t in range(1000):
             action, info = controller.plan_step(state)
             obs, cost, done, _ = env.step(action)
-
+            total_cost += cost
 
             state = env.get_state()
 
@@ -44,7 +44,9 @@ def main():
                     # f"n_eff={info['n_eff']:.1f}  lam={info['lam']:.3f}  "
                     f"shoulder={env.data.qpos[0]:.2f}  elbow={env.data.qpos[1]:.2f}  "
                     f"tip_z={tip_z:.2f}"
+                    f"total cost={total_cost}"
                 )
+        print(total_cost)
 
     if render and frames:
         import mediapy

@@ -3,7 +3,7 @@ import numpy as np
 from src.envs.base import BaseEnv 
 from src.utils.config import MPPIConfig
 from src.utils.math import (
-    compute_weights, effective_sample_size, gaussian_log_prob
+    compute_weights, effective_sample_size
 )
 
 class MPPI:
@@ -49,39 +49,45 @@ class MPPI:
         # rollout
         states, costs = self.env.batch_rollout(state, U_clipped)
        
-        # compute the prior/ proposal 
-        log_prior = None 
+        # baseline warm start
+        # q(V) = N(U, sigma^2 I), p(V) = N(0, sigma^2 I)
+        # log p(V) - log q(V) = -(u · eps) / sigma^2 + const
+        baseline_log_ratio = -np.sum(self.U[None, :, :] * eps, axis=(1, 2)) / (self.sigma ** 2)
+
+        log_prior = baseline_log_ratio 
         log_proposal = None 
 
         if prior is not None:
-            log_prior = prior(states, U_clipped)
-            log_proposal = gaussian_log_prob(U_clipped, self.U, self.sigma)
+            log_prior = log_prior + prior(states, U_clipped)
 
         # compute weights 
         lam = self.lam 
         weights = compute_weights(costs, lam, log_prior, log_proposal)
         self._last_weights = weights
-        # n_eff = effective_sample_size(weights)
+        n_eff = effective_sample_size(weights) 
+
+        import ipdb
+        ipdb.set_trace()
         
         # you want to make sure that the weights don't collapse aka lambda is not too small 
         # if lambda is small then the policy isn't exploring
-        # if self.cfg.adaptive_lam:
-        #     for _ in range(5):
-        #         if n_eff < self.cfg.n_eff_threshold:
-        #             lam *= 2.0
-        #         elif n_eff > 0.75 * self.K:
-        #             lam *= 0.5 
-        #         else:
-        #             break 
-        #         lam = np.clip(lam, 0.01, 100.0)
-        #         weights = compute_weights(costs, lam, log_prior, log_proposal)
-        #         n_eff = effective_sample_size(weights)
-        #     self.lam = lam 
+        if self.cfg.adaptive_lam:
+            for _ in range(5):
+                if n_eff < self.cfg.n_eff_threshold:
+                    lam *= 2.0
+                elif n_eff > 0.75 * self.K:
+                    lam *= 0.5 
+                else:
+                    break 
+                lam = np.clip(lam, 0.01, 100.0)
+                weights = compute_weights(costs, lam, log_prior, log_proposal)
+                n_eff = effective_sample_size(weights)
+            self.lam = lam 
 
         # compute the weighted mean (weight raw perturbations to avoid clipping bias)
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
-        np.clip(self.U, self.act_low, self.act_high, out = self.U)
-
+        self.U = np.clip(self.U, self.act_low, self.act_high)
+        
         # extract action 
         action = self.U[0].copy()
 
@@ -116,7 +122,6 @@ class MPPI:
 
                 
                 
-
 
 
 

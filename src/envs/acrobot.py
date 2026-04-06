@@ -29,7 +29,7 @@ class Acrobot(MuJoCoEnv):
             return super().reset(state = state)
 
         obs = super().reset()
-        self.data.qpos[:] += np.random.uniform(-np.pi, np.pi, size=self._nq)
+        self.data.qpos[:] = np.random.uniform(-np.pi, np.pi, size=self._nq)
         self.data.qvel[:] = np.random.normal(0.0, 0.05, size=self._nv) * 0.0 
         mujoco.mj_forward(self.model, self.data)
         return self._get_obs()
@@ -53,8 +53,10 @@ class Acrobot(MuJoCoEnv):
             1.0, 
             np.exp(-0.5 * (d_beyond * scale / margin) ** 2), 
         )
-        return 1.0 - reward 
-
+        gaussian_cost = 1.0 - reward
+        tip_z = sensordata[:, :, 2] 
+        height_cost = 1.0 - tip_z / 4.0
+        return dist**2 / (margin**2) 
 
     def terminal_cost(
             self,
