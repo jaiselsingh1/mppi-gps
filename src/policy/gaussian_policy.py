@@ -5,7 +5,21 @@
 import numpy as np 
 import torch 
 import torch.nn as nn 
+from jaxtyping import Array, Float
+from torch import Tensor
 from src.utils.config import PolicyConfig
+
+def featurize_obs(
+        obs: Float[Tensor, "*batch 4"],
+) -> Float[Tensor, "*batch 6"]:
+    new_obs = torch.empty(*obs.shape[:-1], 6, device = obs.device, dtype = obs.dtype)
+    new_obs[..., 0] = torch.sin(obs[..., 0])
+    new_obs[..., 1] = torch.cos(obs[..., 0])
+    new_obs[..., 2] = torch.sin(obs[..., 1])
+    new_obs[..., 3] = torch.cos(obs[..., 1])
+    new_obs[..., 4] = obs[..., 2] / 2.5
+    new_obs[..., 5] = obs[..., 3] / 5.0
+    return new_obs
 
 class GaussianPolicy(nn.Module):
     """the network produces mu and log std for each action dim"""
@@ -36,9 +50,12 @@ class GaussianPolicy(nn.Module):
         nn.init.zeros_(self.net[-1].bias[act_dim:])
         self.optimizer = torch.optim.Adam(self.parameters(), lr = cfg.lr)
 
-    def forward(self, obs: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-        """obs: (B, obs_dim) → mu: (B, act_dim), log_sigma: (B, act_dim)"""
-        out = self.net(obs)
+    def forward(
+        self,
+        obs: Float[Tensor, "B 4"],
+    ) -> tuple[Float[Tensor, "B A"], Float[Tensor, "B A"]]:
+        new_obs = featurize_obs(obs)
+        out = self.net(new_obs)
         mu, log_sigma = out[..., :self.act_dim], out[..., self.act_dim: ]
         return mu, log_sigma 
     
@@ -85,7 +102,90 @@ class GaussianPolicy(nn.Module):
         obs_t = torch.as_tensor(obs, dtype = torch.float32)
         act_t = torch.as_tensor(actions, dtype = torch.float32)
         return self.log_prob(obs_t, act_t).numpy()
+
+class HistoryGaussianPolicy(nn.Module):
+    """MLP policy that consumes a window of (obs, prev_action) pairs.
+
+    Input contract:
+    obs_hist:      (B, K, obs_dim)   raw obs at steps t-K+1 .. t
+    prev_act_hist: (B, K, act_dim)   actions at steps t-K   .. t-1   (zero-padded at front)
+    Output:
+    mu, log_sigma: (B, act_dim)      predicted action at step t"""
+    def __init__(
+            self, 
+            obs_dim: int, 
+            act_dim: int, 
+            cfg: PolicyConfig = PolicyConfig()
+    ):
+        super().__init__()
+        self.obs_dim = obs_dim 
+        self.act_dim = act_dim 
+        self.K = cfg.history_len
+
+        # the featurised obs is 6d per step; prev actions is act_dim per step 
+        feat_dim_per_step = 6 + self.act_dim 
+        in_dim = self.K * feat_dim_per_step
+
+        # build self.net as MLP 
+        activations = {"relu": nn.ReLU, "tanh": nn.Tanh}
+        act_fn = activations[cfg.activation]
+
+        layers = [nn.LayerNorm(in_dim)]
+        prev = in_dim 
+        for h in cfg.hidden_dims:
+            layers += [nn.Linear(prev, h), act_fn()]
+            prev = h 
+        layers.append(nn.Linear(prev, 2 * act_dim)) # the 2 * act_dim is because you need mean/ std for each dim 
+        self.net = nn.Sequential(*layers)
+        
+        nn.init.zeros_(self.net[-1].bias[act_dim:])
+        self.optimizer = torch.optim.Adam(self.parameters(), cfg.lr)
     
+    def forward(
+        self,
+        obs_history:      Float[Tensor, "B K 4"],
+        prev_act_history: Float[Tensor, "B K A"],
+    ) -> tuple[Float[Tensor, "B A"], Float[Tensor, "B A"]]:
+        featurized_obs = featurize_obs(obs_history) # (B, K, 6)
+        x = torch.cat([featurized_obs, prev_act_history], dim=-1) # (B, K, 6+A)
+        x = x.reshape(x.shape[0], -1) # (B, K*(6+A))
+        out = self.net(x) 
+        mu, log_sigma = out[..., :self.act_dim], out[..., self.act_dim:]
+        return mu, log_sigma 
+    
+    def log_prob(
+          self, 
+          obs_history:      Float[Tensor, "B K 4"],
+          prev_act_history: Float[Tensor, "B K A"],
+          actions: Float[Tensor, "B A"]
+    ):
+        mu, log_sigma = self.forward(obs_history, prev_act_history)
+        sigma = log_sigma.exp()
+        lp = -0.5 * (((actions - mu) / sigma) ** 2 + 2 * log_sigma + np.log(2 * np.pi))
+        return lp.sum(dim=-1)
+
+    def sample(
+            self, 
+            obs_history:      Float[Tensor, "B K 4"],
+            prev_act_history: Float[Tensor, "B K A"],
+    ) -> torch.Tensor:
+        mu, log_sigma = self.forward(obs_history, prev_act_history)
+        return mu + log_sigma.exp() * torch.randn_like(mu)
+    
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
 
 
         

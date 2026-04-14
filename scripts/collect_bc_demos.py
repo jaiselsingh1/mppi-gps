@@ -12,7 +12,7 @@ from src.utils.config import MPPIConfig
 
 @dataclass
 class BcConfig:
-    M: int = 50                                          # number of trajectories
+    M: int = 1000                                          # number of trajectories
     T: int = 1000                                        # steps per trajectory
     save_path: Path = Path("data/acrobot_bc.h5")
 

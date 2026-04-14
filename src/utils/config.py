@@ -25,8 +25,10 @@ class MPPIConfig:
 @dataclass
 class PolicyConfig:
     hidden_dims: tuple[int, ...] = (256, 256)
-    lr: float = 3e-4
+    lr: float = 1e-3
     activation: str = "relu"
+    use_history: bool = False # gate the history path 
+    history_len: int = 8
 
 @dataclass 
 class GPSConfig:
