@@ -30,7 +30,7 @@ class Acrobot(MuJoCoEnv):
 
         obs = super().reset()
         self.data.qpos[:] = np.random.uniform(-np.pi, np.pi, size=self._nq)
-        self.data.qvel[:] = np.random.normal(0.0, 0.05, size=self._nv) * 0.0 
+        self.data.qvel[:] = np.random.normal(0.0, 2.0, size=self._nv)
         mujoco.mj_forward(self.model, self.data)
         return self._get_obs()
 

@@ -31,16 +31,24 @@ class MPPI:
         self.U = np.zeros((self.H, self.nu))
 
     def plan_step(
-            self, 
-            state: np.ndarray, 
+            self,
+            state: np.ndarray,
+            nominal_first: np.ndarray | None = None,
             prior = None,
     ) -> tuple[np.ndarray, dict]:
         """running one MPPI iteration
-        state: current environment state 
+        state: current environment state
+        nominal_first: optional (nu,) action to overwrite U[0] before perturbing —
+            this is how a guiding policy hands its current prediction to MPPI so
+            sampling is centered on the policy's choice instead of the
+            warm-shifted nominal.
         prior: this is an optional callable (states, actions) -> log_prob (K, )
         """
+        if nominal_first is not None:
+            self.U[0] = nominal_first
+
         # sample from q = N(U_nominal, sigma^2 I)
-        # noise is eps 
+        # noise is eps
         eps = np.random.randn(self.K, self.H, self.nu) * self.sigma
         U_perturbed = self.U[None, :, :] + eps
 

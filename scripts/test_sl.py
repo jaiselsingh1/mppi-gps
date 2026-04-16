@@ -35,6 +35,8 @@ class BCConfig:
     n_eval_eps:  int   = 10
     eval_ep_len: int   = 500
 
+    ema_alpha:   float = 0.5       # causal EMA on action targets; 0.0 disables
+
     seed:        int   = 0
 
 
@@ -46,6 +48,26 @@ def load_demos(path: Path) -> tuple[np.ndarray, np.ndarray]:
         states  = f["states"][:].astype(np.float32)
         actions = f["actions"][:].astype(np.float32)
     return states, actions
+
+
+def smooth_actions_ema(actions: np.ndarray, alpha: float) -> np.ndarray:
+    """Causal EMA along the time axis of a (M, T, act_dim) array.
+
+    y[t] = alpha * y[t-1] + (1 - alpha) * x[t],  y[0] = x[0]
+
+    Rationale: MPPI's per-step action output carries noise roughly as large
+    as the signal (see /tmp/diag.py). Training MSE can't go below the
+    irreducible per-step variance; smoothing the targets strips that noise
+    so the plateau falls. Only the training targets are smoothed — the
+    stored states still reflect the unsmoothed environment transitions.
+    """
+    if alpha <= 0.0:
+        return actions
+    out = np.empty_like(actions)
+    out[:, 0] = actions[:, 0]
+    for t in range(1, actions.shape[1]):
+        out[:, t] = alpha * out[:, t - 1] + (1.0 - alpha) * actions[:, t]
+    return out
 
 def make_windowed_dataset(
         states:  np.ndarray,  # (M, T, obs_dim)
@@ -222,9 +244,9 @@ def evaluate_policy_history(policy: HistoryGaussianPolicy,
     obs_buf[-1] is always the current obs; act_buf[-1] is the most recent
     prev action (zero-padded for t < K).
     """
-    K       = policy.K
-    obs_dim = policy.obs_dim
-    act_dim = policy.act_dim
+    K           = policy.K
+    raw_obs_dim = env._get_obs().shape[0]   # (4,) for acrobot — raw, pre-featurization
+    act_dim     = policy.act_dim
 
     returns: list[float] = []
     frames:  list[np.ndarray] = []
@@ -234,8 +256,8 @@ def evaluate_policy_history(policy: HistoryGaussianPolicy,
         np.random.seed(seed + ep)
         env.reset()
 
-        obs_buf = np.zeros((K, obs_dim), dtype=np.float32)
-        act_buf = np.zeros((K, act_dim), dtype=np.float32)
+        obs_buf = np.zeros((K, raw_obs_dim), dtype=np.float32)
+        act_buf = np.zeros((K, act_dim),     dtype=np.float32)
 
         ep_cost = 0.0
         for t in range(episode_len):
