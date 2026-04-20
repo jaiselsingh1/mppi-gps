@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from src.policy.gaussian_policy import GaussianPolicy, HistoryGaussianPolicy
+from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import PolicyConfig, MPPIConfig
 from src.envs.acrobot import Acrobot
 from src.mppi.mppi import MPPI
@@ -126,14 +127,14 @@ def split_and_flatten(states: np.ndarray,
 
 
 # training
-def train_step_mse(policy: GaussianPolicy,
+def train_step_mse(policy: DeterministicPolicy,
                    obs: np.ndarray,
                    actions: np.ndarray) -> float:
-    """One Adam step on the MSE between policy mean and target action."""
+    """One Adam step on the MSE between policy output and target action."""
     obs_t = torch.as_tensor(obs, dtype=torch.float32)
     act_t = torch.as_tensor(actions, dtype=torch.float32)
 
-    mu, _ = policy.forward(obs_t)
+    mu = policy.forward(obs_t)
     loss = F.mse_loss(mu, act_t)
 
     policy.optimizer.zero_grad()
@@ -143,7 +144,7 @@ def train_step_mse(policy: GaussianPolicy,
 
 
 @torch.no_grad()
-def eval_mse(policy: GaussianPolicy,
+def eval_mse(policy: DeterministicPolicy,
              obs: np.ndarray,
              actions: np.ndarray,
              batch: int = 16384) -> float:
@@ -152,7 +153,7 @@ def eval_mse(policy: GaussianPolicy,
     for s in range(0, len(obs), batch):
         o = torch.as_tensor(obs[s:s + batch], dtype=torch.float32)
         a = torch.as_tensor(actions[s:s + batch], dtype=torch.float32)
-        mu, _ = policy.forward(o)
+        mu = policy.forward(o)
         total += F.mse_loss(mu, a, reduction = "sum")
         n     += a.numel()
     return total / max(n, 1)
@@ -193,7 +194,7 @@ def eval_mse_history(policy: HistoryGaussianPolicy,
 
 
 # eval the env 
-def evaluate_policy(policy: GaussianPolicy,
+def evaluate_policy(policy: DeterministicPolicy,
                     env: Acrobot,
                     n_episodes: int,
                     episode_len: int,
@@ -211,7 +212,7 @@ def evaluate_policy(policy: GaussianPolicy,
         for t in range(episode_len):
             obs_t = torch.as_tensor(env._get_obs(), dtype=torch.float32).unsqueeze(0)
             with torch.no_grad():
-                mu, _ = policy.forward(obs_t)
+                mu = policy.forward(obs_t)
             action = mu.squeeze(0).numpy()
             _, cost, done, _ = env.step(action)
             ep_cost += cost
@@ -371,7 +372,7 @@ def main(cfg: BCConfig = BCConfig()) -> None:
         tr_a = actions[train_idx].reshape(-1, actions.shape[-1])
         va_s = states[val_idx].reshape(-1, states.shape[-1])
         va_a = actions[val_idx].reshape(-1, actions.shape[-1])
-        policy = GaussianPolicy(cfg.obs_dim, cfg.act_dim, policy_cfg)
+        policy = DeterministicPolicy(cfg.obs_dim, cfg.act_dim, policy_cfg)
         print(f"train samples: {len(tr_s):,}   val samples: {len(va_s):,}")
 
     train_losses: list[float] = []

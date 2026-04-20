@@ -17,7 +17,7 @@ class FixedConfig(NamedTuple):
     n_startup_trials = 5
     EVAL_STEPS = 1000
     N_SEEDS = 10
-    K = 256
+    K = 512
     H = 256
 
 def objective(trial: optuna.Trial, config: FixedConfig) -> float:
