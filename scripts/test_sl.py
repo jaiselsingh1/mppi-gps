@@ -16,6 +16,7 @@ from pathlib import Path
 from src.policy.gaussian_policy import GaussianPolicy, HistoryGaussianPolicy
 from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import PolicyConfig, MPPIConfig
+from src.utils.eval import evaluate_policy
 from src.envs.acrobot import Acrobot
 from src.mppi.mppi import MPPI
 import torch.nn.functional as F
@@ -191,47 +192,6 @@ def eval_mse_history(policy: HistoryGaussianPolicy,
         total += F.mse_loss(mu, tgt, reduction="sum")
         n     += tgt.numel()
     return total / max(n, 1)
-
-
-# eval the env 
-def evaluate_policy(policy: DeterministicPolicy,
-                    env: Acrobot,
-                    n_episodes: int,
-                    episode_len: int,
-                    seed: int,
-                    render: bool = False) -> dict:
-    returns: list[float] = []
-    frames:  list[np.ndarray] = []
-    renderer = mujoco.Renderer(env.model, height=480, width=640) if render else None
-
-    for ep in range(n_episodes):
-        np.random.seed(seed + ep)
-        env.reset()
-
-        ep_cost = 0.0
-        for t in range(episode_len):
-            obs_t = torch.as_tensor(env._get_obs(), dtype=torch.float32).unsqueeze(0)
-            with torch.no_grad():
-                mu = policy.forward(obs_t)
-            action = mu.squeeze(0).numpy()
-            _, cost, done, _ = env.step(action)
-            ep_cost += cost
-
-            if renderer is not None and ep == 0:
-                renderer.update_scene(env.data)
-                frames.append(renderer.render().copy())
-
-            if done:
-                break
-        returns.append(ep_cost)
-
-    arr = np.array(returns)
-    return {
-        "mean_cost":     float(arr.mean()),
-        "std_cost":      float(arr.std()),
-        "per_ep":        arr.tolist(),
-        "frames":        frames,
-    }
 
 
 def evaluate_policy_history(policy: HistoryGaussianPolicy,

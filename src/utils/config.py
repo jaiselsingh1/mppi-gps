@@ -30,13 +30,21 @@ class PolicyConfig:
     use_history: bool = False # gate the history path 
     history_len: int = 8
 
-@dataclass 
+@dataclass
 class GPSConfig:
-    num_iterations: int = 50 
-    num_conditions: int = 5         # number of initial states
-    kl_estimator: str = "moment_matched" # "moment_matched" (Eq 3): fits Gaussian to MPPI samples, closed-form KL — stable but unimodal 
-    # "sample_based" (Eq 4): estimates KL directly from weighted particles variance
-    badmm_init_nu: float = 1.0  # initial dual variable (penalizes KL between MPPI and policy)
-    badmm_step_size: float = 2.0 
-    policy_augmented_alpha: float = 0.1 # weight on -log π(u|x) in MPPI cost (Eq 5)
+    n_gps_iters: int = 30
+    episodes_per_iter: int = 10
+    steps_per_episode: int = 1000
+    bc_steps_per_iter: int = 2000
+    batch_size: int = 128
+    eval_every: int = 1
+    lambda_policy_track: float = 0.0   # 0 = R1 control; >0 = R2 (policy-biased MPPI)
+    obs_dim: int = 6
+    act_dim: int = 1
+
+    @staticmethod
+    def load(env_name: str) -> "GPSConfig":
+        path = _CONFIGS_DIR / f"gps_{env_name}.json"
+        params = json.loads(path.read_text())
+        return GPSConfig(**params)
 
