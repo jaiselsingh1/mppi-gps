@@ -6,13 +6,13 @@ Usage:
 """
 from __future__ import annotations
 
-import argparse
 import json
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import mediapy
 import torch
+import tyro
 
 from src.envs.acrobot import Acrobot
 from src.policy.deterministic_policy import DeterministicPolicy
@@ -92,23 +92,31 @@ def render_checkpoints(
     env.close()
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("run_name", type=str, help="directory name under runs/")
-    parser.add_argument("--n_eps", type=int, default=3)
-    parser.add_argument("--ep_len", type=int, default=500)
-    parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--no_videos", action="store_true", help="only plot metrics")
-    args = parser.parse_args()
+def main(
+    run_name: str,
+    /,
+    n_eps: int = 3,
+    ep_len: int = 500,
+    seed: int = 0,
+    no_videos: bool = False,
+) -> None:
+    """Visualise a completed GPS run.
 
-    run_dir = Path("runs") / args.run_name
+    Args:
+        run_name: directory name under runs/
+        n_eps: number of rollout episodes per checkpoint
+        ep_len: episode length
+        seed: eval seed
+        no_videos: only plot metrics, skip video rendering
+    """
+    run_dir = Path("runs") / run_name
     if not run_dir.exists():
         raise SystemExit(f"run_dir not found: {run_dir}")
 
     plot_metrics(run_dir)
-    if not args.no_videos:
-        render_checkpoints(run_dir, args.n_eps, args.ep_len, args.seed)
+    if not no_videos:
+        render_checkpoints(run_dir, n_eps, ep_len, seed)
 
 
 if __name__ == "__main__":
-    main()
+    tyro.cli(main)
