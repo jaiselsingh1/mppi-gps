@@ -8,8 +8,11 @@ from mujoco import rollout
 
 from src.envs.base import BaseEnv
 
+import warp as wp 
+import mujoco_warp as mjw
+
 class MuJoCoEnv(BaseEnv):
-    def __init__(self, model_path: str, nthread: int | None = None, frame_skip: int = 1):
+    def __init__(self, model_path: str, nthread: int | None = None, frame_skip: int = 1, use_warp: bool = True, nworld: int = 8):
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
 
@@ -29,6 +32,11 @@ class MuJoCoEnv(BaseEnv):
         ]
 
         self._rollout_ctx = rollout.Rollout(nthread = self._nthread)
+
+        if use_warp:
+            self.wm = mjw.put_model(self.model)
+            self.wd = mjw.make_data(self.wm, nworld = nworld)
+
 
     def reset(self, state: np.ndarray | None = None) -> np.ndarray:
         mujoco.mj_resetData(self.model, self.data)

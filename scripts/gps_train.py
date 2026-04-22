@@ -66,13 +66,17 @@ def train_policy(
     policy.train()
     N = len(obs)
     recent: list[float] = []
-    for _ in range(n_steps):
-        idx = rng.integers(0, N, size=batch_size)
-        obs_b = torch.as_tensor(obs[idx], dtype=torch.float32)
-        act_b = torch.as_tensor(actions[idx], dtype=torch.float32)
+    obs_b = torch.as_tensor(obs, dtype=torch.float32)
+    act_b = torch.as_tensor(actions, dtype=torch.float32)  
 
-        mu = policy.forward(obs_b)
-        loss = F.mse_loss(mu, act_b)
+    dataset = torch.utils.data.TensorDataset(obs_b, act_b)
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size = batch_size, shuffle = True)
+    
+    for observation, action in dataloader:
+        observation = observation.to("cuda")
+        action = action.to("cuda")
+        mu = policy.forward(observation)
+        loss = F.mse_loss(mu, action)
 
         policy.optimizer.zero_grad()
         loss.backward()
@@ -81,7 +85,6 @@ def train_policy(
         if len(recent) > 50:
             recent.pop(0)
     return float(np.mean(recent))
-
 
 def main(run_name: str | None = None) -> None:
     gps_cfg = GPSConfig.load("acrobot")
@@ -101,7 +104,7 @@ def main(run_name: str | None = None) -> None:
 
     env = Acrobot()
     mppi = MPPI(env, mppi_cfg)
-    policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg)
+    policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device="cuda")
 
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
@@ -112,6 +115,7 @@ def main(run_name: str | None = None) -> None:
             lambda_track=gps_cfg.lambda_policy_track,
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
+        print("collecting demos")
         obs, acts, mppi_cost = collect_episodes(
             env, mppi,
             n_episodes=gps_cfg.episodes_per_iter,
@@ -120,6 +124,7 @@ def main(run_name: str | None = None) -> None:
             seed_base=seed_base,
         )
 
+        print("training policy")
         bc_loss = train_policy(
             policy, obs, acts,
             n_steps=gps_cfg.bc_steps_per_iter,
@@ -129,17 +134,30 @@ def main(run_name: str | None = None) -> None:
 
         do_eval = (it % gps_cfg.eval_every == 0) or (it == gps_cfg.n_gps_iters - 1)
         if do_eval:
-            stats = evaluate_policy(policy, env, n_episodes=10, episode_len=500, seed=0)
+            print("evaluating policy")
+            stats = evaluate_policy(
+                policy, env,
+                n_episodes=gps_cfg.eval_n_episodes,
+                episode_len=gps_cfg.eval_episode_len,
+                seed=0,
+            )
             eval_mean, eval_std = stats["mean_cost"], stats["std_cost"]
+            eval_mean_ps = eval_mean / gps_cfg.eval_episode_len
+            eval_std_ps = eval_std / gps_cfg.eval_episode_len
         else:
-            eval_mean = eval_std = None
+            eval_mean = eval_std = eval_mean_ps = eval_std_ps = None
 
         record = {
             "iter": it,
             "mppi_rollout_mean_cost": mppi_cost,
+            "mppi_cost_per_step": mppi_cost / gps_cfg.steps_per_episode,
             "bc_loss_final": bc_loss,
             "policy_eval_mean_cost": eval_mean,
             "policy_eval_std_cost": eval_std,
+            "policy_eval_cost_per_step_mean": eval_mean_ps,
+            "policy_eval_cost_per_step_std": eval_std_ps,
+            "mppi_ep_len": gps_cfg.steps_per_episode,
+            "eval_ep_len": gps_cfg.eval_episode_len,
             "n_pairs_this_iter": len(obs),
             "wall_time_s": time.time() - t_start,
             "lambda_track": gps_cfg.lambda_policy_track if it > 0 else 0.0,

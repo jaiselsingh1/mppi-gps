@@ -32,10 +32,10 @@ def evaluate_policy(
 
         ep_cost = 0.0
         for t in range(episode_len):
-            obs_t = torch.as_tensor(env._get_obs(), dtype=torch.float32).unsqueeze(0)
+            obs_t = torch.as_tensor(env._get_obs(), dtype=torch.float32).unsqueeze(0).to("cuda")
             with torch.no_grad():
                 mu = policy.forward(obs_t)
-            action = mu.squeeze(0).numpy()
+            action = mu.squeeze(0).cpu().numpy()
             _, cost, done, _ = env.step(action)
             ep_cost += cost
 

@@ -43,8 +43,8 @@ def make_policy_tracking_prior(
         obs_flat = obs.reshape(K*H, 4)
         
         with torch.no_grad():
-            obs_t = torch.as_tensor(obs_flat, dtype=torch.float32)
-            mu_flat = policy.forward(obs_t).numpy()          # (K*H, act_dim)
+            obs_t = torch.as_tensor(obs_flat, dtype=torch.float32).to("cuda")
+            mu_flat = policy.forward(obs_t).cpu().numpy()          # (K*H, act_dim)
 
         mu = mu_flat.reshape(K, H, act_dim)
         sq = ((actions - mu)**2).sum(axis=(1, 2))

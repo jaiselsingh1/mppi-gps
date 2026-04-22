@@ -37,7 +37,9 @@ class GPSConfig:
     steps_per_episode: int = 1000
     bc_steps_per_iter: int = 2000
     batch_size: int = 128
-    eval_every: int = 1
+    eval_every: int = 5
+    eval_n_episodes: int = 10
+    eval_episode_len: int = 1000
     lambda_policy_track: float = 0.0   # 0 = R1 control; >0 = R2 (policy-biased MPPI)
     obs_dim: int = 6
     act_dim: int = 1
