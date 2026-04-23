@@ -41,7 +41,7 @@ def collect_episodes(
         for _ in range(steps_per_episode):
             state = env.get_state()
             obs = env._get_obs()
-            action, _ = mppi.plan_step(state, prior=prior)
+            action, _ = mppi.plan_step(state, prior_cost=prior)
             obs_list.append(obs)
             act_list.append(action)
             _, cost, done, _ = env.step(action)
@@ -114,7 +114,6 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
 
         prior = None if it == 0 else make_policy_tracking_prior(
             policy,
-            lam_mppi=mppi_cfg.lam,
             lambda_track=gps_cfg.lambda_policy_track,
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter

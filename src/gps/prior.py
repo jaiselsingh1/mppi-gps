@@ -1,54 +1,51 @@
-"""Policy prior tracking for GPS 
+"""Policy-tracking cost for GPS.
 
-Augments MPPI's cost weighted sampling with λ·||a − π(s)||²
-which pushes trajectories to stay closer to policy's action choices
-
+Adds λ_track · ‖a − π(s)‖² per step to MPPI's per-sample cost S_k. This shows
+up inside the paper's weight formula as
+    w_k ∝ exp(-(1/λ_mppi) · (S_base_k + λ_track · Σ_t ‖a_{k,t} − π(s)‖²))
+so the effective β = λ_track / λ_mppi emerges naturally — no need to compute it
+here. MPPI owns the division by λ_mppi.
 """
-from __future__ import annotations 
-from typing import Callable 
+from __future__ import annotations
+from typing import Callable
 
-import numpy as np 
-import torch 
+import numpy as np
+import torch
 
 from src.policy.deterministic_policy import DeterministicPolicy
 
+
 def make_policy_tracking_prior(
-        policy: DeterministicPolicy, 
-        lam_mppi: float, 
+        policy: DeterministicPolicy,
         lambda_track: float,
 ) -> Callable[[np.ndarray, np.ndarray], np.ndarray]:
-    """Build a prior callable for MPPI.plan_step.
+    """Build a per-sample cost callable for MPPI.plan_step.
 
-      The returned callable, invoked as prior(states, actions), returns
-          log_prior_k = -(lambda_track / lam_mppi) * Σ_t ‖a_{k,t} − π(obs(s_{k,t}))‖²
+    Returned callable, given (states, actions), returns
+        C_k = lambda_track · Σ_t ‖a_{k,t} − π(obs(s_{k,t}))‖²       shape (K,)
 
-      Passed into plan_step, this is added to log_w inside compute_weights,
-      which is equivalent to adding λ·‖a−π(s)‖² per step to the per-sample cost
-      (sign + division by lam_mppi keep the units commensurate with env cost).
+    Non-negative; in the same units as env cost. MPPI adds this to S_k and then
+    divides the whole thing by λ_mppi inside the softmin.
 
-      states: (K, H, state_dim) — full physics state. Acrobot state layout is
-          [time, qpos[0], qpos[1], qvel[0], qvel[1]], so obs = state[..., 1:5].
-      actions: (K, H, act_dim)
-      returns: (K,) numpy float
-      """
-    
-    beta = lambda_track / lam_mppi
-
-    def prior(
-            states: np.ndarray, 
-            actions: np.ndarray, 
+    states: (K, H, state_dim). Acrobot FULLPHYSICS layout is
+        [time, qpos[0], qpos[1], qvel[0], qvel[1]], so obs = state[..., 1:5].
+        TODO: when GPS runs on the warp env, switch to states[..., :4].
+    actions: (K, H, act_dim)
+    """
+    def prior_cost(
+            states: np.ndarray,
+            actions: np.ndarray,
     ) -> np.ndarray:
         K, H, act_dim = actions.shape
         obs = states[..., 1:5]
-        obs_flat = obs.reshape(K*H, 4)
-        
+        obs_flat = obs.reshape(K * H, 4)
+
         with torch.no_grad():
             obs_t = torch.as_tensor(obs_flat, dtype=torch.float32).to("cuda")
-            mu_flat = policy.forward(obs_t).cpu().numpy()          # (K*H, act_dim)
+            mu_flat = policy.forward(obs_t).cpu().numpy()
 
         mu = mu_flat.reshape(K, H, act_dim)
-        sq = ((actions - mu)**2).sum(axis=(1, 2))
-        return -beta * sq 
-    
-    return prior 
- 
+        sq = ((actions - mu) ** 2).sum(axis=(1, 2))
+        return lambda_track * sq
+
+    return prior_cost

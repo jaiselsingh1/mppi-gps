@@ -1,10 +1,15 @@
-"""information theoretic mppi (2018 Williams et al.)"""
-import numpy as np 
-from src.envs.base import BaseEnv 
+"""Information-theoretic MPPI — Algorithm 2 of Williams et al. 2017
+(https://homes.cs.washington.edu/~bboots/files/InformationTheoreticMPC.pdf).
+
+γ = λ (α = 0 case). Weights are computed directly from
+    w_k = (1/η) exp( -(1/λ)(S_k - ρ) ),   ρ = min_k S_k
+with S_k = running_cost + terminal_cost + γ·Σ_t u_t^T Σ^{-1} ε_{k,t}
+         + (optional) policy-tracking cost from GPS.
+"""
+import numpy as np
+from src.envs.base import BaseEnv
 from src.utils.config import MPPIConfig
-from src.utils.math import (
-    compute_weights, effective_sample_size
-)
+from src.utils.math import effective_sample_size
 
 class MPPI:
     
@@ -34,74 +39,67 @@ class MPPI:
             self,
             state: np.ndarray,
             nominal_first: np.ndarray | None = None,
-            prior = None,
+            prior_cost = None,
     ) -> tuple[np.ndarray, dict]:
-        """running one MPPI iteration
+        """One MPPI iteration (paper's Algorithm 2).
+
         state: current environment state
         nominal_first: optional (nu,) action to overwrite U[0] before perturbing —
-            this is how a guiding policy hands its current prediction to MPPI so
-            sampling is centered on the policy's choice instead of the
-            warm-shifted nominal.
-        prior: this is an optional callable (states, actions) -> log_prob (K, )
+            lets a guiding policy center sampling on its current prediction.
+        prior_cost: optional callable (states, actions) -> (K,) cost in env-cost
+            units. Added to S_k before the softmin. This is how GPS injects the
+            λ_track · ‖a − π(s)‖² policy-tracking term.
         """
         if nominal_first is not None:
             self.U[0] = nominal_first
 
-        # sample from q = N(U_nominal, sigma^2 I)
-        # noise is eps
+        # 1) sample ε ~ N(0, σ² I), perturb, clamp for rollout
         eps = np.random.randn(self.K, self.H, self.nu) * self.sigma
         U_perturbed = self.U[None, :, :] + eps
-
-        # clamp before rollout (but keep raw eps for unbiased update)
         U_clipped = np.clip(U_perturbed, self.act_low, self.act_high)
 
-        # rollout
+        # 2) rollouts → per-sample base cost (running + terminal)
         states, costs, sensordata = self.env.batch_rollout(state, U_clipped)
-       
-        # baseline warm start
-        # q(V) = N(U, sigma^2 I), p(V) = N(0, sigma^2 I)
-        # log p(V) - log q(V) = -(u · eps) / sigma^2 + const
-        baseline_log_ratio = -np.sum(self.U[None, :, :] * eps, axis=(1, 2)) / (self.sigma ** 2)
 
-        log_prior = baseline_log_ratio 
-        log_proposal = None 
+        # 3) assemble S_k per paper's Algorithm 2, with γ = λ and Σ = σ² I:
+        #    S_k = S_base + γ · Σ_t u_t^T Σ^{-1} ε_{k,t}
+        #        = S_base + λ · Σ_t u_t · ε_{k,t} / σ²
+        lam = self.lam
+        S = costs + self._is_correction(eps, lam)
+        if prior_cost is not None:
+            S = S + prior_cost(states, U_clipped)
 
-        if prior is not None:
-            log_prior = log_prior + prior(states, U_clipped)
+        # 4) paper weights: ρ = min_k S_k, w_k = exp(-(S_k - ρ)/λ) / η
+        weights, n_eff = self._softmin_weights(S, lam)
 
-        # compute weights 
-        lam = self.lam 
-        weights = compute_weights(costs, lam, log_prior, log_proposal)
-        self._last_weights = weights
-        n_eff = effective_sample_size(weights)
-
-        # you want to make sure that the weights don't collapse aka lambda is not too small 
-        # if lambda is small then the policy isn't exploring
+        # 5) adaptive λ (not in paper; keeps n_eff in a sensible range)
         if self.cfg.adaptive_lam:
             for _ in range(5):
                 if n_eff < self.cfg.n_eff_threshold:
                     lam *= 2.0
                 elif n_eff > 0.75 * self.K:
-                    lam *= 0.5 
+                    lam *= 0.5
                 else:
-                    break 
-                lam = np.clip(lam, 0.01, 100.0)
-                weights = compute_weights(costs, lam, log_prior, log_proposal)
-                n_eff = effective_sample_size(weights)
-            self.lam = lam 
+                    break
+                lam = float(np.clip(lam, 0.01, 100.0))
+                # γ = λ, so rebuild S when λ changes
+                S = costs + self._is_correction(eps, lam)
+                if prior_cost is not None:
+                    S = S + prior_cost(states, U_clipped)
+                weights, n_eff = self._softmin_weights(S, lam)
+            self.lam = lam
 
-        # compute the weighted mean (weight raw perturbations to avoid clipping bias)
+        # 6) weighted update on raw ε (not clipped U) to avoid clipping bias
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
         self.U = np.clip(self.U, self.act_low, self.act_high)
-        
-        # extract action 
+
         action = self.U[0].copy()
 
-        # shift horizon 
+        # shift horizon
         self.U[:-1] = self.U[1:]
         self.U[-1] = self.U[-2].copy()
 
-        # store for GPS 
+        # stash for GPS
         self._last_states = states
         self._last_actions = U_clipped
         self._last_weights = weights
@@ -109,12 +107,24 @@ class MPPI:
         self._last_sensordata = sensordata
 
         info = {
-            'cost_mean': np.mean(costs),
-            'cost_min': np.min(costs),
-            # 'n_eff': n_eff,
-            'lam': lam,
+            'cost_mean': float(np.mean(costs)),
+            'cost_min': float(np.min(costs)),
+            'n_eff': float(n_eff),
+            'lam': float(lam),
         }
         return action, info
+
+    def _is_correction(self, eps: np.ndarray, lam: float) -> np.ndarray:
+        """γ · Σ_t u_t^T Σ^{-1} ε_{k,t} with γ=λ, Σ=σ²I → (K,)."""
+        return lam * np.sum(self.U[None, :, :] * eps, axis=(1, 2)) / (self.sigma ** 2)
+
+    def _softmin_weights(self, S: np.ndarray, lam: float) -> tuple[np.ndarray, float]:
+        """Paper's weight formula with min-baseline stabilization."""
+        rho = np.min(S)
+        unnorm = np.exp(-(S - rho) / lam)
+        eta = np.sum(unnorm)
+        weights = unnorm / eta
+        return weights, effective_sample_size(weights)
     
     def get_rollout_data(self) -> dict:
         return {
