@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
+import tyro
 
 import numpy as np
 import torch
@@ -86,23 +87,25 @@ def train_policy(
             recent.pop(0)
     return float(np.mean(recent))
 
-def main(run_name: str | None = None) -> None:
+def main(run_name: str | None = None, use_warp: bool = False) -> None:
     gps_cfg = GPSConfig.load("acrobot")
     mppi_cfg = MPPIConfig.load("acrobot")
     policy_cfg = PolicyConfig()
 
     if run_name is None:
-        run_name = f"gps_lambda_{gps_cfg.lambda_policy_track:g}"
+        suffix = "_warp" if use_warp else ""
+        run_name = f"gps_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
     run_dir = Path("runs") / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = run_dir / "metrics.jsonl"
     print(f"run_dir: {run_dir}")
     print(f"gps_cfg: {gps_cfg}")
+    print(f"use_warp: {use_warp}  nworld: {mppi_cfg.K}")
 
     torch.manual_seed(0)
     rng = np.random.default_rng(0)
 
-    env = Acrobot()
+    env = Acrobot(use_warp=use_warp, nworld=mppi_cfg.K)
     mppi = MPPI(env, mppi_cfg)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device="cuda")
 
@@ -179,4 +182,4 @@ def main(run_name: str | None = None) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    tyro.cli(main)

@@ -7,12 +7,12 @@ from jaxtyping import Array, Float
 from mujoco import rollout 
 
 from src.envs.base import BaseEnv
-
 import warp as wp 
-import mujoco_warp as mjw
+import mujoco_warp as mjw 
+
 
 class MuJoCoEnv(BaseEnv):
-    def __init__(self, model_path: str, nthread: int | None = None, frame_skip: int = 1, use_warp: bool = True, nworld: int = 8):
+    def __init__(self, model_path: str, nthread: int | None = None, frame_skip: int = 1, use_warp: bool = False, nworld: int = 8):
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
 
@@ -33,10 +33,19 @@ class MuJoCoEnv(BaseEnv):
 
         self._rollout_ctx = rollout.Rollout(nthread = self._nthread)
 
+        self._use_warp = use_warp
         if use_warp:
-            self.wm = mjw.put_model(self.model)
-            self.wd = mjw.make_data(self.wm, nworld = nworld)
-
+            assert self.model.na == 0, "warp path assumes na == 0"
+            assert self.model.nmocap == 0, "warp path assumes no mocap bodies"
+            self._wm = mjw.put_model(self.model)
+            self._wd = mjw.make_data(self.model, nworld=nworld)
+            self._warp_nworld = nworld
+            self._warp_H = None
+            self._qpos_buf = None
+            self._qvel_buf = None
+            self._sensor_buf = None
+            self._actions_wp = None
+            self._rollout_graph = None
 
     def reset(self, state: np.ndarray | None = None) -> np.ndarray:
         mujoco.mj_resetData(self.model, self.data)
@@ -90,6 +99,10 @@ class MuJoCoEnv(BaseEnv):
             initial_state: np.ndarray, 
             action_sequences: np.ndarray, 
     ) -> tuple[np.ndarray, np.ndarray]:
+        
+        if self._use_warp:
+            return self._batch_rollout_warp(initial_state, action_sequences)
+
         K, H, _ = action_sequences.shape 
         
         # repeat each action for frame_skip physics steps 
@@ -110,6 +123,70 @@ class MuJoCoEnv(BaseEnv):
         costs = c.sum(axis = 1) + tc
         return states, costs, sensordata
     
+    # you need to ensure that you have warp buffers for the h timsteps to live on 
+    def _ensure_warp_buffers(self, K: int, H: int) -> None:
+        if K != self._warp_nworld:
+            raise RuntimeError(
+                    f"nworld fixed at construction ({self._warp_nworld}); got K={K}. "
+                    "Re-instantiate env with nworld=K.")
+        # initial call this is set to None 
+        if self._warp_H == H:
+            return 
+        # (H, K, *) so buf[h] is a (K, *) leading-axis subview wp.copy can target
+        self._qpos_buf   = wp.zeros((H, K, self.model.nq),          dtype=wp.float32)
+        self._qvel_buf   = wp.zeros((H, K, self.model.nv),          dtype=wp.float32)
+        self._sensor_buf = wp.zeros((H, K, self.model.nsensordata), dtype=wp.float32)
+        self._actions_wp = wp.zeros((H, K, self.model.nu),          dtype=wp.float32)
+        self._rollout_graph = None    # buffers changed → prior graph is invalid
+        self._warp_H = H
+
+    def _run_rollout(self, H: int) -> None:
+        """H outer steps, frame_skip inner mjw.step each, snapshot per outer step.
+
+        Assumes self._wd.qpos/qvel hold the initial state and self._actions_wp
+        is populated. Safe to capture into a CUDA graph.
+        """
+        for h in range(H):
+            wp.copy(self._wd.ctrl, self._actions_wp[h])      # (K, nu) → d.ctrl
+            for _ in range(self._frame_skip):
+                mjw.step(self._wm, self._wd)
+            wp.copy(self._qpos_buf[h],   self._wd.qpos)       # (K, nq)
+            wp.copy(self._qvel_buf[h],   self._wd.qvel)       # (K, nv)
+            wp.copy(self._sensor_buf[h], self._wd.sensordata) # (K, ns)
+
+    def _batch_rollout_warp(self, initial_state, action_sequences):
+        K, H, nu = action_sequences.shape
+        self._ensure_warp_buffers(K, H)
+
+        mujoco.mj_setState(
+            self.model, self.data, initial_state,
+            mujoco.mjtState.mjSTATE_FULLPHYSICS,
+        )
+        nq, nv = self.model.nq, self.model.nv
+        qpos0 = np.broadcast_to(self.data.qpos.astype(np.float32), (K, nq)).copy()
+        qvel0 = np.broadcast_to(self.data.qvel.astype(np.float32), (K, nv)).copy()
+        self._wd.qpos.assign(qpos0)
+        self._wd.qvel.assign(qvel0)
+        self._actions_wp.assign(
+            np.ascontiguousarray(action_sequences.transpose(1, 0, 2).astype(np.float32))
+        )
+
+        if self._rollout_graph is None:
+            with wp.ScopedCapture() as capture:
+                self._run_rollout(H)
+            self._rollout_graph = capture.graph
+        wp.capture_launch(self._rollout_graph)
+
+        qpos       = self._qpos_buf.numpy().transpose(1, 0, 2)
+        qvel       = self._qvel_buf.numpy().transpose(1, 0, 2)
+        sensordata = self._sensor_buf.numpy().transpose(1, 0, 2)
+
+        time_col = np.zeros((K, H, 1), dtype=np.float32)
+        states = np.concatenate([time_col, qpos, qvel], axis=-1)
+        c  = self.running_cost(states, action_sequences, sensordata)
+        tc = self.terminal_cost(states[:, -1, :], sensordata[:, -1, :])
+        costs = c.sum(axis=1) + tc
+        return states, costs, sensordata
 
     def _get_obs(self) -> np.ndarray:
         """ can be overrided in the sub class if you need to change the obs space"""

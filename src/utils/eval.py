@@ -31,8 +31,9 @@ def evaluate_policy(
         env.reset()
 
         ep_cost = 0.0
+        device = next(policy.parameters()).device
         for t in range(episode_len):
-            obs_t = torch.as_tensor(env._get_obs(), dtype=torch.float32).unsqueeze(0).to("cuda")
+            obs_t = torch.as_tensor(env._get_obs(), dtype=torch.float32).unsqueeze(0).to(device)
             with torch.no_grad():
                 mu = policy.forward(obs_t)
             action = mu.squeeze(0).cpu().numpy()

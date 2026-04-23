@@ -40,7 +40,7 @@ class GPSConfig:
     eval_every: int = 5
     eval_n_episodes: int = 10
     eval_episode_len: int = 1000
-    lambda_policy_track: float = 0.0   # 0 = R1 control; >0 = R2 (policy-biased MPPI)
+    lambda_policy_track: float = 0.2   # 0 = R1 control; >0 = R2 (policy-biased MPPI)
     obs_dim: int = 6
     act_dim: int = 1
 
