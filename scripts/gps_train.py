@@ -29,9 +29,19 @@ def collect_episodes(
     steps_per_episode: int,
     prior=None,
     seed_base: int = 0,
-) -> tuple[np.ndarray, np.ndarray, float]:
-    """Run MPPI in closed loop; return (obs, actions, mean_ep_cost)."""
+) -> tuple[np.ndarray, np.ndarray, float, dict]:
+    """Run MPPI in closed loop.
+
+    Returns (obs, actions, mean_ep_cost, mppi_stats) where mppi_stats averages
+    the S-component diagnostics (env / IS / track / total S, plus n_eff, lam)
+    over every plan_step call in this iter.
+    """
     obs_list, act_list, ep_costs = [], [], []
+    stat_keys = ('cost_env_mean', 'cost_is_mean', 'cost_is_std',
+                 'cost_track_mean', 'cost_s_mean', 'n_eff', 'lam')
+    stat_sums = {k: 0.0 for k in stat_keys}
+    n_calls = 0
+
     for ep in range(n_episodes):
         np.random.seed(seed_base + ep)
         env.reset()
@@ -41,7 +51,10 @@ def collect_episodes(
         for _ in range(steps_per_episode):
             state = env.get_state()
             obs = env._get_obs()
-            action, _ = mppi.plan_step(state, prior_cost=prior)
+            action, info = mppi.plan_step(state, prior_cost=prior)
+            for k in stat_keys:
+                stat_sums[k] += info[k]
+            n_calls += 1
             obs_list.append(obs)
             act_list.append(action)
             _, cost, done, _ = env.step(action)
@@ -52,7 +65,8 @@ def collect_episodes(
 
     obs_arr = np.asarray(obs_list, dtype=np.float32)
     act_arr = np.asarray(act_list, dtype=np.float32)
-    return obs_arr, act_arr, float(np.mean(ep_costs))
+    mppi_stats = {k: stat_sums[k] / max(n_calls, 1) for k in stat_keys}
+    return obs_arr, act_arr, float(np.mean(ep_costs)), mppi_stats
 
 
 def train_policy(
@@ -118,7 +132,7 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
-        obs, acts, mppi_cost = collect_episodes(
+        obs, acts, mppi_cost, mppi_stats = collect_episodes(
             env, mppi,
             n_episodes=gps_cfg.episodes_per_iter,
             steps_per_episode=gps_cfg.steps_per_episode,
@@ -163,7 +177,16 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
             "n_pairs_this_iter": len(obs),
             "wall_time_s": time.time() - t_start,
             "lambda_track": gps_cfg.lambda_policy_track if it > 0 else 0.0,
+            # per-iter means over every MPPI plan_step call in this iter
+            "mppi_S_env_mean":    mppi_stats["cost_env_mean"],
+            "mppi_S_is_mean":     mppi_stats["cost_is_mean"],
+            "mppi_S_is_std":      mppi_stats["cost_is_std"],
+            "mppi_S_track_mean":  mppi_stats["cost_track_mean"],
+            "mppi_S_total_mean":  mppi_stats["cost_s_mean"],
+            "mppi_n_eff":         mppi_stats["n_eff"],
+            "mppi_lam_effective": mppi_stats["lam"],
         }
+        run_dir.mkdir(parents=True, exist_ok=True)
         with open(metrics_path, "a") as f:
             f.write(json.dumps(record) + "\n")
 

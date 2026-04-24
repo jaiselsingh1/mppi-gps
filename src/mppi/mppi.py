@@ -53,26 +53,25 @@ class MPPI:
         if nominal_first is not None:
             self.U[0] = nominal_first
 
-        # 1) sample ε ~ N(0, σ² I), perturb, clamp for rollout
+        # sample ε ~ N(0, σ² I), perturb, clamp for rollout
         eps = np.random.randn(self.K, self.H, self.nu) * self.sigma
         U_perturbed = self.U[None, :, :] + eps
         U_clipped = np.clip(U_perturbed, self.act_low, self.act_high)
 
-        # 2) rollouts → per-sample base cost (running + terminal)
+        # rollouts → per-sample base cost (running + terminal)
         states, costs, sensordata = self.env.batch_rollout(state, U_clipped)
 
-        # 3) assemble S_k per paper's Algorithm 2, with γ = λ and Σ = σ² I:
-        #    S_k = S_base + γ · Σ_t u_t^T Σ^{-1} ε_{k,t}
-        #        = S_base + λ · Σ_t u_t · ε_{k,t} / σ²
+        # assemble S_k components (paper's Algorithm 2, γ=λ, Σ=σ²I):
+        #    S_k = S_env + λ · Σ_t u_t · ε_{k,t}/σ² + (optional) λ_track · Σ_t ‖a-π‖²
         lam = self.lam
-        S = costs + self._is_correction(eps, lam)
-        if prior_cost is not None:
-            S = S + prior_cost(states, U_clipped)
+        is_corr = self._is_correction(eps, lam)
+        track = prior_cost(states, U_clipped) if prior_cost is not None else None
+        S = costs + is_corr + (track if track is not None else 0.0)
 
-        # 4) paper weights: ρ = min_k S_k, w_k = exp(-(S_k - ρ)/λ) / η
+        # paper weights: ρ = min_k S_k, w_k = exp(-(S_k - ρ)/λ) / η
         weights, n_eff = self._softmin_weights(S, lam)
 
-        # 5) adaptive λ (not in paper; keeps n_eff in a sensible range)
+        # adaptive λ (not in paper; keeps n_eff in a sensible range)
         if self.cfg.adaptive_lam:
             for _ in range(5):
                 if n_eff < self.cfg.n_eff_threshold:
@@ -82,14 +81,13 @@ class MPPI:
                 else:
                     break
                 lam = float(np.clip(lam, 0.01, 100.0))
-                # γ = λ, so rebuild S when λ changes
-                S = costs + self._is_correction(eps, lam)
-                if prior_cost is not None:
-                    S = S + prior_cost(states, U_clipped)
+                # γ=λ: is_corr depends on λ; track does not
+                is_corr = self._is_correction(eps, lam)
+                S = costs + is_corr + (track if track is not None else 0.0)
                 weights, n_eff = self._softmin_weights(S, lam)
             self.lam = lam
 
-        # 6) weighted update on raw ε (not clipped U) to avoid clipping bias
+        # weighted update on raw ε (not clipped U) to avoid clipping bias
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
         self.U = np.clip(self.U, self.act_low, self.act_high)
 
@@ -106,9 +104,15 @@ class MPPI:
         self._last_costs = costs
         self._last_sensordata = sensordata
 
+        # S-component diagnostics (all in the same cost units — directly comparable)
         info = {
             'cost_mean': float(np.mean(costs)),
             'cost_min': float(np.min(costs)),
+            'cost_env_mean': float(np.mean(costs)),            # running + terminal
+            'cost_is_mean': float(np.mean(is_corr)),           # IS term (≈0 by symmetry)
+            'cost_is_std': float(np.std(is_corr)),             # IS term magnitude
+            'cost_track_mean': float(np.mean(track)) if track is not None else 0.0,
+            'cost_s_mean': float(np.mean(S)),                  # total S = sum of above
             'n_eff': float(n_eff),
             'lam': float(lam),
         }

@@ -46,7 +46,9 @@ def plot_metrics(run_dir: Path, gps_cfg: GPSConfig) -> None:
     eval_mean = [m for m, _ in eval_pairs]
     eval_std = [s for _, s in eval_pairs]
 
-    fig, ax = plt.subplots(1, 2, figsize=(11, 4))
+    has_breakdown = "mppi_S_env_mean" in rows[0]
+    n_panels = 3 if has_breakdown else 2
+    fig, ax = plt.subplots(1, n_panels, figsize=(5.5 * n_panels, 4))
 
     ax[0].plot(
         iters, mppi_cost, marker="o",
@@ -65,11 +67,28 @@ def plot_metrics(run_dir: Path, gps_cfg: GPSConfig) -> None:
     ax[0].legend()
     ax[0].grid(alpha=0.3)
 
-    ax[1].plot(iters, bc_loss, marker="o", color="C2")
-    ax[1].set_xlabel("GPS iter")
-    ax[1].set_ylabel("BC MSE (trailing mean)")
-    ax[1].set_title("BC loss")
-    ax[1].grid(alpha=0.3)
+    if has_breakdown:
+        s_env   = [r["mppi_S_env_mean"]   for r in rows]
+        s_is    = [abs(r["mppi_S_is_mean"])   for r in rows]   # |mean|, IS is 0-mean by symmetry
+        s_isstd = [r["mppi_S_is_std"]     for r in rows]
+        s_track = [r["mppi_S_track_mean"] for r in rows]
+        s_total = [r["mppi_S_total_mean"] for r in rows]
+        ax[1].plot(iters, s_env,   marker="o", label="S_env (running+terminal)")
+        ax[1].plot(iters, s_isstd, marker="^", label="|S_is| std (IS correction magnitude)")
+        ax[1].plot(iters, s_track, marker="s", label="S_track (λ_track·‖a−π‖²)")
+        ax[1].plot(iters, s_total, marker="x", linestyle="--", color="k", alpha=0.5, label="S_total (mean)")
+        ax[1].set_xlabel("GPS iter")
+        ax[1].set_ylabel("cost units per sample (horizon sum)")
+        ax[1].set_title("MPPI S-components (mean over K samples, averaged over plan_step calls)")
+        ax[1].set_yscale("symlog", linthresh=1e-3)
+        ax[1].legend(fontsize=8)
+        ax[1].grid(alpha=0.3)
+
+    ax[-1].plot(iters, bc_loss, marker="o", color="C2")
+    ax[-1].set_xlabel("GPS iter")
+    ax[-1].set_ylabel("BC MSE (trailing mean)")
+    ax[-1].set_title("BC loss")
+    ax[-1].grid(alpha=0.3)
 
     plt.tight_layout()
     out = run_dir / "metrics.png"

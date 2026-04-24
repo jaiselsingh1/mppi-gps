@@ -30,6 +30,7 @@ class DeterministicPolicy(nn.Module):
             layers += [nn.Linear(in_dim, h), act_fn()]
             in_dim = h
         layers.append(nn.Linear(in_dim, act_dim))
+        layers.append(nn.Tanh())  # action bounds are [-1, 1] — saturate at the bounds
         self.net = nn.Sequential(*layers)
 
         self.optimizer = torch.optim.Adam(self.parameters(), lr=cfg.lr)
