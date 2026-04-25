@@ -35,7 +35,6 @@ class GPSConfig:
     n_gps_iters: int = 30
     episodes_per_iter: int = 10
     steps_per_episode: int = 1000
-    bc_steps_per_iter: int = 2000
     batch_size: int = 128
     eval_every: int = 5
     eval_n_episodes: int = 10
