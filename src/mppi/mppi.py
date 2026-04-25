@@ -38,19 +38,24 @@ class MPPI:
     def plan_step(
             self,
             state: np.ndarray,
+            nominal: np.ndarray | None = None,
             nominal_first: np.ndarray | None = None,
             prior_cost = None,
     ) -> tuple[np.ndarray, dict]:
         """One MPPI iteration (paper's Algorithm 2).
 
         state: current environment state
-        nominal_first: optional (nu,) action to overwrite U[0] before perturbing —
-            lets a guiding policy center sampling on its current prediction.
+        nominal: optional (H, nu) full action sequence to replace self.U before
+            perturbing. Centers the sampling distribution on a guiding policy's
+            full rollout (GPS-style). Overrides nominal_first if both given.
+        nominal_first: optional (nu,) action to overwrite U[0] only.
         prior_cost: optional callable (states, actions) -> (K,) cost in env-cost
             units. Added to S_k before the softmin. This is how GPS injects the
             λ_track · ‖a − π(s)‖² policy-tracking term.
         """
-        if nominal_first is not None:
+        if nominal is not None:
+            self.U = np.clip(nominal.copy(), self.act_low, self.act_high)
+        elif nominal_first is not None:
             self.U[0] = nominal_first
 
         # sample ε ~ N(0, σ² I), perturb, clamp for rollout

@@ -22,9 +22,30 @@ from src.utils.eval import evaluate_policy
 from src.gps.prior import make_policy_tracking_prior
 
 
+@torch.no_grad()
+def rollout_policy(env: Acrobot, policy: DeterministicPolicy, H: int) -> np.ndarray:
+    """Roll out π from env's current state for H steps. Non-destructive.
+
+    Saves env state, steps the real sim forward H times under π, then restores.
+    Returns U of shape (H, nu) — used as MPPI's nominal so sampling centers on
+    π's trajectory rather than last step's shifted optimum.
+    """
+    saved = env.get_state()
+    U = np.zeros((H, env.action_dim), dtype=np.float32)
+    for t in range(H):
+        obs = env._get_obs()
+        obs_t = torch.as_tensor(obs, dtype=torch.float32, device="cuda").unsqueeze(0)
+        a = policy.forward(obs_t).squeeze(0).cpu().numpy()
+        U[t] = a
+        env.step(a)
+    env.reset(state=saved)
+    return U
+
+
 def collect_episodes(
     env: Acrobot,
     mppi: MPPI,
+    policy: DeterministicPolicy,
     n_episodes: int,
     steps_per_episode: int,
     prior=None,
@@ -51,7 +72,8 @@ def collect_episodes(
         for _ in range(steps_per_episode):
             state = env.get_state()
             obs = env._get_obs()
-            action, info = mppi.plan_step(state, prior_cost=prior)
+            nominal = rollout_policy(env, policy, mppi.H) if prior is not None else None
+            action, info = mppi.plan_step(state, nominal=nominal, prior_cost=prior)
             for k in stat_keys:
                 stat_sums[k] += info[k]
             n_calls += 1
@@ -133,7 +155,7 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
         obs, acts, mppi_cost, mppi_stats = collect_episodes(
-            env, mppi,
+            env, mppi, policy,
             n_episodes=gps_cfg.episodes_per_iter,
             steps_per_episode=gps_cfg.steps_per_episode,
             prior=prior,
