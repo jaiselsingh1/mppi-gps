@@ -22,7 +22,7 @@ class FixedConfig(NamedTuple):
 
 def objective(trial: optuna.Trial, config: FixedConfig) -> float:
     # MPPI hyperparameters
-    # K = trial.suggest_int("K", 2, 1000, log=True)
+    # K = trial.suggest_int("K", 100, 1000, log=True)
     # H = trial.suggest_int("H", 50, 500, log=True)
     noise_sigma = trial.suggest_float("noise_sigma", 0.01, 0.3, log=True)
     lam = trial.suggest_float("lam", 0.001, 1.0, log=True)

@@ -25,7 +25,7 @@ class MPPIConfig:
 @dataclass
 class PolicyConfig:
     hidden_dims: tuple[int, ...] = (256, 256)
-    lr: float = 1e-3
+    lr: float = 1e-4
     activation: str = "relu"
     use_history: bool = False # gate the history path 
     history_len: int = 8

@@ -1,0 +1,47 @@
+{
+  "run_name": "fig3_lambda_3",
+  "git_sha": "8c3a1a06336abcd5859347e778bc9e2ea5c8e149",
+  "cli": {
+    "lambda_track": 3.0,
+    "n_iters": 25,
+    "n_eval_episodes": 16,
+    "eval_episode_len": 1000,
+    "eval_seed": 7,
+    "skip_sanity": false,
+    "seed": 0
+  },
+  "mppi_cfg": {
+    "K": 512,
+    "H": 256,
+    "lam": 0.0010000000000000002,
+    "noise_sigma": 0.05059689585117588,
+    "adaptive_lam": false,
+    "n_eff_threshold": 64.0
+  },
+  "gps_cfg": {
+    "n_gps_iters": 100,
+    "episodes_per_iter": 10,
+    "steps_per_episode": 1000,
+    "batch_size": 128,
+    "eval_every": 5,
+    "eval_n_episodes": 10,
+    "eval_episode_len": 1000,
+    "lambda_policy_track": 25.0,
+    "obs_dim": 6,
+    "act_dim": 1
+  },
+  "policy_cfg": {
+    "hidden_dims": [
+      256,
+      256
+    ],
+    "lr": 0.0001,
+    "activation": "relu",
+    "use_history": false,
+    "history_len": 8
+  },
+  "vanilla_baseline_per_step": 2.941643515036706,
+  "vanilla_baseline_success_rate": 0.6875,
+  "vanilla_baseline_mean_cost": 2941.643515036706,
+  "vanilla_baseline_std_cost": 1128.4253065305782
+}
