@@ -17,19 +17,19 @@ class FixedConfig(NamedTuple):
     n_startup_trials = 5
     EVAL_STEPS = 1000
     N_SEEDS = 10
-    K = 512
-    H = 256
+    K = 256
+    # H = 256
 
 def objective(trial: optuna.Trial, config: FixedConfig) -> float:
     # MPPI hyperparameters
     # K = trial.suggest_int("K", 100, 1000, log=True)
-    # H = trial.suggest_int("H", 50, 500, log=True)
+    H = trial.suggest_int("H", 50, 512, log=True)
     noise_sigma = trial.suggest_float("noise_sigma", 0.01, 0.3, log=True)
     lam = trial.suggest_float("lam", 0.001, 1.0, log=True)
 
     cfg = MPPIConfig(
         K=config.K,
-        H=config.H,
+        H=H,
         lam=lam,
         noise_sigma=noise_sigma,
         adaptive_lam=False,
