@@ -41,6 +41,7 @@ class MPPI:
             nominal: np.ndarray | None = None,
             nominal_first: np.ndarray | None = None,
             prior_cost = None,
+            coupling = None,
     ) -> tuple[np.ndarray, dict]:
         """One MPPI iteration (paper's Algorithm 2).
 
@@ -52,6 +53,10 @@ class MPPI:
         prior_cost: optional callable (states, actions) -> (K,) cost in env-cost
             units. Added to S_k before the softmin. This is how GPS injects the
             λ_track · ‖a − π(s)‖² policy-tracking term.
+        coupling: optional callable that can replace the MPPI score vector after
+            env cost/IS/prior-cost assembly. Used for task-gated policy
+            filtering: task cost defines feasibility, policy only biases inside
+            that feasible set.
         """
         if nominal is not None:
             self.U = np.clip(nominal.copy(), self.act_low, self.act_high)
@@ -71,10 +76,26 @@ class MPPI:
         lam = self.lam
         is_corr = self._is_correction(eps, lam)
         track = prior_cost(states, U_clipped) if prior_cost is not None else None
-        S = costs + is_corr + (track if track is not None else 0.0)
+        S_base = costs + is_corr + (track if track is not None else 0.0)
+        S, coupling_diag, fallback_score = self._apply_coupling(
+            coupling,
+            states,
+            U_clipped,
+            costs,
+            S_base,
+            lam,
+        )
 
         # paper weights: ρ = min_k S_k, w_k = exp(-(S_k - ρ)/λ) / η
         weights, n_eff = self._softmin_weights(S, lam)
+        weights, n_eff, S, used_coupling_fallback = self._maybe_fallback_coupling_weights(
+            weights,
+            n_eff,
+            S,
+            fallback_score,
+            coupling_diag,
+            lam,
+        )
 
         # adaptive λ (not in paper; keeps n_eff in a sensible range)
         if self.cfg.adaptive_lam:
@@ -88,8 +109,24 @@ class MPPI:
                 lam = float(np.clip(lam, 0.01, 100.0))
                 # γ=λ: is_corr depends on λ; track does not
                 is_corr = self._is_correction(eps, lam)
-                S = costs + is_corr + (track if track is not None else 0.0)
+                S_base = costs + is_corr + (track if track is not None else 0.0)
+                S, coupling_diag, fallback_score = self._apply_coupling(
+                    coupling,
+                    states,
+                    U_clipped,
+                    costs,
+                    S_base,
+                    lam,
+                )
                 weights, n_eff = self._softmin_weights(S, lam)
+                weights, n_eff, S, used_coupling_fallback = self._maybe_fallback_coupling_weights(
+                    weights,
+                    n_eff,
+                    S,
+                    fallback_score,
+                    coupling_diag,
+                    lam,
+                )
             self.lam = lam
 
         # weighted update on raw ε (not clipped U) to avoid clipping bias
@@ -117,9 +154,15 @@ class MPPI:
             'cost_is_mean': float(np.mean(is_corr)),           # IS term (≈0 by symmetry)
             'cost_is_std': float(np.std(is_corr)),             # IS term magnitude
             'cost_track_mean': float(np.mean(track)) if track is not None else 0.0,
-            'cost_s_mean': float(np.mean(S)),                  # total S = sum of above
+            'cost_s_mean': self._finite_mean(S),               # total S = sum of above
             'n_eff': float(n_eff),
             'lam': float(lam),
+            'coupling_active': coupling_diag['active'],
+            'coupling_used_fallback': float(used_coupling_fallback),
+            'coupling_feasible_fraction': coupling_diag['feasible_fraction'],
+            'coupling_policy_cost_mean': coupling_diag['policy_cost_mean'],
+            'coupling_policy_cost_std': coupling_diag['policy_cost_std'],
+            'coupling_score_mean': coupling_diag['score_mean'],
         }
         return action, info
 
@@ -134,6 +177,69 @@ class MPPI:
         eta = np.sum(unnorm)
         weights = unnorm / eta
         return weights, effective_sample_size(weights)
+
+    def _finite_mean(self, x: np.ndarray) -> float:
+        finite = x[np.isfinite(x)]
+        if len(finite) == 0:
+            return float("inf")
+        return float(np.mean(finite))
+
+    def _apply_coupling(
+            self,
+            coupling,
+            states: np.ndarray,
+            actions: np.ndarray,
+            costs: np.ndarray,
+            base_score: np.ndarray,
+            lam: float,
+    ) -> tuple[np.ndarray, dict[str, float], np.ndarray | None]:
+        default_diag = {
+            'active': 0.0,
+            'feasible_fraction': 1.0,
+            'policy_cost_mean': 0.0,
+            'policy_cost_std': 0.0,
+            'score_mean': float(np.mean(base_score)),
+        }
+        if coupling is None:
+            return base_score, default_diag, None
+
+        result = coupling(
+            states=states,
+            actions=actions,
+            costs=costs,
+            base_score=base_score,
+            lam=lam,
+        )
+        score = np.asarray(result["score"], dtype=float)
+        fallback_score = np.asarray(result.get("fallback_score", base_score), dtype=float)
+        diag = default_diag | result.get("info", {})
+        diag["min_n_eff"] = float(result.get("min_n_eff", 0.0))
+        diag["max_weight"] = float(result.get("max_weight", 1.0))
+        if not np.any(np.isfinite(score)):
+            score = fallback_score
+            diag["active"] = 0.0
+        return score, diag, fallback_score
+
+    def _maybe_fallback_coupling_weights(
+            self,
+            weights: np.ndarray,
+            n_eff: float,
+            score: np.ndarray,
+            fallback_score: np.ndarray | None,
+            coupling_diag: dict[str, float],
+            lam: float,
+    ) -> tuple[np.ndarray, float, np.ndarray, bool]:
+        if fallback_score is None:
+            return weights, n_eff, score, False
+
+        min_n_eff = coupling_diag.get('min_n_eff', 0.0)
+        max_weight = coupling_diag.get('max_weight', 1.0)
+        should_fallback = n_eff < min_n_eff or float(np.max(weights)) > max_weight
+        if not should_fallback:
+            return weights, n_eff, score, False
+
+        fallback_weights, fallback_n_eff = self._softmin_weights(fallback_score, lam)
+        return fallback_weights, fallback_n_eff, fallback_score, True
     
     def get_rollout_data(self) -> dict:
         return {
@@ -149,7 +255,5 @@ class MPPI:
 
                 
                 
-
-
 
 

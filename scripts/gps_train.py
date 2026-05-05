@@ -19,6 +19,7 @@ from src.mppi.mppi import MPPI
 from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import MPPIConfig, PolicyConfig, GPSConfig
 from src.utils.eval import evaluate_policy
+from src.gps.coupling import make_policy_filter_coupling
 from src.gps.prior import make_policy_tracking_prior
 
 
@@ -28,6 +29,7 @@ def collect_episodes(
     n_episodes: int,
     steps_per_episode: int,
     prior=None,
+    coupling=None,
     seed_base: int = 0,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
     """Run MPPI in closed loop.
@@ -38,7 +40,10 @@ def collect_episodes(
     """
     obs_list, act_list, ep_costs = [], [], []
     stat_keys = ('cost_env_mean', 'cost_is_mean', 'cost_is_std',
-                 'cost_track_mean', 'cost_s_mean', 'n_eff', 'lam')
+                 'cost_track_mean', 'cost_s_mean', 'n_eff', 'lam',
+                 'coupling_active', 'coupling_used_fallback',
+                 'coupling_feasible_fraction', 'coupling_policy_cost_mean',
+                 'coupling_policy_cost_std', 'coupling_score_mean')
     stat_sums = {k: 0.0 for k in stat_keys}
     n_calls = 0
 
@@ -51,7 +56,7 @@ def collect_episodes(
         for _ in range(steps_per_episode):
             state = env.get_state()
             obs = env._get_obs()
-            action, info = mppi.plan_step(state, prior_cost=prior)
+            action, info = mppi.plan_step(state, prior_cost=prior, coupling=coupling)
             for k in stat_keys:
                 stat_sums[k] += info[k]
             n_calls += 1
@@ -96,6 +101,33 @@ def train_policy(
             recent.pop(0)
     return float(np.mean(recent))
 
+
+def make_collection_bias(policy: DeterministicPolicy, gps_cfg: GPSConfig, it: int):
+    """Return (prior_cost, coupling) for the current GPS iteration."""
+    if it == 0 or gps_cfg.coupling_mode == "raw":
+        return None, None
+
+    if gps_cfg.coupling_mode == "cost":
+        prior = make_policy_tracking_prior(
+            policy,
+            lambda_track=gps_cfg.lambda_policy_track,
+        )
+        return prior, None
+
+    if gps_cfg.coupling_mode == "filter":
+        coupling = make_policy_filter_coupling(
+            policy,
+            beta=gps_cfg.policy_coupling_beta,
+            cost_slack_rel=gps_cfg.policy_coupling_cost_slack_rel,
+            cost_slack_abs=gps_cfg.policy_coupling_cost_slack_abs,
+            min_fraction=gps_cfg.policy_coupling_min_fraction,
+            min_n_eff=gps_cfg.policy_coupling_min_n_eff,
+            max_weight=gps_cfg.policy_coupling_max_weight,
+        )
+        return None, coupling
+
+    raise ValueError(f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}")
+
 def main(run_name: str | None = None, use_warp: bool = False) -> None:
     gps_cfg = GPSConfig.load("acrobot")
     mppi_cfg = MPPIConfig.load("acrobot")
@@ -103,7 +135,12 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
 
     if run_name is None:
         suffix = "_warp" if use_warp else ""
-        run_name = f"gps_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
+        if gps_cfg.coupling_mode == "filter":
+            run_name = f"gps_filter_beta_{gps_cfg.policy_coupling_beta:g}{suffix}"
+        elif gps_cfg.coupling_mode == "raw":
+            run_name = f"gps_raw{suffix}"
+        else:
+            run_name = f"gps_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
     run_dir = Path("runs") / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = run_dir / "metrics.jsonl"
@@ -121,10 +158,7 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
 
-        prior = None if it == 0 else make_policy_tracking_prior(
-            policy,
-            lambda_track=gps_cfg.lambda_policy_track,
-        )
+        prior, coupling = make_collection_bias(policy, gps_cfg, it)
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
         obs, acts, mppi_cost, mppi_stats = collect_episodes(
@@ -132,6 +166,7 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
             n_episodes=gps_cfg.episodes_per_iter,
             steps_per_episode=gps_cfg.steps_per_episode,
             prior=prior,
+            coupling=coupling,
             seed_base=seed_base,
         )
 
@@ -170,7 +205,9 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
             "eval_ep_len": gps_cfg.eval_episode_len,
             "n_pairs_this_iter": len(obs),
             "wall_time_s": time.time() - t_start,
-            "lambda_track": gps_cfg.lambda_policy_track if it > 0 else 0.0,
+            "coupling_mode": gps_cfg.coupling_mode if it > 0 else "raw",
+            "lambda_track": gps_cfg.lambda_policy_track if (it > 0 and prior is not None) else 0.0,
+            "policy_coupling_beta": gps_cfg.policy_coupling_beta if (it > 0 and coupling is not None) else 0.0,
             # per-iter means over every MPPI plan_step call in this iter
             "mppi_S_env_mean":    mppi_stats["cost_env_mean"],
             "mppi_S_is_mean":     mppi_stats["cost_is_mean"],
@@ -179,6 +216,12 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
             "mppi_S_total_mean":  mppi_stats["cost_s_mean"],
             "mppi_n_eff":         mppi_stats["n_eff"],
             "mppi_lam_effective": mppi_stats["lam"],
+            "coupling_active": mppi_stats["coupling_active"],
+            "coupling_used_fallback": mppi_stats["coupling_used_fallback"],
+            "coupling_feasible_fraction": mppi_stats["coupling_feasible_fraction"],
+            "coupling_policy_cost_mean": mppi_stats["coupling_policy_cost_mean"],
+            "coupling_policy_cost_std": mppi_stats["coupling_policy_cost_std"],
+            "coupling_score_mean": mppi_stats["coupling_score_mean"],
         }
         run_dir.mkdir(parents=True, exist_ok=True)
         with open(metrics_path, "a") as f:

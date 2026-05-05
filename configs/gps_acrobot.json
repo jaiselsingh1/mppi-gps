@@ -6,5 +6,12 @@
     "eval_every": 5,
     "eval_n_episodes": 10,
     "eval_episode_len": 1000,
-    "lambda_policy_track": 3.0
+    "lambda_policy_track": 3.0,
+    "coupling_mode": "filter",
+    "policy_coupling_beta": 0.3,
+    "policy_coupling_cost_slack_rel": 0.25,
+    "policy_coupling_cost_slack_abs": 0.0,
+    "policy_coupling_min_fraction": 0.05,
+    "policy_coupling_min_n_eff": 8.0,
+    "policy_coupling_max_weight": 0.8
 }

@@ -40,6 +40,13 @@ class GPSConfig:
     eval_n_episodes: int = 10
     eval_episode_len: int = 1000
     lambda_policy_track: float = 0.2   # 0 = R1 control; >0 = R2 (policy-biased MPPI)
+    coupling_mode: str = "cost"        # raw | cost | filter
+    policy_coupling_beta: float = 0.3
+    policy_coupling_cost_slack_rel: float = 0.25
+    policy_coupling_cost_slack_abs: float = 0.0
+    policy_coupling_min_fraction: float = 0.05
+    policy_coupling_min_n_eff: float = 8.0
+    policy_coupling_max_weight: float = 0.8
     obs_dim: int = 6
     act_dim: int = 1
 
@@ -48,4 +55,3 @@ class GPSConfig:
         path = _CONFIGS_DIR / f"gps_{env_name}.json"
         params = json.loads(path.read_text())
         return GPSConfig(**params)
-
