@@ -14,13 +14,16 @@ BEST_PARAMS_PATH = Path(__file__).resolve().parents[2] / "configs" / "acrobot_be
 BEST_METRICS_PATH = Path(__file__).resolve().parents[2] / "configs" / "acrobot_best_metrics.json"
 CANDIDATE_PARAMS_PATH = Path(__file__).resolve().parents[2] / "configs" / "acrobot_candidate.json"
 CANDIDATE_METRICS_PATH = Path(__file__).resolve().parents[2] / "configs" / "acrobot_candidate_metrics.json"
+STUDY_DB_PATH = Path(__file__).resolve().parents[2] / "logs" / "acrobot_mppi_tuning.db"
+STUDY_NAME = "acrobot_mppi_capture_v2"
 
 
 class FixedConfig(NamedTuple):
-    n_startup_trials = 5
+    N_TRIALS = 120
+    N_STARTUP_TRIALS = 24
     EVAL_STEPS = 1000
     N_SEEDS = 10
-    K = 256
+    K_CHOICES = (256, 512)
     HOLD_STEPS = 25
     MIN_HIT_SUCCESS_RATE = 0.8
     MIN_HOLD_SUCCESS_RATE = 0.6
@@ -29,12 +32,12 @@ class FixedConfig(NamedTuple):
     # Objective weights. A trial that cannot hit and hold the task should not
     # win just because its smooth cost is low.
     COST_WEIGHT = 1.0
-    HIT_FAILURE_PENALTY = 1_000.0
-    HOLD_FAILURE_PENALTY = 10_000.0
-    TIME_TO_HIT_WEIGHT = 100.0
+    HIT_FAILURE_PENALTY = 20_000.0
+    HOLD_FAILURE_PENALTY = 50_000.0
+    TIME_TO_HIT_WEIGHT = 500.0
     FINAL_DIST_WEIGHT = 100.0
     FINAL_QVEL_WEIGHT = 10.0
-    N_EFF_FAILURE_PENALTY = 250.0
+    N_EFF_FAILURE_PENALTY = 25.0
 
 
 def _score_from_episode_stats(
@@ -75,6 +78,9 @@ def _score_from_episode_stats(
         "mean_final_qvel_norm": mean_final_qvel_norm,
         "mean_n_eff": mean_n_eff,
         "n_eval_episodes": len(costs),
+        "episode_hit_successes": [bool(x) for x in hit_successes],
+        "episode_hold_successes": [bool(x) for x in hold_successes],
+        "episode_times_to_hit": [int(x) for x in times_to_hit],
     }
     return float(score), metrics
 
@@ -87,17 +93,20 @@ def _passes_promotion_gate(metrics: dict, config: FixedConfig) -> bool:
 
 def objective(trial: optuna.Trial, config: FixedConfig) -> float:
     # MPPI hyperparameters
-    # K = trial.suggest_int("K", 100, 1000, log=True)
-    H = trial.suggest_int("H", 50, 512, log=True)
-    noise_sigma = trial.suggest_float("noise_sigma", 0.05, 1.5, log=True)
-    lam = trial.suggest_float("lam", 0.01, 1_000.0, log=True)
+    K = trial.suggest_categorical("K", config.K_CHOICES)
+    H = trial.suggest_int("H", 80, 512, log=True)
+    noise_sigma = trial.suggest_float("noise_sigma", 0.08, 2.0, log=True)
+    lam = trial.suggest_float("lam", 1.0, 10_000.0, log=True)
+    adaptive_lam = trial.suggest_categorical("adaptive_lam", [False, True])
+    n_eff_threshold = trial.suggest_categorical("n_eff_threshold", [8.0, 16.0, 32.0, 64.0, 128.0])
 
     cfg = MPPIConfig(
-        K=config.K,
+        K=K,
         H=H,
         lam=lam,
         noise_sigma=noise_sigma,
-        adaptive_lam=False,
+        adaptive_lam=adaptive_lam,
+        n_eff_threshold=n_eff_threshold,
     )
 
     ep_costs: list[float] = []
@@ -185,13 +194,27 @@ def objective(trial: optuna.Trial, config: FixedConfig) -> float:
 
 def main():
     config = FixedConfig()
+    STUDY_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     study = optuna.create_study(
         direction="minimize",
-        sampler=optuna.samplers.GPSampler(n_startup_trials=config.n_startup_trials), 
-        pruner=optuna.pruners.MedianPruner(n_warmup_steps=3, n_startup_trials=config.n_startup_trials),
+        study_name=STUDY_NAME,
+        storage=f"sqlite:///{STUDY_DB_PATH}",
+        load_if_exists=True,
+        sampler=optuna.samplers.TPESampler(
+            n_startup_trials=config.N_STARTUP_TRIALS,
+            multivariate=True,
+            seed=0,
+        ),
+        pruner=optuna.pruners.PatientPruner(
+            optuna.pruners.MedianPruner(
+                n_warmup_steps=5,
+                n_startup_trials=config.N_STARTUP_TRIALS,
+            ),
+            patience=2,
+        ),
     )
     config_objective = functools.partial(objective, config=config)
-    study.optimize(config_objective, n_trials=50, show_progress_bar=True)
+    study.optimize(config_objective, n_trials=config.N_TRIALS, show_progress_bar=True)
 
     print("\n=== Best trial ===")
     print("Best params:", study.best_params)
@@ -200,7 +223,6 @@ def main():
 
     # Always save the best candidate from this study for inspection.
     best = dict(study.best_params)
-    best["K"] = config.K
     CANDIDATE_PARAMS_PATH.parent.mkdir(parents=True, exist_ok=True)
     CANDIDATE_PARAMS_PATH.write_text(json.dumps(best, indent=2))
     CANDIDATE_METRICS_PATH.write_text(json.dumps(study.best_trial.user_attrs, indent=2))
