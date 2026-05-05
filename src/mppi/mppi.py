@@ -99,14 +99,14 @@ class MPPI:
 
         # adaptive λ (not in paper; keeps n_eff in a sensible range)
         if self.cfg.adaptive_lam:
-            for _ in range(5):
+            for _ in range(20):
                 if n_eff < self.cfg.n_eff_threshold:
                     lam *= 2.0
                 elif n_eff > 0.75 * self.K:
                     lam *= 0.5
                 else:
                     break
-                lam = float(np.clip(lam, 0.01, 100.0))
+                lam = float(np.clip(lam, 1e-6, 10_000.0))
                 # γ=λ: is_corr depends on λ; track does not
                 is_corr = self._is_correction(eps, lam)
                 S_base = costs + is_corr + (track if track is not None else 0.0)
@@ -255,5 +255,4 @@ class MPPI:
 
                 
                 
-
 

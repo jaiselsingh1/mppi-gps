@@ -114,9 +114,11 @@ class MuJoCoEnv(BaseEnv):
             actions_expanded,
         )
 
-        # downsample states: take every frame_skip-th frame
-        states = states_full[:, ::self._frame_skip, :]
-        sensordata = sensordata_full[:, ::self._frame_skip, :]
+        # Downsample at control boundaries. The rollout API returns the state
+        # after each physics step; for a held action we want the state after the
+        # last repeated physics step, matching env.step() and the Warp path.
+        states = states_full[:, self._frame_skip - 1 :: self._frame_skip, :]
+        sensordata = sensordata_full[:, self._frame_skip - 1 :: self._frame_skip, :]
 
         c = self.running_cost(states, action_sequences, sensordata) # (K, H)
         tc = self.terminal_cost(states[:, -1, :], sensordata[:, -1, :]) # (K, )
@@ -209,4 +211,3 @@ class MuJoCoEnv(BaseEnv):
 
     def close(self):
         self._rollout_ctx.__exit__(None, None, None)
-

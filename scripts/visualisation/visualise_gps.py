@@ -45,6 +45,17 @@ def plot_metrics(run_dir: Path, gps_cfg: GPSConfig) -> None:
     eval_pairs = [eval_ps(r) for r in eval_rows]
     eval_mean = [m for m, _ in eval_pairs]
     eval_std = [s for _, s in eval_pairs]
+    raw_mppi_eval_rows = [
+        r for r in rows
+        if r.get("raw_mppi_eval_mean_cost") is not None
+    ]
+    raw_mppi_eval_iters = [r["iter"] for r in raw_mppi_eval_rows]
+    raw_mppi_eval_mean = [
+        r["raw_mppi_eval_cost_per_step_mean"] for r in raw_mppi_eval_rows
+    ]
+    raw_mppi_eval_std = [
+        r["raw_mppi_eval_cost_per_step_std"] for r in raw_mppi_eval_rows
+    ]
 
     has_breakdown = "mppi_S_env_mean" in rows[0]
     n_panels = 3 if has_breakdown else 2
@@ -59,6 +70,16 @@ def plot_metrics(run_dir: Path, gps_cfg: GPSConfig) -> None:
             eval_iters, eval_mean, yerr=eval_std,
             marker="s",
             label=f"Policy eval (per step, {gps_cfg.eval_n_episodes}-ep mean ± std)",
+            capsize=3,
+        )
+    if raw_mppi_eval_mean:
+        ax[0].errorbar(
+            raw_mppi_eval_iters,
+            raw_mppi_eval_mean,
+            yerr=raw_mppi_eval_std,
+            marker="^",
+            linestyle="--",
+            label="Raw MPPI eval on policy seeds",
             capsize=3,
         )
     ax[0].set_xlabel("GPS iter")
