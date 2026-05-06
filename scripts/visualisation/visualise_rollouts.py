@@ -105,7 +105,8 @@ def main():
         tip_z = env.data.site("tip").xpos[2]
         lines = [
             f"t={t:4d}",
-            f"cost_min={info['cost_min']:.2f}  cost_mean={info['cost_mean']:.2f}",
+            f"cost_min={info['cost_min']:.4f}  cost_mean={info['cost_mean']:.4f}",
+            f"cost_std={costs.std():.4f}  n_eff={info['n_eff']:.2f}",
             f"tip_z={tip_z:.2f}",
         ]
         for i, line in enumerate(lines):
@@ -120,7 +121,9 @@ def main():
 
         if t % 100 == 0:
             print(
-                f"step={t:4d}  cost_min={info['cost_min']:.2f}  "
+                f"step={t:4d}  cost_min={info['cost_min']:.4f}  "
+                f"cost_std={costs.std():.4f}  n_eff={info['n_eff']:.2f}  "
+                f"action={float(action[0]):.3f}  "
                 f"shoulder={env.data.qpos[0]:.2f}  elbow={env.data.qpos[1]:.2f}  "
                 f"tip_z={tip_z:.2f}"
             )

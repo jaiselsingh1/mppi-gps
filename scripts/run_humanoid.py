@@ -10,7 +10,7 @@ import time
 
 def main(
     steps: int = 500,
-    target_speed: float = 0.0,
+    target_speed: float = 1.0,
     use_pd_nominal: bool = False,
     pd_kp: float = 20.0,
     pd_kd: float = 5.0,
@@ -40,7 +40,7 @@ def main(
         _, cost, done, _ = env.step(action)
         state = env.get_state()
         
-        c = env.running_cost_components(state, action)
+        c = env.running_cost_components(state, action, env.data.sensordata.copy())
         wc = env.weighted_cost_components(c)
 
         rr.set_time("step", sequence=t)
@@ -51,6 +51,9 @@ def main(
 
         rr.log("stand", rr.Scalars(float(c.standing_reward)))
         rr.log("task", rr.Scalars(float(c.task_cost)))
+        rr.log("reward/task", rr.Scalars(float(c.task_reward)))
+        rr.log("reward/small_control", rr.Scalars(float(c.small_control)))
+        rr.log("cost/reward", rr.Scalars(float(c.reward_cost)))
         rr.log("lateral", rr.Scalars(float(c.root_y ** 2)))
         rr.log("lateral_vel", rr.Scalars(float(c.vy ** 2)))
         rr.log("root_angvel", rr.Scalars(float(c.root_angvel_sq)))
@@ -58,6 +61,7 @@ def main(
         rr.log("qvel_sq", rr.Scalars(float(c.qvel_sq)))
         rr.log("ctrl", rr.Scalars(float(c.ctrl_sq)))
 
+        rr.log("weighted_cost/reward", rr.Scalars(float(wc.reward_cost)))
         rr.log("weighted_cost/stand", rr.Scalars(float(wc.stand_cost)))
         rr.log("weighted_cost/task", rr.Scalars(float(wc.task_cost)))
         rr.log("weighted_cost/lateral", rr.Scalars(float(wc.lateral_cost)))
@@ -68,10 +72,12 @@ def main(
         rr.log("weighted_cost/ctrl", rr.Scalars(float(wc.ctrl_cost)))
         rr.log("weighted_cost/total", rr.Scalars(float(wc.total)))
 
-
+    
         if renderer is not None:
             renderer.update_scene(env.data)
-            frames.append(renderer.render().copy())
+            frame = renderer.render().copy()
+            frames.append(frame)
+            rr.log("frame", rr.Image(frame).compress())
 
         if t % 25 == 0:
             metrics = env.task_metrics()
@@ -84,6 +90,7 @@ def main(
                 f"vx={metrics['forward_vx']:6.3f} "
                 f"upright={metrics['upright']:5.3f} healthy={metrics['healthy']}"
             )
+            rr.log("vx", rr.Scalars(float(metrics["forward_vx"])))
 
         if done:
             break

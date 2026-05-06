@@ -1,9 +1,9 @@
 """Information-theoretic MPPI — Algorithm 2 of Williams et al. 2017
 (https://homes.cs.washington.edu/~bboots/files/InformationTheoreticMPC.pdf).
 
-γ = λ (α = 0 case). Weights are computed directly from
+Weights are computed directly from
     w_k = (1/η) exp( -(1/λ)(S_k - ρ) ),   ρ = min_k S_k
-with S_k = running_cost + terminal_cost + γ·Σ_t u_t^T Σ^{-1} ε_{k,t}
+with S_k = running_cost + terminal_cost + optional Σ_t u_t^T Σ^{-1} ε_{k,t}
          + (optional) policy-tracking cost from GPS.
 """
 import numpy as np
@@ -20,11 +20,12 @@ class MPPI:
         self.H = cfg.H
         self.lam = cfg.lam
         self.sigma = cfg.noise_sigma
-        self.noise_smoothing = cfg.noise_smoothing
-        self.is_correction_scale = cfg.is_correction_scale
+        self.use_is_correction = cfg.use_is_correction
+        if self.lam <= 0.0:
+            raise ValueError(f"MPPI temperature lam must be positive, got {self.lam}.")
 
         self.nu = env.action_dim
-        self.act_low, self.act_high = env.action_bounds
+        self.noise_cov, self.noise_chol, self.noise_precision = self._build_noise_model(cfg)
 
         self.reset()
 
@@ -61,30 +62,30 @@ class MPPI:
             that feasible set.
         """
         if nominal is not None:
-            self.U = np.clip(nominal.copy(), self.act_low, self.act_high)
+            self.U = nominal.copy()
         elif nominal_first is not None:
             self.U[0] = nominal_first
 
-        # sample ε ~ N(0, σ² I), perturb, clamp for rollout
-        eps = np.random.randn(self.K, self.H, self.nu) * self.sigma
-        if self.noise_smoothing > 0.0:
-            eps = self._smooth_noise(eps, self.noise_smoothing)
-        U_perturbed = self.U[None, :, :] + eps
-        U_clipped = np.clip(U_perturbed, self.act_low, self.act_high)
+        # sample ε ~ N(0, Σ), then roll out mean + ε. Matching Lyceum,
+        # MPPI does not clip here; actuator limiting belongs to the env/sim.
+        noise = self._sample_noise()
+        eps = noise
+        U_sampled = self.U[None, :, :] + eps
 
         # rollouts → per-sample base cost (running + terminal)
-        states, costs, sensordata = self.env.batch_rollout(state, U_clipped)
+        states, costs, sensordata = self.env.batch_rollout(state, U_sampled)
 
-        # assemble S_k components (paper's Algorithm 2, γ=λ, Σ=σ²I):
-        #    S_k = S_env + λ · Σ_t u_t · ε_{k,t}/σ² + (optional) λ_track · Σ_t ‖a-π‖²
+        # assemble S_k components:
+        #    S_k = S_env + optional Σ_t u_t^T Σ^{-1} ε_{k,t}
+        #          + optional λ_track · Σ_t ‖a-π‖²
         lam = self.lam
-        is_corr = self._is_correction(eps, lam)
-        track = prior_cost(states, U_clipped) if prior_cost is not None else None
+        is_corr = self._is_correction(eps) if self.use_is_correction else np.zeros(self.K)
+        track = prior_cost(states, U_sampled) if prior_cost is not None else None
         S_base = costs + is_corr + (track if track is not None else 0.0)
         S, coupling_diag, fallback_score = self._apply_coupling(
             coupling,
             states,
-            U_clipped,
+            U_sampled,
             costs,
             S_base,
             lam,
@@ -101,9 +102,8 @@ class MPPI:
             lam,
         )
 
-        # weighted update on raw ε (not clipped U) to avoid clipping bias
+        # weighted update on sampled perturbations
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
-        self.U = np.clip(self.U, self.act_low, self.act_high)
 
         action = self.U[0].copy()
 
@@ -113,7 +113,7 @@ class MPPI:
 
         # stash for GPS
         self._last_states = states
-        self._last_actions = U_clipped
+        self._last_actions = U_sampled
         self._last_weights = weights
         self._last_costs = costs
         self._last_sensordata = sensordata
@@ -129,6 +129,7 @@ class MPPI:
             'cost_s_mean': self._finite_mean(S),               # total S = sum of above
             'n_eff': float(n_eff),
             'lam': float(lam),
+            'use_is_correction': float(self.use_is_correction),
             'coupling_active': coupling_diag['active'],
             'coupling_used_fallback': float(used_coupling_fallback),
             'coupling_feasible_fraction': coupling_diag['feasible_fraction'],
@@ -138,30 +139,56 @@ class MPPI:
         }
         return action, info
 
-    def _is_correction(self, eps: np.ndarray, lam: float) -> np.ndarray:
-        """γ · Σ_t u_t^T Σ^{-1} ε_{k,t} with γ=λ, Σ=σ²I → (K,)."""
-        return (
-            self.is_correction_scale
-            * lam
-            * np.sum(self.U[None, :, :] * eps, axis=(1, 2))
-            / (self.sigma ** 2)
-        )
+    def _is_correction(self, eps: np.ndarray) -> np.ndarray:
+        """Σ_t u_t^T Σ^{-1} ε_{k,t} → (K,)."""
+        precision_eps = np.einsum('ij,ktj->kti', self.noise_precision, eps)
+        return np.sum(self.U[None, :, :] * precision_eps, axis=(1, 2))
 
-    def _smooth_noise(self, eps: np.ndarray, alpha: float) -> np.ndarray:
-        """AR(1) action noise along the horizon, preserving marginal variance."""
-        alpha = float(np.clip(alpha, 0.0, 0.999))
-        scale = np.sqrt(max(1.0 - alpha * alpha, 1e-8))
-        out = np.empty_like(eps)
-        out[:, 0, :] = eps[:, 0, :]
-        for t in range(1, self.H):
-            out[:, t, :] = alpha * out[:, t - 1, :] + scale * eps[:, t, :]
-        return out
+    def _sample_noise(self) -> np.ndarray:
+        standard = np.random.randn(self.K, self.H, self.nu)
+        return np.einsum('khi,ji->khj', standard, self.noise_chol)
+
+    def _build_noise_model(
+            self,
+            cfg: MPPIConfig,
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        if cfg.noise_cov is None:
+            if self.sigma <= 0.0:
+                raise ValueError(f"MPPI noise_sigma must be positive, got {self.sigma}.")
+            cov = (self.sigma ** 2) * np.eye(self.nu)
+        else:
+            cov = np.asarray(cfg.noise_cov, dtype=float)
+            if cov.shape != (self.nu, self.nu):
+                raise ValueError(
+                    f"MPPI noise_cov must have shape {(self.nu, self.nu)}, got {cov.shape}."
+                )
+            if not np.allclose(cov, cov.T):
+                raise ValueError("MPPI noise_cov must be symmetric.")
+
+        try:
+            chol = np.linalg.cholesky(cov)
+        except np.linalg.LinAlgError as exc:
+            raise ValueError("MPPI noise covariance must be positive definite.") from exc
+
+        precision = np.linalg.inv(cov)
+        return cov, chol, precision
 
     def _softmin_weights(self, S: np.ndarray, lam: float) -> tuple[np.ndarray, float]:
         """Paper's weight formula with min-baseline stabilization."""
-        rho = np.min(S)
-        unnorm = np.exp(-(S - rho) / lam)
+        finite = np.isfinite(S)
+        if not np.any(finite):
+            weights = np.full_like(S, 1.0 / len(S), dtype=float)
+            return weights, effective_sample_size(weights)
+
+        rho = np.min(S[finite])
+        shifted = np.where(finite, S - rho, np.inf)
+        unnorm = np.exp(-shifted / lam)
         eta = np.sum(unnorm)
+        if not np.isfinite(eta) or eta <= 0.0:
+            weights = np.zeros_like(S, dtype=float)
+            weights[np.argmin(shifted)] = 1.0
+            return weights, effective_sample_size(weights)
+
         weights = unnorm / eta
         return weights, effective_sample_size(weights)
 

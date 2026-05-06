@@ -15,30 +15,35 @@ _HEAD_STAND_HEIGHT = 1.4
 _HEAD_OFFSET = 0.19
 _MIN_HEALTHY_HEIGHT = 0.8
 
-_W_STAND = 80.0
-_W_MOVE = 2.0
-_W_STILL = 10.0
-_W_ROOT_X = 2.0
-_W_LATERAL = 0.1
-_W_LATERAL_VEL = 0.2
-_W_ROOT_ANGVEL = 0.2
-_W_POSTURE = 0.2
-_W_QVEL = 0.002
-_W_CTRL = 0.005
-_W_TERMINAL_STAND = 1000.0
+_STAND_HEIGHT_MARGIN = _HEAD_STAND_HEIGHT / 4.0
+_UPRIGHT_THRESHOLD = 0.9
+_UPRIGHT_MARGIN = 1.9
+_DONT_MOVE_MARGIN = 2.0
+
+_W_LATERAL = 0.0
+_W_LATERAL_VEL = 0.0
+_W_ROOT_ANGVEL = 0.0
+_W_POSTURE = 0.0
+_W_QVEL = 0.0
+_W_CTRL = 0.0
+_W_TERMINAL_STAND = 0.0
 
 class CostComponents(typing.NamedTuple):
-        standing_reward: Float[Array, "K H"]
-        task_cost: Float[Array, "K H"]
-        root_y: Float[Array, "K H"]
-        vy:  Float[Array, "K H"]
-        root_angvel_sq: Float[Array, "K H"] 
-        posture_sq: Float[Array, "K H"]
-        qvel_sq: Float[Array, "K H"]
-        ctrl_sq: Float[Array, "K H"]
+    standing_reward: Float[Array, "K H"]
+    task_reward: Float[Array, "K H"]
+    small_control: Float[Array, "K H"]
+    reward_cost: Float[Array, "K H"]
+    task_cost: Float[Array, "K H"]
+    root_y: Float[Array, "K H"]
+    vy:  Float[Array, "K H"]
+    root_angvel_sq: Float[Array, "K H"] 
+    posture_sq: Float[Array, "K H"]
+    qvel_sq: Float[Array, "K H"]
+    ctrl_sq: Float[Array, "K H"]
 
 
 class WeightedCostComponents(typing.NamedTuple):
+    reward_cost: Float[Array, "K H"]
     stand_cost: Float[Array, "K H"]
     task_cost: Float[Array, "K H"]
     lateral_cost: Float[Array, "K H"]
@@ -57,11 +62,57 @@ def _quat_up_z(quat: np.ndarray) -> np.ndarray:
     return 1.0 - 2.0 * (qx * qx + qy * qy)
 
 
-def _linear_tolerance_lower(x: np.ndarray, lower: float, margin: float) -> np.ndarray:
-    """Linear tolerance that is 1 above lower and 0 at lower - margin."""
+def _sigmoid(value: np.ndarray, *, value_at_1: float, sigmoid: str) -> np.ndarray:
+    value = np.asarray(value)
+    if sigmoid == "gaussian":
+        scale = np.sqrt(-2.0 * np.log(value_at_1))
+        return np.exp(-0.5 * (value * scale) ** 2)
+    if sigmoid == "linear":
+        scaled = value * (1.0 - value_at_1)
+        return np.where(np.abs(scaled) < 1.0, 1.0 - scaled, 0.0)
+    if sigmoid == "quadratic":
+        scaled = value * np.sqrt(1.0 - value_at_1)
+        return np.where(np.abs(scaled) < 1.0, 1.0 - scaled**2, 0.0)
+    raise ValueError(f"unsupported sigmoid: {sigmoid}")
+
+
+def _tolerance(
+    x: np.ndarray,
+    *,
+    bounds: tuple[float, float] = (0.0, 0.0),
+    margin: float = 0.0,
+    sigmoid: str = "gaussian",
+    value_at_margin: float = 0.1,
+) -> np.ndarray:
+    x = np.asarray(x)
+    lower, upper = bounds
+    in_bounds = np.logical_and(lower <= x, x <= upper)
     if margin <= 0.0:
-        return (x >= lower).astype(float)
-    return np.clip((x - (lower - margin)) / margin, 0.0, 1.0)
+        return in_bounds.astype(float)
+    distance = np.where(x < lower, lower - x, x - upper) / margin
+    return np.where(
+        in_bounds,
+        1.0,
+        _sigmoid(distance, value_at_1=value_at_margin, sigmoid=sigmoid),
+    )
+
+
+def _standing_reward(root_z: np.ndarray, root_quat: np.ndarray) -> np.ndarray:
+    upright = _quat_up_z(root_quat)
+    head_height = root_z + _HEAD_OFFSET * upright
+    standing = _tolerance(
+        head_height,
+        bounds=(_HEAD_STAND_HEIGHT, float("inf")),
+        margin=_STAND_HEIGHT_MARGIN,
+    )
+    upright_reward = _tolerance(
+        upright,
+        bounds=(_UPRIGHT_THRESHOLD, float("inf")),
+        margin=_UPRIGHT_MARGIN,
+        sigmoid="linear",
+        value_at_margin=0.0,
+    )
+    return standing * upright_reward
 
 
 class Humanoid(MuJoCoEnv):
@@ -105,12 +156,15 @@ class Humanoid(MuJoCoEnv):
         torso_quat = self.data.xquat[self._torso_id].copy()
         upright = float(_quat_up_z(torso_quat))
         height = float(torso_pos[2])
+        com_velocity = self.data.sensordata[:3].copy()
         return {
             "x_pos": float(torso_pos[0]),
             "y_pos": float(torso_pos[1]),
             "head_height": float(self.data.xpos[self._head_id, 2]),
             "torso_height": height,
-            "forward_vx": float(self.data.qvel[0]),
+            "forward_vx": float(com_velocity[0]),
+            "com_vy": float(com_velocity[1]),
+            "com_speed": float(np.linalg.norm(com_velocity[:2])),
             "upright": upright,
             "healthy": bool(height > _MIN_HEALTHY_HEIGHT and upright > 0.5),
         }
@@ -133,52 +187,63 @@ class Humanoid(MuJoCoEnv):
         qpos = self.state_qpos(states)
         qvel = self.state_qvel(states)
 
-        root_x = qpos[..., 0]
         root_y = qpos[..., 1]
         root_z = qpos[..., 2]
         root_quat = qpos[..., 3:7]
         joint_qpos = qpos[..., 7:]
 
-        vx = qvel[..., 0]
-        vy = qvel[..., 1]
+        if sensordata is not None and sensordata.shape[-1] >= 3:
+            vx = sensordata[..., 0]
+            vy = sensordata[..., 1]
+        else:
+            vx = qvel[..., 0]
+            vy = qvel[..., 1]
         root_angvel_sq = np.sum(qvel[..., 3:6] ** 2, axis=-1)
         qvel_sq = np.sum(qvel[..., 6:] ** 2, axis=-1)
         posture_sq = np.sum((joint_qpos - self._qpos0_tail) ** 2, axis=-1)
         ctrl_sq = np.sum(actions**2, axis=-1)
-        upright = _quat_up_z(root_quat)
-        head_height = root_z + _HEAD_OFFSET * upright
 
-        standing = _linear_tolerance_lower(
-            head_height,
-            lower=_HEAD_STAND_HEIGHT,
-            margin=_HEAD_STAND_HEIGHT / 4.0,
-        )
-        upright_reward = _linear_tolerance_lower(
-            upright,
-            lower=0.9,
-            margin=1.9,
-        )
-        stand_reward = standing * upright_reward
+        stand_reward = _standing_reward(root_z, root_quat)
+        small_control = _tolerance(
+            actions,
+            margin=1.0,
+            sigmoid="quadratic",
+            value_at_margin=0.0,
+        ).mean(axis=-1)
+        small_control = (4.0 + small_control) / 5.0
 
         if self._target_speed > 0.0:
-            forward_reward = _linear_tolerance_lower(
-                vx,
-                lower=self._target_speed,
+            horizontal_speed = np.sqrt(vx**2 + vy**2)
+            move_reward = _tolerance(
+                horizontal_speed,
+                bounds=(self._target_speed, float("inf")),
                 margin=self._target_speed,
+                sigmoid="linear",
+                value_at_margin=0.0,
             )
-            task_cost = _W_MOVE * stand_reward * (1.0 - forward_reward)
+            task_reward = (5.0 * move_reward + 1.0) / 6.0
         else:
-            task_cost = _W_STILL * (vx**2 + vy**2) + _W_ROOT_X * root_x**2
+            horizontal_velocity = np.stack([vx, vy], axis=-1)
+            task_reward = _tolerance(
+                horizontal_velocity,
+                margin=_DONT_MOVE_MARGIN,
+            ).mean(axis=-1)
+
+        reward_cost = 1.0 - small_control * stand_reward * task_reward
 
         return CostComponents(
-            standing_reward = stand_reward,
-            task_cost = task_cost,
-            root_y = root_y,
-            vy = vy,
-            root_angvel_sq = root_angvel_sq,
-            posture_sq = posture_sq, 
-            qvel_sq = qvel_sq, 
-            ctrl_sq = ctrl_sq,)
+            standing_reward=stand_reward,
+            task_reward=task_reward,
+            small_control=small_control,
+            reward_cost=reward_cost,
+            task_cost=1.0 - task_reward,
+            root_y=root_y,
+            vy=vy,
+            root_angvel_sq=root_angvel_sq,
+            posture_sq=posture_sq, 
+            qvel_sq=qvel_sq, 
+            ctrl_sq=ctrl_sq,
+        )
     
     def running_cost(self,
         states: Float[Array, "K H nstate"],
@@ -192,7 +257,8 @@ class Humanoid(MuJoCoEnv):
         self,
         c: CostComponents,
     ) -> WeightedCostComponents:
-        stand_cost = _W_STAND * (1.0 - c.standing_reward)
+        reward_cost = c.reward_cost
+        stand_cost = 1.0 - c.standing_reward
         task_cost = c.task_cost
         lateral_cost = _W_LATERAL * (c.root_y ** 2)
         lateral_vel_cost = _W_LATERAL_VEL * (c.vy ** 2)
@@ -201,8 +267,7 @@ class Humanoid(MuJoCoEnv):
         qvel_cost = _W_QVEL * c.qvel_sq
         ctrl_cost = _W_CTRL * c.ctrl_sq
         total = (
-            stand_cost
-            + task_cost
+            reward_cost
             + lateral_cost
             + lateral_vel_cost
             + root_angvel_cost
@@ -211,6 +276,7 @@ class Humanoid(MuJoCoEnv):
             + ctrl_cost
         )
         return WeightedCostComponents(
+            reward_cost=reward_cost,
             stand_cost=stand_cost,
             task_cost=task_cost,
             lateral_cost=lateral_cost,
@@ -228,21 +294,7 @@ class Humanoid(MuJoCoEnv):
         sensordata: Float[Array, "K nsensor"] | None = None,
     ) -> Float[Array, "K"]:
         qpos = self.state_qpos(states)
-        root_z = qpos[..., 2]
-        root_quat = qpos[..., 3:7]
-        upright = _quat_up_z(root_quat)
-        head_height = root_z + _HEAD_OFFSET * upright
-        standing = _linear_tolerance_lower(
-            head_height,
-            lower=_HEAD_STAND_HEIGHT,
-            margin=_HEAD_STAND_HEIGHT / 4.0,
-        )
-        upright_reward = _linear_tolerance_lower(
-            upright,
-            lower=0.9,
-            margin=0.4,
-        )
-        stand_reward = standing * upright_reward
+        stand_reward = _standing_reward(qpos[..., 2], qpos[..., 3:7])
         return _W_TERMINAL_STAND * (1.0 - stand_reward)
 
     def _get_obs(self) -> Float[np.ndarray, "obs_dim"]:

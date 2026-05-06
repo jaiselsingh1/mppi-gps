@@ -8,12 +8,13 @@ _CONFIGS_DIR = Path(__file__).resolve().parents[2] / "configs"
 @dataclass 
 class MPPIConfig:
     K: int = 256 # number of samples 
-    H: int = 50 # planning horizon 
+    H: int = 256 # planning horizon 
     lam: float = 1.0 # temperature parameter 
     # this parameter essentially helps you know how much you want to focus on specific samples vs others 
     noise_sigma: float = 0.5 # exploration noise std 
-    noise_smoothing: float = 0.0 # temporal correlation for sampled action noise
-    is_correction_scale: float = 1.0 # 1.0 is Williams et al.; 0.0 is useful for non-paper nominal priors
+    use_is_correction: bool = False
+    # Optional full action covariance. When unset, MPPI uses noise_sigma^2 * I.
+    noise_cov: list[list[float]] | None = None
 
     @staticmethod
     def load(env_name: str) -> "MPPIConfig":
