@@ -38,6 +38,18 @@ class CostComponents(typing.NamedTuple):
         ctrl_sq: Float[Array, "K H"]
 
 
+class WeightedCostComponents(typing.NamedTuple):
+    stand_cost: Float[Array, "K H"]
+    task_cost: Float[Array, "K H"]
+    lateral_cost: Float[Array, "K H"]
+    lateral_vel_cost: Float[Array, "K H"]
+    root_angvel_cost: Float[Array, "K H"]
+    posture_cost: Float[Array, "K H"]
+    qvel_cost: Float[Array, "K H"]
+    ctrl_cost: Float[Array, "K H"]
+    total: Float[Array, "K H"]
+
+
 def _quat_up_z(quat: np.ndarray) -> np.ndarray:
     """World z component of the torso local z axis for wxyz quaternions."""
     qx = quat[..., 1]
@@ -174,16 +186,40 @@ class Humanoid(MuJoCoEnv):
         sensordata: Float[Array, "K H nsensor"] | None = None,    
     ) -> Float[Array, "K H"]:
         c = self.running_cost_components(states, actions, sensordata)
+        return self.weighted_cost_components(c).total
 
-        return (
-            _W_STAND * (1.0 - c.standing_reward)
-            + c.task_cost
-            + _W_LATERAL * (c.root_y ** 2)
-            + _W_LATERAL_VEL * (c.vy ** 2)
-            + _W_ROOT_ANGVEL * c.root_angvel_sq
-            + _W_POSTURE * c.posture_sq
-            + _W_QVEL * c.qvel_sq
-            + _W_CTRL * c.ctrl_sq
+    def weighted_cost_components(
+        self,
+        c: CostComponents,
+    ) -> WeightedCostComponents:
+        stand_cost = _W_STAND * (1.0 - c.standing_reward)
+        task_cost = c.task_cost
+        lateral_cost = _W_LATERAL * (c.root_y ** 2)
+        lateral_vel_cost = _W_LATERAL_VEL * (c.vy ** 2)
+        root_angvel_cost = _W_ROOT_ANGVEL * c.root_angvel_sq
+        posture_cost = _W_POSTURE * c.posture_sq
+        qvel_cost = _W_QVEL * c.qvel_sq
+        ctrl_cost = _W_CTRL * c.ctrl_sq
+        total = (
+            stand_cost
+            + task_cost
+            + lateral_cost
+            + lateral_vel_cost
+            + root_angvel_cost
+            + posture_cost
+            + qvel_cost
+            + ctrl_cost
+        )
+        return WeightedCostComponents(
+            stand_cost=stand_cost,
+            task_cost=task_cost,
+            lateral_cost=lateral_cost,
+            lateral_vel_cost=lateral_vel_cost,
+            root_angvel_cost=root_angvel_cost,
+            posture_cost=posture_cost,
+            qvel_cost=qvel_cost,
+            ctrl_cost=ctrl_cost,
+            total=total,
         )
 
     def terminal_cost(
