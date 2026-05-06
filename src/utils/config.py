@@ -52,6 +52,7 @@ class GPSConfig:
     policy_trust_max: float = 1.0
     coupling_mode: str = "cost"        # raw | cost | filter | hard_filter | hybrid
     policy_coupling_beta: float = 0.3
+    # Deprecated by policy-proximity filtering; kept so older JSON configs load.
     policy_coupling_cost_slack_rel: float = 0.25
     policy_coupling_cost_slack_abs: float = 0.0
     policy_coupling_min_fraction: float = 0.05

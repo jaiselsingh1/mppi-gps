@@ -275,8 +275,6 @@ def _make_collection_bias_for_plot(
         coupling = make_policy_filter_coupling(
             policy,
             beta=coupling_beta,
-            cost_slack_rel=gps_cfg.policy_coupling_cost_slack_rel,
-            cost_slack_abs=gps_cfg.policy_coupling_cost_slack_abs,
             min_fraction=gps_cfg.policy_coupling_min_fraction,
             keep_fraction=keep_fraction,
             min_n_eff=gps_cfg.policy_coupling_min_n_eff,

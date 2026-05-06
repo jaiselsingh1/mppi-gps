@@ -57,9 +57,7 @@ class MPPI:
             units. Added to S_k before the softmin. This is how GPS injects the
             λ_track · ‖a − π(s)‖² policy-tracking term.
         coupling: optional callable that can replace the MPPI score vector after
-            env cost/IS/prior-cost assembly. Used for task-gated policy
-            filtering: task cost defines feasibility, policy only biases inside
-            that feasible set.
+            env cost/IS/prior-cost assembly.
         """
         if nominal is not None:
             self.U = nominal.copy()

@@ -1,8 +1,7 @@
 """Policy-MPPI coupling mechanisms.
 
-The filter coupling keeps the task cost as the feasibility gate. The policy
-only biases weights among trajectories that remain competitive under the
-un-augmented environment cost.
+The filter coupling keeps samples that are close to the current policy, then
+lets MPPI's task score rank trajectories inside that policy-near set.
 """
 
 from __future__ import annotations
@@ -32,19 +31,17 @@ def _obs_from_rollout_states(states: np.ndarray) -> np.ndarray:
 def make_policy_filter_coupling(
     policy: DeterministicPolicy,
     beta: float,
-    cost_slack_rel: float,
-    cost_slack_abs: float,
     min_fraction: float,
     keep_fraction: float,
     min_n_eff: float,
     max_weight: float,
     hard_filter: bool = False,
 ) -> Callable[..., dict]:
-    """Build a task-gated soft policy-reweighting hook for MPPI.
+    """Build a policy-proximity filtering hook for MPPI.
 
     The returned callable receives MPPI rollout data and returns a replacement
-    score vector. It never lets the policy rescue bad task-cost trajectories:
-    samples must first pass a true-cost feasibility gate.
+    score vector. Samples are first filtered by closeness to the current policy;
+    task cost remains in the score for ranking the kept trajectories.
     """
 
     def coupling(
@@ -72,28 +69,21 @@ def make_policy_filter_coupling(
         else:
             policy_norm = (policy_sq - np.mean(policy_sq)) / policy_std
 
-        best_cost = float(np.min(costs))
-        threshold = best_cost + cost_slack_abs + cost_slack_rel * max(abs(best_cost), 1.0)
-        feasible = costs <= threshold
-
         min_keep = max(1, int(np.ceil(min_fraction * K)))
-        if int(np.sum(feasible)) < min_keep:
-            keep_idx = np.argpartition(costs, min_keep - 1)[:min_keep]
-            feasible = np.zeros(K, dtype=bool)
-            feasible[keep_idx] = True
+        keep_fraction_clamped = float(np.clip(keep_fraction, 0.0, 1.0))
+        n_policy_keep = max(min_keep, int(np.ceil(keep_fraction_clamped * K)))
+        n_policy_keep = min(n_policy_keep, K)
+        keep_idx = np.argpartition(policy_sq, n_policy_keep - 1)[:n_policy_keep]
+        feasible = np.zeros(K, dtype=bool)
+        feasible[keep_idx] = True
 
         if hard_filter:
-            feasible_idx = np.flatnonzero(feasible)
-            n_policy_keep = max(1, int(np.ceil(keep_fraction * len(feasible_idx))))
-            n_policy_keep = min(n_policy_keep, len(feasible_idx))
-            keep_local = np.argpartition(policy_sq[feasible_idx], n_policy_keep - 1)[:n_policy_keep]
-            policy_feasible = np.zeros(K, dtype=bool)
-            policy_feasible[feasible_idx[keep_local]] = True
-            feasible = policy_feasible
+            policy_bias = 0.0
+        else:
+            # Multiplying by lam makes beta dimensionless in the MPPI softmin:
+            # exp(-(base_score + beta*lam*z)/lam) = exp(-base_score/lam) * exp(-beta*z).
+            policy_bias = beta * lam * policy_norm
 
-        # Multiplying by lam makes beta dimensionless in the MPPI softmin:
-        # exp(-(base_score + beta*lam*z)/lam) = exp(-base_score/lam) * exp(-beta*z).
-        policy_bias = 0.0 if hard_filter else beta * lam * policy_norm
         filtered_score = base_score + policy_bias
         filtered_score = np.where(feasible, filtered_score, np.inf)
 

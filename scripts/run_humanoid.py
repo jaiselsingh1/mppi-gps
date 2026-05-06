@@ -4,8 +4,8 @@ import mujoco
 from src.envs.humanoid import Humanoid
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
-import rerun as rr 
-import time 
+import rerun as rr
+import time
 
 
 def main(
@@ -16,6 +16,7 @@ def main(
     pd_kd: float = 5.0,
     render: bool = True,
     out: str = "humanoid_mppi.mp4",
+    rerun_port: int = 10000,
 ) -> None:
     env = Humanoid(target_speed=target_speed)
     cfg = MPPIConfig.load("humanoid")
@@ -27,9 +28,16 @@ def main(
     frames = []
     renderer = mujoco.Renderer(env.model, height=480, width=640) if render else None
     rr.init("humanoid costs")
-    grpc_url = rr.serve_grpc(grpc_port=10000)
+    grpc_url = rr.serve_grpc(grpc_port=rerun_port)
     print(f"\nrerun gRPC: {grpc_url}")
-    print("  rerun --connect rerun+http://127.0.0.1:10000/proxy\n")
+    print(f"  rerun --connect rerun+http://127.0.0.1:{rerun_port}/proxy\n", flush=True)
+
+    rr.set_time("step", sequence=0)
+    rr.log("status/started", rr.Scalars(1.0))
+    if renderer is not None:
+        renderer.update_scene(env.data)
+        initial_frame = renderer.render().copy()
+        rr.log("frame", rr.Image(initial_frame).compress())
 
     for t in range(steps):
 
@@ -39,7 +47,7 @@ def main(
         action, info = controller.plan_step(state, nominal=nominal)
         _, cost, done, _ = env.step(action)
         state = env.get_state()
-        
+
         c = env.running_cost_components(state, action, env.data.sensordata.copy())
         wc = env.weighted_cost_components(c)
 
@@ -48,6 +56,7 @@ def main(
         rr.log("cost/step_running", rr.Scalars(float(cost)))
         rr.log("cost/rollout_min", rr.Scalars(float(info["cost_min"])))
         rr.log("cost/rollout_mean", rr.Scalars(float(info["cost_mean"])))
+        rr.log("mppi/n_eff", rr.Scalars(float(info["n_eff"])))
 
         rr.log("stand", rr.Scalars(float(c.standing_reward)))
         rr.log("task", rr.Scalars(float(c.task_cost)))
