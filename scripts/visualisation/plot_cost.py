@@ -35,7 +35,6 @@ cfg = MPPIConfig(
         H=174,
         lam=0.00010000000,
         noise_sigma=0.11239984567550243,
-        adaptive_lam=False,
     )
 controller = MPPI(env, cfg)
 
@@ -106,5 +105,4 @@ for i, snap in enumerate(snapshots):
 plt.tight_layout()
 plt.savefig("acrobot_rollout_evolution.png", dpi=150)
 plt.show()
-
 

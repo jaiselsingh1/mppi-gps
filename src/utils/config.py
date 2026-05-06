@@ -12,8 +12,8 @@ class MPPIConfig:
     lam: float = 1.0 # temperature parameter 
     # this parameter essentially helps you know how much you want to focus on specific samples vs others 
     noise_sigma: float = 0.5 # exploration noise std 
-    adaptive_lam: bool = False # adapt lam in order to maintain the n_eff
-    # n_eff_threshold: float = 64.0 # number of samples that you want to contribute to the weighted mean
+    noise_smoothing: float = 0.0 # temporal correlation for sampled action noise
+    is_correction_scale: float = 1.0 # 1.0 is Williams et al.; 0.0 is useful for non-paper nominal priors
 
     @staticmethod
     def load(env_name: str) -> "MPPIConfig":
@@ -45,11 +45,16 @@ class GPSConfig:
     eval_mppi_baseline_episodes: int = 0
     coupling_warmup_iters: int = 5
     lambda_policy_track: float = 0.001 # cost-unit weight for policy-tracking prior
-    coupling_mode: str = "cost"        # raw | cost | filter | hybrid
+    adaptive_policy_trust: bool = True
+    policy_trust_bad_cost_per_step: float = 12.0
+    policy_trust_min: float = 0.0
+    policy_trust_max: float = 1.0
+    coupling_mode: str = "cost"        # raw | cost | filter | hard_filter | hybrid
     policy_coupling_beta: float = 0.3
     policy_coupling_cost_slack_rel: float = 0.25
     policy_coupling_cost_slack_abs: float = 0.0
     policy_coupling_min_fraction: float = 0.05
+    policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0
     policy_coupling_max_weight: float = 1.0
     obs_dim: int = 6

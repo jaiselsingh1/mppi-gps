@@ -20,7 +20,6 @@ def objective(trial: optuna.Trial) -> float:
         H = H,
         lam = lam,
         noise_sigma = noise_sigma,
-        adaptive_lam = False,
     )
 
     total_cost = 0.0 
@@ -68,7 +67,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 

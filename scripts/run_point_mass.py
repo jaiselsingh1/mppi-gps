@@ -13,7 +13,6 @@ def main():
         H=64,
         lam=0.01,
         noise_sigma=0.5,
-        adaptive_lam=False,
     )
     controller = MPPI(env, cfg)
 

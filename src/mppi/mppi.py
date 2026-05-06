@@ -20,6 +20,8 @@ class MPPI:
         self.H = cfg.H
         self.lam = cfg.lam
         self.sigma = cfg.noise_sigma
+        self.noise_smoothing = cfg.noise_smoothing
+        self.is_correction_scale = cfg.is_correction_scale
 
         self.nu = env.action_dim
         self.act_low, self.act_high = env.action_bounds
@@ -65,6 +67,8 @@ class MPPI:
 
         # sample ε ~ N(0, σ² I), perturb, clamp for rollout
         eps = np.random.randn(self.K, self.H, self.nu) * self.sigma
+        if self.noise_smoothing > 0.0:
+            eps = self._smooth_noise(eps, self.noise_smoothing)
         U_perturbed = self.U[None, :, :] + eps
         U_clipped = np.clip(U_perturbed, self.act_low, self.act_high)
 
@@ -96,38 +100,6 @@ class MPPI:
             coupling_diag,
             lam,
         )
-
-        # adaptive λ (not in paper; keeps n_eff in a sensible range)
-        if self.cfg.adaptive_lam:
-            for _ in range(20):
-                if n_eff < self.cfg.n_eff_threshold:
-                    lam *= 2.0
-                elif n_eff > 0.75 * self.K:
-                    lam *= 0.5
-                else:
-                    break
-                lam = float(np.clip(lam, 1e-6, 10_000.0))
-                # γ=λ: is_corr depends on λ; track does not
-                is_corr = self._is_correction(eps, lam)
-                S_base = costs + is_corr + (track if track is not None else 0.0)
-                S, coupling_diag, fallback_score = self._apply_coupling(
-                    coupling,
-                    states,
-                    U_clipped,
-                    costs,
-                    S_base,
-                    lam,
-                )
-                weights, n_eff = self._softmin_weights(S, lam)
-                weights, n_eff, S, used_coupling_fallback = self._maybe_fallback_coupling_weights(
-                    weights,
-                    n_eff,
-                    S,
-                    fallback_score,
-                    coupling_diag,
-                    lam,
-                )
-            self.lam = lam
 
         # weighted update on raw ε (not clipped U) to avoid clipping bias
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
@@ -168,7 +140,22 @@ class MPPI:
 
     def _is_correction(self, eps: np.ndarray, lam: float) -> np.ndarray:
         """γ · Σ_t u_t^T Σ^{-1} ε_{k,t} with γ=λ, Σ=σ²I → (K,)."""
-        return lam * np.sum(self.U[None, :, :] * eps, axis=(1, 2)) / (self.sigma ** 2)
+        return (
+            self.is_correction_scale
+            * lam
+            * np.sum(self.U[None, :, :] * eps, axis=(1, 2))
+            / (self.sigma ** 2)
+        )
+
+    def _smooth_noise(self, eps: np.ndarray, alpha: float) -> np.ndarray:
+        """AR(1) action noise along the horizon, preserving marginal variance."""
+        alpha = float(np.clip(alpha, 0.0, 0.999))
+        scale = np.sqrt(max(1.0 - alpha * alpha, 1e-8))
+        out = np.empty_like(eps)
+        out[:, 0, :] = eps[:, 0, :]
+        for t in range(1, self.H):
+            out[:, t, :] = alpha * out[:, t - 1, :] + scale * eps[:, t, :]
+        return out
 
     def _softmin_weights(self, S: np.ndarray, lam: float) -> tuple[np.ndarray, float]:
         """Paper's weight formula with min-baseline stabilization."""
@@ -255,4 +242,3 @@ class MPPI:
 
                 
                 
-

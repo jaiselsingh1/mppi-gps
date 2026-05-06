@@ -1,4 +1,14 @@
 {
+  "score": 35459.5818586527,
+  "mean_cost_per_step": 4.977268894250211,
+  "hit_success_rate": 0.5,
+  "hold_success_rate": 0.5,
+  "mean_time_to_hit": 673.3,
+  "mean_final_tip_dist": 1.0305558485018895,
+  "mean_final_qvel_norm": 1.4899004908266777,
+  "mean_n_eff": 1.0003194095588972,
+  "eval_steps": 1000,
+  "n_eval_episodes": 10,
   "episode_hit_successes": [
     true,
     true,
@@ -35,13 +45,12 @@
     1000,
     1000
   ],
-  "hit_success_rate": 0.5,
-  "hold_success_rate": 0.5,
-  "mean_cost_per_step": 4.977268894250211,
-  "mean_final_qvel_norm": 1.4899004908266777,
-  "mean_final_tip_dist": 1.0305558485018895,
-  "mean_n_eff": 1.0003194095588972,
-  "mean_time_to_hit": 673.3,
-  "n_eval_episodes": 10,
-  "score": 35459.5818586527
+  "params": {
+    "K": 512,
+    "H": 192,
+    "noise_sigma": 0.1,
+    "lam": 0.0003
+  },
+  "search_trial_number": 1,
+  "search_score": 279.54118952631796
 }

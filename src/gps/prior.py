@@ -3,10 +3,11 @@
 Adds a policy-mismatch term to MPPI's per-sample score in the same cost units
 as the task objective:
 
-    S_track = lambda_track * mean_t ||a_t - pi(s_t)||^2
+    S_track = lambda_track * sum_t mean_a ||a_t - pi(s_t)||^2
 
 MPPI still divides the complete score by its temperature inside the softmin, so
-lambda_track should be tuned with the MPPI temperature in mind.
+lambda_track is a per-control-step cost weight and should be tuned with the
+task-cost scale and MPPI temperature in mind.
 """
 from __future__ import annotations
 from typing import Callable
@@ -24,7 +25,7 @@ def make_policy_tracking_prior(
     """Build a per-sample cost callable for MPPI.plan_step.
 
     Returned callable, given (states, actions), returns
-        C_k = lambda_track · mean_t ‖a_{k,t} − π(obs(s_{k,t}))‖²
+        C_k = lambda_track · sum_t mean_a ‖a_{k,t} − π(obs(s_{k,t}))‖²
         shape (K,)
 
     Non-negative and in the same score units as env cost. MPPI adds this to
@@ -52,7 +53,7 @@ def make_policy_tracking_prior(
             mu_flat = policy.forward(obs_t).cpu().numpy()
 
         mu = mu_flat.reshape(K, H, act_dim)
-        mean_sq = ((actions - mu) ** 2).mean(axis=(1, 2))
-        return lambda_track * mean_sq
+        per_timestep_sq = ((actions - mu) ** 2).mean(axis=2)
+        return lambda_track * per_timestep_sq.sum(axis=1)
 
     return prior_cost

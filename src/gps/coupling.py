@@ -35,8 +35,10 @@ def make_policy_filter_coupling(
     cost_slack_rel: float,
     cost_slack_abs: float,
     min_fraction: float,
+    keep_fraction: float,
     min_n_eff: float,
     max_weight: float,
+    hard_filter: bool = False,
 ) -> Callable[..., dict]:
     """Build a task-gated soft policy-reweighting hook for MPPI.
 
@@ -80,9 +82,19 @@ def make_policy_filter_coupling(
             feasible = np.zeros(K, dtype=bool)
             feasible[keep_idx] = True
 
+        if hard_filter:
+            feasible_idx = np.flatnonzero(feasible)
+            n_policy_keep = max(1, int(np.ceil(keep_fraction * len(feasible_idx))))
+            n_policy_keep = min(n_policy_keep, len(feasible_idx))
+            keep_local = np.argpartition(policy_sq[feasible_idx], n_policy_keep - 1)[:n_policy_keep]
+            policy_feasible = np.zeros(K, dtype=bool)
+            policy_feasible[feasible_idx[keep_local]] = True
+            feasible = policy_feasible
+
         # Multiplying by lam makes beta dimensionless in the MPPI softmin:
         # exp(-(base_score + beta*lam*z)/lam) = exp(-base_score/lam) * exp(-beta*z).
-        filtered_score = base_score + beta * lam * policy_norm
+        policy_bias = 0.0 if hard_filter else beta * lam * policy_norm
+        filtered_score = base_score + policy_bias
         filtered_score = np.where(feasible, filtered_score, np.inf)
 
         return {
@@ -96,8 +108,8 @@ def make_policy_filter_coupling(
                 "policy_cost_mean": float(np.mean(policy_sq)),
                 "policy_cost_std": float(policy_std),
                 "score_mean": float(np.mean(filtered_score[np.isfinite(filtered_score)])),
+                "hard_filter": float(hard_filter),
             },
         }
 
     return coupling
-

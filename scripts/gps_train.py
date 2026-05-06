@@ -222,40 +222,117 @@ def make_collection_bias(
     policy: DeterministicPolicy,
     gps_cfg: GPSConfig,
     it: int,
+    policy_trust: float = 1.0,
 ):
     """Return (prior_cost, coupling) for the current GPS iteration."""
     if it < gps_cfg.coupling_warmup_iters or gps_cfg.coupling_mode == "raw":
         return None, None
 
+    lambda_track = gps_cfg.lambda_policy_track * policy_trust
+    coupling_beta = gps_cfg.policy_coupling_beta * policy_trust
+    keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
+
     if gps_cfg.coupling_mode == "cost":
         prior = make_policy_tracking_prior(
             policy,
-            lambda_track=gps_cfg.lambda_policy_track,
+            lambda_track=lambda_track,
         )
         return prior, None
 
-    if gps_cfg.coupling_mode in {"filter", "hybrid"}:
+    if gps_cfg.coupling_mode in {"filter", "hard_filter", "hybrid"}:
         prior = None
         if gps_cfg.coupling_mode == "hybrid":
             prior = make_policy_tracking_prior(
                 policy,
-                lambda_track=gps_cfg.lambda_policy_track,
+                lambda_track=lambda_track,
             )
         coupling = make_policy_filter_coupling(
             policy,
-            beta=gps_cfg.policy_coupling_beta,
+            beta=coupling_beta,
             cost_slack_rel=gps_cfg.policy_coupling_cost_slack_rel,
             cost_slack_abs=gps_cfg.policy_coupling_cost_slack_abs,
             min_fraction=gps_cfg.policy_coupling_min_fraction,
+            keep_fraction=keep_fraction,
             min_n_eff=gps_cfg.policy_coupling_min_n_eff,
             max_weight=gps_cfg.policy_coupling_max_weight,
+            hard_filter=gps_cfg.coupling_mode == "hard_filter",
         )
         return prior, coupling
 
     raise ValueError(f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}")
 
-def main(run_name: str | None = None, use_warp: bool = False) -> None:
+
+def compute_policy_trust(
+    *,
+    policy_cost: float | None,
+    raw_mppi_cost: float | None,
+    eval_episode_len: int,
+    gps_cfg: GPSConfig,
+) -> float:
+    if not gps_cfg.adaptive_policy_trust:
+        return gps_cfg.policy_trust_max
+    if policy_cost is None or raw_mppi_cost is None:
+        return gps_cfg.policy_trust_min
+
+    j_policy = policy_cost / eval_episode_len
+    j_mppi = raw_mppi_cost / eval_episode_len
+    j_bad = gps_cfg.policy_trust_bad_cost_per_step
+    denom = max(j_bad - j_mppi, 1e-8)
+    quality = np.clip((j_bad - j_policy) / denom, 0.0, 1.0)
+    return float(
+        gps_cfg.policy_trust_min
+        + (gps_cfg.policy_trust_max - gps_cfg.policy_trust_min) * quality
+    )
+
+
+def _apply_gps_overrides(gps_cfg: GPSConfig, **overrides) -> None:
+    for key, value in overrides.items():
+        if value is not None:
+            setattr(gps_cfg, key, value)
+
+
+def main(
+    run_name: str | None = None,
+    use_warp: bool = False,
+    n_gps_iters: int | None = None,
+    episodes_per_iter: int | None = None,
+    steps_per_episode: int | None = None,
+    eval_every: int | None = None,
+    eval_n_episodes: int | None = None,
+    eval_episode_len: int | None = None,
+    eval_mppi_baseline_episodes: int | None = None,
+    coupling_warmup_iters: int | None = None,
+    coupling_mode: str | None = None,
+    lambda_policy_track: float | None = None,
+    adaptive_policy_trust: bool | None = None,
+    policy_trust_bad_cost_per_step: float | None = None,
+    policy_trust_min: float | None = None,
+    policy_trust_max: float | None = None,
+    policy_coupling_beta: float | None = None,
+    policy_coupling_cost_slack_rel: float | None = None,
+    policy_coupling_keep_fraction: float | None = None,
+) -> None:
     gps_cfg = GPSConfig.load("acrobot")
+    _apply_gps_overrides(
+        gps_cfg,
+        n_gps_iters=n_gps_iters,
+        episodes_per_iter=episodes_per_iter,
+        steps_per_episode=steps_per_episode,
+        eval_every=eval_every,
+        eval_n_episodes=eval_n_episodes,
+        eval_episode_len=eval_episode_len,
+        eval_mppi_baseline_episodes=eval_mppi_baseline_episodes,
+        coupling_warmup_iters=coupling_warmup_iters,
+        coupling_mode=coupling_mode,
+        lambda_policy_track=lambda_policy_track,
+        adaptive_policy_trust=adaptive_policy_trust,
+        policy_trust_bad_cost_per_step=policy_trust_bad_cost_per_step,
+        policy_trust_min=policy_trust_min,
+        policy_trust_max=policy_trust_max,
+        policy_coupling_beta=policy_coupling_beta,
+        policy_coupling_cost_slack_rel=policy_coupling_cost_slack_rel,
+        policy_coupling_keep_fraction=policy_coupling_keep_fraction,
+    )
     mppi_cfg = MPPIConfig.load("acrobot")
     policy_cfg = PolicyConfig()
 
@@ -287,11 +364,16 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device="cuda")
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
+    policy_trust = (
+        gps_cfg.policy_trust_max
+        if not gps_cfg.adaptive_policy_trust
+        else gps_cfg.policy_trust_min
+    )
 
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
 
-        prior, coupling = make_collection_bias(policy, gps_cfg, it)
+        prior, coupling = make_collection_bias(policy, gps_cfg, it, policy_trust=policy_trust)
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
         obs, acts, mppi_cost, mppi_stats = collect_episodes(
@@ -357,12 +439,19 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
             else:
                 mppi_eval_mean = mppi_eval_std = mppi_eval_mean_ps = mppi_eval_std_ps = None
                 mppi_eval_hit_success = mppi_eval_hold_success = None
+            policy_trust_next = compute_policy_trust(
+                policy_cost=eval_mean,
+                raw_mppi_cost=mppi_eval_mean,
+                eval_episode_len=gps_cfg.eval_episode_len,
+                gps_cfg=gps_cfg,
+            )
         else:
             eval_mean = eval_std = eval_mean_ps = eval_std_ps = None
             eval_hit_success = eval_hold_success = eval_time_to_hit = None
             eval_final_tip_dist = eval_final_qvel_norm = None
             mppi_eval_mean = mppi_eval_std = mppi_eval_mean_ps = mppi_eval_std_ps = None
             mppi_eval_hit_success = mppi_eval_hold_success = None
+            policy_trust_next = policy_trust
 
         record = {
             "iter": it,
@@ -382,8 +471,16 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
             "action_ema_alpha": gps_cfg.action_ema_alpha,
             "wall_time_s": time.time() - t_start,
             "coupling_mode": gps_cfg.coupling_mode if (prior is not None or coupling is not None) else "raw",
-            "lambda_track": gps_cfg.lambda_policy_track if (it > 0 and prior is not None) else 0.0,
-            "policy_coupling_beta": gps_cfg.policy_coupling_beta if (it > 0 and coupling is not None) else 0.0,
+            "policy_trust": policy_trust,
+            "policy_trust_next": policy_trust_next,
+            "lambda_track": gps_cfg.lambda_policy_track * policy_trust if (it > 0 and prior is not None) else 0.0,
+            "policy_coupling_beta": gps_cfg.policy_coupling_beta * policy_trust if (it > 0 and coupling is not None) else 0.0,
+            "policy_coupling_keep_fraction_effective": (
+                1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
+                if (it > 0 and coupling is not None) else 1.0
+            ),
+            "lambda_track_base": gps_cfg.lambda_policy_track,
+            "policy_coupling_beta_base": gps_cfg.policy_coupling_beta,
             "raw_mppi_eval_mean_cost": mppi_eval_mean,
             "raw_mppi_eval_std_cost": mppi_eval_std,
             "raw_mppi_eval_cost_per_step_mean": mppi_eval_mean_ps,
@@ -426,9 +523,11 @@ def main(run_name: str | None = None, use_warp: bool = False) -> None:
         )
         print(
             f"iter {it:3d}  mppi_cost={mppi_cost:7.1f}  "
-            f"bc_loss={bc_loss:.5f}{eval_str}{mppi_eval_str}  "
+            f"bc_loss={bc_loss:.5f}  trust={policy_trust:.3f}->{policy_trust_next:.3f}"
+            f"{eval_str}{mppi_eval_str}  "
             f"wall={record['wall_time_s']:.1f}s"
         )
+        policy_trust = policy_trust_next
 
         torch.save(policy.state_dict(), run_dir / "checkpoint_latest.pt")
         if it % 5 == 0 or it == gps_cfg.n_gps_iters - 1:
