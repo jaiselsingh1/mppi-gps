@@ -13,8 +13,9 @@ _XML = str(Path(__file__).resolve().parents[2] / "assets" / "acrobot.xml")
 
 _TARGET = np.array([0.0, 0.0, 4.0])
 _TARGET_RADIUS = 0.2
-_TOLERANCE_MARGIN = 1.0
+_TOLERANCE_MARGIN = 2.0
 _TOLERANCE_VALUE_AT_MARGIN = 0.1
+_CONROL_COST_WEIGHT = 0.0
 
 # dm_control suite acrobot SwingUp reward:
 # rewards.tolerance(tip_to_target, bounds=(0, target_radius), margin=1).
@@ -39,10 +40,12 @@ class CostComponents(NamedTuple):
     tip_dist: Float[Array, "..."]
     target_reward: Float[Array, "..."]
     target_cost: Float[Array, "..."]
+    control_cost: Float[Array, "..."]
 
 
 class WeightedCostComponents(NamedTuple):
     target_cost: Float[Array, "..."]
+    control_cost: Float[Array, "..."]
     total: Float[Array, "..."]
 
 
@@ -115,15 +118,24 @@ class Acrobot(MuJoCoEnv):
         )
         target_cost = 1.0 - reward
 
+        # du = np.diff(actions, axis=-2)
+        # action_rate_cost = np.zeros(actions.shape[:-1])
+        # action_rate_cost[..., 1:] = np.sum(du**2, axis=-1)
+        
+        control_cost = np.linalg.norm(actions, axis=-1) ** 2
+
         return CostComponents(
             tip_dist=dist,
             target_reward=reward,
             target_cost=target_cost,
+            control_cost=control_cost
         )
 
     def weighted_cost_components(self, c: CostComponents) -> WeightedCostComponents:
-        total = c.target_cost
+        control_cost = _CONROL_COST_WEIGHT * c.control_cost
+        total = c.target_cost + control_cost
         return WeightedCostComponents(
+            control_cost=control_cost, 
             target_cost=c.target_cost,
             total=total,
         )

@@ -13,8 +13,13 @@ class MPPIConfig:
     # this parameter essentially helps you know how much you want to focus on specific samples vs others 
     noise_sigma: float = 0.5 # exploration noise std 
     use_is_correction: bool = False
+    # Optional per-action exploration std. Builds diag(noise_std^2) internally.
+    noise_std: list[float] | None = None
     # Optional full action covariance. When unset, MPPI uses noise_sigma^2 * I.
     noise_cov: list[list[float]] | None = None
+    # Legacy/script-specific option. src.mppi.MPPI does not clip actions; actuator
+    # limiting belongs to the environment/simulator, matching Lyceum.
+    clip_actions: bool = False
 
     @staticmethod
     def load(env_name: str) -> "MPPIConfig":

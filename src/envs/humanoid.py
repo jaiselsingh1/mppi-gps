@@ -20,6 +20,9 @@ _UPRIGHT_THRESHOLD = 0.9
 _UPRIGHT_MARGIN = 1.9
 _DONT_MOVE_MARGIN = 2.0
 
+_W_REWARD = 1.0
+_W_STAND = 0.0
+_W_TASK = 0.0
 _W_LATERAL = 0.0
 _W_LATERAL_VEL = 0.0
 _W_ROOT_ANGVEL = 0.0
@@ -116,11 +119,36 @@ def _standing_reward(root_z: np.ndarray, root_quat: np.ndarray) -> np.ndarray:
 
 
 class Humanoid(MuJoCoEnv):
-    def __init__(self, frame_skip: int = 5, target_speed: float = 0.0, **kwargs) -> None:
+    def __init__(
+        self,
+        frame_skip: int = 5,
+        target_speed: float = 0.0,
+        terminal_stand_weight: float = _W_TERMINAL_STAND,
+        reward_weight: float = _W_REWARD,
+        stand_weight: float = _W_STAND,
+        task_weight: float = _W_TASK,
+        lateral_weight: float = _W_LATERAL,
+        lateral_vel_weight: float = _W_LATERAL_VEL,
+        root_angvel_weight: float = _W_ROOT_ANGVEL,
+        posture_weight: float = _W_POSTURE,
+        qvel_weight: float = _W_QVEL,
+        ctrl_weight: float = _W_CTRL,
+        **kwargs,
+    ) -> None:
         super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
         self._nq = self.model.nq
         self._nv = self.model.nv
         self._target_speed = target_speed
+        self._terminal_stand_weight = terminal_stand_weight
+        self._reward_weight = reward_weight
+        self._stand_weight = stand_weight
+        self._task_weight = task_weight
+        self._lateral_weight = lateral_weight
+        self._lateral_vel_weight = lateral_vel_weight
+        self._root_angvel_weight = root_angvel_weight
+        self._posture_weight = posture_weight
+        self._qvel_weight = qvel_weight
+        self._ctrl_weight = ctrl_weight
         self._act_joint_ids = self.model.actuator_trnid[:, 0].copy()
         self._act_qpos_adr = self.model.jnt_qposadr[self._act_joint_ids].copy()
         self._act_dof_adr = self.model.jnt_dofadr[self._act_joint_ids].copy()
@@ -257,17 +285,19 @@ class Humanoid(MuJoCoEnv):
         self,
         c: CostComponents,
     ) -> WeightedCostComponents:
-        reward_cost = c.reward_cost
-        stand_cost = 1.0 - c.standing_reward
-        task_cost = c.task_cost
-        lateral_cost = _W_LATERAL * (c.root_y ** 2)
-        lateral_vel_cost = _W_LATERAL_VEL * (c.vy ** 2)
-        root_angvel_cost = _W_ROOT_ANGVEL * c.root_angvel_sq
-        posture_cost = _W_POSTURE * c.posture_sq
-        qvel_cost = _W_QVEL * c.qvel_sq
-        ctrl_cost = _W_CTRL * c.ctrl_sq
+        reward_cost = self._reward_weight * c.reward_cost
+        stand_cost = self._stand_weight * (1.0 - c.standing_reward)
+        task_cost = self._task_weight * c.task_cost
+        lateral_cost = self._lateral_weight * (c.root_y ** 2)
+        lateral_vel_cost = self._lateral_vel_weight * (c.vy ** 2)
+        root_angvel_cost = self._root_angvel_weight * c.root_angvel_sq
+        posture_cost = self._posture_weight * c.posture_sq
+        qvel_cost = self._qvel_weight * c.qvel_sq
+        ctrl_cost = self._ctrl_weight * c.ctrl_sq
         total = (
             reward_cost
+            + stand_cost
+            + task_cost
             + lateral_cost
             + lateral_vel_cost
             + root_angvel_cost
@@ -295,7 +325,7 @@ class Humanoid(MuJoCoEnv):
     ) -> Float[Array, "K"]:
         qpos = self.state_qpos(states)
         stand_reward = _standing_reward(qpos[..., 2], qpos[..., 3:7])
-        return _W_TERMINAL_STAND * (1.0 - stand_reward)
+        return self._terminal_stand_weight * (1.0 - stand_reward)
 
     def _get_obs(self) -> Float[np.ndarray, "obs_dim"]:
         return np.concatenate([

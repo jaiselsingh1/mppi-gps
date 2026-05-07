@@ -102,8 +102,7 @@ class MPPI:
 
         # weighted update on sampled perturbations
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
-
-        action = self.U[0].copy()
+        action = np.clip(self.U[0].copy(), self.env.action_bounds[0], self.env.action_bounds[1])
 
         # shift horizon
         self.U[:-1] = self.U[1:]
@@ -150,7 +149,19 @@ class MPPI:
             self,
             cfg: MPPIConfig,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        if cfg.noise_cov is None:
+        if cfg.noise_std is not None and cfg.noise_cov is not None:
+            raise ValueError("Set either noise_std or noise_cov, not both.")
+
+        if cfg.noise_std is not None:
+            std = np.asarray(cfg.noise_std, dtype=float)
+            if std.shape != (self.nu,):
+                raise ValueError(
+                    f"MPPI noise_std must have shape {(self.nu,)}, got {std.shape}."
+                )
+            if np.any(std <= 0.0):
+                raise ValueError("MPPI noise_std entries must be positive.")
+            cov = np.diag(std ** 2)
+        elif cfg.noise_cov is None:
             if self.sigma <= 0.0:
                 raise ValueError(f"MPPI noise_sigma must be positive, got {self.sigma}.")
             cov = (self.sigma ** 2) * np.eye(self.nu)

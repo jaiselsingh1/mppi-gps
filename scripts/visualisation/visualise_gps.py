@@ -251,6 +251,42 @@ def _plot_policy_trust(run_dir: Path) -> float:
     return float(last.get("policy_trust_next", last.get("policy_trust", 1.0)))
 
 
+def _gps_cfg_for_run(run_dir: Path) -> GPSConfig:
+    """Load the base acrobot config, then restore run-specific CLI overrides.
+
+    Older GPS runs do not write a resolved config file, but their metrics rows
+    contain the coupling settings needed for correct biased-MPPI visualisation.
+    """
+    gps_cfg = GPSConfig.load("acrobot")
+    metrics_path = run_dir / "metrics.jsonl"
+    if not metrics_path.exists():
+        return gps_cfg
+
+    rows = [json.loads(l) for l in open(metrics_path)]
+    active_rows = [r for r in rows if r.get("coupling_mode") != "raw"]
+    if not active_rows:
+        return gps_cfg
+
+    last = active_rows[-1]
+    gps_cfg.coupling_mode = str(last.get("coupling_mode", gps_cfg.coupling_mode))
+    gps_cfg.lambda_policy_track = float(
+        last.get("lambda_track_base", last.get("lambda_track", gps_cfg.lambda_policy_track))
+    )
+    gps_cfg.policy_coupling_beta = float(
+        last.get(
+            "policy_coupling_beta_base",
+            last.get("policy_coupling_beta", gps_cfg.policy_coupling_beta),
+        )
+    )
+    gps_cfg.policy_coupling_keep_fraction = float(
+        last.get(
+            "policy_coupling_keep_fraction_effective",
+            gps_cfg.policy_coupling_keep_fraction,
+        )
+    )
+    return gps_cfg
+
+
 def _make_collection_bias_for_plot(
     policy: DeterministicPolicy,
     gps_cfg: GPSConfig,
@@ -445,7 +481,7 @@ def main(
     if not run_dir.exists():
         raise SystemExit(f"run_dir not found: {run_dir}")
 
-    gps_cfg = GPSConfig.load("acrobot")
+    gps_cfg = _gps_cfg_for_run(run_dir)
     plot_metrics(run_dir, gps_cfg)
     if not no_traces:
         plot_trace_comparison(

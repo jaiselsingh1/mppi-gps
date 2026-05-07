@@ -1,6 +1,6 @@
 {
     "n_gps_iters": 30,
-    "episodes_per_iter": 5,
+    "episodes_per_iter": 10,
     "steps_per_episode": 1000,
     "batch_size": 128,
     "bc_epochs_per_iter": 3,
@@ -15,9 +15,9 @@
     "coupling_warmup_iters": 3,
     "coupling_mode": "filter",
 
-    "adaptive_policy_trust": false,
-    "policy_trust_min": 1.0,
-    "policy_trust_max": 1.0,
+    "adaptive_policy_trust": true,
+    "policy_trust_min": 0.0,
+    "policy_trust_max": 0.5,
 
     "lambda_policy_track": 0.0,
     "policy_trust_bad_cost_per_step": 1.0,

@@ -64,6 +64,7 @@ def collect_episodes(
                  'coupling_policy_cost_std', 'coupling_score_mean')
     stat_sums = {k: 0.0 for k in stat_keys}
     n_calls = 0
+    action_low, action_high = env.action_bounds
 
     for ep in range(n_episodes):
         np.random.seed(seed_base + ep)
@@ -84,7 +85,9 @@ def collect_episodes(
                 stat_sums[k] += info[k]
             n_calls += 1
             ep_obs.append(obs)
-            ep_actions.append(action)
+            # MPPI and the simulator see the raw action. BC learns the actuator-
+            # bounded command that the policy can actually represent.
+            ep_actions.append(np.clip(action, action_low, action_high))
             _, cost, done, _ = env.step(action)
             ep_cost += cost
 
