@@ -1,10 +1,31 @@
 {
-  "score": 9121.503736598126,
-  "mean_cost_per_step": 6.879104505804108,
-  "hit_success_rate": 0.2,
-  "hold_success_rate": 0.2,
-  "mean_time_to_hit": 877.4,
-  "mean_final_tip_dist": 1.921401909234185,
-  "mean_final_qvel_norm": 3.4744441168902673,
-  "n_eval_episodes": 10
+  "mean_cost_per_step": 0.3750052236947006,
+  "hit_success_rate": 0.8,
+  "hold_success_rate": 0.8,
+  "final_hold_success_rate": 0.4,
+  "mean_time_to_hit": 376.2,
+  "mean_final_tip_dist": 0.6716430900444573,
+  "mean_final_qvel_norm": 1.3988160448140392,
+  "mean_n_eff": 1.0057063836778468,
+  "eval_steps": 600,
+  "n_eval_episodes": 5,
+  "seeds": [0, 1, 2, 3, 4],
+  "episode_hit_successes": [true, true, true, true, false],
+  "episode_hold_successes": [true, true, true, true, false],
+  "episode_final_hold_successes": [true, false, true, false, false],
+  "episode_times_to_hit": [225, 400, 268, 388, 600],
+  "params": {
+    "K": 512,
+    "H": 192,
+    "noise_sigma": 0.1,
+    "lam": 0.0003,
+    "use_is_correction": false,
+    "clip_actions": false
+  },
+  "cost_params": {
+    "qvel_cost_weight": 0.15,
+    "qvel_excess_cost_weight": 0.05,
+    "terminal_target_cost_weight": 100.0,
+    "terminal_qvel_cost_weight": 25.0
+  }
 }

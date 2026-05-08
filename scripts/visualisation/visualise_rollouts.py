@@ -103,11 +103,14 @@ def main():
 
         # text overlay with cost info
         tip_z = env.data.site("tip").xpos[2]
+        c = env.running_cost_components(state, action, env.data.sensordata.copy())
+        wc = env.weighted_cost_components(c)
         lines = [
             f"t={t:4d}",
             f"cost_min={info['cost_min']:.4f}  cost_mean={info['cost_mean']:.4f}",
             f"cost_std={costs.std():.4f}  n_eff={info['n_eff']:.2f}",
-            f"tip_z={tip_z:.2f}",
+            f"tip_z={tip_z:.2f}  qvel={float(c.qvel_norm):.2f}",
+            f"w_qvel={float(wc.qvel_cost):.4f}  w_qvel_hi={float(wc.qvel_excess_cost):.4f}",
         ]
         for i, line in enumerate(lines):
             cv2.putText(frame, line, (10, 25 + i * 25),
@@ -125,7 +128,9 @@ def main():
                 f"cost_std={costs.std():.4f}  n_eff={info['n_eff']:.2f}  "
                 f"action={float(action[0]):.3f}  "
                 f"shoulder={env.data.qpos[0]:.2f}  elbow={env.data.qpos[1]:.2f}  "
-                f"tip_z={tip_z:.2f}"
+                f"tip_z={tip_z:.2f}  qvel={float(c.qvel_norm):.2f}  "
+                f"w_qvel={float(wc.qvel_cost):.4f}  "
+                f"w_qvel_hi={float(wc.qvel_excess_cost):.4f}"
             )
 
     if frames:

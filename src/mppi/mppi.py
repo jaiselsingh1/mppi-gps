@@ -23,8 +23,11 @@ class MPPI:
         self.use_is_correction = cfg.use_is_correction
         if self.lam <= 0.0:
             raise ValueError(f"MPPI temperature lam must be positive, got {self.lam}.")
+        if cfg.clip_actions and self.use_is_correction:
+            raise ValueError("clip_actions is not compatible with use_is_correction.")
 
         self.nu = env.action_dim
+        self.action_low, self.action_high = env.action_bounds
         self.noise_cov, self.noise_chol, self.noise_precision = self._build_noise_model(cfg)
 
         self.reset()
@@ -63,12 +66,19 @@ class MPPI:
             self.U = nominal.copy()
         elif nominal_first is not None:
             self.U[0] = nominal_first
+        if self.cfg.clip_actions:
+            self.U = np.clip(self.U, self.action_low, self.action_high)
 
-        # sample ε ~ N(0, Σ), then roll out mean + ε. Matching Lyceum,
-        # MPPI does not clip here; actuator limiting belongs to the env/sim.
+        # When clipping is enabled, use the effective bounded perturbation for
+        # the update so sampled rollouts and the nominal sequence stay feasible.
         noise = self._sample_noise()
-        eps = noise
-        U_sampled = self.U[None, :, :] + eps
+        U_noisy = self.U[None, :, :] + noise
+        if self.cfg.clip_actions:
+            U_sampled = np.clip(U_noisy, self.action_low, self.action_high)
+            eps = U_sampled - self.U[None, :, :]
+        else:
+            U_sampled = U_noisy
+            eps = noise
 
         # rollouts → per-sample base cost (running + terminal)
         states, costs, sensordata = self.env.batch_rollout(state, U_sampled)
@@ -102,11 +112,15 @@ class MPPI:
 
         # weighted update on sampled perturbations
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
-        action = np.clip(self.U[0].copy(), self.env.action_bounds[0], self.env.action_bounds[1])
+        if self.cfg.clip_actions:
+            self.U = np.clip(self.U, self.action_low, self.action_high)
+        action = np.clip(self.U[0].copy(), self.action_low, self.action_high)
 
         # shift horizon
         self.U[:-1] = self.U[1:]
         self.U[-1] = self.U[-2].copy()
+        if self.cfg.clip_actions:
+            self.U = np.clip(self.U, self.action_low, self.action_high)
 
         # stash for GPS
         self._last_states = states

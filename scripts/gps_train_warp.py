@@ -334,6 +334,9 @@ class TorchWarpMPPI:
         action_t = self.U[0].clone()
         self.U[:-1].copy_(self.U[1:].clone())
         self.U[-1].copy_(self.U[-2])
+        if self.cfg.clip_actions:
+            action_t.clamp_(self.action_low, self.action_high)
+            self.U.clamp_(self.action_low, self.action_high)
 
         self._last_states = states
         self._last_actions = u_sampled

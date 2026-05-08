@@ -54,8 +54,13 @@ def main(
             rr.log("running_raw/tip_dist", rr.Scalars(float(c.tip_dist)))
             rr.log("running_raw/target_reward", rr.Scalars(float(c.target_reward)))
             rr.log("running_raw/target_cost", rr.Scalars(float(c.target_cost)))
+            rr.log("running_raw/qvel_norm", rr.Scalars(float(c.qvel_norm)))
+            rr.log("running_raw/qvel_cost", rr.Scalars(float(c.qvel_cost)))
+            rr.log("running_raw/qvel_excess_cost", rr.Scalars(float(c.qvel_excess_cost)))
 
             rr.log("running_weighted/target", rr.Scalars(float(wc.target_cost)))
+            rr.log("running_weighted/qvel", rr.Scalars(float(wc.qvel_cost)))
+            rr.log("running_weighted/qvel_excess", rr.Scalars(float(wc.qvel_excess_cost)))
             rr.log("running_weighted/total", rr.Scalars(float(wc.total)))
 
             rr.log("task/tip_z", rr.Scalars(float(metrics["tip_z"])))
@@ -78,7 +83,8 @@ def main(
                     f"n_eff={info['n_eff']:6.2f} "
                     f"shoulder={env.data.qpos[0]:.2f}  elbow={env.data.qpos[1]:.2f}  "
                     f"tip_z={metrics['tip_z']:.2f} tip_dist={metrics['tip_dist']:.2f} "
-                    f"qvel={metrics['qvel_norm']:.2f} success={metrics['success']} "
+                    f"qvel={metrics['qvel_norm']:.2f} w_qvel={float(wc.qvel_cost):.3f} "
+                    f"w_qvel_hi={float(wc.qvel_excess_cost):.3f} success={metrics['success']} "
                     f"total_cost={total_cost:.2f}"
                 )
             if done:
