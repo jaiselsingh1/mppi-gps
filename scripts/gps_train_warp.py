@@ -21,6 +21,7 @@ import torch.nn.functional as F
 import tyro
 import warp as wp
 
+import src.envs.acrobot as acrobot_costs
 from src.envs.acrobot import Acrobot
 from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import GPSConfig, MPPIConfig, PolicyConfig
@@ -99,8 +100,18 @@ class TorchWarpMPPI:
         self._rollout_graph = None
 
         self._target = torch.tensor([0.0, 0.0, 4.0], dtype=self.dtype, device=self.device)
-        self._target_radius = 0.2
-        self._log_value_at_margin = math.log(0.1)
+        self._target_radius = float(acrobot_costs._TARGET_RADIUS)
+        self._tolerance_margin = float(acrobot_costs._TOLERANCE_MARGIN)
+        self._log_value_at_margin = math.log(float(acrobot_costs._TOLERANCE_VALUE_AT_MARGIN))
+        self._height_cost_weight = float(acrobot_costs._HEIGHT_COST_WEIGHT)
+        self._center_cost_weight = float(acrobot_costs._CENTER_COST_WEIGHT)
+        self._terminal_target_cost_weight = float(acrobot_costs._TERMINAL_TARGET_COST_WEIGHT)
+        self._qvel_cost_weight = float(env._qvel_cost_weight)
+        self._qvel_excess_cost_weight = float(env._qvel_excess_cost_weight)
+        self._qvel_target_gate_power = float(env._qvel_target_gate_power)
+        self._qvel_excess_threshold = float(env._qvel_excess_threshold)
+        self._terminal_qvel_cost_weight = float(env._terminal_qvel_cost_weight)
+        self._qvel_scale = torch.as_tensor(env._qvel_scale, dtype=self.dtype, device=self.device)
 
         self.U = torch.zeros((self.H, self.nu), dtype=self.dtype, device=self.device)
         self._last_states: torch.Tensor | None = None
@@ -184,15 +195,51 @@ class TorchWarpMPPI:
         states_hk = torch.cat((self.qpos_t, self.qvel_t), dim=-1)
         states = states_hk.transpose(0, 1).contiguous()
         sensordata = self.sensor_t.transpose(0, 1).contiguous()
-        costs = self._acrobot_cost_from_sensors(self.sensor_t)
+        costs = self._acrobot_cost(self.sensor_t, self.qvel_t, self.actions_t)
         return states, costs, sensordata
 
-    def _acrobot_cost_from_sensors(self, sensordata_hk: torch.Tensor) -> torch.Tensor:
-        tip_pos = sensordata_hk[..., :3]
+    def _target_reward(self, tip_pos: torch.Tensor) -> torch.Tensor:
         dist = torch.linalg.norm(tip_pos - self._target, dim=-1)
         distance_from_bound = torch.clamp(dist - self._target_radius, min=0.0)
-        reward = torch.exp(self._log_value_at_margin * distance_from_bound * distance_from_bound)
-        return (1.0 - reward).sum(dim=0)
+        if self._tolerance_margin > 0.0:
+            distance_from_bound = distance_from_bound / self._tolerance_margin
+            reward = torch.exp(self._log_value_at_margin * distance_from_bound * distance_from_bound)
+            return torch.where(dist <= self._target_radius, torch.ones_like(reward), reward)
+        return torch.where(
+            dist <= self._target_radius,
+            torch.ones_like(dist),
+            torch.zeros_like(dist),
+        )
+
+    def _dense_target_cost(self, tip_pos: torch.Tensor) -> torch.Tensor:
+        height_cost = 1.0 - torch.clamp(tip_pos[..., 2] / self._target[2], 0.0, 1.0)
+        center_cost = torch.sum((tip_pos[..., :2] - self._target[:2]) ** 2, dim=-1)
+        return self._height_cost_weight * height_cost + self._center_cost_weight * center_cost
+
+    def _acrobot_cost(
+        self,
+        sensordata_hk: torch.Tensor,
+        qvel_hk: torch.Tensor,
+        actions_hk: torch.Tensor,
+    ) -> torch.Tensor:
+        tip_pos = sensordata_hk[..., :3]
+        reward = self._target_reward(tip_pos)
+        target_cost = self._dense_target_cost(tip_pos)
+
+        qvel_sq = torch.sum((qvel_hk / self._qvel_scale) ** 2, dim=-1)
+        qvel_gate = reward ** self._qvel_target_gate_power
+        qvel_cost = self._qvel_cost_weight * qvel_gate * qvel_sq
+        qvel_excess = torch.clamp(torch.abs(qvel_hk) - self._qvel_excess_threshold, min=0.0)
+        qvel_excess_cost = self._qvel_excess_cost_weight * torch.sum(
+            (qvel_excess / self._qvel_excess_threshold) ** 2,
+            dim=-1,
+        )
+        control_cost = 0.0 * torch.sum(actions_hk * actions_hk, dim=-1)
+
+        running = target_cost + qvel_cost + qvel_excess_cost + control_cost
+        terminal_target = self._terminal_target_cost_weight * target_cost[-1]
+        terminal_qvel = self._terminal_qvel_cost_weight * qvel_gate[-1] * qvel_sq[-1]
+        return torch.sum(running, dim=0) + terminal_target + terminal_qvel
 
     def _is_correction(self, eps: torch.Tensor) -> torch.Tensor:
         precision_eps = torch.einsum("ij,ktj->kti", self.noise_precision, eps)
@@ -731,7 +778,7 @@ def _apply_gps_overrides(gps_cfg: GPSConfig, **overrides: Any) -> None:
 
 def main(
     run_name: str | None = None,
-    n_batches: int = 1,
+    n_batches: int | None = None,
     device: str = "cuda",
     n_gps_iters: int | None = None,
     episodes_per_iter: int | None = None,
@@ -752,6 +799,13 @@ def main(
     policy_coupling_keep_fraction: float | None = None,
 ) -> None:
     gps_cfg = GPSConfig.load("acrobot")
+    if n_batches is not None:
+        if episodes_per_iter is not None and episodes_per_iter != n_batches:
+            raise ValueError(
+                "--n-batches is an alias for GPS episodes_per_iter; "
+                "do not pass a conflicting --episodes-per-iter."
+            )
+        episodes_per_iter = n_batches
     _apply_gps_overrides(
         gps_cfg,
         n_gps_iters=n_gps_iters,
@@ -777,12 +831,13 @@ def main(
 
     if device.startswith("cuda") and not torch.cuda.is_available():
         raise RuntimeError("gps_train_warp.py requires CUDA for the default device='cuda'.")
-    if n_batches <= 0:
-        raise ValueError(f"n_batches must be positive, got {n_batches}.")
+    if gps_cfg.episodes_per_iter <= 0:
+        raise ValueError(f"episodes_per_iter must be positive, got {gps_cfg.episodes_per_iter}.")
 
-    effective_k = mppi_cfg.K * n_batches
+    mppi_n_batches = gps_cfg.episodes_per_iter
+    effective_k = mppi_cfg.K * mppi_n_batches
     if run_name is None:
-        suffix = f"_warp_nb{n_batches}"
+        suffix = f"_warp_eps{gps_cfg.episodes_per_iter}"
         if gps_cfg.coupling_mode == "hybrid":
             run_name = (
                 f"gps_hybrid_track_{gps_cfg.lambda_policy_track:g}"
@@ -801,7 +856,8 @@ def main(
     print(f"run_dir: {run_dir}")
     print(f"gps_cfg: {gps_cfg}")
     print(f"warp device: {device}")
-    print(f"K: {mppi_cfg.K}  n_batches: {n_batches}  effective_K/nworld: {effective_k}")
+    print(f"n_batches/episodes_per_iter: {gps_cfg.episodes_per_iter}")
+    print(f"K: {mppi_cfg.K}  effective_K/nworld: {effective_k}")
 
     torch.manual_seed(0)
     if torch.cuda.is_available():
@@ -809,7 +865,7 @@ def main(
     rng = np.random.default_rng(0)
 
     env = Acrobot(use_warp=True, nworld=effective_k)
-    mppi = TorchWarpMPPI(env, mppi_cfg, n_batches=n_batches, device=device)
+    mppi = TorchWarpMPPI(env, mppi_cfg, n_batches=mppi_n_batches, device=device)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=device)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
@@ -955,7 +1011,9 @@ def main(
             "mppi_n_eff": mppi_stats["n_eff"],
             "mppi_lam_effective": mppi_stats["lam"],
             "mppi_K": mppi_cfg.K,
-            "mppi_n_batches": n_batches,
+            "n_batches": gps_cfg.episodes_per_iter,
+            "episodes_per_iter": gps_cfg.episodes_per_iter,
+            "mppi_n_batches": mppi_n_batches,
             "mppi_effective_K": effective_k,
             "coupling_active": mppi_stats["coupling_active"],
             "coupling_used_fallback": mppi_stats["coupling_used_fallback"],

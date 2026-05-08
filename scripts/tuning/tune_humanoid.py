@@ -33,6 +33,7 @@ class HumanoidTrial:
     lam: float = 1.0
     noise_sigma: float = 0.25
     noise_std: list[float] | None = None
+    noise_temporal_alpha: float = 0.0
     clip_actions: bool = False
     terminal_stand_weight: float = 48.0
     reward_weight: float = 1.0
@@ -98,6 +99,7 @@ def evaluate_seed(trial: HumanoidTrial, seed: int) -> dict[str, float]:
         lam=trial.lam,
         noise_sigma=trial.noise_sigma,
         noise_std=trial.noise_std,
+        noise_temporal_alpha=trial.noise_temporal_alpha,
         clip_actions=trial.clip_actions,
     )
     controller = MPPI(env, cfg)
@@ -276,6 +278,16 @@ def make_trials() -> list[HumanoidTrial]:
             tags=["clip_ablation", "dm_control_reward"],
         ),
         HumanoidTrial(
+            name="stand_clip_smooth",
+            target_speed=0.0,
+            steps=200,
+            lam=1.0,
+            noise_sigma=0.25,
+            noise_temporal_alpha=0.85,
+            clip_actions=True,
+            tags=["clip_ablation", "temporal_noise", "dm_control_reward"],
+        ),
+        HumanoidTrial(
             name="stand_shaping",
             target_speed=0.0,
             steps=200,
@@ -355,6 +367,37 @@ def make_trials() -> list[HumanoidTrial]:
             clip_actions=True,
             terminal_stand_weight=96.0,
             tags=["clip_ablation", "dm_control_reward", "terminal_weight"],
+        ),
+        HumanoidTrial(
+            name="walk_075_forward_clip_smooth",
+            target_speed=0.75,
+            steps=200,
+            H=72,
+            lam=1.0,
+            noise_sigma=0.20,
+            noise_temporal_alpha=0.85,
+            clip_actions=True,
+            terminal_stand_weight=96.0,
+            tags=["clip_ablation", "temporal_noise", "terminal_weight"],
+        ),
+        HumanoidTrial(
+            name="walk_075_forward_clip_smooth_mild_shaping",
+            target_speed=0.75,
+            steps=200,
+            H=72,
+            lam=1.0,
+            noise_sigma=0.20,
+            noise_temporal_alpha=0.85,
+            clip_actions=True,
+            terminal_stand_weight=96.0,
+            stand_weight=0.5,
+            lateral_weight=0.25,
+            lateral_vel_weight=0.10,
+            root_angvel_weight=0.002,
+            posture_weight=0.0002,
+            qvel_weight=0.00005,
+            ctrl_weight=0.0005,
+            tags=["clip_ablation", "temporal_noise", "cost_ablation", "terminal_weight"],
         ),
         HumanoidTrial(
             name="walk_strict_hotter",

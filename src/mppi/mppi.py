@@ -23,6 +23,11 @@ class MPPI:
         self.use_is_correction = cfg.use_is_correction
         if self.lam <= 0.0:
             raise ValueError(f"MPPI temperature lam must be positive, got {self.lam}.")
+        if not 0.0 <= cfg.noise_temporal_alpha < 1.0:
+            raise ValueError(
+                "MPPI noise_temporal_alpha must be in [0, 1), "
+                f"got {cfg.noise_temporal_alpha}."
+            )
         if cfg.clip_actions and self.use_is_correction:
             raise ValueError("clip_actions is not compatible with use_is_correction.")
 
@@ -157,7 +162,15 @@ class MPPI:
 
     def _sample_noise(self) -> np.ndarray:
         standard = np.random.randn(self.K, self.H, self.nu)
-        return np.einsum('khi,ji->khj', standard, self.noise_chol)
+        noise = np.einsum('khi,ji->khj', standard, self.noise_chol)
+        alpha = self.cfg.noise_temporal_alpha
+        if alpha <= 0.0:
+            return noise
+
+        innovation_scale = np.sqrt(1.0 - alpha**2)
+        for t in range(1, self.H):
+            noise[:, t, :] = alpha * noise[:, t - 1, :] + innovation_scale * noise[:, t, :]
+        return noise
 
     def _build_noise_model(
             self,

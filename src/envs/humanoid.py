@@ -241,9 +241,8 @@ class Humanoid(MuJoCoEnv):
         small_control = (4.0 + small_control) / 5.0
 
         if self._target_speed > 0.0:
-            horizontal_speed = np.sqrt(vx**2 + vy**2)
             move_reward = _tolerance(
-                horizontal_speed,
+                vx,
                 bounds=(self._target_speed, float("inf")),
                 margin=self._target_speed,
                 sigmoid="linear",

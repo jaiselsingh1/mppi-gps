@@ -28,7 +28,7 @@ def main(
     H: int | None = None,
     lam: float | None = None,
     noise_sigma: float | None = None,
-    clip_actions: bool = False,
+    clip_actions: bool | None = None,
 ) -> None:
     env = Humanoid(
         target_speed=target_speed,
@@ -43,7 +43,8 @@ def main(
         cfg.lam = lam
     if noise_sigma is not None:
         cfg.noise_sigma = noise_sigma
-    cfg.clip_actions = clip_actions
+    if clip_actions is not None:
+        cfg.clip_actions = clip_actions
     controller = MPPI(env, cfg)
     task_name = "walk" if target_speed > 0.0 else "stand"
     print(
