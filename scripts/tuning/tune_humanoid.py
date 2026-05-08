@@ -25,7 +25,7 @@ RESULTS_PATH = Path("runs/humanoid_sweep.json")
 @dataclass
 class HumanoidTrial:
     name: str
-    target_speed: float = 0.0
+    target_speed: float = 0.3
     steps: int = 200
     seeds: int = 3
     K: int = 512
@@ -35,8 +35,9 @@ class HumanoidTrial:
     noise_std: list[float] | None = None
     noise_temporal_alpha: float = 0.0
     clip_actions: bool = False
-    terminal_stand_weight: float = 48.0
-    reward_weight: float = 1.0
+    terminal_gait_weight: float = 10.0
+    terminal_stand_weight: float = 0.0
+    reward_weight: float = 0.0
     stand_weight: float = 0.0
     task_weight: float = 0.0
     lateral_weight: float = 0.0
@@ -82,6 +83,7 @@ def evaluate_seed(trial: HumanoidTrial, seed: int) -> dict[str, float]:
     np.random.seed(seed)
     env = Humanoid(
         target_speed=trial.target_speed,
+        terminal_gait_weight=trial.terminal_gait_weight,
         terminal_stand_weight=trial.terminal_stand_weight,
         reward_weight=trial.reward_weight,
         stand_weight=trial.stand_weight,

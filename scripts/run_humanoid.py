@@ -13,7 +13,7 @@ import time
 
 def main(
     steps: int = 500,
-    target_speed: float = 0.0,
+    target_speed: float = 0.3,
     use_pd_nominal: bool = False,
     pd_kp: float = 20.0,
     pd_kd: float = 5.0,
@@ -23,7 +23,8 @@ def main(
     rerun_mode: Literal["serve", "spawn", "save", "off"] = "serve",
     rerun_path: str = "runs/humanoid_latest.rrd",
     stop_on_unhealthy: bool = False,
-    terminal_stand_weight: float = 48.0,
+    terminal_stand_weight: float = 0.0,
+    terminal_gait_weight: float = 10.0,
     K: int | None = None,
     H: int | None = None,
     lam: float | None = None,
@@ -32,6 +33,7 @@ def main(
 ) -> None:
     env = Humanoid(
         target_speed=target_speed,
+        terminal_gait_weight=terminal_gait_weight,
         terminal_stand_weight=terminal_stand_weight,
     )
     cfg = MPPIConfig.load("humanoid")
@@ -49,6 +51,7 @@ def main(
     task_name = "walk" if target_speed > 0.0 else "stand"
     print(
         f"humanoid task: {task_name} target_speed={target_speed} "
+        f"terminal_gait_weight={terminal_gait_weight} "
         f"terminal_stand_weight={terminal_stand_weight}"
     )
 
@@ -106,6 +109,17 @@ def main(
             rr.log("reward/task", rr.Scalars(float(c.task_reward)))
             rr.log("reward/small_control", rr.Scalars(float(c.small_control)))
             rr.log("cost/reward", rr.Scalars(float(c.reward_cost)))
+            rr.log("cost/gait", rr.Scalars(float(c.gait_cost)))
+            rr.log("cost/gait_orientation", rr.Scalars(float(c.gait_orientation_cost)))
+            rr.log("cost/gait_yaw", rr.Scalars(float(c.gait_yaw_cost)))
+            rr.log("cost/gait_xy_target", rr.Scalars(float(c.gait_xy_target_cost)))
+            rr.log("cost/gait_height", rr.Scalars(float(c.gait_height_cost)))
+            rr.log("cost/gait_velocity", rr.Scalars(float(c.gait_velocity_cost)))
+            rr.log("cost/gait_foot_target", rr.Scalars(float(c.gait_foot_target_cost)))
+            rr.log("cost/gait_foot_velocity_reward", rr.Scalars(float(c.gait_foot_velocity_reward)))
+            rr.log("cost/gait_knee_target", rr.Scalars(float(c.gait_knee_target_cost)))
+            rr.log("cost/gait_foot_clearance", rr.Scalars(float(c.gait_foot_clearance_cost)))
+            rr.log("cost/gait_leg_cross", rr.Scalars(float(c.gait_leg_cross_cost)))
             rr.log("lateral", rr.Scalars(float(c.root_y ** 2)))
             rr.log("lateral_vel", rr.Scalars(float(c.vy ** 2)))
             rr.log("root_angvel", rr.Scalars(float(c.root_angvel_sq)))
@@ -114,6 +128,7 @@ def main(
             rr.log("ctrl", rr.Scalars(float(c.ctrl_sq)))
             rr.log("action/absmax", rr.Scalars(float(np.max(np.abs(action)))))
 
+            rr.log("weighted_cost/gait", rr.Scalars(float(wc.gait_cost)))
             rr.log("weighted_cost/reward", rr.Scalars(float(wc.reward_cost)))
             rr.log("weighted_cost/stand", rr.Scalars(float(wc.stand_cost)))
             rr.log("weighted_cost/task", rr.Scalars(float(wc.task_cost)))

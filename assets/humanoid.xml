@@ -267,5 +267,13 @@
 
   <sensor>
     <subtreelinvel name="torso_subtreelinvel" body="torso"/>
+    <framepos name="foot_left_pos" objtype="body" objname="foot_left"/>
+    <framepos name="foot_right_pos" objtype="body" objname="foot_right"/>
+    <framepos name="shin_left_pos" objtype="body" objname="shin_left"/>
+    <framepos name="shin_right_pos" objtype="body" objname="shin_right"/>
+    <framelinvel name="foot_left_linvel" objtype="body" objname="foot_left"/>
+    <framelinvel name="foot_right_linvel" objtype="body" objname="foot_right"/>
+    <framelinvel name="shin_left_linvel" objtype="body" objname="shin_left"/>
+    <framelinvel name="shin_right_linvel" objtype="body" objname="shin_right"/>
   </sensor>
 </mujoco>

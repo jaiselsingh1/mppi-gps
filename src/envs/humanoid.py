@@ -20,7 +20,15 @@ _UPRIGHT_THRESHOLD = 0.9
 _UPRIGHT_MARGIN = 1.9
 _DONT_MOVE_MARGIN = 2.0
 
-_W_REWARD = 1.0
+_GAIT_TARGET_XY = np.array([2.0, 0.0])
+_GAIT_TARGET_HEIGHT = 1.28
+_GAIT_DEFAULT_TARGET_SPEED = 0.3
+_GAIT_FOOT_TARGET_AHEAD = 0.5
+_GAIT_MIN_FOOT_CLEARANCE = 0.05
+
+_W_GAIT = 1.0
+_W_TERMINAL_GAIT = 10.0
+_W_REWARD = 0.0
 _W_STAND = 0.0
 _W_TASK = 0.0
 _W_LATERAL = 0.0
@@ -43,9 +51,22 @@ class CostComponents(typing.NamedTuple):
     posture_sq: Float[Array, "K H"]
     qvel_sq: Float[Array, "K H"]
     ctrl_sq: Float[Array, "K H"]
+    gait_cost: Float[Array, "K H"]
+    gait_orientation_cost: Float[Array, "K H"]
+    gait_yaw_cost: Float[Array, "K H"]
+    gait_xy_target_cost: Float[Array, "K H"]
+    gait_height_cost: Float[Array, "K H"]
+    gait_velocity_cost: Float[Array, "K H"]
+    gait_foot_target_cost: Float[Array, "K H"]
+    gait_foot_velocity_reward: Float[Array, "K H"]
+    gait_knee_target_cost: Float[Array, "K H"]
+    gait_foot_clearance_cost: Float[Array, "K H"]
+    gait_leg_cross_cost: Float[Array, "K H"]
+    gait_ctrl_cost: Float[Array, "K H"]
 
 
 class WeightedCostComponents(typing.NamedTuple):
+    gait_cost: Float[Array, "K H"]
     reward_cost: Float[Array, "K H"]
     stand_cost: Float[Array, "K H"]
     task_cost: Float[Array, "K H"]
@@ -63,6 +84,25 @@ def _quat_up_z(quat: np.ndarray) -> np.ndarray:
     qx = quat[..., 1]
     qy = quat[..., 2]
     return 1.0 - 2.0 * (qx * qx + qy * qy)
+
+
+def _quat_roll_pitch_yaw(quat: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Roll/pitch/yaw from MuJoCo wxyz quaternions, matching the gait cost."""
+    qw = quat[..., 0]
+    qx = quat[..., 1]
+    qy = quat[..., 2]
+    qz = quat[..., 3]
+    roll = np.arctan2(
+        2.0 * (qw * qx + qy * qz),
+        1.0 - 2.0 * (qx * qx + qy * qy),
+    )
+    pitch_arg = np.clip(2.0 * (qw * qy - qz * qx), -1.0, 1.0)
+    pitch = np.arcsin(pitch_arg)
+    yaw = np.arctan2(
+        2.0 * (qw * qz + qx * qy),
+        1.0 - 2.0 * (qy * qy + qz * qz),
+    )
+    return roll, pitch, yaw
 
 
 def _sigmoid(value: np.ndarray, *, value_at_1: float, sigmoid: str) -> np.ndarray:
@@ -122,7 +162,9 @@ class Humanoid(MuJoCoEnv):
     def __init__(
         self,
         frame_skip: int = 5,
-        target_speed: float = 0.0,
+        target_speed: float = _GAIT_DEFAULT_TARGET_SPEED,
+        gait_weight: float = _W_GAIT,
+        terminal_gait_weight: float = _W_TERMINAL_GAIT,
         terminal_stand_weight: float = _W_TERMINAL_STAND,
         reward_weight: float = _W_REWARD,
         stand_weight: float = _W_STAND,
@@ -139,6 +181,8 @@ class Humanoid(MuJoCoEnv):
         self._nq = self.model.nq
         self._nv = self.model.nv
         self._target_speed = target_speed
+        self._gait_weight = gait_weight
+        self._terminal_gait_weight = terminal_gait_weight
         self._terminal_stand_weight = terminal_stand_weight
         self._reward_weight = reward_weight
         self._stand_weight = stand_weight
@@ -164,6 +208,34 @@ class Humanoid(MuJoCoEnv):
             mujoco.mjtObj.mjOBJ_BODY,
             "head",
         )
+        self._sensor_slices = {
+            name: self._sensor_slice(name)
+            for name in (
+                "foot_left_pos",
+                "foot_right_pos",
+                "shin_left_pos",
+                "shin_right_pos",
+                "foot_left_linvel",
+                "foot_right_linvel",
+                "shin_left_linvel",
+                "shin_right_linvel",
+            )
+        }
+
+    def _sensor_slice(self, name: str) -> slice:
+        sensor_id = mujoco.mj_name2id(
+            self.model,
+            mujoco.mjtObj.mjOBJ_SENSOR,
+            name,
+        )
+        if sensor_id < 0:
+            raise ValueError(f"Missing required Humanoid sensor: {name}")
+        start = int(self.model.sensor_adr[sensor_id])
+        end = start + int(self.model.sensor_dim[sensor_id])
+        return slice(start, end)
+
+    def _sensor_value(self, sensordata: np.ndarray, name: str) -> np.ndarray:
+        return sensordata[..., self._sensor_slices[name]]
 
     def reset(
         self,
@@ -257,6 +329,56 @@ class Humanoid(MuJoCoEnv):
             ).mean(axis=-1)
 
         reward_cost = 1.0 - small_control * stand_reward * task_reward
+        roll, pitch, yaw = _quat_roll_pitch_yaw(root_quat)
+        gait_orientation_cost = 5.0 * (roll**2 + pitch**2)
+        gait_yaw_cost = 0.075 * yaw**2
+        root_xy = qpos[..., :2]
+        gait_xy_target_cost = 12.5 * np.linalg.norm(root_xy - _GAIT_TARGET_XY, axis=-1)
+        gait_height_cost = 5.0 * np.abs(_GAIT_TARGET_HEIGHT - root_z)
+        target_vel = np.array([self._target_speed, 0.0])
+        root_lin_vel = np.stack([vx, vy], axis=-1)
+        gait_velocity_cost = np.linalg.norm(root_lin_vel - target_vel, axis=-1)
+
+        if sensordata is None:
+            raise ValueError("Humanoid gait cost requires rollout sensordata with foot/shin sensors.")
+
+        foot_left_pos = self._sensor_value(sensordata, "foot_left_pos")
+        foot_right_pos = self._sensor_value(sensordata, "foot_right_pos")
+        shin_left_pos = self._sensor_value(sensordata, "shin_left_pos")
+        shin_right_pos = self._sensor_value(sensordata, "shin_right_pos")
+        foot_left_vel = self._sensor_value(sensordata, "foot_left_linvel")
+        foot_right_vel = self._sensor_value(sensordata, "foot_right_linvel")
+        shin_left_vel = self._sensor_value(sensordata, "shin_left_linvel")
+        shin_right_vel = self._sensor_value(sensordata, "shin_right_linvel")
+
+        left_is_swing = shin_left_vel[..., 0] > shin_right_vel[..., 0]
+        swing_foot_pos = np.where(left_is_swing[..., None], foot_left_pos, foot_right_pos)
+        stance_foot_pos = np.where(left_is_swing[..., None], foot_right_pos, foot_left_pos)
+        swing_shin_pos = np.where(left_is_swing[..., None], shin_left_pos, shin_right_pos)
+        swing_foot_vel = np.where(left_is_swing[..., None], foot_left_vel, foot_right_vel)
+
+        foot_target_x = qpos[..., 0] + _GAIT_FOOT_TARGET_AHEAD
+        gait_foot_target_cost = 8.0 * np.abs(swing_foot_pos[..., 0] - foot_target_x)
+        gait_foot_velocity_reward = -0.15 * swing_foot_vel[..., 0]
+        gait_knee_target_cost = 3.0 * (swing_shin_pos[..., 0] - foot_target_x) ** 2
+        foot_clearance = swing_foot_pos[..., 2] - stance_foot_pos[..., 2]
+        gait_foot_clearance_cost = 2.0 * np.maximum(_GAIT_MIN_FOOT_CLEARANCE - foot_clearance, 0.0) ** 2
+        leg_clearance = foot_left_pos[..., 1] - foot_right_pos[..., 1]
+        gait_leg_cross_cost = 0.5 * np.where(leg_clearance < 0.0, leg_clearance**2, 0.0)
+        gait_ctrl_cost = 0.01 * ctrl_sq
+        gait_cost = (
+            gait_orientation_cost
+            + gait_yaw_cost
+            + gait_xy_target_cost
+            + gait_height_cost
+            + gait_velocity_cost
+            + gait_foot_target_cost
+            + gait_foot_velocity_reward
+            + gait_knee_target_cost
+            + gait_foot_clearance_cost
+            + gait_leg_cross_cost
+            + gait_ctrl_cost
+        )
 
         return CostComponents(
             standing_reward=stand_reward,
@@ -270,6 +392,18 @@ class Humanoid(MuJoCoEnv):
             posture_sq=posture_sq, 
             qvel_sq=qvel_sq, 
             ctrl_sq=ctrl_sq,
+            gait_cost=gait_cost,
+            gait_orientation_cost=gait_orientation_cost,
+            gait_yaw_cost=gait_yaw_cost,
+            gait_xy_target_cost=gait_xy_target_cost,
+            gait_height_cost=gait_height_cost,
+            gait_velocity_cost=gait_velocity_cost,
+            gait_foot_target_cost=gait_foot_target_cost,
+            gait_foot_velocity_reward=gait_foot_velocity_reward,
+            gait_knee_target_cost=gait_knee_target_cost,
+            gait_foot_clearance_cost=gait_foot_clearance_cost,
+            gait_leg_cross_cost=gait_leg_cross_cost,
+            gait_ctrl_cost=gait_ctrl_cost,
         )
     
     def running_cost(self,
@@ -284,6 +418,7 @@ class Humanoid(MuJoCoEnv):
         self,
         c: CostComponents,
     ) -> WeightedCostComponents:
+        gait_cost = self._gait_weight * c.gait_cost
         reward_cost = self._reward_weight * c.reward_cost
         stand_cost = self._stand_weight * (1.0 - c.standing_reward)
         task_cost = self._task_weight * c.task_cost
@@ -294,7 +429,8 @@ class Humanoid(MuJoCoEnv):
         qvel_cost = self._qvel_weight * c.qvel_sq
         ctrl_cost = self._ctrl_weight * c.ctrl_sq
         total = (
-            reward_cost
+            gait_cost
+            + reward_cost
             + stand_cost
             + task_cost
             + lateral_cost
@@ -305,6 +441,7 @@ class Humanoid(MuJoCoEnv):
             + ctrl_cost
         )
         return WeightedCostComponents(
+            gait_cost=gait_cost,
             reward_cost=reward_cost,
             stand_cost=stand_cost,
             task_cost=task_cost,
@@ -324,7 +461,16 @@ class Humanoid(MuJoCoEnv):
     ) -> Float[Array, "K"]:
         qpos = self.state_qpos(states)
         stand_reward = _standing_reward(qpos[..., 2], qpos[..., 3:7])
-        return self._terminal_stand_weight * (1.0 - stand_reward)
+        stand_terminal = self._terminal_stand_weight * (1.0 - stand_reward)
+        if sensordata is None:
+            return stand_terminal
+        actions = np.zeros((*states.shape[:-1], self.action_dim), dtype=float)
+        gait_terminal = self._terminal_gait_weight * self.running_cost_components(
+            states,
+            actions,
+            sensordata,
+        ).gait_cost
+        return gait_terminal + stand_terminal
 
     def _get_obs(self) -> Float[np.ndarray, "obs_dim"]:
         return np.concatenate([
