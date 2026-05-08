@@ -263,7 +263,10 @@ def _gps_cfg_for_run(run_dir: Path) -> GPSConfig:
         return gps_cfg
 
     rows = [json.loads(l) for l in open(metrics_path)]
-    active_rows = [r for r in rows if r.get("coupling_mode") != "raw"]
+    active_rows = [
+        r for r in rows
+        if r.get("coupling_active_mode", r.get("coupling_mode")) not in {"raw", "warmup"}
+    ]
     if not active_rows:
         return gps_cfg
 
@@ -272,16 +275,13 @@ def _gps_cfg_for_run(run_dir: Path) -> GPSConfig:
     gps_cfg.lambda_policy_track = float(
         last.get("lambda_track_base", last.get("lambda_track", gps_cfg.lambda_policy_track))
     )
-    gps_cfg.policy_coupling_beta = float(
-        last.get(
-            "policy_coupling_beta_base",
-            last.get("policy_coupling_beta", gps_cfg.policy_coupling_beta),
-        )
-    )
     gps_cfg.policy_coupling_keep_fraction = float(
         last.get(
-            "policy_coupling_keep_fraction_effective",
-            gps_cfg.policy_coupling_keep_fraction,
+            "policy_coupling_keep_fraction_base",
+            last.get(
+                "policy_coupling_keep_fraction_effective",
+                gps_cfg.policy_coupling_keep_fraction,
+            ),
         )
     )
     return gps_cfg
@@ -292,30 +292,28 @@ def _make_collection_bias_for_plot(
     gps_cfg: GPSConfig,
     policy_trust: float,
 ):
-    if gps_cfg.coupling_mode == "raw":
-        return None, None
-
-    lambda_track = gps_cfg.lambda_policy_track * policy_trust
-    coupling_beta = gps_cfg.policy_coupling_beta * policy_trust
-    keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
-
-    prior = None
-    if gps_cfg.coupling_mode in {"cost", "hybrid"}:
-        prior = make_policy_tracking_prior(
-            policy,
-            lambda_track=lambda_track,
+    if gps_cfg.coupling_mode not in {"track", "filter"}:
+        raise ValueError(
+            f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
+            "expected 'track' or 'filter'."
         )
 
+    lambda_track = gps_cfg.lambda_policy_track * policy_trust
+    keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
+
+    prior = make_policy_tracking_prior(
+        policy,
+        lambda_track=lambda_track,
+    )
+
     coupling = None
-    if gps_cfg.coupling_mode in {"filter", "hard_filter", "hybrid"}:
+    if gps_cfg.coupling_mode == "filter":
         coupling = make_policy_filter_coupling(
             policy,
-            beta=coupling_beta,
             min_fraction=gps_cfg.policy_coupling_min_fraction,
             keep_fraction=keep_fraction,
             min_n_eff=gps_cfg.policy_coupling_min_n_eff,
             max_weight=gps_cfg.policy_coupling_max_weight,
-            hard_filter=gps_cfg.coupling_mode == "hard_filter",
         )
 
     return prior, coupling

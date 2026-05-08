@@ -30,18 +30,16 @@ def _obs_from_rollout_states(states: np.ndarray) -> np.ndarray:
 
 def make_policy_filter_coupling(
     policy: DeterministicPolicy,
-    beta: float,
     min_fraction: float,
     keep_fraction: float,
     min_n_eff: float,
     max_weight: float,
-    hard_filter: bool = False,
 ) -> Callable[..., dict]:
     """Build a policy-proximity filtering hook for MPPI.
 
     The returned callable receives MPPI rollout data and returns a replacement
-    score vector. Samples are first filtered by closeness to the current policy;
-    task cost remains in the score for ranking the kept trajectories.
+    score vector. Samples are filtered by closeness to the current policy;
+    the already assembled MPPI score ranks the kept trajectories.
     """
 
     def coupling(
@@ -52,6 +50,7 @@ def make_policy_filter_coupling(
         base_score: np.ndarray,
         lam: float,
     ) -> dict:
+        del costs, lam
         K, H, act_dim = actions.shape
         obs = _obs_from_rollout_states(states[:, :H, :])
         obs_flat = obs.reshape(K * H, 4)
@@ -64,10 +63,6 @@ def make_policy_filter_coupling(
         mu = mu_flat.reshape(K, H, act_dim)
         policy_sq = ((actions - mu) ** 2).sum(axis=(1, 2))
         policy_std = float(np.std(policy_sq))
-        if policy_std < 1e-8:
-            policy_norm = np.zeros_like(policy_sq)
-        else:
-            policy_norm = (policy_sq - np.mean(policy_sq)) / policy_std
 
         min_keep = max(1, int(np.ceil(min_fraction * K)))
         keep_fraction_clamped = float(np.clip(keep_fraction, 0.0, 1.0))
@@ -77,14 +72,7 @@ def make_policy_filter_coupling(
         feasible = np.zeros(K, dtype=bool)
         feasible[keep_idx] = True
 
-        if hard_filter:
-            policy_bias = 0.0
-        else:
-            # Multiplying by lam makes beta dimensionless in the MPPI softmin:
-            # exp(-(base_score + beta*lam*z)/lam) = exp(-base_score/lam) * exp(-beta*z).
-            policy_bias = beta * lam * policy_norm
-
-        filtered_score = base_score + policy_bias
+        filtered_score = base_score
         filtered_score = np.where(feasible, filtered_score, np.inf)
 
         return {
@@ -98,7 +86,6 @@ def make_policy_filter_coupling(
                 "policy_cost_mean": float(np.mean(policy_sq)),
                 "policy_cost_std": float(policy_std),
                 "score_mean": float(np.mean(filtered_score[np.isfinite(filtered_score)])),
-                "hard_filter": float(hard_filter),
             },
         }
 

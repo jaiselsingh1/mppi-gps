@@ -228,39 +228,31 @@ def make_collection_bias(
     policy_trust: float = 1.0,
 ):
     """Return (prior_cost, coupling) for the current GPS iteration."""
-    if it < gps_cfg.coupling_warmup_iters or gps_cfg.coupling_mode == "raw":
+    if gps_cfg.coupling_mode not in {"track", "filter"}:
+        raise ValueError(
+            f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
+            "expected 'track' or 'filter'."
+        )
+    if it < gps_cfg.coupling_warmup_iters:
         return None, None
 
     lambda_track = gps_cfg.lambda_policy_track * policy_trust
-    coupling_beta = gps_cfg.policy_coupling_beta * policy_trust
-    keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
-
-    if gps_cfg.coupling_mode == "cost":
-        prior = make_policy_tracking_prior(
-            policy,
-            lambda_track=lambda_track,
-        )
+    prior = make_policy_tracking_prior(
+        policy,
+        lambda_track=lambda_track,
+    )
+    if gps_cfg.coupling_mode == "track":
         return prior, None
 
-    if gps_cfg.coupling_mode in {"filter", "hard_filter", "hybrid"}:
-        prior = None
-        if gps_cfg.coupling_mode == "hybrid":
-            prior = make_policy_tracking_prior(
-                policy,
-                lambda_track=lambda_track,
-            )
-        coupling = make_policy_filter_coupling(
-            policy,
-            beta=coupling_beta,
-            min_fraction=gps_cfg.policy_coupling_min_fraction,
-            keep_fraction=keep_fraction,
-            min_n_eff=gps_cfg.policy_coupling_min_n_eff,
-            max_weight=gps_cfg.policy_coupling_max_weight,
-            hard_filter=gps_cfg.coupling_mode == "hard_filter",
-        )
-        return prior, coupling
-
-    raise ValueError(f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}")
+    keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
+    coupling = make_policy_filter_coupling(
+        policy,
+        min_fraction=gps_cfg.policy_coupling_min_fraction,
+        keep_fraction=keep_fraction,
+        min_n_eff=gps_cfg.policy_coupling_min_n_eff,
+        max_weight=gps_cfg.policy_coupling_max_weight,
+    )
+    return prior, coupling
 
 
 def compute_policy_trust(
@@ -309,8 +301,6 @@ def main(
     policy_trust_bad_cost_per_step: float | None = None,
     policy_trust_min: float | None = None,
     policy_trust_max: float | None = None,
-    policy_coupling_beta: float | None = None,
-    policy_coupling_cost_slack_rel: float | None = None,
     policy_coupling_keep_fraction: float | None = None,
 ) -> None:
     gps_cfg = GPSConfig.load("acrobot")
@@ -330,8 +320,6 @@ def main(
         policy_trust_bad_cost_per_step=policy_trust_bad_cost_per_step,
         policy_trust_min=policy_trust_min,
         policy_trust_max=policy_trust_max,
-        policy_coupling_beta=policy_coupling_beta,
-        policy_coupling_cost_slack_rel=policy_coupling_cost_slack_rel,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
     )
     mppi_cfg = MPPIConfig.load("acrobot")
@@ -339,17 +327,18 @@ def main(
 
     if run_name is None:
         suffix = "_warp" if use_warp else ""
-        if gps_cfg.coupling_mode == "hybrid":
-            run_name = (
-                f"gps_hybrid_track_{gps_cfg.lambda_policy_track:g}"
-                f"_filter_{gps_cfg.policy_coupling_beta:g}{suffix}"
-            )
+        if gps_cfg.coupling_mode == "track":
+            run_name = f"gps_track_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
         elif gps_cfg.coupling_mode == "filter":
-            run_name = f"gps_filter_beta_{gps_cfg.policy_coupling_beta:g}{suffix}"
-        elif gps_cfg.coupling_mode == "raw":
-            run_name = f"gps_raw{suffix}"
+            run_name = (
+                f"gps_filter_lambda_{gps_cfg.lambda_policy_track:g}"
+                f"_keep_{gps_cfg.policy_coupling_keep_fraction:g}{suffix}"
+            )
         else:
-            run_name = f"gps_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
+            raise ValueError(
+                f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
+                "expected 'track' or 'filter'."
+            )
     run_dir = Path("runs") / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = run_dir / "metrics.jsonl"
@@ -471,17 +460,17 @@ def main(
             "replay_max_pairs": gps_cfg.replay_max_pairs,
             "action_ema_alpha": gps_cfg.action_ema_alpha,
             "wall_time_s": time.time() - t_start,
-            "coupling_mode": gps_cfg.coupling_mode if (prior is not None or coupling is not None) else "raw",
+            "coupling_mode": gps_cfg.coupling_mode,
+            "coupling_active_mode": gps_cfg.coupling_mode if (prior is not None or coupling is not None) else "warmup",
             "policy_trust": policy_trust,
             "policy_trust_next": policy_trust_next,
-            "lambda_track": gps_cfg.lambda_policy_track * policy_trust if (it > 0 and prior is not None) else 0.0,
-            "policy_coupling_beta": gps_cfg.policy_coupling_beta * policy_trust if (it > 0 and coupling is not None) else 0.0,
+            "lambda_track": gps_cfg.lambda_policy_track * policy_trust if prior is not None else 0.0,
             "policy_coupling_keep_fraction_effective": (
                 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
-                if (it > 0 and coupling is not None) else 1.0
+                if coupling is not None else 1.0
             ),
             "lambda_track_base": gps_cfg.lambda_policy_track,
-            "policy_coupling_beta_base": gps_cfg.policy_coupling_beta,
+            "policy_coupling_keep_fraction_base": gps_cfg.policy_coupling_keep_fraction,
             "raw_mppi_eval_mean_cost": mppi_eval_mean,
             "raw_mppi_eval_std_cost": mppi_eval_std,
             "raw_mppi_eval_cost_per_step_mean": mppi_eval_mean_ps,

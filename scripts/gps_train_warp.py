@@ -1,9 +1,11 @@
 """Warp-first GPS trainer for Acrobot.
 
 This keeps the GPS outer loop from scripts/gps_train.py, but uses a Torch +
-mujoco_warp MPPI implementation. Warp is only used for graph-captured MuJoCo
-stepping and device copies; sampling, costs, weighting, and policy coupling are
-implemented in Torch, with no custom Warp kernels.
+mujoco_warp MPPI implementation. GPS collection plans all episodes in an
+iteration together: B live episodes each get K MPPI samples, flattened into
+B*K Warp worlds for each H-step rollout. Warp is only used for graph-captured
+MuJoCo stepping and device copies; sampling, costs, weighting, and policy
+coupling are implemented in Torch, with no custom Warp kernels.
 """
 from __future__ import annotations
 
@@ -39,8 +41,8 @@ def smooth_actions_ema(actions: np.ndarray, alpha: float) -> np.ndarray:
     return out
 
 
-def effective_sample_size_torch(weights: torch.Tensor) -> torch.Tensor:
-    return 1.0 / torch.clamp(torch.sum(weights * weights), min=1.0e-12)
+def effective_sample_size_torch(weights: torch.Tensor, dim: int | None = None) -> torch.Tensor:
+    return 1.0 / torch.clamp(torch.sum(weights * weights, dim=dim), min=1.0e-12)
 
 
 class TorchWarpMPPI:
@@ -113,7 +115,7 @@ class TorchWarpMPPI:
         self._terminal_qvel_cost_weight = float(env._terminal_qvel_cost_weight)
         self._qvel_scale = torch.as_tensor(env._qvel_scale, dtype=self.dtype, device=self.device)
 
-        self.U = torch.zeros((self.H, self.nu), dtype=self.dtype, device=self.device)
+        self.U = torch.zeros((self.n_batches, self.H, self.nu), dtype=self.dtype, device=self.device)
         self._last_states: torch.Tensor | None = None
         self._last_actions: torch.Tensor | None = None
         self._last_weights: torch.Tensor | None = None
@@ -163,31 +165,50 @@ class TorchWarpMPPI:
             self._rollout_body()
         self._rollout_graph = capture.graph
 
-    def _set_warp_initial_state(self, state: np.ndarray) -> None:
-        mujoco.mj_setState(
-            self.env.model,
-            self.env.data,
-            state,
-            mujoco.mjtState.mjSTATE_FULLPHYSICS,
-        )
-        qpos0 = np.broadcast_to(
-            self.env.data.qpos.astype(np.float32),
-            (self.K, self.env.model.nq),
-        ).copy()
-        qvel0 = np.broadcast_to(
-            self.env.data.qvel.astype(np.float32),
-            (self.K, self.env.model.nv),
-        ).copy()
+    def _set_warp_initial_state_batch(self, states: np.ndarray) -> None:
+        states = np.asarray(states, dtype=np.float32)
+        if states.ndim != 2 or states.shape[0] != self.n_batches:
+            raise ValueError(
+                f"Expected initial states with shape ({self.n_batches}, state_dim), "
+                f"got {states.shape}."
+            )
+
+        nq, nv = self.env.model.nq, self.env.model.nv
+        if states.shape[1] == nq + nv:
+            qpos = states[:, :nq]
+            qvel = states[:, nq : nq + nv]
+        else:
+            qpos = states[:, 1 : 1 + nq]
+            qvel = states[:, 1 + nq : 1 + nq + nv]
+
+        qpos0 = np.repeat(qpos.astype(np.float32), self.base_K, axis=0)
+        qvel0 = np.repeat(qvel.astype(np.float32), self.base_K, axis=0)
         self.env._wd.qpos.assign(qpos0)
         self.env._wd.qvel.assign(qvel0)
 
     def _sample_noise(self) -> torch.Tensor:
-        standard = torch.randn((self.K, self.H, self.nu), dtype=self.dtype, device=self.device)
-        return torch.einsum("khi,ji->khj", standard, self.noise_chol)
+        standard = torch.randn(
+            (self.n_batches, self.base_K, self.H, self.nu),
+            dtype=self.dtype,
+            device=self.device,
+        )
+        noise = torch.einsum("bkhi,ji->bkhj", standard, self.noise_chol)
+        alpha = self.cfg.noise_temporal_alpha
+        if alpha <= 0.0:
+            return noise
 
-    def _run_rollouts(self, state: np.ndarray, actions: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        innovation_scale = math.sqrt(1.0 - alpha**2)
+        for t in range(1, self.H):
+            noise[:, :, t, :] = alpha * noise[:, :, t - 1, :] + innovation_scale * noise[:, :, t, :]
+        return noise
+
+    def _run_rollouts(
+        self,
+        states: np.ndarray,
+        actions: torch.Tensor,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         self.actions_t.copy_(actions.transpose(0, 1).contiguous())
-        self._set_warp_initial_state(state)
+        self._set_warp_initial_state_batch(states)
         self._ensure_graph()
         wp.capture_launch(self._rollout_graph)
         wp.synchronize()
@@ -241,27 +262,36 @@ class TorchWarpMPPI:
         terminal_qvel = self._terminal_qvel_cost_weight * qvel_gate[-1] * qvel_sq[-1]
         return torch.sum(running, dim=0) + terminal_target + terminal_qvel
 
-    def _is_correction(self, eps: torch.Tensor) -> torch.Tensor:
-        precision_eps = torch.einsum("ij,ktj->kti", self.noise_precision, eps)
-        return torch.sum(self.U.unsqueeze(0) * precision_eps, dim=(1, 2))
+    def _is_correction(self, eps: torch.Tensor, nominal: torch.Tensor) -> torch.Tensor:
+        precision_eps = torch.einsum("ij,bktj->bkti", self.noise_precision, eps)
+        return torch.sum(nominal.unsqueeze(1) * precision_eps, dim=(2, 3))
 
     def _softmin_weights(self, score: torch.Tensor, lam: float) -> tuple[torch.Tensor, torch.Tensor]:
+        if score.ndim != 2:
+            raise ValueError(f"Expected score shape (B, K), got {tuple(score.shape)}.")
+
         finite = torch.isfinite(score)
-        if not bool(torch.any(finite).item()):
-            weights = torch.full_like(score, 1.0 / score.numel())
-            return weights, effective_sample_size_torch(weights)
-
-        rho = torch.min(score[finite])
-        shifted = torch.where(finite, score - rho, torch.full_like(score, torch.inf))
+        row_has_finite = torch.any(finite, dim=1)
+        finite_score = torch.where(finite, score, torch.full_like(score, torch.inf))
+        rho = torch.min(finite_score, dim=1).values
+        shifted = torch.where(finite, score - rho[:, None], torch.full_like(score, torch.inf))
         unnorm = torch.exp(-shifted / lam)
-        eta = torch.sum(unnorm)
-        if not bool(torch.isfinite(eta).item()) or float(eta.item()) <= 0.0:
-            weights = torch.zeros_like(score)
-            weights[torch.argmin(shifted)] = 1.0
-            return weights, effective_sample_size_torch(weights)
+        eta = torch.sum(unnorm, dim=1)
+        valid_eta = row_has_finite & torch.isfinite(eta) & (eta > 0.0)
 
-        weights = unnorm / eta
-        return weights, effective_sample_size_torch(weights)
+        weights = torch.zeros_like(score)
+        if bool(torch.any(valid_eta).item()):
+            weights[valid_eta] = unnorm[valid_eta] / eta[valid_eta, None]
+        if bool(torch.any(~row_has_finite).item()):
+            weights[~row_has_finite] = 1.0 / score.shape[1]
+
+        bad_eta = row_has_finite & ~valid_eta
+        if bool(torch.any(bad_eta).item()):
+            bad_rows = torch.nonzero(bad_eta, as_tuple=False).flatten()
+            best = torch.argmin(shifted[bad_rows], dim=1)
+            weights[bad_rows, best] = 1.0
+
+        return weights, effective_sample_size_torch(weights, dim=1)
 
     def _finite_mean(self, x: torch.Tensor) -> float:
         finite = x[torch.isfinite(x)]
@@ -319,12 +349,15 @@ class TorchWarpMPPI:
 
         min_n_eff = coupling_diag.get("min_n_eff", 0.0)
         max_weight = coupling_diag.get("max_weight", 1.0)
-        should_fallback = float(n_eff.item()) < min_n_eff or float(torch.max(weights).item()) > max_weight
-        if not should_fallback:
+        should_fallback = (n_eff < min_n_eff) | (torch.max(weights, dim=1).values > max_weight)
+        if not bool(torch.any(should_fallback).item()):
             return weights, n_eff, score, False
 
         fallback_weights, fallback_n_eff = self._softmin_weights(fallback_score, lam)
-        return fallback_weights, fallback_n_eff, fallback_score, True
+        weights = torch.where(should_fallback[:, None], fallback_weights, weights)
+        n_eff = torch.where(should_fallback, fallback_n_eff, n_eff)
+        score = torch.where(should_fallback[:, None], fallback_score, score)
+        return weights, n_eff, score, True
 
     @torch.no_grad()
     def plan_step(
@@ -335,24 +368,57 @@ class TorchWarpMPPI:
         prior_cost: "TorchPolicyTrackingPrior | None" = None,
         coupling: "TorchPolicyFilterCoupling | None" = None,
     ) -> tuple[np.ndarray, dict[str, float]]:
+        state_arr = np.asarray(state, dtype=np.float32)
+        single_state = state_arr.ndim == 1
+        if single_state:
+            rollout_states = np.repeat(state_arr[None, :], self.n_batches, axis=0)
+            plan_batch = 1
+            sample_count = self.K
+            nominal_u = self.U[:1]
+        else:
+            if state_arr.ndim != 2 or state_arr.shape[0] != self.n_batches:
+                raise ValueError(
+                    f"Expected state shape ({self.n_batches}, state_dim) or (state_dim,), "
+                    f"got {state_arr.shape}."
+                )
+            rollout_states = state_arr
+            plan_batch = self.n_batches
+            sample_count = self.base_K
+            nominal_u = self.U
+
         if nominal is not None:
-            self.U.copy_(torch.as_tensor(nominal, dtype=self.dtype, device=self.device))
+            nominal_t = torch.as_tensor(nominal, dtype=self.dtype, device=self.device)
+            if nominal_t.ndim == 2:
+                nominal_u.copy_(nominal_t.unsqueeze(0).expand_as(nominal_u))
+            else:
+                nominal_u.copy_(nominal_t)
         elif nominal_first is not None:
-            self.U[0].copy_(torch.as_tensor(nominal_first, dtype=self.dtype, device=self.device))
+            nominal_first_t = torch.as_tensor(nominal_first, dtype=self.dtype, device=self.device)
+            if nominal_first_t.ndim == 1:
+                nominal_u[:, 0, :].copy_(nominal_first_t.unsqueeze(0).expand(plan_batch, -1))
+            else:
+                nominal_u[:, 0, :].copy_(nominal_first_t)
         if self.cfg.clip_actions:
-            self.U.clamp_(self.action_low, self.action_high)
+            nominal_u.clamp_(self.action_low, self.action_high)
 
         noise = self._sample_noise()
-        u_noisy = self.U.unsqueeze(0) + noise
+        if single_state:
+            noise = noise.reshape(1, self.K, self.H, self.nu)
+        u_noisy = nominal_u.unsqueeze(1) + noise
         if self.cfg.clip_actions:
             u_sampled = torch.clamp(u_noisy, self.action_low, self.action_high)
-            eps = u_sampled - self.U.unsqueeze(0)
+            eps = u_sampled - nominal_u.unsqueeze(1)
         else:
             u_sampled = u_noisy
             eps = noise
 
-        states, costs, sensordata = self._run_rollouts(state, u_sampled)
-        is_corr = self._is_correction(eps) if self.use_is_correction else torch.zeros_like(costs)
+        actions_flat = u_sampled.reshape(self.K, self.H, self.nu)
+        states_flat, costs_flat, sensordata_flat = self._run_rollouts(rollout_states, actions_flat)
+        states = states_flat.reshape(plan_batch, sample_count, self.H, states_flat.shape[-1])
+        costs = costs_flat.reshape(plan_batch, sample_count)
+        sensordata = sensordata_flat.reshape(plan_batch, sample_count, self.H, sensordata_flat.shape[-1])
+
+        is_corr = self._is_correction(eps, nominal_u) if self.use_is_correction else torch.zeros_like(costs)
         track = prior_cost(states, u_sampled) if prior_cost is not None else None
         base_score = costs + is_corr + (track if track is not None else 0.0)
 
@@ -374,16 +440,16 @@ class TorchWarpMPPI:
             self.lam,
         )
 
-        self.U += torch.einsum("k,kha->ha", weights, eps)
+        nominal_u += torch.einsum("bk,bkha->bha", weights, eps)
         if self.cfg.clip_actions:
-            self.U.clamp_(self.action_low, self.action_high)
+            nominal_u.clamp_(self.action_low, self.action_high)
 
-        action_t = self.U[0].clone()
-        self.U[:-1].copy_(self.U[1:].clone())
-        self.U[-1].copy_(self.U[-2])
+        action_t = nominal_u[:, 0, :].clone()
+        nominal_u[:, :-1, :].copy_(nominal_u[:, 1:, :].clone())
+        nominal_u[:, -1, :].copy_(nominal_u[:, -2, :])
         if self.cfg.clip_actions:
             action_t.clamp_(self.action_low, self.action_high)
-            self.U.clamp_(self.action_low, self.action_high)
+            nominal_u.clamp_(self.action_low, self.action_high)
 
         self._last_states = states
         self._last_actions = u_sampled
@@ -399,7 +465,7 @@ class TorchWarpMPPI:
             "cost_is_std": float(torch.std(is_corr, unbiased=False).item()),
             "cost_track_mean": float(torch.mean(track).item()) if track is not None else 0.0,
             "cost_s_mean": self._finite_mean(score),
-            "n_eff": float(n_eff.item()),
+            "n_eff": float(torch.mean(n_eff).item()),
             "lam": float(self.lam),
             "use_is_correction": float(self.use_is_correction),
             "coupling_active": coupling_diag["active"],
@@ -409,7 +475,10 @@ class TorchWarpMPPI:
             "coupling_policy_cost_std": coupling_diag["policy_cost_std"],
             "coupling_score_mean": coupling_diag["score_mean"],
         }
-        return action_t.cpu().numpy(), info
+        actions_np = action_t.cpu().numpy()
+        if single_state:
+            return actions_np[0], info
+        return actions_np, info
 
     def get_rollout_data(self) -> dict[str, torch.Tensor | None]:
         return {
@@ -428,11 +497,11 @@ class TorchPolicyTrackingPrior:
 
     @torch.no_grad()
     def __call__(self, states: torch.Tensor, actions: torch.Tensor) -> torch.Tensor:
-        k, h, act_dim = actions.shape
-        obs_flat = states.reshape(k * h, states.shape[-1])
-        mu = self.policy.forward(obs_flat).reshape(k, h, act_dim)
-        per_step_sq = torch.mean((actions - mu) ** 2, dim=2)
-        return self.lambda_track * torch.sum(per_step_sq, dim=1)
+        *leading, h, act_dim = actions.shape
+        obs_flat = states.reshape(-1, states.shape[-1])
+        mu = self.policy.forward(obs_flat).reshape(*leading, h, act_dim)
+        per_step_sq = torch.mean((actions - mu) ** 2, dim=-1)
+        return self.lambda_track * torch.sum(per_step_sq, dim=-1)
 
 
 class TorchPolicyFilterCoupling:
@@ -440,20 +509,16 @@ class TorchPolicyFilterCoupling:
         self,
         policy: DeterministicPolicy,
         *,
-        beta: float,
         min_fraction: float,
         keep_fraction: float,
         min_n_eff: float,
         max_weight: float,
-        hard_filter: bool = False,
     ) -> None:
         self.policy = policy
-        self.beta = float(beta)
         self.min_fraction = float(min_fraction)
         self.keep_fraction = float(keep_fraction)
         self.min_n_eff = float(min_n_eff)
         self.max_weight = float(max_weight)
-        self.hard_filter = hard_filter
 
     @torch.no_grad()
     def __call__(
@@ -465,34 +530,25 @@ class TorchPolicyFilterCoupling:
         base_score: torch.Tensor,
         lam: float,
     ) -> dict[str, Any]:
-        del costs
-        k, h, act_dim = actions.shape
-        obs_flat = states.reshape(k * h, states.shape[-1])
-        mu = self.policy.forward(obs_flat).reshape(k, h, act_dim)
+        del costs, lam
+        b, k, h, act_dim = actions.shape
+        obs_flat = states.reshape(b * k * h, states.shape[-1])
+        mu = self.policy.forward(obs_flat).reshape(b, k, h, act_dim)
 
-        policy_sq = torch.sum((actions - mu) ** 2, dim=(1, 2))
+        policy_sq = torch.sum((actions - mu) ** 2, dim=(2, 3))
         policy_std_t = torch.std(policy_sq, unbiased=False)
         policy_std = float(policy_std_t.item())
-        if policy_std < 1.0e-8:
-            policy_norm = torch.zeros_like(policy_sq)
-        else:
-            policy_norm = (policy_sq - torch.mean(policy_sq)) / policy_std_t
 
         min_keep = max(1, int(math.ceil(self.min_fraction * k)))
         keep_fraction = float(np.clip(self.keep_fraction, 0.0, 1.0))
         n_policy_keep = max(min_keep, int(math.ceil(keep_fraction * k)))
         n_policy_keep = min(n_policy_keep, k)
 
-        keep_idx = torch.topk(policy_sq, k=n_policy_keep, largest=False).indices
-        feasible = torch.zeros((k,), dtype=torch.bool, device=actions.device)
-        feasible[keep_idx] = True
+        keep_idx = torch.topk(policy_sq, k=n_policy_keep, dim=1, largest=False).indices
+        feasible = torch.zeros((b, k), dtype=torch.bool, device=actions.device)
+        feasible.scatter_(1, keep_idx, True)
 
-        if self.hard_filter:
-            policy_bias = torch.zeros_like(policy_norm)
-        else:
-            policy_bias = self.beta * lam * policy_norm
-
-        filtered_score = base_score + policy_bias
+        filtered_score = base_score
         filtered_score = torch.where(feasible, filtered_score, torch.full_like(filtered_score, torch.inf))
         finite = torch.isfinite(filtered_score)
         score_mean = torch.mean(filtered_score[finite]) if bool(torch.any(finite).item()) else torch.tensor(
@@ -512,13 +568,12 @@ class TorchPolicyFilterCoupling:
                 "policy_cost_mean": float(torch.mean(policy_sq).item()),
                 "policy_cost_std": policy_std,
                 "score_mean": float(score_mean.item()),
-                "hard_filter": float(self.hard_filter),
             },
         }
 
 
 def collect_episodes(
-    env: Acrobot,
+    envs: list[Acrobot],
     mppi: TorchWarpMPPI,
     n_episodes: int,
     steps_per_episode: int,
@@ -529,6 +584,14 @@ def collect_episodes(
     action_ema_alpha: float = 0.0,
 ) -> tuple[np.ndarray, np.ndarray, float, dict[str, float]]:
     """Run MPPI in closed loop and return observations, actions, cost, stats."""
+    if n_episodes != len(envs):
+        raise ValueError(f"n_episodes={n_episodes} must match len(envs)={len(envs)}.")
+    if n_episodes != mppi.n_batches:
+        raise ValueError(
+            f"n_episodes={n_episodes} must match mppi.n_batches={mppi.n_batches} "
+            "for batched Warp collection."
+        )
+
     obs_chunks, act_chunks, ep_costs = [], [], []
     hit_successes: list[bool] = []
     hold_successes: list[bool] = []
@@ -553,58 +616,68 @@ def collect_episodes(
     stat_sums = {k: 0.0 for k in stat_keys}
     n_calls = 0
 
-    for ep in range(n_episodes):
+    for ep, env in enumerate(envs):
         np.random.seed(seed_base + ep)
-        torch.manual_seed(seed_base + ep)
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed_all(seed_base + ep)
         env.reset()
-        mppi.reset()
+    torch.manual_seed(seed_base)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed_base)
+    mppi.reset()
 
-        ep_cost = 0.0
-        ep_obs: list[np.ndarray] = []
-        ep_actions: list[np.ndarray] = []
-        first_success_t: int | None = None
-        hold_count = 0
-        max_hold_count = 0
-        for t in range(steps_per_episode):
-            state = env.get_state()
-            obs = env._get_obs()
-            action, info = mppi.plan_step(state, prior_cost=prior, coupling=coupling)
-            for k in stat_keys:
-                stat_sums[k] += info[k]
-            n_calls += 1
-            ep_obs.append(obs)
-            ep_actions.append(action)
+    ep_costs = [0.0 for _ in range(n_episodes)]
+    ep_obs: list[list[np.ndarray]] = [[] for _ in range(n_episodes)]
+    ep_actions: list[list[np.ndarray]] = [[] for _ in range(n_episodes)]
+    first_success_t: list[int | None] = [None for _ in range(n_episodes)]
+    hold_counts = [0 for _ in range(n_episodes)]
+    max_hold_counts = [0 for _ in range(n_episodes)]
+    active = [True for _ in range(n_episodes)]
+
+    for t in range(steps_per_episode):
+        states = np.stack([env.get_state() for env in envs], axis=0)
+        obs_batch = [env._get_obs() for env in envs]
+        actions, info = mppi.plan_step(states, prior_cost=prior, coupling=coupling)
+        for key in stat_keys:
+            stat_sums[key] += info[key]
+        n_calls += 1
+
+        for ep, env in enumerate(envs):
+            if not active[ep]:
+                continue
+            action = actions[ep]
+            ep_obs[ep].append(obs_batch[ep])
+            ep_actions[ep].append(action)
             _, cost, done, _ = env.step(action)
-            ep_cost += cost
+            ep_costs[ep] += cost
 
             metrics = env.task_metrics()
             if metrics["success"]:
-                if first_success_t is None:
-                    first_success_t = t
-                hold_count += 1
+                if first_success_t[ep] is None:
+                    first_success_t[ep] = t
+                hold_counts[ep] += 1
             else:
-                hold_count = 0
-            max_hold_count = max(max_hold_count, hold_count)
+                hold_counts[ep] = 0
+            max_hold_counts[ep] = max(max_hold_counts[ep], hold_counts[ep])
 
             if done:
-                break
+                active[ep] = False
 
-        ep_costs.append(ep_cost)
-        if ep_obs:
-            obs_chunks.append(np.asarray(ep_obs, dtype=np.float32))
-            ep_act_arr = np.asarray(ep_actions, dtype=np.float32)
+        if not any(active):
+            break
+
+    for ep, env in enumerate(envs):
+        if ep_obs[ep]:
+            obs_chunks.append(np.asarray(ep_obs[ep], dtype=np.float32))
+            ep_act_arr = np.asarray(ep_actions[ep], dtype=np.float32)
             act_chunks.append(smooth_actions_ema(ep_act_arr, action_ema_alpha))
         final_metrics = env.task_metrics()
-        hit_successes.append(first_success_t is not None)
-        hold_successes.append(max_hold_count >= hold_steps)
-        times_to_hit.append(first_success_t if first_success_t is not None else steps_per_episode)
+        hit_successes.append(first_success_t[ep] is not None)
+        hold_successes.append(max_hold_counts[ep] >= hold_steps)
+        times_to_hit.append(first_success_t[ep] if first_success_t[ep] is not None else steps_per_episode)
         final_tip_dists.append(final_metrics["tip_dist"])
         final_qvel_norms.append(final_metrics["qvel_norm"])
 
     obs_arr = np.concatenate(obs_chunks, axis=0) if obs_chunks else np.empty((0, 4), dtype=np.float32)
-    act_arr = np.concatenate(act_chunks, axis=0) if act_chunks else np.empty((0, env.action_dim), dtype=np.float32)
+    act_arr = np.concatenate(act_chunks, axis=0) if act_chunks else np.empty((0, envs[0].action_dim), dtype=np.float32)
     mppi_stats = {k: stat_sums[k] / max(n_calls, 1) for k in stat_keys}
     mppi_stats.update(
         {
@@ -722,32 +795,28 @@ def make_collection_bias(
     policy_trust: float = 1.0,
 ) -> tuple[TorchPolicyTrackingPrior | None, TorchPolicyFilterCoupling | None]:
     """Return (prior_cost, coupling) for the current GPS iteration."""
-    if it < gps_cfg.coupling_warmup_iters or gps_cfg.coupling_mode == "raw":
+    if gps_cfg.coupling_mode not in {"track", "filter"}:
+        raise ValueError(
+            f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
+            "expected 'track' or 'filter'."
+        )
+    if it < gps_cfg.coupling_warmup_iters:
         return None, None
 
     lambda_track = gps_cfg.lambda_policy_track * policy_trust
-    coupling_beta = gps_cfg.policy_coupling_beta * policy_trust
+    prior = TorchPolicyTrackingPrior(policy, lambda_track=lambda_track)
+    if gps_cfg.coupling_mode == "track":
+        return prior, None
+
     keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
-
-    if gps_cfg.coupling_mode == "cost":
-        return TorchPolicyTrackingPrior(policy, lambda_track=lambda_track), None
-
-    if gps_cfg.coupling_mode in {"filter", "hard_filter", "hybrid"}:
-        prior = None
-        if gps_cfg.coupling_mode == "hybrid":
-            prior = TorchPolicyTrackingPrior(policy, lambda_track=lambda_track)
-        coupling = TorchPolicyFilterCoupling(
-            policy,
-            beta=coupling_beta,
-            min_fraction=gps_cfg.policy_coupling_min_fraction,
-            keep_fraction=keep_fraction,
-            min_n_eff=gps_cfg.policy_coupling_min_n_eff,
-            max_weight=gps_cfg.policy_coupling_max_weight,
-            hard_filter=gps_cfg.coupling_mode == "hard_filter",
-        )
-        return prior, coupling
-
-    raise ValueError(f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}")
+    coupling = TorchPolicyFilterCoupling(
+        policy,
+        min_fraction=gps_cfg.policy_coupling_min_fraction,
+        keep_fraction=keep_fraction,
+        min_n_eff=gps_cfg.policy_coupling_min_n_eff,
+        max_weight=gps_cfg.policy_coupling_max_weight,
+    )
+    return prior, coupling
 
 
 def compute_policy_trust(
@@ -794,8 +863,6 @@ def main(
     policy_trust_bad_cost_per_step: float | None = None,
     policy_trust_min: float | None = None,
     policy_trust_max: float | None = None,
-    policy_coupling_beta: float | None = None,
-    policy_coupling_cost_slack_rel: float | None = None,
     policy_coupling_keep_fraction: float | None = None,
 ) -> None:
     gps_cfg = GPSConfig.load("acrobot")
@@ -822,8 +889,6 @@ def main(
         policy_trust_bad_cost_per_step=policy_trust_bad_cost_per_step,
         policy_trust_min=policy_trust_min,
         policy_trust_max=policy_trust_max,
-        policy_coupling_beta=policy_coupling_beta,
-        policy_coupling_cost_slack_rel=policy_coupling_cost_slack_rel,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
     )
     mppi_cfg = MPPIConfig.load("acrobot")
@@ -838,17 +903,18 @@ def main(
     effective_k = mppi_cfg.K * mppi_n_batches
     if run_name is None:
         suffix = f"_warp_eps{gps_cfg.episodes_per_iter}"
-        if gps_cfg.coupling_mode == "hybrid":
-            run_name = (
-                f"gps_hybrid_track_{gps_cfg.lambda_policy_track:g}"
-                f"_filter_{gps_cfg.policy_coupling_beta:g}{suffix}"
-            )
+        if gps_cfg.coupling_mode == "track":
+            run_name = f"gps_track_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
         elif gps_cfg.coupling_mode == "filter":
-            run_name = f"gps_filter_beta_{gps_cfg.policy_coupling_beta:g}{suffix}"
-        elif gps_cfg.coupling_mode == "raw":
-            run_name = f"gps_raw{suffix}"
+            run_name = (
+                f"gps_filter_lambda_{gps_cfg.lambda_policy_track:g}"
+                f"_keep_{gps_cfg.policy_coupling_keep_fraction:g}{suffix}"
+            )
         else:
-            run_name = f"gps_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
+            raise ValueError(
+                f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
+                "expected 'track' or 'filter'."
+            )
 
     run_dir = Path("runs") / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -864,8 +930,10 @@ def main(
         torch.cuda.manual_seed_all(0)
     rng = np.random.default_rng(0)
 
-    env = Acrobot(use_warp=True, nworld=effective_k)
-    mppi = TorchWarpMPPI(env, mppi_cfg, n_batches=mppi_n_batches, device=device)
+    planner_env = Acrobot(use_warp=True, nworld=effective_k)
+    collect_envs = [Acrobot() for _ in range(gps_cfg.episodes_per_iter)]
+    eval_env = Acrobot()
+    mppi = TorchWarpMPPI(planner_env, mppi_cfg, n_batches=mppi_n_batches, device=device)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=device)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
@@ -878,7 +946,7 @@ def main(
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
         obs, acts, mppi_cost, mppi_stats = collect_episodes(
-            env,
+            collect_envs,
             mppi,
             n_episodes=gps_cfg.episodes_per_iter,
             steps_per_episode=gps_cfg.steps_per_episode,
@@ -913,7 +981,7 @@ def main(
             print("evaluating policy")
             stats = evaluate_policy(
                 policy,
-                env,
+                eval_env,
                 n_episodes=gps_cfg.eval_n_episodes,
                 episode_len=gps_cfg.eval_episode_len,
                 seed=0,
@@ -929,7 +997,7 @@ def main(
             if gps_cfg.eval_mppi_baseline_episodes > 0:
                 print("evaluating raw MPPI baseline")
                 mppi_eval_stats = evaluate_mppi(
-                    env,
+                    eval_env,
                     mppi,
                     n_episodes=gps_cfg.eval_mppi_baseline_episodes,
                     episode_len=gps_cfg.eval_episode_len,
@@ -975,18 +1043,18 @@ def main(
             "replay_max_pairs": gps_cfg.replay_max_pairs,
             "action_ema_alpha": gps_cfg.action_ema_alpha,
             "wall_time_s": time.time() - t_start,
-            "coupling_mode": gps_cfg.coupling_mode if (prior is not None or coupling is not None) else "raw",
+            "coupling_mode": gps_cfg.coupling_mode,
+            "coupling_active_mode": gps_cfg.coupling_mode if (prior is not None or coupling is not None) else "warmup",
             "policy_trust": policy_trust,
             "policy_trust_next": policy_trust_next,
-            "lambda_track": gps_cfg.lambda_policy_track * policy_trust if (it > 0 and prior is not None) else 0.0,
-            "policy_coupling_beta": gps_cfg.policy_coupling_beta * policy_trust if (it > 0 and coupling is not None) else 0.0,
+            "lambda_track": gps_cfg.lambda_policy_track * policy_trust if prior is not None else 0.0,
             "policy_coupling_keep_fraction_effective": (
                 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
-                if (it > 0 and coupling is not None)
+                if coupling is not None
                 else 1.0
             ),
             "lambda_track_base": gps_cfg.lambda_policy_track,
-            "policy_coupling_beta_base": gps_cfg.policy_coupling_beta,
+            "policy_coupling_keep_fraction_base": gps_cfg.policy_coupling_keep_fraction,
             "raw_mppi_eval_mean_cost": mppi_eval_mean,
             "raw_mppi_eval_std_cost": mppi_eval_std,
             "raw_mppi_eval_cost_per_step_mean": mppi_eval_mean_ps,
@@ -1044,7 +1112,10 @@ def main(
         if it % 5 == 0 or it == gps_cfg.n_gps_iters - 1:
             torch.save(policy.state_dict(), run_dir / f"checkpoint_iter_{it:03d}.pt")
 
-    env.close()
+    planner_env.close()
+    eval_env.close()
+    for env in collect_envs:
+        env.close()
 
 
 if __name__ == "__main__":

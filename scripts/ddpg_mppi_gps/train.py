@@ -51,6 +51,7 @@ except ModuleNotFoundError as exc:
     drq_utils = _DrQUtilsFallback()
 
 from src.envs.acrobot import Acrobot
+from src.gps.prior import make_policy_tracking_prior
 from src.mppi.mppi import MPPI
 from src.policy.gaussian_policy import featurize_obs
 from src.utils.config import MPPIConfig
@@ -368,6 +369,8 @@ def main(
     critic_lr: float = 1e-3,
     critic_target_tau: float = 0.005,
     actor_update_every: int = 2,
+    lambda_policy_track: float = 0.001,
+    tracking_warmup_steps: int | None = None,
     eval_every: int = 10,
     eval_episodes: int = 5,
     eval_steps: int = 500,
@@ -439,6 +442,8 @@ def main(
         "critic_lr": critic_lr,
         "critic_target_tau": critic_target_tau,
         "actor_update_every": actor_update_every,
+        "lambda_policy_track": lambda_policy_track,
+        "tracking_warmup_steps": tracking_warmup_steps,
         "mppi_cfg": mppi_cfg.__dict__,
     }
     print(f"run_dir: {run_dir}")
@@ -449,6 +454,12 @@ def main(
     update_step = 0
     start_time = time.time()
     min_replay_to_update = max(batch_size, seed_steps)
+    tracking_starts_at = seed_steps if tracking_warmup_steps is None else tracking_warmup_steps
+    policy_tracking_prior = (
+        make_policy_tracking_prior(agent.actor, lambda_track=lambda_policy_track)
+        if lambda_policy_track > 0.0
+        else None
+    )
 
     try:
         for episode in range(num_episodes):
@@ -459,6 +470,7 @@ def main(
             critic_losses: list[float] = []
             actor_losses: list[float] = []
             mppi_cost_means: list[float] = []
+            mppi_track_means: list[float] = []
             mppi_neffs: list[float] = []
             first_success_t: int | None = None
             hold_count = 0
@@ -466,7 +478,15 @@ def main(
 
             for t in range(steps_per_episode):
                 state = env.get_state()
-                action, mppi_info = mppi.plan_step(state)
+                tracking_active = (
+                    policy_tracking_prior is not None
+                    and global_step >= tracking_starts_at
+                    and len(replay) >= batch_size
+                )
+                action, mppi_info = mppi.plan_step(
+                    state,
+                    prior_cost=policy_tracking_prior if tracking_active else None,
+                )
                 bounded_action = np.clip(action, action_low, action_high).astype(np.float32)
 
                 next_obs, cost, done, _ = env.step(action)
@@ -476,6 +496,7 @@ def main(
 
                 ep_cost += float(cost)
                 mppi_cost_means.append(float(mppi_info["cost_mean"]))
+                mppi_track_means.append(float(mppi_info["cost_track_mean"]))
                 mppi_neffs.append(float(mppi_info["n_eff"]))
 
                 metrics = env.task_metrics()
@@ -527,6 +548,10 @@ def main(
                 "critic_loss": _finite_mean(critic_losses),
                 "actor_loss": _finite_mean(actor_losses),
                 "mppi_cost_mean": float(np.mean(mppi_cost_means)),
+                "mppi_track_mean": float(np.mean(mppi_track_means)),
+                "mppi_tracking_active": global_step >= tracking_starts_at,
+                "lambda_policy_track": lambda_policy_track,
+                "tracking_starts_at": tracking_starts_at,
                 "mppi_n_eff_mean": float(np.mean(mppi_neffs)),
                 "hit_success": first_success_t is not None,
                 "hold_success": max_hold_count >= 25,
