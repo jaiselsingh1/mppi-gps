@@ -357,6 +357,7 @@ def main(
     device: str = "cuda",
     use_warp: bool = False,
     num_episodes: int = 100,
+    episodes_per_batch: int = 1,
     steps_per_episode: int = 500,
     replay_capacity: int = 1_000_000,
     batch_size: int = 256,
@@ -393,6 +394,10 @@ def main(
     drq_utils.set_seed_everywhere(seed)
     rng = np.random.default_rng(seed)
     torch_device = _resolve_device(device)
+    if episodes_per_batch <= 0:
+        raise ValueError(f"episodes_per_batch must be positive, got {episodes_per_batch}.")
+    if not use_warp and episodes_per_batch != 1:
+        raise ValueError("episodes_per_batch > 1 requires --use-warp.")
 
     mppi_cfg = MPPIConfig.load("acrobot")
     _override_if_set(
@@ -405,14 +410,42 @@ def main(
         clip_actions=mppi_clip_actions,
     )
 
-    env = Acrobot(use_warp=use_warp, nworld=mppi_cfg.K)
-    mppi = MPPI(env, mppi_cfg)
-    action_low, action_high = env.action_bounds
-    obs_shape = tuple(env.reset().shape)
-    action_shape = (env.action_dim,)
+    if use_warp:
+        from scripts.gps_train_warp import (
+            TorchPolicyTrackingPrior as TorchPolicyTrackingPriorCls,
+            TorchWarpMPPI as TorchWarpMPPICls,
+        )
+    else:
+        TorchPolicyTrackingPriorCls = None
+        TorchWarpMPPICls = None
+
+    parallel_episodes = episodes_per_batch if use_warp else 1
+    train_envs = [Acrobot() for _ in range(parallel_episodes)]
+    eval_env = Acrobot()
+    warp_planners: dict[int, tuple[Acrobot, Any]] = {}
+    legacy_mppi = None if use_warp else MPPI(train_envs[0], mppi_cfg)
+
+    def get_warp_planner(batch_n: int) -> Any:
+        assert TorchWarpMPPICls is not None
+        if batch_n not in warp_planners:
+            planner_env = Acrobot(use_warp=True, nworld=mppi_cfg.K * batch_n)
+            warp_planners[batch_n] = (
+                planner_env,
+                TorchWarpMPPICls(
+                    planner_env,
+                    mppi_cfg,
+                    n_batches=batch_n,
+                    device=str(torch_device),
+                ),
+            )
+        return warp_planners[batch_n][1]
+
+    action_low, action_high = train_envs[0].action_bounds
+    obs_shape = tuple(train_envs[0].reset().shape)
+    action_shape = (train_envs[0].action_dim,)
 
     agent = DDPGAgent(
-        action_dim=env.action_dim,
+        action_dim=train_envs[0].action_dim,
         action_low=action_low,
         action_high=action_high,
         device=torch_device,
@@ -430,6 +463,8 @@ def main(
         "device": str(torch_device),
         "use_warp": use_warp,
         "num_episodes": num_episodes,
+        "episodes_per_batch": parallel_episodes,
+        "mppi_rollouts_per_plan_call": mppi_cfg.K * parallel_episodes,
         "steps_per_episode": steps_per_episode,
         "replay_capacity": replay_capacity,
         "batch_size": batch_size,
@@ -456,115 +491,173 @@ def main(
     min_replay_to_update = max(batch_size, seed_steps)
     tracking_starts_at = seed_steps if tracking_warmup_steps is None else tracking_warmup_steps
     policy_tracking_prior = (
-        make_policy_tracking_prior(agent.actor, lambda_track=lambda_policy_track)
+        (
+            TorchPolicyTrackingPriorCls(agent.actor, lambda_track=lambda_policy_track)
+            if use_warp
+            else make_policy_tracking_prior(agent.actor, lambda_track=lambda_policy_track)
+        )
         if lambda_policy_track > 0.0
         else None
     )
 
     try:
-        for episode in range(num_episodes):
-            np.random.seed(seed + episode)
-            obs = env.reset()
+        episode = 0
+        batch_index = 0
+        while episode < num_episodes:
+            batch_n = min(parallel_episodes, num_episodes - episode)
+            env_batch = train_envs[:batch_n]
+            mppi = get_warp_planner(batch_n) if use_warp else legacy_mppi
+            assert mppi is not None
             mppi.reset()
-            ep_cost = 0.0
+
+            obs_batch: list[np.ndarray] = []
+            for offset, env in enumerate(env_batch):
+                np.random.seed(seed + episode + offset)
+                obs_batch.append(env.reset())
+            if use_warp:
+                torch.manual_seed(seed + episode)
+                if torch.cuda.is_available():
+                    torch.cuda.manual_seed_all(seed + episode)
+
+            ep_costs = [0.0 for _ in range(batch_n)]
+            ep_steps = [0 for _ in range(batch_n)]
             critic_losses: list[float] = []
             actor_losses: list[float] = []
             mppi_cost_means: list[float] = []
             mppi_track_means: list[float] = []
             mppi_neffs: list[float] = []
-            first_success_t: int | None = None
-            hold_count = 0
-            max_hold_count = 0
+            tracking_active_calls = 0
+            first_success_t: list[int | None] = [None for _ in range(batch_n)]
+            hold_counts = [0 for _ in range(batch_n)]
+            max_hold_counts = [0 for _ in range(batch_n)]
+            active = [True for _ in range(batch_n)]
 
             for t in range(steps_per_episode):
-                state = env.get_state()
                 tracking_active = (
                     policy_tracking_prior is not None
                     and global_step >= tracking_starts_at
                     and len(replay) >= batch_size
                 )
-                action, mppi_info = mppi.plan_step(
-                    state,
-                    prior_cost=policy_tracking_prior if tracking_active else None,
-                )
-                bounded_action = np.clip(action, action_low, action_high).astype(np.float32)
+                if tracking_active:
+                    tracking_active_calls += 1
+                if use_warp:
+                    states = np.stack([env.get_state() for env in env_batch], axis=0)
+                    actions, mppi_info = mppi.plan_step(
+                        states,
+                        prior_cost=policy_tracking_prior if tracking_active else None,
+                    )
+                else:
+                    action, mppi_info = mppi.plan_step(
+                        env_batch[0].get_state(),
+                        prior_cost=policy_tracking_prior if tracking_active else None,
+                    )
+                    actions = action[None, :]
 
-                next_obs, cost, done, _ = env.step(action)
-                reward = -float(cost) * reward_scale
-                discount = gamma * (1.0 - float(done))
-                replay.add(obs, bounded_action, reward, discount, next_obs, done)
-
-                ep_cost += float(cost)
                 mppi_cost_means.append(float(mppi_info["cost_mean"]))
                 mppi_track_means.append(float(mppi_info["cost_track_mean"]))
                 mppi_neffs.append(float(mppi_info["n_eff"]))
 
-                metrics = env.task_metrics()
-                if metrics["success"]:
-                    if first_success_t is None:
-                        first_success_t = t
-                    hold_count += 1
-                else:
-                    hold_count = 0
-                max_hold_count = max(max_hold_count, hold_count)
+                for env_idx, env in enumerate(env_batch):
+                    if not active[env_idx]:
+                        continue
+                    action = actions[env_idx]
+                    bounded_action = np.clip(action, action_low, action_high).astype(np.float32)
 
-                if len(replay) >= min_replay_to_update:
-                    for _ in range(updates_per_step):
-                        update_metrics = agent.update(replay, batch_size, update_step)
-                        update_step += 1
-                        critic_losses.append(update_metrics["critic_loss"])
-                        actor_losses.append(update_metrics["actor_loss"])
+                    next_obs, cost, done, _ = env.step(action)
+                    reward = -float(cost) * reward_scale
+                    discount = gamma * (1.0 - float(done))
+                    replay.add(obs_batch[env_idx], bounded_action, reward, discount, next_obs, done)
 
-                obs = next_obs
-                global_step += 1
-                if done:
+                    ep_costs[env_idx] += float(cost)
+                    ep_steps[env_idx] += 1
+
+                    metrics = env.task_metrics()
+                    if metrics["success"]:
+                        if first_success_t[env_idx] is None:
+                            first_success_t[env_idx] = t
+                        hold_counts[env_idx] += 1
+                    else:
+                        hold_counts[env_idx] = 0
+                    max_hold_counts[env_idx] = max(max_hold_counts[env_idx], hold_counts[env_idx])
+
+                    if len(replay) >= min_replay_to_update:
+                        for _ in range(updates_per_step):
+                            update_metrics = agent.update(replay, batch_size, update_step)
+                            update_step += 1
+                            critic_losses.append(update_metrics["critic_loss"])
+                            actor_losses.append(update_metrics["actor_loss"])
+
+                    obs_batch[env_idx] = next_obs
+                    global_step += 1
+                    if done:
+                        active[env_idx] = False
+
+                if not any(active):
                     break
 
+            episodes_completed = episode + batch_n
             do_eval = (
                 eval_every > 0
                 and eval_episodes > 0
-                and ((episode + 1) % eval_every == 0 or episode == num_episodes - 1)
+                and (
+                    episodes_completed == num_episodes
+                    or episode // eval_every != episodes_completed // eval_every
+                )
             )
             eval_stats = (
                 evaluate_actor(
                     agent,
-                    env,
+                    eval_env,
                     n_episodes=eval_episodes,
                     episode_len=eval_steps,
-                    seed=seed + 100_000 + episode * eval_episodes,
+                    seed=seed + 100_000 + episodes_completed * eval_episodes,
                 )
                 if do_eval
                 else {}
             )
 
-            final_metrics = env.task_metrics()
-            record = {
-                "episode": episode,
-                "global_step": global_step,
-                "update_step": update_step,
-                "replay_size": len(replay),
-                "episode_cost": ep_cost,
-                "episode_cost_per_step": ep_cost / max(t + 1, 1),
-                "critic_loss": _finite_mean(critic_losses),
-                "actor_loss": _finite_mean(actor_losses),
-                "mppi_cost_mean": float(np.mean(mppi_cost_means)),
-                "mppi_track_mean": float(np.mean(mppi_track_means)),
-                "mppi_tracking_active": global_step >= tracking_starts_at,
-                "lambda_policy_track": lambda_policy_track,
-                "tracking_starts_at": tracking_starts_at,
-                "mppi_n_eff_mean": float(np.mean(mppi_neffs)),
-                "hit_success": first_success_t is not None,
-                "hold_success": max_hold_count >= 25,
-                "time_to_hit": first_success_t if first_success_t is not None else steps_per_episode,
-                "final_tip_dist": final_metrics["tip_dist"],
-                "final_qvel_norm": final_metrics["qvel_norm"],
-                "wall_time_s": time.time() - start_time,
-            }
-            for key, value in eval_stats.items():
-                record[f"eval_{key}"] = value
-
             with metrics_path.open("a") as f:
-                f.write(json.dumps(record) + "\n")
+                for env_idx, env in enumerate(env_batch):
+                    final_metrics = env.task_metrics()
+                    ep_idx = episode + env_idx
+                    record = {
+                        "episode": ep_idx,
+                        "batch_index": batch_index,
+                        "batch_episode_index": env_idx,
+                        "episodes_per_batch": batch_n,
+                        "global_step": global_step,
+                        "update_step": update_step,
+                        "replay_size": len(replay),
+                        "episode_cost": ep_costs[env_idx],
+                        "episode_cost_per_step": ep_costs[env_idx] / max(ep_steps[env_idx], 1),
+                        "critic_loss": _finite_mean(critic_losses),
+                        "actor_loss": _finite_mean(actor_losses),
+                        "mppi_cost_mean": float(np.mean(mppi_cost_means)),
+                        "mppi_track_mean": float(np.mean(mppi_track_means)),
+                        "mppi_tracking_active": global_step >= tracking_starts_at,
+                        "mppi_tracking_active_fraction": (
+                            tracking_active_calls / max(len(mppi_cost_means), 1)
+                        ),
+                        "lambda_policy_track": lambda_policy_track,
+                        "tracking_starts_at": tracking_starts_at,
+                        "mppi_base_k": mppi_cfg.K,
+                        "mppi_rollouts_per_plan_call": mppi_cfg.K * batch_n,
+                        "mppi_n_eff_mean": float(np.mean(mppi_neffs)),
+                        "hit_success": first_success_t[env_idx] is not None,
+                        "hold_success": max_hold_counts[env_idx] >= 25,
+                        "time_to_hit": (
+                            first_success_t[env_idx]
+                            if first_success_t[env_idx] is not None
+                            else steps_per_episode
+                        ),
+                        "final_tip_dist": final_metrics["tip_dist"],
+                        "final_qvel_norm": final_metrics["qvel_norm"],
+                        "wall_time_s": time.time() - start_time,
+                    }
+                    if env_idx == batch_n - 1:
+                        for key, value in eval_stats.items():
+                            record[f"eval_{key}"] = value
+                    f.write(json.dumps(record) + "\n")
 
             eval_str = ""
             if eval_stats:
@@ -573,14 +666,16 @@ def main(
                     f" hit={eval_stats['hit_success_rate']:.2f}"
                 )
             print(
-                f"ep {episode:04d} cost={ep_cost:.1f} replay={len(replay)} "
-                f"critic={record['critic_loss']} actor={record['actor_loss']}"
+                f"eps {episode:04d}-{episodes_completed - 1:04d} "
+                f"mean_cost={float(np.mean(ep_costs)):.1f} replay={len(replay)} "
+                f"critic={_finite_mean(critic_losses)} actor={_finite_mean(actor_losses)} "
+                f"rollouts={mppi_cfg.K * batch_n}"
                 f"{eval_str}"
             )
 
             checkpoint = {
                 "config": config_record,
-                "episode": episode,
+                "episode": episodes_completed - 1,
                 "global_step": global_step,
                 "update_step": update_step,
                 "agent": agent.checkpoint(),
@@ -589,12 +684,21 @@ def main(
             }
             torch.save(checkpoint, run_dir / "checkpoint_latest.pt")
             if checkpoint_every > 0 and (
-                (episode + 1) % checkpoint_every == 0
-                or episode == num_episodes - 1
+                episode // checkpoint_every != episodes_completed // checkpoint_every
+                or episodes_completed == num_episodes
             ):
-                torch.save(checkpoint, run_dir / f"checkpoint_episode_{episode:04d}.pt")
+                torch.save(
+                    checkpoint,
+                    run_dir / f"checkpoint_episode_{episodes_completed - 1:04d}.pt",
+                )
+            episode = episodes_completed
+            batch_index += 1
     finally:
-        env.close()
+        for env in train_envs:
+            env.close()
+        eval_env.close()
+        for planner_env, _ in warp_planners.values():
+            planner_env.close()
 
 
 if __name__ == "__main__":
