@@ -24,6 +24,10 @@ from src.utils.config import GPSConfig, MPPIConfig, PolicyConfig
 from src.utils.eval import evaluate_policy
 
 
+def _env_video_fps(env: Acrobot) -> int:
+    return max(1, int(round(1.0 / env._dt)))
+
+
 def plot_metrics(run_dir: Path, gps_cfg: GPSConfig) -> None:
     """Plot per-step cost curves. Step counts come from the metrics record
     when present; otherwise we fall back to values from ``gps_cfg``."""
@@ -433,6 +437,7 @@ def render_checkpoints(
         return
 
     env = Acrobot()
+    fps = _env_video_fps(env)
     for ckpt_path in milestones:
         policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg)
         policy.load_state_dict(torch.load(ckpt_path, map_location="cpu"))
@@ -445,7 +450,7 @@ def render_checkpoints(
         )
         iter_tag = ckpt_path.stem.split("_")[-1]
         video_path = run_dir / f"policy_iter_{iter_tag}.mp4"
-        mediapy.write_video(str(video_path), stats["frames"], fps=30)
+        mediapy.write_video(str(video_path), stats["frames"], fps=fps)
         print(
             f"iter {iter_tag}  mean_cost={stats['mean_cost']:7.1f}"
             f"  std={stats['std_cost']:.1f}  -> {video_path}"

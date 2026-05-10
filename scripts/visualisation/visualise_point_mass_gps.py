@@ -17,6 +17,10 @@ from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import GPSConfig, MPPIConfig, PolicyConfig
 
 
+def _env_video_fps(env: PointMass) -> int:
+    return max(1, int(round(1.0 / env._dt)))
+
+
 def _checkpoint_iter_key(path: Path) -> int:
     try:
         return int(path.stem.split("_")[-1])
@@ -279,12 +283,15 @@ def _load_policy(path: Path, gps_cfg: GPSConfig) -> DeterministicPolicy:
 
 def render_checkpoints(run_dir: Path, gps_cfg: GPSConfig, episode_len: int, seed: int) -> list[Path]:
     paths: list[Path] = []
+    fps_env = PointMass()
+    fps = _env_video_fps(fps_env)
+    fps_env.close()
     for ckpt_path in sorted(run_dir.glob("checkpoint_iter_*.pt"), key=_checkpoint_iter_key):
         policy = _load_policy(ckpt_path, gps_cfg)
         trace = _rollout_policy(policy, episode_len=episode_len, seed=seed, render=True)
         iter_tag = ckpt_path.stem.split("_")[-1]
         video_path = run_dir / f"policy_iter_{iter_tag}.mp4"
-        mediapy.write_video(str(video_path), trace["frames"], fps=30)
+        mediapy.write_video(str(video_path), trace["frames"], fps=fps)
         paths.append(video_path)
         print(f"{iter_tag}: {_trace_label('policy', trace)} -> {video_path}")
     return paths
@@ -303,6 +310,9 @@ def main(
 
     gps_cfg = GPSConfig.load("point_mass")
     mppi_cfg = MPPIConfig.load("point_mass")
+    fps_env = PointMass()
+    fps = _env_video_fps(fps_env)
+    fps_env.close()
     metrics_path = plot_metrics(run_dir)
     print(f"saved {metrics_path}")
 
@@ -314,7 +324,7 @@ def main(
     latest_policy = _load_policy(latest_ckpt, gps_cfg)
     policy_trace = _rollout_policy(latest_policy, episode_len=episode_len, seed=seed, render=True)
     latest_video = run_dir / "policy_latest_seed0.mp4"
-    mediapy.write_video(str(latest_video), policy_trace["frames"], fps=30)
+    mediapy.write_video(str(latest_video), policy_trace["frames"], fps=fps)
     videos.append(latest_video)
     print(f"latest: {_trace_label('policy', policy_trace)} -> {latest_video}")
 
@@ -323,7 +333,7 @@ def main(
 
     mppi_trace = _rollout_mppi(mppi_cfg, episode_len=episode_len, seed=seed, render=True)
     mppi_video = run_dir / "raw_mppi_seed0.mp4"
-    mediapy.write_video(str(mppi_video), mppi_trace["frames"], fps=30)
+    mediapy.write_video(str(mppi_video), mppi_trace["frames"], fps=fps)
     print(f"raw: {_trace_label('raw MPPI', mppi_trace)} -> {mppi_video}")
 
     policy_frames = policy_trace["frames"]
@@ -336,7 +346,7 @@ def main(
         for i in range(n)
     ]
     compare_video = run_dir / "raw_mppi_vs_policy_latest_seed0.mp4"
-    mediapy.write_video(str(compare_video), side_by_side, fps=30)
+    mediapy.write_video(str(compare_video), side_by_side, fps=fps)
     print(f"saved {compare_video}")
 
     trace_path = plot_trace_compare(run_dir, policy_trace, mppi_trace)
