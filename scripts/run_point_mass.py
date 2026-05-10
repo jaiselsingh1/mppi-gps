@@ -8,22 +8,16 @@ from src.utils.config import MPPIConfig
 
 def main():
     env = PointMass()
-    cfg = MPPIConfig(
-        K=256,
-        H=64,
-        lam=0.01,
-        noise_sigma=0.5,
-    )
+    cfg = MPPIConfig.load("point_mass")
     controller = MPPI(env, cfg)
-
-    env.reset()
-    state = env.get_state()
 
     renderer = mujoco.Renderer(env.model, height=480, width=640)
     frames = []
 
     for vid in range(5):
         env.reset()
+        controller.reset()
+        state = env.get_state()
         for t in range(500):
             action, info = controller.plan_step(state)
             _, cost, _, _ = env.step(action)

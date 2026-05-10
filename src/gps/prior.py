@@ -18,9 +18,18 @@ import torch
 from src.policy.deterministic_policy import DeterministicPolicy
 
 
+def _default_obs_from_rollout_states(states: np.ndarray) -> np.ndarray:
+    if states.shape[-1] == 4:
+        return states
+    if states.shape[-1] >= 5:
+        return states[..., 1:5]
+    raise ValueError(f"Unsupported rollout state shape: {states.shape}")
+
+
 def make_policy_tracking_prior(
         policy: DeterministicPolicy,
         lambda_track: float,
+        obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ) -> Callable[[np.ndarray, np.ndarray], np.ndarray]:
     """Build a per-sample cost callable for MPPI.plan_step.
 
@@ -31,21 +40,20 @@ def make_policy_tracking_prior(
     Non-negative and in the same score units as env cost. MPPI adds this to
     S_k and then divides the whole score by λ_mppi inside the softmin.
 
-    states: (K, H, state_dim). Acrobot FULLPHYSICS layout is
+    states: (K, H, state_dim). By default, Acrobot/PointMass FULLPHYSICS layout is
         [time, qpos[0], qpos[1], qvel[0], qvel[1]], so obs = state[..., 1:5].
         Warp rollout states are [qpos[0], qpos[1], qvel[0], qvel[1]].
     actions: (K, H, act_dim)
     """
+    state_to_obs = obs_from_states or _default_obs_from_rollout_states
+
     def prior_cost(
             states: np.ndarray,
             actions: np.ndarray,
     ) -> np.ndarray:
         K, H, act_dim = actions.shape
-        if states.shape[-1] == 4:
-            obs = states
-        else:
-            obs = states[..., 1:5]
-        obs_flat = obs.reshape(K * H, 4)
+        obs = state_to_obs(states)
+        obs_flat = obs.reshape(K * H, obs.shape[-1])
 
         with torch.no_grad():
             device = next(policy.parameters()).device

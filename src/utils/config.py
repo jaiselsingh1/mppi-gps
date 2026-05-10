@@ -58,7 +58,8 @@ class GPSConfig:
     policy_trust_bad_cost_per_step: float = 12.0
     policy_trust_min: float = 0.0
     policy_trust_max: float = 1.0
-    coupling_mode: str = "track"       # track | filter
+    collection_mode: str = "gps"       # bc | gps
+    coupling_mode: str = "track"       # track | filter; used when collection_mode == "gps"
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0

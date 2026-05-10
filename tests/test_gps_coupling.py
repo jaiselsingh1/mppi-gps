@@ -53,6 +53,20 @@ def test_make_collection_bias_filter_builds_tracking_prior_and_filter() -> None:
     assert coupling is not None
 
 
+def test_make_collection_bias_bc_collection_stays_plain_bc() -> None:
+    cfg = GPSConfig(
+        collection_mode="bc",
+        coupling_mode="track",
+        coupling_warmup_iters=0,
+        lambda_policy_track=0.5,
+    )
+
+    prior, coupling = make_collection_bias(ZeroPolicy(), cfg, it=0, policy_trust=1.0)
+
+    assert prior is None
+    assert coupling is None
+
+
 def test_make_collection_bias_rejects_removed_modes() -> None:
     cfg = GPSConfig(coupling_mode="cost", coupling_warmup_iters=10)
 

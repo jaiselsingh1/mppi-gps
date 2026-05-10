@@ -8,19 +8,77 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
+from collections.abc import Callable
 import tyro
 
 import numpy as np
 import torch
 import torch.nn.functional as F
 
+from src.envs.base import BaseEnv
 from src.envs.acrobot import Acrobot
+from src.envs.point_mass import PointMass
 from src.mppi.mppi import MPPI
 from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import MPPIConfig, PolicyConfig, GPSConfig
 from src.utils.eval import evaluate_policy
 from src.gps.coupling import make_policy_filter_coupling
 from src.gps.prior import make_policy_tracking_prior
+
+_ENV_FACTORIES = {
+    "acrobot": Acrobot,
+    "point_mass": PointMass,
+}
+_COLLECTION_MODES = {"bc", "gps"}
+_COUPLING_MODES = {"track", "filter"}
+
+
+def _make_env(env_name: str, **kwargs) -> BaseEnv:
+    try:
+        env_cls = _ENV_FACTORIES[env_name]
+    except KeyError as exc:
+        supported = ", ".join(sorted(_ENV_FACTORIES))
+        raise ValueError(f"Unknown env_name={env_name!r}; supported: {supported}.") from exc
+    return env_cls(**kwargs)
+
+
+def _resolve_device(device: str) -> torch.device:
+    if device == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if device == "cuda" and not torch.cuda.is_available():
+        print("CUDA requested but unavailable; using CPU.")
+        return torch.device("cpu")
+    return torch.device(device)
+
+
+def _task_metrics(env: BaseEnv) -> dict:
+    if not hasattr(env, "task_metrics"):
+        return {"success": False, "tip_dist": float("inf"), "qvel_norm": float("inf")}
+    metrics = env.task_metrics()
+    return {
+        **metrics,
+        "success": bool(metrics.get("success", False)),
+        "tip_dist": float(metrics.get("tip_dist", float("inf"))),
+        "qvel_norm": float(metrics.get("qvel_norm", float("inf"))),
+    }
+
+
+def _normalize_env_name(env_name: str) -> str:
+    env_name = env_name.strip().lower().replace("-", "_")
+    if env_name not in _ENV_FACTORIES:
+        supported = ", ".join(sorted(_ENV_FACTORIES))
+        raise ValueError(f"Unknown env_name={env_name!r}; supported: {supported}.")
+    return env_name
+
+
+def _normalize_collection_mode(collection_mode: str) -> str:
+    collection_mode = collection_mode.strip().lower().replace("-", "_")
+    if collection_mode in {"plain_bc", "vanilla_bc"}:
+        collection_mode = "bc"
+    if collection_mode not in _COLLECTION_MODES:
+        supported = ", ".join(sorted(_COLLECTION_MODES))
+        raise ValueError(f"Unknown collection_mode={collection_mode!r}; supported: {supported}.")
+    return collection_mode
 
 
 def smooth_actions_ema(actions: np.ndarray, alpha: float) -> np.ndarray:
@@ -35,7 +93,7 @@ def smooth_actions_ema(actions: np.ndarray, alpha: float) -> np.ndarray:
 
 
 def collect_episodes(
-    env: Acrobot,
+    env: BaseEnv,
     mppi: MPPI,
     n_episodes: int,
     steps_per_episode: int,
@@ -91,7 +149,7 @@ def collect_episodes(
             _, cost, done, _ = env.step(action)
             ep_cost += cost
 
-            metrics = env.task_metrics()
+            metrics = _task_metrics(env)
             if metrics["success"]:
                 if first_success_t is None:
                     first_success_t = t
@@ -107,7 +165,7 @@ def collect_episodes(
             obs_chunks.append(np.asarray(ep_obs, dtype=np.float32))
             ep_act_arr = np.asarray(ep_actions, dtype=np.float32)
             act_chunks.append(smooth_actions_ema(ep_act_arr, action_ema_alpha))
-        final_metrics = env.task_metrics()
+        final_metrics = _task_metrics(env)
         hit_successes.append(first_success_t is not None)
         hold_successes.append(max_hold_count >= hold_steps)
         times_to_hit.append(first_success_t if first_success_t is not None else steps_per_episode)
@@ -159,7 +217,7 @@ def train_policy(
 
 
 def evaluate_mppi(
-    env: Acrobot,
+    env: BaseEnv,
     mppi: MPPI,
     n_episodes: int,
     episode_len: int,
@@ -189,7 +247,7 @@ def evaluate_mppi(
             _, cost, done, _ = env.step(action)
             ep_cost += cost
 
-            metrics = env.task_metrics()
+            metrics = _task_metrics(env)
             if metrics["success"]:
                 if first_success_t is None:
                     first_success_t = t
@@ -201,7 +259,7 @@ def evaluate_mppi(
             if done:
                 break
 
-        final_metrics = env.task_metrics()
+        final_metrics = _task_metrics(env)
         returns.append(ep_cost)
         hit_successes.append(first_success_t is not None)
         hold_successes.append(max_hold_count >= hold_steps)
@@ -226,9 +284,17 @@ def make_collection_bias(
     gps_cfg: GPSConfig,
     it: int,
     policy_trust: float = 1.0,
+    obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ):
     """Return (prior_cost, coupling) for the current GPS iteration."""
-    if gps_cfg.coupling_mode not in {"track", "filter"}:
+    collection_mode = getattr(gps_cfg, "collection_mode", "gps")
+    if collection_mode == "bc":
+        return None, None
+    if collection_mode != "gps":
+        raise ValueError(
+            f"Unknown GPS collection_mode: {collection_mode!r}; expected 'bc' or 'gps'."
+        )
+    if gps_cfg.coupling_mode not in _COUPLING_MODES:
         raise ValueError(
             f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
             "expected 'track' or 'filter'."
@@ -240,6 +306,7 @@ def make_collection_bias(
     prior = make_policy_tracking_prior(
         policy,
         lambda_track=lambda_track,
+        obs_from_states=obs_from_states,
     )
     if gps_cfg.coupling_mode == "track":
         return prior, None
@@ -251,6 +318,7 @@ def make_collection_bias(
         keep_fraction=keep_fraction,
         min_n_eff=gps_cfg.policy_coupling_min_n_eff,
         max_weight=gps_cfg.policy_coupling_max_weight,
+        obs_from_states=obs_from_states,
     )
     return prior, coupling
 
@@ -285,8 +353,11 @@ def _apply_gps_overrides(gps_cfg: GPSConfig, **overrides) -> None:
 
 
 def main(
+    env_name: str = "acrobot",
     run_name: str | None = None,
+    device: str = "auto",
     use_warp: bool = False,
+    collection_mode: str | None = None,
     n_gps_iters: int | None = None,
     episodes_per_iter: int | None = None,
     steps_per_episode: int | None = None,
@@ -303,9 +374,11 @@ def main(
     policy_trust_max: float | None = None,
     policy_coupling_keep_fraction: float | None = None,
 ) -> None:
-    gps_cfg = GPSConfig.load("acrobot")
+    env_name = _normalize_env_name(env_name)
+    gps_cfg = GPSConfig.load(env_name)
     _apply_gps_overrides(
         gps_cfg,
+        collection_mode=collection_mode,
         n_gps_iters=n_gps_iters,
         episodes_per_iter=episodes_per_iter,
         steps_per_episode=steps_per_episode,
@@ -322,16 +395,20 @@ def main(
         policy_trust_max=policy_trust_max,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
     )
-    mppi_cfg = MPPIConfig.load("acrobot")
+    gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
+    mppi_cfg = MPPIConfig.load(env_name)
     policy_cfg = PolicyConfig()
 
     if run_name is None:
+        env_prefix = "" if env_name == "acrobot" else f"{env_name}_"
         suffix = "_warp" if use_warp else ""
-        if gps_cfg.coupling_mode == "track":
-            run_name = f"gps_track_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
+        if gps_cfg.collection_mode == "bc":
+            run_name = f"{env_prefix}bc{suffix}"
+        elif gps_cfg.coupling_mode == "track":
+            run_name = f"{env_prefix}gps_track_lambda_{gps_cfg.lambda_policy_track:g}{suffix}"
         elif gps_cfg.coupling_mode == "filter":
             run_name = (
-                f"gps_filter_lambda_{gps_cfg.lambda_policy_track:g}"
+                f"{env_prefix}gps_filter_lambda_{gps_cfg.lambda_policy_track:g}"
                 f"_keep_{gps_cfg.policy_coupling_keep_fraction:g}{suffix}"
             )
         else:
@@ -343,15 +420,18 @@ def main(
     run_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = run_dir / "metrics.jsonl"
     print(f"run_dir: {run_dir}")
+    print(f"env_name: {env_name}")
     print(f"gps_cfg: {gps_cfg}")
-    print(f"use_warp: {use_warp}  nworld: {mppi_cfg.K}")
 
     torch.manual_seed(0)
     rng = np.random.default_rng(0)
+    torch_device = _resolve_device(device)
+    print(f"device: {torch_device}")
+    print(f"use_warp: {use_warp}  nworld: {mppi_cfg.K}")
 
-    env = Acrobot(use_warp=use_warp, nworld=mppi_cfg.K)
+    env = _make_env(env_name, use_warp=use_warp, nworld=mppi_cfg.K)
     mppi = MPPI(env, mppi_cfg)
-    policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device="cuda")
+    policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=torch_device)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
     policy_trust = (
@@ -363,7 +443,12 @@ def main(
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
 
-        prior, coupling = make_collection_bias(policy, gps_cfg, it, policy_trust=policy_trust)
+        prior, coupling = make_collection_bias(
+            policy,
+            gps_cfg,
+            it,
+            policy_trust=policy_trust,
+        )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
         obs, acts, mppi_cost, mppi_stats = collect_episodes(
@@ -460,8 +545,13 @@ def main(
             "replay_max_pairs": gps_cfg.replay_max_pairs,
             "action_ema_alpha": gps_cfg.action_ema_alpha,
             "wall_time_s": time.time() - t_start,
+            "collection_mode": gps_cfg.collection_mode,
             "coupling_mode": gps_cfg.coupling_mode,
-            "coupling_active_mode": gps_cfg.coupling_mode if (prior is not None or coupling is not None) else "warmup",
+            "coupling_active_mode": (
+                gps_cfg.coupling_mode
+                if (prior is not None or coupling is not None)
+                else ("bc" if gps_cfg.collection_mode == "bc" else "warmup")
+            ),
             "policy_trust": policy_trust,
             "policy_trust_next": policy_trust_next,
             "lambda_track": gps_cfg.lambda_policy_track * policy_trust if prior is not None else 0.0,

@@ -34,6 +34,7 @@ def make_policy_filter_coupling(
     keep_fraction: float,
     min_n_eff: float,
     max_weight: float,
+    obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ) -> Callable[..., dict]:
     """Build a policy-proximity filtering hook for MPPI.
 
@@ -41,6 +42,7 @@ def make_policy_filter_coupling(
     score vector. Samples are filtered by closeness to the current policy;
     the already assembled MPPI score ranks the kept trajectories.
     """
+    state_to_obs = obs_from_states or _obs_from_rollout_states
 
     def coupling(
         *,
@@ -52,8 +54,8 @@ def make_policy_filter_coupling(
     ) -> dict:
         del costs, lam
         K, H, act_dim = actions.shape
-        obs = _obs_from_rollout_states(states[:, :H, :])
-        obs_flat = obs.reshape(K * H, 4)
+        obs = state_to_obs(states[:, :H, :])
+        obs_flat = obs.reshape(K * H, obs.shape[-1])
 
         with torch.no_grad():
             device = next(policy.parameters()).device
