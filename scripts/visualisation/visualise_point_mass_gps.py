@@ -85,11 +85,14 @@ def _rollout_policy(
             if done:
                 break
     finally:
+        if renderer is not None:
+            renderer.close()
         env.close()
 
     return {
         "qpos": np.asarray(qpos, dtype=float),
         "qvel": np.asarray(qvel, dtype=float),
+        "goal": env.goal.copy(),
         "actions": np.asarray(actions, dtype=float),
         "costs": np.asarray(costs, dtype=float),
         "dist": np.asarray(dist, dtype=float),
@@ -136,11 +139,14 @@ def _rollout_mppi(
             if done:
                 break
     finally:
+        if renderer is not None:
+            renderer.close()
         env.close()
 
     return {
         "qpos": np.asarray(qpos, dtype=float),
         "qvel": np.asarray(qvel, dtype=float),
+        "goal": env.goal.copy(),
         "actions": np.asarray(actions, dtype=float),
         "costs": np.asarray(costs, dtype=float),
         "dist": np.asarray(dist, dtype=float),
@@ -249,7 +255,9 @@ def plot_trace_compare(
             ax[1, 0].plot(actions[:, 1], color=color, linestyle="--", label=f"{name} ay")
         ax[1, 1].plot(np.linalg.norm(qvel, axis=1), color=color, label=name)
 
-    ax[0, 0].scatter([0.0], [0.0], color="k", marker="*", s=120, label="goal")
+    goal = policy_trace.get("goal", np.zeros(2))
+    assert isinstance(goal, np.ndarray)
+    ax[0, 0].scatter([goal[0]], [goal[1]], color="k", marker="*", s=120, label="goal")
     ax[0, 0].set_xlim(-0.31, 0.31)
     ax[0, 0].set_ylim(-0.31, 0.31)
     ax[0, 0].set_aspect("equal")

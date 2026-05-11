@@ -171,7 +171,7 @@ class TorchWarpMPPI:
             self._terminal_qvel_cost_weight = float(env._terminal_qvel_cost_weight)
             self._qvel_scale = torch.as_tensor(env._qvel_scale, dtype=self.dtype, device=self.device)
         else:
-            self._point_goal = torch.as_tensor(
+            self._point_goal_default = torch.as_tensor(
                 point_mass_costs._GOAL,
                 dtype=self.dtype,
                 device=self.device,
@@ -270,10 +270,41 @@ class TorchWarpMPPI:
             noise[:, :, t, :] = alpha * noise[:, :, t - 1, :] + innovation_scale * noise[:, :, t, :]
         return noise
 
+    def _prepare_point_goals(
+        self,
+        goals: np.ndarray | torch.Tensor | None,
+        plan_batch: int,
+        sample_count: int,
+    ) -> tuple[torch.Tensor, torch.Tensor] | tuple[None, None]:
+        if self.task_name != "point_mass":
+            return None, None
+
+        if goals is None:
+            goal_np = np.asarray(getattr(self.env, "goal", point_mass_costs._GOAL), dtype=np.float32)
+            goals_t = torch.as_tensor(goal_np, dtype=self.dtype, device=self.device).reshape(1, 2)
+        else:
+            goals_t = torch.as_tensor(goals, dtype=self.dtype, device=self.device)
+            if goals_t.ndim == 1:
+                goals_t = goals_t.reshape(1, 2)
+            elif goals_t.ndim != 2 or goals_t.shape[-1] != 2:
+                raise ValueError(f"PointMass goals must have shape (2,) or (B, 2), got {tuple(goals_t.shape)}.")
+
+        if goals_t.shape[0] == 1 and plan_batch > 1:
+            goals_t = goals_t.expand(plan_batch, -1)
+        if goals_t.shape[0] != plan_batch:
+            raise ValueError(f"Expected {plan_batch} PointMass goals, got {goals_t.shape[0]}.")
+
+        if plan_batch == 1:
+            goals_flat = goals_t.expand(sample_count, -1)
+        else:
+            goals_flat = goals_t.repeat_interleave(self.base_K, dim=0)
+        return goals_t, goals_flat
+
     def _run_rollouts(
         self,
         states: np.ndarray,
         actions: torch.Tensor,
+        point_goals_flat: torch.Tensor | None = None,
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         self.actions_t.copy_(actions.transpose(0, 1).contiguous())
         self._set_warp_initial_state_batch(states)
@@ -284,7 +315,13 @@ class TorchWarpMPPI:
         states_hk = torch.cat((self.qpos_t, self.qvel_t), dim=-1)
         states = states_hk.transpose(0, 1).contiguous()
         sensordata = self.sensor_t.transpose(0, 1).contiguous()
-        costs = self._trajectory_cost(self.qpos_t, self.qvel_t, self.sensor_t, self.actions_t)
+        costs = self._trajectory_cost(
+            self.qpos_t,
+            self.qvel_t,
+            self.sensor_t,
+            self.actions_t,
+            point_goals_flat=point_goals_flat,
+        )
         return states, costs, sensordata
 
     def _trajectory_cost(
@@ -293,9 +330,10 @@ class TorchWarpMPPI:
         qvel_hk: torch.Tensor,
         sensordata_hk: torch.Tensor,
         actions_hk: torch.Tensor,
+        point_goals_flat: torch.Tensor | None = None,
     ) -> torch.Tensor:
         if self.task_name == "point_mass":
-            return self._point_mass_cost(qpos_hk, qvel_hk, actions_hk)
+            return self._point_mass_cost(qpos_hk, qvel_hk, actions_hk, point_goals_flat)
         return self._acrobot_cost(sensordata_hk, qvel_hk, actions_hk)
 
     def _target_reward(self, tip_pos: torch.Tensor) -> torch.Tensor:
@@ -346,8 +384,11 @@ class TorchWarpMPPI:
         qpos_hk: torch.Tensor,
         qvel_hk: torch.Tensor,
         actions_hk: torch.Tensor,
+        point_goals_flat: torch.Tensor | None,
     ) -> torch.Tensor:
-        pos_err = qpos_hk - self._point_goal
+        if point_goals_flat is None:
+            point_goals_flat = self._point_goal_default.expand(qpos_hk.shape[1], -1)
+        pos_err = qpos_hk - point_goals_flat.unsqueeze(0)
         pos_sq = torch.sum(pos_err * pos_err, dim=-1)
         vel_sq = torch.sum(qvel_hk * qvel_hk, dim=-1)
         ctrl_sq = torch.sum(actions_hk * actions_hk, dim=-1)
@@ -407,6 +448,7 @@ class TorchWarpMPPI:
         costs: torch.Tensor,
         base_score: torch.Tensor,
         lam: float,
+        goals: torch.Tensor | None = None,
     ) -> tuple[torch.Tensor, dict[str, float], torch.Tensor | None]:
         default_diag = {
             "active": 0.0,
@@ -424,6 +466,7 @@ class TorchWarpMPPI:
             costs=costs,
             base_score=base_score,
             lam=lam,
+            goals=goals,
         )
         score = result["score"]
         fallback_score = result.get("fallback_score", base_score)
@@ -467,6 +510,7 @@ class TorchWarpMPPI:
         nominal_first: np.ndarray | torch.Tensor | None = None,
         prior_cost: "TorchPolicyTrackingPrior | None" = None,
         coupling: "TorchPolicyFilterCoupling | None" = None,
+        goals: np.ndarray | torch.Tensor | None = None,
     ) -> tuple[np.ndarray, dict[str, float]]:
         state_arr = np.asarray(state, dtype=np.float32)
         single_state = state_arr.ndim == 1
@@ -485,6 +529,8 @@ class TorchWarpMPPI:
             plan_batch = self.n_batches
             sample_count = self.base_K
             nominal_u = self.U
+
+        point_goals, point_goals_flat = self._prepare_point_goals(goals, plan_batch, sample_count)
 
         if nominal is not None:
             nominal_t = torch.as_tensor(nominal, dtype=self.dtype, device=self.device)
@@ -513,13 +559,17 @@ class TorchWarpMPPI:
             eps = noise
 
         actions_flat = u_sampled.reshape(self.K, self.H, self.nu)
-        states_flat, costs_flat, sensordata_flat = self._run_rollouts(rollout_states, actions_flat)
+        states_flat, costs_flat, sensordata_flat = self._run_rollouts(
+            rollout_states,
+            actions_flat,
+            point_goals_flat=point_goals_flat,
+        )
         states = states_flat.reshape(plan_batch, sample_count, self.H, states_flat.shape[-1])
         costs = costs_flat.reshape(plan_batch, sample_count)
         sensordata = sensordata_flat.reshape(plan_batch, sample_count, self.H, sensordata_flat.shape[-1])
 
         is_corr = self._is_correction(eps, nominal_u) if self.use_is_correction else torch.zeros_like(costs)
-        track = prior_cost(states, u_sampled) if prior_cost is not None else None
+        track = prior_cost(states, u_sampled, goals=point_goals) if prior_cost is not None else None
         base_score = costs + is_corr + (track if track is not None else 0.0)
 
         score, coupling_diag, fallback_score = self._apply_coupling(
@@ -529,6 +579,7 @@ class TorchWarpMPPI:
             costs,
             base_score,
             self.lam,
+            goals=point_goals,
         )
         weights, n_eff = self._softmin_weights(score, self.lam)
         weights, n_eff, score, used_coupling_fallback = self._maybe_fallback_coupling_weights(
@@ -596,8 +647,16 @@ class TorchPolicyTrackingPrior:
         self.lambda_track = float(lambda_track)
 
     @torch.no_grad()
-    def __call__(self, states: torch.Tensor, actions: torch.Tensor) -> torch.Tensor:
+    def __call__(
+        self,
+        states: torch.Tensor,
+        actions: torch.Tensor,
+        goals: torch.Tensor | None = None,
+    ) -> torch.Tensor:
         *leading, h, act_dim = actions.shape
+        if goals is not None:
+            goals_bkh = goals[:, None, None, :].expand(states.shape[0], states.shape[1], states.shape[2], -1)
+            states = torch.cat([states, goals_bkh], dim=-1)
         obs_flat = states.reshape(-1, states.shape[-1])
         mu = self.policy.forward(obs_flat).reshape(*leading, h, act_dim)
         per_step_sq = torch.mean((actions - mu) ** 2, dim=-1)
@@ -629,9 +688,13 @@ class TorchPolicyFilterCoupling:
         costs: torch.Tensor,
         base_score: torch.Tensor,
         lam: float,
+        goals: torch.Tensor | None = None,
     ) -> dict[str, Any]:
         del costs, lam
         b, k, h, act_dim = actions.shape
+        if goals is not None:
+            goals_bkh = goals[:, None, None, :].expand(b, k, h, -1)
+            states = torch.cat([states, goals_bkh], dim=-1)
         obs_flat = states.reshape(b * k * h, states.shape[-1])
         mu = self.policy.forward(obs_flat).reshape(b, k, h, act_dim)
 
@@ -695,6 +758,8 @@ def collect_episodes(
     obs_chunks, act_chunks, ep_costs = [], [], []
     hit_successes: list[bool] = []
     hold_successes: list[bool] = []
+    final_successes: list[bool] = []
+    final_hold_successes: list[bool] = []
     times_to_hit: list[int] = []
     final_tip_dists: list[float] = []
     final_qvel_norms: list[float] = []
@@ -720,6 +785,9 @@ def collect_episodes(
     for ep, env in enumerate(envs):
         np.random.seed(seed_base + ep)
         env.reset()
+    point_goals = None
+    if isinstance(envs[0], PointMass):
+        point_goals = np.stack([env.goal for env in envs], axis=0).astype(np.float32)
     torch.manual_seed(seed_base)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed_base)
@@ -736,7 +804,7 @@ def collect_episodes(
     for t in range(steps_per_episode):
         states = np.stack([env.get_state() for env in envs], axis=0)
         obs_batch = [env._get_obs() for env in envs]
-        actions, info = mppi.plan_step(states, prior_cost=prior, coupling=coupling)
+        actions, info = mppi.plan_step(states, prior_cost=prior, coupling=coupling, goals=point_goals)
         for key in stat_keys:
             stat_sums[key] += info[key]
         n_calls += 1
@@ -773,6 +841,8 @@ def collect_episodes(
         final_metrics = _task_metrics(env)
         hit_successes.append(first_success_t[ep] is not None)
         hold_successes.append(max_hold_counts[ep] >= hold_steps)
+        final_successes.append(bool(final_metrics["success"]))
+        final_hold_successes.append(hold_counts[ep] >= hold_steps)
         times_to_hit.append(first_success_t[ep] if first_success_t[ep] is not None else steps_per_episode)
         final_tip_dists.append(final_metrics["tip_dist"])
         final_qvel_norms.append(final_metrics["qvel_norm"])
@@ -784,6 +854,8 @@ def collect_episodes(
         {
             "hit_success_rate": float(np.mean(hit_successes)),
             "hold_success_rate": float(np.mean(hold_successes)),
+            "final_success_rate": float(np.mean(final_successes)),
+            "final_hold_success_rate": float(np.mean(final_hold_successes)),
             "mean_time_to_hit": float(np.mean(times_to_hit)),
             "mean_final_tip_dist": float(np.mean(final_tip_dists)),
             "mean_final_qvel_norm": float(np.mean(final_qvel_norms)),
@@ -835,6 +907,8 @@ def evaluate_mppi(
     returns: list[float] = []
     hit_successes: list[bool] = []
     hold_successes: list[bool] = []
+    final_successes: list[bool] = []
+    final_hold_successes: list[bool] = []
     times_to_hit: list[int] = []
     final_tip_dists: list[float] = []
     final_qvel_norms: list[float] = []
@@ -853,7 +927,8 @@ def evaluate_mppi(
         max_hold_count = 0
         for t in range(episode_len):
             state = env.get_state()
-            action, _ = mppi.plan_step(state)
+            point_goal = env.goal if isinstance(env, PointMass) else None
+            action, _ = mppi.plan_step(state, goals=point_goal)
             _, cost, done, _ = env.step(action)
             ep_cost += cost
 
@@ -873,6 +948,8 @@ def evaluate_mppi(
         returns.append(ep_cost)
         hit_successes.append(first_success_t is not None)
         hold_successes.append(max_hold_count >= hold_steps)
+        final_successes.append(bool(final_metrics["success"]))
+        final_hold_successes.append(hold_count >= hold_steps)
         times_to_hit.append(first_success_t if first_success_t is not None else episode_len)
         final_tip_dists.append(final_metrics["tip_dist"])
         final_qvel_norms.append(final_metrics["qvel_norm"])
@@ -883,6 +960,8 @@ def evaluate_mppi(
         "std_cost": float(arr.std()),
         "hit_success_rate": float(np.mean(hit_successes)),
         "hold_success_rate": float(np.mean(hold_successes)),
+        "final_success_rate": float(np.mean(final_successes)),
+        "final_hold_success_rate": float(np.mean(final_hold_successes)),
         "mean_time_to_hit": float(np.mean(times_to_hit)),
         "mean_final_tip_dist": float(np.mean(final_tip_dists)),
         "mean_final_qvel_norm": float(np.mean(final_qvel_norms)),
@@ -966,6 +1045,8 @@ def main(
     eval_n_episodes: int | None = None,
     eval_episode_len: int | None = None,
     eval_mppi_baseline_episodes: int | None = None,
+    replay_max_pairs: int | None = None,
+    bc_epochs_per_iter: int | None = None,
     coupling_warmup_iters: int | None = None,
     coupling_mode: str | None = None,
     lambda_policy_track: float | None = None,
@@ -994,6 +1075,8 @@ def main(
         eval_n_episodes=eval_n_episodes,
         eval_episode_len=eval_episode_len,
         eval_mppi_baseline_episodes=eval_mppi_baseline_episodes,
+        replay_max_pairs=replay_max_pairs,
+        bc_epochs_per_iter=bc_epochs_per_iter,
         coupling_warmup_iters=coupling_warmup_iters,
         coupling_mode=coupling_mode,
         lambda_policy_track=lambda_policy_track,
@@ -1053,6 +1136,7 @@ def main(
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=device)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
+    cached_mppi_eval_stats: dict[str, float] | None = None
     policy_trust = gps_cfg.policy_trust_max if not gps_cfg.adaptive_policy_trust else gps_cfg.policy_trust_min
 
     for it in range(gps_cfg.n_gps_iters):
@@ -1107,27 +1191,36 @@ def main(
             eval_std_ps = eval_std / gps_cfg.eval_episode_len
             eval_hit_success = stats.get("hit_success_rate")
             eval_hold_success = stats.get("hold_success_rate")
+            eval_final_success = stats.get("final_success_rate")
+            eval_final_hold_success = stats.get("final_hold_success_rate")
             eval_time_to_hit = stats.get("mean_time_to_hit")
             eval_final_tip_dist = stats.get("mean_final_tip_dist")
             eval_final_qvel_norm = stats.get("mean_final_qvel_norm")
             if gps_cfg.eval_mppi_baseline_episodes > 0:
-                print("evaluating raw MPPI baseline")
-                mppi_eval_stats = evaluate_mppi(
-                    eval_env,
-                    mppi,
-                    n_episodes=gps_cfg.eval_mppi_baseline_episodes,
-                    episode_len=gps_cfg.eval_episode_len,
-                    seed=0,
-                )
+                if cached_mppi_eval_stats is None:
+                    print("evaluating raw MPPI baseline")
+                    cached_mppi_eval_stats = evaluate_mppi(
+                        eval_env,
+                        mppi,
+                        n_episodes=gps_cfg.eval_mppi_baseline_episodes,
+                        episode_len=gps_cfg.eval_episode_len,
+                        seed=0,
+                    )
+                else:
+                    print("reusing cached raw MPPI baseline")
+                mppi_eval_stats = cached_mppi_eval_stats
                 mppi_eval_mean = mppi_eval_stats["mean_cost"]
                 mppi_eval_std = mppi_eval_stats["std_cost"]
                 mppi_eval_mean_ps = mppi_eval_mean / gps_cfg.eval_episode_len
                 mppi_eval_std_ps = mppi_eval_std / gps_cfg.eval_episode_len
                 mppi_eval_hit_success = mppi_eval_stats["hit_success_rate"]
                 mppi_eval_hold_success = mppi_eval_stats["hold_success_rate"]
+                mppi_eval_final_success = mppi_eval_stats["final_success_rate"]
+                mppi_eval_final_hold_success = mppi_eval_stats["final_hold_success_rate"]
             else:
                 mppi_eval_mean = mppi_eval_std = mppi_eval_mean_ps = mppi_eval_std_ps = None
                 mppi_eval_hit_success = mppi_eval_hold_success = None
+                mppi_eval_final_success = mppi_eval_final_hold_success = None
             policy_trust_next = compute_policy_trust(
                 policy_cost=eval_mean,
                 raw_mppi_cost=mppi_eval_mean,
@@ -1136,10 +1229,13 @@ def main(
             )
         else:
             eval_mean = eval_std = eval_mean_ps = eval_std_ps = None
-            eval_hit_success = eval_hold_success = eval_time_to_hit = None
+            eval_hit_success = eval_hold_success = None
+            eval_final_success = eval_final_hold_success = None
+            eval_time_to_hit = None
             eval_final_tip_dist = eval_final_qvel_norm = None
             mppi_eval_mean = mppi_eval_std = mppi_eval_mean_ps = mppi_eval_std_ps = None
             mppi_eval_hit_success = mppi_eval_hold_success = None
+            mppi_eval_final_success = mppi_eval_final_hold_success = None
             policy_trust_next = policy_trust
 
         record = {
@@ -1182,13 +1278,19 @@ def main(
             "raw_mppi_eval_cost_per_step_std": mppi_eval_std_ps,
             "raw_mppi_eval_hit_success_rate": mppi_eval_hit_success,
             "raw_mppi_eval_hold_success_rate": mppi_eval_hold_success,
+            "raw_mppi_eval_final_success_rate": mppi_eval_final_success,
+            "raw_mppi_eval_final_hold_success_rate": mppi_eval_final_hold_success,
             "mppi_hit_success_rate": mppi_stats["hit_success_rate"],
             "mppi_hold_success_rate": mppi_stats["hold_success_rate"],
+            "mppi_final_success_rate": mppi_stats["final_success_rate"],
+            "mppi_final_hold_success_rate": mppi_stats["final_hold_success_rate"],
             "mppi_mean_time_to_hit": mppi_stats["mean_time_to_hit"],
             "mppi_mean_final_tip_dist": mppi_stats["mean_final_tip_dist"],
             "mppi_mean_final_qvel_norm": mppi_stats["mean_final_qvel_norm"],
             "policy_eval_hit_success_rate": eval_hit_success,
             "policy_eval_hold_success_rate": eval_hold_success,
+            "policy_eval_final_success_rate": eval_final_success,
+            "policy_eval_final_hold_success_rate": eval_final_hold_success,
             "policy_eval_mean_time_to_hit": eval_time_to_hit,
             "policy_eval_mean_final_tip_dist": eval_final_tip_dist,
             "policy_eval_mean_final_qvel_norm": eval_final_qvel_norm,
@@ -1230,7 +1332,7 @@ def main(
         policy_trust = policy_trust_next
 
         torch.save(policy.state_dict(), run_dir / "checkpoint_latest.pt")
-        if it % 5 == 0 or it == gps_cfg.n_gps_iters - 1:
+        if do_eval or it % 5 == 0 or it == gps_cfg.n_gps_iters - 1:
             torch.save(policy.state_dict(), run_dir / f"checkpoint_iter_{it:03d}.pt")
 
     planner_env.close()

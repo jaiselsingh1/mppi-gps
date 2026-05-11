@@ -10,8 +10,20 @@ from torch import Tensor
 from src.utils.config import PolicyConfig
 
 def featurize_obs(
-        obs: Float[Tensor, "*batch 4"],
+        obs: Float[Tensor, "*batch obs_dim"],
 ) -> Float[Tensor, "*batch 6"]:
+    if obs.shape[-1] == 6:
+        new_obs = torch.empty(*obs.shape[:-1], 6, device=obs.device, dtype=obs.dtype)
+        pos = obs[..., 0:2]
+        vel = obs[..., 2:4]
+        goal = obs[..., 4:6]
+        new_obs[..., 0:2] = (pos - goal) / 0.29
+        new_obs[..., 2:4] = vel / 0.5
+        new_obs[..., 4:6] = goal / 0.29
+        return new_obs
+    if obs.shape[-1] != 4:
+        raise ValueError(f"Expected raw observation dim 4 or 6, got {obs.shape[-1]}.")
+
     new_obs = torch.empty(*obs.shape[:-1], 6, device = obs.device, dtype = obs.dtype)
     new_obs[..., 0] = torch.sin(obs[..., 0])
     new_obs[..., 1] = torch.cos(obs[..., 0])

@@ -26,6 +26,8 @@ def evaluate_policy(
     returns: list[float] = []
     hit_successes: list[bool] = []
     hold_successes: list[bool] = []
+    final_successes: list[bool] = []
+    final_hold_successes: list[bool] = []
     times_to_hit: list[int] = []
     final_tip_dists: list[float] = []
     final_qvel_norms: list[float] = []
@@ -70,6 +72,8 @@ def evaluate_policy(
             final_metrics = env.task_metrics()
             hit_successes.append(first_success_t is not None)
             hold_successes.append(max_hold_count >= hold_steps)
+            final_successes.append(bool(final_metrics["success"]))
+            final_hold_successes.append(hold_count >= hold_steps)
             times_to_hit.append(first_success_t if first_success_t is not None else episode_len)
             final_tip_dists.append(final_metrics["tip_dist"])
             final_qvel_norms.append(final_metrics["qvel_norm"])
@@ -85,6 +89,8 @@ def evaluate_policy(
         stats.update({
             "hit_success_rate": float(np.mean(hit_successes)),
             "hold_success_rate": float(np.mean(hold_successes)),
+            "final_success_rate": float(np.mean(final_successes)),
+            "final_hold_success_rate": float(np.mean(final_hold_successes)),
             "mean_time_to_hit": float(np.mean(times_to_hit)),
             "mean_final_tip_dist": float(np.mean(final_tip_dists)),
             "mean_final_qvel_norm": float(np.mean(final_qvel_norms)),
