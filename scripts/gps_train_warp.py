@@ -1047,6 +1047,12 @@ def main(
     eval_mppi_baseline_episodes: int | None = None,
     replay_max_pairs: int | None = None,
     bc_epochs_per_iter: int | None = None,
+    mppi_k: int | None = None,
+    mppi_h: int | None = None,
+    mppi_lam: float | None = None,
+    mppi_noise_sigma: float | None = None,
+    point_terminal_pos_cost_weight: float | None = None,
+    point_terminal_vel_cost_weight: float | None = None,
     coupling_warmup_iters: int | None = None,
     coupling_mode: str | None = None,
     lambda_policy_track: float | None = None,
@@ -1088,6 +1094,22 @@ def main(
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
+    if mppi_k is not None:
+        mppi_cfg.K = mppi_k
+    if mppi_h is not None:
+        mppi_cfg.H = mppi_h
+    if mppi_lam is not None:
+        mppi_cfg.lam = mppi_lam
+    if mppi_noise_sigma is not None:
+        mppi_cfg.noise_sigma = mppi_noise_sigma
+    if point_terminal_pos_cost_weight is not None:
+        if env_name != "point_mass":
+            raise ValueError("--point-terminal-pos-cost-weight is only valid for point_mass.")
+        point_mass_costs._TERMINAL_POS_COST_WEIGHT = point_terminal_pos_cost_weight
+    if point_terminal_vel_cost_weight is not None:
+        if env_name != "point_mass":
+            raise ValueError("--point-terminal-vel-cost-weight is only valid for point_mass.")
+        point_mass_costs._TERMINAL_VEL_COST_WEIGHT = point_terminal_vel_cost_weight
     policy_cfg = PolicyConfig()
 
     device = _resolve_device(device)
@@ -1302,6 +1324,19 @@ def main(
             "mppi_n_eff": mppi_stats["n_eff"],
             "mppi_lam_effective": mppi_stats["lam"],
             "mppi_K": mppi_cfg.K,
+            "mppi_H": mppi_cfg.H,
+            "mppi_lam_base": mppi_cfg.lam,
+            "mppi_noise_sigma": mppi_cfg.noise_sigma,
+            "point_terminal_pos_cost_weight": (
+                float(point_mass_costs._TERMINAL_POS_COST_WEIGHT)
+                if env_name == "point_mass"
+                else None
+            ),
+            "point_terminal_vel_cost_weight": (
+                float(point_mass_costs._TERMINAL_VEL_COST_WEIGHT)
+                if env_name == "point_mass"
+                else None
+            ),
             "n_batches": gps_cfg.episodes_per_iter,
             "episodes_per_iter": gps_cfg.episodes_per_iter,
             "mppi_n_batches": mppi_n_batches,
