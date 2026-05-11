@@ -17,6 +17,7 @@ import torch.nn.functional as F
 
 from src.envs.base import BaseEnv
 from src.envs.acrobot import Acrobot
+from src.envs.ant_maze import AntMaze
 from src.envs.point_mass import PointMass
 from src.mppi.mppi import MPPI
 from src.policy.deterministic_policy import DeterministicPolicy
@@ -27,6 +28,7 @@ from src.gps.prior import make_policy_tracking_prior
 
 _ENV_FACTORIES = {
     "acrobot": Acrobot,
+    "ant_maze": AntMaze,
     "point_mass": PointMass,
 }
 _COLLECTION_MODES = {"bc", "gps"}
@@ -172,7 +174,8 @@ def collect_episodes(
         final_tip_dists.append(final_metrics["tip_dist"])
         final_qvel_norms.append(final_metrics["qvel_norm"])
 
-    obs_arr = np.concatenate(obs_chunks, axis=0) if obs_chunks else np.empty((0, 4), dtype=np.float32)
+    obs_dim = int(np.asarray(env._get_obs()).shape[-1])
+    obs_arr = np.concatenate(obs_chunks, axis=0) if obs_chunks else np.empty((0, obs_dim), dtype=np.float32)
     act_arr = np.concatenate(act_chunks, axis=0) if act_chunks else np.empty((0, env.action_dim), dtype=np.float32)
     mppi_stats = {k: stat_sums[k] / max(n_calls, 1) for k in stat_keys}
     mppi_stats.update({
@@ -432,6 +435,7 @@ def main(
     env = _make_env(env_name, use_warp=use_warp, nworld=mppi_cfg.K)
     mppi = MPPI(env, mppi_cfg)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=torch_device)
+    obs_from_states = getattr(env, "rollout_states_to_obs", None)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
     policy_trust = (
@@ -448,6 +452,7 @@ def main(
             gps_cfg,
             it,
             policy_trust=policy_trust,
+            obs_from_states=obs_from_states,
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")

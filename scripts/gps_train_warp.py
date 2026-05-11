@@ -24,9 +24,11 @@ import tyro
 import warp as wp
 
 import src.envs.acrobot as acrobot_costs
+import src.envs.ant_maze as ant_maze_costs
 import src.envs.point_mass as point_mass_costs
 from src.envs.base import BaseEnv
 from src.envs.acrobot import Acrobot
+from src.envs.ant_maze import AntMaze
 from src.envs.point_mass import PointMass
 from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import GPSConfig, MPPIConfig, PolicyConfig
@@ -34,6 +36,7 @@ from src.utils.eval import evaluate_policy
 
 _ENV_FACTORIES = {
     "acrobot": Acrobot,
+    "ant_maze": AntMaze,
     "point_mass": PointMass,
 }
 _COLLECTION_MODES = {"bc", "gps"}
@@ -110,8 +113,8 @@ class TorchWarpMPPI:
     ) -> None:
         if not getattr(env, "_use_warp", False):
             raise ValueError("TorchWarpMPPI requires an env constructed with use_warp=True.")
-        if not isinstance(env, (Acrobot, PointMass)):
-            raise ValueError("TorchWarpMPPI currently supports Acrobot and PointMass.")
+        if not isinstance(env, (Acrobot, AntMaze, PointMass)):
+            raise ValueError("TorchWarpMPPI currently supports Acrobot, AntMaze, and PointMass.")
         if n_batches <= 0:
             raise ValueError(f"n_batches must be positive, got {n_batches}.")
         if cfg.lam <= 0.0:
@@ -130,7 +133,12 @@ class TorchWarpMPPI:
         self.device = torch.device(device)
         self.dtype = torch.float32
         self.use_is_correction = cfg.use_is_correction
-        self.task_name = "point_mass" if isinstance(env, PointMass) else "acrobot"
+        if isinstance(env, PointMass):
+            self.task_name = "point_mass"
+        elif isinstance(env, AntMaze):
+            self.task_name = "ant_maze"
+        else:
+            self.task_name = "acrobot"
 
         noise_cov = self._build_noise_cov(cfg)
         self.noise_chol = torch.linalg.cholesky(noise_cov)
@@ -170,7 +178,7 @@ class TorchWarpMPPI:
             self._qvel_excess_threshold = float(env._qvel_excess_threshold)
             self._terminal_qvel_cost_weight = float(env._terminal_qvel_cost_weight)
             self._qvel_scale = torch.as_tensor(env._qvel_scale, dtype=self.dtype, device=self.device)
-        else:
+        elif self.task_name == "point_mass":
             self._point_goal_default = torch.as_tensor(
                 point_mass_costs._GOAL,
                 dtype=self.dtype,
@@ -181,6 +189,33 @@ class TorchWarpMPPI:
             self._point_ctrl_cost_weight = float(env._ctrl_w)
             self._point_terminal_pos_cost_weight = float(point_mass_costs._TERMINAL_POS_COST_WEIGHT)
             self._point_terminal_vel_cost_weight = float(point_mass_costs._TERMINAL_VEL_COST_WEIGHT)
+        else:
+            self._ant_goal_default = torch.as_tensor(
+                ant_maze_costs._GOAL,
+                dtype=self.dtype,
+                device=self.device,
+            )
+            self._ant_route_waypoints = torch.as_tensor(
+                ant_maze_costs._ROUTE_WAYPOINTS,
+                dtype=self.dtype,
+                device=self.device,
+            )
+            self._ant_dist_cost_weight = float(ant_maze_costs._DIST_COST_WEIGHT)
+            self._ant_terminal_dist_cost_weight = float(ant_maze_costs._TERMINAL_DIST_COST_WEIGHT)
+            self._ant_path_progress_cost_weight = float(ant_maze_costs._PATH_PROGRESS_COST_WEIGHT)
+            self._ant_path_lateral_cost_weight = float(ant_maze_costs._PATH_LATERAL_COST_WEIGHT)
+            self._ant_terminal_path_progress_cost_weight = float(
+                ant_maze_costs._TERMINAL_PATH_PROGRESS_COST_WEIGHT
+            )
+            self._ant_terminal_path_lateral_cost_weight = float(
+                ant_maze_costs._TERMINAL_PATH_LATERAL_COST_WEIGHT
+            )
+            self._ant_ctrl_cost_weight = float(ant_maze_costs._CTRL_COST_WEIGHT)
+            self._ant_qvel_cost_weight = float(ant_maze_costs._QVEL_COST_WEIGHT)
+            self._ant_unhealthy_cost_weight = float(ant_maze_costs._UNHEALTHY_COST_WEIGHT)
+            self._ant_healthy_z_min = float(ant_maze_costs._HEALTHY_Z_RANGE[0])
+            self._ant_healthy_z_max = float(ant_maze_costs._HEALTHY_Z_RANGE[1])
+            self._ant_cost_mode = getattr(env, "_cost_mode", "route")
 
         self.U = torch.zeros((self.n_batches, self.H, self.nu), dtype=self.dtype, device=self.device)
         self._last_states: torch.Tensor | None = None
@@ -270,29 +305,30 @@ class TorchWarpMPPI:
             noise[:, :, t, :] = alpha * noise[:, :, t - 1, :] + innovation_scale * noise[:, :, t, :]
         return noise
 
-    def _prepare_point_goals(
+    def _prepare_task_goals(
         self,
         goals: np.ndarray | torch.Tensor | None,
         plan_batch: int,
         sample_count: int,
     ) -> tuple[torch.Tensor, torch.Tensor] | tuple[None, None]:
-        if self.task_name != "point_mass":
+        if self.task_name not in {"point_mass", "ant_maze"}:
             return None, None
 
         if goals is None:
-            goal_np = np.asarray(getattr(self.env, "goal", point_mass_costs._GOAL), dtype=np.float32)
+            default_goal = point_mass_costs._GOAL if self.task_name == "point_mass" else ant_maze_costs._GOAL
+            goal_np = np.asarray(getattr(self.env, "goal", default_goal), dtype=np.float32)
             goals_t = torch.as_tensor(goal_np, dtype=self.dtype, device=self.device).reshape(1, 2)
         else:
             goals_t = torch.as_tensor(goals, dtype=self.dtype, device=self.device)
             if goals_t.ndim == 1:
                 goals_t = goals_t.reshape(1, 2)
             elif goals_t.ndim != 2 or goals_t.shape[-1] != 2:
-                raise ValueError(f"PointMass goals must have shape (2,) or (B, 2), got {tuple(goals_t.shape)}.")
+                raise ValueError(f"{self.task_name} goals must have shape (2,) or (B, 2), got {tuple(goals_t.shape)}.")
 
         if goals_t.shape[0] == 1 and plan_batch > 1:
             goals_t = goals_t.expand(plan_batch, -1)
         if goals_t.shape[0] != plan_batch:
-            raise ValueError(f"Expected {plan_batch} PointMass goals, got {goals_t.shape[0]}.")
+            raise ValueError(f"Expected {plan_batch} {self.task_name} goals, got {goals_t.shape[0]}.")
 
         if plan_batch == 1:
             goals_flat = goals_t.expand(sample_count, -1)
@@ -304,7 +340,7 @@ class TorchWarpMPPI:
         self,
         states: np.ndarray,
         actions: torch.Tensor,
-        point_goals_flat: torch.Tensor | None = None,
+        task_goals_flat: torch.Tensor | None = None,
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         self.actions_t.copy_(actions.transpose(0, 1).contiguous())
         self._set_warp_initial_state_batch(states)
@@ -320,7 +356,7 @@ class TorchWarpMPPI:
             self.qvel_t,
             self.sensor_t,
             self.actions_t,
-            point_goals_flat=point_goals_flat,
+            task_goals_flat=task_goals_flat,
         )
         return states, costs, sensordata
 
@@ -330,10 +366,12 @@ class TorchWarpMPPI:
         qvel_hk: torch.Tensor,
         sensordata_hk: torch.Tensor,
         actions_hk: torch.Tensor,
-        point_goals_flat: torch.Tensor | None = None,
+        task_goals_flat: torch.Tensor | None = None,
     ) -> torch.Tensor:
         if self.task_name == "point_mass":
-            return self._point_mass_cost(qpos_hk, qvel_hk, actions_hk, point_goals_flat)
+            return self._point_mass_cost(qpos_hk, qvel_hk, actions_hk, task_goals_flat)
+        if self.task_name == "ant_maze":
+            return self._ant_maze_cost(qpos_hk, qvel_hk, actions_hk, task_goals_flat)
         return self._acrobot_cost(sensordata_hk, qvel_hk, actions_hk)
 
     def _target_reward(self, tip_pos: torch.Tensor) -> torch.Tensor:
@@ -402,6 +440,70 @@ class TorchWarpMPPI:
             + self._point_terminal_vel_cost_weight * vel_sq[-1]
         )
         return torch.sum(running, dim=0) + terminal
+
+    def _ant_maze_cost(
+        self,
+        qpos_hk: torch.Tensor,
+        qvel_hk: torch.Tensor,
+        actions_hk: torch.Tensor,
+        goals_flat: torch.Tensor | None,
+    ) -> torch.Tensor:
+        if goals_flat is None:
+            goals_flat = self._ant_goal_default.expand(qpos_hk.shape[1], -1)
+        xy = qpos_hk[..., :2]
+        z = qpos_hk[..., 2]
+        if self._ant_cost_mode == "route":
+            remaining, lateral_sq = self._ant_route_cost(xy)
+            running_task = (
+                self._ant_path_progress_cost_weight * remaining * remaining
+                + self._ant_path_lateral_cost_weight * lateral_sq
+            )
+            terminal_task = (
+                self._ant_terminal_path_progress_cost_weight * remaining[-1] * remaining[-1]
+                + self._ant_terminal_path_lateral_cost_weight * lateral_sq[-1]
+            )
+        else:
+            dist_sq = torch.sum((xy - goals_flat.unsqueeze(0)) ** 2, dim=-1)
+            running_task = self._ant_dist_cost_weight * dist_sq
+            terminal_task = self._ant_terminal_dist_cost_weight * dist_sq[-1]
+        qvel_sq = torch.sum(qvel_hk * qvel_hk, dim=-1)
+        ctrl_sq = torch.sum(actions_hk * actions_hk, dim=-1)
+        unhealthy = (z < self._ant_healthy_z_min) | (z > self._ant_healthy_z_max)
+        running = (
+            running_task
+            + self._ant_qvel_cost_weight * qvel_sq
+            + self._ant_ctrl_cost_weight * ctrl_sq
+            + self._ant_unhealthy_cost_weight * unhealthy.to(dtype=self.dtype)
+        )
+        terminal = (
+            terminal_task
+            + self._ant_qvel_cost_weight * qvel_sq[-1]
+            + self._ant_unhealthy_cost_weight * unhealthy[-1].to(dtype=self.dtype)
+        )
+        return torch.sum(running, dim=0) + terminal
+
+    def _ant_route_cost(self, xy: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        p0 = self._ant_route_waypoints[0]
+        p1 = self._ant_route_waypoints[1]
+        p2 = self._ant_route_waypoints[2]
+        seg0 = p1 - p0
+        seg1 = p2 - p1
+        len0 = torch.linalg.norm(seg0)
+        len1 = torch.linalg.norm(seg1)
+
+        t0 = torch.clamp(torch.sum((xy - p0) * seg0, dim=-1) / torch.sum(seg0 * seg0), 0.0, 1.0)
+        proj0 = p0 + t0.unsqueeze(-1) * seg0
+        d0_sq = torch.sum((xy - proj0) ** 2, dim=-1)
+
+        t1 = torch.clamp(torch.sum((xy - p1) * seg1, dim=-1) / torch.sum(seg1 * seg1), 0.0, 1.0)
+        proj1 = p1 + t1.unsqueeze(-1) * seg1
+        d1_sq = torch.sum((xy - proj1) ** 2, dim=-1)
+
+        use_seg0 = d0_sq <= d1_sq
+        progress = torch.where(use_seg0, t0 * len0, len0 + t1 * len1)
+        lateral_sq = torch.where(use_seg0, d0_sq, d1_sq)
+        remaining = len0 + len1 - progress
+        return remaining, lateral_sq
 
     def _is_correction(self, eps: torch.Tensor, nominal: torch.Tensor) -> torch.Tensor:
         precision_eps = torch.einsum("ij,bktj->bkti", self.noise_precision, eps)
@@ -530,7 +632,7 @@ class TorchWarpMPPI:
             sample_count = self.base_K
             nominal_u = self.U
 
-        point_goals, point_goals_flat = self._prepare_point_goals(goals, plan_batch, sample_count)
+        task_goals, task_goals_flat = self._prepare_task_goals(goals, plan_batch, sample_count)
 
         if nominal is not None:
             nominal_t = torch.as_tensor(nominal, dtype=self.dtype, device=self.device)
@@ -562,14 +664,14 @@ class TorchWarpMPPI:
         states_flat, costs_flat, sensordata_flat = self._run_rollouts(
             rollout_states,
             actions_flat,
-            point_goals_flat=point_goals_flat,
+            task_goals_flat=task_goals_flat,
         )
         states = states_flat.reshape(plan_batch, sample_count, self.H, states_flat.shape[-1])
         costs = costs_flat.reshape(plan_batch, sample_count)
         sensordata = sensordata_flat.reshape(plan_batch, sample_count, self.H, sensordata_flat.shape[-1])
 
         is_corr = self._is_correction(eps, nominal_u) if self.use_is_correction else torch.zeros_like(costs)
-        track = prior_cost(states, u_sampled, goals=point_goals) if prior_cost is not None else None
+        track = prior_cost(states, u_sampled, goals=task_goals) if prior_cost is not None else None
         base_score = costs + is_corr + (track if track is not None else 0.0)
 
         score, coupling_diag, fallback_score = self._apply_coupling(
@@ -579,7 +681,7 @@ class TorchWarpMPPI:
             costs,
             base_score,
             self.lam,
-            goals=point_goals,
+            goals=task_goals,
         )
         weights, n_eff = self._softmin_weights(score, self.lam)
         weights, n_eff, score, used_coupling_fallback = self._maybe_fallback_coupling_weights(
@@ -785,9 +887,9 @@ def collect_episodes(
     for ep, env in enumerate(envs):
         np.random.seed(seed_base + ep)
         env.reset()
-    point_goals = None
-    if isinstance(envs[0], PointMass):
-        point_goals = np.stack([env.goal for env in envs], axis=0).astype(np.float32)
+    task_goals = None
+    if hasattr(envs[0], "goal"):
+        task_goals = np.stack([env.goal for env in envs], axis=0).astype(np.float32)
     torch.manual_seed(seed_base)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed_base)
@@ -804,7 +906,7 @@ def collect_episodes(
     for t in range(steps_per_episode):
         states = np.stack([env.get_state() for env in envs], axis=0)
         obs_batch = [env._get_obs() for env in envs]
-        actions, info = mppi.plan_step(states, prior_cost=prior, coupling=coupling, goals=point_goals)
+        actions, info = mppi.plan_step(states, prior_cost=prior, coupling=coupling, goals=task_goals)
         for key in stat_keys:
             stat_sums[key] += info[key]
         n_calls += 1
@@ -847,7 +949,8 @@ def collect_episodes(
         final_tip_dists.append(final_metrics["tip_dist"])
         final_qvel_norms.append(final_metrics["qvel_norm"])
 
-    obs_arr = np.concatenate(obs_chunks, axis=0) if obs_chunks else np.empty((0, 4), dtype=np.float32)
+    obs_dim = int(np.asarray(envs[0]._get_obs()).shape[-1])
+    obs_arr = np.concatenate(obs_chunks, axis=0) if obs_chunks else np.empty((0, obs_dim), dtype=np.float32)
     act_arr = np.concatenate(act_chunks, axis=0) if act_chunks else np.empty((0, envs[0].action_dim), dtype=np.float32)
     mppi_stats = {k: stat_sums[k] / max(n_calls, 1) for k in stat_keys}
     mppi_stats.update(
@@ -927,8 +1030,8 @@ def evaluate_mppi(
         max_hold_count = 0
         for t in range(episode_len):
             state = env.get_state()
-            point_goal = env.goal if isinstance(env, PointMass) else None
-            action, _ = mppi.plan_step(state, goals=point_goal)
+            task_goal = env.goal if hasattr(env, "goal") else None
+            action, _ = mppi.plan_step(state, goals=task_goal)
             _, cost, done, _ = env.step(action)
             ep_cost += cost
 

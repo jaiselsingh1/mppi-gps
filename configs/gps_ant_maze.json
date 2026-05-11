@@ -1,0 +1,31 @@
+{
+  "n_gps_iters": 20,
+  "episodes_per_iter": 4,
+  "steps_per_episode": 200,
+  "batch_size": 256,
+  "bc_epochs_per_iter": 3,
+  "replay_max_pairs": 100000,
+  "action_ema_alpha": 0.2,
+
+  "eval_every": 2,
+  "eval_n_episodes": 5,
+  "eval_episode_len": 200,
+  "eval_mppi_baseline_episodes": 1,
+
+  "coupling_warmup_iters": 0,
+  "collection_mode": "bc",
+  "coupling_mode": "track",
+
+  "adaptive_policy_trust": false,
+  "policy_trust_min": 0.0,
+  "policy_trust_max": 0.0,
+
+  "lambda_policy_track": 0.01,
+  "policy_trust_bad_cost_per_step": 100.0,
+  "policy_coupling_min_fraction": 0.05,
+  "policy_coupling_keep_fraction": 0.5,
+  "policy_coupling_min_n_eff": 0.0,
+  "policy_coupling_max_weight": 1.0,
+  "obs_dim": 31,
+  "act_dim": 8
+}

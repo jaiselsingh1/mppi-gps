@@ -22,7 +22,7 @@ def featurize_obs(
         new_obs[..., 4:6] = goal / 0.29
         return new_obs
     if obs.shape[-1] != 4:
-        raise ValueError(f"Expected raw observation dim 4 or 6, got {obs.shape[-1]}.")
+        return obs
 
     new_obs = torch.empty(*obs.shape[:-1], 6, device = obs.device, dtype = obs.dtype)
     new_obs[..., 0] = torch.sin(obs[..., 0])
