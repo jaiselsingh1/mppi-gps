@@ -69,14 +69,21 @@ _GOAL_RADIUS = 0.5
 _HEALTHY_Z_RANGE = (0.2, 1.0)
 
 _DIST_COST_WEIGHT = 1.0
-_TERMINAL_DIST_COST_WEIGHT = 25.0
-_PATH_PROGRESS_COST_WEIGHT = 1.0
+_TERMINAL_DIST_COST_WEIGHT = 100.0
+_PATH_PROGRESS_COST_WEIGHT = 1.5
 _PATH_LATERAL_COST_WEIGHT = 2.0
-_TERMINAL_PATH_PROGRESS_COST_WEIGHT = 25.0
+_TERMINAL_PATH_PROGRESS_COST_WEIGHT = 100.0
 _TERMINAL_PATH_LATERAL_COST_WEIGHT = 10.0
-_CTRL_COST_WEIGHT = 0.01
-_QVEL_COST_WEIGHT = 0.005
-_UNHEALTHY_COST_WEIGHT = 10.0
+_CTRL_COST_WEIGHT = 0.03
+_QVEL_COST_WEIGHT = 0.02
+_UNHEALTHY_COST_WEIGHT = 1000.0
+
+_Z_TARGET = 0.55
+_Z_COST_WEIGHT = 150.0
+_TERMINAL_Z_COST_WEIGHT = 300.0
+_UPRIGHT_TARGET = 0.85
+_UPRIGHT_COST_WEIGHT = 250.0
+_TERMINAL_UPRIGHT_COST_WEIGHT = 500.0
 
 
 def _route_progress_cost(
@@ -101,6 +108,13 @@ def _route_progress_cost(
     lateral_sq = np.where(use_seg0, d0_sq, d1_sq)
     remaining = (len0 + len1) - progress
     return remaining, lateral_sq, progress
+
+
+def _upright_from_quat(qpos: Float[Array, "... nq"]) -> Float[Array, "..."]:
+    quat = qpos[..., 3:7]
+    quat_norm = np.linalg.norm(quat, axis=-1, keepdims=True)
+    quat = quat / np.clip(quat_norm, 1.0e-8, None)
+    return 1.0 - 2.0 * (quat[..., 1] ** 2 + quat[..., 2] ** 2)
 
 
 class AntMaze(MuJoCoEnv):
@@ -201,6 +215,7 @@ class AntMaze(MuJoCoEnv):
         qvel = self.data.qvel.copy()
         dist = float(np.linalg.norm(xy - self.goal))
         route_remaining, route_lateral_sq, route_progress = _route_progress_cost(xy)
+        upright = float(_upright_from_quat(self.data.qpos))
         healthy = _HEALTHY_Z_RANGE[0] <= float(self.data.qpos[2]) <= _HEALTHY_Z_RANGE[1]
         return {
             "tip_dist": dist,
@@ -209,6 +224,7 @@ class AntMaze(MuJoCoEnv):
             "x_pos": float(xy[0]),
             "y_pos": float(xy[1]),
             "z_pos": float(self.data.qpos[2]),
+            "upright": upright,
             "goal_x": float(self.goal[0]),
             "goal_y": float(self.goal[1]),
             "healthy": bool(healthy),
@@ -229,22 +245,28 @@ class AntMaze(MuJoCoEnv):
         qpos, qvel = self._split_states(states)
         xy = qpos[..., :2]
         z = qpos[..., 2]
+        dist_sq = np.sum((xy - self.goal) ** 2, axis=-1)
         if self._cost_mode == "route":
             remaining, lateral_sq, _ = _route_progress_cost(xy)
             task_cost = (
                 _PATH_PROGRESS_COST_WEIGHT * remaining * remaining
                 + _PATH_LATERAL_COST_WEIGHT * lateral_sq
+                + _DIST_COST_WEIGHT * dist_sq
             )
         else:
-            task_cost = _DIST_COST_WEIGHT * np.sum((xy - self.goal) ** 2, axis=-1)
+            task_cost = _DIST_COST_WEIGHT * dist_sq
         qvel_cost = np.sum(qvel * qvel, axis=-1)
         ctrl_cost = np.sum(actions * actions, axis=-1)
         unhealthy = (z < _HEALTHY_Z_RANGE[0]) | (z > _HEALTHY_Z_RANGE[1])
+        upright = _upright_from_quat(qpos)
+        upright_error = np.maximum(_UPRIGHT_TARGET - upright, 0.0)
         return (
             task_cost
             + _QVEL_COST_WEIGHT * qvel_cost
             + _CTRL_COST_WEIGHT * ctrl_cost
             + _UNHEALTHY_COST_WEIGHT * unhealthy.astype(float)
+            + _Z_COST_WEIGHT * (z - _Z_TARGET) ** 2
+            + _UPRIGHT_COST_WEIGHT * upright_error * upright_error
         )
 
     def terminal_cost(
@@ -256,20 +278,26 @@ class AntMaze(MuJoCoEnv):
         qpos, qvel = self._split_states(states)
         xy = qpos[..., :2]
         z = qpos[..., 2]
+        dist_sq = np.sum((xy - self.goal) ** 2, axis=-1)
         if self._cost_mode == "route":
             remaining, lateral_sq, _ = _route_progress_cost(xy)
             task_cost = (
                 _TERMINAL_PATH_PROGRESS_COST_WEIGHT * remaining * remaining
                 + _TERMINAL_PATH_LATERAL_COST_WEIGHT * lateral_sq
+                + _TERMINAL_DIST_COST_WEIGHT * dist_sq
             )
         else:
-            task_cost = _TERMINAL_DIST_COST_WEIGHT * np.sum((xy - self.goal) ** 2, axis=-1)
+            task_cost = _TERMINAL_DIST_COST_WEIGHT * dist_sq
         qvel_cost = np.sum(qvel * qvel, axis=-1)
         unhealthy = (z < _HEALTHY_Z_RANGE[0]) | (z > _HEALTHY_Z_RANGE[1])
+        upright = _upright_from_quat(qpos)
+        upright_error = np.maximum(_UPRIGHT_TARGET - upright, 0.0)
         return (
             task_cost
             + _QVEL_COST_WEIGHT * qvel_cost
             + _UNHEALTHY_COST_WEIGHT * unhealthy.astype(float)
+            + _TERMINAL_Z_COST_WEIGHT * (z - _Z_TARGET) ** 2
+            + _TERMINAL_UPRIGHT_COST_WEIGHT * upright_error * upright_error
         )
 
     def _get_obs(self) -> Float[ndarray, "31"]:

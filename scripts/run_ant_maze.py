@@ -104,7 +104,7 @@ def main(
     backend: Literal["warp", "numpy"] = "warp",
     device: str = "cuda",
     render: bool = True,
-    out_dir: str = "runs/ant_maze_mppi_check",
+    out_dir: str = "run_mp4/ant_maze_mppi_check",
     video_name: str = "ant_maze_mppi.mp4",
     path_name: str = "ant_maze_mppi_path.png",
     summary_name: str = "summary.json",
@@ -165,6 +165,9 @@ def main(
             hold_count = 0
             max_hold_count = 0
             xy_trace = [env.data.qpos[:2].copy()]
+            z_trace = [float(env.data.qpos[2])]
+            upright_trace = [float(env.task_metrics()["upright"])]
+            healthy_trace = [float(env.task_metrics()["healthy"])]
             metrics = env.task_metrics()
 
             for t in range(steps):
@@ -185,6 +188,9 @@ def main(
                     hold_count = 0
                 max_hold_count = max(max_hold_count, hold_count)
                 xy_trace.append(env.data.qpos[:2].copy())
+                z_trace.append(float(metrics["z_pos"]))
+                upright_trace.append(float(metrics["upright"]))
+                healthy_trace.append(float(metrics["healthy"]))
 
                 if renderer is not None and t % render_every == 0:
                     frames.append(_render_frame(renderer, env, camera))
@@ -218,6 +224,11 @@ def main(
                 "time_to_hit": first_success_t if first_success_t is not None else steps,
                 "final_xy_dist": final_metrics["xy_dist"],
                 "final_z": final_metrics["z_pos"],
+                "max_z": float(np.max(z_trace)),
+                "min_z": float(np.min(z_trace)),
+                "final_upright": final_metrics["upright"],
+                "min_upright": float(np.min(upright_trace)),
+                "healthy_frac": float(np.mean(healthy_trace)),
                 "goal": env.goal.copy().tolist(),
                 "final_xy": env.data.qpos[:2].copy().tolist(),
             }
@@ -267,6 +278,9 @@ def main(
         "hit_success_rate": float(np.mean([ep["hit_success"] for ep in episode_summaries])),
         "final_hold_success_rate": float(np.mean([ep["final_hold_success"] for ep in episode_summaries])),
         "mean_final_xy_dist": float(np.mean([ep["final_xy_dist"] for ep in episode_summaries])),
+        "mean_healthy_frac": float(np.mean([ep["healthy_frac"] for ep in episode_summaries])),
+        "max_z": float(np.max([ep["max_z"] for ep in episode_summaries])),
+        "min_upright": float(np.min([ep["min_upright"] for ep in episode_summaries])),
         "episodes_detail": episode_summaries,
     }
     summary_path = out_path / summary_name

@@ -215,6 +215,12 @@ class TorchWarpMPPI:
             self._ant_unhealthy_cost_weight = float(ant_maze_costs._UNHEALTHY_COST_WEIGHT)
             self._ant_healthy_z_min = float(ant_maze_costs._HEALTHY_Z_RANGE[0])
             self._ant_healthy_z_max = float(ant_maze_costs._HEALTHY_Z_RANGE[1])
+            self._ant_z_target = float(ant_maze_costs._Z_TARGET)
+            self._ant_z_cost_weight = float(ant_maze_costs._Z_COST_WEIGHT)
+            self._ant_terminal_z_cost_weight = float(ant_maze_costs._TERMINAL_Z_COST_WEIGHT)
+            self._ant_upright_target = float(ant_maze_costs._UPRIGHT_TARGET)
+            self._ant_upright_cost_weight = float(ant_maze_costs._UPRIGHT_COST_WEIGHT)
+            self._ant_terminal_upright_cost_weight = float(ant_maze_costs._TERMINAL_UPRIGHT_COST_WEIGHT)
             self._ant_cost_mode = getattr(env, "_cost_mode", "route")
 
         self.U = torch.zeros((self.n_batches, self.H, self.nu), dtype=self.dtype, device=self.device)
@@ -452,35 +458,48 @@ class TorchWarpMPPI:
             goals_flat = self._ant_goal_default.expand(qpos_hk.shape[1], -1)
         xy = qpos_hk[..., :2]
         z = qpos_hk[..., 2]
+        dist_sq = torch.sum((xy - goals_flat.unsqueeze(0)) ** 2, dim=-1)
         if self._ant_cost_mode == "route":
             remaining, lateral_sq = self._ant_route_cost(xy)
             running_task = (
                 self._ant_path_progress_cost_weight * remaining * remaining
                 + self._ant_path_lateral_cost_weight * lateral_sq
+                + self._ant_dist_cost_weight * dist_sq
             )
             terminal_task = (
                 self._ant_terminal_path_progress_cost_weight * remaining[-1] * remaining[-1]
                 + self._ant_terminal_path_lateral_cost_weight * lateral_sq[-1]
+                + self._ant_terminal_dist_cost_weight * dist_sq[-1]
             )
         else:
-            dist_sq = torch.sum((xy - goals_flat.unsqueeze(0)) ** 2, dim=-1)
             running_task = self._ant_dist_cost_weight * dist_sq
             terminal_task = self._ant_terminal_dist_cost_weight * dist_sq[-1]
         qvel_sq = torch.sum(qvel_hk * qvel_hk, dim=-1)
         ctrl_sq = torch.sum(actions_hk * actions_hk, dim=-1)
         unhealthy = (z < self._ant_healthy_z_min) | (z > self._ant_healthy_z_max)
+        upright = self._ant_upright(qpos_hk)
+        upright_error = torch.clamp(self._ant_upright_target - upright, min=0.0)
         running = (
             running_task
             + self._ant_qvel_cost_weight * qvel_sq
             + self._ant_ctrl_cost_weight * ctrl_sq
             + self._ant_unhealthy_cost_weight * unhealthy.to(dtype=self.dtype)
+            + self._ant_z_cost_weight * (z - self._ant_z_target) * (z - self._ant_z_target)
+            + self._ant_upright_cost_weight * upright_error * upright_error
         )
         terminal = (
             terminal_task
             + self._ant_qvel_cost_weight * qvel_sq[-1]
             + self._ant_unhealthy_cost_weight * unhealthy[-1].to(dtype=self.dtype)
+            + self._ant_terminal_z_cost_weight * (z[-1] - self._ant_z_target) * (z[-1] - self._ant_z_target)
+            + self._ant_terminal_upright_cost_weight * upright_error[-1] * upright_error[-1]
         )
         return torch.sum(running, dim=0) + terminal
+
+    def _ant_upright(self, qpos_hk: torch.Tensor) -> torch.Tensor:
+        quat = qpos_hk[..., 3:7]
+        quat = quat / torch.clamp(torch.linalg.norm(quat, dim=-1, keepdim=True), min=1.0e-8)
+        return 1.0 - 2.0 * (quat[..., 1] * quat[..., 1] + quat[..., 2] * quat[..., 2])
 
     def _ant_route_cost(self, xy: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         p0 = self._ant_route_waypoints[0]
