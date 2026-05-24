@@ -9,18 +9,47 @@
   "mean_n_eff": 1.0057063836778468,
   "eval_steps": 600,
   "n_eval_episodes": 5,
-  "seeds": [0, 1, 2, 3, 4],
-  "episode_hit_successes": [true, true, true, true, false],
-  "episode_hold_successes": [true, true, true, true, false],
-  "episode_final_hold_successes": [true, false, true, false, false],
-  "episode_times_to_hit": [225, 400, 268, 388, 600],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "episode_hit_successes": [
+    true,
+    true,
+    true,
+    true,
+    false
+  ],
+  "episode_hold_successes": [
+    true,
+    true,
+    true,
+    true,
+    false
+  ],
+  "episode_final_hold_successes": [
+    true,
+    false,
+    true,
+    false,
+    false
+  ],
+  "episode_times_to_hit": [
+    225,
+    400,
+    268,
+    388,
+    600
+  ],
   "params": {
     "K": 512,
     "H": 192,
     "noise_sigma": 0.1,
     "lam": 0.0003,
-    "use_is_correction": false,
-    "clip_actions": false
+    "use_is_correction": false
   },
   "cost_params": {
     "qvel_cost_weight": 0.15,

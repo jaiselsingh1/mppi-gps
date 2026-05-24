@@ -83,16 +83,6 @@ def _normalize_collection_mode(collection_mode: str) -> str:
     return collection_mode
 
 
-def smooth_actions_ema(actions: np.ndarray, alpha: float) -> np.ndarray:
-    """Causal EMA for noisy MPPI action targets within one episode."""
-    if alpha <= 0.0 or len(actions) == 0:
-        return actions
-    out = np.empty_like(actions)
-    out[0] = actions[0]
-    for t in range(1, len(actions)):
-        out[t] = alpha * out[t - 1] + (1.0 - alpha) * actions[t]
-    return out
-
 
 def collect_episodes(
     env: BaseEnv,
@@ -103,7 +93,6 @@ def collect_episodes(
     coupling=None,
     seed_base: int = 0,
     hold_steps: int = 25,
-    action_ema_alpha: float = 0.0,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
     """Run MPPI in closed loop.
 
@@ -165,8 +154,7 @@ def collect_episodes(
         ep_costs.append(ep_cost)
         if ep_obs:
             obs_chunks.append(np.asarray(ep_obs, dtype=np.float32))
-            ep_act_arr = np.asarray(ep_actions, dtype=np.float32)
-            act_chunks.append(smooth_actions_ema(ep_act_arr, action_ema_alpha))
+            act_chunks.append(np.asarray(ep_actions, dtype=np.float32))
         final_metrics = _task_metrics(env)
         hit_successes.append(first_success_t is not None)
         hold_successes.append(max_hold_count >= hold_steps)
@@ -463,7 +451,6 @@ def main(
             prior=prior,
             coupling=coupling,
             seed_base=seed_base,
-            action_ema_alpha=gps_cfg.action_ema_alpha,
         )
 
         if gps_cfg.replay_max_pairs > 0:
@@ -548,7 +535,6 @@ def main(
             "n_pairs_train": len(train_obs),
             "bc_epochs_per_iter": gps_cfg.bc_epochs_per_iter,
             "replay_max_pairs": gps_cfg.replay_max_pairs,
-            "action_ema_alpha": gps_cfg.action_ema_alpha,
             "wall_time_s": time.time() - t_start,
             "collection_mode": gps_cfg.collection_mode,
             "coupling_mode": gps_cfg.coupling_mode,

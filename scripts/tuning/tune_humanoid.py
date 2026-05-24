@@ -2,7 +2,7 @@
 
 The first group keeps the MPPI update and dm_control-style humanoid reward
 unchanged. Later groups are explicit ablations for extra stand shaping and
-actuator clipping diagnostics.
+bounded-action diagnostics.
 """
 
 from __future__ import annotations
@@ -33,8 +33,6 @@ class HumanoidTrial:
     lam: float = 1.0
     noise_sigma: float = 0.25
     noise_std: list[float] | None = None
-    noise_temporal_alpha: float = 0.0
-    clip_actions: bool = False
     terminal_gait_weight: float = 10.0
     terminal_stand_weight: float = 0.0
     reward_weight: float = 0.0
@@ -101,8 +99,6 @@ def evaluate_seed(trial: HumanoidTrial, seed: int) -> dict[str, float]:
         lam=trial.lam,
         noise_sigma=trial.noise_sigma,
         noise_std=trial.noise_std,
-        noise_temporal_alpha=trial.noise_temporal_alpha,
-        clip_actions=trial.clip_actions,
     )
     controller = MPPI(env, cfg)
     env.reset()
@@ -271,23 +267,12 @@ def make_trials() -> list[HumanoidTrial]:
             tags=["strict_mppi", "dm_control_reward", "diag_covariance"],
         ),
         HumanoidTrial(
-            name="stand_clip_baseline",
+            name="stand_bounded_baseline",
             target_speed=0.0,
             steps=200,
             lam=1.0,
             noise_sigma=0.25,
-            clip_actions=True,
-            tags=["clip_ablation", "dm_control_reward"],
-        ),
-        HumanoidTrial(
-            name="stand_clip_smooth",
-            target_speed=0.0,
-            steps=200,
-            lam=1.0,
-            noise_sigma=0.25,
-            noise_temporal_alpha=0.85,
-            clip_actions=True,
-            tags=["clip_ablation", "temporal_noise", "dm_control_reward"],
+            tags=["bounded_actions", "dm_control_reward"],
         ),
         HumanoidTrial(
             name="stand_shaping",
@@ -351,55 +336,22 @@ def make_trials() -> list[HumanoidTrial]:
             tags=["strict_mppi", "dm_control_reward", "terminal_weight"],
         ),
         HumanoidTrial(
-            name="walk_clip_terminal96",
+            name="walk_bounded_terminal96",
             target_speed=1.0,
             steps=200,
             lam=1.0,
             noise_sigma=0.25,
-            clip_actions=True,
             terminal_stand_weight=96.0,
-            tags=["clip_ablation", "dm_control_reward", "terminal_weight"],
+            tags=["bounded_actions", "dm_control_reward", "terminal_weight"],
         ),
         HumanoidTrial(
-            name="walk_075_clip_terminal96",
+            name="walk_075_bounded_terminal96",
             target_speed=0.75,
             steps=200,
             lam=1.0,
             noise_sigma=0.25,
-            clip_actions=True,
             terminal_stand_weight=96.0,
-            tags=["clip_ablation", "dm_control_reward", "terminal_weight"],
-        ),
-        HumanoidTrial(
-            name="walk_075_forward_clip_smooth",
-            target_speed=0.75,
-            steps=200,
-            H=72,
-            lam=1.0,
-            noise_sigma=0.20,
-            noise_temporal_alpha=0.85,
-            clip_actions=True,
-            terminal_stand_weight=96.0,
-            tags=["clip_ablation", "temporal_noise", "terminal_weight"],
-        ),
-        HumanoidTrial(
-            name="walk_075_forward_clip_smooth_mild_shaping",
-            target_speed=0.75,
-            steps=200,
-            H=72,
-            lam=1.0,
-            noise_sigma=0.20,
-            noise_temporal_alpha=0.85,
-            clip_actions=True,
-            terminal_stand_weight=96.0,
-            stand_weight=0.5,
-            lateral_weight=0.25,
-            lateral_vel_weight=0.10,
-            root_angvel_weight=0.002,
-            posture_weight=0.0002,
-            qvel_weight=0.00005,
-            ctrl_weight=0.0005,
-            tags=["clip_ablation", "temporal_noise", "cost_ablation", "terminal_weight"],
+            tags=["bounded_actions", "dm_control_reward", "terminal_weight"],
         ),
         HumanoidTrial(
             name="walk_strict_hotter",
@@ -487,14 +439,13 @@ def make_trials() -> list[HumanoidTrial]:
             tags=["nominal_ablation", "dm_control_reward"],
         ),
         HumanoidTrial(
-            name="walk_clip_diag_leg",
+            name="walk_bounded_diag_leg",
             target_speed=1.0,
             steps=200,
             lam=2.0,
             noise_sigma=0.25,
             noise_std=leg_noise,
-            clip_actions=True,
-            tags=["clip_ablation", "diag_covariance"],
+            tags=["bounded_actions", "diag_covariance"],
         ),
     ]
 

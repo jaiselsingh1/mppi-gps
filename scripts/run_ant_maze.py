@@ -28,8 +28,6 @@ def _apply_mppi_overrides(
     h: int | None,
     lam: float | None,
     noise_sigma: float | None,
-    noise_temporal_alpha: float | None,
-    clip_actions: bool | None,
 ) -> MPPIConfig:
     if k is not None:
         cfg.K = k
@@ -39,10 +37,6 @@ def _apply_mppi_overrides(
         cfg.lam = lam
     if noise_sigma is not None:
         cfg.noise_sigma = noise_sigma
-    if noise_temporal_alpha is not None:
-        cfg.noise_temporal_alpha = noise_temporal_alpha
-    if clip_actions is not None:
-        cfg.clip_actions = clip_actions
     return cfg
 
 
@@ -116,8 +110,6 @@ def main(
     h: int | None = None,
     lam: float | None = None,
     noise_sigma: float | None = None,
-    noise_temporal_alpha: float | None = None,
-    clip_actions: bool | None = None,
 ) -> None:
     if episodes <= 0:
         raise ValueError(f"episodes must be positive, got {episodes}.")
@@ -135,8 +127,6 @@ def main(
         h=h,
         lam=lam,
         noise_sigma=noise_sigma,
-        noise_temporal_alpha=noise_temporal_alpha,
-        clip_actions=clip_actions,
     )
 
     env = AntMaze()
@@ -271,8 +261,7 @@ def main(
             "H": cfg.H,
             "lam": cfg.lam,
             "noise_sigma": cfg.noise_sigma,
-            "noise_temporal_alpha": cfg.noise_temporal_alpha,
-            "clip_actions": cfg.clip_actions,
+            "bounded_actions": True,
         },
         "success_rate": float(np.mean([ep["final_success"] for ep in episode_summaries])),
         "hit_success_rate": float(np.mean([ep["hit_success"] for ep in episode_summaries])),

@@ -380,8 +380,6 @@ def main(
     mppi_h: int | None = None,
     mppi_lam: float | None = None,
     mppi_noise_sigma: float | None = None,
-    mppi_noise_temporal_alpha: float | None = None,
-    mppi_clip_actions: bool | None = None,
 ) -> None:
     if run_name is None:
         suffix = "_warp" if use_warp else ""
@@ -406,8 +404,6 @@ def main(
         H=mppi_h,
         lam=mppi_lam,
         noise_sigma=mppi_noise_sigma,
-        noise_temporal_alpha=mppi_noise_temporal_alpha,
-        clip_actions=mppi_clip_actions,
     )
 
     if use_warp:

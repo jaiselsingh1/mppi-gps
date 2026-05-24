@@ -17,12 +17,6 @@ class MPPIConfig:
     noise_std: list[float] | None = None
     # Optional full action covariance. When unset, MPPI uses noise_sigma^2 * I.
     noise_cov: list[list[float]] | None = None
-    # Optional AR(1) temporal correlation for sampled action noise.
-    # 0.0 keeps iid per-timestep noise; larger values produce smoother rollouts.
-    noise_temporal_alpha: float = 0.0
-    # Clip sampled rollouts and the nominal action sequence to env action bounds.
-    # Keep disabled for configs that intentionally rely on simulator limiting.
-    clip_actions: bool = False
 
     @staticmethod
     def load(env_name: str) -> "MPPIConfig":
@@ -47,7 +41,6 @@ class GPSConfig:
     batch_size: int = 128
     bc_epochs_per_iter: int = 1
     replay_max_pairs: int = 0
-    action_ema_alpha: float = 0.0
     eval_every: int = 5
     eval_n_episodes: int = 10
     eval_episode_len: int = 1000

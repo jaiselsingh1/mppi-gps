@@ -85,16 +85,6 @@ def _task_metrics(env: BaseEnv) -> dict[str, Any]:
     }
 
 
-def smooth_actions_ema(actions: np.ndarray, alpha: float) -> np.ndarray:
-    """Causal EMA for noisy MPPI action targets within one episode."""
-    if alpha <= 0.0 or len(actions) == 0:
-        return actions
-    out = np.empty_like(actions)
-    out[0] = actions[0]
-    for t in range(1, len(actions)):
-        out[t] = alpha * out[t - 1] + (1.0 - alpha) * actions[t]
-    return out
-
 
 def effective_sample_size_torch(weights: torch.Tensor, dim: int | None = None) -> torch.Tensor:
     return 1.0 / torch.clamp(torch.sum(weights * weights, dim=dim), min=1.0e-12)
@@ -119,8 +109,8 @@ class TorchWarpMPPI:
             raise ValueError(f"n_batches must be positive, got {n_batches}.")
         if cfg.lam <= 0.0:
             raise ValueError(f"MPPI temperature lam must be positive, got {cfg.lam}.")
-        if cfg.clip_actions and cfg.use_is_correction:
-            raise ValueError("clip_actions is not compatible with use_is_correction.")
+        if cfg.use_is_correction:
+            raise ValueError("use_is_correction is not compatible with bounded action clipping.")
 
         self.env = env
         self.cfg = cfg
@@ -144,13 +134,9 @@ class TorchWarpMPPI:
         self.noise_chol = torch.linalg.cholesky(noise_cov)
         self.noise_precision = torch.linalg.inv(noise_cov)
 
-        if cfg.clip_actions:
-            low, high = env.action_bounds
-            self.action_low = torch.as_tensor(low, dtype=self.dtype, device=self.device)
-            self.action_high = torch.as_tensor(high, dtype=self.dtype, device=self.device)
-        else:
-            self.action_low = None
-            self.action_high = None
+        low, high = env.action_bounds
+        self.action_low = torch.as_tensor(low, dtype=self.dtype, device=self.device)
+        self.action_high = torch.as_tensor(high, dtype=self.dtype, device=self.device)
 
         nq, nv, ns = env.model.nq, env.model.nv, env.model.nsensordata
         self.actions_t = torch.empty((self.H, self.K, self.nu), dtype=self.dtype, device=self.device)
@@ -301,15 +287,7 @@ class TorchWarpMPPI:
             dtype=self.dtype,
             device=self.device,
         )
-        noise = torch.einsum("bkhi,ji->bkhj", standard, self.noise_chol)
-        alpha = self.cfg.noise_temporal_alpha
-        if alpha <= 0.0:
-            return noise
-
-        innovation_scale = math.sqrt(1.0 - alpha**2)
-        for t in range(1, self.H):
-            noise[:, :, t, :] = alpha * noise[:, :, t - 1, :] + innovation_scale * noise[:, :, t, :]
-        return noise
+        return torch.einsum("bkhi,ji->bkhj", standard, self.noise_chol)
 
     def _prepare_task_goals(
         self,
@@ -665,19 +643,14 @@ class TorchWarpMPPI:
                 nominal_u[:, 0, :].copy_(nominal_first_t.unsqueeze(0).expand(plan_batch, -1))
             else:
                 nominal_u[:, 0, :].copy_(nominal_first_t)
-        if self.cfg.clip_actions:
-            nominal_u.clamp_(self.action_low, self.action_high)
+        nominal_u.clamp_(self.action_low, self.action_high)
 
         noise = self._sample_noise()
         if single_state:
             noise = noise.reshape(1, self.K, self.H, self.nu)
         u_noisy = nominal_u.unsqueeze(1) + noise
-        if self.cfg.clip_actions:
-            u_sampled = torch.clamp(u_noisy, self.action_low, self.action_high)
-            eps = u_sampled - nominal_u.unsqueeze(1)
-        else:
-            u_sampled = u_noisy
-            eps = noise
+        u_sampled = torch.clamp(u_noisy, self.action_low, self.action_high)
+        eps = u_sampled - nominal_u.unsqueeze(1)
 
         actions_flat = u_sampled.reshape(self.K, self.H, self.nu)
         states_flat, costs_flat, sensordata_flat = self._run_rollouts(
@@ -713,15 +686,13 @@ class TorchWarpMPPI:
         )
 
         nominal_u += torch.einsum("bk,bkha->bha", weights, eps)
-        if self.cfg.clip_actions:
-            nominal_u.clamp_(self.action_low, self.action_high)
+        nominal_u.clamp_(self.action_low, self.action_high)
 
         action_t = nominal_u[:, 0, :].clone()
         nominal_u[:, :-1, :].copy_(nominal_u[:, 1:, :].clone())
         nominal_u[:, -1, :].copy_(nominal_u[:, -2, :])
-        if self.cfg.clip_actions:
-            action_t.clamp_(self.action_low, self.action_high)
-            nominal_u.clamp_(self.action_low, self.action_high)
+        action_t.clamp_(self.action_low, self.action_high)
+        nominal_u.clamp_(self.action_low, self.action_high)
 
         self._last_states = states
         self._last_actions = u_sampled
@@ -865,7 +836,6 @@ def collect_episodes(
     coupling: TorchPolicyFilterCoupling | None = None,
     seed_base: int = 0,
     hold_steps: int = 25,
-    action_ema_alpha: float = 0.0,
 ) -> tuple[np.ndarray, np.ndarray, float, dict[str, float]]:
     """Run MPPI in closed loop and return observations, actions, cost, stats."""
     if n_episodes != len(envs):
@@ -957,8 +927,7 @@ def collect_episodes(
     for ep, env in enumerate(envs):
         if ep_obs[ep]:
             obs_chunks.append(np.asarray(ep_obs[ep], dtype=np.float32))
-            ep_act_arr = np.asarray(ep_actions[ep], dtype=np.float32)
-            act_chunks.append(smooth_actions_ema(ep_act_arr, action_ema_alpha))
+            act_chunks.append(np.asarray(ep_actions[ep], dtype=np.float32))
         final_metrics = _task_metrics(env)
         hit_successes.append(first_success_t[ep] is not None)
         hold_successes.append(max_hold_counts[ep] >= hold_steps)
@@ -1297,7 +1266,6 @@ def main(
             prior=prior,
             coupling=coupling,
             seed_base=seed_base,
-            action_ema_alpha=gps_cfg.action_ema_alpha,
         )
 
         if gps_cfg.replay_max_pairs > 0:
@@ -1397,7 +1365,6 @@ def main(
             "n_pairs_train": len(train_obs),
             "bc_epochs_per_iter": gps_cfg.bc_epochs_per_iter,
             "replay_max_pairs": gps_cfg.replay_max_pairs,
-            "action_ema_alpha": gps_cfg.action_ema_alpha,
             "wall_time_s": time.time() - t_start,
             "collection_mode": gps_cfg.collection_mode,
             "coupling_mode": gps_cfg.coupling_mode,
