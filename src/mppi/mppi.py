@@ -113,7 +113,6 @@ class MPPI:
         # shift horizon
         self.U[:-1] = self.U[1:]
         self.U[-1] = self.U[-2].copy()
-        self.U = np.clip(self.U, self.action_low, self.action_high)
 
         # stash for GPS
         self._last_states = states

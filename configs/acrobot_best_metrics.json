@@ -1,60 +1,1226 @@
 {
-  "mean_cost_per_step": 0.3750052236947006,
-  "hit_success_rate": 0.8,
-  "hold_success_rate": 0.8,
-  "final_hold_success_rate": 0.4,
-  "mean_time_to_hit": 376.2,
-  "mean_final_tip_dist": 0.6716430900444573,
-  "mean_final_qvel_norm": 1.3988160448140392,
-  "mean_n_eff": 1.0057063836778468,
-  "eval_steps": 600,
-  "n_eval_episodes": 5,
-  "seeds": [
-    0,
-    1,
-    2,
-    3,
-    4
+  "best_search_trial": {
+    "number": 27,
+    "params": {
+      "H": 160,
+      "K": 512,
+      "lam": 0.01203646278944494,
+      "noise_sigma": 0.0740854367242068,
+      "use_is_correction": false
+    },
+    "state": "COMPLETE",
+    "user_attrs": {
+      "final_hold_success_rate": 0.2,
+      "hit_success_rate": 0.8,
+      "hold_success_rate": 0.8,
+      "mean_n_eff": 1.5813653145238344,
+      "metrics": {
+        "episode_costs": [
+          127.51646800290658,
+          121.26449143305896,
+          228.5546038259031,
+          139.40941801512105,
+          382.1137258276098
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.8,
+        "hold_steps": 25,
+        "hold_success_rate": 0.8,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.5672328663845667,
+        "mean_action_jump": 0.5249841340524302,
+        "mean_cost_per_step": 0.33295290236819985,
+        "mean_episode_cost": 199.7717414209199,
+        "mean_final_qvel_norm": 3.4995091365300226,
+        "mean_final_tip_dist": 1.0216902630020033,
+        "mean_n_eff": 1.5813653145238344,
+        "mean_time_to_hit": 342.2,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 512,
+          "lam": 0.01203646278944494,
+          "noise_sigma": 0.0740854367242068,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 99.10083286219985,
+        "steps": 600
+      }
+    },
+    "value": 0.33295290236819985
+  },
+  "known_candidates": [
+    {
+      "H": 192,
+      "K": 512,
+      "lam": 0.15,
+      "noise_sigma": 0.3,
+      "use_is_correction": false
+    },
+    {
+      "H": 192,
+      "K": 512,
+      "lam": 0.0003,
+      "noise_sigma": 0.1,
+      "use_is_correction": false
+    },
+    {
+      "H": 208,
+      "K": 512,
+      "lam": 0.000335,
+      "noise_sigma": 0.1364,
+      "use_is_correction": false
+    },
+    {
+      "H": 160,
+      "K": 512,
+      "lam": 18.638,
+      "noise_sigma": 0.5301,
+      "use_is_correction": false
+    },
+    {
+      "H": 192,
+      "K": 512,
+      "lam": 0.5,
+      "noise_sigma": 0.3,
+      "use_is_correction": false
+    },
+    {
+      "H": 192,
+      "K": 512,
+      "lam": 1.0,
+      "noise_sigma": 0.3,
+      "use_is_correction": false
+    }
   ],
-  "episode_hit_successes": [
-    true,
-    true,
-    true,
-    true,
-    false
-  ],
-  "episode_hold_successes": [
-    true,
-    true,
-    true,
-    true,
-    false
-  ],
-  "episode_final_hold_successes": [
-    true,
-    false,
-    true,
-    false,
-    false
-  ],
-  "episode_times_to_hit": [
-    225,
-    400,
-    268,
-    388,
-    600
-  ],
-  "params": {
+  "n_trials_complete": 35,
+  "n_trials_requested": 48,
+  "n_trials_total": 48,
+  "objective": "minimize mean_cost_per_step over search seeds",
+  "run_dir": "runs/acrobot_mppi_bounded_retune_20260524",
+  "search_space": {
+    "H": {
+      "high": 256,
+      "low": 96,
+      "step": 16
+    },
+    "K": [
+      256,
+      512
+    ],
+    "lam": {
+      "high": 50.0,
+      "log": true,
+      "low": 0.0003
+    },
+    "noise_sigma": {
+      "high": 0.8,
+      "log": true,
+      "low": 0.05
+    }
+  },
+  "selected_params": {
+    "H": 144,
     "K": 512,
-    "H": 192,
-    "noise_sigma": 0.1,
-    "lam": 0.0003,
+    "lam": 0.01437687465331295,
+    "noise_sigma": 0.18553280373949055,
     "use_is_correction": false
   },
-  "cost_params": {
-    "qvel_cost_weight": 0.15,
-    "qvel_excess_cost_weight": 0.05,
-    "terminal_target_cost_weight": 100.0,
-    "terminal_qvel_cost_weight": 25.0
-  }
+  "selected_trial_number": 34,
+  "selected_validation_metrics": {
+    "episode_costs": [
+      126.37535588750755,
+      112.27428795637007,
+      240.61595970016305,
+      127.07647514356273,
+      398.59654771531376,
+      265.59439295216384,
+      347.8012462084611,
+      355.30766062114157,
+      314.94745926447877,
+      400.9463362426308
+    ],
+    "episode_lengths": [
+      600,
+      600,
+      600,
+      600,
+      600,
+      600,
+      600,
+      600,
+      600,
+      600
+    ],
+    "final_hold_success_rate": 0.3,
+    "final_success_rate": 0.3,
+    "hit_success_rate": 0.3,
+    "hold_steps": 25,
+    "hold_success_rate": 0.3,
+    "max_abs_action": 1.0,
+    "max_action_jump": 2.0,
+    "mean_abs_action": 0.621517776391045,
+    "mean_action_jump": 0.5353168058476349,
+    "mean_cost_per_step": 0.44825595361529885,
+    "mean_episode_cost": 268.9535721691793,
+    "mean_final_qvel_norm": 1.9453570103864781,
+    "mean_final_tip_dist": 1.168308068843579,
+    "mean_n_eff": 1.5441386817118383,
+    "mean_time_to_hit": 482.7,
+    "min_n_eff": 1.0,
+    "params": {
+      "H": 144,
+      "K": 512,
+      "lam": 0.01437687465331295,
+      "noise_sigma": 0.18553280373949055,
+      "use_is_correction": false
+    },
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "std_episode_cost": 107.62860851348427,
+    "steps": 600
+  },
+  "settings": {
+    "n_startup_trials": 8,
+    "n_trials": 48,
+    "run_dir": "runs/acrobot_mppi_bounded_retune_20260524",
+    "sampler_seed": 0,
+    "search": {
+      "hold_steps": 25,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "steps": 600
+    },
+    "storage": "sqlite:///logs/acrobot_mppi_bounded_retune_20260524.db",
+    "study_name": "acrobot_mppi_bounded_retune_20260524",
+    "validate_top_n": 8,
+    "validation": {
+      "hold_steps": 25,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "steps": 600
+    },
+    "write_best": true
+  },
+  "storage": "sqlite:///logs/acrobot_mppi_bounded_retune_20260524.db",
+  "study_name": "acrobot_mppi_bounded_retune_20260524",
+  "top_candidate_validations": [
+    {
+      "params": {
+        "H": 160,
+        "K": 512,
+        "lam": 0.01203646278944494,
+        "noise_sigma": 0.0740854367242068,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          127.51646800290658,
+          121.26449143305896,
+          228.5546038259031,
+          139.40941801512105,
+          382.1137258276098
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.8,
+        "hold_steps": 25,
+        "hold_success_rate": 0.8,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.5672328663845667,
+        "mean_action_jump": 0.5249841340524302,
+        "mean_cost_per_step": 0.33295290236819985,
+        "mean_episode_cost": 199.7717414209199,
+        "mean_final_qvel_norm": 3.4995091365300226,
+        "mean_final_tip_dist": 1.0216902630020033,
+        "mean_n_eff": 1.5813653145238344,
+        "mean_time_to_hit": 342.2,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 512,
+          "lam": 0.01203646278944494,
+          "noise_sigma": 0.0740854367242068,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 99.10083286219985,
+        "steps": 600
+      },
+      "search_value": 0.33295290236819985,
+      "trial_number": 27,
+      "validation_metrics": {
+        "episode_costs": [
+          127.51646800290658,
+          121.26449143305896,
+          228.5546038259031,
+          139.40941801512105,
+          382.1137258276098,
+          263.9408714437906,
+          348.9873608451061,
+          378.6883508480694,
+          317.65297759149706,
+          406.2619191366892
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.1,
+        "final_success_rate": 0.1,
+        "hit_success_rate": 0.4,
+        "hold_steps": 25,
+        "hold_success_rate": 0.4,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.5679763662467644,
+        "mean_action_jump": 0.4887066797738435,
+        "mean_cost_per_step": 0.4523983644949587,
+        "mean_episode_cost": 271.4390186969752,
+        "mean_final_qvel_norm": 3.132669919608973,
+        "mean_final_tip_dist": 1.4372757203960487,
+        "mean_n_eff": 2.057961930738446,
+        "mean_time_to_hit": 471.1,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 512,
+          "lam": 0.01203646278944494,
+          "noise_sigma": 0.0740854367242068,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 106.14669087607707,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 144,
+        "K": 512,
+        "lam": 0.01437687465331295,
+        "noise_sigma": 0.18553280373949055,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          126.37535588750755,
+          112.27428795637007,
+          240.61595970016305,
+          127.07647514356273,
+          398.59654771531376
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.6,
+        "final_success_rate": 0.6,
+        "hit_success_rate": 0.6,
+        "hold_steps": 25,
+        "hold_success_rate": 0.6,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6205592902963019,
+        "mean_action_jump": 0.568637861305312,
+        "mean_cost_per_step": 0.33497954213430575,
+        "mean_episode_cost": 200.98772528058345,
+        "mean_final_qvel_norm": 1.011721237667936,
+        "mean_final_tip_dist": 0.48266749210928106,
+        "mean_n_eff": 1.2746159120219196,
+        "mean_time_to_hit": 365.4,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.01437687465331295,
+          "noise_sigma": 0.18553280373949055,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 109.10508346763419,
+        "steps": 600
+      },
+      "search_value": 0.33497954213430575,
+      "trial_number": 34,
+      "validation_metrics": {
+        "episode_costs": [
+          126.37535588750755,
+          112.27428795637007,
+          240.61595970016305,
+          127.07647514356273,
+          398.59654771531376,
+          265.59439295216384,
+          347.8012462084611,
+          355.30766062114157,
+          314.94745926447877,
+          400.9463362426308
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.3,
+        "final_success_rate": 0.3,
+        "hit_success_rate": 0.3,
+        "hold_steps": 25,
+        "hold_success_rate": 0.3,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.621517776391045,
+        "mean_action_jump": 0.5353168058476349,
+        "mean_cost_per_step": 0.44825595361529885,
+        "mean_episode_cost": 268.9535721691793,
+        "mean_final_qvel_norm": 1.9453570103864781,
+        "mean_final_tip_dist": 1.168308068843579,
+        "mean_n_eff": 1.5441386817118383,
+        "mean_time_to_hit": 482.7,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.01437687465331295,
+          "noise_sigma": 0.18553280373949055,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 107.62860851348427,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 144,
+        "K": 512,
+        "lam": 0.0049819999789946934,
+        "noise_sigma": 0.17864074394437565,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          136.0850059671098,
+          113.01302980953933,
+          258.9977084126434,
+          127.00355651995966,
+          398.84867591161407
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.4,
+        "final_success_rate": 0.4,
+        "hit_success_rate": 0.6,
+        "hold_steps": 25,
+        "hold_success_rate": 0.6,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6219288546962399,
+        "mean_action_jump": 0.5835639326398684,
+        "mean_cost_per_step": 0.34464932554028876,
+        "mean_episode_cost": 206.78959532417326,
+        "mean_final_qvel_norm": 3.3065861956375406,
+        "mean_final_tip_dist": 0.923280645192454,
+        "mean_n_eff": 1.0916529138525415,
+        "mean_time_to_hit": 363.8,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.0049819999789946934,
+          "noise_sigma": 0.17864074394437565,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 109.3356050811358,
+        "steps": 600
+      },
+      "search_value": 0.34464932554028876,
+      "trial_number": 37,
+      "validation_metrics": {
+        "episode_costs": [
+          136.0850059671098,
+          113.01302980953933,
+          258.9977084126434,
+          127.00355651995966,
+          398.84867591161407,
+          269.2200701013122,
+          348.0127562492836,
+          355.7976969716675,
+          315.72493350151825,
+          399.4005985158242
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.3,
+        "hold_steps": 25,
+        "hold_success_rate": 0.3,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6204151130602091,
+        "mean_action_jump": 0.5578130293582743,
+        "mean_cost_per_step": 0.45368400532674535,
+        "mean_episode_cost": 272.2104031960472,
+        "mean_final_qvel_norm": 3.0206130176585453,
+        "mean_final_tip_dist": 1.3960618081669762,
+        "mean_n_eff": 1.1677251271834785,
+        "mean_time_to_hit": 481.9,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.0049819999789946934,
+          "noise_sigma": 0.17864074394437565,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 105.82221781822534,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 144,
+        "K": 512,
+        "lam": 0.0004834143007523171,
+        "noise_sigma": 0.16839468869030633,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          153.52176092760484,
+          113.49384525029005,
+          216.71085294073845,
+          155.44742931859557,
+          398.3136607357917
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.4,
+        "final_success_rate": 0.4,
+        "hit_success_rate": 0.8,
+        "hold_steps": 25,
+        "hold_success_rate": 0.8,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6170570982640866,
+        "mean_action_jump": 0.5887121817563098,
+        "mean_cost_per_step": 0.3458291830576735,
+        "mean_episode_cost": 207.49750983460413,
+        "mean_final_qvel_norm": 2.4142639113744178,
+        "mean_final_tip_dist": 0.6518837005966701,
+        "mean_n_eff": 1.0073226554571726,
+        "mean_time_to_hit": 342.2,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.0004834143007523171,
+          "noise_sigma": 0.16839468869030633,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 100.95045363247336,
+        "steps": 600
+      },
+      "search_value": 0.3458291830576735,
+      "trial_number": 44,
+      "validation_metrics": {
+        "episode_costs": [
+          153.52176092760484,
+          113.49384525029005,
+          216.71085294073845,
+          155.44742931859557,
+          398.3136607357917,
+          267.169448884665,
+          348.0060703403103,
+          355.6724361023497,
+          315.68888284325874,
+          399.3053160948338
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.4,
+        "hold_steps": 25,
+        "hold_success_rate": 0.4,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6271626154060108,
+        "mean_action_jump": 0.5740045871632172,
+        "mean_cost_per_step": 0.45388828390640634,
+        "mean_episode_cost": 272.33297034384384,
+        "mean_final_qvel_norm": 2.6583735148202594,
+        "mean_final_tip_dist": 1.2625779530852934,
+        "mean_n_eff": 1.0137944362845757,
+        "mean_time_to_hit": 471.1,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.0004834143007523171,
+          "noise_sigma": 0.16839468869030633,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 101.32789025941986,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 144,
+        "K": 512,
+        "lam": 0.0016163781357284455,
+        "noise_sigma": 0.21735838623108658,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          137.64891459855502,
+          114.33475261414802,
+          239.1732889919982,
+          156.10902276547398,
+          400.3924145478104
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.4,
+        "final_success_rate": 0.4,
+        "hit_success_rate": 0.6,
+        "hold_steps": 25,
+        "hold_success_rate": 0.6,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6322788424941219,
+        "mean_action_jump": 0.5893835165116662,
+        "mean_cost_per_step": 0.34921946450599517,
+        "mean_episode_cost": 209.53167870359712,
+        "mean_final_qvel_norm": 2.3787181872284995,
+        "mean_final_tip_dist": 0.7932770347323965,
+        "mean_n_eff": 1.0225233340818385,
+        "mean_time_to_hit": 363.2,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.0016163781357284455,
+          "noise_sigma": 0.21735838623108658,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 104.29766270365627,
+        "steps": 600
+      },
+      "search_value": 0.34921946450599517,
+      "trial_number": 38,
+      "validation_metrics": {
+        "episode_costs": [
+          137.64891459855502,
+          114.33475261414802,
+          239.1732889919982,
+          156.10902276547398,
+          400.3924145478104,
+          268.38222982947445,
+          348.1293110540311,
+          355.6911184193548,
+          316.55680498320237,
+          402.3036777151894
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.3,
+        "hold_steps": 25,
+        "hold_success_rate": 0.3,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6269024411550377,
+        "mean_action_jump": 0.5879092236584857,
+        "mean_cost_per_step": 0.4564535892532062,
+        "mean_episode_cost": 273.87215355192376,
+        "mean_final_qvel_norm": 2.56213969642393,
+        "mean_final_tip_dist": 1.3408007390759753,
+        "mean_n_eff": 1.0388792047899253,
+        "mean_time_to_hit": 481.6,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.0016163781357284455,
+          "noise_sigma": 0.21735838623108658,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 102.78314031358804,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 160,
+        "K": 512,
+        "lam": 0.024993752698899238,
+        "noise_sigma": 0.10587623642502389,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          156.52468176842706,
+          133.6874493908194,
+          224.31925094255564,
+          153.39955514997519,
+          380.5081564925902
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.0,
+        "final_success_rate": 0.0,
+        "hit_success_rate": 0.8,
+        "hold_steps": 25,
+        "hold_success_rate": 0.8,
+        "max_abs_action": 1.0,
+        "max_action_jump": 1.9931687573743295,
+        "mean_abs_action": 0.5757302085250913,
+        "mean_action_jump": 0.5541930635533902,
+        "mean_cost_per_step": 0.34947969791478917,
+        "mean_episode_cost": 209.6878187488735,
+        "mean_final_qvel_norm": 3.747096224989801,
+        "mean_final_tip_dist": 1.022438465683424,
+        "mean_n_eff": 1.7397629450629417,
+        "mean_time_to_hit": 313.8,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 512,
+          "lam": 0.024993752698899238,
+          "noise_sigma": 0.10587623642502389,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 90.73523074314319,
+        "steps": 600
+      },
+      "search_value": 0.34947969791478917,
+      "trial_number": 26,
+      "validation_metrics": {
+        "episode_costs": [
+          156.52468176842706,
+          133.6874493908194,
+          224.31925094255564,
+          153.39955514997519,
+          380.5081564925902,
+          260.44173597620033,
+          348.07441537166966,
+          377.72658795225874,
+          317.2887859757824,
+          403.3053612674202
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.0,
+        "final_success_rate": 0.0,
+        "hit_success_rate": 0.4,
+        "hold_steps": 25,
+        "hold_success_rate": 0.4,
+        "max_abs_action": 1.0,
+        "max_action_jump": 1.9931687573743295,
+        "mean_abs_action": 0.5819645904962852,
+        "mean_action_jump": 0.512682342197146,
+        "mean_cost_per_step": 0.45921266338128314,
+        "mean_episode_cost": 275.5275980287699,
+        "mean_final_qvel_norm": 3.2833376101798386,
+        "mean_final_tip_dist": 1.4247953185244975,
+        "mean_n_eff": 2.4119798961209433,
+        "mean_time_to_hit": 456.9,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 512,
+          "lam": 0.024993752698899238,
+          "noise_sigma": 0.10587623642502389,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 98.40996100346622,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 160,
+        "K": 256,
+        "lam": 0.010569100340478553,
+        "noise_sigma": 0.12131818915160411,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          158.48677309470253,
+          144.38492213588515,
+          196.39386351594172,
+          157.0208540444897,
+          394.25478918212013
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.8,
+        "hold_steps": 25,
+        "hold_success_rate": 0.8,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.5967556895939732,
+        "mean_action_jump": 0.5865217745956541,
+        "mean_cost_per_step": 0.3501804006577131,
+        "mean_episode_cost": 210.10824039462787,
+        "mean_final_qvel_norm": 2.5557852700295003,
+        "mean_final_tip_dist": 0.6094362293707165,
+        "mean_n_eff": 1.1104474593815605,
+        "mean_time_to_hit": 339.8,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 256,
+          "lam": 0.010569100340478553,
+          "noise_sigma": 0.12131818915160411,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 93.70233359115555,
+        "steps": 600
+      },
+      "search_value": 0.3501804006577131,
+      "trial_number": 12,
+      "validation_metrics": {
+        "episode_costs": [
+          158.48677309470253,
+          144.38492213588515,
+          196.39386351594172,
+          157.0208540444897,
+          394.25478918212013,
+          269.7297947243494,
+          349.22371138940736,
+          377.9642939299966,
+          317.2461167386054,
+          409.73572520028165
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.1,
+        "final_success_rate": 0.1,
+        "hit_success_rate": 0.4,
+        "hold_steps": 25,
+        "hold_success_rate": 0.4,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.5892001418891419,
+        "mean_action_jump": 0.5743879103900464,
+        "mean_cost_per_step": 0.4624068073259633,
+        "mean_episode_cost": 277.444084395578,
+        "mean_final_qvel_norm": 2.672864598144721,
+        "mean_final_tip_dist": 1.2652433079920038,
+        "mean_n_eff": 1.2147951038794336,
+        "mean_time_to_hit": 469.9,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 160,
+          "K": 256,
+          "lam": 0.010569100340478553,
+          "noise_sigma": 0.12131818915160411,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 100.48514003847878,
+        "steps": 600
+      }
+    },
+    {
+      "params": {
+        "H": 144,
+        "K": 512,
+        "lam": 0.02911666173106922,
+        "noise_sigma": 0.10638161359025203,
+        "use_is_correction": false
+      },
+      "search_metrics": {
+        "episode_costs": [
+          126.33512255680617,
+          148.64634764199815,
+          243.97776220011986,
+          144.4069985583441,
+          394.5608193875636
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.4,
+        "final_success_rate": 0.4,
+        "hit_success_rate": 0.6,
+        "hold_steps": 25,
+        "hold_success_rate": 0.6,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6210810862718384,
+        "mean_action_jump": 0.4728977973866751,
+        "mean_cost_per_step": 0.352642350114944,
+        "mean_episode_cost": 211.58541006896638,
+        "mean_final_qvel_norm": 2.5820560066184504,
+        "mean_final_tip_dist": 0.8625756940974648,
+        "mean_n_eff": 2.583074255295693,
+        "mean_time_to_hit": 362.2,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.02911666173106922,
+          "noise_sigma": 0.10638161359025203,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "std_episode_cost": 100.27077437127842,
+        "steps": 600
+      },
+      "search_value": 0.352642350114944,
+      "trial_number": 28,
+      "validation_metrics": {
+        "episode_costs": [
+          126.33512255680617,
+          148.64634764199815,
+          243.97776220011986,
+          144.4069985583441,
+          394.5608193875636,
+          258.13202536076426,
+          347.5737959631312,
+          352.7065816564054,
+          316.81689662158465,
+          403.4080505407161
+        ],
+        "episode_lengths": [
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600,
+          600
+        ],
+        "final_hold_success_rate": 0.2,
+        "final_success_rate": 0.2,
+        "hit_success_rate": 0.3,
+        "hold_steps": 25,
+        "hold_success_rate": 0.3,
+        "max_abs_action": 1.0,
+        "max_action_jump": 2.0,
+        "mean_abs_action": 0.6013873077938853,
+        "mean_action_jump": 0.42858292191116076,
+        "mean_cost_per_step": 0.4560940667479056,
+        "mean_episode_cost": 273.6564400487433,
+        "mean_final_qvel_norm": 2.407275908680197,
+        "mean_final_tip_dist": 1.254867295129395,
+        "mean_n_eff": 4.1696350184662,
+        "mean_time_to_hit": 481.1,
+        "min_n_eff": 1.0,
+        "params": {
+          "H": 144,
+          "K": 512,
+          "lam": 0.02911666173106922,
+          "noise_sigma": 0.10638161359025203,
+          "use_is_correction": false
+        },
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "std_episode_cost": 100.09356525803133,
+        "steps": 600
+      }
+    }
+  ]
 }
