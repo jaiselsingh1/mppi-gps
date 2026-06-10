@@ -19,9 +19,14 @@ Per plan step, after the vanilla MPPI update produces `U*`:
    `U_beta` under the true task cost. Accept `U_beta` only if
    `J(U_beta) <= J(U*) + delta_frac * max(J(U*), delta_floor)`; otherwise
    keep `U*`.
-4. **Warm start.** The accepted sequence becomes the next step's nominal, so
-   the policy influences where MPPI searches next — the proposal — while the
-   softmin score stays pure task cost forever.
+4. **Execution only.** The accepted plan decides the executed action (and
+   hence the BC label); the warm start stays the pure `U*`. An earlier
+   version re-centered the next proposal on the merged plan — that
+   contaminates the `J(U*)` reference the certificate compares against, and
+   the per-step budget compounds across replanning steps: collection hit
+   rate fell 0.4 -> 0.0 within one GPS iteration. The softmin score *and*
+   the proposal both stay pure task-MPPI; the policy influences the data
+   distribution only through which certified action gets executed.
 
 The executed first action of the accepted plan is the BC label, so every
 label verifiably does the task within `delta` and is maximally

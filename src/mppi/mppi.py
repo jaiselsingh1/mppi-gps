@@ -63,10 +63,12 @@ class MPPI:
         coupling: optional callable that can replace the MPPI score vector after
             env cost/IS/prior-cost assembly.
         merge: optional callable (state, U_star, path_states) -> (U, info)
-            applied after the weighted update. Lets GPS nudge the plan toward
-            the policy without touching the score; the merged plan also
-            becomes the next step's warm start (the policy shapes the
-            proposal, never the objective).
+            applied after the weighted update. Lets GPS nudge the *executed
+            action* toward the policy without touching the score. The warm
+            start stays the pure MPPI plan: accepted merges must never
+            re-center the next proposal, or the certificate's J(U*) reference
+            is computed from a policy-contaminated nominal and per-step cost
+            budgets compound into closed-loop task failure.
         """
         if nominal is not None:
             self.U = nominal.copy()
@@ -122,6 +124,7 @@ class MPPI:
             'merge_accepted': 0.0,
             'merge_cost_gap': 0.0,
         }
+        action = self.U[0].copy()
         if merge is not None:
             # u_t is applied at the state reached after t actions, so the
             # policy-query path is the current state followed by the
@@ -129,9 +132,8 @@ class MPPI:
             path = np.empty((self.H, states.shape[-1]))
             path[0] = state
             path[1:] = np.einsum('k,khs->hs', weights, states[:, :-1, :])
-            self.U, merge_info = merge(state, self.U, path)
-
-        action = self.U[0].copy()
+            U_exec, merge_info = merge(state, self.U, path)
+            action = U_exec[0].copy()
 
         # shift horizon
         self.U[:-1] = self.U[1:]

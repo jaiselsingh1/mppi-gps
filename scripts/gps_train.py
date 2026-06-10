@@ -407,6 +407,9 @@ def main(
     policy_coupling_keep_fraction: float | None = None,
     policy_lr: float | None = None,
     mppi_lam: float | None = None,
+    merge_beta_max: float | None = None,
+    merge_kl_scale: float | None = None,
+    merge_delta_frac: float | None = None,
 ) -> None:
     env_name = _normalize_env_name(env_name)
     gps_cfg = GPSConfig.load(env_name)
@@ -430,6 +433,9 @@ def main(
         policy_trust_min=policy_trust_min,
         policy_trust_max=policy_trust_max,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
+        merge_beta_max=merge_beta_max,
+        merge_kl_scale=merge_kl_scale,
+        merge_delta_frac=merge_delta_frac,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)

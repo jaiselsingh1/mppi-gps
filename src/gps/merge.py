@@ -19,6 +19,12 @@ it still does the task:
        otherwise keep U*. Every executed action therefore carries a task
        certificate regardless of policy quality.
 
+    The accepted plan decides the *executed action only* — MPPI's warm start
+    stays the pure U*. Re-centering the proposal on merged plans contaminates
+    the J(U*) reference the certificate compares against, and the per-step
+    budget then compounds across replanning steps into closed-loop failure
+    (observed: collection hit rate 0.4 -> 0.0 within one GPS iteration).
+
 The policy is queried along the softmin-weighted mean of the already-computed
 sample paths (free; at low temperature this is the best sample's path). The
 path only decides where pi is evaluated — the accept test stays exact.
@@ -43,7 +49,7 @@ def make_policy_merge(
     noise_precision: np.ndarray,
     beta_max: float = 1.0,
     kl_scale: float = 1.0,
-    delta_frac: float = 0.05,
+    delta_frac: float = 0.01,
     delta_floor: float = 1.0,
     obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ) -> Callable[..., tuple[np.ndarray, dict]]:
