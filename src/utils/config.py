@@ -40,6 +40,8 @@ class GPSConfig:
     steps_per_episode: int = 1000
     batch_size: int = 128
     bc_epochs_per_iter: int = 1
+    bc_max_epochs: int = 0             # >0: train to plateau/target, capped here
+    bc_target_loss: float = 0.0        # epoch-mean MSE early-stop threshold
     replay_max_pairs: int = 0
     eval_every: int = 5
     eval_n_episodes: int = 10

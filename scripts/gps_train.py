@@ -187,17 +187,27 @@ def train_policy(
     batch_size: int,
     rng: np.random.Generator,
     epochs: int = 1,
+    max_epochs: int = 0,
+    target_loss: float = 0.0,
 ) -> float:
-    """Adam updates on MSE. Returns trailing-50-step mean loss."""
+    """Adam updates on MSE. Returns the final epoch-mean loss.
+
+    With max_epochs > 0, trains until the epoch-mean loss reaches target_loss
+    or stops improving (patience 10), up to max_epochs — the policy must
+    actually fit its dataset each iteration or no coupling scheme downstream
+    can matter. Otherwise runs exactly `epochs` epochs.
+    """
     policy.train()
     device = next(policy.parameters()).device
     obs_b = torch.as_tensor(obs, dtype=torch.float32, device=device)
     act_b = torch.as_tensor(actions, dtype=torch.float32, device=device)
     N = len(obs)
-    recent: list[float] = []
 
-    for _ in range(max(1, epochs)):
+    n_epochs = max_epochs if max_epochs > 0 else max(1, epochs)
+    best, patience, epoch_loss = float("inf"), 10, float("inf")
+    for _ in range(n_epochs):
         perm = rng.permutation(N)
+        losses = []
         for start in range(0, N, batch_size):
             idx = perm[start:start + batch_size]
             mu = policy.forward(obs_b[idx])
@@ -205,10 +215,18 @@ def train_policy(
             policy.optimizer.zero_grad()
             loss.backward()
             policy.optimizer.step()
-            recent.append(loss.item())
-            if len(recent) > 50:
-                recent.pop(0)
-    return float(np.mean(recent))
+            losses.append(loss.item())
+        epoch_loss = float(np.mean(losses))
+        if max_epochs > 0:
+            if epoch_loss <= target_loss:
+                break
+            if epoch_loss < best - 1e-5:
+                best, patience = epoch_loss, 10
+            else:
+                patience -= 1
+                if patience == 0:
+                    break
+    return epoch_loss
 
 
 def evaluate_mppi(
@@ -377,6 +395,8 @@ def main(
     eval_n_episodes: int | None = None,
     eval_episode_len: int | None = None,
     eval_mppi_baseline_episodes: int | None = None,
+    bc_max_epochs: int | None = None,
+    bc_target_loss: float | None = None,
     coupling_warmup_iters: int | None = None,
     coupling_mode: str | None = None,
     lambda_policy_track: float | None = None,
@@ -385,6 +405,8 @@ def main(
     policy_trust_min: float | None = None,
     policy_trust_max: float | None = None,
     policy_coupling_keep_fraction: float | None = None,
+    policy_lr: float | None = None,
+    mppi_lam: float | None = None,
 ) -> None:
     env_name = _normalize_env_name(env_name)
     gps_cfg = GPSConfig.load(env_name)
@@ -398,6 +420,8 @@ def main(
         eval_n_episodes=eval_n_episodes,
         eval_episode_len=eval_episode_len,
         eval_mppi_baseline_episodes=eval_mppi_baseline_episodes,
+        bc_max_epochs=bc_max_epochs,
+        bc_target_loss=bc_target_loss,
         coupling_warmup_iters=coupling_warmup_iters,
         coupling_mode=coupling_mode,
         lambda_policy_track=lambda_policy_track,
@@ -409,7 +433,13 @@ def main(
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
+    if mppi_lam is not None:
+        # Higher temperature averages more samples per update: same task cost,
+        # substantially more consistent (clonable) action labels.
+        mppi_cfg.lam = mppi_lam
     policy_cfg = PolicyConfig()
+    if policy_lr is not None:
+        policy_cfg.lr = policy_lr
 
     if run_name is None:
         env_prefix = "" if env_name == "acrobot" else f"{env_name}_"
@@ -498,6 +528,8 @@ def main(
             batch_size=gps_cfg.batch_size,
             rng=rng,
             epochs=gps_cfg.bc_epochs_per_iter,
+            max_epochs=gps_cfg.bc_max_epochs,
+            target_loss=gps_cfg.bc_target_loss,
         )
 
         do_eval = (it % gps_cfg.eval_every == 0) or (it == gps_cfg.n_gps_iters - 1)
