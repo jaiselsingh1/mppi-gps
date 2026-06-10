@@ -24,6 +24,7 @@ from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import MPPIConfig, PolicyConfig, GPSConfig
 from src.utils.eval import evaluate_policy
 from src.gps.coupling import make_policy_filter_coupling
+from src.gps.merge import make_policy_merge
 from src.gps.prior import make_policy_tracking_prior
 
 _ENV_FACTORIES = {
@@ -32,7 +33,7 @@ _ENV_FACTORIES = {
     "point_mass": PointMass,
 }
 _COLLECTION_MODES = {"bc", "gps"}
-_COUPLING_MODES = {"track", "filter"}
+_COUPLING_MODES = {"track", "filter", "merge"}
 
 
 def _make_env(env_name: str, **kwargs) -> BaseEnv:
@@ -91,6 +92,7 @@ def collect_episodes(
     steps_per_episode: int,
     prior=None,
     coupling=None,
+    merge=None,
     seed_base: int = 0,
     hold_steps: int = 25,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
@@ -110,7 +112,9 @@ def collect_episodes(
                  'cost_track_mean', 'cost_s_mean', 'n_eff', 'lam',
                  'coupling_active', 'coupling_used_fallback',
                  'coupling_feasible_fraction', 'coupling_policy_cost_mean',
-                 'coupling_policy_cost_std', 'coupling_score_mean')
+                 'coupling_policy_cost_std', 'coupling_score_mean',
+                 'merge_beta_mean', 'merge_beta_head', 'merge_kl_mean',
+                 'merge_accepted', 'merge_cost_gap')
     stat_sums = {k: 0.0 for k in stat_keys}
     n_calls = 0
     action_low, action_high = env.action_bounds
@@ -129,7 +133,7 @@ def collect_episodes(
         for t in range(steps_per_episode):
             state = env.get_state()
             obs = env._get_obs()
-            action, info = mppi.plan_step(state, prior_cost=prior, coupling=coupling)
+            action, info = mppi.plan_step(state, prior_cost=prior, coupling=coupling, merge=merge)
             for k in stat_keys:
                 stat_sums[k] += info[k]
             n_calls += 1
@@ -276,11 +280,13 @@ def make_collection_bias(
     it: int,
     policy_trust: float = 1.0,
     obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
+    env: BaseEnv | None = None,
+    mppi: MPPI | None = None,
 ):
-    """Return (prior_cost, coupling) for the current GPS iteration."""
+    """Return (prior_cost, coupling, merge) for the current GPS iteration."""
     collection_mode = getattr(gps_cfg, "collection_mode", "gps")
     if collection_mode == "bc":
-        return None, None
+        return None, None, None
     if collection_mode != "gps":
         raise ValueError(
             f"Unknown GPS collection_mode: {collection_mode!r}; expected 'bc' or 'gps'."
@@ -288,10 +294,25 @@ def make_collection_bias(
     if gps_cfg.coupling_mode not in _COUPLING_MODES:
         raise ValueError(
             f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
-            "expected 'track' or 'filter'."
+            f"expected one of {sorted(_COUPLING_MODES)}."
         )
     if it < gps_cfg.coupling_warmup_iters:
-        return None, None
+        return None, None, None
+
+    if gps_cfg.coupling_mode == "merge":
+        # Self-gating: no policy_trust schedule. Disagreement collapses the
+        # blend per state, and the rollout certificate bounds task regression.
+        merge = make_policy_merge(
+            policy,
+            env,
+            noise_precision=mppi.noise_precision,
+            beta_max=gps_cfg.merge_beta_max,
+            kl_scale=gps_cfg.merge_kl_scale,
+            delta_frac=gps_cfg.merge_delta_frac,
+            delta_floor=gps_cfg.merge_delta_floor,
+            obs_from_states=obs_from_states,
+        )
+        return None, None, merge
 
     lambda_track = gps_cfg.lambda_policy_track * policy_trust
     prior = make_policy_tracking_prior(
@@ -300,7 +321,7 @@ def make_collection_bias(
         obs_from_states=obs_from_states,
     )
     if gps_cfg.coupling_mode == "track":
-        return prior, None
+        return prior, None, None
 
     keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
     coupling = make_policy_filter_coupling(
@@ -311,7 +332,7 @@ def make_collection_bias(
         max_weight=gps_cfg.policy_coupling_max_weight,
         obs_from_states=obs_from_states,
     )
-    return prior, coupling
+    return prior, coupling, None
 
 
 def compute_policy_trust(
@@ -402,10 +423,15 @@ def main(
                 f"{env_prefix}gps_filter_lambda_{gps_cfg.lambda_policy_track:g}"
                 f"_keep_{gps_cfg.policy_coupling_keep_fraction:g}{suffix}"
             )
+        elif gps_cfg.coupling_mode == "merge":
+            run_name = (
+                f"{env_prefix}gps_merge_bmax_{gps_cfg.merge_beta_max:g}"
+                f"_kl_{gps_cfg.merge_kl_scale:g}_delta_{gps_cfg.merge_delta_frac:g}{suffix}"
+            )
         else:
             raise ValueError(
                 f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "
-                "expected 'track' or 'filter'."
+                f"expected one of {sorted(_COUPLING_MODES)}."
             )
     run_dir = Path("runs") / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -435,12 +461,14 @@ def main(
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
 
-        prior, coupling = make_collection_bias(
+        prior, coupling, merge = make_collection_bias(
             policy,
             gps_cfg,
             it,
             policy_trust=policy_trust,
             obs_from_states=obs_from_states,
+            env=env,
+            mppi=mppi,
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
         print("collecting demos")
@@ -450,6 +478,7 @@ def main(
             steps_per_episode=gps_cfg.steps_per_episode,
             prior=prior,
             coupling=coupling,
+            merge=merge,
             seed_base=seed_base,
         )
 
@@ -540,7 +569,7 @@ def main(
             "coupling_mode": gps_cfg.coupling_mode,
             "coupling_active_mode": (
                 gps_cfg.coupling_mode
-                if (prior is not None or coupling is not None)
+                if (prior is not None or coupling is not None or merge is not None)
                 else ("bc" if gps_cfg.collection_mode == "bc" else "warmup")
             ),
             "policy_trust": policy_trust,
@@ -582,6 +611,11 @@ def main(
             "coupling_policy_cost_mean": mppi_stats["coupling_policy_cost_mean"],
             "coupling_policy_cost_std": mppi_stats["coupling_policy_cost_std"],
             "coupling_score_mean": mppi_stats["coupling_score_mean"],
+            "merge_beta_mean": mppi_stats["merge_beta_mean"],
+            "merge_beta_head": mppi_stats["merge_beta_head"],
+            "merge_kl_mean": mppi_stats["merge_kl_mean"],
+            "merge_accept_rate": mppi_stats["merge_accepted"],
+            "merge_cost_gap_mean": mppi_stats["merge_cost_gap"],
         }
         run_dir.mkdir(parents=True, exist_ok=True)
         with open(metrics_path, "a") as f:

@@ -52,7 +52,12 @@ class GPSConfig:
     policy_trust_min: float = 0.0
     policy_trust_max: float = 1.0
     collection_mode: str = "gps"       # bc | gps
-    coupling_mode: str = "track"       # track | filter; used when collection_mode == "gps"
+    coupling_mode: str = "track"       # track | filter | merge; used when collection_mode == "gps"
+    # merge mode: policy nudges the post-update plan, never the score.
+    merge_beta_max: float = 1.0        # max blend toward the policy at zero disagreement
+    merge_kl_scale: float = 1.0        # proposal-KL (nats) at which the blend decays by 1/e
+    merge_delta_frac: float = 0.05     # accepted task-cost regression, fraction of J(U*)
+    merge_delta_floor: float = 1.0     # cost floor so a near-zero J(U*) still has budget
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0

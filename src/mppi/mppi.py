@@ -48,6 +48,7 @@ class MPPI:
             nominal_first: np.ndarray | None = None,
             prior_cost = None,
             coupling = None,
+            merge = None,
     ) -> tuple[np.ndarray, dict]:
         """One MPPI iteration (paper's Algorithm 2).
 
@@ -61,6 +62,11 @@ class MPPI:
             λ_track · ‖a − π(s)‖² policy-tracking term.
         coupling: optional callable that can replace the MPPI score vector after
             env cost/IS/prior-cost assembly.
+        merge: optional callable (state, U_star, path_states) -> (U, info)
+            applied after the weighted update. Lets GPS nudge the plan toward
+            the policy without touching the score; the merged plan also
+            becomes the next step's warm start (the policy shapes the
+            proposal, never the objective).
         """
         if nominal is not None:
             self.U = nominal.copy()
@@ -108,6 +114,23 @@ class MPPI:
         # weighted update on sampled perturbations
         self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
         self.U = np.clip(self.U, self.action_low, self.action_high)
+
+        merge_info = {
+            'merge_beta_mean': 0.0,
+            'merge_beta_head': 0.0,
+            'merge_kl_mean': 0.0,
+            'merge_accepted': 0.0,
+            'merge_cost_gap': 0.0,
+        }
+        if merge is not None:
+            # u_t is applied at the state reached after t actions, so the
+            # policy-query path is the current state followed by the
+            # weight-averaged sampled states shifted by one.
+            path = np.empty((self.H, states.shape[-1]))
+            path[0] = state
+            path[1:] = np.einsum('k,khs->hs', weights, states[:, :-1, :])
+            self.U, merge_info = merge(state, self.U, path)
+
         action = self.U[0].copy()
 
         # shift horizon
@@ -139,6 +162,7 @@ class MPPI:
             'coupling_policy_cost_mean': coupling_diag['policy_cost_mean'],
             'coupling_policy_cost_std': coupling_diag['policy_cost_std'],
             'coupling_score_mean': coupling_diag['score_mean'],
+            **merge_info,
         }
         return action, info
 
