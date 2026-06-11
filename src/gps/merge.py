@@ -80,7 +80,14 @@ def make_policy_merge(
         candidates = np.stack(
             [U_star] + [U_star + b * (pi - U_star) for b in betas_desc]
         )
+        n_cand = len(candidates)
+        # warp rollouts require K == nworld; pad by tiling U* (rows ignored)
+        nworld = getattr(env, "_warp_nworld", None) if getattr(env, "_use_warp", False) else None
+        if nworld is not None and n_cand < nworld:
+            pad = np.broadcast_to(U_star, (nworld - n_cand, *U_star.shape))
+            candidates = np.concatenate([candidates, pad])
         _, costs, _ = env.batch_rollout(state, candidates)
+        costs = costs[:n_cand]
         j_star = float(costs[0])
         budget = j_star + delta_frac * max(j_star, delta_floor)
 
