@@ -19,6 +19,7 @@ from src.envs.base import BaseEnv
 from src.envs.acrobot import Acrobot
 from src.envs.ant_maze import AntMaze
 from src.envs.point_mass import PointMass
+from src.envs.walker2d import Walker2d
 from src.mppi.mppi import MPPI
 from src.policy.deterministic_policy import DeterministicPolicy
 from src.utils.config import MPPIConfig, PolicyConfig, GPSConfig
@@ -32,6 +33,7 @@ _ENV_FACTORIES = {
     "acrobot": Acrobot,
     "ant_maze": AntMaze,
     "point_mass": PointMass,
+    "walker2d": Walker2d,
 }
 _COLLECTION_MODES = {"bc", "gps"}
 _COUPLING_MODES = {"track", "filter", "merge"}
