@@ -49,6 +49,8 @@ class MPPI:
             prior_cost = None,
             coupling = None,
             merge = None,
+            mix_nominal: np.ndarray | None = None,
+            mix_fraction: float = 0.0,
     ) -> tuple[np.ndarray, dict]:
         """One MPPI iteration (paper's Algorithm 2).
 
@@ -69,6 +71,13 @@ class MPPI:
             re-center the next proposal, or the certificate's J(U*) reference
             is computed from a policy-contaminated nominal and per-step cost
             budgets compound into closed-loop task failure.
+        mix_nominal: optional (H, nu) second sampling center (TD-MPC-style
+            policy rollout). A mix_fraction of the K samples is drawn around
+            it instead of self.U; the task score alone arbitrates in the
+            softmin. Where the policy's mode is competitive its samples win
+            and the update commits U to that mode — unifying BC labels at the
+            source — and where it is worse they are exponentially
+            down-weighted like any bad sample.
         """
         if nominal is not None:
             self.U = nominal.copy()
@@ -79,8 +88,18 @@ class MPPI:
         # Use the effective bounded perturbation for the update so sampled
         # rollouts and the nominal sequence stay feasible.
         noise = self._sample_noise()
-        U_noisy = self.U[None, :, :] + noise
+        n_mix = 0
+        if mix_nominal is not None and mix_fraction > 0.0:
+            n_mix = min(self.K, int(round(mix_fraction * self.K)))
+        if n_mix > 0:
+            centers = np.broadcast_to(self.U, (self.K, self.H, self.nu)).copy()
+            centers[:n_mix] = np.clip(mix_nominal, self.action_low, self.action_high)
+            U_noisy = centers + noise
+        else:
+            U_noisy = self.U[None, :, :] + noise
         U_sampled = np.clip(U_noisy, self.action_low, self.action_high)
+        # eps is measured from self.U for ALL samples so the softmin update
+        # U += sum_k w_k eps_k remains the weighted mean of sampled plans.
         eps = U_sampled - self.U[None, :, :]
 
         # rollouts → per-sample base cost (running + terminal)
@@ -164,6 +183,10 @@ class MPPI:
             'coupling_policy_cost_mean': coupling_diag['policy_cost_mean'],
             'coupling_policy_cost_std': coupling_diag['policy_cost_std'],
             'coupling_score_mean': coupling_diag['score_mean'],
+            # weight mass captured by policy-centered samples: the implicit,
+            # per-state trust signal (0 when mixing is off)
+            'mix_weight_share': float(np.sum(weights[:n_mix])) if n_mix > 0 else 0.0,
+            'mix_fraction_effective': n_mix / self.K,
             **merge_info,
         }
         return action, info

@@ -25,6 +25,7 @@ from src.utils.config import MPPIConfig, PolicyConfig, GPSConfig
 from src.utils.eval import evaluate_policy
 from src.gps.coupling import make_policy_filter_coupling
 from src.gps.merge import make_policy_merge
+from src.gps.mix import make_policy_mixer
 from src.gps.prior import make_policy_tracking_prior
 
 _ENV_FACTORIES = {
@@ -93,6 +94,8 @@ def collect_episodes(
     prior=None,
     coupling=None,
     merge=None,
+    mixer=None,
+    mix_fraction: float = 0.0,
     seed_base: int = 0,
     hold_steps: int = 25,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
@@ -114,7 +117,8 @@ def collect_episodes(
                  'coupling_feasible_fraction', 'coupling_policy_cost_mean',
                  'coupling_policy_cost_std', 'coupling_score_mean',
                  'merge_beta_mean', 'merge_beta_head', 'merge_kl_mean',
-                 'merge_accepted', 'merge_cost_gap')
+                 'merge_accepted', 'merge_cost_gap',
+                 'mix_weight_share', 'mix_fraction_effective')
     stat_sums = {k: 0.0 for k in stat_keys}
     n_calls = 0
     action_low, action_high = env.action_bounds
@@ -133,7 +137,11 @@ def collect_episodes(
         for t in range(steps_per_episode):
             state = env.get_state()
             obs = env._get_obs()
-            action, info = mppi.plan_step(state, prior_cost=prior, coupling=coupling, merge=merge)
+            mix_nominal = mixer(state) if mixer is not None else None
+            action, info = mppi.plan_step(
+                state, prior_cost=prior, coupling=coupling, merge=merge,
+                mix_nominal=mix_nominal, mix_fraction=mix_fraction,
+            )
             for k in stat_keys:
                 stat_sums[k] += info[k]
             n_calls += 1
@@ -189,18 +197,27 @@ def train_policy(
     epochs: int = 1,
     max_epochs: int = 0,
     target_loss: float = 0.0,
+    sample_weights: np.ndarray | None = None,
 ) -> float:
-    """Adam updates on MSE. Returns the final epoch-mean loss.
+    """Adam updates on (optionally weighted) MSE. Returns final epoch-mean loss.
 
     With max_epochs > 0, trains until the epoch-mean loss reaches target_loss
     or stops improving (patience 10), up to max_epochs — the policy must
     actually fit its dataset each iteration or no coupling scheme downstream
     can matter. Otherwise runs exactly `epochs` epochs.
+
+    sample_weights down-weight stale replay data: labels from early GPS iters
+    predate the merge feedback and carry conflicting modes; recent labels are
+    consistent-by-construction. The reported loss stays unweighted so it is
+    comparable across runs.
     """
     policy.train()
     device = next(policy.parameters()).device
     obs_b = torch.as_tensor(obs, dtype=torch.float32, device=device)
     act_b = torch.as_tensor(actions, dtype=torch.float32, device=device)
+    w_b = None
+    if sample_weights is not None:
+        w_b = torch.as_tensor(sample_weights, dtype=torch.float32, device=device)
     N = len(obs)
 
     n_epochs = max_epochs if max_epochs > 0 else max(1, epochs)
@@ -211,11 +228,16 @@ def train_policy(
         for start in range(0, N, batch_size):
             idx = perm[start:start + batch_size]
             mu = policy.forward(obs_b[idx])
-            loss = F.mse_loss(mu, act_b[idx])
+            se = (mu - act_b[idx]) ** 2
+            if w_b is None:
+                loss = se.mean()
+            else:
+                w = w_b[idx]
+                loss = (w[:, None] * se).sum() / (w.sum() * se.shape[1] + 1e-8)
             policy.optimizer.zero_grad()
             loss.backward()
             policy.optimizer.step()
-            losses.append(loss.item())
+            losses.append(se.mean().item())
         epoch_loss = float(np.mean(losses))
         if max_epochs > 0:
             if epoch_loss <= target_loss:
@@ -301,10 +323,10 @@ def make_collection_bias(
     env: BaseEnv | None = None,
     mppi: MPPI | None = None,
 ):
-    """Return (prior_cost, coupling, merge) for the current GPS iteration."""
+    """Return (prior_cost, coupling, merge, mixer) for the current GPS iteration."""
     collection_mode = getattr(gps_cfg, "collection_mode", "gps")
     if collection_mode == "bc":
-        return None, None, None
+        return None, None, None, None
     if collection_mode != "gps":
         raise ValueError(
             f"Unknown GPS collection_mode: {collection_mode!r}; expected 'bc' or 'gps'."
@@ -315,7 +337,13 @@ def make_collection_bias(
             f"expected one of {sorted(_COUPLING_MODES)}."
         )
     if it < gps_cfg.coupling_warmup_iters:
-        return None, None, None
+        return None, None, None, None
+
+    mixer = (
+        make_policy_mixer(policy, env, horizon=mppi.H)
+        if gps_cfg.mix_fraction > 0.0
+        else None
+    )
 
     if gps_cfg.coupling_mode == "merge":
         # No policy_trust schedule and no agreement gate: the rollout
@@ -329,7 +357,7 @@ def make_collection_bias(
             delta_floor=gps_cfg.merge_delta_floor,
             obs_from_states=obs_from_states,
         )
-        return None, None, merge
+        return None, None, merge, mixer
 
     lambda_track = gps_cfg.lambda_policy_track * policy_trust
     prior = make_policy_tracking_prior(
@@ -338,7 +366,7 @@ def make_collection_bias(
         obs_from_states=obs_from_states,
     )
     if gps_cfg.coupling_mode == "track":
-        return prior, None, None
+        return prior, None, None, mixer
 
     keep_fraction = 1.0 - policy_trust * (1.0 - gps_cfg.policy_coupling_keep_fraction)
     coupling = make_policy_filter_coupling(
@@ -349,7 +377,7 @@ def make_collection_bias(
         max_weight=gps_cfg.policy_coupling_max_weight,
         obs_from_states=obs_from_states,
     )
-    return prior, coupling, None
+    return prior, coupling, None, mixer
 
 
 def compute_policy_trust(
@@ -407,6 +435,8 @@ def main(
     policy_lr: float | None = None,
     mppi_lam: float | None = None,
     merge_delta_frac: float | None = None,
+    mix_fraction: float | None = None,
+    bc_recency_halflife: float | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
 ) -> None:
@@ -433,6 +463,8 @@ def main(
         policy_trust_max=policy_trust_max,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
         merge_delta_frac=merge_delta_frac,
+        mix_fraction=mix_fraction,
+        bc_recency_halflife=bc_recency_halflife,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
@@ -487,6 +519,7 @@ def main(
     obs_from_states = getattr(env, "rollout_states_to_obs", None)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
+    replay_tags: np.ndarray | None = None
     policy_trust = (
         gps_cfg.policy_trust_max
         if not gps_cfg.adaptive_policy_trust
@@ -496,7 +529,7 @@ def main(
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
 
-        prior, coupling, merge = make_collection_bias(
+        prior, coupling, merge, mixer = make_collection_bias(
             policy,
             gps_cfg,
             it,
@@ -514,18 +547,28 @@ def main(
             prior=prior,
             coupling=coupling,
             merge=merge,
+            mixer=mixer,
+            mix_fraction=gps_cfg.mix_fraction,
             seed_base=seed_base,
         )
 
+        iter_tags = np.full(len(obs), it, dtype=np.int32)
         if gps_cfg.replay_max_pairs > 0:
             replay_obs = obs if replay_obs is None else np.concatenate([replay_obs, obs], axis=0)
             replay_acts = acts if replay_acts is None else np.concatenate([replay_acts, acts], axis=0)
+            replay_tags = iter_tags if replay_tags is None else np.concatenate([replay_tags, iter_tags])
             if len(replay_obs) > gps_cfg.replay_max_pairs:
                 replay_obs = replay_obs[-gps_cfg.replay_max_pairs:]
                 replay_acts = replay_acts[-gps_cfg.replay_max_pairs:]
-            train_obs, train_acts = replay_obs, replay_acts
+                replay_tags = replay_tags[-gps_cfg.replay_max_pairs:]
+            train_obs, train_acts, train_tags = replay_obs, replay_acts, replay_tags
         else:
-            train_obs, train_acts = obs, acts
+            train_obs, train_acts, train_tags = obs, acts, iter_tags
+
+        sample_weights = None
+        if gps_cfg.bc_recency_halflife > 0.0:
+            age = (it - train_tags).astype(np.float64)
+            sample_weights = 0.5 ** (age / gps_cfg.bc_recency_halflife)
 
         print("training policy")
         bc_loss = train_policy(
@@ -535,6 +578,7 @@ def main(
             epochs=gps_cfg.bc_epochs_per_iter,
             max_epochs=gps_cfg.bc_max_epochs,
             target_loss=gps_cfg.bc_target_loss,
+            sample_weights=sample_weights,
         )
 
         do_eval = (it % gps_cfg.eval_every == 0) or (it == gps_cfg.n_gps_iters - 1)
@@ -653,6 +697,10 @@ def main(
             "merge_kl_mean": mppi_stats["merge_kl_mean"],
             "merge_accept_rate": mppi_stats["merge_accepted"],
             "merge_cost_gap_mean": mppi_stats["merge_cost_gap"],
+            "mix_weight_share": mppi_stats["mix_weight_share"],
+            "mix_fraction_effective": mppi_stats["mix_fraction_effective"],
+            "mix_fraction_cfg": gps_cfg.mix_fraction,
+            "bc_recency_halflife": gps_cfg.bc_recency_halflife,
         }
         run_dir.mkdir(parents=True, exist_ok=True)
         with open(metrics_path, "a") as f:

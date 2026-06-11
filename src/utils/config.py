@@ -60,6 +60,11 @@ class GPSConfig:
     merge_betas: tuple[float, ...] = (1.0, 0.5, 0.25, 0.1)
     merge_delta_frac: float = 0.01     # accepted task-cost regression, fraction of J(U*)
     merge_delta_floor: float = 1.0     # cost floor so a near-zero J(U*) still has budget
+    # TD-MPC-style sample mixing: fraction of MPPI samples centered on the
+    # policy's closed-loop rollout. Task score arbitrates; no trust schedule.
+    mix_fraction: float = 0.0
+    # >0: replay samples from iter t get weight 0.5^((now-t)/halflife) in BC.
+    bc_recency_halflife: float = 0.0
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0
