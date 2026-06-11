@@ -1,9 +1,10 @@
 """Walker2d locomotion env (gymnasium Walker2d-v5 model) for MPPI-GPS.
 
 Cost is designed for sampling-based MPC rather than RL-reward parity:
-  - velocity tracking  w_vel * max(v_target - vx, 0): rewards reaching the
-    target speed without rewarding lunging past it (unbounded -vx makes MPPI
-    dive forward and fall),
+  - velocity tracking  w_vel * |v_target - vx|: symmetric, so overspeed is
+    penalized too. With one-sided max(v_target - vx, 0) the gait kept
+    accelerating (2.1 -> 3.9 m/s within 300 steps) and the fast episodes
+    fell; with unbounded -vx (the gym reward) MPPI lunges and dives.
   - posture            w_angle * rooty^2,
   - falling            w_unhealthy * 1[not healthy] (rollouts cannot
     early-terminate, so falls must be priced into the running cost),
@@ -104,7 +105,7 @@ class Walker2d(MuJoCoEnv):
         angle = states[..., 3]
         vx = states[..., 1 + self._nq]
         healthy = self._is_healthy(z, angle)
-        vel_cost = self._w_vel * np.maximum(self._v_target - vx, 0.0)
+        vel_cost = self._w_vel * np.abs(self._v_target - vx)
         angle_cost = self._w_angle * angle**2
         unhealthy_cost = self._w_unhealthy * (~healthy)
         ctrl_cost = self._w_ctrl * np.sum(actions**2, axis=-1)
