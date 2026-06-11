@@ -1,35 +1,34 @@
 """Post-update policy merge for MPPI-GPS.
 
 The policy never enters MPPI's score. After the vanilla MPPI update produces
-U*, we nudge it toward the policy and keep the nudge only if a rollout proves
-it still does the task:
+U*, we look for the largest blend toward the policy that provably still does
+the task:
 
-    1. beta_t = beta_max * exp(-KL_t / kl_scale), where KL_t is the KL between
-       MPPI's own sampling distribution centered at u*_t vs. centered at
-       pi(s_t):  KL_t = 0.5 * (u*_t - pi_t)^T Sigma_noise^{-1} (u*_t - pi_t).
-       MPPI's exploration noise defines the units of "disagreement", so the
-       gate needs no per-task tuning. Agreement -> merge hard; a dead-fish
-       policy disagrees everywhere -> beta ~ 0 and contaminates nothing.
-    2. U_beta = (1 - beta_t) * u*_t + beta_t * pi_t per timestep. (The
-       geometric merge of two Gaussians with shared covariance is exactly
-       this convex combination of means.)
-    3. Certificate: one extra batch_rollout with K=2 evaluates U* and U_beta
-       under the true task cost. Accept U_beta iff
-       J(U_beta) <= J(U*) + delta_frac * max(J(U*), delta_floor),
-       otherwise keep U*. Every executed action therefore carries a task
-       certificate regardless of policy quality.
+    1. Candidate plans U_b = (1-b) U* + b Pi for b in `betas` (descending),
+       where Pi is the policy evaluated along U*'s planned state path.
+    2. Certificate: ONE batch_rollout evaluates U* and all candidates under
+       the true task cost. Execute the largest b with
+       J(U_b) <= J(U*) + delta_frac * max(J(U*), delta_floor);
+       fall back to U* if none passes.
 
-    The accepted plan decides the *executed action only* — MPPI's warm start
-    stays the pure U*. Re-centering the proposal on merged plans contaminates
-    the J(U*) reference the certificate compares against, and the per-step
-    budget then compounds across replanning steps into closed-loop failure
-    (observed: collection hit rate 0.4 -> 0.0 within one GPS iteration).
+This is the constrained projection  min_b ||U_b - Pi||  s.t.  J <= J* + delta
+solved by line search: maximal policy-consistency subject to a verified task
+budget. Where the task cost ties between modes (the source of multimodal BC
+labels), large blends pass and the labels collapse onto the policy's mode;
+where the policy is wrong, every candidate fails and pure MPPI executes.
 
-The policy is queried along the softmin-weighted mean of the already-computed
-sample paths (free; at low temperature this is the best sample's path). The
-path only decides where pi is evaluated — the accept test stays exact.
+An earlier version gated b on the KL between U* and Pi under MPPI's sampling
+noise. That starves the loop: an undertrained policy disagrees everywhere, so
+b ~ 0, no consistency feedback ever reaches the labels, and BC stays stuck on
+conflicting modes (observed: BC loss flat at 0.29, eval hit 0, accept 3%).
+The certificate alone is the trust region — disagreement is fine as long as
+the rollout proves the blend still does the task.
 
-Cost: 2 extra rollouts per plan step (~0.4% of K=512).
+The accepted plan decides the *executed action only* — MPPI's warm start
+stays the pure U*, so per-step budgets cannot compound across replanning
+steps into closed-loop failure.
+
+Cost: 1 + len(betas) extra rollouts per plan step (~1% of K=512).
 """
 from __future__ import annotations
 
@@ -47,22 +46,22 @@ def make_policy_merge(
     policy: DeterministicPolicy,
     env: BaseEnv,
     noise_precision: np.ndarray,
-    beta_max: float = 1.0,
-    kl_scale: float = 1.0,
+    betas: tuple[float, ...] = (1.0, 0.5, 0.25, 0.1),
     delta_frac: float = 0.01,
     delta_floor: float = 1.0,
     obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ) -> Callable[..., tuple[np.ndarray, dict]]:
     """Build the merge hook for MPPI.plan_step.
 
-    noise_precision: MPPI's (nu, nu) action-noise precision; defines KL units.
-    kl_scale: nats of proposal-KL at which beta decays by 1/e. A policy action
-        one noise-sigma away gives KL=0.5, i.e. beta ~ 0.61 * beta_max.
-    delta_frac/delta_floor: task-cost budget for accepting the merged plan,
-        relative to J(U*) with a floor so a near-zero hold cost still leaves
-        room for an equivalent-cost merge.
+    noise_precision: MPPI's (nu, nu) action-noise precision. Only used for
+        the KL diagnostic (disagreement in noise units); it no longer gates.
+    betas: candidate blend strengths, tried largest-first.
+    delta_frac/delta_floor: task-cost budget for accepting a blend, relative
+        to J(U*) with a floor so a near-zero hold cost still leaves room for
+        an equivalent-cost blend.
     """
     state_to_obs = obs_from_states or _default_obs_from_rollout_states
+    betas_desc = tuple(sorted(betas, reverse=True))
 
     def merge(
         state: np.ndarray,
@@ -77,21 +76,28 @@ def make_policy_merge(
 
         diff = U_star - pi
         kl = 0.5 * np.einsum('hi,ij,hj->h', diff, noise_precision, diff)  # (H,)
-        beta = beta_max * np.exp(-kl / kl_scale)
-        U_beta = U_star + beta[:, None] * (pi - U_star)
 
-        _, costs, _ = env.batch_rollout(state, np.stack([U_star, U_beta]))
-        j_star, j_beta = float(costs[0]), float(costs[1])
-        budget = delta_frac * max(j_star, delta_floor)
-        accepted = j_beta <= j_star + budget
+        candidates = np.stack(
+            [U_star] + [U_star + b * (pi - U_star) for b in betas_desc]
+        )
+        _, costs, _ = env.batch_rollout(state, candidates)
+        j_star = float(costs[0])
+        budget = j_star + delta_frac * max(j_star, delta_floor)
+
+        chosen, j_chosen = 0.0, j_star
+        for i, b in enumerate(betas_desc):
+            if costs[1 + i] <= budget:
+                chosen, j_chosen = b, float(costs[1 + i])
+                break
 
         info = {
-            'merge_beta_mean': float(np.mean(beta)),
-            'merge_beta_head': float(beta[0]),
+            'merge_beta_mean': chosen,
+            'merge_beta_head': chosen,
             'merge_kl_mean': float(np.mean(kl)),
-            'merge_accepted': float(accepted),
-            'merge_cost_gap': j_beta - j_star,
+            'merge_accepted': float(chosen > 0.0),
+            'merge_cost_gap': j_chosen - j_star,
         }
-        return (U_beta if accepted else U_star), info
+        U_exec = U_star + chosen * (pi - U_star) if chosen > 0.0 else U_star
+        return U_exec, info
 
     return merge

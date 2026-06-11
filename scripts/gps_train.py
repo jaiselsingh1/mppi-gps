@@ -318,14 +318,13 @@ def make_collection_bias(
         return None, None, None
 
     if gps_cfg.coupling_mode == "merge":
-        # Self-gating: no policy_trust schedule. Disagreement collapses the
-        # blend per state, and the rollout certificate bounds task regression.
+        # No policy_trust schedule and no agreement gate: the rollout
+        # certificate alone decides how far each plan bends toward the policy.
         merge = make_policy_merge(
             policy,
             env,
             noise_precision=mppi.noise_precision,
-            beta_max=gps_cfg.merge_beta_max,
-            kl_scale=gps_cfg.merge_kl_scale,
+            betas=tuple(gps_cfg.merge_betas),
             delta_frac=gps_cfg.merge_delta_frac,
             delta_floor=gps_cfg.merge_delta_floor,
             obs_from_states=obs_from_states,
@@ -407,8 +406,6 @@ def main(
     policy_coupling_keep_fraction: float | None = None,
     policy_lr: float | None = None,
     mppi_lam: float | None = None,
-    merge_beta_max: float | None = None,
-    merge_kl_scale: float | None = None,
     merge_delta_frac: float | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
@@ -435,8 +432,6 @@ def main(
         policy_trust_min=policy_trust_min,
         policy_trust_max=policy_trust_max,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
-        merge_beta_max=merge_beta_max,
-        merge_kl_scale=merge_kl_scale,
         merge_delta_frac=merge_delta_frac,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
@@ -462,10 +457,7 @@ def main(
                 f"_keep_{gps_cfg.policy_coupling_keep_fraction:g}{suffix}"
             )
         elif gps_cfg.coupling_mode == "merge":
-            run_name = (
-                f"{env_prefix}gps_merge_bmax_{gps_cfg.merge_beta_max:g}"
-                f"_kl_{gps_cfg.merge_kl_scale:g}_delta_{gps_cfg.merge_delta_frac:g}{suffix}"
-            )
+            run_name = f"{env_prefix}gps_merge_delta_{gps_cfg.merge_delta_frac:g}{suffix}"
         else:
             raise ValueError(
                 f"Unknown GPS coupling_mode: {gps_cfg.coupling_mode!r}; "

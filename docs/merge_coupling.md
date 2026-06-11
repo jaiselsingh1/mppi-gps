@@ -10,15 +10,24 @@ no matter how bad the policy is.
 
 Per plan step, after the vanilla MPPI update produces `U*`:
 
-1. **Gate.** Per timestep, compute the KL between MPPI's own sampling
-   distribution centered at `u*_t` vs. centered at `pi(s_t)`:
-   `KL_t = 0.5 (u*_t - pi_t)^T Sigma_noise^-1 (u*_t - pi_t)`, then
-   `beta_t = beta_max * exp(-KL_t / kl_scale)`.
-2. **Merge.** `U_beta[t] = (1 - beta_t) u*_t + beta_t pi(s_t)`.
-3. **Certificate.** One extra `batch_rollout` with K=2 evaluates `U*` and
-   `U_beta` under the true task cost. Accept `U_beta` only if
-   `J(U_beta) <= J(U*) + delta_frac * max(J(U*), delta_floor)`; otherwise
-   keep `U*`.
+1. **Candidates.** `U_b = (1-b) U* + b Pi` for `b` in `merge_betas`
+   (largest first), with `Pi` the policy evaluated along `U*`'s planned
+   state path.
+2. **Certificate line search.** One extra `batch_rollout` evaluates `U*`
+   and all candidates under the true task cost. Execute the largest `b`
+   with `J(U_b) <= J(U*) + delta_frac * max(J(U*), delta_floor)`; fall back
+   to `U*` if none passes. This solves the constrained projection
+   `min_b ||U_b - Pi|| s.t. J <= J* + delta` — maximal policy-consistency
+   subject to a verified task budget.
+
+An earlier version scaled the blend by an agreement gate
+`beta = beta_max * exp(-KL/kl_scale)` (KL between `U*` and `Pi` under the
+sampling noise). That starves the loop: an undertrained policy disagrees
+everywhere, so beta ~ 0, no consistency feedback reaches the BC labels, and
+the policy stays stuck on conflicting modes (observed in exp_merge4: BC loss
+flat at 0.29, eval hit 0, accept rate 3%). Disagreement is not evidence of
+harm — the certificate measures harm directly, so it alone is the trust
+region. The KL is still logged as a convergence diagnostic.
 4. **Execution only.** The accepted plan decides the executed action (and
    hence the BC label); the warm start stays the pure `U*`. An earlier
    version re-centered the next proposal on the merged plan — that

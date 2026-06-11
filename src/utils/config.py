@@ -56,8 +56,8 @@ class GPSConfig:
     collection_mode: str = "gps"       # bc | gps
     coupling_mode: str = "track"       # track | filter | merge; used when collection_mode == "gps"
     # merge mode: policy nudges the post-update plan, never the score.
-    merge_beta_max: float = 1.0        # max blend toward the policy at zero disagreement
-    merge_kl_scale: float = 1.0        # proposal-KL (nats) at which the blend decays by 1/e
+    # Largest blend in merge_betas whose rollout cost stays within budget wins.
+    merge_betas: tuple[float, ...] = (1.0, 0.5, 0.25, 0.1)
     merge_delta_frac: float = 0.01     # accepted task-cost regression, fraction of J(U*)
     merge_delta_floor: float = 1.0     # cost floor so a near-zero J(U*) still has budget
     policy_coupling_min_fraction: float = 0.05
