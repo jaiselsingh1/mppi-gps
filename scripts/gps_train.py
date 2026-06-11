@@ -410,6 +410,8 @@ def main(
     merge_beta_max: float | None = None,
     merge_kl_scale: float | None = None,
     merge_delta_frac: float | None = None,
+    env_frame_skip: int = 1,
+    env_energy_cost_weight: float | None = None,
 ) -> None:
     env_name = _normalize_env_name(env_name)
     gps_cfg = GPSConfig.load(env_name)
@@ -482,7 +484,12 @@ def main(
     print(f"device: {torch_device}")
     print(f"use_warp: {use_warp}  nworld: {mppi_cfg.K}")
 
-    env = _make_env(env_name, use_warp=use_warp, nworld=mppi_cfg.K)
+    env_kwargs: dict = {"use_warp": use_warp, "nworld": mppi_cfg.K}
+    if env_frame_skip != 1:
+        env_kwargs["frame_skip"] = env_frame_skip
+    if env_energy_cost_weight is not None:
+        env_kwargs["energy_cost_weight"] = env_energy_cost_weight
+    env = _make_env(env_name, **env_kwargs)
     mppi = MPPI(env, mppi_cfg)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=torch_device)
     obs_from_states = getattr(env, "rollout_states_to_obs", None)
