@@ -1,48 +1,71 @@
-"""Quantify the 'policy smooths MPC' effect (Mordatch'15 Fig. 3) on acrobot.
+"""Quantify the 'policy smooths MPC' effect (Mordatch'15 Fig. 3).
 
 Runs the trained policy and raw MPPI closed-loop on identical reset seeds and
-reports task cost, hold success, and action smoothness sum_t ||a_{t+1}-a_t||^2
-per step. The MPPI-GPS thesis predicts the policy matches MPPI on task metrics
-while being substantially smoother (and eventually cheaper: less greedy).
+reports task cost, success/hold metrics, and action smoothness
+sum_t ||a_{t+1}-a_t||^2 / T. The MPPI-GPS thesis predicts the policy matches
+MPPI on task metrics while being substantially smoother (and on fragile
+systems, more stable: the policy injects no exploration noise).
 
-Usage: python scripts/eval_smoothness.py runs/exp_merge/checkpoint_latest.pt
+Usage:
+  python scripts/eval_smoothness.py --env-name walker2d \
+      --checkpoint runs/walker_gps1/checkpoint_latest.pt
 """
 from __future__ import annotations
 
-import sys
-
 import numpy as np
 import torch
+import tyro
 
 from src.envs.acrobot import Acrobot
+from src.envs.walker2d import Walker2d
 from src.mppi.mppi import MPPI
 from src.policy.deterministic_policy import DeterministicPolicy
-from src.utils.config import MPPIConfig, PolicyConfig
+from src.utils.config import MPPIConfig, GPSConfig, PolicyConfig
+
+_ENVS = {
+    "acrobot": (Acrobot, {"frame_skip": 2, "energy_cost_weight": 10.0}),
+    "walker2d": (Walker2d, {}),
+}
+_MPPI_OVERRIDES = {"acrobot": {"lam": 0.15}, "walker2d": {}}
 
 
 def run_episode(env, act_fn, episode_len: int, seed: int) -> dict:
     np.random.seed(seed)
     env.reset()
-    actions, cost, hold, max_hold = [], 0.0, 0, 0
+    actions, cost, hold, max_hold, steps = [], 0.0, 0, 0, 0
     for _ in range(episode_len):
         a = act_fn(env)
         actions.append(np.asarray(a, dtype=float).copy())
-        _, c, _, _ = env.step(a)
+        _, c, done, _ = env.step(a)
         cost += c
+        steps += 1
         hold = hold + 1 if env.task_metrics()["success"] else 0
         max_hold = max(max_hold, hold)
+        if done:
+            break
     a = np.asarray(actions)
     return {
-        "cost": cost,
+        "cost_per_step": cost / steps,
+        "steps": steps,
         "max_hold": max_hold,
-        "smoothness": float(np.sum(np.diff(a, axis=0) ** 2) / (len(a) - 1)),
+        "smoothness": float(np.sum(np.diff(a, axis=0) ** 2) / max(len(a) - 1, 1)),
     }
 
 
-def main(checkpoint: str, n_episodes: int = 3, episode_len: int = 400) -> None:
-    env = Acrobot()
-    mppi = MPPI(env, MPPIConfig.load("acrobot"))
-    policy = DeterministicPolicy(6, 1, PolicyConfig())
+def main(
+    env_name: str = "walker2d",
+    checkpoint: str = "runs/walker_gps1/checkpoint_latest.pt",
+    n_episodes: int = 5,
+    episode_len: int = 600,
+) -> None:
+    env_cls, env_kwargs = _ENVS[env_name]
+    env = env_cls(**env_kwargs)
+    mppi_cfg = MPPIConfig.load(env_name)
+    for k, v in _MPPI_OVERRIDES[env_name].items():
+        setattr(mppi_cfg, k, v)
+    mppi = MPPI(env, mppi_cfg)
+    gps_cfg = GPSConfig.load(env_name)
+    policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, PolicyConfig())
     policy.load_state_dict(torch.load(checkpoint, map_location="cpu"))
     policy.eval()
 
@@ -60,12 +83,11 @@ def main(checkpoint: str, n_episodes: int = 3, episode_len: int = 400) -> None:
             if needs_reset:
                 mppi.reset()
             results.append(run_episode(env, act_fn, episode_len, seed=ep))
-        cost = np.mean([r["cost"] for r in results])
-        hold = np.mean([r["max_hold"] for r in results])
-        smooth = np.mean([r["smoothness"] for r in results])
-        print(f"{name:>6}: cost={cost:8.1f}  max_hold={hold:6.1f}  "
-              f"action_smoothness={smooth:.5f}")
+        agg = {k: float(np.mean([r[k] for r in results])) for k in results[0]}
+        print(f"{name:>6}: cost/step={agg['cost_per_step']:.3f}  steps={agg['steps']:.0f}"
+              f"  max_hold={agg['max_hold']:.0f}  action_smoothness={agg['smoothness']:.5f}")
+    env.close()
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:2] or ["runs/exp_merge/checkpoint_latest.pt"])
+    tyro.cli(main)
