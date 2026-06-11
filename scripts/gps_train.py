@@ -98,10 +98,19 @@ def collect_episodes(
     merge=None,
     mixer=None,
     mix_fraction: float = 0.0,
+    policy_act=None,
+    dagger_fraction: float = 0.0,
     seed_base: int = 0,
     hold_steps: int = 25,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
     """Run MPPI in closed loop.
+
+    With dagger_fraction > 0, that share of episodes is PLATO-style: the
+    *policy* drives the env while every visited state is labeled with the
+    certified planner action. The policy's compounding drift then generates
+    exactly the recovery data plain planner-driven collection never visits
+    (observed: the distilled walker fell at ~150-280 steps because MPPI demos
+    contain no near-fall states). Labels stay task-certified either way.
 
     Returns (obs, actions, mean_ep_cost, mppi_stats) where mppi_stats averages
     the S-component diagnostics (env / IS / track / total S, plus n_eff, lam)
@@ -125,7 +134,10 @@ def collect_episodes(
     n_calls = 0
     action_low, action_high = env.action_bounds
 
+    n_dagger = int(round(dagger_fraction * n_episodes)) if policy_act is not None else 0
+
     for ep in range(n_episodes):
+        dagger_ep = ep < n_dagger
         np.random.seed(seed_base + ep)
         env.reset()
         mppi.reset()
@@ -148,10 +160,11 @@ def collect_episodes(
                 stat_sums[k] += info[k]
             n_calls += 1
             ep_obs.append(obs)
-            # MPPI and the simulator see the raw action. BC learns the actuator-
-            # bounded command that the policy can actually represent.
+            # The label is always the certified planner action. In DAgger
+            # episodes the *policy* drives so its drift states get labeled.
             ep_actions.append(np.clip(action, action_low, action_high))
-            _, cost, done, _ = env.step(action)
+            exec_action = policy_act(obs) if dagger_ep else action
+            _, cost, done, _ = env.step(exec_action)
             ep_cost += cost
 
             metrics = _task_metrics(env)
@@ -439,6 +452,7 @@ def main(
     merge_delta_frac: float | None = None,
     mix_fraction: float | None = None,
     bc_recency_halflife: float | None = None,
+    dagger_fraction: float | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
 ) -> None:
@@ -467,6 +481,7 @@ def main(
         merge_delta_frac=merge_delta_frac,
         mix_fraction=mix_fraction,
         bc_recency_halflife=bc_recency_halflife,
+        dagger_fraction=dagger_fraction,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
@@ -541,6 +556,15 @@ def main(
             mppi=mppi,
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
+
+        def policy_act(obs: np.ndarray) -> np.ndarray:
+            obs_t = torch.as_tensor(
+                obs, dtype=torch.float32, device=torch_device
+            ).unsqueeze(0)
+            with torch.no_grad():
+                return policy.forward(obs_t).squeeze(0).cpu().numpy()
+
+        dagger_now = gps_cfg.dagger_fraction if it >= gps_cfg.coupling_warmup_iters else 0.0
         print("collecting demos")
         obs, acts, mppi_cost, mppi_stats = collect_episodes(
             env, mppi,
@@ -551,6 +575,8 @@ def main(
             merge=merge,
             mixer=mixer,
             mix_fraction=gps_cfg.mix_fraction,
+            policy_act=policy_act,
+            dagger_fraction=dagger_now,
             seed_base=seed_base,
         )
 
@@ -703,6 +729,8 @@ def main(
             "mix_fraction_effective": mppi_stats["mix_fraction_effective"],
             "mix_fraction_cfg": gps_cfg.mix_fraction,
             "bc_recency_halflife": gps_cfg.bc_recency_halflife,
+            "dagger_fraction_effective": dagger_now,
+            "policy_eval_mean_steps": (stats.get("mean_steps") if do_eval else None),
         }
         run_dir.mkdir(parents=True, exist_ok=True)
         with open(metrics_path, "a") as f:

@@ -65,6 +65,9 @@ class GPSConfig:
     mix_fraction: float = 0.0
     # >0: replay samples from iter t get weight 0.5^((now-t)/halflife) in BC.
     bc_recency_halflife: float = 0.0
+    # PLATO-style share of collection episodes driven by the policy while
+    # states are labeled with the certified planner action (recovery data).
+    dagger_fraction: float = 0.0
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0

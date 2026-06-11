@@ -24,6 +24,7 @@ def evaluate_policy(
 ) -> dict:
     """Deploy π deterministically in closed loop; report per-episode env cost."""
     returns: list[float] = []
+    ep_steps: list[int] = []
     hit_successes: list[bool] = []
     hold_successes: list[bool] = []
     final_successes: list[bool] = []
@@ -67,6 +68,7 @@ def evaluate_policy(
 
             if done:
                 break
+        ep_steps.append(t + 1)
         returns.append(ep_cost)
         if hasattr(env, "task_metrics"):
             final_metrics = env.task_metrics()
@@ -82,6 +84,9 @@ def evaluate_policy(
     stats = {
         "mean_cost": float(arr.mean()),
         "std_cost": float(arr.std()),
+        # episodes can terminate early (e.g. a fall); cost alone is then
+        # misleading because it stops accumulating — always read it with steps
+        "mean_steps": float(np.mean(ep_steps)),
         "per_ep": arr.tolist(),
         "frames": frames,
     }
