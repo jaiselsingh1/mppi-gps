@@ -68,6 +68,13 @@ class GPSConfig:
     # PLATO-style share of collection episodes driven by the policy while
     # states are labeled with the certified planner action (recovery data).
     dagger_fraction: float = 0.0
+    # Mordatch'15-style in-score coupling with dual ascent: when alpha > 0
+    # (and coupling_mode == "merge"), add lambda_track * sum_t ||u - pi||^2
+    # to the MPPI score with lambda <- min(lambda + alpha * E||u_exec -
+    # pi||^2, cap). Grows while the policy and planner disagree, stalls as
+    # they converge — no hand schedule.
+    track_dual_alpha: float = 0.0
+    track_dual_lambda_max: float = 1.0
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0

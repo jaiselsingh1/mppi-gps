@@ -337,6 +337,7 @@ def make_collection_bias(
     obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
     env: BaseEnv | None = None,
     mppi: MPPI | None = None,
+    lambda_track_dual: float = 0.0,
 ):
     """Return (prior_cost, coupling, merge, mixer) for the current GPS iteration."""
     collection_mode = getattr(gps_cfg, "collection_mode", "gps")
@@ -363,6 +364,16 @@ def make_collection_bias(
     if gps_cfg.coupling_mode == "merge":
         # No policy_trust schedule and no agreement gate: the rollout
         # certificate alone decides how far each plan bends toward the policy.
+        # With track_dual_alpha > 0 the Mordatch-style penalty additionally
+        # pulls the *whole planned horizon* toward pi inside the score, at
+        # the dual-ascended weight.
+        prior = None
+        if gps_cfg.track_dual_alpha > 0.0 and lambda_track_dual > 0.0:
+            prior = make_policy_tracking_prior(
+                policy,
+                lambda_track=lambda_track_dual,
+                obs_from_states=obs_from_states,
+            )
         merge = make_policy_merge(
             policy,
             env,
@@ -372,7 +383,7 @@ def make_collection_bias(
             delta_floor=gps_cfg.merge_delta_floor,
             obs_from_states=obs_from_states,
         )
-        return None, None, merge, mixer
+        return prior, None, merge, mixer
 
     lambda_track = gps_cfg.lambda_policy_track * policy_trust
     prior = make_policy_tracking_prior(
@@ -453,6 +464,8 @@ def main(
     mix_fraction: float | None = None,
     bc_recency_halflife: float | None = None,
     dagger_fraction: float | None = None,
+    track_dual_alpha: float | None = None,
+    track_dual_lambda_max: float | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
 ) -> None:
@@ -482,6 +495,8 @@ def main(
         mix_fraction=mix_fraction,
         bc_recency_halflife=bc_recency_halflife,
         dagger_fraction=dagger_fraction,
+        track_dual_alpha=track_dual_alpha,
+        track_dual_lambda_max=track_dual_lambda_max,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
@@ -542,6 +557,8 @@ def main(
         if not gps_cfg.adaptive_policy_trust
         else gps_cfg.policy_trust_min
     )
+    lambda_track_dual = 0.0
+    track_violation = 0.0
 
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
@@ -554,6 +571,7 @@ def main(
             obs_from_states=obs_from_states,
             env=env,
             mppi=mppi,
+            lambda_track_dual=lambda_track_dual,
         )
         seed_base = 10_000 + it * gps_cfg.episodes_per_iter
 
@@ -579,6 +597,18 @@ def main(
             dagger_fraction=dagger_now,
             seed_base=seed_base,
         )
+
+        if gps_cfg.track_dual_alpha > 0.0 and len(obs) > 0:
+            # dual ascent on the consistency constraint u = pi(s): grow the
+            # in-score coupling while planner and policy still disagree
+            with torch.no_grad():
+                obs_t = torch.as_tensor(obs, dtype=torch.float32, device=torch_device)
+                mu = policy.forward(obs_t).cpu().numpy()
+            track_violation = float(np.mean(np.sum((acts - mu) ** 2, axis=-1)))
+            lambda_track_dual = min(
+                lambda_track_dual + gps_cfg.track_dual_alpha * track_violation,
+                gps_cfg.track_dual_lambda_max,
+            )
 
         iter_tags = np.full(len(obs), it, dtype=np.int32)
         if gps_cfg.replay_max_pairs > 0:
@@ -731,6 +761,8 @@ def main(
             "bc_recency_halflife": gps_cfg.bc_recency_halflife,
             "dagger_fraction_effective": dagger_now,
             "policy_eval_mean_steps": (stats.get("mean_steps") if do_eval else None),
+            "lambda_track_dual": lambda_track_dual,
+            "track_violation": track_violation,
         }
         run_dir.mkdir(parents=True, exist_ok=True)
         with open(metrics_path, "a") as f:
