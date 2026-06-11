@@ -75,6 +75,9 @@ class GPSConfig:
     # they converge — no hand schedule.
     track_dual_alpha: float = 0.0
     track_dual_lambda_max: float = 1.0
+    # GPS-style stochastic collection: execute label + N(0, std^2) so the
+    # dataset covers a tube around nominal trajectories (recovery labels).
+    exec_noise_std: float = 0.0
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0

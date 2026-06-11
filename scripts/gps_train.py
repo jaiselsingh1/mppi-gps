@@ -100,6 +100,7 @@ def collect_episodes(
     mix_fraction: float = 0.0,
     policy_act=None,
     dagger_fraction: float = 0.0,
+    exec_noise_std: float = 0.0,
     seed_base: int = 0,
     hold_steps: int = 25,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
@@ -164,6 +165,14 @@ def collect_episodes(
             # episodes the *policy* drives so its drift states get labeled.
             ep_actions.append(np.clip(action, action_low, action_high))
             exec_action = policy_act(obs) if dagger_ep else action
+            if exec_noise_std > 0.0:
+                # GPS-style stochastic collection: the noise drifts the state
+                # off the nominal ribbon; the next step's certified label is
+                # the demonstrated correction. Labels stay noise-free.
+                exec_action = np.clip(
+                    exec_action + exec_noise_std * np.random.randn(len(action)),
+                    action_low, action_high,
+                )
             _, cost, done, _ = env.step(exec_action)
             ep_cost += cost
 
@@ -466,6 +475,7 @@ def main(
     dagger_fraction: float | None = None,
     track_dual_alpha: float | None = None,
     track_dual_lambda_max: float | None = None,
+    exec_noise_std: float | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
 ) -> None:
@@ -497,6 +507,7 @@ def main(
         dagger_fraction=dagger_fraction,
         track_dual_alpha=track_dual_alpha,
         track_dual_lambda_max=track_dual_lambda_max,
+        exec_noise_std=exec_noise_std,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
@@ -595,6 +606,7 @@ def main(
             mix_fraction=gps_cfg.mix_fraction,
             policy_act=policy_act,
             dagger_fraction=dagger_now,
+            exec_noise_std=gps_cfg.exec_noise_std,
             seed_base=seed_base,
         )
 
