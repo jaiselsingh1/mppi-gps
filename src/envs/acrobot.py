@@ -25,6 +25,7 @@ _HEIGHT_COST_WEIGHT = 1.0
 _CENTER_COST_WEIGHT = 0.05
 _TERMINAL_TARGET_COST_WEIGHT = 100.0
 _TERMINAL_QVEL_COST_WEIGHT = 25.0
+_ENERGY_COST_WEIGHT = 1.0
 
 # dm_control suite acrobot SwingUp reward:
 # rewards.tolerance(tip_to_target, bounds=(0, target_radius), margin=1).
@@ -61,6 +62,7 @@ class CostComponents(NamedTuple):
     qvel_cost: Float[Array, "..."]
     qvel_excess_cost: Float[Array, "..."]
     control_cost: Float[Array, "..."]
+    energy_cost: Float[Array, "..."]
 
 
 class WeightedCostComponents(NamedTuple):
@@ -68,6 +70,7 @@ class WeightedCostComponents(NamedTuple):
     qvel_cost: Float[Array, "..."]
     qvel_excess_cost: Float[Array, "..."]
     control_cost: Float[Array, "..."]
+    energy_cost: Float[Array, "..."]
     total: Float[Array, "..."]
 
 
@@ -89,9 +92,29 @@ class Acrobot(MuJoCoEnv):
         qvel_scale: tuple[float, float] = tuple(_QVEL_SCALE),
         qvel_excess_threshold: float = _QVEL_EXCESS_THRESHOLD,
         terminal_qvel_cost_weight: float = _TERMINAL_QVEL_COST_WEIGHT,
+        energy_cost_weight: float = _ENERGY_COST_WEIGHT,
         **kwargs,
     ) -> None:
         super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
+        # Energy shaping (Spong '95): only the elbow is actuated, so swing-up
+        # must pump the passive shoulder. The dense height cost alone has a
+        # local optimum (lower arm statically folded up, tip_z ~ 2) that MPPI
+        # cannot escape within any feasible horizon because pumping requires
+        # transiently lowering the tip. Penalizing the deficit of total
+        # mechanical energy vs. the upright equilibrium rewards pumping
+        # immediately, inside every horizon. Normalized by the hang->upright
+        # energy gap so the term is O(1) like the other components.
+        self._energy_cost_weight = energy_cost_weight
+        qpos0, qvel0 = self.data.qpos.copy(), self.data.qvel.copy()
+        self.data.qpos[:] = 0.0  # qpos = 0 is upright (geoms extend +z)
+        self.data.qvel[:] = 0.0
+        mujoco.mj_forward(self.model, self.data)
+        self._energy_upright = float(self.data.energy[0])
+        self.data.qpos[:] = np.pi  # hanging
+        mujoco.mj_forward(self.model, self.data)
+        self._energy_scale = self._energy_upright - float(self.data.energy[0])
+        self.data.qpos[:], self.data.qvel[:] = qpos0, qvel0
+        mujoco.mj_forward(self.model, self.data)
         self._nq = self.model.nq  # 2
         self._nv = self.model.nv  # 2
         self._qvel_cost_weight = qvel_cost_weight
@@ -191,6 +214,12 @@ class Acrobot(MuJoCoEnv):
         
         control_cost = np.linalg.norm(actions, axis=-1) ** 2
 
+        # normalized energy deficit vs. upright equilibrium; only the deficit
+        # is penalized (excess is already handled by qvel_excess_cost)
+        energy = sensordata[..., 3] + sensordata[..., 4]
+        deficit = np.maximum(self._energy_upright - energy, 0.0) / self._energy_scale
+        energy_cost = deficit ** 2
+
         return CostComponents(
             tip_dist=dist,
             target_reward=reward,
@@ -198,19 +227,22 @@ class Acrobot(MuJoCoEnv):
             qvel_norm=qvel_norm,
             qvel_cost=qvel_cost,
             qvel_excess_cost=qvel_excess_cost,
-            control_cost=control_cost
+            control_cost=control_cost,
+            energy_cost=energy_cost,
         )
 
     def weighted_cost_components(self, c: CostComponents) -> WeightedCostComponents:
         control_cost = _CONROL_COST_WEIGHT * c.control_cost
         qvel_cost = self._qvel_cost_weight * c.qvel_cost
         qvel_excess_cost = self._qvel_excess_cost_weight * c.qvel_excess_cost
-        total = c.target_cost + qvel_cost + qvel_excess_cost + control_cost
+        energy_cost = self._energy_cost_weight * c.energy_cost
+        total = c.target_cost + qvel_cost + qvel_excess_cost + control_cost + energy_cost
         return WeightedCostComponents(
             target_cost=c.target_cost,
             qvel_cost=qvel_cost,
             qvel_excess_cost=qvel_excess_cost,
             control_cost=control_cost,
+            energy_cost=energy_cost,
             total=total,
         )
 
