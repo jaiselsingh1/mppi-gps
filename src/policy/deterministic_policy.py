@@ -46,9 +46,27 @@ class DeterministicPolicy(nn.Module):
         self.optimizer = torch.optim.Adam(self.parameters(), lr=cfg.lr)
 
     @torch.no_grad()
-    def set_obs_stats(self, mean, std) -> None:
-        self.obs_mean.copy_(torch.as_tensor(mean, dtype=torch.float32))
-        self.obs_std.copy_(torch.as_tensor(std, dtype=torch.float32).clamp(min=1e-3))
+    def set_obs_stats(self, mean, std, preserve_outputs: bool = True) -> None:
+        """Update normalization stats, optionally PopArt-style.
+
+        preserve_outputs rewrites the first linear layer so the end-to-end
+        function is exactly unchanged by the stats update (van Hasselt et
+        al. '16, applied at the input layer): stats stay adaptive — the
+        empirical ingredient behind walker_gps5's survival climb — without
+        invalidating prior learning, which froze-stats (gps6) and naive
+        recompute (gps5's late dip) each get wrong in one direction.
+        Subsequent training then benefits from the better-conditioned
+        input geometry.
+        """
+        new_mean = torch.as_tensor(mean, dtype=torch.float32)
+        new_std = torch.as_tensor(std, dtype=torch.float32).clamp(min=1e-3)
+        if preserve_outputs:
+            lin = self.net[0]
+            # W'(x-mu')/sigma' + b' == W(x-mu)/sigma + b  for all x
+            lin.weight.mul_((new_std / self.obs_std).unsqueeze(0))
+            lin.bias.add_(lin.weight @ ((new_mean - self.obs_mean) / new_std))
+        self.obs_mean.copy_(new_mean)
+        self.obs_std.copy_(new_std)
 
     def forward(
         self,
