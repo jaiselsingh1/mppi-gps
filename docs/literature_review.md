@@ -48,6 +48,13 @@ where we deviate -> adversarial risk -> validating experiment.
   are the *merged* (policy-adapted) action — the coaching choice — but
   certificate-bounded within delta of optimal: "coaching with a
   certificate."
+- **Theory note (second pass):** DAgger's guarantee assumes a FIXED
+  expert. Our merged labels depend on the current policy, so the expert
+  drifts with the learner — the formal reason PLATO/MDGPS needed bespoke
+  proofs for adaptive structures. Our certificate bounds the drift: labels
+  stay within the delta-sublevel set of the fixed task-optimal cost, so
+  label non-stationarity is bounded in cost space even though it is
+  unbounded in action space.
 - **Queued experiment:** label ablation — merged labels (consistency) vs
   pure U*[0] labels (PLATO-faithful) on identical collection.
 
