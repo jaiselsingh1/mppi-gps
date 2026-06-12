@@ -101,6 +101,7 @@ def collect_episodes(
     policy_act=None,
     dagger_fraction: float = 0.0,
     exec_noise_std: float = 0.0,
+    exec_noise_ou_tau: float = 0.0,
     seed_base: int = 0,
     hold_steps: int = 25,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
@@ -142,6 +143,7 @@ def collect_episodes(
         np.random.seed(seed_base + ep)
         env.reset()
         mppi.reset()
+        ou_state = np.zeros(env.action_dim)
 
         ep_cost = 0.0
         ep_obs: list[np.ndarray] = []
@@ -168,11 +170,18 @@ def collect_episodes(
             if exec_noise_std > 0.0:
                 # GPS-style stochastic collection: the noise drifts the state
                 # off the nominal ribbon; the next step's certified label is
-                # the demonstrated correction. Labels stay noise-free.
-                exec_action = np.clip(
-                    exec_action + exec_noise_std * np.random.randn(len(action)),
-                    action_low, action_high,
-                )
+                # the demonstrated correction. Labels stay noise-free. OU
+                # correlation makes the drift persistent like real learner
+                # bias instead of plant-filtered white jitter.
+                if exec_noise_ou_tau > 0.0:
+                    decay = np.exp(-1.0 / exec_noise_ou_tau)
+                    ou_state = decay * ou_state + exec_noise_std * np.sqrt(
+                        1.0 - decay**2
+                    ) * np.random.randn(len(action))
+                    noise = ou_state
+                else:
+                    noise = exec_noise_std * np.random.randn(len(action))
+                exec_action = np.clip(exec_action + noise, action_low, action_high)
             _, cost, done, _ = env.step(exec_action)
             ep_cost += cost
 
@@ -476,6 +485,8 @@ def main(
     track_dual_alpha: float | None = None,
     track_dual_lambda_max: float | None = None,
     exec_noise_std: float | None = None,
+    exec_noise_ou_tau: float | None = None,
+    normalize_obs: bool | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
 ) -> None:
@@ -508,6 +519,8 @@ def main(
         track_dual_alpha=track_dual_alpha,
         track_dual_lambda_max=track_dual_lambda_max,
         exec_noise_std=exec_noise_std,
+        exec_noise_ou_tau=exec_noise_ou_tau,
+        normalize_obs=normalize_obs,
     )
     gps_cfg.collection_mode = _normalize_collection_mode(gps_cfg.collection_mode)
     mppi_cfg = MPPIConfig.load(env_name)
@@ -607,6 +620,7 @@ def main(
             policy_act=policy_act,
             dagger_fraction=dagger_now,
             exec_noise_std=gps_cfg.exec_noise_std,
+            exec_noise_ou_tau=gps_cfg.exec_noise_ou_tau,
             seed_base=seed_base,
         )
 
@@ -639,6 +653,14 @@ def main(
         if gps_cfg.bc_recency_halflife > 0.0:
             age = (it - train_tags).astype(np.float64)
             sample_weights = 0.5 ** (age / gps_cfg.bc_recency_halflife)
+
+        if gps_cfg.normalize_obs and len(train_obs) > 0:
+            policy.set_obs_stats(train_obs.mean(axis=0), train_obs.std(axis=0))
+
+        np.savez_compressed(
+            run_dir / "replay_latest.npz",
+            obs=train_obs, acts=train_acts, tags=train_tags,
+        )
 
         print("training policy")
         bc_loss = train_policy(

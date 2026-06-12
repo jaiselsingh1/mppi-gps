@@ -78,6 +78,12 @@ class GPSConfig:
     # GPS-style stochastic collection: execute label + N(0, std^2) so the
     # dataset covers a tube around nominal trajectories (recovery labels).
     exec_noise_std: float = 0.0
+    # >0: OU-correlate the exec noise with this time constant (control
+    # steps). White actuator noise is low-pass-filtered by the plant;
+    # persistent noise mimics the learner's directional drift (DART).
+    exec_noise_ou_tau: float = 0.0
+    # z-score policy inputs with replay-buffer stats each iteration
+    normalize_obs: bool = False
     policy_coupling_min_fraction: float = 0.05
     policy_coupling_keep_fraction: float = 1.0
     policy_coupling_min_n_eff: float = 0.0
