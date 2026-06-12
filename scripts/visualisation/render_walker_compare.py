@@ -60,7 +60,9 @@ def main(
     mppi = MPPI(env, MPPIConfig.load("walker2d"))
     gps_cfg = GPSConfig.load("walker2d")
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, PolicyConfig())
-    policy.load_state_dict(torch.load(checkpoint, map_location="cpu"))
+    # strict=False: checkpoints from before the obs-normalization buffers
+    # load with identity stats, matching how they were trained
+    policy.load_state_dict(torch.load(checkpoint, map_location="cpu"), strict=False)
     policy.eval()
     renderer = mujoco.Renderer(env.model, height=320, width=320)
 

@@ -66,7 +66,7 @@ def main(
     mppi = MPPI(env, mppi_cfg)
     gps_cfg = GPSConfig.load(env_name)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, PolicyConfig())
-    policy.load_state_dict(torch.load(checkpoint, map_location="cpu"))
+    policy.load_state_dict(torch.load(checkpoint, map_location="cpu"), strict=False)
     policy.eval()
 
     def policy_act(env):
