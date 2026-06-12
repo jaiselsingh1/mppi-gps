@@ -816,8 +816,9 @@ def main(
         policy_trust = policy_trust_next
 
         torch.save(policy.state_dict(), run_dir / "checkpoint_latest.pt")
-        if it % 5 == 0 or it == gps_cfg.n_gps_iters - 1:
-            torch.save(policy.state_dict(), run_dir / f"checkpoint_iter_{it:03d}.pt")
+        # every iter: survival is noisy and the best policy is often not the
+        # last one (gps5's peak checkpoint was lost to the every-5 schedule)
+        torch.save(policy.state_dict(), run_dir / f"checkpoint_iter_{it:03d}.pt")
 
     env.close()
 
