@@ -513,6 +513,7 @@ def main(
     normalize_obs: bool | None = None,
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
+    init_checkpoint: str | None = None,
 ) -> None:
     env_name = _normalize_env_name(env_name)
     gps_cfg = GPSConfig.load(env_name)
@@ -597,6 +598,11 @@ def main(
     env = _make_env(env_name, **env_kwargs)
     mppi = MPPI(env, mppi_cfg)
     policy = DeterministicPolicy(gps_cfg.obs_dim, gps_cfg.act_dim, policy_cfg).to(device=torch_device)
+    if init_checkpoint is not None:
+        # inverted experiment: start from a competent policy (e.g. TD3) and
+        # let the loop smooth/regularize it under the task certificate
+        policy.load_state_dict(torch.load(init_checkpoint, map_location=torch_device))
+        print(f"initialized policy from {init_checkpoint}")
     obs_from_states = getattr(env, "rollout_states_to_obs", None)
     replay_obs: np.ndarray | None = None
     replay_acts: np.ndarray | None = None
