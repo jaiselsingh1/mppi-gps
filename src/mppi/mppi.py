@@ -110,11 +110,18 @@ class MPPI:
         #          + optional λ_track · Σ_t ‖a-π‖²
         lam = self.lam
         is_corr = self._is_correction(eps) if self.use_is_correction else np.zeros(self.K)
-        track = prior_cost(states, U_sampled) if prior_cost is not None else None
+        # rollout states are post-action; u_t applies at the state after t
+        # actions, so policy queries need [current state, states[:, :-1]]
+        states_at_action = None
+        if prior_cost is not None or coupling is not None:
+            states_at_action = np.empty_like(states)
+            states_at_action[:, 0, :] = state
+            states_at_action[:, 1:, :] = states[:, :-1, :]
+        track = prior_cost(states_at_action, U_sampled) if prior_cost is not None else None
         S_base = costs + is_corr + (track if track is not None else 0.0)
         S, coupling_diag, fallback_score = self._apply_coupling(
             coupling,
-            states,
+            states_at_action if states_at_action is not None else states,
             U_sampled,
             costs,
             S_base,
