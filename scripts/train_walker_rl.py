@@ -82,6 +82,7 @@ def main(
     eval_every: int = 20_000,
     out_dir: str = "runs/walker_td3",
     seed: int = 0,
+    match_task_cost: bool = False,
 ) -> None:
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -100,6 +101,15 @@ def main(
     out.mkdir(parents=True, exist_ok=True)
 
     def reward_fn(env, action):
+        if match_task_cost:
+            # negative of the MPPI task cost (+ alive bonus): the policy and
+            # the planner must optimize the SAME objective or the
+            # compatibility study compares apples to oranges (gps10: a
+            # max-speed TD3 policy was correctly distrusted by the
+            # certificate, then destroyed by BC toward 1.5 m/s labels)
+            vx = float(env.data.qvel[0])
+            angle = float(env.data.qpos[2])
+            return 1.0 - abs(1.5 - vx) - 0.1 * angle**2 - 1e-3 * float(np.sum(action**2))
         # gymnasium Walker2d-v5: forward + alive - ctrl (alive only while
         # healthy; episodes terminate on unhealthy so the bonus is constant)
         return float(env.data.qvel[0]) + 1.0 - 1e-3 * float(np.sum(action**2))
