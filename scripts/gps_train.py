@@ -119,6 +119,11 @@ def collect_episodes(
     over every plan_step call in this iter.
     """
     obs_chunks, act_chunks, ep_costs = [], [], []
+    # per-step diagnostics aligned with (obs, acts): chosen merge beta,
+    # whether the policy drove, episode index, certificate cost gap —
+    # enables label-achievability bins and the cumulative-budget "ratchet"
+    # plot offline
+    diag_beta, diag_dagger, diag_ep, diag_gap = [], [], [], []
     hit_successes: list[bool] = []
     hold_successes: list[bool] = []
     times_to_hit: list[int] = []
@@ -143,6 +148,8 @@ def collect_episodes(
         np.random.seed(seed_base + ep)
         env.reset()
         mppi.reset()
+        if merge is not None and hasattr(merge, "reset_episode"):
+            merge.reset_episode()
         ou_state = np.zeros(env.action_dim)
 
         ep_cost = 0.0
@@ -166,6 +173,10 @@ def collect_episodes(
             # The label is always the certified planner action. In DAgger
             # episodes the *policy* drives so its drift states get labeled.
             ep_actions.append(np.clip(action, action_low, action_high))
+            diag_beta.append(info['merge_beta_head'])
+            diag_dagger.append(dagger_ep)
+            diag_ep.append(ep)
+            diag_gap.append(info['merge_cost_gap'])
             exec_action = policy_act(obs) if dagger_ep else action
             if exec_noise_std > 0.0:
                 # GPS-style stochastic collection: the noise drifts the state
@@ -210,7 +221,14 @@ def collect_episodes(
     obs_dim = int(np.asarray(env._get_obs()).shape[-1])
     obs_arr = np.concatenate(obs_chunks, axis=0) if obs_chunks else np.empty((0, obs_dim), dtype=np.float32)
     act_arr = np.concatenate(act_chunks, axis=0) if act_chunks else np.empty((0, env.action_dim), dtype=np.float32)
+    step_diag = {
+        "beta": np.asarray(diag_beta, dtype=np.float32),
+        "dagger": np.asarray(diag_dagger, dtype=bool),
+        "episode": np.asarray(diag_ep, dtype=np.int32),
+        "cost_gap": np.asarray(diag_gap, dtype=np.float32),
+    }
     mppi_stats = {k: stat_sums[k] / max(n_calls, 1) for k in stat_keys}
+    mppi_stats["step_diag"] = step_diag
     mppi_stats.update({
         "hit_success_rate": float(np.mean(hit_successes)),
         "hold_success_rate": float(np.mean(hold_successes)),
@@ -399,6 +417,7 @@ def make_collection_bias(
             betas=tuple(gps_cfg.merge_betas),
             delta_frac=gps_cfg.merge_delta_frac,
             delta_floor=gps_cfg.merge_delta_floor,
+            episode_budget_frac=gps_cfg.merge_episode_budget_frac,
             obs_from_states=obs_from_states,
         )
         return prior, None, merge, mixer
@@ -636,6 +655,9 @@ def main(
                 lambda_track_dual + gps_cfg.track_dual_alpha * track_violation,
                 gps_cfg.track_dual_lambda_max,
             )
+
+        step_diag = mppi_stats.pop("step_diag")
+        np.savez_compressed(run_dir / f"step_diag_iter_{it:03d}.npz", **step_diag)
 
         iter_tags = np.full(len(obs), it, dtype=np.int32)
         if gps_cfg.replay_max_pairs > 0:

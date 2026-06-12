@@ -49,6 +49,7 @@ def make_policy_merge(
     betas: tuple[float, ...] = (1.0, 0.5, 0.25, 0.1),
     delta_frac: float = 0.01,
     delta_floor: float = 1.0,
+    episode_budget_frac: float = 0.0,
     obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ) -> Callable[..., tuple[np.ndarray, dict]]:
     """Build the merge hook for MPPI.plan_step.
@@ -59,9 +60,16 @@ def make_policy_merge(
     delta_frac/delta_floor: task-cost budget for accepting a blend, relative
         to J(U*) with a floor so a near-zero hold cost still leaves room for
         an equivalent-cost blend.
+    episode_budget_frac: > 0 caps the cumulative accepted cost gap per
+        episode at this fraction of the running sum of J(U*) — the per-step
+        budget composes through the *state* under receding horizon (each
+        certified giveaway is in the policy's bias direction and the budget
+        resets from the drifted state), so an episode ledger bounds the
+        ratchet. Call merge.reset_episode() at each episode start.
     """
     state_to_obs = obs_from_states or _default_obs_from_rollout_states
     betas_desc = tuple(sorted(betas, reverse=True))
+    ledger = {"gap": 0.0, "jstar": 0.0}
 
     def merge(
         state: np.ndarray,
@@ -91,11 +99,17 @@ def make_policy_merge(
         j_star = float(costs[0])
         budget = j_star + delta_frac * max(j_star, delta_floor)
 
+        if episode_budget_frac > 0.0:
+            remaining = episode_budget_frac * (ledger["jstar"] + j_star) - ledger["gap"]
+            budget = min(budget, j_star + max(remaining, 0.0))
+
         chosen, j_chosen = 0.0, j_star
         for i, b in enumerate(betas_desc):
             if costs[1 + i] <= budget:
                 chosen, j_chosen = b, float(costs[1 + i])
                 break
+        ledger["gap"] += max(j_chosen - j_star, 0.0)
+        ledger["jstar"] += j_star
 
         info = {
             'merge_beta_mean': chosen,
@@ -107,4 +121,9 @@ def make_policy_merge(
         U_exec = U_star + chosen * (pi - U_star) if chosen > 0.0 else U_star
         return U_exec, info
 
+    def reset_episode() -> None:
+        ledger["gap"] = 0.0
+        ledger["jstar"] = 0.0
+
+    merge.reset_episode = reset_episode
     return merge

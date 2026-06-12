@@ -60,6 +60,9 @@ class GPSConfig:
     merge_betas: tuple[float, ...] = (1.0, 0.5, 0.25, 0.1)
     merge_delta_frac: float = 0.01     # accepted task-cost regression, fraction of J(U*)
     merge_delta_floor: float = 1.0     # cost floor so a near-zero J(U*) still has budget
+    # >0: cap cumulative accepted cost-gap per episode at this fraction of
+    # the running J(U*) sum (anti-ratchet ledger)
+    merge_episode_budget_frac: float = 0.0
     # TD-MPC-style sample mixing: fraction of MPPI samples centered on the
     # policy's closed-loop rollout. Task score arbitrates; no trust schedule.
     mix_fraction: float = 0.0
