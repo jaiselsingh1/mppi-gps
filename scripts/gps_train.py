@@ -583,6 +583,7 @@ def main(
     )
     lambda_track_dual = 0.0
     track_violation = 0.0
+    obs_stats_set = False
 
     for it in range(gps_cfg.n_gps_iters):
         t_start = time.time()
@@ -654,8 +655,13 @@ def main(
             age = (it - train_tags).astype(np.float64)
             sample_weights = 0.5 ** (age / gps_cfg.bc_recency_halflife)
 
-        if gps_cfg.normalize_obs and len(train_obs) > 0:
+        # stats computed ONCE on the first dataset and frozen, per original
+        # GPS practice (cbfinn/gps) — recomputing each iter changes the
+        # function the trained network computes (PopArt argument) and
+        # invalidates prior learning
+        if gps_cfg.normalize_obs and len(train_obs) > 0 and not obs_stats_set:
             policy.set_obs_stats(train_obs.mean(axis=0), train_obs.std(axis=0))
+            obs_stats_set = True
 
         np.savez_compressed(
             run_dir / "replay_latest.npz",
