@@ -50,6 +50,7 @@ def make_policy_merge(
     delta_frac: float = 0.01,
     delta_floor: float = 1.0,
     episode_budget_frac: float = 0.0,
+    label_delta_frac: float = 0.0,
     obs_from_states: Callable[[np.ndarray], np.ndarray] | None = None,
 ) -> Callable[..., tuple[np.ndarray, dict]]:
     """Build the merge hook for MPPI.plan_step.
@@ -66,6 +67,14 @@ def make_policy_merge(
         certified giveaway is in the policy's bias direction and the budget
         resets from the drifted state), so an episode ledger bounds the
         ratchet. Call merge.reset_episode() at each episode start.
+    label_delta_frac: > 0 gives BC LABELS a separate, looser budget than
+        execution. Labels are never executed, so they can sit closer to the
+        policy while staying cost-certified. Measured motivation (gps7):
+        BC residuals concentrate in recovery states where every blend fails
+        the execution budget and the label falls back to pure MPPI — the
+        least policy-achievable label exactly where the policy most needs
+        an achievable one (the PLATO drift-gap). The tempered label is
+        exposed as info['merge_label_action'].
     """
     state_to_obs = obs_from_states or _default_obs_from_rollout_states
     betas_desc = tuple(sorted(betas, reverse=True))
@@ -111,12 +120,22 @@ def make_policy_merge(
         ledger["gap"] += max(j_chosen - j_star, 0.0)
         ledger["jstar"] += j_star
 
+        label_beta = chosen
+        if label_delta_frac > 0.0:
+            label_budget = j_star + label_delta_frac * max(j_star, delta_floor)
+            for i, b in enumerate(betas_desc):
+                if costs[1 + i] <= label_budget:
+                    label_beta = b
+                    break
+
         info = {
             'merge_beta_mean': chosen,
             'merge_beta_head': chosen,
             'merge_kl_mean': float(np.mean(kl)),
             'merge_accepted': float(chosen > 0.0),
             'merge_cost_gap': j_chosen - j_star,
+            'merge_label_beta': label_beta,
+            'merge_label_action': (U_star + label_beta * (pi - U_star))[0],
         }
         U_exec = U_star + chosen * (pi - U_star) if chosen > 0.0 else U_star
         return U_exec, info

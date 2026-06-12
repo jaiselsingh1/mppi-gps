@@ -63,6 +63,9 @@ class GPSConfig:
     # >0: cap cumulative accepted cost-gap per episode at this fraction of
     # the running J(U*) sum (anti-ratchet ledger)
     merge_episode_budget_frac: float = 0.0
+    # >0: separate looser budget for BC labels (never executed) — tempered,
+    # policy-achievable supervision at states where execution blends fail
+    merge_label_delta_frac: float = 0.0
     # TD-MPC-style sample mixing: fraction of MPPI samples centered on the
     # policy's closed-loop rollout. Task score arbitrates; no trust schedule.
     mix_fraction: float = 0.0

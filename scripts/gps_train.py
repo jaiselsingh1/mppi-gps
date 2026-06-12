@@ -170,10 +170,13 @@ def collect_episodes(
                 stat_sums[k] += info[k]
             n_calls += 1
             ep_obs.append(obs)
-            # The label is always the certified planner action. In DAgger
-            # episodes the *policy* drives so its drift states get labeled.
-            ep_actions.append(np.clip(action, action_low, action_high))
-            diag_beta.append(info['merge_beta_head'])
+            # The label is the certified planner action — under the looser
+            # label budget when tempering is on (achievable-yet-certified
+            # supervision). In DAgger episodes the *policy* drives so its
+            # drift states get labeled.
+            label = info.get('merge_label_action', action)
+            ep_actions.append(np.clip(label, action_low, action_high))
+            diag_beta.append(info.get('merge_label_beta', info['merge_beta_head']))
             diag_dagger.append(dagger_ep)
             diag_ep.append(ep)
             diag_gap.append(info['merge_cost_gap'])
@@ -418,6 +421,7 @@ def make_collection_bias(
             delta_frac=gps_cfg.merge_delta_frac,
             delta_floor=gps_cfg.merge_delta_floor,
             episode_budget_frac=gps_cfg.merge_episode_budget_frac,
+            label_delta_frac=gps_cfg.merge_label_delta_frac,
             obs_from_states=obs_from_states,
         )
         return prior, None, merge, mixer
@@ -498,6 +502,7 @@ def main(
     policy_lr: float | None = None,
     mppi_lam: float | None = None,
     merge_delta_frac: float | None = None,
+    merge_label_delta_frac: float | None = None,
     mix_fraction: float | None = None,
     bc_recency_halflife: float | None = None,
     dagger_fraction: float | None = None,
@@ -532,6 +537,7 @@ def main(
         policy_trust_max=policy_trust_max,
         policy_coupling_keep_fraction=policy_coupling_keep_fraction,
         merge_delta_frac=merge_delta_frac,
+        merge_label_delta_frac=merge_label_delta_frac,
         mix_fraction=mix_fraction,
         bc_recency_halflife=bc_recency_halflife,
         dagger_fraction=dagger_fraction,
