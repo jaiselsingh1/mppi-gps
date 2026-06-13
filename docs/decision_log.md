@@ -23,6 +23,16 @@ verification of each mechanism).
 | 14 | Two-ring certificate: tight budget for execution (5%), looser for labels (15%) | gps8 (single change vs gps7) | unfittable-label fraction 40%->25%, tempered bin fits 0.34 vs 0.53; survival 118->290 monotone | adopted; current best recipe |
 | 15 | Every mechanism checked against primary literature, adversarially | 5 verification agents (see literature_review.md) | merge construct apparently novel; OU noise is our invention; TD-MPC uses 5% mixing + terminal value; PLATO labels are non-adapted | corrections queued as ablations (below) |
 
+## Inverted-experiment thread (Opus continuation, post-Fable)
+
+| # | Idea / hypothesis | Experiment | Evidence | Decision |
+|---|---|---|---|---|
+| 16 | BC distillation collapses walker's L/R gait into a peg-leg shuffle | phase analysis of gps8 policy | thigh R/L corr +0.48, left thigh std 0.03 rad | PARTIALLY WRONG (corrected #18): train independent policy via RL |
+| 17 | Warm-start GPS from an RL policy; certificate shares control | gps10 (mismatched-objective TD3) | certificate distrusted it (acc 0.14); BC destroyed it 1000->123 | falsified by objective mismatch; S-step trust region (anchor) added |
+| 18 | The +corr was degenerate (peg-leg) | matched TD3 phase check | TD3 (1000/1000, RL-trained) ALSO has corr +0.43 | CORRECTION: +corr is walker's natural bounding gait; BC's real defect was amplitude collapse (one leg std 0.03), not phase |
+| 19 | Objective mismatch alone caused gps10's collapse | gps11: matched TD3 warm-start, single change (matched objective), NO anchor | iter0: SURVIVAL 1000/1000 preserved (vs gps10 123), acc 0.55, mixshare 0.17 | CONFIRMED: mismatch was the whole story; matched competent policy is preserved |
+| 20 | The loop *smooths* a competent-but-jittery policy (Fig-3 claim, strongest form) | smoothness before/after 1 GPS iter on matched policy | 0.875 -> 0.415 (2.1x smoother) at 1000/1000 survival, vx 1.34->1.38 | PROMISING: certified policy regularization works; trend pending over more iters |
+
 ## Open ablations owed before any publication claim
 
 1. dagger vs exec-noise attribution (gps5 turned both on).
