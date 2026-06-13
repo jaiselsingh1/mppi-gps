@@ -102,14 +102,16 @@ def main(
 
     def reward_fn(env, action):
         if match_task_cost:
-            # negative of the MPPI task cost (+ alive bonus): the policy and
-            # the planner must optimize the SAME objective or the
-            # compatibility study compares apples to oranges (gps10: a
-            # max-speed TD3 policy was correctly distrusted by the
-            # certificate, then destroyed by BC toward 1.5 m/s labels)
+            # same optimum as the MPPI task cost (peak exactly at the 1.5
+            # m/s target) but with a monotone below-target slope: the
+            # symmetric |1.5-vx| version plateaued in a timid 1.2 m/s gait
+            # (weak gradient vs the alive bonus), while the v5 max-vx
+            # reward trains reliably but optimizes a different objective
+            # (gps10: certificate correctly distrusted it, BC destroyed it)
             vx = float(env.data.qvel[0])
             angle = float(env.data.qpos[2])
-            return 1.0 - abs(1.5 - vx) - 0.1 * angle**2 - 1e-3 * float(np.sum(action**2))
+            vel_term = min(vx, 1.5) - 0.5 * max(vx - 1.5, 0.0)
+            return 1.0 + vel_term - 0.1 * angle**2 - 1e-3 * float(np.sum(action**2))
         # gymnasium Walker2d-v5: forward + alive - ctrl (alive only while
         # healthy; episodes terminate on unhealthy so the bonus is constant)
         return float(env.data.qvel[0]) + 1.0 - 1e-3 * float(np.sum(action**2))
