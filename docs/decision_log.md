@@ -33,6 +33,13 @@ verification of each mechanism).
 | 19 | Objective mismatch alone caused gps10's collapse | gps11: matched TD3 warm-start, single change (matched objective), NO anchor | iter0: SURVIVAL 1000/1000 preserved (vs gps10 123), acc 0.55, mixshare 0.17 | CONFIRMED: mismatch was the whole story; matched competent policy is preserved |
 | 20 | The loop *smooths* a competent-but-jittery policy (Fig-3 claim, strongest form) | smoothness before/after 1 GPS iter on matched policy | 0.875 -> 0.415 (2.1x smoother) at 1000/1000 survival, vx 1.34->1.38 | PROMISING: certified policy regularization works; trend pending over more iters |
 
+| 21 | C4 trust ladder with matched policy + mismatch rung | acc/beta/mixshare/cost vs degradation | competent: acc 0.64, cost 0.282 < MPPI 0.337; all degraded: acc <=0.37, cost 0.37-0.43 > MPPI | 3 findings below |
+
+**C4 findings (decision #21):**
+- *Earned handover (PASS):* competent policy earns acc 0.64 / mixshare 0.16 and makes MPPI cheaper (0.282 < 0.337); every degraded policy earns <=0.37. Trust tracks quality.
+- *Trust = cost-compatibility, not quality:* random-init (passive, ~0 actions) gets MORE acceptance (0.37) than confidently-wrong param-noise (0.09). The certificate rewards do-no-harm, not competence — a refinement of what "trust" means.
+- *Mixing is unprotected (important):* bad policies raised cost/step ABOVE pure MPPI (0.43 vs 0.34) because the merge guards execution but 25% of samples still come from the policy; a bad prior wastes that budget and degrades the planner. Direct evidence for TD-MPC's 5% mixing over our 25%, OR gating mixing on acceptance. The P2 certificate claim should be measured on merge_cost_gap (execution), not total cost/step (which includes the unprotected mixing).
+
 ## Open ablations owed before any publication claim
 
 1. dagger vs exec-noise attribution (gps5 turned both on).
