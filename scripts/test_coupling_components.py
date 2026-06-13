@@ -67,6 +67,7 @@ def run_coupled(env, mppi, policy, episodes, steps, delta_frac, mix_fraction, se
 
 def main(
     checkpoint: str = "runs/walker_gps5/checkpoint_latest.pt",
+    mismatched_checkpoint: str | None = None,
     episodes: int = 2,
     steps: int = 300,
     delta_frac: float = 0.05,
@@ -94,10 +95,18 @@ def main(
     print(f"pure MPPI: cost/step={ref:.3f} steps={np.mean(ref_steps):.0f}", flush=True)
 
     torch.manual_seed(0)
-    rungs = [("checkpoint", degraded(base, 0.0)),
+    rungs = [("competent", degraded(base, 0.0)),
              ("param_noise_0.05", degraded(base, 0.05)),
              ("param_noise_0.2", degraded(base, 0.2)),
              ("random_init", DeterministicPolicy(gps.obs_dim, gps.act_dim, PolicyConfig()))]
+    if mismatched_checkpoint is not None:
+        # objective-mismatched policy (e.g. max-speed TD3 vs 1.5 m/s task):
+        # competent at ITS objective but wrong for the planner — the
+        # certificate should distrust it like a degraded one (gps10)
+        mm = DeterministicPolicy(gps.obs_dim, gps.act_dim, PolicyConfig())
+        mm.load_state_dict(torch.load(mismatched_checkpoint, map_location="cpu"), strict=False)
+        mm.eval()
+        rungs.append(("objective_mismatch", mm))
     results = []
     for name, pol in rungs:
         pol.eval()

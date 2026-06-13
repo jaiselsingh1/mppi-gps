@@ -105,11 +105,17 @@ mechanism and an experiment):
 
 | Run | Config | Outcome |
 |---|---|---|
-| TD3 (v5 reward) | max-vx objective | **1000/1000 survival**, vx 2.85, real alternating gait (corr −0.32), but smoothness 1.91 (rougher than MPPI 0.9) |
+| TD3 (v5 reward) | max-vx objective | **1000/1000 survival**, vx 2.85, smoothness 1.91 (rougher than MPPI 0.9) |
 | walker_gps10_inverted | GPS warm-started from that actor | **falsified in 1 iter**: certificate correctly distrusted the objective-mismatched policy (acceptance 0.14); BC destroyed it (1000→123). Finding: collection is certificate-protected, the S-step is not — needs MDGPS-style epsilon |
-| TD3 matched (symmetric reward) | −\|1.5−vx\| | timid-gait plateau 185/1000 at 360k — weak gradient |
+| TD3 matched (symmetric reward) | −\|1.5−vx\| | timid-gait plateau 185/1000 — weak gradient |
 | MPPI@2.5 probe | move target to policy | MPPI falls at 142 — planner can't track fast gaits |
-| TD3 matched2 (reshaped) | MPPI-cost optimum (peak at 1.5) + monotone below-target slope; resume + SessionStart auto-relaunch | **training now** |
+| TD3 matched2 (reshaped) | MPPI-cost optimum (peak at 1.5) + monotone below-target slope | **1000/1000 survival at 1.34 m/s, smoothness 0.875** — the objective-matched competent policy |
+| **walker_gps11_inverted** (no anchor) | warm-start GPS from matched TD3, single change from gps10 | **HEADLINE RESULT.** survival preserved 1000/1000; smoothness 0.875→0.415→0.319→0.280 (3.1x) over 3 iters; vx 1.34→1.41; acceptance 0.55→0.74 and mixshare 0.17→0.21 climb (convergence signature). Mismatch was the entire gps10 story; the loop is a *certified policy regularizer* |
+
+**Peg-leg correction (decision #18):** the matched TD3 policy (RL-trained,
+1000/1000) also has thigh R/L corr +0.43, so the +corr is walker's natural
+bounding gait, NOT a degenerate mode. The bootstrap BC policy's real defect
+was amplitude collapse (one leg std 0.03 rad), not phase.
 
 ### Component/diagnostic results
 
