@@ -83,6 +83,7 @@ def main(
     out_dir: str = "runs/walker_td3",
     seed: int = 0,
     match_task_cost: bool = False,
+    resume: bool = False,
 ) -> None:
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -99,6 +100,24 @@ def main(
     replay = Replay(obs_dim, act_dim)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+
+    start_step = 0
+    state_path = out / "train_state.pt"
+    if resume and state_path.exists():
+        st = torch.load(state_path, map_location="cpu", weights_only=False)
+        actor.load_state_dict(st["actor"])
+        actor_targ.load_state_dict(st["actor_targ"])
+        critic.load_state_dict(st["critic"])
+        critic_targ.load_state_dict(st["critic_targ"])
+        actor_opt.load_state_dict(st["actor_opt"])
+        critic_opt.load_state_dict(st["critic_opt"])
+        rp = np.load(out / "replay.npz")
+        n = int(rp["size"])
+        replay.obs[:n], replay.act[:n], replay.rew[:n] = rp["obs"], rp["act"], rp["rew"]
+        replay.nobs[:n], replay.done[:n] = rp["nobs"], rp["done"]
+        replay.size, replay.ptr = n, int(rp["ptr"])
+        start_step = int(st["step"])
+        print(f"resumed from step {start_step} (replay size {n})", flush=True)
 
     def reward_fn(env, action):
         if match_task_cost:
@@ -118,7 +137,7 @@ def main(
 
     obs = env.reset()
     ep_len, t0 = 0, time.time()
-    for step in range(total_steps):
+    for step in range(start_step, total_steps):
         if step < start_steps:
             a = np.random.uniform(-1, 1, act_dim)
         else:
@@ -186,6 +205,18 @@ def main(
                   f"({sps:.0f} steps/s)", flush=True)
             torch.save(actor.state_dict(), out / "actor_latest.pt")
             torch.save(actor.state_dict(), out / f"actor_{step+1:07d}.pt")
+            # container restarts kill long runs (3 observed); full state for
+            # --resume, replay saved uncompressed for write speed
+            torch.save({
+                "actor": actor.state_dict(), "actor_targ": actor_targ.state_dict(),
+                "critic": critic.state_dict(), "critic_targ": critic_targ.state_dict(),
+                "actor_opt": actor_opt.state_dict(), "critic_opt": critic_opt.state_dict(),
+                "step": step + 1,
+            }, state_path)
+            n = replay.size
+            np.savez(out / "replay.npz", obs=replay.obs[:n], act=replay.act[:n],
+                     rew=replay.rew[:n], nobs=replay.nobs[:n], done=replay.done[:n],
+                     size=n, ptr=replay.ptr)
 
 
 if __name__ == "__main__":

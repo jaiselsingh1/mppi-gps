@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/resume_jobs.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
