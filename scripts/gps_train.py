@@ -252,8 +252,9 @@ def train_policy(
     max_epochs: int = 0,
     target_loss: float = 0.0,
     sample_weights: np.ndarray | None = None,
+    anchor_weight: float = 0.0,
 ) -> float:
-    """Adam updates on (optionally weighted) MSE. Returns final epoch-mean loss.
+    """Adam updates on (optionally weighted) MSE. Returns final epoch-mean MSE.
 
     With max_epochs > 0, trains until the epoch-mean loss reaches target_loss
     or stops improving (patience 10), up to max_epochs — the policy must
@@ -264,6 +265,12 @@ def train_policy(
     predate the merge feedback and carry conflicting modes; recent labels are
     consistent-by-construction. The reported loss stays unweighted so it is
     comparable across runs.
+
+    anchor_weight > 0 adds an S-step trust region (MDGPS-style epsilon): an
+    extra MSE pulling the policy toward its OWN outputs at the start of this
+    iteration, so one BC update cannot move it far from a competent policy
+    toward partially-incompatible labels (the gps10 collapse, 1000->123). As
+    labels and policy converge, both gradients align and the anchor relaxes.
     """
     policy.train()
     device = next(policy.parameters()).device
@@ -272,6 +279,10 @@ def train_policy(
     w_b = None
     if sample_weights is not None:
         w_b = torch.as_tensor(sample_weights, dtype=torch.float32, device=device)
+    anchor_b = None
+    if anchor_weight > 0.0:
+        with torch.no_grad():
+            anchor_b = policy.forward(obs_b).detach()
     N = len(obs)
 
     n_epochs = max_epochs if max_epochs > 0 else max(1, epochs)
@@ -288,6 +299,8 @@ def train_policy(
             else:
                 w = w_b[idx]
                 loss = (w[:, None] * se).sum() / (w.sum() * se.shape[1] + 1e-8)
+            if anchor_b is not None:
+                loss = loss + anchor_weight * ((mu - anchor_b[idx]) ** 2).mean()
             policy.optimizer.zero_grad()
             loss.backward()
             policy.optimizer.step()
@@ -505,6 +518,7 @@ def main(
     merge_label_delta_frac: float | None = None,
     mix_fraction: float | None = None,
     bc_recency_halflife: float | None = None,
+    bc_anchor_weight: float | None = None,
     dagger_fraction: float | None = None,
     track_dual_alpha: float | None = None,
     track_dual_lambda_max: float | None = None,
@@ -541,6 +555,7 @@ def main(
         merge_label_delta_frac=merge_label_delta_frac,
         mix_fraction=mix_fraction,
         bc_recency_halflife=bc_recency_halflife,
+        bc_anchor_weight=bc_anchor_weight,
         dagger_fraction=dagger_fraction,
         track_dual_alpha=track_dual_alpha,
         track_dual_lambda_max=track_dual_lambda_max,
@@ -709,6 +724,7 @@ def main(
             max_epochs=gps_cfg.bc_max_epochs,
             target_loss=gps_cfg.bc_target_loss,
             sample_weights=sample_weights,
+            anchor_weight=gps_cfg.bc_anchor_weight,
         )
 
         do_eval = (it % gps_cfg.eval_every == 0) or (it == gps_cfg.n_gps_iters - 1)

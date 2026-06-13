@@ -71,6 +71,10 @@ class GPSConfig:
     mix_fraction: float = 0.0
     # >0: replay samples from iter t get weight 0.5^((now-t)/halflife) in BC.
     bc_recency_halflife: float = 0.0
+    # >0: S-step trust region (MDGPS epsilon) — anchor BC toward the policy's
+    # own outputs at iteration start so one update can't collapse a competent
+    # warm-started policy toward incompatible labels.
+    bc_anchor_weight: float = 0.0
     # PLATO-style share of collection episodes driven by the policy while
     # states are labeled with the certified planner action (recovery data).
     dagger_fraction: float = 0.0
