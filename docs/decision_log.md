@@ -40,6 +40,8 @@ verification of each mechanism).
 - *Trust = cost-compatibility, not quality:* random-init (passive, ~0 actions) gets MORE acceptance (0.37) than confidently-wrong param-noise (0.09). The certificate rewards do-no-harm, not competence — a refinement of what "trust" means.
 - *Mixing is unprotected (important):* bad policies raised cost/step ABOVE pure MPPI (0.43 vs 0.34) because the merge guards execution but 25% of samples still come from the policy; a bad prior wastes that budget and degrades the planner. Direct evidence for TD-MPC's 5% mixing over our 25%, OR gating mixing on acceptance. The P2 certificate claim should be measured on merge_cost_gap (execution), not total cost/step (which includes the unprotected mixing).
 
+| 22 | S-step anchor (bc_anchor_weight=1.0) preserves survival while smoothing | gps12 vs gps11, smoothness+survival per iter | iter2: both ~877/1000 on hard seeds (6/7); anchor smooths LESS (0.356 vs 0.280) with no survival gain | NEAR-NULL at this weight/horizon: anchor trades smoothing for nothing measurable yet. May matter over more iters (no-anchor pulled fully to MPPI's ~84%) or at different weight — not demonstrated. Headline regularization result (both runs smooth 2.5-3.1x holding survival) is robust regardless. |
+
 ## Open ablations owed before any publication claim
 
 1. dagger vs exec-noise attribution (gps5 turned both on).
