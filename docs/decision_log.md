@@ -42,6 +42,8 @@ verification of each mechanism).
 
 | 22 | S-step anchor (bc_anchor_weight=1.0) preserves survival while smoothing | gps12 vs gps11, smoothness+survival per iter | iter2: both ~877/1000 on hard seeds (6/7); anchor smooths LESS (0.356 vs 0.280) with no survival gain | NEAR-NULL at this weight/horizon: anchor trades smoothing for nothing measurable yet. May matter over more iters (no-anchor pulled fully to MPPI's ~84%) or at different weight — not demonstrated. Headline regularization result (both runs smooth 2.5-3.1x holding survival) is robust regardless. |
 
+| 23 | gps12 iter3 over-smooths toward MPPI | smoothness+survival at iter3 | WRONG: iter3 BROKE — smoothness 2.098 (>> original 0.875), survival 639. gps11 (no anchor) was stable at iter3 (0.280, ~890) | CORRECTION: late iters are a TRAINING INSTABILITY, not over-smoothing. Loop reliably regularizes 1-2 iters (both runs: smooth 2.5-3x at 1000/1000), then fragile. Deliverable = iter-2 checkpoint. Anchor w=1.0 didn't stabilize (may have hurt). Stability past iter 2 is an open problem (stronger/KL trust region, or just early-stop). |
+
 ## Open ablations owed before any publication claim
 
 1. dagger vs exec-noise attribution (gps5 turned both on).
