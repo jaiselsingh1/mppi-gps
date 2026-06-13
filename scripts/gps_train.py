@@ -528,6 +528,7 @@ def main(
     env_frame_skip: int = 1,
     env_energy_cost_weight: float | None = None,
     init_checkpoint: str | None = None,
+    resume: bool = False,
 ) -> None:
     env_name = _normalize_env_name(env_name)
     gps_cfg = GPSConfig.load(env_name)
@@ -630,7 +631,21 @@ def main(
     lambda_track_dual = 0.0
     track_violation = 0.0
 
-    for it in range(gps_cfg.n_gps_iters):
+    # GPS resume: container restarts kill these multi-hour loops. Save policy
+    # (incl. normalization buffers) + iter + trust vars after each iter; on
+    # --resume continue from the next iter. Replay restarts fresh (minor:
+    # rebuilt each iter, recency-weighted), the policy state is what matters.
+    start_iter = 0
+    gps_state_path = run_dir / "gps_state.pt"
+    if resume and gps_state_path.exists():
+        st = torch.load(gps_state_path, map_location=torch_device, weights_only=False)
+        policy.load_state_dict(st["policy"])
+        start_iter = st["next_iter"]
+        policy_trust = st["policy_trust"]
+        lambda_track_dual = st["lambda_track_dual"]
+        print(f"resumed GPS from iter {start_iter}", flush=True)
+
+    for it in range(start_iter, gps_cfg.n_gps_iters):
         t_start = time.time()
 
         prior, coupling, merge, mixer = make_collection_bias(
@@ -873,7 +888,13 @@ def main(
         # every iter: survival is noisy and the best policy is often not the
         # last one (gps5's peak checkpoint was lost to the every-5 schedule)
         torch.save(policy.state_dict(), run_dir / f"checkpoint_iter_{it:03d}.pt")
+        torch.save({
+            "policy": policy.state_dict(), "next_iter": it + 1,
+            "policy_trust": policy_trust, "lambda_track_dual": lambda_track_dual,
+        }, gps_state_path)
 
+    # mark complete so the resume hook won't relaunch a finished run
+    (run_dir / ".done").write_text("complete\n")
     env.close()
 
 
