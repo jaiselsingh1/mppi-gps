@@ -407,7 +407,7 @@ def main(
     )
 
     if use_warp:
-        from scripts.gps_train_warp import (
+        from scripts.training.gps_train_warp import (
             TorchPolicyTrackingPrior as TorchPolicyTrackingPriorCls,
             TorchWarpMPPI as TorchWarpMPPICls,
         )

@@ -5,7 +5,7 @@ from src.envs.half_cheetah import HalfCheetah
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
 
-# fixed (match run_mppi.py)
+# fixed (match scripts/runners/run_mppi.py)
 K = 128
 H = 10
 eval_steps = 300
@@ -67,7 +67,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 

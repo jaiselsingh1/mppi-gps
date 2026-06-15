@@ -1,6 +1,6 @@
 """Pure SL behavior cloning with MSE loss on MPPI executed trajectories.
 
-Loads (M, T) executed (state, action) pairs from collect_bc_demos.py and fits
+Loads (M, T) executed (state, action) pairs from scripts/data_collection/collect_bc_demos.py and fits
 the policy mean by MSE. No weights, no NLL — just regression.
 """
 

@@ -1,6 +1,6 @@
 """Warp-first GPS trainer for MPPI/GPS tasks.
 
-This keeps the GPS outer loop from scripts/gps_train.py, but uses a Torch +
+This keeps the GPS outer loop from scripts/training/gps_train.py, but uses a Torch +
 mujoco_warp MPPI implementation. GPS collection plans all episodes in an
 iteration together: B live episodes each get K MPPI samples, flattened into
 B*K Warp worlds for each H-step rollout. Warp is only used for graph-captured

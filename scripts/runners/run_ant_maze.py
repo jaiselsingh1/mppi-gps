@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 import mujoco
 import numpy as np
 
-_ROOT = Path(__file__).resolve().parents[1]
+_ROOT = Path(__file__).resolve().parents[2]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from scripts.gps_train_warp import TorchWarpMPPI
+from scripts.training.gps_train_warp import TorchWarpMPPI
 from src.envs.ant_maze import AntMaze
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig

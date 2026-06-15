@@ -8,7 +8,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.gps_train import make_collection_bias
+from scripts.training.gps_train import make_collection_bias
 from src.gps.coupling import make_policy_filter_coupling
 from src.utils.config import GPSConfig
 
