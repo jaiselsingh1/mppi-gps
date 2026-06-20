@@ -103,6 +103,29 @@ def _wandb_log_checkpoint(
     run.log_artifact(artifact, aliases=aliases)
 
 
+def resolve_run_dir(runs_root: str, run_name: str) -> Path:
+    root = Path(runs_root).expanduser()
+    if not root.is_absolute():
+        root = PROJECT_ROOT / root
+    return (root / run_name).resolve()
+
+
+def write_json(path: Path, record: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+
+
+def append_jsonl(path: Path, record: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a") as f:
+        f.write(json.dumps(record) + "\n")
+
+
+def save_checkpoint(checkpoint: dict[str, Any], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    torch.save(checkpoint, path)
+
+
 def set_seed(seed: int) -> None:
     if drq_utils is not None:
         drq_utils.set_seed_everywhere(seed)
@@ -486,34 +509,86 @@ def evaluate(
     agent.train(False)
     costs: list[float] = []
     success_fracs: list[float] = []
+    episode_lengths: list[int] = []
+    final_vxs: list[float] = []
+    final_zs: list[float] = []
+    final_angles: list[float] = []
+    final_healthies: list[float] = []
+    falls: list[float] = []
+    forward_rewards: list[float] = []
+    healthy_rewards: list[float] = []
+    ctrl_costs: list[float] = []
+    fall_costs: list[float] = []
     for ep in range(episodes):
         np.random.seed(seed + ep)
         obs = env.reset()
         ep_cost = 0.0
         successes = 0
         ep_steps = 0
+        ep_forward_reward = 0.0
+        ep_healthy_reward = 0.0
+        ep_ctrl_cost = 0.0
+        ep_fall_cost = 0.0
+        fell = False
         for _ in range(steps):
             action = agent.act(obs, step=10**9, eval_mode=True)
-            obs, cost, done, _ = env.step(action)
+            obs, cost, done, info = env.step(action)
             ep_cost += float(cost)
             successes += int(env.task_metrics()["success"])
+            ep_forward_reward += float(info.get("reward_forward", 0.0))
+            ep_healthy_reward += float(info.get("reward_survive", 0.0))
+            ep_ctrl_cost += -float(info.get("reward_ctrl", 0.0))
+            ep_fall_cost += float(info.get("fall_cost", 0.0))
             ep_steps += 1
             if done:
+                fell = True
                 break
         costs.append(ep_cost)
         success_fracs.append(successes / max(ep_steps, 1))
+        episode_lengths.append(ep_steps)
+        final_metrics = env.task_metrics()
+        final_vxs.append(float(final_metrics["vx"]))
+        final_zs.append(float(final_metrics["z"]))
+        final_angles.append(float(final_metrics["angle"]))
+        final_healthies.append(float(final_metrics["healthy"]))
+        falls.append(float(fell))
+        forward_rewards.append(ep_forward_reward)
+        healthy_rewards.append(ep_healthy_reward)
+        ctrl_costs.append(ep_ctrl_cost)
+        fall_costs.append(ep_fall_cost)
     agent.train(True)
     costs_arr = np.asarray(costs, dtype=float)
+    lengths_arr = np.asarray(episode_lengths, dtype=float)
     return {
         "eval_mean_cost": float(costs_arr.mean()),
+        "eval_mean_reward": float(-costs_arr.mean()),
         "eval_std_cost": float(costs_arr.std()),
         "eval_cost_per_step": float(costs_arr.mean() / steps),
+        "eval_reward_per_step": float(-costs_arr.mean() / steps),
+        "eval_cost_per_actual_step": float(
+            np.mean(costs_arr / np.maximum(lengths_arr, 1.0))
+        ),
+        "eval_reward_per_actual_step": float(
+            np.mean(-costs_arr / np.maximum(lengths_arr, 1.0))
+        ),
+        "eval_mean_episode_len": float(lengths_arr.mean()),
+        "eval_full_episode_fraction": float(np.mean(lengths_arr >= steps)),
+        "eval_fall_rate": float(np.mean(falls)),
         "eval_success_fraction": float(np.mean(success_fracs)),
+        "eval_mean_final_vx": float(np.mean(final_vxs)),
+        "eval_mean_final_z": float(np.mean(final_zs)),
+        "eval_mean_final_angle": float(np.mean(final_angles)),
+        "eval_final_healthy_fraction": float(np.mean(final_healthies)),
+        "eval_mean_forward_reward": float(np.mean(forward_rewards)),
+        "eval_mean_healthy_reward": float(np.mean(healthy_rewards)),
+        "eval_mean_ctrl_cost": float(np.mean(ctrl_costs)),
+        "eval_mean_fall_cost": float(np.mean(fall_costs)),
     }
 
 
 def main(
     run_name: str = "walker2d_drqv2_state",
+    runs_root: str = "runs",
     seed: int = 0,
     device: str = "auto",
     total_steps: int = 500_000,
@@ -534,6 +609,8 @@ def main(
     eval_every_steps: int = 10_000,
     eval_episodes: int = 5,
     eval_steps: int = 1000,
+    walker_cost_style: str = "gymnasium",
+    walker_target_velocity: float = 1.5,
     use_wandb: bool = False,
     wandb_project: str = "mppi-gps",
     wandb_entity: str | None = None,
@@ -544,12 +621,18 @@ def main(
 ) -> None:
     set_seed(seed)
     torch_device = resolve_device(device)
-    run_dir = Path("runs") / run_name
+    run_dir = resolve_run_dir(runs_root, run_name)
     run_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = run_dir / "metrics.jsonl"
 
-    env = Walker2d()
-    eval_env = Walker2d()
+    env = Walker2d(
+        cost_style=walker_cost_style,
+        target_velocity=walker_target_velocity,
+    )
+    eval_env = Walker2d(
+        cost_style=walker_cost_style,
+        target_velocity=walker_target_velocity,
+    )
     obs = env.reset()
     obs_dim = int(obs.shape[-1])
     act_dim = int(env.action_dim)
@@ -580,6 +663,8 @@ def main(
 
     config: dict[str, Any] = {
         "run_name": run_name,
+        "runs_root": str(Path(runs_root).expanduser()),
+        "run_dir": str(run_dir),
         "seed": seed,
         "device": str(torch_device),
         "total_steps": total_steps,
@@ -600,6 +685,8 @@ def main(
         "eval_every_steps": eval_every_steps,
         "eval_episodes": eval_episodes,
         "eval_steps": eval_steps,
+        "walker_cost_style": walker_cost_style,
+        "walker_target_velocity": walker_target_velocity,
         "use_wandb": use_wandb,
         "wandb_project": wandb_project,
         "wandb_entity": wandb_entity,
@@ -612,6 +699,7 @@ def main(
         "act_low": act_low.tolist(),
         "act_high": act_high.tolist(),
     }
+    write_json(run_dir / "config.json", config)
     wandb_run = _init_wandb(
         use_wandb=use_wandb,
         project=wandb_project,
@@ -635,6 +723,12 @@ def main(
     episode = 0
     ep_cost = 0.0
     ep_len = 0
+    ep_forward_reward = 0.0
+    ep_healthy_reward = 0.0
+    ep_ctrl_cost = 0.0
+    ep_fall_cost = 0.0
+    ep_vx_sum = 0.0
+    ep_healthy_count = 0
     best_eval_cost = math.inf
     last_update: dict[str, float] = {}
     start_time = time.time()
@@ -642,7 +736,7 @@ def main(
     try:
         for step in range(1, total_steps + 1):
             action = agent.act(obs, step, eval_mode=False).astype(np.float32)
-            next_obs, cost, done, _ = env.step(action)
+            next_obs, cost, done, info = env.step(action)
             terminal_discount = 0.0 if done else 1.0
             replay.add_transition(
                 obs,
@@ -655,6 +749,12 @@ def main(
             obs = next_obs
             ep_cost += float(cost)
             ep_len += 1
+            ep_forward_reward += float(info.get("reward_forward", 0.0))
+            ep_healthy_reward += float(info.get("reward_survive", 0.0))
+            ep_ctrl_cost += -float(info.get("reward_ctrl", 0.0))
+            ep_fall_cost += float(info.get("fall_cost", 0.0))
+            ep_vx_sum += float(info.get("x_velocity", 0.0))
+            ep_healthy_count += int(info.get("healthy", False))
 
             if step >= num_seed_steps and len(replay) >= batch_size:
                 update_metrics = agent.update(replay, batch_size, step)
@@ -670,21 +770,38 @@ def main(
                     "step": step,
                     "episode": episode,
                     "episode_cost": ep_cost,
+                    "episode_reward": -ep_cost,
                     "episode_cost_per_step": ep_cost / max(ep_len, 1),
+                    "episode_reward_per_step": -ep_cost / max(ep_len, 1),
                     "episode_len": ep_len,
+                    "episode_forward_reward": ep_forward_reward,
+                    "episode_healthy_reward": ep_healthy_reward,
+                    "episode_ctrl_cost": ep_ctrl_cost,
+                    "episode_fall_cost": ep_fall_cost,
+                    "mean_vx": ep_vx_sum / max(ep_len, 1),
+                    "healthy_fraction": ep_healthy_count / max(ep_len, 1),
                     "done": bool(done),
                     "truncated": bool(truncated and not done),
                     "replay_size": len(replay),
                     "wall_time_s": time.time() - start_time,
+                    "final_vx": float(info.get("x_velocity", float("nan"))),
+                    "final_z": float(info.get("z", float("nan"))),
+                    "final_angle": float(info.get("angle", float("nan"))),
+                    "final_healthy": float(info.get("healthy", False)),
                     **last_update,
                 }
-                with metrics_path.open("a") as f:
-                    f.write(json.dumps(record) + "\n")
+                append_jsonl(metrics_path, record)
                 _wandb_log(wandb_run, "train", record, step)
                 print(record)
                 episode += 1
                 ep_cost = 0.0
                 ep_len = 0
+                ep_forward_reward = 0.0
+                ep_healthy_reward = 0.0
+                ep_ctrl_cost = 0.0
+                ep_fall_cost = 0.0
+                ep_vx_sum = 0.0
+                ep_healthy_count = 0
                 obs = env.reset()
 
             if step % eval_every_steps == 0 or step == total_steps:
@@ -704,10 +821,13 @@ def main(
                     **eval_stats,
                     **last_update,
                 }
-                with metrics_path.open("a") as f:
-                    f.write(json.dumps(eval_record) + "\n")
+                append_jsonl(metrics_path, eval_record)
+                write_json(run_dir / "eval_latest.json", eval_record)
                 _wandb_log(wandb_run, "eval", eval_record, step)
 
+                is_best = eval_stats["eval_mean_cost"] < best_eval_cost
+                if is_best:
+                    best_eval_cost = eval_stats["eval_mean_cost"]
                 checkpoint = {
                     "config": config,
                     "step": step,
@@ -721,7 +841,7 @@ def main(
                     "replay_size": len(replay),
                 }
                 latest_path = run_dir / "checkpoint_latest.pt"
-                torch.save(checkpoint, latest_path)
+                save_checkpoint(checkpoint, latest_path)
                 if wandb_log_checkpoints:
                     _wandb_log_checkpoint(
                         wandb_run,
@@ -736,11 +856,10 @@ def main(
                             "kind": "latest",
                         },
                     )
-                if eval_stats["eval_mean_cost"] < best_eval_cost:
-                    best_eval_cost = eval_stats["eval_mean_cost"]
-                    checkpoint["best_eval_cost"] = best_eval_cost
+                if is_best:
                     best_path = run_dir / "checkpoint_best.pt"
-                    torch.save(checkpoint, best_path)
+                    save_checkpoint(checkpoint, best_path)
+                    write_json(run_dir / "eval_best.json", eval_record)
                     if wandb_log_checkpoints:
                         _wandb_log_checkpoint(
                             wandb_run,
