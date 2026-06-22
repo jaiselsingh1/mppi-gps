@@ -7,9 +7,11 @@ import re
 import sys
 import time
 from collections import deque
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+import mujoco
 import numpy as np
 import torch
 import torch.nn as nn
@@ -21,6 +23,181 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.envs.walker2d import Walker2d
+
+FOOT_GEOM_NAMES = ("foot_geom", "foot_left_geom")
+FLOOR_GEOM_NAME = "floor"
+HEALTHY_Z = (0.8, 2.0)
+HEALTHY_ANGLE = (-1.0, 1.0)
+
+
+def ensure_offscreen_size(model: mujoco.MjModel, height: int, width: int) -> None:
+    model.vis.global_.offheight = max(int(model.vis.global_.offheight), int(height))
+    model.vis.global_.offwidth = max(int(model.vis.global_.offwidth), int(width))
+
+
+def _geom_id(model: mujoco.MjModel, name: str) -> int:
+    return mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, name)
+
+
+def foot_contact_flags(
+    model: mujoco.MjModel,
+    data: mujoco.MjData,
+    foot_geom_names: tuple[str, str] = FOOT_GEOM_NAMES,
+    floor_geom_name: str = FLOOR_GEOM_NAME,
+) -> tuple[bool, bool]:
+    foot_ids = [_geom_id(model, name) for name in foot_geom_names]
+    floor_id = _geom_id(model, floor_geom_name)
+    flags = [False, False]
+    for i in range(data.ncon):
+        contact = data.contact[i]
+        pair = {int(contact.geom1), int(contact.geom2)}
+        if floor_id not in pair:
+            continue
+        for j, foot_id in enumerate(foot_ids):
+            if foot_id in pair:
+                flags[j] = True
+    return bool(flags[0]), bool(flags[1])
+
+
+def foot_heights(
+    model: mujoco.MjModel,
+    data: mujoco.MjData,
+    foot_geom_names: tuple[str, str] = FOOT_GEOM_NAMES,
+) -> tuple[float, float]:
+    heights = []
+    for name in foot_geom_names:
+        geom_id = _geom_id(model, name)
+        heights.append(float(data.geom_xpos[geom_id][2]))
+    return heights[0], heights[1]
+
+
+def healthy_from_state(data: mujoco.MjData) -> bool:
+    z = float(data.qpos[1])
+    angle = float(data.qpos[2])
+    return (
+        HEALTHY_Z[0] < z < HEALTHY_Z[1]
+        and HEALTHY_ANGLE[0] < angle < HEALTHY_ANGLE[1]
+    )
+
+
+@dataclass
+class Walker2dGaitStats:
+    steps: int = 0
+    reward_sum: float = 0.0
+    cost_sum: float = 0.0
+    vx_sum: float = 0.0
+    healthy_sum: float = 0.0
+    contact_right_sum: float = 0.0
+    contact_left_sum: float = 0.0
+    single_right_sum: float = 0.0
+    single_left_sum: float = 0.0
+    double_support_sum: float = 0.0
+    airborne_sum: float = 0.0
+    foot_height_right: list[float] = field(default_factory=list)
+    foot_height_left: list[float] = field(default_factory=list)
+    action_absmax: float = 0.0
+    action_abs_sum: float = 0.0
+    action_component_count: int = 0
+    action_component_saturation_sum: float = 0.0
+    action_step_saturation_sum: float = 0.0
+
+    def update(
+        self,
+        model: mujoco.MjModel,
+        data: mujoco.MjData,
+        action: np.ndarray,
+        *,
+        reward: float | None = None,
+        cost: float | None = None,
+        x_velocity: float | None = None,
+        healthy: bool | None = None,
+    ) -> None:
+        right, left = foot_contact_flags(model, data)
+        right_h, left_h = foot_heights(model, data)
+        action_abs = np.abs(np.asarray(action, dtype=float))
+
+        self.steps += 1
+        if reward is not None:
+            self.reward_sum += float(reward)
+        if cost is not None:
+            self.cost_sum += float(cost)
+        self.vx_sum += float(data.qvel[0] if x_velocity is None else x_velocity)
+        is_healthy = healthy_from_state(data) if healthy is None else bool(healthy)
+        self.healthy_sum += float(is_healthy)
+
+        self.contact_right_sum += float(right)
+        self.contact_left_sum += float(left)
+        self.single_right_sum += float(right and not left)
+        self.single_left_sum += float(left and not right)
+        self.double_support_sum += float(right and left)
+        self.airborne_sum += float(not right and not left)
+        self.foot_height_right.append(right_h)
+        self.foot_height_left.append(left_h)
+
+        if action_abs.size:
+            self.action_absmax = max(self.action_absmax, float(action_abs.max()))
+            self.action_abs_sum += float(action_abs.sum())
+            self.action_component_count += int(action_abs.size)
+            self.action_component_saturation_sum += float(np.sum(action_abs > 0.95))
+            self.action_step_saturation_sum += float(np.any(action_abs > 0.95))
+
+    def summary(self, prefix: str = "") -> dict[str, float]:
+        n = max(self.steps, 1)
+        action_components = max(self.action_component_count, 1)
+        right_frac = self.contact_right_sum / n
+        left_frac = self.contact_left_sum / n
+        metrics: dict[str, float] = {
+            "steps": float(self.steps),
+            "reward": self.reward_sum,
+            "cost": self.cost_sum,
+            "reward_per_step": self.reward_sum / n,
+            "cost_per_step": self.cost_sum / n,
+            "mean_vx": self.vx_sum / n,
+            "healthy_fraction": self.healthy_sum / n,
+            "right_foot_contact_fraction": right_frac,
+            "left_foot_contact_fraction": left_frac,
+            "single_right_contact_fraction": self.single_right_sum / n,
+            "single_left_contact_fraction": self.single_left_sum / n,
+            "double_support_fraction": self.double_support_sum / n,
+            "airborne_fraction": self.airborne_sum / n,
+            "contact_imbalance": abs(right_frac - left_frac),
+            "mean_right_foot_height": float(np.mean(self.foot_height_right))
+            if self.foot_height_right
+            else 0.0,
+            "mean_left_foot_height": float(np.mean(self.foot_height_left))
+            if self.foot_height_left
+            else 0.0,
+            "std_right_foot_height": float(np.std(self.foot_height_right))
+            if self.foot_height_right
+            else 0.0,
+            "std_left_foot_height": float(np.std(self.foot_height_left))
+            if self.foot_height_left
+            else 0.0,
+            "mean_abs_action": self.action_abs_sum / action_components,
+            "action_absmax": self.action_absmax,
+            "action_component_saturation_fraction": (
+                self.action_component_saturation_sum / action_components
+            ),
+            "action_step_saturation_fraction": self.action_step_saturation_sum / n,
+        }
+        if not prefix:
+            return metrics
+        return {f"{prefix}{key}": value for key, value in metrics.items()}
+
+
+def mean_dict(records: list[dict[str, Any]]) -> dict[str, float]:
+    if not records:
+        return {}
+    keys = sorted({
+        key
+        for record in records
+        for key, value in record.items()
+        if isinstance(value, int | float | bool) and np.isfinite(float(value))
+    })
+    return {
+        key: float(np.mean([float(record[key]) for record in records if key in record]))
+        for key in keys
+    }
 
 try:
     from drqv2 import utils as drq_utils
@@ -519,6 +696,7 @@ def evaluate(
     healthy_rewards: list[float] = []
     ctrl_costs: list[float] = []
     fall_costs: list[float] = []
+    gait_records: list[dict[str, float]] = []
     for ep in range(episodes):
         np.random.seed(seed + ep)
         obs = env.reset()
@@ -530,6 +708,7 @@ def evaluate(
         ep_ctrl_cost = 0.0
         ep_fall_cost = 0.0
         fell = False
+        gait = Walker2dGaitStats()
         for _ in range(steps):
             action = agent.act(obs, step=10**9, eval_mode=True)
             obs, cost, done, info = env.step(action)
@@ -540,6 +719,15 @@ def evaluate(
             ep_ctrl_cost += -float(info.get("reward_ctrl", 0.0))
             ep_fall_cost += float(info.get("fall_cost", 0.0))
             ep_steps += 1
+            gait.update(
+                env.model,
+                env.data,
+                action,
+                reward=-float(cost),
+                cost=float(cost),
+                x_velocity=float(info.get("x_velocity", 0.0)),
+                healthy=bool(info.get("healthy", False)),
+            )
             if done:
                 fell = True
                 break
@@ -556,10 +744,11 @@ def evaluate(
         healthy_rewards.append(ep_healthy_reward)
         ctrl_costs.append(ep_ctrl_cost)
         fall_costs.append(ep_fall_cost)
+        gait_records.append(gait.summary())
     agent.train(True)
     costs_arr = np.asarray(costs, dtype=float)
     lengths_arr = np.asarray(episode_lengths, dtype=float)
-    return {
+    result = {
         "eval_mean_cost": float(costs_arr.mean()),
         "eval_mean_reward": float(-costs_arr.mean()),
         "eval_std_cost": float(costs_arr.std()),
@@ -584,6 +773,9 @@ def evaluate(
         "eval_mean_ctrl_cost": float(np.mean(ctrl_costs)),
         "eval_mean_fall_cost": float(np.mean(fall_costs)),
     }
+    for key, value in mean_dict(gait_records).items():
+        result[f"eval_{key}"] = value
+    return result
 
 
 def main(
@@ -729,6 +921,7 @@ def main(
     ep_fall_cost = 0.0
     ep_vx_sum = 0.0
     ep_healthy_count = 0
+    ep_gait = Walker2dGaitStats()
     best_eval_cost = math.inf
     last_update: dict[str, float] = {}
     start_time = time.time()
@@ -755,6 +948,15 @@ def main(
             ep_fall_cost += float(info.get("fall_cost", 0.0))
             ep_vx_sum += float(info.get("x_velocity", 0.0))
             ep_healthy_count += int(info.get("healthy", False))
+            ep_gait.update(
+                env.model,
+                env.data,
+                action,
+                reward=-float(cost),
+                cost=float(cost),
+                x_velocity=float(info.get("x_velocity", 0.0)),
+                healthy=bool(info.get("healthy", False)),
+            )
 
             if step >= num_seed_steps and len(replay) >= batch_size:
                 update_metrics = agent.update(replay, batch_size, step)
@@ -788,6 +990,7 @@ def main(
                     "final_z": float(info.get("z", float("nan"))),
                     "final_angle": float(info.get("angle", float("nan"))),
                     "final_healthy": float(info.get("healthy", False)),
+                    **ep_gait.summary(prefix="episode_gait_"),
                     **last_update,
                 }
                 append_jsonl(metrics_path, record)
@@ -802,6 +1005,7 @@ def main(
                 ep_fall_cost = 0.0
                 ep_vx_sum = 0.0
                 ep_healthy_count = 0
+                ep_gait = Walker2dGaitStats()
                 obs = env.reset()
 
             if step % eval_every_steps == 0 or step == total_steps:
