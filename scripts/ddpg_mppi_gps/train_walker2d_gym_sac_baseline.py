@@ -99,6 +99,9 @@ class SoftQNetwork(nn.Module):
 
 
 class SacActor(nn.Module):
+    action_scale: torch.Tensor 
+    action_bias: torch.Tensor
+    
     def __init__(
         self,
         obs_dim: int,
