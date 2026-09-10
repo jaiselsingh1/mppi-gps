@@ -17,6 +17,12 @@ class MPPIConfig:
     noise_std: list[float] | None = None
     # Optional full action covariance. When unset, MPPI uses noise_sigma^2 * I.
     noise_cov: list[list[float]] | None = None
+    # Optional temporal shaping for absolute-action perturbations.
+    noise_lowpass_cutoff_hz: float | None = None
+    noise_lowpass_sample_rate_hz: float | None = None
+    noise_lowpass_order: int = 2
+    # Total optimization passes on the first plan_step after each reset.
+    initial_iterations: int = 1
 
     @staticmethod
     def load(env_name: str) -> "MPPIConfig":

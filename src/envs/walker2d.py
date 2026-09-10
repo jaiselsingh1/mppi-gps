@@ -24,6 +24,7 @@ class Walker2d(MuJoCoEnv):
             forward_reward_weight: float = 1.0,
             healthy_reward: float = 1.0,
             vel_cost_weight: float = 1.0,
+            vertical_velocity_cost_weight: float = 0.0,
             angle_cost_weight: float = 0.1,
             unhealthy_cost_weight: float = 5.0,
             ctrl_cost_weight: float = 1e-3,
@@ -31,6 +32,8 @@ class Walker2d(MuJoCoEnv):
             apply_terminal_cost_on_done: bool = True,
             **kwargs, 
     ):
+        if not np.isfinite(vertical_velocity_cost_weight) or vertical_velocity_cost_weight < 0:
+            raise ValueError("vertical_velocity_cost_weight must be finite and nonnegative.")
         super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
         self._nq = self.model.nq  # 9
         self._nv = self.model.nv  # 9
@@ -39,6 +42,7 @@ class Walker2d(MuJoCoEnv):
         self._w_forward = forward_reward_weight
         self._healthy_reward = healthy_reward
         self._w_vel = vel_cost_weight
+        self._w_vertical_velocity = vertical_velocity_cost_weight
         self._w_angle = angle_cost_weight
         self._w_unhealthy = unhealthy_cost_weight
         self._w_ctrl = ctrl_cost_weight
@@ -64,6 +68,8 @@ class Walker2d(MuJoCoEnv):
     
     def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, dict]:
         obs, cost, _, info = super().step(action)
+        if not np.all(np.isfinite(self.get_state())):
+            raise FloatingPointError("Walker2d simulator produced a non-finite state.")
         healthy = bool(self._is_healthy(self.data.qpos[1], self.data.qpos[2]))
         done = not healthy
         fall_cost = 0.0
@@ -140,9 +146,10 @@ class Walker2d(MuJoCoEnv):
             return forward_cost + healthy_cost + ctrl_cost
 
         vel_cost = self._w_vel * np.abs(self._v_target - vx)
+        vertical_cost = self._w_vertical_velocity * states[..., 2 + self._nq] ** 2
         angle_cost = self._w_angle * angle**2
         unhealthy_cost = self._w_unhealthy * (~healthy)
-        return vel_cost + angle_cost + unhealthy_cost + ctrl_cost
+        return vel_cost + vertical_cost + angle_cost + unhealthy_cost + ctrl_cost
     
     def terminal_cost(
         self,
@@ -151,6 +158,48 @@ class Walker2d(MuJoCoEnv):
     ) -> Float[Array, "K"]:
         healthy = self._is_healthy(states[..., 2], states[..., 3])
         return self._w_term * (~healthy).astype(float)
+
+    def rollout_cost(
+        self,
+        states: Float[Array, "K H nstate"],
+        actions: Float[Array, "K H nu"],
+        sensordata: Float[Array, "K H nsensor"],
+    ) -> Float[Array, "K"]:
+        """Score through the first fall, then charge an absorbing failure cost.
+
+        MuJoCo still computes the full batch; post-fall states are ignored.
+        This planning score equals live cost through termination plus the
+        remaining horizon length times unhealthy_cost_weight.
+        """
+        healthy = self._is_healthy(states[..., 2], states[..., 3])
+        active = np.ones_like(healthy, dtype=bool)
+        if states.shape[1] > 1:
+            active[:, 1:] = np.logical_and.accumulate(healthy[:, :-1], axis=1)
+
+        running = self.running_cost(states, actions, sensordata)
+        fell = np.any(~healthy, axis=1)
+        prefix_cost = np.where(active, running, 0.0).sum(axis=1)
+
+        # A terminated rollout must not look cheap merely because it avoided
+        # the rest of the planning horizon. Charge an absorbing unhealthy state
+        # for every remaining control step instead of scoring ground-sliding
+        # dynamics after the first fall.
+        absorbing_cost = self._w_unhealthy * np.sum(~active, axis=1)
+
+        terminal = np.zeros(states.shape[0], dtype=float)
+        if self._apply_terminal_cost_on_done and np.any(fell):
+            rows = np.flatnonzero(fell)
+            first_unhealthy = np.argmax(~healthy[rows], axis=1)
+            terminal[rows] = self.terminal_cost(
+                states[rows, first_unhealthy],
+                sensordata[rows, first_unhealthy],
+            )
+        costs = prefix_cost + absorbing_cost + terminal
+        valid = np.all(np.isfinite(states), axis=-1) & np.all(np.isfinite(actions), axis=-1)
+        # Ignore the unused suffix after termination, but never score a corrupt
+        # state on the executable prefix as a valid teacher trajectory.
+        valid_prefix = np.all(valid | ~active, axis=1)
+        return np.where(valid_prefix, costs, np.inf)
 
     def rollout_states_to_obs(
         self,

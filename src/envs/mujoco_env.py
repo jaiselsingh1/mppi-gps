@@ -26,7 +26,7 @@ class MuJoCoEnv(BaseEnv):
         )
 
         # thread pool for the batched rollouts 
-        self._nthread = nthread or os.cpu_count()
+        self._nthread = nthread or os.cpu_count() or 1
         self._data_pool = [
             mujoco.MjData(self.model) for _ in range(self._nthread)
         ]
@@ -58,12 +58,14 @@ class MuJoCoEnv(BaseEnv):
         self.data.ctrl[:] = action
         for _ in range(self._frame_skip):
             mujoco.mj_step(self.model, self.data)
-            obs = self._get_obs()
-            state = self.get_state()
-            sensor = self.data.sensordata.copy().reshape(1, 1, -1)
-            c = self.running_cost(
-                state.reshape(1, 1, -1), action.reshape(1, 1, -1), sensor
-            ).item()
+        # Costs and observations belong to the final control boundary. Earlier
+        # loop iterations computed values that were immediately discarded.
+        obs = self._get_obs()
+        state = self.get_state()
+        sensor = self.data.sensordata.copy().reshape(1, 1, -1)
+        c = self.running_cost(
+            state.reshape(1, 1, -1), action.reshape(1, 1, -1), sensor
+        ).item()
         return obs, c, False, {}
     
     def get_state(self) -> np.ndarray:
@@ -73,6 +75,10 @@ class MuJoCoEnv(BaseEnv):
             mujoco.mjtState.mjSTATE_FULLPHYSICS, 
         )
         return state
+
+    def get_warmstart(self) -> np.ndarray:
+        """Return MuJoCo's solver warm-start vector for an exact rollout start."""
+        return self.data.qacc_warmstart.copy()
 
     def set_state(self, state: np.ndarray) -> None:
         mujoco.mj_setState(
@@ -97,10 +103,13 @@ class MuJoCoEnv(BaseEnv):
     def batch_rollout(
             self, 
             initial_state: np.ndarray, 
-            action_sequences: np.ndarray, 
-    ) -> tuple[np.ndarray, np.ndarray]:
+            action_sequences: np.ndarray,
+            initial_warmstart: np.ndarray | None = None,
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         
         if self._use_warp:
+            if initial_warmstart is not None:
+                raise ValueError("The Warp rollout path does not support initial_warmstart.")
             return self._batch_rollout_warp(initial_state, action_sequences)
 
         K, H, _ = action_sequences.shape 
@@ -112,6 +121,7 @@ class MuJoCoEnv(BaseEnv):
             self._data_pool,
             initial_state,
             actions_expanded,
+            initial_warmstart=initial_warmstart,
         )
 
         # Downsample at control boundaries. The rollout API returns the state
@@ -120,10 +130,19 @@ class MuJoCoEnv(BaseEnv):
         states = states_full[:, self._frame_skip - 1 :: self._frame_skip, :]
         sensordata = sensordata_full[:, self._frame_skip - 1 :: self._frame_skip, :]
 
-        c = self.running_cost(states, action_sequences, sensordata) # (K, H)
-        tc = self.terminal_cost(states[:, -1, :], sensordata[:, -1, :]) # (K, )
-        costs = c.sum(axis = 1) + tc
+        costs = self.rollout_cost(states, action_sequences, sensordata)
         return states, costs, sensordata
+
+    def rollout_cost(
+            self,
+            states: np.ndarray,
+            actions: np.ndarray,
+            sensordata: np.ndarray,
+    ) -> np.ndarray:
+        """Score complete rollouts; tasks may override termination semantics."""
+        running = self.running_cost(states, actions, sensordata)
+        terminal = self.terminal_cost(states[:, -1, :], sensordata[:, -1, :])
+        return running.sum(axis=1) + terminal
     
     # you need to ensure that you have warp buffers for the h timsteps to live on 
     def _ensure_warp_buffers(self, K: int, H: int) -> None:
@@ -185,9 +204,7 @@ class MuJoCoEnv(BaseEnv):
 
         time_col = np.zeros((K, H, 1), dtype=np.float32)
         states = np.concatenate([time_col, qpos, qvel], axis=-1)
-        c  = self.running_cost(states, action_sequences, sensordata)
-        tc = self.terminal_cost(states[:, -1, :], sensordata[:, -1, :])
-        costs = c.sum(axis=1) + tc
+        costs = self.rollout_cost(states, action_sequences, sensordata)
         return states, costs, sensordata
 
     def _get_obs(self) -> np.ndarray:
