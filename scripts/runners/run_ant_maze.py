@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-from typing import Literal
 
 import matplotlib.pyplot as plt
 import mujoco
@@ -15,7 +14,6 @@ _ROOT = Path(__file__).resolve().parents[2]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from scripts.training.gps_train_warp import TorchWarpMPPI
 from src.envs.ant_maze import AntMaze
 from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
@@ -95,8 +93,6 @@ def main(
     episodes: int = 3,
     steps: int = 200,
     seed: int = 0,
-    backend: Literal["warp", "numpy"] = "warp",
-    device: str = "cuda",
     render: bool = True,
     out_dir: str = "run_mp4/ant_maze_mppi_check",
     video_name: str = "ant_maze_mppi.mp4",
@@ -129,15 +125,8 @@ def main(
         noise_sigma=noise_sigma,
     )
 
-    env = AntMaze()
-    planner_env: AntMaze | None = None
-    if backend == "warp":
-        planner_env = AntMaze(use_warp=True, nworld=cfg.K)
-        controller = TorchWarpMPPI(planner_env, cfg, n_batches=1, device=device)
-    else:
-        env.close()
-        env = AntMaze(use_warp=False)
-        controller = MPPI(env, cfg)
+    env = AntMaze(use_warp=False)
+    controller = MPPI(env, cfg)
 
     renderer = mujoco.Renderer(env.model, height=height, width=width) if render else None
     frames: list[np.ndarray] = []
@@ -162,10 +151,9 @@ def main(
 
             for t in range(steps):
                 state = env.get_state()
-                if backend == "warp":
-                    action, info = controller.plan_step(state, goals=env.goal)
-                else:
-                    action, info = controller.plan_step(state)
+                action, info = controller.plan_step(
+                    state, initial_warmstart=env.get_warmstart()
+                )
                 _, cost, done, _ = env.step(action)
                 total_cost += float(cost)
 
@@ -233,8 +221,6 @@ def main(
         if renderer is not None:
             renderer.close()
         env.close()
-        if planner_env is not None:
-            planner_env.close()
 
     if render and frames:
         import mediapy
@@ -252,7 +238,7 @@ def main(
     print(f"saved path plot: {path_plot}")
 
     summary = {
-        "backend": backend,
+        "backend": "mujoco_cpu",
         "seed": seed,
         "episodes": episodes,
         "steps": steps,

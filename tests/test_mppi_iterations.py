@@ -108,7 +108,7 @@ def test_initial_refinement_applies_supplied_nominal_only_once(monkeypatch, full
     np.testing.assert_array_equal(nominal, np.full((3, 1), 0.2))
 
 
-def test_initial_refinement_calls_gps_callbacks_per_pass_and_keeps_final_scores():
+def test_initial_refinement_calls_optional_callbacks_per_pass_and_keeps_final_scores():
     env = RecordingEnv()
     controller = MPPI(env, MPPIConfig(K=2, H=3, lam=0.7, initial_iterations=2), seed=13)
     callback_order, priors, coupled = [], [], []

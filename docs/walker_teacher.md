@@ -1,32 +1,43 @@
 # Walker2d MPPI teacher
 
-The standalone teacher uses `configs/walker2d_best.json` for MPPI settings and
-`configs/walker2d_task.json` for task weights. Run everything through
-`scripts/runners/run_walker2d.py`. Qualification results are recorded below;
-this page does not claim that the GPS loop has been trained or validated.
+The standalone standard-CPU teacher uses `configs/walker2d_best.json` for MPPI
+settings and `configs/walker2d_task.json` for task weights. Run it through
+`scripts/runners/run_walker2d.py`; setup and tests are in the
+[repository README](../README.md).
 
-Current default: **19/20** nominal eight-second episodes completed, mean speed
-**1.461 m/s** against a 1.5 m/s target, episode-averaged speed MAE **0.148 m/s**.
-This is a usable starting point for controlled, offline teacher experiments,
-not a fall-free controller or a natural-walking result.
+**Historical qualification:** **19/20** nominal eight-second episodes completed,
+mean speed **1.461 m/s** against a 1.5 m/s target, episode-averaged speed MAE
+**0.148 m/s**. This result belongs to the original source/configuration hashes
+saved with that run. It is not a fresh qualification of the cleaned checkout.
+The Walker task/controller settings are preserved; interface smoke tests and
+short seeded parity checks establish narrower implementation evidence.
+
+The original protocol, reports, raw traces, and videos are in the
+[external archive](artifact_layout.md#archive). Frozen configuration fingerprints
+and the source baseline are recorded in the [experiment log](experiment_log.md).
+No new policy or GPS performance is claimed. This is a starting point for
+controlled offline teacher experiments, with a recorded fall and no demonstrated
+natural-walking result.
 
 ## Run and inspect
 
 From the repository root:
 
 ```sh
-uv run python -m scripts.runners.run_walker2d --episodes 1 --steps 1000 --render
+.venv/bin/python -m scripts.runners.run_walker2d --episodes 1 --steps 1000 --render \
+  --output runs/walker2d_render_20261004_001/walker2d.mp4
 ```
 
-The video follows the torso and plays at simulation speed. The default output is
-`runs/walker2d_teacher/walker2d.mp4`, leaving the older root-level video intact.
-Omit `--render` for headless evaluation. Reset and planner seeds are independent:
+The video follows the torso and plays at simulation speed. Use a fresh run
+directory for every invocation. Omit `--render` for headless evaluation. Reset
+and planner seeds are independent; this example replays historical seed pairs
+and is not fresh qualification:
 
 ```sh
-uv run python -m scripts.runners.run_walker2d \
+.venv/bin/python -m scripts.runners.run_walker2d \
   --episodes 10 --steps 1000 --seed 30 --planner-seed 10030 --log-every 0 \
-  --metrics-output runs/walker2d_teacher/recheck_a.json \
-  --traces-output runs/walker2d_teacher/recheck_a.npz
+  --metrics-output runs/walker2d_recheck_20261004_001/metrics.json \
+  --traces-output runs/walker2d_recheck_20261004_001/traces.npz
 ```
 
 Reports are saved after every completed episode and include the exact task,
@@ -139,9 +150,9 @@ success and verify the simulator first; only then compare controller settings.
    and solver warm-start. The second pass samples around the first pass's
    improved U. Return U[0], then shift the horizon exactly once. Later decisions
    use one pass. The default 1 remains backward-compatible, and tests cover this
-   exactly. Applying a supplied policy nominal twice or shifting between passes
-   would defeat the intended refinement. Extra passes consume extra random
-   samples, so rescued seed pairs alone do not establish a causal mechanism.
+   exactly. Shifting between passes would defeat the intended refinement.
+   Extra passes consume extra random samples, so rescued seed pairs alone do
+   not establish a causal mechanism.
 
 Supporting correctness changes:
 
@@ -169,7 +180,7 @@ seed pairs. Do not reuse failed qualification seeds as if they were still new.
 Survival, speed error, action variation, computation time and gait video answer
 different questions; no single reward number replaces them.
 
-## Qualification and GPS handoff
+## Historical qualification and future policy handoff
 
 The initial lowpass candidate was **not qualified**: the wider check on resets
 10–19 was stopped after two falls among six completed episodes. Increasing only
@@ -185,10 +196,11 @@ It completed **17/20**, with mean speed 1.458 m/s and episode-averaged speed MAE
 0.179 m/s. All executed states/actions were finite and actions were in bounds.
 This **failed** the previously chosen minimum of 18/20, despite passing the
 speed gates (MAE ≤ 0.25 m/s, mean speed 1.2–1.8 m/s). Its three falls occurred
-at steps 168, 186 and 208. Reports and raw-trace verification are in
-`runs/walker2d_teacher/qualification_summary.json`; the interrupted first
-segment remains marked partial, with its remaining seven episodes in a separate
-report. These seeds are now development data, not a fresh validation set.
+at steps 168, 186 and 208. Reports and raw-trace verification are in the archived
+[qualification_summary.json](/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/qualification_summary.json).
+The interrupted first segment remains marked partial, with its remaining seven
+episodes in a separate report. These seeds are now development data, not a fresh
+validation set.
 
 Adding only `initial_iterations=2` retained 5/5 development successes and
 rescued all three failures in full 1000-step replays. The settings were then
@@ -213,23 +225,30 @@ deadline, so this is an **offline teacher**, not a real-time controller on this
 machine. The different validation batches are different seed sets; 17/20 versus
 19/20 is not a paired estimate or statistical proof of general improvement.
 
-The tested task/controller JSON files are now the runner defaults. Evidence:
+The tested task/controller JSON files remain the runner defaults. Their contents
+match the archived configuration hashes; the qualification itself remains tied
+to the original source hashes. Archived evidence:
 
-- `runs/walker2d_teacher/initial2_protocol.md`: criteria fixed before the run.
-- `runs/walker2d_teacher/initial2_qualification_summary.json`: raw-trace-checked
-  results, per-episode metrics and hashes; the neighboring PNG summarizes them.
-- `runs/walker2d_teacher/initial2_qualification_a.json` and `_b.json`, with
+- [initial2_protocol.md](/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_protocol.md): criteria fixed before
+  the run, recorded as chosen on 2026-09-05.
+- [initial2_qualification_summary.json](/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_summary.json):
+  raw-trace-checked results, per-episode metrics, original source/config hashes,
+  library versions, and artifact hashes; the neighboring PNG summarizes them.
+- [initial2_qualification_a.json](/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_a.json) and
+  [initial2_qualification_b.json](/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_b.json), with
   matching NPZ files: all 20 episodes, including the failure.
-- `runs/walker2d_teacher/initial2_qualification_seed30.mp4`: the first scheduled
-  validation episode, rendered from saved states at simulation speed.
+- [initial2_qualification_seed30.mp4](/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_seed30.mp4):
+  the first scheduled validation episode, rendered from saved states at simulation
+  speed.
 
 Video and force traces describe gait separately; raw contact alternation alone
 is not a walking certificate. The current behavior is crouched and partly
 aerial, not demonstrated natural alternating walking. No gait template, RL
 training or GPS coupling was introduced in these teacher experiments.
 
-When starting GPS, load both JSON files and preserve the same observation map,
-frame skip, termination rules, and target speed for policy evaluation. The
+For a future policy-learning experiment, load both JSON files and preserve the
+same observation map, frame skip, termination rules, and target speed for policy
+evaluation. The
 17-element observation omits global x and clips joint velocities to ±10.
 Pair a teacher action with the observation **before** executing it. Planning
 state and warm-start are separate simulator inputs; do not feed post-action
