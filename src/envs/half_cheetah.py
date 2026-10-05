@@ -31,8 +31,8 @@ class HalfCheetah(MuJoCoEnv):
         w_pitch: float = 0.5 
         w_controls: float = 0.001  
 
-        qpos: Float[Array, "K T nq"] = states[:, :, :self._nq]
-        qvel: Float[Array, "K T nv"] = states[:, :, self._nq:self._nq + self._nv]
+        qpos: Float[Array, "K T nq"] = self.state_qpos(states)
+        qvel: Float[Array, "K T nv"] = self.state_qvel(states)
 
         vx: Float[Array, "K T"] = qvel[:, :, 0]
         torso_pitch: Float[Array, "K T"] = qpos[:, :, 2]
