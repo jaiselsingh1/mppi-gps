@@ -174,3 +174,21 @@ def test_recovery_mismatch_stops_before_executing_branches(shadow_bundle, tmp_pa
         controls.main(shadow_bundle, "matched", 3, output, proposal_seeds=(31000,), steps=6)
     report = json.loads((output / "report.json").read_text())
     assert not report["original_rng_recovery_exact"] and not report["branches"]
+
+
+@pytest.mark.parametrize("location", ["same", "nested", "symlink"])
+def test_output_cannot_modify_audited_shadow_bundle(tmp_path, monkeypatch, location):
+    source = tmp_path / "shadow"
+    source.mkdir()
+    if location == "same":
+        output = source
+    elif location == "nested":
+        output = source / "new" / "controls"
+    else:
+        alias = tmp_path / "alias"
+        alias.symlink_to(source, target_is_directory=True)
+        output = alias / "controls"
+    monkeypatch.setattr(controls, "load_decision", lambda *args: pytest.fail("Reject output before loading inputs"))
+    with pytest.raises(ValueError, match="outside the audited shadow"):
+        controls.main(source, "matched", 3, output, proposal_seeds=(31000,), steps=6)
+    assert not list(source.iterdir())

@@ -3,6 +3,8 @@
 - `mppi/`: the standard MPPI planner, sampling, trajectory scoring, and weighted plan updates.
   `gate.py` is a separate, isolated Walker policy scorer for S3 shadow tests;
   it neither changes the planner nor executes policy actions.
+  `gate_v2.py` scores one action followed by a matched MPPI continuation;
+  it remains diagnostic-only and does not alter v1 or the live controller.
 - `envs/`: MuJoCo environment interfaces and task-specific dynamics/costs for Point Mass, Acrobot, HalfCheetah, Walker2d, Humanoid, and Ant Maze.
 - `utils/`: controller configuration and shared numerical/diagnostic helpers.
 - `rl/`: the local-Walker learning adapter and small SAC learner for the S2

@@ -119,6 +119,8 @@ def main(shadow_dir: Path, policy_label: str, decision_step: int, out_dir: Path,
          steps: int = 250) -> None:
     """Run one raw branch, one identical-action control, and seeded alternatives."""
     out_dir = Path(out_dir)
+    if out_dir.resolve().is_relative_to(Path(shadow_dir).resolve()):
+        raise ValueError("Output directory must be outside the audited shadow bundle.")
     if out_dir.exists() and (not out_dir.is_dir() or any(out_dir.iterdir())):
         raise FileExistsError(f"Output directory is not empty: {out_dir}")
     if type(steps) is not int or steps < 1:

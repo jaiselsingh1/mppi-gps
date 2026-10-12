@@ -1,6 +1,7 @@
 # Matched-continuation scoring: v2 development protocol
 
-Status: declared before running the seed controls or v2 scoring. The audited
+Protocol declared in commit `fb1a6c9` before running the seed controls or v2
+scoring. A–C are now complete; results are appended below. The audited
 S2/S3 v1 implementation is preserved in commit `fdf58ed`; its original
 experiment bundles are read-only. The broader v1 accepted-state study is
 paused. This is a development experiment, not active gating or qualification.
@@ -121,3 +122,64 @@ selection is recorded. No additional policy training is part of A–C.
 
 No evidence supports using v2 as an improved teacher yet. S4's fixed margins
 and untouched qualification data are unaffected; S5 remains downstream.
+
+## Recorded result — A–C complete, no tuning
+
+Implementation frozen in `281270c` before inspecting v2 calibration output.
+All 20 seed controls, four raw/identity pairs and 28 v2 comparisons completed.
+Every raw replay, identity check and original proposal-RNG recovery is exact.
+All 56 production H=48/K=256 scoring probes exactly reproduce their actual
+successor state/warmstart and next MPPI action, full plan and planner snapshot.
+
+Positive cost changes below mean worse than raw MPPI:
+
+| Policy case | V2 prediction | Actual 48 controls | Actual 250 controls | V2 decision |
+|---|---:|---:|---:|---|
+| Success / intermediate / 96 | +7.862 | +4.105 | +23.786 | Reject |
+| Success / strong / 10 | +34.220 | +4.469 | +2.189 | Reject |
+| Failure / intermediate / 126 | +0.588 | +4.607 | +14.704 | Reject |
+| Failure / strong / 0 | −11.534 | −12.384 | +10.391 | Accept |
+
+V2 gets all four known policy cost directions right at the scoring horizon.
+The accepted action **really does help over 48 controls**, but the improvement
+reverses by 250 controls. This is not an incorrect short-window label; it is
+a limitation of using that window to predict longer behavior.
+
+The seed controls prevent overinterpreting those four known cases. V2 gets
+only **9/20 cost directions right**, both at 48 and 250 controls. At 48 controls
+it accepts eight seed actions: seven worsen realized cost. It also rejects
+four genuinely non-worse seed actions. All four identical-action scores tie
+exactly. There is no numerical or replay failure explaining these errors.
+
+Across the 20 seed controls, two-second cost changes range from −24.106 to
++441.135 (median +8.748); 13 worsen cost, seven improve it. One first-action
+replacement causes a fall at control 177 while raw MPPI survives 250. Seed
+action differences are smaller than the policy differences: L2 range
+0.268–1.287 versus 1.683–2.301. These are descriptive sensitivity results,
+not a matched null test, significance result or qualification.
+
+Decision after calibration: preserve v2 unchanged as a tested research
+scorer, not a validated gate/teacher. The broader counterfactual study and
+active gating have **not** started. The controls show residual ranking error
+even at the matched horizon; the one-replan/open-loop-tail approximation
+remains a hypothesis to investigate. This decision is not a preregistered
+statistical rejection or proof that a particular replacement will work.
+No weights, horizon, tolerance, policy or planner seeds were retuned.
+
+Reports: `runs/2026-10-12_s3_action_controls_001/summary.json` and
+`runs/2026-10-12_s3_gate_v2_calibration_001/report.json`. The
+[experiment log](experiment_log.md#2026-10-12--post-hoc-plan-versus-realized-check-and-v2-protocol)
+records hashes and limitations. Reproduction commands use fresh output paths:
+
+```sh
+.venv/bin/python -m scripts.diagnostics.compare_walker_plan_realized \
+  --output runs/example_fresh_posthoc/report.json
+
+.venv/bin/python -m scripts.diagnostics.walker_action_controls \
+  --shadow-dir runs/2026-10-11_s3_shadow_001/success \
+  --policy-label intermediate --decision-step 96 \
+  --out-dir runs/example_fresh_controls/success_intermediate_96
+
+.venv/bin/python -m scripts.diagnostics.walker_gate_v2_diagnostic \
+  --out-dir runs/example_fresh_v2_calibration
+```

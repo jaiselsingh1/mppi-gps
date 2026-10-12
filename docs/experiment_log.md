@@ -325,10 +325,79 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   actions, with unchanged H=48 optimization, objective, candidate first
   actions, tau=0, fall guard, checkpoints and failure accounting. All scratch
   controller states are discarded. No new training or active gate.
-- Status: implementation/testing. New artifacts use fresh directories;
-  source and protocol fingerprints will be saved before each run. The four
-  known policy cases are calibration only; no thresholds will be tuned to
-  make their outcomes agree.
+- Protocol committed before the simulations as `fb1a6c9`; its file SHA-256
+  is `4e4061c381630515e21a346d996f032d398e8936546d70e18a5bba038865feb6`.
+  Implementation and its tests committed as `281270c` before inspecting v2
+  calibration scores. V2 scorer SHA-256:
+  `11413dc5a6d84555929f9db0ee5b43de1cd03a697957afb4ff02dc06182f5f15`.
+- Status: A–C complete. No weights, policies, horizon, threshold, planner
+  settings or proposal seeds changed after outcomes. Frozen S1 runtime
+  files, S2 learning implementation and prior evidence remain untouched.
+- Tracked post-hoc reproducer:
+  `scripts/diagnostics/compare_walker_plan_realized.py`; its independent fresh
+  report is `runs/2026-10-12_s3_plan_vs_realized_reproduction_001/report.json`,
+  SHA-256 `652bbd994424febabba5da49d4aab3da69738117999005fcc54821fb5a687505`.
+  It reproduces every original statistic, separates observed/padded windows,
+  verifies evidence hashes, and contains per-window rows. Original scratch
+  script/report and audited S3 bundle were not modified.
+- Seed controls: all four cases complete under
+  `runs/2026-10-12_s3_action_controls_001/`. All four raw branches, identity
+  controls and original proposal-RNG recoveries are exact. Twenty alternate
+  first-action continuations retain the original post-call nominal and future
+  random stream. Case artifacts include source copies, proposal actions and
+  discarded proposal snapshots, input hashes and full branch traces.
+- Seed-control cost deltas (candidate minus raw, positive means worse):
+
+  | Case | Δ48 min / median / max | Δ250 min / median / max | Worse at 250 |
+  |---|---|---|---:|
+  | Success / intermediate / 96 | −7.181 / −1.857 / +6.399 | −11.308 / −2.128 / +18.579 | 2/5 |
+  | Success / strong / 10 | −1.079 / +1.559 / +5.308 | −24.106 / −9.583 / +15.429 | 1/5 |
+  | Failure / intermediate / 126 | +8.292 / +8.946 / +10.507 | +6.204 / +14.030 / +25.393 | 5/5 |
+  | Failure / strong / 0 | −2.632 / +2.110 / +10.968 | +5.577 / +15.683 / +441.135 | 5/5 |
+
+- One alternate action causes a fall: failure/strong/0, proposal seed 31001,
+  control 177 (one-based, including initial action). Its Δ48 is only +0.400,
+  but Δ250 is +441.135 including the frozen absorbing suffix. Across the
+  20 seeds, 15 worsen cost at 48 controls and 13 at 250. Seed action L2
+  min/median/max is 0.268/0.494/1.287; policy L2 is 1.683–2.301. These are not
+  magnitude-matched perturbations and not a zero-centered statistical null.
+- Aggregate seed report: `runs/2026-10-12_s3_action_controls_001/summary.json`,
+  SHA-256 `e3069c3a458f7fe01c0e4477506624bc7c17e6f7aea4ff44e7c0d6eb3b8554cb`.
+- V2 calibration: `runs/2026-10-12_s3_gate_v2_calibration_001/report.json`,
+  SHA-256 `f4c8739ade8e15ef5a13d4e6bf961853ace6b125c441c45f4d403ee71d9da6a5`.
+  Every one of the 56 H=48/K=256 baseline/candidate probes exactly matches
+  its saved first transition and next full optimized MPPI plan/snapshot,
+  including between the single-thread scratch scorer and original pool.
+
+  | Policy case | V2 predicted Δ | Actual Δ48 | Actual Δ250 | Accepted |
+  |---|---:|---:|---:|---|
+  | Success / intermediate / 96 | +7.862 | +4.105 | +23.786 | No |
+  | Success / strong / 10 | +34.220 | +4.469 | +2.189 | No |
+  | Failure / intermediate / 126 | +0.588 | +4.607 | +14.704 | No |
+  | Failure / strong / 0 | −11.534 | −12.384 | +10.391 | Yes |
+
+- V2 gets 4/4 known policy cost directions right at 48 controls, 3/4 at 250.
+  The one acceptance genuinely improves the matched horizon before becoming
+  worse later. On the 20 seed controls, however, only 9/20 directions agree
+  at either horizon. At 48 controls, eight accepted actions include seven
+  false acceptances; four beneficial actions are rejected. Four identity
+  comparisons produce exact cost ties and unchanged outcomes.
+- Independent audits verified 258 file hashes across calibration/control/
+  prior policy bundles, all 28 comparison rows recomputed from NPZ, and all
+  production probe states/warmstarts/actions/full plans/RNGs. No accounting
+  or implementation discrepancy was found. Full test suite: 413 tests pass
+  (including a post-run output-path guard; see below).
+- Post-run hardening adds only a guard against writing a controls output
+  directory inside audited shadow evidence (including symlinks). The archived
+  control-run sources predate that guard; scoring, proposal generation,
+  continuation and metric code are unchanged. Original evidence stays intact.
+- Decision after calibration, not a preregistered statistical rejection:
+  preserve v2 as tested research machinery, but do not promote it to a
+  reliable teacher. The broader study and active gate remain unstarted;
+  matched continuation removes one asymmetry but does not reliably rank the
+  seed interventions. These known-state calibration results cannot establish
+  performance on fresh states or identify a unique remedy. No new training,
+  S4 qualification, student distillation, commits to remotes or pushes occurred.
 
 Add one entry per question using the fields below:
 
