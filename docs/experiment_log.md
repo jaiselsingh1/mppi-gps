@@ -399,6 +399,30 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   performance on fresh states or identify a unique remedy. No new training,
   S4 qualification, student distillation, commits to remotes or pushes occurred.
 
+## 2026-10-12 — nominal handoff and future-randomness diagnostics (preregistered)
+
+- Starting commit: `f6c6875`. Fixed protocol:
+  [continuation diagnostics](continuation_diagnostics.md), SHA-256
+  `204cc756b215919407b283be35f4baf740f6f73b5d5d03727fc303c5131e6dae`.
+- Status: planned; no new continuation outcomes inspected at registration.
+- A: twenty existing alternate MPPI actions, replacing only their original
+  post-call nominal with their saved proposal's shifted nominal. Original
+  future RNG/refinement and simulator state/warmstart stay unchanged. Four
+  raw replay guards; primary same-action cost difference at 48 controls,
+  persistence/falls at 250. Compare with hashed original-U continuations.
+- B starts after A is recorded. It deliberately retains original-U execution
+  regardless of A's result, diagnosing the existing v2 execution model rather
+  than selecting a new convention post-hoc. Four states, eight future seeds
+  (41000–41007), raw plus each policy action plus five seed actions per state:
+  224 continuations. First actions are fixed; only future RNG changes.
+- Both use frozen task/controller inputs and costs with absorbing fall
+  accounting. No rescoring, new training, active gate, or non-inferiority
+  claim. Reports retain all pairs and distinguish per-state results from
+  pooled descriptive counts. No significance/acceptance threshold is added.
+- Planned outputs: `runs/2026-10-12_s3_nominal_ablation_001/` and
+  `runs/2026-10-12_s3_future_seed_check_001/`. Source/protocol snapshots,
+  input/output hashes and branch traces are preserved in these new bundles.
+
 Add one entry per question using the fields below:
 
 ```text

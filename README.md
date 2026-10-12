@@ -50,6 +50,9 @@ at MPPI states while still executing only raw MPPI. It checks task-first
 acceptance and exact baseline parity before any active policy intervention.
 The broader v1 study is paused; [v2 development](docs/gate_v2.md) isolates
 first-action sensitivity and tests a matched MPPI continuation score.
+The next [continuation diagnostics](docs/continuation_diagnostics.md) separately
+test planner starting-plan handoff and sensitivity to future random streams;
+they do not enable a live gate or modify the frozen teacher.
 
 The Walker teacher's **19/20** eight-second completion result is historical evidence under the source and configuration hashes saved with that run. It is not a new qualification of this cleaned checkout. Short smoke runs verify interfaces and seeded behavior; they do not establish controller quality. See [Walker teacher notes](docs/walker_teacher.md) for the task, implementation, historical qualification, and limitations.
 
