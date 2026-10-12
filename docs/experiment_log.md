@@ -472,6 +472,118 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   - `failure_strong_0/report.json`:
     `4a7ff489df905503fdca1bb9479b1af0863d69ecbaf07952f87d0084c61a8dd5`
 
+### B result — paired future random streams
+
+- Status: complete. Launched only after A was audited and its results
+  committed as `eff21b4`. The protocol stayed at `47ddab6`, SHA-256
+  `204cc756b215919407b283be35f4baf740f6f73b5d5d03727fc303c5131e6dae`;
+  diagnostic implementation stayed at `aa82e49` throughout both experiments.
+- Run: `runs/2026-10-12_s3_future_seed_check_001/`. All 224 continuations and
+  192 paired comparisons complete, using the original post-call nominal
+  in every arm and all eight predeclared future seeds. Local CPU runtime
+  summed over the four cases was 2,409.00 seconds (40.15 minutes). No new
+  policy training, gate activation, rescoring or parameter changes occurred.
+- Independent audit verified the root manifest's exact 263-file coverage,
+  all four case bundles and their original inputs, all 224 first transitions,
+  all 192 common-RNG pairs, and both horizon costs, falls and summaries
+  recomputed from NPZ. No provenance, execution or accounting discrepancy.
+- Final regression: 479 tests pass. Frozen S1 planner, Walker, physics/cost
+  helpers, runner, configs and XML remain byte-identical to `f271ece`.
+- For each fixed policy action, cost differences are **policy first action
+  then MPPI minus raw MPPI**, paired within each future seed. Positive is
+  worse. The ± values below are sample standard deviations of eight paired
+  differences, **not confidence intervals**. These are not standalone-policy
+  evaluations. Success/failure labels identify the archived source episode.
+
+  | Saved decision | Mean Δ48 ± SD | Lower cost / 8 | Mean Δ250 ± SD | Lower cost / 8 | Policy / raw falls at 250 |
+  |---|---:|---:|---:|---:|---:|
+  | Success / intermediate / 96 | +7.632 ± 5.816 | 1 | +11.958 ± 11.030 | 1 | 0 / 0 |
+  | Success / strong / 10 | +3.231 ± 3.755 | 2 | +49.266 ± 124.256 | 2 | 1 / 0 |
+  | Failure / intermediate / 126 | +1.722 ± 4.257 | 4 | −31.890 ± 94.486 | 6 | 0 / 1 |
+  | Failure / strong / 0 | −2.954 ± 9.564 | 4 | −45.440 ± 125.158 | 6 | 0 / 1 |
+
+- Holding the first action and nominal fixed, the effect changes sign across
+  future streams for 22/24 interventions at 48 controls and 23/24 at 250.
+  This includes all four policy actions at both horizons. There are no
+  exact-zero paired differences; no post-hoc near-zero tolerance was used.
+- Raw MPPI itself falls in 2/32 continuations; the policy-action arms fall in
+  1/32 and seed-action arms in 2/160. These are descriptive counts over four
+  selected states, not independent episode samples or reliability estimates.
+  Every fall occurs after the 48-control scoring window:
+  - success/strong/10, future 41004: policy falls at control 195;
+  - failure/intermediate/126, future 41002: raw falls at control 217;
+  - failure/strong/0, future 41001: seed 31002 falls at control 201;
+  - failure/strong/0, future 41002: seed 31000 falls at control 211;
+  - failure/strong/0, future 41003: raw falls at control 194.
+- The large negative two-second policy means in the two failure-source cases
+  are heavily influenced by preventing one raw fall each. The positive
+  success/strong mean is likewise influenced by one added policy-arm fall.
+  Do not replace these distributions with a single favorable mean or discard
+  these events as outliers.
+- Raw-only two-second cost SD across future seeds, in table order:
+  5.335, 13.050, 89.742 and 121.957. Raw 48-control cost SD is much smaller:
+  3.254, 2.938, 2.574 and 2.755. The reports retain all absolute ranges,
+  paired ranges, sign counts and per-stream observations.
+
+#### Secondary comparison with the already fixed v2 scores
+
+This was allowed by the preregistration. Scores were **not** recomputed with
+the new outcome streams. It compares an original single-score prediction
+against an eight-stream mean effect, not v2 recalibration under each stream.
+
+- At 48 controls, original score directions agree with the new mean in 4/4
+  policy cases but only 7/20 seed-action cases (11/24 overall). Seven of the
+  eight originally accepted seed actions have positive repeated mean cost
+  differences; one is only +0.0188, so the count is not a claim of statistically
+  established harm for each action. The one accepted policy action has a
+  negative mean but helps in only four of eight short-horizon repetitions.
+- At 250 controls, agreement with the repeated mean is 3/4 policy and 14/20
+  seed actions. This is persistence information, not a horizon-matched
+  scoring validation. The original single-stream realized effect agrees in
+  sign with the new mean for only 7/24 actions at this longer horizon.
+- Interpretation: conditional intervention outcomes are highly sensitive to
+  future planning randomness, and a single continuation was insufficient to
+  characterize these actions. Averaging outcome labels does not make the
+  original single-score ranking reliable at its own horizon. This does not
+  establish that scorer randomness is the sole cause: continuation-model
+  error and finite eight-stream estimation error remain unresolved.
+- Decision: do not activate or retune v2, hand over policy plans, or claim a
+  safe/qualified GPS teacher from this study. Keep the frozen teacher and
+  all evidence intact. No broader qualification or fresh-state study begins.
+- Next proposed *single* diagnostic (not implemented/run): repeat only the
+  v2 score computation over a separately preregistered set of planner seeds,
+  keeping the candidate actions, original nominal, cost and horizon fixed.
+  Compare mean predicted differences and their variability with these
+  separately sampled outcome means. This would test whether scorer variance
+  explains the ranking failure before changing the acceptance rule or moving
+  policy influence inside the optimizer. It remains known-state development
+  analysis and would not by itself establish fresh-state reliability.
+- Root report SHA-256:
+  `d369e1e6b49646dcc9c142bb940b6fd0ecf88fbe5ba5690a96cad72362397d99`.
+  Root artifact-manifest SHA-256:
+  `b82a1099ccd5b162735c4d70aa7e90b3e53d98b82469d1c1d9ebcd7d34482a29`.
+- Case report SHA-256 fingerprints, in table order:
+  - `520b3e51e83e6b4a41261187cf9e4f793b54d59001218138864fa26218b98d17`
+  - `894bde3299064c9702e3969539b4d8ca448583d6f9eb25210fc321da0486aa4b`
+  - `a6dd523340a79e38b91af183d7d8b13b024934f79e243b252ba881e5eb86eece`
+  - `30ad98fe7e9552ce80d862191c1a828eaf19c752e28efda1afbd68e6fa9403d4`
+
+Commands used (these output directories are now immutable; use a new run ID
+for any explicitly planned replication):
+
+```sh
+for case_name in success_intermediate_96 success_strong_10 failure_intermediate_126 failure_strong_0; do
+  .venv/bin/python -m scripts.diagnostics.walker_nominal_ablation \
+    --controls-dir "runs/2026-10-12_s3_action_controls_001/$case_name" \
+    --out-dir "runs/2026-10-12_s3_nominal_ablation_001/$case_name" \
+    --preregistration docs/continuation_diagnostics.md || exit
+done
+
+.venv/bin/python -m scripts.diagnostics.walker_future_seed_check \
+  --out-dir runs/2026-10-12_s3_future_seed_check_001 \
+  --preregistration docs/continuation_diagnostics.md
+```
+
 Add one entry per question using the fields below:
 
 ```text
