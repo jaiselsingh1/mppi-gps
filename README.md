@@ -45,6 +45,6 @@ The Walker teacher's **19/20** eight-second completion result is historical evid
 
 Point Mass, Acrobot, HalfCheetah, Humanoid, and Ant Maze are retained for experiments. Their presence, configs, tuning scripts, and passing simulator tests do not establish qualified task performance.
 
-Start each new experiment on its own branch, use a unique ignored run directory, and record its question, baseline commit, settings, seeds, acceptance criteria, status, results, and decision in the [experiment log](docs/experiment_log.md). Keep historical and fresh artifacts separate; follow the [artifact layout](docs/artifact_layout.md).
+Work on `main`. For each new experiment, use a unique ignored run directory and record its question, starting commit, settings, seeds, acceptance criteria, status, results, and decision in the [experiment log](docs/experiment_log.md). Keep historical and fresh artifacts separate; follow the [artifact layout](docs/artifact_layout.md).
 
-Promote an experiment to `main` only after its recorded acceptance criteria and relevant regression checks pass. Preserve rejected experiments on their branches and in the log.
+Keep new behavior off by default so frozen controllers stay unchanged, and run the relevant regression checks before each commit. Revert rejected code in a new commit; Git history and the log preserve every attempt.

@@ -20,13 +20,13 @@ That result belongs to the recorded historical source. Cleanup edits can change 
 
 ## New experiment protocol
 
-1. Create a branch for one question. Record its name and the exact baseline commit before changing code or configs.
+1. Work on `main`, one question at a time. Record the exact starting commit before changing code or configs.
 2. Allocate a unique ignored directory such as `runs/<date>_<question>_<run-id>/`. Keep configs, reports, traces, diagnostics, and checkpoints together.
 3. Write the question, comparison/baseline, environment and task objective, config paths and hashes, source fingerprints, dependency versions, and reset/planner seeds before running. Separate development from untouched qualification seeds.
 4. Fix the acceptance criteria and primary metrics before inspecting results. Change one factor at a time when the comparison requires attribution.
 5. Record complete, failed, interrupted, and rejected runs. Preserve every report and raw trace used to support a decision. State whether a check concerns simulator correctness, interface compatibility, teacher control quality, or standalone policy performance.
 6. Update status, results, interpretation, and the keep/reject/revise decision. Link artifact paths and code/config revisions. A partial run or a proposed method is not a validated result.
-7. Graduate validated changes to `main` through normal commits after the recorded criteria and relevant regression checks pass. Preserve unsuccessful experiment branches and their records.
+7. Keep new behavior off by default so frozen controllers stay unchanged, and commit only after the relevant regression checks pass. Record the commit that produced each result. Revert rejected code in a new commit and keep its record here.
 
 ## Experiments
 
@@ -35,7 +35,7 @@ That result belongs to the recorded historical source. Cleanup edits can change 
 ```text
 Experiment ID / date: S1 / 2026-10-11
 Question: Can the frozen Walker teacher's decisions and its recorded qualification failure be reproduced exactly, mid-episode included, and what did the planner predict before that fall?
-Branch: exp/walker-instrumentation
+Branch: exp/walker-instrumentation (fast-forwarded into main as f271ece; branch deleted)
 Baseline commit: 02f4c2bbf2ae56d09d5ddbe58d05f86fc96dcbea
 Method and comparison: Instrumentation only; no controller, task, or simulation change. MPPI gains last_plan (pre-shift plan), snapshot() and restore(); MuJoCoEnv gains set_warmstart(); Walker traces add pre_plan_nominals, plans, planner_rng_states and initial_plan_flags. Compared against main (parity) and against archived qualification traces (replay). The fall autopsy is descriptive.
 Task/objective: configs/walker2d_task.json (frozen target-velocity task).
@@ -84,7 +84,7 @@ Results:
       - Objective: at step 501 the lowest-cost sample predicts a fall although surviving samples exist.
       - From step 502 onward, neither tested sampler (K=256, or the K=1024 probe) found a trajectory surviving H=48. That does not establish that the fall was unavoidable, nor why.
       - Control: during ordinary walking (reset 30, every 50th decision), 44% of default H=48 samples predict a fall within H. 98% of H=96 probe samples predict a fall, and 67% of H=96 probe plans do. The H=96 probe therefore does not discriminate and is not used as evidence.
-Decision: keep (instrumentation); committed as the S1 checkpoint on exp/walker-instrumentation.
+Decision: keep (instrumentation); committed as the S1 checkpoint f271ece, now on main.
 Interpretation and limitations: One fall, heuristic evidence. "Survives" means within the probe horizon only. Whether the surviving 48-step options at steps 489-501 would have avoided the fall beyond the horizon is untested; a paired counterfactual branch from those decisions (S3 machinery) would test it. Short-horizon causes are not attributed.
 Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_walker_instrumentation.tar.gz
   (SHA-256 b6a3510f313a68e3610a750345eab424522d4a3d4d7a03167e2ed254f76cec7d); all 18 files verified against the manifest after extraction.
@@ -95,8 +95,8 @@ Add one entry per question using the fields below:
 ```text
 Experiment ID / date:
 Question:
-Branch:
 Baseline commit:
+Result commit(s):
 Method and comparison:
 Task/objective:
 Code revision and source fingerprints:
