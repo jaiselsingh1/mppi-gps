@@ -296,6 +296,40 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   where acceptances exist). No recurrent coupling, S4 qualification or
   distillation is implied; no additional training is needed for this step.
 
+## 2026-10-12 — Post-hoc plan-versus-realized check and v2 protocol
+
+- Audited S2/S3 v1 preserved as local commit `fdf58ed` after all 278 tests
+  passed; nothing pushed. This supersedes the preceding entry's decision to
+  expand v1 immediately. The broader v1 counterfactual study is paused.
+- User's original post-hoc analysis is preserved at
+  `runs/2026-10-11_s3_plan_vs_realized_check/{check.py,result.json}`, outside
+  the audited S3 bundle. Reproduced from saved data with no new simulation:
+  1,495 usable windows; realized MPPI cheaper in 86.0869565%; median
+  realized/plan ratio 0.7229641; only 1/176 accepted strong-policy full
+  trajectories cheaper than realized MPPI over the same horizon.
+- Accounting clarification: 1,448 fully observed windows plus 47 filled
+  with the prescribed absorbing failure cost, not 1,495 fully observed
+  windows. Fully observed only: 86.1878453%, median ratio 0.7133887, still
+  1/176. Non-falling incomplete windows at truncation are excluded. Windows
+  overlap across only two development episodes; no independent-trial or
+  causal policy-benefit claim follows.
+- Interpretation: the scorer does not predict the continuation actually
+  executed (one candidate action followed by MPPI replanning). V2 will
+  evaluate matched continuations; cancellation of residual errors is a
+  hypothesis, not a guarantee. Original four negative results are retained.
+- Before new simulations: [fixed protocol](gate_v2.md) declares five proposal
+  seeds (31000–31004) at each of the four original decisions, original
+  post-call continuation snapshots/common random streams, 250 controls,
+  exact same-action controls, and cost comparisons at 48 and 250 controls.
+- V2 scoring is fixed at one immediate cost plus 47 optimized successor-plan
+  actions, with unchanged H=48 optimization, objective, candidate first
+  actions, tau=0, fall guard, checkpoints and failure accounting. All scratch
+  controller states are discarded. No new training or active gate.
+- Status: implementation/testing. New artifacts use fresh directories;
+  source and protocol fingerprints will be saved before each run. The four
+  known policy cases are calibration only; no thresholds will be tuned to
+  make their outcomes agree.
+
 Add one entry per question using the fields below:
 
 ```text

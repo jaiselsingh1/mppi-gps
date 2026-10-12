@@ -48,6 +48,8 @@ costs. Training and standalone evaluation instructions/status are recorded there
 The separate [S3 shadow gate](docs/shadow_gate.md) scores those frozen policies
 at MPPI states while still executing only raw MPPI. It checks task-first
 acceptance and exact baseline parity before any active policy intervention.
+The broader v1 study is paused; [v2 development](docs/gate_v2.md) isolates
+first-action sensitivity and tests a matched MPPI continuation score.
 
 The Walker teacher's **19/20** eight-second completion result is historical evidence under the source and configuration hashes saved with that run. It is not a new qualification of this cleaned checkout. Short smoke runs verify interfaces and seeded behavior; they do not establish controller quality. See [Walker teacher notes](docs/walker_teacher.md) for the task, implementation, historical qualification, and limitations.
 

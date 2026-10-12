@@ -109,8 +109,10 @@ that actually executes, not a population-level result. See the
 [S3 experiment entry](experiment_log.md#2026-10-11--s3-shadow-only-task-first-gate)
 for counts, numbers and limitations.
 
-The broader S3 study (about 50 sampled accepted states per checkpoint where
-available) remains outstanding. Do not infer that the gate is ready as a
+The broader v1 study is **paused** following the post-hoc plan-versus-realized
+check. The next experiment is the separately declared
+[seed control and v2 scoring protocol](gate_v2.md), not additional v1 branches.
+Do not infer that the gate is ready as a
 better teacher or that S4/S5 has been run. A single pair can be reproduced
 using the saved, audited bundle:
 
