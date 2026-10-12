@@ -54,6 +54,19 @@ The next [continuation diagnostics](docs/continuation_diagnostics.md) separately
 test planner starting-plan handoff and sensitivity to future random streams;
 they do not enable a live gate or modify the frozen teacher.
 
+- `scripts/diagnostics/walker_nominal_ablation.py`: one archived case at a
+  time, comparing each fixed alternative action with the original versus
+  proposal-matched starting plan. Requires `--controls-dir`, a fresh
+  `--out-dir`, and `--preregistration`.
+- `scripts/diagnostics/walker_future_seed_check.py`: the fixed four-case,
+  eight-stream paired study, retaining the original starting plan throughout.
+  Requires a fresh `--out-dir` and `--preregistration`. Run only after the
+  nominal ablation has completed and its results are recorded.
+
+For these diagnostics, `--preregistration docs/continuation_diagnostics.md`
+archives the declared protocol with the results. Both use `tyro`; invoke with
+`.venv/bin/python -m scripts.diagnostics.<module_name> --help` for paths.
+
 The Walker teacher's **19/20** eight-second completion result is historical evidence under the source and configuration hashes saved with that run. It is not a new qualification of this cleaned checkout. Short smoke runs verify interfaces and seeded behavior; they do not establish controller quality. See [Walker teacher notes](docs/walker_teacher.md) for the task, implementation, historical qualification, and limitations.
 
 Point Mass, Acrobot, HalfCheetah, Humanoid, and Ant Maze are retained for experiments. Their presence, configs, tuning scripts, and passing simulator tests do not establish qualified task performance.

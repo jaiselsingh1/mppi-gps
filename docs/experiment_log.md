@@ -423,6 +423,55 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   `runs/2026-10-12_s3_future_seed_check_001/`. Source/protocol snapshots,
   input/output hashes and branch traces are preserved in these new bundles.
 
+### A result — starting-plan handoff (recorded before B)
+
+- Protocol commit `47ddab6`; implementation commit `aa82e49`. All 24 declared
+  continuations complete under `runs/2026-10-12_s3_nominal_ablation_001/`.
+  Full regression suite before execution: 479 tests pass. No protocol,
+  controller, cost, proposal, horizon or scoring parameter changed.
+- All four raw replays are exact across every saved trace field. All twenty
+  nominal interventions preserve their archived first physical transition
+  and common future RNG prefix. No proposal RNG was handed over.
+- Independent audit before B verified 148 artifact hashes, all input/source
+  copies, all four full raw replays and all twenty action/nominal/RNG pairs;
+  costs, falls and differences were recomputed from NPZ without discrepancy.
+- Same action, matched starting plan minus original starting plan (negative
+  cost difference means the plan handoff helped):
+
+  | Case | Improved / 5 at 48 | Median Δ48 | Improved / 5 at 250 | Median Δ250 |
+  |---|---:|---:|---:|---:|
+  | Success / intermediate / 96 | 3 | −3.308 | 4 | −11.145 |
+  | Success / strong / 10 | 4 | −0.744 | 3 | −2.430 |
+  | Failure / intermediate / 126 | 4 | −5.227 | 2 | +0.501 |
+  | Failure / strong / 0 | 2 | +1.477 | 1 | +10.205 |
+
+- Pooled descriptive counts: 13/20 improve at 48 controls (median −3.0105,
+  range −12.3023 to +13.4072); 10/20 improve at 250 (median −0.3405,
+  range −413.9837 to +172.5844). These twenty comparisons share four states.
+- The matched-plan arms have no falls, preventing the archived fall for
+  failure/strong/0, seed 31001. That arm's Δ250 improves by 413.9837 but
+  remains 27.1518 worse than raw MPPI. Conversely success/strong/10,
+  seed 31004, worsens by 172.5844 without falling within the 250 controls.
+  Survival alone therefore does not explain all large cost differences.
+- Against raw MPPI, matched-plan substitutions still worsen cost in 12/20
+  cases at each horizon (original-plan substitutions: 15/20 and 13/20).
+- Interpretation: planner initialization can materially affect a substituted
+  action's continuation, including whether a fall occurs, but matching the
+  proposal plan is not a consistent remedy here. This does not establish
+  action-plan compatibility as the unique mechanism or justify policy-plan
+  handoff. No gate rescoring or promotion follows.
+- Decision: retain these results; proceed to B with the original starting
+  plan exactly as preregistered, regardless of A's mixed outcome.
+- Report SHA-256 fingerprints, case order as in the table:
+  - `success_intermediate_96/report.json`:
+    `9cb49e2a7d81379f34de25ff4a08edd11c7aada63ea0955f719acfca9ab5cc4e`
+  - `success_strong_10/report.json`:
+    `3cd45fade702c068c2a04fc50f01e518fb2b5be8a1315284cc1d6f6fbbd57d4a`
+  - `failure_intermediate_126/report.json`:
+    `762f0b922e202da2c44f4fb4105d572280e84c291d0110182c5d07b9a3e40a35`
+  - `failure_strong_0/report.json`:
+    `4a7ff489df905503fdca1bb9479b1af0863d69ecbaf07952f87d0084c61a8dd5`
+
 Add one entry per question using the fields below:
 
 ```text
