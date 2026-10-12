@@ -90,6 +90,212 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   (SHA-256 b6a3510f313a68e3610a750345eab424522d4a3d4d7a03167e2ed254f76cec7d); all 18 files verified against the manifest after extraction.
 ```
 
+### S2a: task-matched RL interface and learning plumbing
+
+- Starting commit: `eb32e383b5370b8d710049a11caf4baee04fc28b`, on `main`.
+- Question: does SAC train against the same local physics, observations and task
+  costs, with correct absorbing-failure and time-limit accounting?
+- Protocol fixed before running: [S2 ladder](rl_ladder.md). No MPPI/source/task/XML
+  changes, no gate, no observation normalization or reward-scaling experiment.
+- Reuse: audited archived `scripts/ddpg_mppi_gps/train_walker2d_gym_sac_baseline.py`
+  learning architecture, target and optimizer schedule; no archived policy or Gym
+  environment restored. Gamma intentionally changes from 0.99 to 0.995. Native
+  local Walker costs plus the analytic absorbing tail replace the old Gym reward.
+  Archived source SHA-256:
+  `78033ddf60ea5e35c3867e40c3686e88d3771c1aceb2e177f353034e17ab51a3`.
+- Acceptance: exact seeded local simulator/observation/action/warmstart parity;
+  analytic tail and explicit absorbing return agree; fall penalty once; a fall
+  on the final allowed step remains terminal; timeout uses final pre-reset
+  observation in the actual learner target; deterministic evaluation preserves
+  training RNG; all regression tests pass. A short fresh run must produce finite
+  updates and safely loadable policy checkpoints before full training.
+- Planned smoke artifacts: `runs/2026-10-11_s2_sac_smoke_001/`, seed 0,
+  1,000 controls, 100 warm-up controls, default 256-wide learner/batch, checkpoints
+  every 500, two 1,000-step monitoring episodes per checkpoint. This is a plumbing
+  test; the shortened warm-up is NOT a controller-quality experiment.
+- Status: passed. **180 tests pass** (100 S1/existing + 80 new); frozen Walker
+  source, XML and both task/controller configs retain the S1 hashes. No edits to
+  the frozen MPPI controller or runner. Full source/args/dependency fingerprints
+  are preserved with each run, including exact source copies.
+- Smoke `_001` completed with 745 finite updates and checkpoints at 0/500/1000.
+  `_002` repeated the same computation after adding raw evaluation traces and
+  fuller provenance; episode results match `_001` (timings excluded). Both runs
+  remain preserved. Latest `_002` includes NPZ traces for all monitoring reports.
+- Automatic ladder classification was also exercised on `_002`: all three
+  checkpoints are weak (0/30 completions each). This verifies the path, **not**
+  learning quality; the 1,000-step smoke has shortened exploration warm-up and
+  is not the training ladder. Reports are under `_002/classification/`.
+
+### S2b: first task-matched SAC checkpoint ladder
+
+- Starting commit: same as S2a; additive source hashes identify uncommitted work.
+- Question: what weak/intermediate/strong policies does the fixed learner
+  actually produce? See the predeclared development categories in
+  [the protocol](rl_ladder.md).
+- Artifacts: `runs/2026-10-11_s2_sac_ladder_seed0_001/`.
+- Fixed: 1M controls, 5k random warm-up, gamma .995, archived SAC hyperparameters,
+  seed 0, CPU/one Torch thread; save step 0 and every 25k. Monitoring resets
+  60000–60004; classification resets 50000–50029, disjoint from training resets
+  0–39999. One training seed is developmental only.
+- Status: **training and classification complete; checkpoint review passed**.
+  1,000,000 controls, 995,000 learner updates, 41 saved/evaluated checkpoints;
+  total training + classification wall time 2,268.29 s (37.80 minutes). Command:
+  `.venv/bin/python -m scripts.training.train_walker2d_sac --run-dir runs/2026-10-11_s2_sac_ladder_seed0_001 --classify-at-end`.
+  Final state is in that directory's `status.json`; evaluations and raw traces
+  were saved every 25k. Every checkpoint was evaluated on the 30 classification
+  seeds and indexed in `classification/ladder.json`. No active/
+  shadow gate or student experiment may be inferred from this entry.
+- Early monitoring (five development seeds, **not qualification**): step 0
+  completed 0/5, mean speed MAE 2.1473 m/s; step 25k completed 0/5, MAE
+  2.0087 m/s; step 50k completed 3/5, MAE 1.3220 m/s. Those early policies were
+  not strong walkers. These interim results are retained, superseded by the
+  full classification below. Learning settings remained fixed through 1M.
+- Preview: `preview_025k/walker.mp4` (640x480, 31.25 fps, tracking camera), with
+  report and raw trace for reset 60000; it reproduces the 170-step monitoring
+  failure. First rendering attempt was blocked by sandbox CoreGraphics before
+  producing outputs; rerunning with approved graphics access succeeded. Video
+  timing/encoding and extracted frames were checked. This preview is not a new
+  qualification episode or a change to the learner.
+- Full checkpoint review artifacts: `review_001/review.json` (machine-readable
+  audit), `review_001/review_ladder.py` (reproducer),
+  `review_001/frozen_selection.json` (selected original paths/hashes), and
+  `review_001/learning_curve.png`. All 41 checkpoint hashes, all classification
+  trace hashes, source fingerprints, and 1,230 classification episodes were
+  checked against saved evidence. Completion and speed-error statistics match
+  raw post-action state traces; costs/rewards and state/action offsets agree.
+- Earliest checkpoint in each **predeclared development category**:
+
+  | Category | Training step | Full episodes | Mean vx | Speed MAE | Interpretation |
+  |---|---:|---:|---:|---:|---|
+  | Weak | 0 | 0/30 | -0.635 m/s | 2.135 m/s | Untrained; falls after 23–24 controls (0.184–0.192 s). |
+  | Intermediate | 200,000 | 29/30 | -0.178 m/s | 1.679 m/s | Retreats and settles almost stationary, not intermediate walking quality. |
+  | Strong | 800,000 | 30/30 | 1.465 m/s | 0.19755 m/s | Sustained forward travel near the 1.5 m/s target. |
+  | Final, comparison only | 1,000,000 | 30/30 | 1.314 m/s | 0.23449 m/s | Worse tracking than 800k; does not replace the selected strong policy. |
+
+- Selection is unchanged: weak SHA-256
+  `8b9ff1ec731741cea861d06d87dfde64e99ffd0ff75923869029dcd2b8a72d67`;
+  intermediate `bacb711efa57969c9431dc66349e5d44c7cda8fe2eea39fb307980694869c3a8`;
+  strong `bb62968017dfef46d2aa85545286eeefb0d90587d32bfd888d8ab9de4e077773`.
+- Across the 41 checkpoints: 13 weak, 27 intermediate, one strong. Learning is
+  non-monotonic. The 800k mean speed MAE is only 0.00245 m/s below the 0.20
+  development threshold; it is not a broad robustness or safety result.
+  Intermediate's single failure is reset 50021 at control 166. Its 29 survivors
+  average about 0.00049 m/s after 2 s: surviving without doing the task is a
+  useful separate candidate behavior for the gate test.
+- Review videos: `review_001/{weak,intermediate,strong,final}/walker.mp4`, all
+  fixed reset 50000 with the tracking camera. Rendered replays match the original
+  classification episode **exactly** for states, solver warmstarts, actions,
+  contacts, task costs and adjusted training rewards. These are repeat renders,
+  not extra qualification trials. Sampled frames and video encoding/timing were
+  inspected. The strong policy's raw contact onsets are asymmetric; these
+  geometric events are not sustained force-bearing steps or a natural-gait
+  certificate, and saved traces do not contain force-based support diagnostics.
+- Decision: retain the original 0/200k/800k selection for **S3 shadow-only**
+  development. First verify identical executed MPPI actions/states/planner RNG,
+  pre-action policy inputs, actual-plan scoring and invalid/fall rejection. Do
+  not activate the gate or retune the teacher during that check.
+- Limits: one training seed, deterministic policy, nominal small reset noise,
+  8-second episodes, development-selection data only. No fresh paired MPPI
+  comparison, no demonstrated non-inferiority, and no coupled GPS result yet.
+  No additional training was run during review. Future training belongs on
+  RoboPIL after explicit CUDA support and a separate timing/correctness check;
+  the present source and policy evidence remain CPU results.
+- Before S4: shadow action acceptance cannot set sample count. Use a separate
+  active full-episode development pilot or conservative joint outcome assumptions,
+  and assess probability of passing both fixed NI criteria. The previously
+  proposed shadow-acceptance sizing is superseded; margins remain unchanged.
+
+## 2026-10-11 — S3 shadow-only task-first gate
+
+- Question: can the three frozen S2 policies be scored at actual MPPI states
+  without changing the baseline trajectory, with pre-action alignment and
+  explicit scoring of the actual optimized plan?
+- Starting commit: `eb32e383b5370b8d710049a11caf4baee04fc28b`. Additive working
+  tree changes; no frozen planner, environment, task/config, XML or S2 source
+  changed. No new training, no active gate, no threshold sweep.
+- Protocol declared before the runs: [S3 shadow gate](shadow_gate.md). Fixed
+  tau=0; reject an added predicted fall. Invalid candidates reject; invalid
+  baselines stop. All three policies observe the same raw-MPPI trajectory.
+- Development inputs: existing S1 success reset30/planner20030 (1,000
+  controls) and failure reset31/planner20031 (542 controls). The selected
+  checkpoint hashes remain the 0/200k/800k hashes recorded in S2 above.
+- Primary correctness criterion: all ten baseline trace fields, including
+  planner snapshots, match the continuously replayed reference exactly.
+  Secondary diagnostics: predicted costs/falls, rejection reasons, acceptance
+  counts and action differences. Acceptance is not controller improvement.
+- Outputs: `runs/2026-10-11_s3_shadow_001/{success,failure}/`, with source
+  snapshots, manifests, candidate trajectories, decision records and parity
+  reports. Status: shadow correctness and first four paired continuations
+  complete; the broader S3 counterfactual study is not complete.
+- Shadow results: continuous success (1,000 controls) and failure (542
+  controls) both match all ten S1 baseline fields exactly. Gate accepts on
+  success: weak 0/1,000, intermediate 17/1,000, strong 142/1,000; on failure:
+  weak 0/542, intermediate 2/542, strong 40/542. No invalid-candidate or
+  sequential/open-loop mismatch rejection occurred. Weak's every suggestion
+  was rejected, but intermediate occasionally passes: the rule tests the
+  current predicted trajectory, not the policy's development label.
+- No policy suggestion passes in the preidentified failure window 489–501.
+  This is not evidence that the fall was unavoidable, or that a recurrent
+  gate could not have changed the trajectory earlier.
+- Runtime: success 62.07 s (36.28 s inside MPPI), failure 33.53 s (19.74 s
+  inside MPPI), local CPU. All three policy scorers combined add about 23–24
+  ms per decision; these unoptimized audits are not a real-time controller.
+- The success run's source snapshot precedes an input-archiving addition.
+  Its exact original config/task/selection bytes were subsequently copied
+  into `inputs/`, verified against the already recorded hashes, and the
+  artifact manifest refreshed. Its executed source snapshot is unchanged.
+- Before running continuations, the fixed earliest-acceptance selection rule
+  yielded four pairs, recorded in `branch_selection.json`: success
+  intermediate@96 and strong@10; failure intermediate@126 and strong@0.
+  No weak or failure-window pair qualifies. Each branch gets 250 controls,
+  including its one initial action; both then use raw MPPI.
+- Correctness verification: **278 tests pass** (180 prior, 57 gate, 19 shadow
+  runner, 22 counterfactual). Independent evidence audit checked all 4,626
+  policy decision records, all ten trace fields byte-for-byte, artifact/input/
+  checkpoint/source hashes, 44 independently rescored trajectories, and nine
+  post-call replay restorations. Frozen controller/environment/RL sources,
+  task/config and XML remain unchanged.
+- All four selected 250-control paired continuations completed without a
+  fall. Every raw branch exactly reproduces its recorded MPPI continuation.
+  Positive changes below mean worse after the one policy action:
+
+  | Source / checkpoint / decision | Predicted plan cost change | Actual 2-second task cost change | Speed MAE change |
+  |---|---:|---:|---:|
+  | Success / intermediate / 96 | -7.25595 | +23.78590 | +0.021630 m/s |
+  | Success / strong / 10 | -12.74166 | +2.18861 | -0.006569 m/s |
+  | Failure / intermediate / 126 | -1.61132 | +14.70375 | +0.022070 m/s |
+  | Failure / strong / 0 | -2.45399 | +10.39104 | +0.013134 m/s |
+
+- Reports/traces: `branches/{success_intermediate_96,success_strong_10,
+  failure_intermediate_126,failure_strong_0}/`. Machine-readable aggregate:
+  `branch_summary.json`, including source report hashes and first-48-control
+  executed costs. All four accepted suggestions have worse 2-second task
+  cost; three have worse speed MAE. These four deliberately selected
+  development points are not a representative sample, confidence interval,
+  or formal rejection of the episode-level non-inferiority hypothesis.
+- SHA-256 anchors: success shadow report
+  `36b6293e3c89b02ed0ed1d978bb5d1d4196daeca635c3cc839e5f9a503f94c2b`;
+  failure shadow report
+  `f91678ca856bec3b8150c11a834274ec3571979a1fae7be4c13c07c00a4ee82f`;
+  branch summary
+  `1e531e41203d400fd27a96d6f3da86ecf16527e1df3147a81b7e5c5b183f6803`.
+- Mechanistic warning: the gate compares two proposed full 48-action plans,
+  but the intervention executes one action and then replans with MPPI. Those
+  are different continuations. At success@96, the retained open-loop plan
+  predicts a fall, yet raw receding-horizon MPPI survives and costs only
+  30.53 over the next 48 controls, versus its retained plan's predicted
+  70.44. This illustrates the mismatch; it does not uniquely attribute the
+  regressions to switching, horizon length, or a need for a learned value.
+- The failure-source branches end before the original step-542 fall. No
+  fall-prevention or recovery conclusion follows. Margins, objective,
+  candidate generation and checkpoints have not been changed after seeing
+  these results.
+- Decision: keep the tested instrumentation and fixed gate as research
+  machinery, **not a validated improved teacher**. Next is the plan's broader
+  preselected accepted-state counterfactual study (about 50 per checkpoint
+  where acceptances exist). No recurrent coupling, S4 qualification or
+  distillation is implied; no additional training is needed for this step.
+
 Add one entry per question using the fields below:
 
 ```text
