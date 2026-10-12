@@ -43,7 +43,11 @@ and is not fresh qualification:
 Reports are saved after every completed episode and include the exact task,
 controller settings, source/config hashes, library versions, and completion
 status. Traces retain initial/post-action simulator states, solver warm-starts,
-actions, costs, contacts, and foot forces. `runs/` is ignored by Git.
+actions, costs, contacts, and foot forces. They also retain each decision's
+planner snapshot (nominal U, RNG state, refinement flag) and optimized plan, so
+`src/utils/trace_replay.restore_decision` can replay any decision exactly;
+`scripts/diagnostics/replay_walker.py` checks a trace against a re-run.
+`runs/` is ignored by Git.
 
 ## Objective and implementation
 

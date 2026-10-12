@@ -68,7 +68,8 @@ def _save_report(cfg, task, provenance, results, summary, traces, elapsed, *,
         path.parent.mkdir(parents=True, exist_ok=True)
         arrays = {
             key: np.concatenate([episode[key] for episode in traces])
-            for key in ("states", "warmstarts", "actions", "contacts", "contact_normal_forces", "costs")
+            for key in ("states", "warmstarts", "actions", "contacts", "contact_normal_forces", "costs",
+                        "pre_plan_nominals", "plans", "planner_rng_states", "initial_plan_flags")
         }
         lengths = [len(episode["actions"]) for episode in traces]
         arrays["episode_step_offsets"] = np.cumsum([0, *lengths])
@@ -99,6 +100,11 @@ def _save_report(cfg, task, provenance, results, summary, traces, elapsed, *,
                 "actions": "episode_step_offsets delimit actions, costs and post-action contacts.",
                 "contacts": "Right, left; raw floor-foot contact presence.",
                 "contact_normal_forces": "Right, left; summed nonnegative floor-foot normal force in newtons.",
+                "pre_plan_nominals": "MPPI nominal U entering each decision, aligned with actions.",
+                "plans": "Optimized pre-shift plan of each decision; actions equal plans[:, 0].",
+                "planner_rng_states": "JSON planner bit-generator state entering each decision.",
+                "initial_plan_flags": "Whether each decision used initial_iterations refinement passes.",
+                "replay": "For episode e and step t, restore states[i] and warmstarts[i] with i = episode_state_offsets[e] + t, and the decision snapshot at j = episode_step_offsets[e] + t, to replay action j exactly.",
             },
         }
         path = metrics_output
@@ -200,17 +206,25 @@ def main(
             states = [state.copy()] if traces_output else []
             warmstarts = [env.get_warmstart()] if traces_output else []
             normal_forces, costs, plan_times = [], [], []
+            pre_plan_nominals, plans, planner_rng_states, initial_plan_flags = [], [], [], []
             total_fall_cost = 0.0
             total_cost = 0.0
             done = False
 
             for t in range(steps):
+                if traces_output:
+                    snapshot = controller.snapshot()
+                    pre_plan_nominals.append(snapshot["U"])
+                    planner_rng_states.append(json.dumps(snapshot["rng_state"]))
+                    initial_plan_flags.append(snapshot["initial_plan"])
                 plan_started = time.perf_counter()
                 action, plan_info = controller.plan_step(
                     state,
                     initial_warmstart=env.get_warmstart(),
                 )
                 plan_times.append(time.perf_counter() - plan_started)
+                if traces_output:
+                    plans.append(controller.last_plan)
                 _, cost, done, step_info = env.step(action)
                 state = env.get_state()
                 velocities.append(step_info["x_velocity"])
@@ -277,7 +291,10 @@ def main(
             if traces_output:
                 traces.append({"states": np.asarray(states), "warmstarts": np.asarray(warmstarts),
                                "actions": actions_array, "contacts": np.asarray(contact_samples, dtype=bool),
-                               "contact_normal_forces": np.asarray(normal_forces), "costs": np.asarray(costs)})
+                               "contact_normal_forces": np.asarray(normal_forces), "costs": np.asarray(costs),
+                               "pre_plan_nominals": np.asarray(pre_plan_nominals), "plans": np.asarray(plans),
+                               "planner_rng_states": np.asarray(planner_rng_states, dtype=str),
+                               "initial_plan_flags": np.asarray(initial_plan_flags, dtype=bool)})
             print(
                 f"episode={episode:2d}  reset_seed={reset_seed}  "
                 f"planner_seed={episode_planner_seed}  steps={result['steps']}/{steps}  "

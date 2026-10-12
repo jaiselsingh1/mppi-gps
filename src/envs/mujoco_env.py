@@ -80,6 +80,16 @@ class MuJoCoEnv(BaseEnv):
         """Return MuJoCo's solver warm-start vector for an exact rollout start."""
         return self.data.qacc_warmstart.copy()
 
+    def set_warmstart(self, warmstart: np.ndarray) -> None:
+        """Restore the solver warm-start, which mjSTATE_FULLPHYSICS excludes."""
+        warmstart = np.asarray(warmstart, dtype=float)
+        if warmstart.shape != self.data.qacc_warmstart.shape:
+            raise ValueError(
+                f"warmstart must have shape {self.data.qacc_warmstart.shape}, "
+                f"got {warmstart.shape}."
+            )
+        self.data.qacc_warmstart[:] = warmstart
+
     def set_state(self, state: np.ndarray) -> None:
         mujoco.mj_setState(
             self.model, self.data, state,

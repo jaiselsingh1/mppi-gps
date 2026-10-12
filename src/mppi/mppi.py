@@ -6,6 +6,8 @@ Weights are computed directly from
 with S_k = running_cost + terminal_cost + optional Σ_t u_t^T Σ^{-1} ε_{k,t}
          + (optional) policy-tracking cost from GPS.
 """
+import copy
+
 import numpy as np
 from scipy.linalg import solve_discrete_lyapunov, toeplitz
 from scipy.signal import butter, tf2ss
@@ -51,6 +53,7 @@ class MPPI:
 
         self.reset()
 
+        self._last_plan = None
         self._last_states = None
         self._last_actions = None
         self._last_weights = None
@@ -109,6 +112,7 @@ class MPPI:
 
         # Refinement passes optimize the same horizon; only an executed control
         # decision advances it. The returned action is copied before shifting.
+        self._last_plan = self.U.copy()
         self.U[:-1] = self.U[1:]
         self.U[-1] = self.U[-2].copy()
         self._initial_plan = False
@@ -406,6 +410,36 @@ class MPPI:
         fallback_weights, fallback_n_eff = self._softmin_weights(fallback_score, lam)
         return fallback_weights, fallback_n_eff, fallback_score, True
     
+    @property
+    def last_plan(self) -> np.ndarray | None:
+        """Optimized (H, nu) plan of the latest plan_step, before the shift."""
+        return None if self._last_plan is None else self._last_plan.copy()
+
+    def snapshot(self) -> dict:
+        """Planner state that determines the next plan_step exactly.
+
+        Together with the simulator state and solver warm-start, this replays
+        a decision mid-episode. Taking a snapshot draws no random numbers.
+        """
+        if self._rng is None:
+            raise RuntimeError("snapshot requires a seeded planner RNG.")
+        return {
+            "U": self.U.copy(),
+            "rng_state": copy.deepcopy(self._rng.bit_generator.state),
+            "initial_plan": self._initial_plan,
+        }
+
+    def restore(self, snapshot: dict) -> None:
+        """Restore a snapshot taken by snapshot()."""
+        U = np.asarray(snapshot["U"], dtype=float)
+        if U.shape != (self.H, self.nu) or not np.all(np.isfinite(U)):
+            raise ValueError("snapshot U must be a finite (H, action_dim) sequence.")
+        if self._rng is None:
+            self._rng = np.random.default_rng()
+        self._rng.bit_generator.state = copy.deepcopy(snapshot["rng_state"])
+        self.U = U.copy()
+        self._initial_plan = bool(snapshot["initial_plan"])
+
     def get_rollout_data(self) -> dict:
         return {
             'states': self._last_states,
