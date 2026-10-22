@@ -109,7 +109,7 @@ def _collect(job: dict) -> dict:
     low, high = env.action_bounds
     np.random.seed(job["reset_seed"])
     obs = env.reset()
-    observations, labels, diagnostics, velocities = [], [], [], []
+    observations, labels, diagnostics, velocities, costs, probes = [], [], [], [], [], []
     for t in range(cfg.steps):
         state, warmstart = env.get_state(), env.get_warmstart()
         expert_action = None
@@ -128,6 +128,8 @@ def _collect(job: dict) -> dict:
                     labels.append(result.label)
                     diagnostics.append([result.n_eff / cfg.K, result.lam, result.nominal_cost,
                                         result.plan_cost, result.sample_improvement])
+                    if rng.random() < job["probe_probability"]:
+                        probes.append((state, warmstart, result.nominal_cost, result.plan_cost))
                 observations.append(obs.copy())
         else:
             expert_action, info = planner.plan_step(state, initial_warmstart=warmstart)
@@ -138,8 +140,9 @@ def _collect(job: dict) -> dict:
             action = expert_action
         else:
             action = np.clip(act(obs) + cfg.exec_noise * rng.standard_normal(env.action_dim), low, high)
-        obs, _, done, step_info = env.step(action)
+        obs, cost, done, step_info = env.step(action)
         velocities.append(step_info["x_velocity"])
+        costs.append(cost)
         if done:
             break
     return {
@@ -147,24 +150,30 @@ def _collect(job: dict) -> dict:
         "diagnostics": np.asarray(diagnostics), "steps": len(velocities),
         "survived": len(velocities) == cfg.steps and not done,
         "velocity_mae": float(np.mean(np.abs(env._v_target - np.asarray(velocities)))),
+        "cost_per_step": float(np.mean(costs)), "probes": probes,
     }
 
 
-def _actual_improvement(actor_old: SacActor, actor_new: SacActor, states: list, cfg: TrainConfig) -> dict:
-    """S(old policy plan) - S(new policy plan) at held-back visited states."""
+def _improvement_check(actor_new: SacActor, probes: list, cfg: TrainConfig) -> dict:
+    """MDGPS step signal at probe states visited this iteration.
+
+    predicted = S(old policy plan) - S(improved MPPI plan); actual = S(old
+    policy plan) - S(new policy plan), same state and warm start.
+    """
     from src.gps.mdgps import closed_loop_nominal
 
     env = _walker()
-    old_act, new_act = _batch_act(actor_old), _batch_act(actor_new)
-    gains = []
-    for state, warmstart in states:
-        costs = []
-        for act in (old_act, new_act):
-            plan, _ = closed_loop_nominal(env, state, lambda s: act(env.rollout_states_to_obs(s)), cfg.H, warmstart)
-            costs.append(env.batch_rollout(state, plan[None], initial_warmstart=warmstart)[1][0])
-        gains.append(costs[0] - costs[1])
-    return {"actual_improvement_mean": float(np.mean(gains)),
-            "actual_improvement_positive_fraction": float(np.mean(np.asarray(gains) > 0))}
+    act = _batch_act(actor_new)
+    predicted, actual = [], []
+    for state, warmstart, old_cost, plan_cost in probes:
+        plan, _ = closed_loop_nominal(env, state, lambda s: act(env.rollout_states_to_obs(s)), cfg.H, warmstart)
+        new_cost = env.batch_rollout(state, plan[None], initial_warmstart=warmstart)[1][0]
+        predicted.append(old_cost - plan_cost)
+        actual.append(old_cost - new_cost)
+    predicted, actual = np.asarray(predicted), np.asarray(actual)
+    return {"probes": int(len(probes)), "predicted_improvement": float(np.mean(predicted)),
+            "actual_improvement": float(np.mean(actual)),
+            "actual_positive_fraction": float(np.mean(actual > 0))}
 
 
 def _evaluate(actor: SacActor, episodes: int, seed: int) -> dict:
@@ -212,14 +221,14 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             base_seed = 100_000 + 10_000 * cfg.seed + cfg.episodes_per_iter * iteration
             jobs = [{"cfg": cfg, "actor": {k: v.cpu() for k, v in actor.state_dict().items()},
                      "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,
-                     "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert}
+                     "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert,
+                     "probe_probability": 0.02}
                     for e in range(cfg.episodes_per_iter)]
             episodes = pool.map(_collect, jobs)
             obs = np.concatenate([ep["obs"] for ep in episodes])
             labels = np.concatenate([ep["labels"] for ep in episodes])
             diagnostics = np.concatenate([ep["diagnostics"] for ep in episodes])
             replay = (replay + [(obs, labels)])[-cfg.replay_iterations:]
-            actor_old = copy.deepcopy(actor)
             loss = _fit(actor, np.concatenate([o for o, _ in replay]),
                         np.concatenate([l for _, l in replay]), cfg, rng)
             record = {
@@ -227,6 +236,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 "collect_mean_steps": float(np.mean([ep["steps"] for ep in episodes])),
                 "collect_completed": int(sum(ep["survived"] for ep in episodes)),
                 "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in episodes])),
+                "collect_cost_per_step": float(np.mean([ep["cost_per_step"] for ep in episodes])),
                 "labels": int(len(labels)), "fit_loss": loss,
                 "median_neff_fraction": float(np.nanmedian(diagnostics[:, 0])),
                 "median_lam": float(np.nanmedian(diagnostics[:, 1])),
@@ -234,6 +244,9 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             if cfg.labeler == "mdgps" and not cfg.tail_steps:
                 record["predicted_improvement_mean"] = float(np.nanmean(diagnostics[:, 2] - diagnostics[:, 3]))
                 record["sample_improvement_min"] = float(np.nanmin(diagnostics[:, 4]))
+                probes = [probe for ep in episodes for probe in ep["probes"]]
+                if probes:
+                    record["improvement_check"] = _improvement_check(actor, probes, cfg)
             if (iteration + 1) % cfg.eval_every == 0 or iteration == cfg.iterations - 1:
                 record["eval_dev"] = _evaluate(actor, cfg.eval_episodes, 81_000)
             record["seconds"] = time.time() - t0
@@ -241,12 +254,14 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             with (out_dir / "metrics.jsonl").open("a") as stream:
                 stream.write(json.dumps(record) + "\n")
             dev = record.get("eval_dev", {})
+            check = record.get("improvement_check", {})
             print(f"it {iteration:2d} steps {record['collect_mean_steps']:7.1f} "
                   f"done {record['collect_completed']:2d}/{cfg.episodes_per_iter} labels {record['labels']:6d} "
                   f"loss {loss:.4f} neff/K {record['median_neff_fraction']:.3f} "
+                  f"pred/act {check.get('predicted_improvement', float('nan')):.2f}/"
+                  f"{check.get('actual_improvement', float('nan')):.2f} "
                   f"dev_surv {dev.get('survival_rate', float('nan')):.2f} "
                   f"dev_mae {dev.get('velocity_mae', float('nan')):.3f} {record['seconds']:.0f}s", flush=True)
-            del actor_old
     (out_dir / "status.json").write_text(json.dumps({"complete": True, "wall_time_s": time.time() - started}))
 
 
