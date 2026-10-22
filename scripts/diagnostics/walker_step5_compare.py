@@ -1,0 +1,112 @@
+"""Step 5 comparison: policy-alone completion and speed MAE on held-out resets.
+
+Every arm is scored on the same held-out reset seeds (70000+). Policies run
+alone through scripts/runners/eval_policy_walker2d.evaluate_policy (no planner
+at test time); raw MPPI runs at the Step 4 cell through walker_headroom's
+episode function. Completion gets Wilson intervals and paired Newcombe
+differences against each reference; speed MAE gets paired bootstrap intervals.
+"""
+import json
+import os
+import time
+from multiprocessing import Pool
+from pathlib import Path
+
+import numpy as np
+import tyro
+
+from src.utils.stats import paired_bootstrap_mean_difference, paired_proportion_difference, wilson_interval
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _evaluate_checkpoint(job: dict) -> dict:
+    import torch
+
+    from scripts.runners.eval_policy_walker2d import evaluate_policy
+    from src.rl.sac import load_policy
+
+    torch.set_num_threads(1)
+    payload = torch.load(job["path"], map_location="cpu", weights_only=False)
+    policy = load_policy(payload.get("policy", payload), device="cpu")
+    episodes = evaluate_policy(policy, episodes=job["episodes"], seed=job["seed"])["episodes"]
+    return {"arm": job["arm"], "source": str(job["path"]),
+            "survived": [bool(e["survived"]) for e in episodes],
+            "velocity_mae": [float(e["velocity_mae"]) for e in episodes]}
+
+
+def _mppi_episode(job: dict) -> dict:
+    from scripts.diagnostics.walker_headroom import _episode
+
+    return _episode(job)
+
+
+def _arm_summary(survived: np.ndarray, mae: np.ndarray) -> dict:
+    low, high = wilson_interval(int(survived.sum()), len(survived))
+    return {"episodes": int(len(survived)), "completed": int(survived.sum()),
+            "completion_rate": float(survived.mean()), "completion_wilson95": [low, high],
+            "velocity_mae": float(mae.mean())}
+
+
+def main(
+    out_dir: Path,
+    checkpoints: tuple[str, ...],
+    mppi_K: int,
+    mppi_H: int,
+    episodes: int = 50,
+    reset_seed: int = 70_000,
+    planner_seed: int = 95_000,
+    workers: int = max(1, (os.cpu_count() or 2) - 4),
+) -> None:
+    """checkpoints: "arm=path" entries; repeat an arm name for its training seeds."""
+    out_dir.mkdir(parents=True, exist_ok=False)
+    started = time.time()
+    policy_jobs = []
+    for entry in checkpoints:
+        arm, path = entry.split("=", 1)
+        policy_jobs.append({"arm": arm, "path": Path(path), "episodes": episodes, "seed": reset_seed})
+    mppi_jobs = [{"K": mppi_K, "H": mppi_H, "neff_fraction": None, "tail_policy": None, "tail_steps": 0,
+                  "steps": 1000, "reset_seed": reset_seed + e, "planner_seed": planner_seed + e}
+                 for e in range(episodes)]
+    with Pool(workers) as pool:
+        mppi_rows = pool.map(_mppi_episode, mppi_jobs)
+        policy_rows = pool.map(_evaluate_checkpoint, policy_jobs)
+    mppi_rows.sort(key=lambda r: r["reset_seed"])
+    reference = {"raw_mppi": (np.array([r["survived"] for r in mppi_rows]),
+                              np.array([r["velocity_mae"] for r in mppi_rows]))}
+    for row in policy_rows:
+        if row["arm"] == "sac_800k":
+            reference["sac_800k"] = (np.array(row["survived"]), np.array(row["velocity_mae"]))
+    arms = {}
+    for row in policy_rows:
+        arms.setdefault(row["arm"], []).append(row)
+    report = {"held_out_reset_seeds": [reset_seed, reset_seed + episodes - 1],
+              "raw_mppi_cell": {"K": mppi_K, "H": mppi_H},
+              "raw_mppi": _arm_summary(*reference["raw_mppi"]), "arms": {}}
+    for arm, rows in arms.items():
+        survived = np.array([s for r in rows for s in r["survived"]])
+        mae = np.array([m for r in rows for m in r["velocity_mae"]])
+        entry = {"pooled": _arm_summary(survived, mae), "per_seed": [], "paired": {}}
+        for r in rows:
+            entry["per_seed"].append({"source": r["source"],
+                                      **_arm_summary(np.array(r["survived"]), np.array(r["velocity_mae"]))})
+            for name, (ref_survived, ref_mae) in reference.items():
+                if name == arm:
+                    continue
+                entry["paired"].setdefault(name, []).append({
+                    "source": r["source"],
+                    "completion_difference": paired_proportion_difference(
+                        np.array(r["survived"]).astype(int), ref_survived.astype(int)),
+                    "velocity_mae_difference": paired_bootstrap_mean_difference(
+                        np.array(r["velocity_mae"]), ref_mae),
+                })
+        report["arms"][arm] = entry
+    report["wall_time_s"] = time.time() - started
+    (out_dir / "report.json").write_text(json.dumps(report, indent=2))
+    (out_dir / "episodes.json").write_text(json.dumps({"raw_mppi": mppi_rows, "policies": policy_rows}))
+    print(json.dumps({"raw_mppi": report["raw_mppi"],
+                      **{arm: v["pooled"] for arm, v in report["arms"].items()}}, indent=2))
+
+
+if __name__ == "__main__":
+    tyro.cli(main)

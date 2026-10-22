@@ -1,0 +1,254 @@
+"""Step 5: train a Walker policy from scratch with MPPI-GPS (B) or DAgger.
+
+labeler="mdgps" (method B, docs/objective.md): at states visited by the
+current policy, one policy-centred MPPI step with an n_eff-targeted
+temperature gives the label; the policy regresses onto labels. Optional
+--tail-steps adds the current policy's simulated cost-to-go as MPPI's terminal
+cost.
+
+labeler="dagger": a raw MPPI expert (frozen temperature, its own warm start)
+plans alongside every episode and labels every visited state; iteration 0
+executes the expert (beta = 1), later iterations execute the policy.
+
+Policies are SacActor means trained by MSE on the squashed action, saved in
+the load_policy format so scripts/runners/eval_policy_walker2d.py evaluates
+them unchanged.
+"""
+import copy
+import json
+import os
+import time
+from dataclasses import asdict, dataclass, replace
+from multiprocessing import Pool
+from pathlib import Path
+
+import numpy as np
+import torch
+import tyro
+
+from src.envs.walker2d import Walker2d
+from src.rl.sac import SacActor
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_OBS_DIM = 17
+
+
+@dataclass
+class TrainConfig:
+    labeler: str = "mdgps"
+    K: int = 256
+    H: int = 48
+    neff_fraction: float = 0.2
+    tail_steps: int = 0
+    iterations: int = 30
+    episodes_per_iter: int = 20
+    steps: int = 1000
+    label_every: int = 2
+    exec_noise: float = 0.1
+    replay_iterations: int = 2
+    grad_steps: int = 2000
+    batch_size: int = 256
+    lr: float = 3e-4
+    eval_every: int = 5
+    eval_episodes: int = 10
+    seed: int = 0
+    workers: int = max(1, (os.cpu_count() or 2) - 4)
+
+
+def _walker() -> Walker2d:
+    task = json.loads((_REPO_ROOT / "configs/walker2d_task.json").read_text())
+    return Walker2d(**task, nthread=1)
+
+
+def _new_actor(seed: int) -> SacActor:
+    env = _walker()
+    low, high = env.action_bounds
+    torch.manual_seed(seed)
+    return SacActor(_OBS_DIM, low, high)
+
+
+def policy_state(actor: SacActor) -> dict:
+    return copy.deepcopy({
+        "format_version": 1, "actor": actor.state_dict(), "obs_dim": actor.obs_dim,
+        "hidden_dim": actor.hidden_dim, "observation_transform": "identity",
+        "action_low": actor.action_low.cpu().tolist(),
+        "action_high": actor.action_high.cpu().tolist(),
+    })
+
+
+def _batch_act(actor: SacActor):
+    @torch.no_grad()
+    def act(obs: np.ndarray) -> np.ndarray:
+        mean, _ = actor(torch.as_tensor(np.atleast_2d(obs), dtype=torch.float32))
+        out = (torch.tanh(mean) * actor.action_scale + actor.action_bias).numpy().astype(float)
+        return out if np.ndim(obs) > 1 else out[0]
+    return act
+
+
+def _collect(job: dict) -> dict:
+    from src.gps.mdgps import closed_loop_nominal, e_step
+    from src.gps.policy_tail import WalkerPolicyTail
+    from src.mppi.mppi import MPPI
+    from src.utils.config import MPPIConfig
+
+    torch.set_num_threads(1)
+    cfg: TrainConfig = job["cfg"]
+    env = _walker()
+    actor = _new_actor(0)
+    actor.load_state_dict(job["actor"])
+    act = _batch_act(actor)
+    base = MPPIConfig(**json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text()))
+    if cfg.labeler == "mdgps":
+        planner_cfg = replace(base, K=cfg.K, H=cfg.H, initial_iterations=1,
+                              lam_target_neff_fraction=cfg.neff_fraction)
+    else:
+        planner_cfg = replace(base, K=cfg.K, H=cfg.H)
+    planner = MPPI(env, planner_cfg, seed=job["planner_seed"])
+    tail = WalkerPolicyTail(env, act, cfg.tail_steps) if cfg.tail_steps else None
+    rng = np.random.default_rng(job["noise_seed"])
+    low, high = env.action_bounds
+    np.random.seed(job["reset_seed"])
+    obs = env.reset()
+    observations, labels, diagnostics, velocities = [], [], [], []
+    for t in range(cfg.steps):
+        state, warmstart = env.get_state(), env.get_warmstart()
+        expert_action = None
+        if cfg.labeler == "mdgps":
+            if t % cfg.label_every == 0:
+                full_act = lambda s: act(env.rollout_states_to_obs(s))
+                nominal, _ = closed_loop_nominal(env, state, full_act, cfg.H, warmstart)
+                if tail is not None:
+                    planner_kwargs = {"prior_cost": tail}
+                    action, info = planner.plan_step(state, nominal=nominal, initial_warmstart=warmstart,
+                                                     **planner_kwargs)
+                    diagnostics.append([info["n_eff"] / cfg.K, info["lam"], np.nan, np.nan, np.nan])
+                    labels.append(action)
+                else:
+                    result = e_step(planner, env, state, nominal, warmstart)
+                    labels.append(result.label)
+                    diagnostics.append([result.n_eff / cfg.K, result.lam, result.nominal_cost,
+                                        result.plan_cost, result.sample_improvement])
+                observations.append(obs.copy())
+        else:
+            expert_action, info = planner.plan_step(state, initial_warmstart=warmstart)
+            labels.append(expert_action)
+            observations.append(obs.copy())
+            diagnostics.append([info["n_eff"] / cfg.K, info["lam"], np.nan, np.nan, np.nan])
+        if job["execute_expert"]:
+            action = expert_action
+        else:
+            action = np.clip(act(obs) + cfg.exec_noise * rng.standard_normal(env.action_dim), low, high)
+        obs, _, done, step_info = env.step(action)
+        velocities.append(step_info["x_velocity"])
+        if done:
+            break
+    return {
+        "obs": np.asarray(observations), "labels": np.asarray(labels),
+        "diagnostics": np.asarray(diagnostics), "steps": len(velocities),
+        "survived": len(velocities) == cfg.steps and not done,
+        "velocity_mae": float(np.mean(np.abs(env._v_target - np.asarray(velocities)))),
+    }
+
+
+def _actual_improvement(actor_old: SacActor, actor_new: SacActor, states: list, cfg: TrainConfig) -> dict:
+    """S(old policy plan) - S(new policy plan) at held-back visited states."""
+    from src.gps.mdgps import closed_loop_nominal
+
+    env = _walker()
+    old_act, new_act = _batch_act(actor_old), _batch_act(actor_new)
+    gains = []
+    for state, warmstart in states:
+        costs = []
+        for act in (old_act, new_act):
+            plan, _ = closed_loop_nominal(env, state, lambda s: act(env.rollout_states_to_obs(s)), cfg.H, warmstart)
+            costs.append(env.batch_rollout(state, plan[None], initial_warmstart=warmstart)[1][0])
+        gains.append(costs[0] - costs[1])
+    return {"actual_improvement_mean": float(np.mean(gains)),
+            "actual_improvement_positive_fraction": float(np.mean(np.asarray(gains) > 0))}
+
+
+def _evaluate(actor: SacActor, episodes: int, seed: int) -> dict:
+    from scripts.runners.eval_policy_walker2d import evaluate_policy
+
+    policy = _new_actor(0)
+    policy.load_state_dict(actor.state_dict())
+    return evaluate_policy(policy.eval(), episodes=episodes, seed=seed)["summary"]
+
+
+def _fit(actor: SacActor, obs: np.ndarray, labels: np.ndarray, cfg: TrainConfig, rng: np.random.Generator) -> float:
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = actor.to(device).train()
+    params = [p for name, p in model.named_parameters() if not name.startswith("fc_logstd")]
+    optimizer = torch.optim.Adam(params, lr=cfg.lr)
+    x = torch.as_tensor(obs, dtype=torch.float32, device=device)
+    y = torch.as_tensor(labels, dtype=torch.float32, device=device)
+    losses = []
+    for _ in range(cfg.grad_steps):
+        index = torch.as_tensor(rng.integers(0, len(x), size=min(cfg.batch_size, len(x))), device=device)
+        mean, _ = model(x[index])
+        prediction = torch.tanh(mean) * model.action_scale + model.action_bias
+        loss = torch.mean((prediction - y[index]) ** 2)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        losses.append(loss.item())
+    actor.to("cpu").eval()
+    return float(np.mean(losses[-100:]))
+
+
+def main(out_dir: Path, cfg: TrainConfig) -> None:
+    if cfg.labeler not in {"mdgps", "dagger"}:
+        raise ValueError("labeler must be 'mdgps' or 'dagger'.")
+    out_dir.mkdir(parents=True, exist_ok=False)
+    (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
+    rng = np.random.default_rng(cfg.seed)
+    actor = _new_actor(cfg.seed)
+    replay: list[tuple[np.ndarray, np.ndarray]] = []
+    started = time.time()
+    with Pool(cfg.workers) as pool:
+        for iteration in range(cfg.iterations):
+            t0 = time.time()
+            execute_expert = cfg.labeler == "dagger" and iteration == 0
+            base_seed = 100_000 + 10_000 * cfg.seed + cfg.episodes_per_iter * iteration
+            jobs = [{"cfg": cfg, "actor": {k: v.cpu() for k, v in actor.state_dict().items()},
+                     "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,
+                     "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert}
+                    for e in range(cfg.episodes_per_iter)]
+            episodes = pool.map(_collect, jobs)
+            obs = np.concatenate([ep["obs"] for ep in episodes])
+            labels = np.concatenate([ep["labels"] for ep in episodes])
+            diagnostics = np.concatenate([ep["diagnostics"] for ep in episodes])
+            replay = (replay + [(obs, labels)])[-cfg.replay_iterations:]
+            actor_old = copy.deepcopy(actor)
+            loss = _fit(actor, np.concatenate([o for o, _ in replay]),
+                        np.concatenate([l for _, l in replay]), cfg, rng)
+            record = {
+                "iteration": iteration, "execute_expert": execute_expert,
+                "collect_mean_steps": float(np.mean([ep["steps"] for ep in episodes])),
+                "collect_completed": int(sum(ep["survived"] for ep in episodes)),
+                "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in episodes])),
+                "labels": int(len(labels)), "fit_loss": loss,
+                "median_neff_fraction": float(np.nanmedian(diagnostics[:, 0])),
+                "median_lam": float(np.nanmedian(diagnostics[:, 1])),
+            }
+            if cfg.labeler == "mdgps" and not cfg.tail_steps:
+                record["predicted_improvement_mean"] = float(np.nanmean(diagnostics[:, 2] - diagnostics[:, 3]))
+                record["sample_improvement_min"] = float(np.nanmin(diagnostics[:, 4]))
+            if (iteration + 1) % cfg.eval_every == 0 or iteration == cfg.iterations - 1:
+                record["eval_dev"] = _evaluate(actor, cfg.eval_episodes, 81_000)
+            record["seconds"] = time.time() - t0
+            torch.save(policy_state(actor), out_dir / f"policy_{iteration:03d}.pt")
+            with (out_dir / "metrics.jsonl").open("a") as stream:
+                stream.write(json.dumps(record) + "\n")
+            dev = record.get("eval_dev", {})
+            print(f"it {iteration:2d} steps {record['collect_mean_steps']:7.1f} "
+                  f"done {record['collect_completed']:2d}/{cfg.episodes_per_iter} labels {record['labels']:6d} "
+                  f"loss {loss:.4f} neff/K {record['median_neff_fraction']:.3f} "
+                  f"dev_surv {dev.get('survival_rate', float('nan')):.2f} "
+                  f"dev_mae {dev.get('velocity_mae', float('nan')):.3f} {record['seconds']:.0f}s", flush=True)
+            del actor_old
+    (out_dir / "status.json").write_text(json.dumps({"complete": True, "wall_time_s": time.time() - started}))
+
+
+if __name__ == "__main__":
+    tyro.cli(main)
