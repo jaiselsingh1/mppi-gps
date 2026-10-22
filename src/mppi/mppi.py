@@ -14,7 +14,7 @@ from scipy.signal import butter, tf2ss
 
 from src.envs.base import BaseEnv
 from src.utils.config import MPPIConfig
-from src.utils.math import effective_sample_size
+from src.utils.math import effective_sample_size, temperature_for_neff_fraction
 
 class MPPI:
     
@@ -31,6 +31,9 @@ class MPPI:
         self.noise_lowpass_active = self.noise_lowpass_cutoff_hz is not None
         self.use_is_correction = cfg.use_is_correction
         self.initial_iterations = cfg.initial_iterations
+        self.lam_target_neff_fraction = cfg.lam_target_neff_fraction
+        if self.lam_target_neff_fraction is not None and not 0.0 < self.lam_target_neff_fraction < 1.0:
+            raise ValueError("lam_target_neff_fraction must lie strictly between 0 and 1.")
         if not np.isfinite(self.lam) or self.lam <= 0.0:
             raise ValueError(f"MPPI temperature lam must be positive, got {self.lam}.")
         if not isinstance(self.H, int) or self.H < 2:
@@ -158,6 +161,10 @@ class MPPI:
             S_base,
             lam,
         )
+        # Optional trust region: λ is the C-step multiplier, solved so the step
+        # has a fixed n_eff (docs/objective.md, fact 3) instead of fixed λ.
+        if self.lam_target_neff_fraction is not None:
+            lam = temperature_for_neff_fraction(S, self.lam_target_neff_fraction)
 
         # paper weights: ρ = min_k S_k, w_k = exp(-(S_k - ρ)/λ) / η
         weights, n_eff = self._softmin_weights(S, lam)

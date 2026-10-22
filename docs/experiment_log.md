@@ -584,6 +584,80 @@ done
   --preregistration docs/continuation_diagnostics.md
 ```
 
+## 2026-10-21 — MPPI-GPS as mirror descent (B): objective, audit, LQR oracle
+
+Plan: the rewritten 2026-10-21 prompt (one method, one closed-form check, one
+task, one comparison). Starting commit `806719a`. New behavior is off by
+default: `MPPIConfig.lam_target_neff_fraction=None` leaves the frozen teacher
+byte-identical (all 479 prior tests pass unchanged; also on a clean clone on
+robopil, RTX 5080 host, `uv sync --locked`).
+
+### Step 1 — objective before code
+
+- [objective.md](objective.md) writes (A) what the code optimizes, (B) MPPI-GPS
+  as mirror descent and (C) a CIO policy in one notation, from the primary
+  sources' equations (Williams 2018 §III, MDGPS §§2–4, PI²-GPS §§III–IV,
+  CIO 2012 §4, Mordatch & Todorov 2014, Mordatch et al. 2015, Amos §2.2).
+- Verdict on (A): confirmed. `main` trains no policy in the loop. The June
+  loop is regression-based imitation of a full-strength MPPI (DAgger/PLATO
+  family). The only policy-centred attempt (`5a667e5`) had no trust region
+  (λ = 0.014) and was judged as a controller.
+- The three facts (improvement inequality, MPPI = −(Σ/λ)∇F_λ by Stein's lemma,
+  plug-in KL ≤ log(K/n_eff) with the REPS dual derivative ε − KL) were checked
+  numerically: Stein step = closed-form q* mean to 3e-16; dual derivative
+  matches to 1e-6.
+- (B) is PI²-GPS with global-policy sampling plus a receding horizon; the
+  narrow claim to test is the receding-horizon E-step (with or without a
+  policy tail).
+
+### Step 2 — audit of what blocks (B)
+
+Tests: [test_audit_b.py](../tests/test_audit_b.py) (5 pass, 2 strict xfails
+documenting defects). Numbers: `runs/2026-10-21_audit_b_001/report.json`,
+from `scripts/diagnostics/audit_b_measurements.py`.
+
+| Item | Finding | Evidence |
+|---|---|---|
+| `plan_step(nominal=)` | Discards MPPI's own warm start. Correct for (B), whose prior is the policy rollout; it is why the April run could not also keep MPPI's plan. | passing test |
+| Fixed λ | Median n_eff under frozen configs: Walker 7.7/256 (KL step ≤ 3.5 nats), Acrobot **1.00**/512 (pure argmin, ≤ 6.2 nats), point mass 2.4/256. | measured, 150/50/50 decisions |
+| Label noise | Walker first-action std across 16 planner seeds at 5 fixed states: frozen λ 0.091; n_eff/K = 0.05: 0.072; n_eff/K = 0.2: **0.037** (λ ≈ 11). | measured |
+| Raw-angle observations | Acrobot obs not 2π-periodic. Walker unaffected (angles bounded by the healthy range). | strict xfail |
+| No cost-to-go | Walker charges nothing for a healthy end state; plans see 0.384 s. | passing test; S3's −7.3 vs +23.8 |
+| Unpaired seeds | Runners other than `run_walker2d` build MPPI without a seed, so planner noise shares numpy's global RNG with resets. New scripts seed every planner. | strict xfail |
+| Warp path | No test exercises `use_warp=True`; not used here. | grep |
+
+Fix kept (off by default): `lam_target_neff_fraction` bisects λ per
+iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
+
+### Step 3 — closed-form oracle (LQR point mass)
+
+- Question: does (B) with a linear policy converge to the LQR gain?
+- Setup: `src/envs/lqr_point_mass.py` (joint limits removed; exact
+  linear step, tested to 1e-10; terminal weight P − Q makes −Kx the H-step
+  optimum for every H, tested in the simulator's own scoring). Policy
+  u = −Gx from G = 0; per iteration 6 episodes × 25 on-policy states, one
+  policy-centred E-step per state (H=16, σ=0.3), least-squares M-step; 30
+  iterations; seeds 0, 1. Run: `runs/2026-10-21_lqr_oracle_001/`
+  (`scripts/diagnostics/lqr_oracle.py`, 240 s local CPU).
+- Result (relative gain error ‖G−K‖/‖K‖, mean over 2 seeds; floor = median of
+  iterations 20–30):
+
+  | K | n_eff/K | error at it 10 | floor | first iter < 0.10 |
+  |---:|---:|---:|---:|---|
+  | 64 | 0.05 / 0.2 / 0.5 | 0.17 / 0.13 / 0.15 | 0.17 / 0.10 / 0.08 | 9–16 |
+  | 256 | 0.05 / 0.2 / 0.5 | 0.08 / 0.03 / 0.10 | 0.07 / **0.046** / 0.040 | 5–11 |
+  | 1024 | 0.05 / 0.2 / 0.5 | 0.04 / 0.03 / 0.10 | 0.05 / 0.032 / **0.019** | 5–11 |
+  | 256, frozen λ=0.01 (n_eff/K 0.004) | — | 0.34 | **0.23 ± 0.04** | 22 / never |
+  | 256, 0.2, started at K | — | 0.04 | 0.046 | 0 |
+
+- Fact 1 held in every E-step (minimum sample improvement 0.40 > 0).
+  Started at the optimum, (B) stays at the same 4.6% floor, so the floor is
+  label noise, not bias; it shrinks with K and with n_eff/K. Larger n_eff/K
+  converges more slowly to a lower floor: the trust-region trade-off. The
+  mean plan beats the policy plan early on and stops doing so once
+  converged, which is the signal MDGPS's step rule uses to shrink the step.
+- Decision: **keep**. The closed-form check passes; proceed to Walker.
+
 Add one entry per question using the fields below:
 
 ```text

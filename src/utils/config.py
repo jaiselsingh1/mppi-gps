@@ -23,6 +23,9 @@ class MPPIConfig:
     noise_lowpass_order: int = 2
     # Total optimization passes on the first plan_step after each reset.
     initial_iterations: int = 1
+    # Optional per-iteration temperature: when set, lam is replaced by the
+    # temperature whose weights have n_eff = fraction * K (a KL step bound).
+    lam_target_neff_fraction: float | None = None
 
     @staticmethod
     def load(env_name: str) -> "MPPIConfig":
