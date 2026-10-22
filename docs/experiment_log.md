@@ -658,6 +658,36 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   converged, which is the signal MDGPS's step rule uses to shrink the step.
 - Decision: **keep**. The closed-form check passes; proceed to Walker.
 
+### Step 4 — Walker headroom (predictions written before running)
+
+- Question: where does raw MPPI on Walker leave room for a policy (20–60%
+  eight-second completion), and does a policy's simulated cost-to-go as
+  MPPI's terminal cost use that room?
+- Code: `scripts/diagnostics/walker_headroom.py`, `src/gps/policy_tail.py`.
+  Frozen Walker task and planner config except K and H. Development resets
+  80000+, planner seeds 90000+ (disjoint from SAC's 0–39999/50000+/60000+ and
+  from the held-out set 70000–70049 reserved for Step 5). 10 episodes per
+  cell, 1,000 controls. Runs on robopil (24 cores, one MuJoCo thread per
+  worker).
+- Grid: H ∈ {8, 12, 16, 24, 32, 48} × K ∈ {32, 64, 128, 256}, frozen λ = 3.
+- Selection rule (fixed now): the cell with completion closest to 40% within
+  [20%, 60%]; ties go to the smaller K·H. If no cell is in the band, take the
+  nearest.
+- Tail test at that cell: four arms, all with the same n_eff-targeted
+  temperature (the raw cell's median n_eff/K, so that only the tail's
+  information differs): no tail; tail from SAC weak (0k), intermediate (200k)
+  and strong (800k); 100 tail controls (0.8 s); 10 episodes each.
+- Predictions:
+  1. Completion rises with H and with K. Cells with H ≥ 32 and K ≥ 128
+     complete ≥ 80%; at K = 256, H ≤ 12 completes < 40%.
+  2. Strong tail: completion ≥ no-tail + 30 points and ≥ 80% (rollout's cost
+     improvement over a policy that completes 30/30 alone).
+  3. Intermediate tail: completion ≥ no-tail + 20 points; speed MAE not
+     better than no-tail (it survives by standing still).
+  4. Weak tail: within ±20 points of no-tail (it falls from every state, so
+     its tail adds a near-constant cost).
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
