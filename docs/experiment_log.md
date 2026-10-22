@@ -1268,6 +1268,41 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   GPU runs are not bitwise reproducible. Step 9/8r stay on the CPU path they
   started on.
 
+### Step 10 — 75 iterations of K = 256 + tail on the GPU (predictions written before running)
+
+- Question: does MPPI-GPS keep improving past 25 iterations, and does it
+  eventually complete episodes? In Step 8 both learning seeds were still
+  lengthening their episodes at iteration 24.
+- Settings: Step 8's configuration (fixed n_eff/K = 0.2, K = 256, H = 32,
+  100-control tail, 10 × 400 controls per iteration, label every 2nd state,
+  exec noise 0.1, replay 2, 2,000 Adam steps, probe probability 0.02), with
+  **75 iterations** and the GPU E-step (`--cfg.gpu-estep
+  --cfg.gpu-states-per-batch 128`, CUDA environment). Training seeds 0–2,
+  4 collection workers each, all three sharing the RTX 5090 alongside the
+  CPU-path Step 9/8r runs.
+- Command: for seed in 0 1 2: `~/mppi-gps-venvs/cuda/bin/python -m
+  scripts.training.train_walker_mdgps --out-dir
+  runs/2026-10-22_step10_gpu75_seed$seed --cfg.labeler mdgps --cfg.seed
+  $seed --cfg.K 256 --cfg.H 32 --cfg.tail-steps 100 --cfg.iterations 75
+  --cfg.episodes-per-iter 10 --cfg.steps 400 --cfg.gpu-estep
+  --cfg.gpu-states-per-batch 128 --cfg.workers 4`.
+- Evaluation: dev resets every 5 iterations (monitoring). At the end,
+  held-out resets 70000–70049 on robopil5090 for the iteration-74 and
+  iteration-24 policies, alongside the same-machine arms (Step 8r, Step 9,
+  raw MPPI K = 32 H = 32, SAC 800k). GPU runs are not bitwise reproducible,
+  so seeds are not paired with the CPU runs.
+- Predictions:
+  1. Fact 1 holds in every E-step.
+  2. Dev time alive at iteration 74 exceeds iteration 24's in at least 2 of
+     3 seeds.
+  3. At least one seed completes ≥ 1/10 dev episodes at some evaluation from
+     iteration 50 on (less certain).
+  4. Held-out pooled time alive of the iteration-74 policies exceeds 1.45 s
+     (Step 8's 25-iteration result), and pooled completion exceeds 0/150
+     (least certain).
+  5. No directional prediction against raw MPPI at K = 32, H = 32.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
