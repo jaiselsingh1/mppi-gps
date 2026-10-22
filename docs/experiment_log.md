@@ -1021,7 +1021,56 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. Pooled completion is above 0/150 but below raw MPPI's 38% (least
      certain).
   5. CPU per labeled state is ~3–5× Step 7's.
-- Status: planned.
+- Status: complete. Launched 01:52 on 2026-10-22 at `62e0018`; 25 iterations
+  in 7,012 s, 6,071 s and 773 s wall (seeds 0/1/2, 7 workers each).
+- Held-out result (`runs/2026-10-22_step8_heldout_001/report.json` on
+  robopil; arms shared with Steps 5–7 re-evaluated identically). The full
+  K × tail design, held-out completion, speed MAE and mean time alive (seeds
+  0/1/2):
+
+  | | No tail | Policy tail (100 controls) |
+  |---|---|---|
+  | K = 32 | 1/150, 0.927, 1.34 s (Step 5) | 0/150, 1.115, 1.36 s (Step 6) |
+  | K = 256 | 0/150, 0.755, 0.99 s (Step 7) | 0/150, 1.118, **1.45 s** (1.99, 1.46, 0.89) |
+
+  References: raw MPPI (K = 32, H = 32) 19/50, 0.387, 3.78 s; SAC 800k
+  50/50, 0.198, 8.00 s. Step 8 per-seed MAE: 0.65, 0.69, 2.01.
+- Paired by reset seed, K = 256 + tail minus K = 256, seeds 0/1/2:
+  - Time alive: +1.22 s [+1.11, +1.36], +0.57 s [+0.48, +0.67],
+    −0.40 s [−0.56, −0.25].
+  - Speed MAE: +0.070 [+0.051, +0.090], +0.118 [+0.094, +0.142],
+    +0.901 [+0.786, +1.008].
+- Paired by reset seed, K = 256 + tail minus K = 32 + tail, seeds 0/1/2:
+  - Time alive: +0.42 s [+0.09, +0.70], −0.01 s [−0.13, +0.10],
+    −0.13 s [−0.28, +0.04].
+  - Speed MAE: −0.392 [−0.511, −0.286], −0.223 [−0.300, −0.161],
+    +0.624 [+0.482, +0.764].
+- Completion differences are 0 everywhere (intervals ±0.07).
+- Training: seeds 0 and 1 reached dev time alive 1.9 and 1.7 s at
+  iteration 24, with collection episodes still lengthening (seed 0: 21 → 241
+  controls). Seed 2 stayed near 25-control episodes for ~15 iterations in
+  both K = 256 runs and ended at 0.9 s.
+- Theory checks: fact 1 held in every E-step (minimum 0.072). In seeds 0 and
+  1 the realized improvement averaged *above* the predicted one (23.0 vs
+  17.1; 17.3 vs 14.0). By MDGPS's step rule, the n_eff/K = 0.2 trust region
+  is tighter than needed there.
+- Compute: 2.17–2.25 CPU-s per labeled state for seeds 0/1 (3.2–3.9× Step 7).
+- Video: not watched. robopil became unreachable (SSH timeout) right after
+  the held-out run; the run directories are only on robopil.
+- Predictions: 1 **held**. 2 **held** (seeds 0 and 1, intervals excluding 0).
+  3 **wrong** (only seed 0). 4 **wrong** (0/150). 5 **held**.
+- Interpretation: the factors interact. The tail lengthens survival only
+  with clean labels (K = 256: +1.22 and +0.57 s in two seeds; K = 32: no
+  effect). Clean labels sharpen speed tracking only without the tail. Seeds 0
+  and 1 here are the first learned policies that survive longer *and* still
+  track speed (MAE 0.65–0.69). No learned policy completes an episode in 25
+  iterations, and the best one (1.99 s) is still far from raw MPPI at the
+  same cell (3.78 s, 38%).
+- Decision: **keep** K = 256 + tail as the working configuration. The two
+  good seeds were still improving and realized more than the predicted gain,
+  so the next single change is MDGPS's adaptive step size (objective.md,
+  "Data and step size"). It replaces the fixed n_eff/K = 0.2, with the same
+  seeds and budget. Restore access to robopil first.
 
 Add one entry per question using the fields below:
 
