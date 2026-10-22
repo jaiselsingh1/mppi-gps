@@ -697,6 +697,32 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   compare rounded rates, since rates are multiples of 0.1) and is applied
   automatically by `scripts/training/launch_step5.sh`.
 
+- Grid result (`runs/2026-10-22_walker_headroom_grid_002/report.json`,
+  240 episodes, 1,057 s on robopil). Completions out of 10 eight-second
+  episodes:
+
+  | H \ K | 32 | 64 | 128 | 256 |
+  |---:|---:|---:|---:|---:|
+  | 8 | 0 | 0 | 0 | 0 |
+  | 12 | 0 | 0 | 0 | 0 |
+  | 16 | 0 | 0 | 0 | 0 |
+  | 24 | 1 | 0 | 0 | 1 |
+  | 32 | **5** | 7 | 5 | 5 |
+  | 48 | 10 | 10 | 8 | 10 |
+
+  Below H = 32, every cell falls after 1.1–1.7 s on average. At H = 48, speed
+  MAE improves with K (0.358 → 0.139 m/s) though completion does not. With
+  λ fixed at 3, median n_eff/K falls from 0.9 (H = 8) to 0.13 (H = 32) and
+  0.03–0.05 (H = 48): the same temperature is a much larger KL step at long
+  horizons.
+- Prediction 1: **partly wrong.** Completion rises with H but is flat in K;
+  H ≥ 32 with K ≥ 128 is only 5/10 at H = 32; K = 256 with H ≤ 12 is 0/10 as
+  predicted.
+- Selected cell (rule applied by `launch_step5.sh`, `selection.json`):
+  **K = 32, H = 32**, 5/10 (tied with K = 128 and 256; smaller K·H wins);
+  median n_eff/K 0.134, used by every tail-test arm. Step 5 and the tail test
+  launched automatically at 00:02 on 2026-10-22.
+
 ### Step 5 — main experiment (predictions written before running)
 
 - Cell: the Step 4 selection, written by the launcher to the grid run's
