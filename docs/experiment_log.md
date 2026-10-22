@@ -992,6 +992,37 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   tail, same seeds and data budget, completing the 2 × 2 (K × tail). Its
   cost is roughly 4× this run per label (the tail is K × 100 extra controls).
 
+### Step 8 — MPPI-GPS with K = 256 and the policy tail (predictions written before running)
+
+- Question: with labels clean enough (n_eff ≈ 51) to carry it, does the
+  current policy's simulated cost-to-go turn MPPI-GPS into a policy that
+  survives? This completes the K ∈ {32, 256} × tail ∈ {no, yes} design.
+- Settings: Step 7's K = 256 at H = 32 plus Step 6's 100-control tail
+  (`--cfg.tail-steps 100`). Otherwise Step 5's settings: n_eff/K = 0.2,
+  training seeds 0–2 with identical collection, planner and noise seeds and
+  policy initialization, 25 iterations × 10 episodes × 400 controls, label
+  every 2nd state, exec noise 0.1, replay 2, 2,000 Adam steps.
+- Command (robopil, BLAS threads 1): for seed in 0 1 2:
+  `train_walker_mdgps --out-dir runs/2026-10-22_step8_mdgps_k256_tail_seed$seed
+  --cfg.labeler mdgps --cfg.seed $seed --cfg.K 256 --cfg.H 32
+  --cfg.tail-steps 100 --cfg.iterations 25 --cfg.episodes-per-iter 10
+  --cfg.steps 400 --cfg.workers 7`.
+- Comparison: held-out resets 70000–70049 against every earlier arm, plus
+  per-seed pairs against Step 7 (K = 256, no tail; isolates the tail) and
+  Step 6 (K = 32, tail; isolates K).
+  - Primary: completion (Wilson; paired Newcombe).
+  - Secondary: mean time alive (paired bootstrap).
+- Predictions:
+  1. Fact 1 holds in every E-step.
+  2. Time alive exceeds Step 7's in at least 2 of 3 seeds (paired interval
+     above 0): the tail charges the dive that clean labels learned.
+  3. Time alive exceeds Step 6's in at least 2 of 3 seeds: clean labels
+     carry the cost-to-go that noisy ones did not.
+  4. Pooled completion is above 0/150 but below raw MPPI's 38% (least
+     certain).
+  5. CPU per labeled state is ~3–5× Step 7's.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
