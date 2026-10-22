@@ -1072,6 +1072,60 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   "Data and step size"). It replaces the fixed n_eff/K = 0.2, with the same
   seeds and budget. Restore access to robopil first.
 
+### Moving to robopil5090 (2026-10-22)
+
+- robopil (`robopil-5080-alpha`, 128.59.22.12) stopped answering SSH after
+  Step 8's held-out run. Steps 4–8 artifacts are only there.
+- robopil5090 (`robopil5090-Lambda-Vector`, Ryzen 9 9950X, 16 cores / 32
+  threads, RTX 5090) is shared by nine users. Its disk had 8.6 GB free, too
+  little for CUDA PyTorch, so it uses `scripts/setup_cpu_env.sh`: the lock
+  minus torch/triton/nvidia-*, plus torch 2.10.0 CPU (2.7 GB venv; mujoco
+  3.6.0 and numpy 2.4.3 as before). 492 tests pass.
+- Cross-machine check (`runs/2026-10-22_5090_crosscheck_*` on the 5090):
+
+  | Check | robopil (5080) | robopil5090 |
+  |---|---|---|
+  | Held-out raw MPPI, K = 32, H = 32 | 19/50, MAE 0.38720, 3.78 s | 15/50, MAE 0.39197, 3.30 s |
+  | Held-out SAC 800k | 50/50, MAE 0.197769 | 50/50, MAE 0.197846 |
+  | Step 5 (B) seed 0, iteration 0 | 21.0 steps, 107 labels, λ 4.7131752518 | 21.0 steps, 107 labels, λ 4.7131745355 |
+
+- Results agree to ~7 significant digits per step but are not bit-identical
+  across CPUs, and MPPI's chaotic episodes turn that into different outcomes.
+  15/50 lies inside 19/50's Wilson interval (26–52%), but held-out
+  comparisons are valid only when every arm is evaluated on the same machine.
+  Training can run anywhere.
+
+### Step 9 — MDGPS adaptive step size, with a same-machine control (predictions written before running)
+
+- Question: does MDGPS's adaptive step size learn faster than the fixed
+  n_eff/K = 0.2 trust region at K = 256 with the tail? In Step 8, realized
+  improvement exceeded prediction in the two seeds that learned.
+- Arms, both on robopil5090 (CPU-only environment), training seeds 0–2,
+  25 iterations × 10 episodes × 400 controls, 4 workers each, `nice 19`:
+  - **Step 9 (adaptive):** Step 8's settings plus `--cfg.adapt-step
+    --cfg.probe-probability 0.1`. Starts at n_eff/K = 0.2;
+    eps = log(1/ρ) is rescaled after each iteration by
+    `mdgps_step_multiplier` (reference clip [0.1, 5]) and kept within
+    ρ ∈ [0.05, 0.5]. Probes are drawn from the same per-state random number
+    as before, so collection is unchanged by the probe rate.
+  - **Step 8r (control):** Step 8's exact settings re-run on this machine.
+    It is the same-machine reference, and it shows whether Step 8's result
+    reproduces on another CPU.
+- Comparison: held-out resets 70000–70049, every arm evaluated on
+  robopil5090. Arms: Step 9, Step 8r, raw MPPI (K = 32, H = 32), SAC 800k,
+  and Steps 5–8 if their checkpoints come back from robopil. Per-seed pairs
+  Step 9 vs Step 8r. Primary: completion. Secondary: mean time alive.
+- Predictions:
+  1. Fact 1 holds in every E-step of both arms.
+  2. The step grows: the median ρ used over iterations 5–24 is below 0.2 in
+     all three Step 9 seeds.
+  3. Step 9's time alive exceeds Step 8r's in at least 2 of 3 seeds (paired
+     interval above 0).
+  4. Step 9's pooled completion is above 0/150 (least certain).
+  5. Step 8r reproduces Step 8 qualitatively: pooled time alive within
+     ±0.5 s of 1.45 s and at most 2/150 completions.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
