@@ -914,6 +914,38 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   data budget. The grid makes it a fair cell: raw MPPI at K = 256, H = 32 also
   completes 5/10.
 
+### Step 7 — MPPI-GPS with K = 256 E-steps (predictions written before running)
+
+- Question: is label quality what stalls the learned policy near 1.3 s?
+- One change from Step 5 (B): E-step sample count K = 32 → 256 at H = 32.
+  With n_eff/K = 0.2, each label averages n_eff ≈ 51 samples instead of ≈ 6.
+  No tail. Everything else is Step 5's: n_eff/K = 0.2, training seeds 0–2 with
+  identical collection, planner and noise seeds and policy initialization,
+  25 iterations × 10 episodes × 400 controls, label every 2nd state, exec
+  noise 0.1, replay 2, 2,000 Adam steps. The cell is fair: raw MPPI at
+  K = 256, H = 32 also completed 5/10 in the grid.
+- Command (robopil, BLAS threads 1): for seed in 0 1 2:
+  `train_walker_mdgps --out-dir runs/2026-10-22_step7_mdgps_k256_seed$seed
+  --cfg.labeler mdgps --cfg.seed $seed --cfg.K 256 --cfg.H 32
+  --cfg.iterations 25 --cfg.episodes-per-iter 10 --cfg.steps 400
+  --cfg.workers 7`.
+- Comparison: held-out resets 70000–70049 with `walker_step5_compare.py`
+  against every earlier arm, plus per-seed pairs (K = 256 seed i vs Step 5's
+  (B) seed i) via `--pairs`.
+  - Primary: completion (Wilson; paired Newcombe).
+  - Secondary, now preregistered: mean time alive (paired bootstrap),
+    defined in the Step 6 comparison.
+- Predictions:
+  1. Fact 1 holds in every E-step.
+  2. Time alive exceeds Step 5's (B) in at least 2 of 3 seeds (paired
+     interval above 0).
+  3. Pooled completion stays below raw MPPI's 38%: 25 KL-bounded iterations
+     are a small budget even with clean labels.
+  4. The M-step realizes a larger share of the predicted improvement than
+     at K = 32 (mean actual/predicted there: 4.2–5.7 of 9.1–12.1).
+  5. CPU per labeled state is ~6–8× Step 5's.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
