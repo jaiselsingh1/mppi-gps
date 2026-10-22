@@ -1141,6 +1141,53 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   mujoco_warp; 492 tests pass. Step 9/8r keep the CPU-only `.venv` they
   started with, so both arms share one environment.
 
+### MuJoCo Warp parity and GPU E-step estimate (audit A1, robopil5090)
+
+- Question: can MPPI-GPS E-steps run on the RTX 5090 through MuJoCo Warp
+  without changing the labels, and how much faster would they be?
+- Two bugs found first, fixed in `b62e8b3` (CUDA-only test
+  `tests/test_warp_rollout.py`):
+  1. The Warp path crashed on Walker. The model has no sensors and Warp
+     cannot slice the zero-width sensor buffer.
+  2. Each Warp call kept the previous call's solver warm start and time.
+     Rollouts now start from zeros or the warm start passed in, as on CPU.
+- Parity (`scripts/benchmarks/warp_parity.py`,
+  `runs/2026-10-22_warp_parity_002/report.json`). 12 states from a SAC 800k
+  episode, 256 policy-centred samples × 32 controls (the E-step shape).
+  Warp (float32) vs CPU (float64), medians:
+  - State difference: 4.7e-5 after one control, 3.1e-6 at the horizon end.
+    Cost difference 3.6e-5 relative; Spearman 0.999999; fall agreement 100%.
+  - E-step label (n_eff/K = 0.2): GPU vs CPU differs by 0.0002 (max 0.0016),
+    against 0.13 between two independent CPU sample draws.
+  - The CPU warm start has no effect on Walker here (1e-15).
+  - Two identical Warp calls are **not** bit-identical: costs differ by up
+    to 0.08 in 256 × 32 rollouts, likely order-dependent floating-point
+    accumulation in GPU kernels. Negligible for labels, but GPU runs cannot
+    be replayed bit-for-bit like CPU runs.
+- Speed (physics steps per second; the CPU was shared with 24 training
+  workers, consistent with the 5080's uncontended 0.465 s per K = 256,
+  H = 32 decision):
+
+  | Rollouts | CPU, 1 thread | GPU, 256 worlds | 1,024 | 4,096 | 16,384 |
+  |---|---:|---:|---:|---:|---:|
+  | Open loop, CUDA graph | 65k | 0.18M | 0.68M | 2.2M | 4.4M |
+  | Closed-loop 100-control policy tail, no graph | — | 37k | 0.59M | — | 2.2M |
+
+  The closed-loop tail takes ~2.8 s per 100 controls at any world count:
+  it is launch-bound (no CUDA graph around the physics steps).
+- E-step estimate (K = 256, H = 32, 100-control tail): Step 8 measured
+  ~2.2 CPU-s per label. Batched 64 states at a time (16,384 worlds), the
+  GPU needs 0.47 s for the open loop plus 2.96 s for the tail, ~0.054 s
+  per label: ~40× one CPU thread, ~2× the whole 16-core CPU. Capturing the
+  tail's physics in a CUDA graph should cut that to an estimated ~0.014 s
+  per label (~8× the whole CPU). Batching works because (B) executes the
+  policy, not the labels, so an iteration's labels can all be computed
+  after its episodes.
+- Decision: **keep** the fixed Warp path. Running MPPI-GPS on the GPU needs
+  (1) a batched E-step over all of an iteration's states, (2) the tail
+  under a CUDA graph, and (3) acceptance of non-bitwise GPU runs. Not done
+  yet; the Step 9/8r runs stay on CPU.
+
 Add one entry per question using the fields below:
 
 ```text
