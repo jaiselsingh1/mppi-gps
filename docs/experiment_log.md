@@ -1235,6 +1235,39 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   into `train_walker_mdgps.py`; doing so means collecting episodes with the
   policy on CPU, labelling all states on the GPU, then fitting.
 
+### GPU E-step in training: one-iteration check (robopil5090)
+
+- `--cfg.gpu-estep` (`f8d37ed`): workers only collect, using the same random
+  draws as the CPU path. All of an iteration's states are then labelled by
+  `WalkerGPUEStep` with the CPU path's per-episode noise streams.
+  `tests/test_train_collect.py` checks that collect-only mode visits the CPU
+  path's states. The CPU path is unchanged: Step 5's first iteration
+  reproduces (21.0 steps, 107 labels, λ to 8 digits).
+- Check: one iteration in each mode with K = 256, H = 32, the 100-control
+  tail, n_eff/K = 0.2, seed 0, 10 × 400 controls, 8 collection workers,
+  starting from Step 9 adaptive seed 1's `policy_014.pt`
+  (`runs/2026-10-22_gpu_iter_check_{gpu,cpu}/`):
+
+  | | GPU E-step | CPU E-step |
+  |---|---:|---:|
+  | Labelled states (identical in both) | 1,093 | 1,093 |
+  | Iteration time | **48 s** | 417 s |
+  | of which collect / label / fit | 0.4 / 44 / 1.8 s | 413 (incl. labels) / — / 2.0 s |
+  | Fit loss | 0.00016 | 0.00015 |
+  | Probe predicted / actual improvement | 15.5 / 18.3 | 18.2 / 19.4 |
+
+- Labels: GPU vs CPU median 0.068 (p95 0.13, max 0.20), the same as the
+  CPU's own 1e-6-nudge sensitivity (0.068). Median λ differs by 6%, nominal
+  and plan costs by 5–7%; n_eff/K is 0.200 in both.
+- Speed: 8.7× an 8-worker CPU iteration on the shared machine. The CPU path
+  spent ~3.0 CPU-s per label; even all 32 threads (~24 effective) would need
+  ~140 s for this iteration, so the GPU is ~3× the whole CPU and leaves it
+  free.
+- Decision: **keep.** New MPPI-GPS runs on robopil5090 should use
+  `--cfg.gpu-estep` with the CUDA environment (`~/mppi-gps-venvs/cuda`).
+  GPU runs are not bitwise reproducible. Step 9/8r stay on the CPU path they
+  started on.
+
 Add one entry per question using the fields below:
 
 ```text
