@@ -723,6 +723,30 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   median n_eff/K 0.134, used by every tail-test arm. Step 5 and the tail test
   launched automatically at 00:02 on 2026-10-22.
 
+- Tail test result (`runs/2026-10-22_walker_headroom_tail_001/report.json`,
+  40 episodes on the grid's dev seeds, 2,244 s on 3 workers alongside Step 5).
+  K = 32, H = 32, every arm with λ solved per decision for n_eff/K = 0.134,
+  100 tail controls:
+
+  | Arm | Completed / 10 | Speed MAE | Fisher p vs no tail | Plan s/decision |
+  |---|---:|---:|---:|---:|
+  | No tail | 2 | 0.388 | — | 0.048 |
+  | Weak SAC (0k) tail | **9** | 0.479 | 0.0055 | 0.257 |
+  | Intermediate (200k) tail | **10** | 0.472 | 0.0007 | 0.199 |
+  | Strong (800k) tail | **10** | **0.287** | 0.0007 | 0.202 |
+
+- Predictions 2 and 3: **held** (+80 points each; the intermediate tail's MAE,
+  0.472, is not better than no tail's 0.388). Prediction 4: **wrong** (+70
+  points). A policy that falls in 0.2 s still ranks horizon-end states by how
+  long they stay healthy, which is a balance cost-to-go the 0.256 s horizon
+  lacks.
+- Caveats: the matched-temperature no-tail arm completed 2/10 where frozen
+  λ = 3 completed 5/10 on the same seeds. On raw compute, a longer horizon is
+  the cheaper fix at this cell (H = 48, K = 32: 10/10 at 0.084 s/decision
+  versus ~0.2 s with a tail). Only the strong tail beats it on speed MAE
+  (0.287 vs 0.358). The tail matters for MPPI-GPS because it is how the
+  policy's long-horizon behavior enters the E-step.
+
 ### Step 5 — main experiment (predictions written before running)
 
 - Cell: the Step 4 selection, written by the launcher to the grid run's
@@ -760,7 +784,52 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      iterations.
   5. (B) vs raw MPPI at the same cell: no directional prediction (both
      optimize the same H-step objective); report the two-sided interval.
-- Status: planned; launches automatically when the Step 4 grid finishes.
+- Status: complete (launched 00:02, 2026-10-22).
+- Result. Training: 25 iterations for all six runs in ~38 minutes wall, in
+  parallel. Held-out evaluation: `runs/2026-10-22_step5_heldout_001/report.json`,
+  102 s. Resets 70000–70049; policies alone, last iteration:
+
+  | Arm | Completed | Wilson 95% | Speed MAE | Completion vs raw MPPI, per seed (Newcombe 95%) |
+  |---|---:|---|---:|---|
+  | Raw MPPI, K = 32, H = 32 | 19/50 (38%) | 26–52% | 0.387 | — |
+  | (B) MPPI-GPS, seeds 0/1/2 | 0, 1, 0 of 50 (0.7%) | 0.1–3.7% | 0.927 | −0.38 [−0.52, −0.24], −0.36 [−0.50, −0.21], −0.38 [−0.52, −0.24] |
+  | DAgger from raw MPPI, seeds 0/1/2 | 0, 0, 0 of 50 | 0–2.5% | 0.792 | −0.38 [−0.52, −0.24] each |
+  | SAC 800k | 50/50 | 93–100% | 0.198 | +0.62 [+0.46, +0.74] |
+
+- Training curves (`runs/2026-10-22_step5_*/metrics.jsonl`):
+  - (B): mean collection episode length rose from 16–22 controls
+    (≈0.15 s) at iteration 0 to 144–175 (≈1.3 s) at iteration 24, still
+    rising; executed cost per step fell from 6.3–7.5 to 2.2–2.3. Dev
+    completion was 0/10 at every evaluation except one 1/10 (seed 1,
+    iteration 14).
+  - (B), theory checks: fact 1 held in every E-step (minimum sample
+    improvement 0.076). The M-step realized ~40–60% of the predicted
+    improvement (mean predicted 9–12, actual 4–6 per probe state).
+  - DAgger: iteration 0 executes the expert (186–245 of 400 controls);
+    afterwards the policy hovers at 108–225 controls with no trend.
+- Videos (`runs/2026-10-22_step5_videos_001/`, held-out reset 70000).
+  (B) keeps the torso upright, folds its knees and sinks below the 0.8 m
+  height limit, at iteration 9 and at 24. DAgger pitches forward at
+  ~1 m/s and falls.
+- Predictions: 1 **held**. 2 **wrong** (0.7%). 3 **undecided** (1/150 vs
+  0/150). 4 **held**. 5: (B) is 36–38 points below raw MPPI in every seed.
+- Reproduction: a clean clone at `d414a85` on robopil (`uv sync --locked`, no
+  local edits) reproduced all 350 held-out episodes exactly, and (B) seed 0
+  iterations 0–1 bit-for-bit, including the CUDA fit loss.
+- Interpretation: the E-step does what the theory says (fact 1; positive
+  actual improvement every iteration), and the policy keeps improving. But an
+  H = 32 objective cannot see the failure it converges into: sinking is free
+  until height crosses 0.8 m. Without a cost-to-go, (B)'s fixed point is a
+  receding-horizon policy with that blind spot, and 25 iterations do not
+  reach raw MPPI's 38%. Step 4 shows what supplies the cost-to-go: any
+  policy's simulated continuation moves the planner from 2/10 to 9–10/10.
+- Not run: the June best config (task mismatch, above). robopil5090 rejects
+  key login, so everything ran on robopil (24 cores, RTX 5080).
+- Decision: **revise.** Keep (B) and its machinery. The next single change is
+  the current policy's own simulated tail inside the E-step (policy
+  iteration, the "MPPI absorbs the policy's long-horizon information" idea),
+  at the same cell, seeds and budget, compared against this run.
+
 
 Add one entry per question using the fields below:
 

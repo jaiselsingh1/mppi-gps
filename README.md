@@ -41,6 +41,16 @@ Other standalone runners are retained under `scripts/runners/`, with CPU tuning 
 
 ## Baseline evidence and new work
 
+[What MPPI-GPS optimizes](docs/objective.md) defines the method under test:
+MPPI samples around the policy's own rollout, takes one KL-bounded step
+(temperature set by `lam_target_neff_fraction`, off by default) and the policy
+regresses onto it. `src/gps/` holds the E-step and the policy-tail terminal
+cost. `scripts/diagnostics/lqr_oracle.py` checks it against the LQR gain,
+`scripts/diagnostics/walker_headroom.py` maps raw MPPI's Walker headroom, and
+`scripts/training/train_walker_mdgps.py` trains MPPI-GPS or DAgger
+(`launch_step5.sh` runs the recorded comparison). Results and decisions are in
+the experiment log's 2026-10-21 entry.
+
 The additive [S2 policy ladder](docs/rl_ladder.md) uses the local Walker and a
 separate SAC training entry point. It does not change the MPPI runner or frozen
 costs. Training and standalone evaluation instructions/status are recorded there.
