@@ -27,6 +27,7 @@ import torch
 import tyro
 
 from src.envs.walker2d import Walker2d
+from src.gps.mdgps import mdgps_step_multiplier
 from src.rl.sac import SacActor
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -40,6 +41,12 @@ class TrainConfig:
     H: int = 48
     neff_fraction: float = 0.2
     tail_steps: int = 0
+    # MDGPS adaptive step size: eps = log(1/rho) is rescaled after each
+    # iteration by mdgps_step_multiplier and kept within the rho bounds.
+    adapt_step: bool = False
+    neff_fraction_min: float = 0.05
+    neff_fraction_max: float = 0.5
+    probe_probability: float = 0.02
     iterations: int = 30
     episodes_per_iter: int = 20
     steps: int = 1000
@@ -100,7 +107,7 @@ def _collect(job: dict) -> dict:
     base = MPPIConfig(**json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text()))
     if cfg.labeler == "mdgps":
         planner_cfg = replace(base, K=cfg.K, H=cfg.H, initial_iterations=1,
-                              lam_target_neff_fraction=cfg.neff_fraction)
+                              lam_target_neff_fraction=job["neff_fraction"])
     else:
         planner_cfg = replace(base, K=cfg.K, H=cfg.H)
     planner = MPPI(env, planner_cfg, seed=job["planner_seed"])
@@ -211,6 +218,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
     (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
+    neff_fraction = cfg.neff_fraction
     replay: list[tuple[np.ndarray, np.ndarray]] = []
     started = time.time()
     with Pool(cfg.workers) as pool:
@@ -221,7 +229,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             jobs = [{"cfg": cfg, "actor": {k: v.cpu() for k, v in actor.state_dict().items()},
                      "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,
                      "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert,
-                     "probe_probability": 0.02}
+                     "probe_probability": cfg.probe_probability, "neff_fraction": neff_fraction}
                     for e in range(cfg.episodes_per_iter)]
             episodes = pool.map(_collect, jobs)
             obs = np.concatenate([ep["obs"] for ep in episodes])
@@ -236,7 +244,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 "collect_completed": int(sum(ep["survived"] for ep in episodes)),
                 "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in episodes])),
                 "collect_cost_per_step": float(np.mean([ep["cost_per_step"] for ep in episodes])),
-                "labels": int(len(labels)), "fit_loss": loss,
+                "labels": int(len(labels)), "fit_loss": loss, "neff_fraction_target": neff_fraction,
                 "median_neff_fraction": float(np.nanmedian(diagnostics[:, 0])),
                 "median_lam": float(np.nanmedian(diagnostics[:, 1])),
             }
@@ -246,6 +254,15 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 probes = [probe for ep in episodes for probe in ep["probes"]]
                 if probes:
                     record["improvement_check"] = _improvement_check(actor, probes, cfg)
+                    if cfg.adapt_step:
+                        check = record["improvement_check"]
+                        multiplier = mdgps_step_multiplier(check["predicted_improvement"],
+                                                           check["actual_improvement"])
+                        eps = np.clip(np.log(1.0 / neff_fraction) * multiplier,
+                                      np.log(1.0 / cfg.neff_fraction_max), np.log(1.0 / cfg.neff_fraction_min))
+                        neff_fraction = float(np.exp(-eps))
+                        record["step_multiplier"] = multiplier
+                record["neff_fraction_next"] = neff_fraction
             if (iteration + 1) % cfg.eval_every == 0 or iteration == cfg.iterations - 1:
                 record["eval_dev"] = _evaluate(actor, cfg.eval_episodes, 81_000)
             record["seconds"] = time.time() - t0

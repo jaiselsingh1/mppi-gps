@@ -47,6 +47,19 @@ def closed_loop_nominal(
     return actions, states
 
 
+def mdgps_step_multiplier(predicted: float, actual: float) -> float:
+    """MDGPS "global" step rule (Montgomery & Levine 2016, §4.2).
+
+    Fitting the cost change as a*eps^2 + b*eps gives eps' = eps * pred /
+    2(pred - actual), with pred and actual the predicted and realized
+    improvement of the policy. As in the reference GPS implementation, the
+    denominator is floored at 1e-4 and the multiplier clipped to [0.1, 5]:
+    realizing at least the prediction grows the step 5x, and predicting no
+    improvement shrinks it 10x.
+    """
+    return float(np.clip(predicted / (2.0 * max(1e-4, predicted - actual)), 0.1, 5.0))
+
+
 @dataclass
 class EStepResult:
     label: np.ndarray

@@ -139,3 +139,13 @@ def test_e_step_hits_its_trust_region_and_improves_on_its_samples():
     assert result.nominal_cost < result.sample_mean_cost
     assert result.predicted_improvement > 0.0
     assert result.label.shape == (env.action_dim,)
+
+
+def test_mdgps_step_multiplier_matches_the_reference_rule():
+    from src.gps.mdgps import mdgps_step_multiplier
+
+    assert mdgps_step_multiplier(10.0, 5.0) == 1.0     # realized half: keep the step
+    assert mdgps_step_multiplier(10.0, -10.0) == 0.25  # got worse: shrink
+    assert mdgps_step_multiplier(10.0, 10.0) == 5.0    # realized all: grow, capped
+    assert mdgps_step_multiplier(10.0, 12.0) == 5.0    # realized more: grow, capped
+    assert mdgps_step_multiplier(-3.0, 1.0) == 0.1     # predicted no gain: shrink, capped
