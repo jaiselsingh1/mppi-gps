@@ -863,7 +863,56 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. (B+tail) speed MAE stays worse than SAC 800k's 0.20; no directional
      prediction against (B)'s MAE (it may learn to stand before it walks).
   5. Planner time per labeled state is ~4× (B)'s.
-- Status: planned.
+- Status: complete. Launched 01:01 on 2026-10-22 at `7c30f3a`; 25 iterations
+  per seed in 347–888 s wall (6 workers each).
+- Held-out result (`runs/2026-10-22_step6_heldout_001/report.json`, resets
+  70000–70049, policies alone, last iteration; arms re-evaluated in the same
+  run, identical to Step 5 where shared). Time alive is an exploratory
+  descriptor added after Step 5, not preregistered:
+
+  | Arm | Completed | Wilson 95% | Speed MAE | Mean time alive |
+  |---|---:|---|---:|---:|
+  | Raw MPPI, K = 32, H = 32 | 19/50 | 26–52% | 0.387 | 3.78 s |
+  | (B) + policy tail, seeds 0/1/2 | 0/150 | 0–2.5% | 1.115 | 1.36 s (1.58, 1.47, 1.02) |
+  | (B), Step 5 | 1/150 | 0.1–3.7% | 0.927 | 1.34 s (1.27, 1.50, 1.24) |
+  | DAgger, Step 5 | 0/150 | 0–2.5% | 0.792 | 1.30 s |
+  | SAC 800k | 50/50 | 93–100% | 0.198 | 8.00 s |
+
+- Paired by reset seed, (B)+tail minus (B), seeds 0/1/2:
+  - Completion: +0.00 [−0.07, +0.07], −0.02 [−0.10, +0.05],
+    +0.00 [−0.07, +0.07].
+  - Speed MAE: +0.151 [+0.013, +0.294], +0.031 [−0.054, +0.122],
+    +0.384 [+0.240, +0.529].
+  - Time alive (exploratory): +0.31 s [+0.07, +0.63],
+    −0.03 s [−0.37, +0.21], −0.22 s [−0.35, −0.09].
+  - Against raw MPPI, each tail seed is −0.38 [−0.52, −0.24].
+- Training: dev time alive at iteration 24 was 1.9, 1.5 and 0.9 s (seed 0
+  completed 1/10 dev episodes at iterations 19 and 24). Collection episode
+  length was still rising for seeds 0 and 1.
+- Theory checks: fact 1 held in every E-step (minimum sample improvement
+  0.066). Predicted vs actual improvement was noisy, with both signs within
+  single iterations.
+- Compute: ≈0.31 CPU-s per labeled state against ≈0.078 without the tail.
+- Videos (`runs/2026-10-22_step6_videos_001/`, reset 70000). Seed 0 no
+  longer crouches and sinks: it steps, then pitches forward at ~1.2 s, like
+  DAgger. Seed 2 takes a splayed stride and collapses at ~1.1 s.
+- Predictions: 1 **held**. 2 **wrong**: no seed's paired completion interval
+  excludes 0. 3 **wrong**. 4 **held**. 5 **held** (~4×).
+- Interpretation: the tail that lifts the *planner* from 2/10 to 9–10/10
+  (Step 4) does not carry over to the *learned policy* in this budget; it
+  changes the failure mode, not the time to failure. Every learned arm —
+  (B), (B)+tail, DAgger — stalls at 1.3–1.4 s whatever its labels optimize,
+  so the binding constraint is the learning loop, not the E-step objective.
+  The most suspect part of that loop is label quality: the Step 4 rule broke
+  ties toward K = 32, so each label averages n_eff ≈ 6 samples. The LQR
+  oracle showed K sets the label-noise floor (10% at K = 64 vs 4.6% at
+  K = 256, n_eff/K = 0.2), and raw MPPI's headroom at H = 32 does not depend
+  on K (5–7/10 for K = 32–256).
+- Decision: **revise.** Drop the tail from the next comparison (no effect on
+  completion or time alive). Change one factor against Step 5's (B): E-step
+  K = 256 at H = 32 (n_eff ≈ 51 per label at n_eff/K = 0.2), same seeds and
+  data budget. The grid makes it a fair cell: raw MPPI at K = 256, H = 32 also
+  completes 5/10.
 
 Add one entry per question using the fields below:
 
