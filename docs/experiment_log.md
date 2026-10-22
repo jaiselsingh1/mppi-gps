@@ -1340,7 +1340,56 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      (Step 8's 25-iteration result), and pooled completion exceeds 0/150
      (least certain).
   5. No directional prediction against raw MPPI at K = 32, H = 32.
-- Status: planned.
+- Status: complete. Launched 15:52 on 2026-10-22 at `d9161d7`; 2.1–2.5 h
+  per seed with three sharing the GPU (81–143 s labelling per iteration for
+  1,400–1,900 labels). No errors.
+- Held-out result (`runs/2026-10-22_step10_heldout_001/report.json`,
+  robopil5090, same CPU-only evaluation environment as Step 9; shared arms
+  reproduce exactly):
+
+  | Arm | Completed | Wilson 95% | Speed MAE | Time alive (seeds 0/1/2) |
+  |---|---:|---|---:|---:|
+  | **(B), K = 256 + tail, 75 iterations (GPU)** | **81/150 (54%)** | 46–62% | 0.393 | **5.86 s** (5.98, 6.86, 4.74) |
+  | Same runs, iteration 24 | 2/150 | 0.4–4.7% | 0.967 | 1.49 s |
+  | Step 8r, 25 iterations (CPU) | 0/150 | 0–2.5% | 0.821 | 1.51 s |
+  | Step 9 adaptive, 25 iterations (CPU) | 1/150 | 0.1–3.7% | 0.903 | 1.85 s |
+  | Raw MPPI, K = 32, H = 32 | 15/50 (30%) | 19–44% | 0.392 | 3.30 s |
+  | SAC 800k | 50/50 | 93–100% | 0.198 | 8.00 s |
+
+  Per seed at iteration 74: 34/50 (MAE 0.36), 35/50 (0.28), 12/50 (0.53).
+- Paired by reset seed, seeds 0/1/2:
+  - **Against raw MPPI**, completion: **+0.38 [+0.19, +0.53]**,
+    **+0.40 [+0.20, +0.56]**, −0.06 [−0.23, +0.11]. Speed MAE: −0.027
+    [−0.079, +0.022], −0.110 [−0.152, −0.069], +0.140 [+0.080, +0.206].
+  - Against the same runs at iteration 24: completion +0.64, +0.70, +0.24 and
+    time alive +4.3, +5.4, +3.4 s (all intervals exclude 0).
+  - Against SAC 800k: completion −0.32, −0.30, −0.76 (all exclude 0).
+- Training curves (dev, 10 resets): seed 1 climbed steadily from iteration
+  29 to 90% completion at iteration 74 (MAE 0.26), and the last three
+  iterations completed every training episode. Seed 0 jumped at iterations
+  54–59 and oscillated at 30–50%. Seed 2 started rising only at 69–74 and
+  was still rising. Minimum sample improvement 0.023–0.057.
+- Video (`runs/2026-10-22_step10_videos_001/`, reset 70000): seed 1 walks the
+  full 8 s, 11.5 m at 1.43 m/s, with an alternating gait and a forward-leaning
+  torso. Seed 2 walks the same way for 5.4 s and then falls forward.
+- Predictions: 1 **held**. 2 **held** in all three seeds. 3 **held** (seed 1
+  from iteration 49). 4 **held** (5.86 s, 81/150). 5: two of three seeds
+  beat raw MPPI on completion.
+- Interpretation: the 25-iteration budget was what held Steps 5–9 at ~1.5 s.
+  With 75 iterations, MPPI-GPS (K = 256, policy tail, fixed trust region)
+  produces policies that, run alone, complete more held-out episodes than
+  the H = 32 planner (68–70% vs 30% in two seeds). Raw MPPI's completion at
+  H = 32 does not improve with K (grid: 5–7/10 for K = 32–256), so a larger
+  sample budget alone would not close the gap. This is the `general.md`
+  claim: the policy carries information beyond MPPI's horizon. Caveats:
+  - three seeds, one lagging;
+  - still well below SAC 800k;
+  - the E-step spends far more simulation per decision than raw MPPI, so
+    this is not a sample-efficiency result;
+  - no equal-budget control yet: DAgger and the adaptive step were only run
+    for 25 iterations.
+- Decision: **keep.** Before any claim, the next control is DAgger at the
+  same 75-iteration budget.
 
 Add one entry per question using the fields below:
 
