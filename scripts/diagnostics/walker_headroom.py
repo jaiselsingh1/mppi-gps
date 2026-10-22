@@ -102,6 +102,21 @@ def _summarize(rows: list[dict]) -> list[dict]:
     return summary
 
 
+def select_cell(report: dict, low: float = 0.2, high: float = 0.6, target: float = 0.4) -> dict:
+    """The preregistered rule: completion closest to `target` within [low, high],
+    ties to the smaller K*H; with no cell in the band, the nearest to it."""
+    cells = [c for c in report["cells"] if c["tail_policy"] is None]
+    # Rates are multiples of 1/episodes; round so ties really tie.
+    rate = lambda c: round(c["completion_rate"], 9)
+    in_band = [c for c in cells if low <= rate(c) <= high]
+    if in_band:
+        chosen = min(in_band, key=lambda c: (round(abs(rate(c) - target), 9), c["K"] * c["H"]))
+    else:
+        distance = lambda c: round(max(low - rate(c), rate(c) - high, 0.0), 9)
+        chosen = min(cells, key=lambda c: (distance(c), c["K"] * c["H"]))
+    return {**chosen, "in_band": bool(in_band), "neff_fraction": chosen["median_neff"] / chosen["K"]}
+
+
 def main(
     out_dir: Path,
     mode: str = "grid",
@@ -144,5 +159,10 @@ def main(
         print(json.dumps(cell))
 
 
+def print_selection(report_path: Path) -> None:
+    """Print the selected cell of a finished grid report as one JSON line."""
+    print(json.dumps(select_cell(json.loads(report_path.read_text()))))
+
+
 if __name__ == "__main__":
-    tyro.cli(main)
+    tyro.extras.subcommand_cli_from_dict({"run": main, "select": print_selection})

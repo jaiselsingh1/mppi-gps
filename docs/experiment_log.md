@@ -686,7 +686,55 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      better than no-tail (it survives by standing still).
   4. Weak tail: within ±20 points of no-tail (it falls from every state, so
      its tail adds a near-constant cost).
-- Status: planned.
+- Status: grid running. A first launch (`..._grid_001`) was stopped after 3
+  minutes and kept as `runs/2026-10-22_walker_headroom_grid_001_aborted_blas_threads`:
+  each worker spawned 48 BLAS threads (load 31 on 24 cores), which distorts
+  the per-decision timings. The relaunch (`..._grid_002`) sets
+  `OMP/OPENBLAS/MKL_NUM_THREADS=1`; nothing else changed.
+- Order change: to start training sooner, the tail test runs alongside Step 5
+  training instead of before it (it only informs an optional later B+tail
+  arm). The selection rule is now code (`walker_headroom.py select`; ties
+  compare rounded rates, since rates are multiples of 0.1) and is applied
+  automatically by `scripts/training/launch_step5.sh`.
+
+### Step 5 — main experiment (predictions written before running)
+
+- Cell: the Step 4 selection, written by the launcher to the grid run's
+  `selection.json` and recorded here with the results.
+- Arms, training seeds 0, 1, 2 each, `scripts/training/train_walker_mdgps.py`:
+  - **(B) MPPI-GPS.** Random-init MLP (SacActor shape, 17→256→256→6, tanh).
+    One policy-centred MPPI step per labeled state (every 2nd executed
+    state), n_eff/K = 0.2. Executed action = policy + N(0, 0.1²). Replay of
+    the last 2 iterations; 2,000 Adam steps (lr 3e-4, batch 256) per
+    iteration; 25 iterations × 10 episodes × 400 controls. Training episodes
+    are 3.2 s to bound compute; every evaluation uses 1,000 controls.
+  - **DAgger from raw MPPI.** Same policy, fit and collection. Labels come
+    from a raw MPPI expert at the same cell (frozen λ = 3, own warm start,
+    plans at every state); iteration 0 executes the expert.
+  - **References:** raw MPPI at the cell (50 held-out episodes, planner seeds
+    95000+) and the SAC 800k checkpoint.
+  - **Not run: the June best config.** `origin/gps/experiments` optimizes a
+    different Walker task (`walker2d.py`, XML, no task config, white noise),
+    so a fair comparison needs a port of that loop to main's task, not a
+    re-run.
+- Seeds: collection resets 100000 + 10000·seed + …; dev evaluation
+  81000–81009, monitoring only; held-out resets 70000–70049 used once, on the
+  last iteration's policies (no checkpoint selection).
+- Primary metric: policy-alone eight-second completion on held-out resets,
+  pooled over training seeds (150 episodes), Wilson 95%; paired Newcombe
+  differences per seed against raw MPPI and SAC 800k. Secondary: speed MAE
+  (paired bootstrap). Logged per iteration: executed cost per step, predicted
+  vs actual improvement, n_eff/K, λ.
+- Predictions:
+  1. Fact 1 holds in every E-step (minimum sample improvement ≥ 0).
+  2. (B) pooled completion ≥ 50%.
+  3. (B) completion ≥ DAgger completion, because DAgger imitates a
+     20–60% expert whose labels carry frozen-λ jitter (n_eff/K ≈ 0.03).
+  4. Neither learned policy reaches SAC 800k's speed MAE (0.20) in 25
+     iterations.
+  5. (B) vs raw MPPI at the same cell: no directional prediction (both
+     optimize the same H-step objective); report the two-sided interval.
+- Status: planned; launches automatically when the Step 4 grid finishes.
 
 Add one entry per question using the fields below:
 
