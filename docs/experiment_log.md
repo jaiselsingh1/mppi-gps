@@ -831,6 +831,40 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   at the same cell, seeds and budget, compared against this run.
 
 
+### Step 6 — MPPI-GPS with the policy's own tail (predictions written before running)
+
+- Question: does adding the current policy's simulated cost-to-go to the
+  E-step (policy iteration with the policy as rollout base) turn Step 5's
+  failing MPPI-GPS into a completing policy?
+- One change from Step 5 (B): `--cfg.tail-steps 100`. Every E-step cost —
+  samples, policy nominal and improved plan — is H = 32 controls plus 100
+  controls (0.8 s) of the current policy's closed-loop continuation, with
+  absorbing-fall accounting (`src/gps/policy_tail.py`, now routed through
+  `e_step(..., terminal=)` so all three use one objective). The improvement
+  check scores the new policy on its own H + tail cost.
+- Same as Step 5: K = 32, H = 32, n_eff/K = 0.2, training seeds 0–2 with
+  identical collection, planner and noise seeds, 25 iterations × 10 episodes
+  × 400 controls, label every 2nd state, exec noise 0.1, replay 2,
+  2,000 Adam steps. Same data budget; planner compute per E-step is higher.
+- Command (robopil, BLAS threads 1): for seed in 0 1 2:
+  `train_walker_mdgps --out-dir runs/2026-10-22_step6_mdgps_tail_seed$seed
+  --cfg.labeler mdgps --cfg.seed $seed --cfg.K 32 --cfg.H 32
+  --cfg.tail-steps 100 --cfg.iterations 25 --cfg.episodes-per-iter 10
+  --cfg.steps 400 --cfg.workers 6`. Worker count changes speed only:
+  episodes are seeded per job.
+- Comparison: held-out resets 70000–70049 with `walker_step5_compare.py`,
+  against Step 5's (B), DAgger, raw MPPI (K = 32, H = 32) and SAC 800k, plus
+  per-seed paired differences (B+tail seed i vs B seed i) via `--pairs`.
+- Predictions:
+  1. Fact 1 holds in every E-step, tail included.
+  2. (B+tail) pooled completion exceeds (B)'s 1/150, with the paired
+     per-seed interval excluding 0 in at least 2 of 3 seeds.
+  3. (B+tail) pooled completion ≥ raw MPPI's 38% (less certain).
+  4. (B+tail) speed MAE stays worse than SAC 800k's 0.20; no directional
+     prediction against (B)'s MAE (it may learn to stand before it walks).
+  5. Planner time per labeled state is ~4× (B)'s.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text

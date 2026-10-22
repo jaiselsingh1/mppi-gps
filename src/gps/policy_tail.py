@@ -25,6 +25,7 @@ class WalkerPolicyTail:
         self.env = env
         self.act_batch = act_batch
         self.tail_steps = tail_steps
+        self.last_tail = np.zeros(0)
         self.last_mean_tail_cost = 0.0
 
     def __call__(self, states: np.ndarray, actions: np.ndarray) -> np.ndarray:
@@ -47,5 +48,6 @@ class WalkerPolicyTail:
                 tail_actions[:, t] = act
             sensordata = np.zeros((len(rows), self.tail_steps, env.model.nsensordata))
             tail[rows] = env.rollout_cost(tail_states, tail_actions, sensordata)
+        self.last_tail = tail.copy()
         self.last_mean_tail_cost = float(np.mean(tail))
         return tail

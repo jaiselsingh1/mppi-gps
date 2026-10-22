@@ -56,9 +56,14 @@ def main(
     episodes: int = 50,
     reset_seed: int = 70_000,
     planner_seed: int = 95_000,
+    pairs: tuple[str, ...] = (),
     workers: int = max(1, (os.cpu_count() or 2) - 4),
 ) -> None:
-    """checkpoints: "arm=path" entries; repeat an arm name for its training seeds."""
+    """checkpoints: "arm=path" entries; repeat an arm name for its training seeds.
+
+    pairs: "candidate:reference" arm names compared seed by seed, the i-th
+    checkpoint of one against the i-th of the other, paired by reset seed.
+    """
     out_dir.mkdir(parents=True, exist_ok=False)
     started = time.time()
     policy_jobs = []
@@ -101,6 +106,19 @@ def main(
                         np.array(r["velocity_mae"]), ref_mae),
                 })
         report["arms"][arm] = entry
+    report["arm_pairs"] = {}
+    for pair in pairs:
+        candidate, reference_arm = pair.split(":", 1)
+        rows = []
+        for cand, ref in zip(arms[candidate], arms[reference_arm], strict=True):
+            rows.append({
+                "candidate": cand["source"], "reference": ref["source"],
+                "completion_difference": paired_proportion_difference(
+                    np.array(cand["survived"]).astype(int), np.array(ref["survived"]).astype(int)),
+                "velocity_mae_difference": paired_bootstrap_mean_difference(
+                    np.array(cand["velocity_mae"]), np.array(ref["velocity_mae"])),
+            })
+        report["arm_pairs"][pair] = rows
     report["wall_time_s"] = time.time() - started
     (out_dir / "report.json").write_text(json.dumps(report, indent=2))
     (out_dir / "episodes.json").write_text(json.dumps({"raw_mppi": mppi_rows, "policies": policy_rows}))

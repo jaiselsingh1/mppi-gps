@@ -117,19 +117,12 @@ def _collect(job: dict) -> dict:
             if t % cfg.label_every == 0:
                 full_act = lambda s: act(env.rollout_states_to_obs(s))
                 nominal, _ = closed_loop_nominal(env, state, full_act, cfg.H, warmstart)
-                if tail is not None:
-                    planner_kwargs = {"prior_cost": tail}
-                    action, info = planner.plan_step(state, nominal=nominal, initial_warmstart=warmstart,
-                                                     **planner_kwargs)
-                    diagnostics.append([info["n_eff"] / cfg.K, info["lam"], np.nan, np.nan, np.nan])
-                    labels.append(action)
-                else:
-                    result = e_step(planner, env, state, nominal, warmstart)
-                    labels.append(result.label)
-                    diagnostics.append([result.n_eff / cfg.K, result.lam, result.nominal_cost,
-                                        result.plan_cost, result.sample_improvement])
-                    if rng.random() < job["probe_probability"]:
-                        probes.append((state, warmstart, result.nominal_cost, result.plan_cost))
+                result = e_step(planner, env, state, nominal, warmstart, terminal=tail)
+                labels.append(result.label)
+                diagnostics.append([result.n_eff / cfg.K, result.lam, result.nominal_cost,
+                                    result.plan_cost, result.sample_improvement])
+                if rng.random() < job["probe_probability"]:
+                    probes.append((state, warmstart, result.nominal_cost, result.plan_cost))
                 observations.append(obs.copy())
         else:
             expert_action, info = planner.plan_step(state, initial_warmstart=warmstart)
@@ -158,16 +151,22 @@ def _improvement_check(actor_new: SacActor, probes: list, cfg: TrainConfig) -> d
     """MDGPS step signal at probe states visited this iteration.
 
     predicted = S(old policy plan) - S(improved MPPI plan); actual = S(old
-    policy plan) - S(new policy plan), same state and warm start.
+    policy plan) - S(new policy plan), same state and warm start. With a tail,
+    each plan's cost includes its policy's simulated cost-to-go (the improved
+    plan is followed by the old policy), so actual is the policy-iteration
+    improvement of the policy's own H + tail cost.
     """
     from src.gps.mdgps import closed_loop_nominal
+    from src.gps.policy_tail import WalkerPolicyTail
 
     env = _walker()
     act = _batch_act(actor_new)
+    tail = WalkerPolicyTail(env, act, cfg.tail_steps) if cfg.tail_steps else None
     predicted, actual = [], []
     for state, warmstart, old_cost, plan_cost in probes:
         plan, _ = closed_loop_nominal(env, state, lambda s: act(env.rollout_states_to_obs(s)), cfg.H, warmstart)
-        new_cost = env.batch_rollout(state, plan[None], initial_warmstart=warmstart)[1][0]
+        states, cost, _ = env.batch_rollout(state, plan[None], initial_warmstart=warmstart)
+        new_cost = cost[0] + (tail(states, plan[None])[0] if tail is not None else 0.0)
         predicted.append(old_cost - plan_cost)
         actual.append(old_cost - new_cost)
     predicted, actual = np.asarray(predicted), np.asarray(actual)
@@ -241,7 +240,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 "median_neff_fraction": float(np.nanmedian(diagnostics[:, 0])),
                 "median_lam": float(np.nanmedian(diagnostics[:, 1])),
             }
-            if cfg.labeler == "mdgps" and not cfg.tail_steps:
+            if cfg.labeler == "mdgps":
                 record["predicted_improvement_mean"] = float(np.nanmean(diagnostics[:, 2] - diagnostics[:, 3]))
                 record["sample_improvement_min"] = float(np.nanmin(diagnostics[:, 4]))
                 probes = [probe for ep in episodes for probe in ep["probes"]]

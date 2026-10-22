@@ -76,25 +76,37 @@ def e_step(
     state: np.ndarray,
     nominal: np.ndarray,
     warmstart: np.ndarray | None = None,
+    terminal=None,
 ) -> EStepResult:
-    """One policy-centred MPPI step from `state`; requires initial_iterations=1."""
+    """One policy-centred MPPI step from `state`; requires initial_iterations=1.
+
+    `terminal` is an optional cost-to-go hook with the WalkerPolicyTail
+    interface (called on rollout states and actions, exposing `last_tail`).
+    Every cost reported here, for samples, nominal and plan alike, is the
+    H-step cost plus that cost-to-go, so the bookkeeping scores one objective.
+    """
     if planner.initial_iterations != 1:
         raise ValueError("The E-step takes exactly one KL-bounded step per state.")
     kwargs = {} if warmstart is None else {"initial_warmstart": warmstart}
-    action, info = planner.plan_step(state, nominal=nominal, **kwargs)
+    action, info = planner.plan_step(state, nominal=nominal, prior_cost=terminal, **kwargs)
     rollout = planner.get_rollout_data()
-    _, nominal_cost, _ = env.batch_rollout(state, nominal[None], **kwargs)
-    _, plan_cost, _ = env.batch_rollout(state, planner.last_plan[None], **kwargs)
+    sample_costs = rollout["costs"] + (terminal.last_tail if terminal is not None else 0.0)
+
+    def total_cost(sequence: np.ndarray) -> float:
+        states, cost, _ = env.batch_rollout(state, sequence[None], **kwargs)
+        extra = terminal(states, sequence[None])[0] if terminal is not None else 0.0
+        return float(cost[0] + extra)
+
     low, high = env.action_bounds
     sampled = rollout["actions"]
-    finite = np.isfinite(rollout["costs"])
+    finite = np.isfinite(sample_costs)
     return EStepResult(
         label=action,
         lam=info["lam"],
         n_eff=info["n_eff"],
-        nominal_cost=float(nominal_cost[0]),
-        sample_mean_cost=float(np.mean(rollout["costs"][finite])),
-        expected_cost=float(np.sum(rollout["weights"][finite] * rollout["costs"][finite])),
-        plan_cost=float(plan_cost[0]),
+        nominal_cost=total_cost(nominal),
+        sample_mean_cost=float(np.mean(sample_costs[finite])),
+        expected_cost=float(np.sum(rollout["weights"][finite] * sample_costs[finite])),
+        plan_cost=total_cost(planner.last_plan),
         clip_fraction=float(np.mean((sampled <= low) | (sampled >= high))),
     )
