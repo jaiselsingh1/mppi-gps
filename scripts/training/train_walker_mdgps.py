@@ -47,6 +47,14 @@ class TrainConfig:
     neff_fraction_min: float = 0.05
     neff_fraction_max: float = 0.5
     probe_probability: float = 0.02
+    # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
+    # collect, then all of an iteration's states are labelled on the GPU with
+    # the same per-episode noise streams the CPU path draws.
+    gpu_estep: bool = False
+    gpu_states_per_batch: int = 128
+    save_labels: bool = False
+    # Optional checkpoint (load_policy format) to start from instead of a random policy.
+    init_policy: str | None = None
     iterations: int = 30
     episodes_per_iter: int = 20
     steps: int = 1000
@@ -117,10 +125,17 @@ def _collect(job: dict) -> dict:
     np.random.seed(job["reset_seed"])
     obs = env.reset()
     observations, labels, diagnostics, velocities, costs, probes = [], [], [], [], [], []
+    pending, probe_flags = [], []
     for t in range(cfg.steps):
         state, warmstart = env.get_state(), env.get_warmstart()
         expert_action = None
-        if cfg.labeler == "mdgps":
+        if cfg.labeler == "mdgps" and cfg.gpu_estep:
+            if t % cfg.label_every == 0:
+                # Same random draws as the CPU branch, so the same states are visited.
+                pending.append((state, warmstart, (job["planner_seed"], len(pending))))
+                probe_flags.append(bool(rng.random() < job["probe_probability"]))
+                observations.append(obs.copy())
+        elif cfg.labeler == "mdgps":
             if t % cfg.label_every == 0:
                 full_act = lambda s: act(env.rollout_states_to_obs(s))
                 nominal, _ = closed_loop_nominal(env, state, full_act, cfg.H, warmstart)
@@ -151,6 +166,7 @@ def _collect(job: dict) -> dict:
         "survived": len(velocities) == cfg.steps and not done,
         "velocity_mae": float(np.mean(np.abs(env._v_target - np.asarray(velocities)))),
         "cost_per_step": float(np.mean(costs)), "probes": probes,
+        "pending": pending, "probe_flags": probe_flags,
     }
 
 
@@ -218,10 +234,27 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
     (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
+    if cfg.init_policy is not None:
+        from src.rl.sac import load_policy
+
+        payload = torch.load(cfg.init_policy, map_location="cpu", weights_only=False)
+        actor.load_state_dict(load_policy(payload.get("policy", payload)).state_dict())
     neff_fraction = cfg.neff_fraction
     replay: list[tuple[np.ndarray, np.ndarray]] = []
     started = time.time()
     with Pool(cfg.workers) as pool:
+        gpu = None
+        if cfg.gpu_estep:
+            if cfg.labeler != "mdgps":
+                raise ValueError("gpu_estep needs labeler='mdgps'.")
+            # Imported and built after the pool forks, so workers never touch CUDA.
+            from src.gps.gpu_estep import WalkerGPUEStep
+            from src.utils.config import MPPIConfig
+
+            base = MPPIConfig(**json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text()))
+            gpu_cfg = replace(base, K=cfg.K, H=cfg.H, initial_iterations=1, lam_target_neff_fraction=neff_fraction)
+            gpu = WalkerGPUEStep(_walker(), copy.deepcopy(actor).cuda().eval(), gpu_cfg, cfg.tail_steps,
+                                 states_per_batch=cfg.gpu_states_per_batch)
         for iteration in range(cfg.iterations):
             t0 = time.time()
             execute_expert = cfg.labeler == "dagger" and iteration == 0
@@ -232,12 +265,33 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                      "probe_probability": cfg.probe_probability, "neff_fraction": neff_fraction}
                     for e in range(cfg.episodes_per_iter)]
             episodes = pool.map(_collect, jobs)
+            seconds_collect = time.time() - t0
             obs = np.concatenate([ep["obs"] for ep in episodes])
-            labels = np.concatenate([ep["labels"] for ep in episodes])
-            diagnostics = np.concatenate([ep["diagnostics"] for ep in episodes])
+            if gpu is None:
+                labels = np.concatenate([ep["labels"] for ep in episodes])
+                diagnostics = np.concatenate([ep["diagnostics"] for ep in episodes])
+                probes = [probe for ep in episodes for probe in ep["probes"]]
+            else:
+                pending = [item for ep in episodes for item in ep["pending"]]
+                flags = [flag for ep in episodes for flag in ep["probe_flags"]]
+                gpu.actor.load_state_dict(actor.state_dict())
+                gpu.cfg = replace(gpu.cfg, lam_target_neff_fraction=neff_fraction)
+                result = gpu(np.asarray([p[0] for p in pending]), np.asarray([p[1] for p in pending]),
+                             noise_streams=[p[2] for p in pending])
+                labels = result.labels
+                diagnostics = np.stack([result.n_eff / cfg.K, result.lam, result.nominal_cost, result.plan_cost,
+                                        result.sample_mean_cost - result.expected_cost], axis=1)
+                probes = [(p[0], p[1], nominal, plan) for p, flag, nominal, plan
+                          in zip(pending, flags, result.nominal_cost, result.plan_cost) if flag]
+            seconds_label = time.time() - t0 - seconds_collect
+            if cfg.save_labels:
+                np.savez_compressed(out_dir / f"labels_{iteration:03d}.npz", obs=obs, labels=labels,
+                                    diagnostics=diagnostics)
             replay = (replay + [(obs, labels)])[-cfg.replay_iterations:]
+            fit_started = time.time()
             loss = _fit(actor, np.concatenate([o for o, _ in replay]),
                         np.concatenate([l for _, l in replay]), cfg, rng)
+            seconds_fit = time.time() - fit_started
             record = {
                 "iteration": iteration, "execute_expert": execute_expert,
                 "collect_mean_steps": float(np.mean([ep["steps"] for ep in episodes])),
@@ -245,13 +299,14 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in episodes])),
                 "collect_cost_per_step": float(np.mean([ep["cost_per_step"] for ep in episodes])),
                 "labels": int(len(labels)), "fit_loss": loss, "neff_fraction_target": neff_fraction,
+                "labeling": "gpu" if gpu is not None else "cpu", "seconds_collect": seconds_collect,
+                "seconds_label": seconds_label, "seconds_fit": seconds_fit,
                 "median_neff_fraction": float(np.nanmedian(diagnostics[:, 0])),
                 "median_lam": float(np.nanmedian(diagnostics[:, 1])),
             }
             if cfg.labeler == "mdgps":
                 record["predicted_improvement_mean"] = float(np.nanmean(diagnostics[:, 2] - diagnostics[:, 3]))
                 record["sample_improvement_min"] = float(np.nanmin(diagnostics[:, 4]))
-                probes = [probe for ep in episodes for probe in ep["probes"]]
                 if probes:
                     record["improvement_check"] = _improvement_check(actor, probes, cfg)
                     if cfg.adapt_step:

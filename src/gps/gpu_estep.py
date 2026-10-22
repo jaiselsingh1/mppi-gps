@@ -122,6 +122,8 @@ class WalkerGPUEStep:
         states = _full_states(hq, hv)
         sensors = np.zeros(states.shape[:2] + (0,))
         cost = env.rollout_cost(states, actions, sensors)
+        if not self.tail_steps:
+            return cost
         fell = ~np.all(env._is_healthy(states[..., 2], states[..., 3]), axis=1)
         tq, tv, tu = worlds.rollout(self.tail_steps, n, policy=self.policy)
         tail_states = _full_states(tq, tv)
@@ -129,10 +131,32 @@ class WalkerGPUEStep:
         tail[fell] = env._w_unhealthy * self.tail_steps
         return cost + tail
 
-    def __call__(self, states: np.ndarray, warmstarts: np.ndarray, noise_seeds: list[int]) -> GPULabels:
+    def __call__(
+        self,
+        states: np.ndarray,
+        warmstarts: np.ndarray,
+        noise_seeds: list[int] | None = None,
+        noise_streams: list[tuple[int, int]] | None = None,
+    ) -> GPULabels:
+        """Label `states`. Noise for state i is the first draw of an MPPI
+        planner seeded noise_seeds[i], or, with noise_streams[i] = (seed, j),
+        the j-th draw of one planner per seed: the stream the CPU training path
+        uses for the j-th labelled state of an episode."""
         env, cfg, k, h = self.env, self.cfg, self.cfg.K, self.cfg.H
         nq, nv = env.model.nq, env.model.nv
         rows = {name: [] for name in GPULabels.__dataclass_fields__}
+        planners: dict[int, list] = {}
+
+        def noise(i: int) -> np.ndarray:
+            if noise_streams is None:
+                return MPPI(env, cfg, seed=noise_seeds[i])._sample_noise()
+            seed, draw = noise_streams[i]
+            planner = planners.setdefault(seed, [MPPI(env, cfg, seed=seed), 0])
+            if draw != planner[1]:
+                raise ValueError(f"noise stream {seed} expected draw {planner[1]}, got {draw}.")
+            planner[1] += 1
+            return planner[0]._sample_noise()
+
         for start in range(0, len(states), self.batch):
             stop = min(start + self.batch, len(states))
             n = stop - start
@@ -142,8 +166,8 @@ class WalkerGPUEStep:
             self.singles.load(q0, v0, w0)
             _, _, nominal = self.singles.rollout(h, n, policy=self.policy)
             nominal = nominal.double().cpu().numpy()
-            noise = np.stack([MPPI(env, cfg, seed=s)._sample_noise() for s in noise_seeds[start:stop]])
-            sampled = np.clip(nominal[:, None] + noise, self.low_np, self.high_np)
+            draws = np.stack([noise(i) for i in range(start, stop)])
+            sampled = np.clip(nominal[:, None] + draws, self.low_np, self.high_np)
             self.samples.load(q0.repeat_interleave(k, 0), v0.repeat_interleave(k, 0), w0.repeat_interleave(k, 0))
             scores = self._cost(self.samples, n * k, sampled.reshape(n * k, h, -1)).reshape(n, k)
             plans = np.empty_like(nominal)
