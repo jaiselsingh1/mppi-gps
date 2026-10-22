@@ -1188,6 +1188,53 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   under a CUDA graph, and (3) acceptance of non-bitwise GPU runs. Not done
   yet; the Step 9/8r runs stay on CPU.
 
+### Batched GPU E-step: verification and measured speed (robopil5090)
+
+- Question: does the batched GPU E-step (`src/gps/gpu_estep.py`, `a26afad`)
+  give the CPU E-step's labels, and how much faster is it?
+- Design: all of an iteration's labelled states at once, 64 or 128 states ×
+  K = 256 samples as GPU worlds. Policy nominals, open-loop samples and the
+  100-control closed-loop policy tail all run on MuJoCo Warp, with each
+  control step's 4 physics steps captured as one CUDA graph and the policy in
+  torch between launches. Costs, temperature and label follow `e_step`
+  exactly. The CUDA-only test `tests/test_gpu_estep.py` checks labels, λ and
+  costs against `e_step` with identical noise (passes on the 5090).
+- Measured (`scripts/benchmarks/gpu_estep_check.py`,
+  `runs/2026-10-22_gpu_estep_check_001/`): 1,190 states collected like
+  training from Step 9 adaptive seed 1's `policy_014.pt`. The CPU labelled
+  the first 48 with identical noise.
+  - Speed: CPU 1.98 s per label (one thread, machine shared with 24 training
+    workers). GPU 0.049 s per label at 16,384 worlds and **0.040 s at 32,768**:
+    49× one thread. That is ~2–2.5× all 32 CPU threads, and it frees the
+    CPU. A Step 8-sized iteration (~1,200 labels) takes ~48 s on the GPU,
+    against ~340 s for a 7-worker CPU run.
+  - Agreement: GPU vs CPU labels differ by median 0.072 (max 0.134); λ, plan
+    and nominal costs by 6–8%. The same GPU computation at batch 64 vs 128
+    differs by up to 0.18.
+- Why (`scripts/benchmarks/estep_chaos_check.py`,
+  `runs/2026-10-22_estep_chaos_001/`, 24 states, identical noise). Label
+  differences, median (max):
+
+  | Comparison | Label difference |
+  |---|---:|
+  | CPU, root x-velocity nudged by 1e-6 | 0.068 (0.113) |
+  | Two identical GPU runs | 0.063 (0.126) |
+  | GPU vs CPU | 0.077 (0.112) |
+  | Two noise seeds (sampling noise) | 0.133 (0.264) |
+
+  No contact or constraint overflow: buffers are 48 contacts and 64
+  constraint rows per world, and no warnings were logged.
+- Interpretation: with a 100-control closed-loop tail, the E-step label is
+  chaotic. A 1e-6 change to the state moves it by about half the sampling
+  noise, on CPU alone, so the GPU–CPU gap is this physical sensitivity, not
+  GPU error. Without the tail, labels agree to 0.0002 (Warp parity entry).
+  This also matters for Steps 6–9: raising K reduces sampling noise but not
+  this chaotic component of every tail-augmented label.
+- Decision: **keep.** The GPU E-step is statistically equivalent to the CPU
+  one and ~7× faster per run than the 7-worker CPU setup. It is not yet wired
+  into `train_walker_mdgps.py`; doing so means collecting episodes with the
+  policy on CPU, labelling all states on the GPU, then fitting.
+
 Add one entry per question using the fields below:
 
 ```text
