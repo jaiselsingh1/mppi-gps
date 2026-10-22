@@ -1124,7 +1124,22 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. Step 9's pooled completion is above 0/150 (least certain).
   5. Step 8r reproduces Step 8 qualitatively: pooled time alive within
      ±0.5 s of 1.45 s and at most 2/150 completions.
-- Status: planned.
+- Status: running. Launched 13:40 on 2026-10-22 at `9a049de`.
+- Incident: Step 8r seed 0 crashed at iteration 7 (14:28). `torch.save`
+  failed with "unexpected pos" and left a 0-byte `policy_007.pt`: the
+  shared disk briefly ran out of space. No other run was affected. The
+  crashed run is kept as `runs/2026-10-22_step8r_fixed_seed0_crashed_disk_full/`.
+  Seed 0 was relaunched from iteration 0 at 14:31 with identical settings,
+  after 32 GB was freed.
+- Free space came from moving `~/Documents/percept-id-archive-20260921`
+  (32 GB of sol1–sol8 robot recordings) to the Mac. All 404,271 files were
+  verified (404,236 against its `sha256.jsonl`, 35 by hashing on both
+  machines) before the user deleted it on the 5090.
+- GPU environment: the full lock now installs separately at
+  `~/mppi-gps-venvs/cuda` (`UV_PROJECT_ENVIRONMENT=... uv sync --locked`,
+  8.6 GB). It has torch 2.10.0+cu128 on the RTX 5090 and warp 1.12.1 with
+  mujoco_warp; 492 tests pass. Step 9/8r keep the CPU-only `.venv` they
+  started with, so both arms share one environment.
 
 Add one entry per question using the fields below:
 
