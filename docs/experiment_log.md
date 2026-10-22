@@ -944,7 +944,53 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. The M-step realizes a larger share of the predicted improvement than
      at K = 32 (mean actual/predicted there: 4.2–5.7 of 9.1–12.1).
   5. CPU per labeled state is ~6–8× Step 5's.
-- Status: planned.
+- Status: complete. Launched 01:24 on 2026-10-22 at `4066756`; 25 iterations
+  per seed in 767–1,394 s wall (7 workers each).
+- Held-out result (`runs/2026-10-22_step7_heldout_001/report.json`; arms
+  shared with Steps 5–6 re-evaluated identically):
+
+  | Arm | Completed | Speed MAE | Time alive (seeds 0/1/2) |
+  |---|---:|---:|---:|
+  | Raw MPPI, K = 32, H = 32 | 19/50 | 0.387 | 3.78 s |
+  | (B), K = 256 | 0/150 | **0.755** | **0.99 s** (0.77, 0.89, 1.30) |
+  | (B), K = 32 (Step 5) | 1/150 | 0.927 | 1.34 s (1.27, 1.50, 1.24) |
+  | (B) + tail, K = 32 (Step 6) | 0/150 | 1.115 | 1.36 s |
+  | DAgger (Step 5) | 0/150 | 0.792 | 1.30 s |
+  | SAC 800k | 50/50 | 0.198 | 8.00 s |
+
+- Paired by reset seed, K = 256 minus K = 32, seeds 0/1/2:
+  - Completion: +0.00 [−0.07, +0.07], −0.02 [−0.10, +0.05],
+    +0.00 [−0.07, +0.07].
+  - Speed MAE: −0.312 [−0.396, −0.242], −0.310 [−0.375, −0.256],
+    +0.107 [−0.008, +0.221].
+  - Time alive: −0.50 s [−0.57, −0.44], −0.61 s [−0.92, −0.41],
+    +0.05 s [−0.09, +0.19].
+- Training: seeds 0 and 1 reached 1.5–1.8 s dev time alive by iterations
+  4–9, then declined to 0.8–0.9 s while dev speed MAE fell from 1.2–2.3 to
+  0.58–0.59. Seed 2 was still rising at iteration 24 (1.2 s).
+- Theory and fit checks: fact 1 held in every E-step (minimum 0.074). The
+  M-step realized 91%, 60% and 58% of predicted improvement (K = 32: 39%,
+  63%, 36%). Fit loss was ~10× lower.
+- Compute: 0.57–0.71 CPU-s per labeled state (7–9× Step 5).
+- Videos (`runs/2026-10-22_step7_videos_001/`, reset 70000). Seed 0 at
+  iteration 24 leans into the target speed and dives forward, falling at
+  0.74 s at ~1 m/s. At iteration 4 it stepped backward upright and fell at
+  1.2 s.
+- Predictions: 1 **held**. 2 **wrong**: time alive is *shorter* in 2 of 3
+  seeds, both intervals excluding 0. 3 **held**. 4 **held** in 2 of 3 seeds.
+  5 **held**, slightly above (7–9×).
+- Interpretation: label noise was not what held (B) near 1.3 s. With clean
+  labels, (B) optimizes its 32-step objective better — speed tracking
+  improves by 0.31 m/s in two seeds — and that objective, with no
+  cost-to-go, rewards diving toward the target speed. Steps 6 and 7 each
+  changed one factor: the tail with noisy labels gave nothing, and clean
+  labels without the tail optimized the wrong objective. The untested cell is
+  both together. The tail's fall costs add large variance to sample scores,
+  and at K = 32 each label averaged n_eff ≈ 6 samples, likely too few for the
+  cost-to-go to move the labels.
+- Decision: **revise.** Next single change: K = 256 with the 100-control
+  tail, same seeds and data budget, completing the 2 × 2 (K × tail). Its
+  cost is roughly 4× this run per label (the tail is K × 100 extra controls).
 
 Add one entry per question using the fields below:
 
