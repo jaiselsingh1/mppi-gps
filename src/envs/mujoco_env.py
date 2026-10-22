@@ -118,9 +118,7 @@ class MuJoCoEnv(BaseEnv):
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         
         if self._use_warp:
-            if initial_warmstart is not None:
-                raise ValueError("The Warp rollout path does not support initial_warmstart.")
-            return self._batch_rollout_warp(initial_state, action_sequences)
+            return self._batch_rollout_warp(initial_state, action_sequences, initial_warmstart)
 
         K, H, _ = action_sequences.shape 
         
@@ -166,7 +164,11 @@ class MuJoCoEnv(BaseEnv):
         # (H, K, *) so buf[h] is a (K, *) leading-axis subview wp.copy can target
         self._qpos_buf   = wp.zeros((H, K, self.model.nq),          dtype=wp.float32)
         self._qvel_buf   = wp.zeros((H, K, self.model.nv),          dtype=wp.float32)
-        self._sensor_buf = wp.zeros((H, K, self.model.nsensordata), dtype=wp.float32)
+        # Warp cannot slice a zero-width array, so sensor-free models get none.
+        self._sensor_buf = (
+            wp.zeros((H, K, self.model.nsensordata), dtype=wp.float32)
+            if self.model.nsensordata else None
+        )
         self._actions_wp = wp.zeros((H, K, self.model.nu),          dtype=wp.float32)
         self._rollout_graph = None    # buffers changed → prior graph is invalid
         self._warp_H = H
@@ -183,9 +185,10 @@ class MuJoCoEnv(BaseEnv):
                 mjw.step(self._wm, self._wd)
             wp.copy(self._qpos_buf[h],   self._wd.qpos)       # (K, nq)
             wp.copy(self._qvel_buf[h],   self._wd.qvel)       # (K, nv)
-            wp.copy(self._sensor_buf[h], self._wd.sensordata) # (K, ns)
+            if self._sensor_buf is not None:
+                wp.copy(self._sensor_buf[h], self._wd.sensordata) # (K, ns)
 
-    def _batch_rollout_warp(self, initial_state, action_sequences):
+    def _batch_rollout_warp(self, initial_state, action_sequences, initial_warmstart=None):
         K, H, nu = action_sequences.shape
         self._ensure_warp_buffers(K, H)
 
@@ -198,6 +201,12 @@ class MuJoCoEnv(BaseEnv):
         qvel0 = np.broadcast_to(self.data.qvel.astype(np.float32), (K, nv)).copy()
         self._wd.qpos.assign(qpos0)
         self._wd.qvel.assign(qvel0)
+        # Start every rollout from a defined solver warm start, as the CPU path
+        # does (zeros unless one is given); otherwise each call inherits the
+        # previous call's final warm start and time.
+        warmstart = np.zeros(nv) if initial_warmstart is None else np.asarray(initial_warmstart)
+        self._wd.qacc_warmstart.assign(np.broadcast_to(warmstart.astype(np.float32), (K, nv)).copy())
+        self._wd.time.zero_()
         self._actions_wp.assign(
             np.ascontiguousarray(action_sequences.transpose(1, 0, 2).astype(np.float32))
         )
@@ -210,7 +219,11 @@ class MuJoCoEnv(BaseEnv):
 
         qpos       = self._qpos_buf.numpy().transpose(1, 0, 2)
         qvel       = self._qvel_buf.numpy().transpose(1, 0, 2)
-        sensordata = self._sensor_buf.numpy().transpose(1, 0, 2)
+        sensordata = (
+            self._sensor_buf.numpy().transpose(1, 0, 2)
+            if self._sensor_buf is not None
+            else np.zeros((K, H, 0), dtype=np.float32)
+        )
 
         time_col = np.zeros((K, H, 1), dtype=np.float32)
         states = np.concatenate([time_col, qpos, qvel], axis=-1)
