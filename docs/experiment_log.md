@@ -1124,7 +1124,46 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. Step 9's pooled completion is above 0/150 (least certain).
   5. Step 8r reproduces Step 8 qualitatively: pooled time alive within
      ±0.5 s of 1.45 s and at most 2/150 completions.
-- Status: running. Launched 13:40 on 2026-10-22 at `9a049de`.
+- Status: complete. Launched 13:40 on 2026-10-22 at `9a049de`; the last run
+  (8r seed 0, relaunched 14:31) finished ~17:40. Wall times: 0.7–3.6 h per
+  run, iterations slowed to 6–15 min on the shared CPU.
+- Held-out result (`runs/2026-10-22_step9_heldout_001/report.json` on
+  robopil5090, CPU-only environment, the same as the cross-check; raw MPPI
+  reproduces its 15/50 exactly):
+
+  | Arm | Completed | Speed MAE | Time alive (seeds 0/1/2) |
+  |---|---:|---:|---:|
+  | Raw MPPI, K = 32, H = 32 | 15/50 | 0.392 | 3.30 s |
+  | **Step 9, adaptive step** | 1/150 | 0.903 | **1.85 s** (1.61, 2.58, 1.38) |
+  | Step 8r, fixed n_eff/K = 0.2 | 0/150 | 0.821 | 1.51 s (1.77, 1.75, 1.03) |
+  | SAC 800k | 50/50 | 0.198 | 8.00 s |
+
+- Paired by reset seed, Step 9 minus Step 8r, seeds 0/1/2:
+  - Time alive: −0.16 s [−0.21, −0.11], **+0.83 s [+0.50, +1.21]**,
+    **+0.35 s [+0.23, +0.45]**.
+  - Speed MAE: +0.093 [+0.069, +0.115], −0.112 [−0.136, −0.088],
+    +0.265 [+0.116, +0.413].
+  - Completion: all within ±0.07. Against raw MPPI, each Step 9 seed is
+    −0.28 to −0.30 (intervals exclude 0).
+- Training: minimum sample improvement 0.058–0.163 in every run. Step 9's
+  median ρ over iterations 5–24 was 0.050, 0.050 and 0.081. The rule sat at
+  the 0.05 floor in 14, 16 and 11 of 25 iterations and returned a
+  multiplier > 1 in 16–18 of 25. Dev: Step 9 seed 1 peaked at 2.9 s
+  (iteration 19); Step 8r seed 1 completed 1/10 dev episodes at iteration 9,
+  not kept later.
+- Predictions: 1 **held**. 2 **held**. 3 **held** (seeds 1 and 2, intervals
+  above 0; seed 0 worse). 4 **held, barely** (1/150). 5 **held** (Step 8r
+  1.51 s vs Step 8's 1.45 s; 0 completions).
+- Interpretation: MDGPS's step rule mostly wants larger KL steps than
+  n_eff/K = 0.2 allows. Taking them buys 0.35–0.83 s of survival in two of
+  three seeds, but speed tracking is mixed and completion stays near zero.
+  The rule ends up pinned at the n_eff floor, so the trust region is now
+  limited by label noise (n_eff ≈ 13 at K = 256), not by KL. All learned
+  arms remain far below raw MPPI at the same cell (3.30 s, 15/50).
+- Decision: **keep** the adaptive step as the default for further runs. The
+  open question is the iteration budget (Step 10, running).
+
+
 - Incident: Step 8r seed 0 crashed at iteration 7 (14:28). `torch.save`
   failed with "unexpected pos" and left a 0-byte `policy_007.pt`: the
   shared disk briefly ran out of space. No other run was affected. The
