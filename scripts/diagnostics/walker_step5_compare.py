@@ -24,11 +24,15 @@ def _evaluate_checkpoint(job: dict) -> dict:
     import torch
 
     from scripts.runners.eval_policy_walker2d import evaluate_policy
+    from src.gps.averaging import AveragedPolicy
     from src.rl.sac import load_policy
 
     torch.set_num_threads(1)
-    payload = torch.load(job["path"], map_location="cpu", weights_only=False)
-    policy = load_policy(payload.get("policy", payload), device="cpu")
+    policies = []
+    for path in str(job["path"]).split("+"):
+        payload = torch.load(path, map_location="cpu", weights_only=False)
+        policies.append(load_policy(payload.get("policy", payload), device="cpu"))
+    policy = policies[0] if len(policies) == 1 else AveragedPolicy(policies)
     episodes = evaluate_policy(policy, episodes=job["episodes"], seed=job["seed"])["episodes"]
     return {"arm": job["arm"], "source": str(job["path"]),
             "survived": [bool(e["survived"]) for e in episodes],
@@ -65,6 +69,8 @@ def main(
     workers: int = max(1, (os.cpu_count() or 2) - 4),
 ) -> None:
     """checkpoints: "arm=path" entries; repeat an arm name for its training seeds.
+    A path of several checkpoints joined by "+" is evaluated as the policy that
+    acts with the mean of their actions.
 
     pairs: "candidate:reference" arm names compared seed by seed, the i-th
     checkpoint of one against the i-th of the other, paired by reset seed.

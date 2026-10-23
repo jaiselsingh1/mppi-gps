@@ -1583,6 +1583,83 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   H = 32 in 5 of 6 seeds and DAgger in every seed, and two seeds approach
   SAC 800k. The next question is take-off time.
 
+### Step 13 — three checks that need no training (predictions written before running)
+
+- Question: do three checks from the 2026-10-23 theory review hold up on the
+  existing runs?
+  - (a) Does averaging the last iterates help? Stochastic mirror descent's
+    guarantee is for the averaged iterate, not the last one.
+  - (b) Does an H = 48 planner beat the MPPI-GPS policies? That is the regime
+    `general.md` assumes, where MPC "can do the task".
+  - (c) How often is the E-step's averaged plan worse than the policy's own
+    plan, and is that systematic or sampling noise?
+- Fixed: Step 10/12's six training runs (seeds 0–5); no training. Held-out
+  resets 70000–70049 on robopil5090. 13a and 13b use Step 12's CPU-only
+  evaluation environment; 13c uses the CUDA environment.
+
+**13a — averaged iterates.**
+- Arms per seed: the last iterate (`policy_074.pt`, as in Step 12) and the
+  action average of iterations 65–74, which acts with the mean of the ten
+  policies' actions (the mean of the mixture policy). Exploratory: the
+  weight average of the same ten checkpoints, as one network.
+- Comparison: paired by reset seed against the last iterate, per seed and
+  pooled. Primary: completion. Secondary: speed MAE and time alive. Run with
+  13b's K = 32 cell in one `walker_step5_compare.py` call.
+- The averaging guarantee holds for convex problems; here it is a heuristic.
+- Predictions:
+  1. For the four seeds that took off by iteration 57 (0, 1, 4, 5), the
+     action average completes at least as many episodes as the last iterate
+     in at least 3 of 4. Pooled over those four, its completion is higher and
+     its speed MAE lower.
+  2. For the two late seeds (2 and 3, take-off at 73 and 70), the action
+     average completes fewer episodes than the last iterate, because it mixes
+     in policies from before take-off.
+  3. Weight average: no prediction.
+
+**13b — raw MPPI at H = 48.**
+- Arms: raw MPPI at K = 32, H = 48 and at K = 256, H = 48 (frozen λ = 3,
+  own warm start, planner seeds 95000+, 1,000 controls). Compared with the
+  six MPPI-GPS last iterates and SAC 800k, paired by reset seed. Step 4's
+  dev grid (robopil, 10 episodes each): 10/10 at both cells, speed MAE 0.358
+  and 0.139.
+- Predictions:
+  1. Both H = 48 cells complete at least 80% of held-out episodes.
+  2. Both beat the six MPPI-GPS policies' pooled 68% on completion. Against
+     the K = 32, H = 48 cell, at most seeds 4 and 5 are not below it (paired
+     interval).
+  3. K = 256, H = 48 has a lower speed MAE than SAC 800k (0.198) and than
+     every MPPI-GPS seed.
+- Seconds per decision are recorded for both cells.
+
+**13c — plan versus policy on E-step labels.**
+- Design: for each seed's iteration-24 and iteration-74 checkpoints, collect
+  states as training does (10 episodes × 400 controls, policy + N(0, 0.1²),
+  every 2nd state, collection seed 123000). Label them twice with the batched
+  GPU E-step at the training settings (K = 256, H = 32, 100-control tail,
+  n_eff/K = 0.2), using independent noise draws.
+- Per state, gain = policy plan cost − improved plan cost on the E-step
+  objective: the predicted improvement, at every state instead of 2% probes.
+- Report: the fraction of states with gain < 0 (the improved plan is worse
+  than the policy's own), the median gain, sign agreement between the two
+  draws, and label distance from the policy's action on states with gain < 0
+  vs > 0.
+- Predictions:
+  1. At iteration 74, at least 25% of states have gain < 0 in every seed.
+  2. That fraction is higher at iteration 74 than at iteration 24 in every
+     seed.
+  3. At iteration 74 the sign of the gain repeats across the two draws on
+     fewer than 75% of states (mostly sampling noise); at iteration 24, on
+     more than 75%.
+
+- What each result changes:
+  - If (a) helps, later steps report averaged iterates beside last ones.
+  - If (b)'s planners beat MPPI-GPS, they join the headline comparison, and
+    the claim becomes amortization (a fast policy) rather than "beats the
+    planner".
+  - If (c) shows ≥ 25% worse plans at convergence, the next training change
+    is gating labels on plan cost or shrinking the step late.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
