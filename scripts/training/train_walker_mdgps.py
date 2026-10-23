@@ -51,6 +51,10 @@ class TrainConfig:
     # plan on the E-step objective; otherwise label the policy's own action
     # (docs/theory.md, Proposition 4).
     predictive_check: bool = False
+    # If set, the E-step's noise std at iteration k is
+    # sigma_0 * (1 + k / sigma_decay_iterations)^(-1/2), with sigma_0 from
+    # configs/walker2d_best.json (docs/theory.md, Consequence 2).
+    sigma_decay_iterations: float | None = None
     # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
     # collect, then all of an iteration's states are labelled on the GPU with
     # the same per-episode noise streams the CPU path draws.
@@ -104,6 +108,12 @@ def _batch_act(actor: SacActor):
     return act
 
 
+def _noise_sigma(cfg: TrainConfig, base_sigma: float, iteration: int) -> float:
+    if cfg.sigma_decay_iterations is None:
+        return base_sigma
+    return base_sigma / np.sqrt(1.0 + iteration / cfg.sigma_decay_iterations)
+
+
 def _collect(job: dict) -> dict:
     from src.gps.mdgps import closed_loop_nominal, e_step
     from src.gps.policy_tail import WalkerPolicyTail
@@ -119,7 +129,8 @@ def _collect(job: dict) -> dict:
     base = MPPIConfig(**json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text()))
     if cfg.labeler == "mdgps":
         planner_cfg = replace(base, K=cfg.K, H=cfg.H, initial_iterations=1,
-                              lam_target_neff_fraction=job["neff_fraction"])
+                              lam_target_neff_fraction=job["neff_fraction"],
+                              noise_sigma=job.get("noise_sigma", base.noise_sigma))
     else:
         planner_cfg = replace(base, K=cfg.K, H=cfg.H)
     planner = MPPI(env, planner_cfg, seed=job["planner_seed"])
@@ -245,6 +256,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
         payload = torch.load(cfg.init_policy, map_location="cpu", weights_only=False)
         actor.load_state_dict(load_policy(payload.get("policy", payload)).state_dict())
     neff_fraction = cfg.neff_fraction
+    base_sigma = json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text())["noise_sigma"]
     replay: list[tuple[np.ndarray, np.ndarray]] = []
     started = time.time()
     with Pool(cfg.workers) as pool:
@@ -262,16 +274,19 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                                  states_per_batch=cfg.gpu_states_per_batch)
         for iteration in range(cfg.iterations):
             t0 = time.time()
+            sigma = _noise_sigma(cfg, base_sigma, iteration)
             execute_expert = cfg.labeler == "dagger" and iteration == 0
             base_seed = 100_000 + 10_000 * cfg.seed + cfg.episodes_per_iter * iteration
             jobs = [{"cfg": cfg, "actor": {k: v.cpu() for k, v in actor.state_dict().items()},
                      "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,
                      "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert,
-                     "probe_probability": cfg.probe_probability, "neff_fraction": neff_fraction}
+                     "probe_probability": cfg.probe_probability, "neff_fraction": neff_fraction,
+                     "noise_sigma": sigma}
                     for e in range(cfg.episodes_per_iter)]
             episodes = pool.map(_collect, jobs)
             seconds_collect = time.time() - t0
             obs = np.concatenate([ep["obs"] for ep in episodes])
+            own = _batch_act(actor)(obs) if cfg.labeler == "mdgps" else None
             if gpu is None:
                 labels = np.concatenate([ep["labels"] for ep in episodes])
                 diagnostics = np.concatenate([ep["diagnostics"] for ep in episodes])
@@ -280,12 +295,11 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 pending = [item for ep in episodes for item in ep["pending"]]
                 flags = [flag for ep in episodes for flag in ep["probe_flags"]]
                 gpu.actor.load_state_dict(actor.state_dict())
-                gpu.cfg = replace(gpu.cfg, lam_target_neff_fraction=neff_fraction)
+                gpu.cfg = replace(gpu.cfg, lam_target_neff_fraction=neff_fraction, noise_sigma=sigma)
                 result = gpu(np.asarray([p[0] for p in pending]), np.asarray([p[1] for p in pending]),
                              noise_streams=[p[2] for p in pending])
                 labels = result.labels
                 if cfg.predictive_check:
-                    own = _batch_act(actor)(obs)
                     labels = np.where((result.plan_cost > result.nominal_cost)[:, None], own, labels)
                 diagnostics = np.stack([result.n_eff / cfg.K, result.lam, result.nominal_cost, result.plan_cost,
                                         result.sample_mean_cost - result.expected_cost], axis=1)
@@ -317,6 +331,8 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 # Share of states whose improved plan costs more than the policy's
                 # own plan: the labels the predictive check replaces.
                 record["plan_worse_fraction"] = float(np.mean(diagnostics[:, 3] > diagnostics[:, 2]))
+                record["noise_sigma"] = sigma
+                record["label_shift_median"] = float(np.median(np.linalg.norm(labels - own, axis=1)))
                 record["sample_improvement_min"] = float(np.nanmin(diagnostics[:, 4]))
                 if probes:
                     record["improvement_check"] = _improvement_check(actor, probes, cfg)

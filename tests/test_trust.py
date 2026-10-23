@@ -5,7 +5,7 @@ from dataclasses import replace
 import numpy as np
 
 from scripts.diagnostics.lqr_trust_check import estep_label
-from scripts.training.train_walker_mdgps import TrainConfig, _batch_act, _collect, _new_actor
+from scripts.training.train_walker_mdgps import TrainConfig, _batch_act, _collect, _new_actor, _noise_sigma
 from src.envs.lqr_point_mass import LQRPointMass
 from src.gps.mdgps import closed_loop_nominal, e_step
 from src.mppi.mppi import MPPI
@@ -61,3 +61,17 @@ def test_predictive_check_replaces_only_labels_whose_plan_is_worse():
     assert worse.any() and not worse.all()
     np.testing.assert_array_equal(checked["labels"][~worse], plain["labels"][~worse])
     np.testing.assert_allclose(checked["labels"][worse], _batch_act(actor)(plain["obs"])[worse], atol=1e-6)
+
+
+def test_sigma_schedule_sets_the_e_step_noise():
+    cfg = TrainConfig(K=16, H=4, steps=20, label_every=2, workers=1, sigma_decay_iterations=25.0)
+    assert _noise_sigma(cfg, 0.3, 0) == 0.3
+    np.testing.assert_allclose(_noise_sigma(cfg, 0.3, 25), 0.3 / np.sqrt(2.0))
+    assert _noise_sigma(replace(cfg, sigma_decay_iterations=None), 0.3, 50) == 0.3
+    actor = _new_actor(0)
+    job = {"actor": {k: v.cpu() for k, v in actor.state_dict().items()}, "reset_seed": 7,
+           "planner_seed": 11, "noise_seed": 13, "execute_expert": False,
+           "probe_probability": 0.5, "neff_fraction": 0.2, "noise_sigma": 1e-7}
+    # With almost no sampling noise, the improved plan stays on the policy's own.
+    out = _collect({**job, "cfg": cfg})
+    np.testing.assert_allclose(out["labels"], _batch_act(actor)(out["obs"]), atol=1e-5)

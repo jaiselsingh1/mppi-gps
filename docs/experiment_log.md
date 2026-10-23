@@ -1922,6 +1922,46 @@ within 0.03):
     beat the base, the σ schedule (Step 17) moves up as the best-supported
     next term.
 
+### Step 17 — a σ schedule (predictions written before running)
+
+- Question: does shrinking the E-step's sampling noise over iterations lower
+  MPPI-GPS's noise floor on Walker? If so, its policies should track speed
+  more precisely without losing completion. On the LQR oracle this term cut
+  the late error to 0.35–0.38 with no slower start (Step 14b, B).
+- One change from the version Step 14's decision rule keeps: either the
+  working method of Steps 10/12, or that method plus the predictive check.
+  - The change is `--cfg.sigma-decay-iterations 25`. The E-step noise std at
+    iteration k becomes σ_k = 0.3·(1 + k/25)^(−1/2): 0.30 at iteration 0,
+    0.21 at 25, 0.17 at 50 and 0.15 at 74.
+  - Execution noise (0.1), n_eff/K = 0.2 and everything else stay as in
+    Step 14's command.
+- Why k0 = 25 rather than the oracle's 5:
+  - The base's median take-off is iteration 51 (Step 12). With k0 = 25, σ
+    is still 0.17 there, more than half its starting value, so exploration
+    through take-off is mostly kept.
+  - By iteration 74 σ is halved, which by the oracle's σ^1.12 scaling should
+    roughly halve the noise floor.
+  - k0 = 5 would cut σ to 0.11 by iteration 30, before most seeds take off.
+- Every iteration logs `noise_sigma` and `label_shift_median`, the median
+  ‖label − policy action‖.
+- Seeds 0–5 and 75 iterations, with the GPU E-step, all six sharing
+  robopil5090's GPU, launched after Step 14 is recorded. Output goes to
+  `runs/2026-10-23_step17_sigma_seed$seed`.
+- Comparison: iteration-74 policies on held-out resets 70000–70049, against
+  the version Step 14 keeps, seed by seed. The base (if different), raw MPPI
+  at H = 48 (K = 32 and 256) and SAC 800k are evaluated alongside.
+- Predictions:
+  1. If built on the working method: `label_shift_median` over iterations
+     60–74 is at most 0.07 in every seed. Step 13c measured 0.096–0.120 at
+     iteration 74 for the working method. If built on the predictive check,
+     this is reported without a prediction, since replaced labels have zero
+     shift.
+  2. Pooled speed MAE is lower than the kept version's.
+  3. Pooled completion is not lower than the kept version's.
+  4. Median take-off is no later than the kept version's plus 5 iterations.
+- Decision: keep the schedule if predictions 2 and 3 both hold.
+- Status: planned. It launches when Step 14 is recorded.
+
 Add one entry per question using the fields below:
 
 ```text
