@@ -61,19 +61,25 @@ def main(
     reset_seed: int = 70_000,
     planner_seed: int = 95_000,
     pairs: tuple[str, ...] = (),
+    references: tuple[str, ...] = ("sac_800k",),
     workers: int = max(1, (os.cpu_count() or 2) - 4),
 ) -> None:
     """checkpoints: "arm=path" entries; repeat an arm name for its training seeds.
 
     pairs: "candidate:reference" arm names compared seed by seed, the i-th
     checkpoint of one against the i-th of the other, paired by reset seed.
+    references: single-checkpoint arms that every seed of every other arm is
+    paired against, like raw MPPI.
     """
-    out_dir.mkdir(parents=True, exist_ok=False)
-    started = time.time()
     policy_jobs = []
     for entry in checkpoints:
         arm, path = entry.split("=", 1)
         policy_jobs.append({"arm": arm, "path": Path(path), "episodes": episodes, "seed": reset_seed})
+    for name in references:
+        if sum(job["arm"] == name for job in policy_jobs) > 1:
+            raise ValueError(f"Reference arm {name!r} must have one checkpoint.")
+    out_dir.mkdir(parents=True, exist_ok=False)
+    started = time.time()
     mppi_jobs = [{"K": mppi_K, "H": mppi_H, "neff_fraction": None, "tail_policy": None, "tail_steps": 0,
                   "steps": 1000, "reset_seed": reset_seed + e, "planner_seed": planner_seed + e}
                  for e in range(episodes)]
@@ -85,8 +91,8 @@ def main(
                               np.array([r["velocity_mae"] for r in mppi_rows]))}
     mppi_steps = np.array([r["steps"] for r in mppi_rows])
     for row in policy_rows:
-        if row["arm"] == "sac_800k":
-            reference["sac_800k"] = (np.array(row["survived"]), np.array(row["velocity_mae"]))
+        if row["arm"] in references:
+            reference[row["arm"]] = (np.array(row["survived"]), np.array(row["velocity_mae"]))
     arms = {}
     for row in policy_rows:
         arms.setdefault(row["arm"], []).append(row)

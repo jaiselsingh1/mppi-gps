@@ -1485,6 +1485,20 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   3. Across all six seeds, at least 3 beat raw MPPI on completion with the
      paired interval above 0.
   4. The six-seed pooled completion has a Wilson 95% lower bound above 30%.
+- Exploratory arms, **not preregistered**. Added on 2026-10-23 before the
+  held-out run, after Steps 10–11, to compare with SAC at matched
+  environment steps.
+  - Arms: SAC checkpoints at 150k, 175k and 200k training controls from the
+    S2b ladder (`runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0150000.pt`,
+    `step_0175000.pt`, `step_0200000.pt`; SHA-256 `abe4e6f0…`, `093c39dc…`,
+    `bacb711e…`, matching the ladder's `checkpoints.jsonl`), copied from the
+    Mac to robopil5090.
+  - Why these: Step 10's runs executed 133k–197k training controls each, and
+    simulated 2.3–3.3 billion more in E-steps.
+  - Every MPPI-GPS seed is paired against each by reset seed
+    (`walker_step5_compare.py --references`). No predictions.
+  - S2b classified the 200k policy as surviving while nearly stationary
+    (29/30, speed MAE 1.68 m/s), so completion is reported beside speed MAE.
 - Status: planned.
 
 Add one entry per question using the fields below:
