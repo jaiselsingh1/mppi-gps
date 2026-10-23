@@ -2128,6 +2128,49 @@ within 0.03):
   smoother weighted average of MPPI's samples than the near-best single
   sample it executes.
 
+### Step 16 — cleaner labels from the same teacher (predictions written before running)
+
+- Question: Step 15's student did not learn because the teacher's executed
+  actions jitter too much to fit (fit loss near 0.28). If each label instead
+  averages the same samples more smoothly, does the student learn to walk?
+- One change from Step 15: `--cfg.label-neff-fraction 0.2`.
+  - MPPI (K = 32, H = 48, frozen λ = 3, own warm start) still plans and
+    executes exactly as in Step 15, with N(0, 0.1²) on the action it
+    executes. The visited states are therefore generated the same way.
+  - Each label is the first action of the same 32 samples re-weighted at the
+    temperature that gives n_eff/K = 0.2 (about 6.4 effective samples), not
+    the near-best action MPPI executes.
+  - Every iteration logs `label_vs_executed_median`, the median distance
+    between label and executed action. `tests/test_teacher_mode.py` checks
+    that the change leaves execution untouched.
+- Fixed, as in Step 15: 75 iterations, 10 × 400 controls, replay of every
+  iteration, 2,000 Adam steps, seeds 0–5, 5 workers each on robopil5090's
+  CPU, fit on the GPU.
+- Command: Step 15's, with `--out-dir runs/2026-10-23_step16_smooth_seed$seed`
+  and `--cfg.label-neff-fraction 0.2` added.
+- Monitoring: rule 8 runs every 5 minutes in the watcher
+  (`scripts/diagnostics/futility_check.py`). The arm stops if the rule fires.
+- Comparison, if the arm completes: as preregistered for Step 15. That means
+  the teacher re-evaluated, MPPI-GPS, DAgger and SAC 800k; per-seed rates; a
+  compute ledger; development resets only.
+- Predictions:
+  1. The student's fit loss at iteration 29 is at most 0.10 in every seed,
+     about a third of Step 15's. Label noise variance falls roughly with
+     1/n_eff, from about 1.5 to 6.4 effective samples.
+  2. The arm passes rule 8 at iteration 29: its mean dev time alive rises by
+     at least 0.3 s, or a seed completes more than 2 of 10 dev episodes.
+  3. If it completes: pooled held-out completion above DAgger's 0/150 and
+     below its teacher's 78%. No directional prediction against MPPI-GPS's
+     204/300.
+- Decision:
+  - If it completes and reaches MPPI-GPS's 204/300, MPPI-generated data with
+    smoothed labels becomes the working base.
+  - If it completes below that, the next term targets coverage or label
+    quality further, for example more samples for labelling.
+  - If rule 8 stops it, smoothing alone is not enough, and the next step
+    changes the teacher itself (K, H or the action noise).
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text

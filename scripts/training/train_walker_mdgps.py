@@ -13,6 +13,8 @@ executes the expert (beta = 1), later iterations execute the policy.
 labeler="teacher" (Step 15): the same raw MPPI expert runs every episode, with
 N(0, exec_noise^2) added to the action it executes, and labels every state it
 visits with its own action. The policy plays no part in planning or collection.
+With label_neff_fraction set, each label instead re-weights MPPI's last samples
+to that n_eff/K, a smoother estimate of its intent (Step 16).
 
 Policies are SacActor means trained by MSE on the squashed action, saved in
 the load_policy format so scripts/runners/eval_policy_walker2d.py evaluates
@@ -33,6 +35,7 @@ import tyro
 from src.envs.walker2d import Walker2d
 from src.gps.mdgps import mdgps_step_multiplier
 from src.rl.sac import SacActor
+from src.utils.math import softmin_weights, temperature_for_neff_fraction
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _OBS_DIM = 17
@@ -61,6 +64,10 @@ class TrainConfig:
     sigma_decay_iterations: float | None = None
     # Continue the run in out_dir from its last saved policy (see _resume).
     resume: bool = False
+    # labeler="teacher": if set, each label is the first action of the
+    # teacher's last samples re-weighted to n_eff/K = label_neff_fraction,
+    # instead of the action it executes (Step 16).
+    label_neff_fraction: float | None = None
     # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
     # collect, then all of an iteration's states are labelled on the GPU with
     # the same per-episode noise streams the CPU path draws.
@@ -120,6 +127,13 @@ def _noise_sigma(cfg: TrainConfig, base_sigma: float, iteration: int) -> float:
     return base_sigma / np.sqrt(1.0 + iteration / cfg.sigma_decay_iterations)
 
 
+def _reweighted_label(rollout: dict, neff_fraction: float) -> np.ndarray:
+    """First action of MPPI's last samples, re-weighted to n_eff/K = neff_fraction."""
+    costs = rollout["costs"]
+    weights = softmin_weights(costs, temperature_for_neff_fraction(costs, neff_fraction))
+    return np.einsum("k,ka->a", weights, rollout["actions"][:, 0])
+
+
 def _collect(job: dict) -> dict:
     from src.gps.mdgps import closed_loop_nominal, e_step
     from src.gps.policy_tail import WalkerPolicyTail
@@ -170,9 +184,13 @@ def _collect(job: dict) -> dict:
                 observations.append(obs.copy())
         else:
             expert_action, info = planner.plan_step(state, initial_warmstart=warmstart)
-            labels.append(expert_action)
+            label = expert_action
+            if cfg.label_neff_fraction is not None:
+                label = _reweighted_label(planner.get_rollout_data(), cfg.label_neff_fraction)
+            labels.append(label)
             observations.append(obs.copy())
-            diagnostics.append([info["n_eff"] / cfg.K, info["lam"], np.nan, np.nan, np.nan])
+            diagnostics.append([info["n_eff"] / cfg.K, info["lam"], np.nan, np.nan,
+                                float(np.linalg.norm(label - expert_action))])
         if job["execute_expert"]:
             action = expert_action
             if cfg.labeler == "teacher":
@@ -274,6 +292,8 @@ def _resume(out_dir: Path, cfg: TrainConfig, actor: SacActor) -> tuple[int, floa
 def main(out_dir: Path, cfg: TrainConfig) -> None:
     if cfg.labeler not in {"mdgps", "dagger", "teacher"}:
         raise ValueError("labeler must be 'mdgps', 'dagger' or 'teacher'.")
+    if cfg.label_neff_fraction is not None and cfg.labeler != "teacher":
+        raise ValueError("label_neff_fraction needs labeler='teacher'.")
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
     neff_fraction, start = cfg.neff_fraction, 0
@@ -377,6 +397,8 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                         neff_fraction = float(np.exp(-eps))
                         record["step_multiplier"] = multiplier
                 record["neff_fraction_next"] = neff_fraction
+            if cfg.labeler == "teacher":
+                record["label_vs_executed_median"] = float(np.median(diagnostics[:, 4]))
             if (iteration + 1) % cfg.eval_every == 0 or iteration == cfg.iterations - 1:
                 record["eval_dev"] = _evaluate(actor, cfg.eval_episodes, 81_000)
             record["seconds"] = time.time() - t0
