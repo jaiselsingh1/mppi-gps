@@ -10,6 +10,10 @@ labeler="dagger": a raw MPPI expert (frozen temperature, its own warm start)
 plans alongside every episode and labels every visited state; iteration 0
 executes the expert (beta = 1), later iterations execute the policy.
 
+labeler="teacher" (Step 15): the same raw MPPI expert runs every episode, with
+N(0, exec_noise^2) added to the action it executes, and labels every state it
+visits with its own action. The policy plays no part in planning or collection.
+
 Policies are SacActor means trained by MSE on the squashed action, saved in
 the load_policy format so scripts/runners/eval_policy_walker2d.py evaluates
 them unchanged.
@@ -171,6 +175,8 @@ def _collect(job: dict) -> dict:
             diagnostics.append([info["n_eff"] / cfg.K, info["lam"], np.nan, np.nan, np.nan])
         if job["execute_expert"]:
             action = expert_action
+            if cfg.labeler == "teacher":
+                action = np.clip(action + cfg.exec_noise * rng.standard_normal(env.action_dim), low, high)
         else:
             action = np.clip(act(obs) + cfg.exec_noise * rng.standard_normal(env.action_dim), low, high)
         obs, cost, done, step_info = env.step(action)
@@ -266,8 +272,8 @@ def _resume(out_dir: Path, cfg: TrainConfig, actor: SacActor) -> tuple[int, floa
 
 
 def main(out_dir: Path, cfg: TrainConfig) -> None:
-    if cfg.labeler not in {"mdgps", "dagger"}:
-        raise ValueError("labeler must be 'mdgps' or 'dagger'.")
+    if cfg.labeler not in {"mdgps", "dagger", "teacher"}:
+        raise ValueError("labeler must be 'mdgps', 'dagger' or 'teacher'.")
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
     neff_fraction, start = cfg.neff_fraction, 0
@@ -300,7 +306,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
         for iteration in range(start, cfg.iterations):
             t0 = time.time()
             sigma = _noise_sigma(cfg, base_sigma, iteration)
-            execute_expert = cfg.labeler == "dagger" and iteration == 0
+            execute_expert = cfg.labeler == "teacher" or (cfg.labeler == "dagger" and iteration == 0)
             base_seed = 100_000 + 10_000 * cfg.seed + cfg.episodes_per_iter * iteration
             jobs = [{"cfg": cfg, "actor": {k: v.cpu() for k, v in actor.state_dict().items()},
                      "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,

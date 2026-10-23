@@ -2014,9 +2014,83 @@ within 0.03):
   3. Pooled completion is not lower than the kept version's.
   4. Median take-off is no later than the kept version's plus 5 iterations.
 - Decision: keep the schedule if predictions 2 and 3 both hold.
-- Status: not launched. Held on 2026-10-23 after the criticism that the
-  E-step searches locally around the states a poor policy reaches; this
-  step only refines that loop.
+- Status: dropped on 2026-10-23 without running. It only refines a loop in
+  which MPPI searches locally around the states a poor policy reaches, which
+  the criticism of that day and Step 14's result set aside.
+
+### Step 15 — MPPI generates the data (predictions written before running)
+
+- Question: if MPPI, a planner that does the task, generates every state and
+  the policy only learns from its actions, does the student learn to walk?
+  - This answers the criticism of 2026-10-23: MPPI is local, so searching
+    around the states a poor policy reaches cannot find good states.
+  - Steps 5–14 all labelled the policy's own states, DAgger included.
+- A change of direction, not one term: the policy-seeded loop of Steps 5–14
+  is set aside. The policy plays no part in planning or collection: no
+  seeding, no tail, no coupling.
+- This is also the frozen-teacher cloning control that reviewers will expect
+  (`docs/related_work.md`, required baselines for C1). VAMPS found plain
+  cloning about as good as penalty coupling.
+- Teacher:
+  - Raw MPPI at K = 32, H = 48, with its own warm start and the frozen
+    temperature λ = 3; the rest of `configs/walker2d_best.json` is unchanged.
+    This is Step 13b's planner: 39/50 held-out completions, 0.135 s per
+    decision.
+  - It runs every training episode, with N(0, 0.1²) added to each action it
+    executes so the data include small recoveries (as in DART).
+  - Every visited state is labelled with MPPI's own action
+    (`--cfg.labeler teacher`; `tests/test_teacher_mode.py`).
+- Student:
+  - The same MLP and fit as before: 2,000 Adam steps per iteration, batch
+    256, lr 3e-4.
+  - Replay keeps every iteration's data (`--cfg.replay-iterations 75`). The
+    teacher does not depend on the policy, so old labels do not go stale.
+- Budget:
+  - 75 iterations × 10 episodes × ≤ 400 controls per seed, training seeds
+    0–5.
+  - Runs on robopil5090's CPU with 5 workers per seed, fitting on the GPU;
+    about 2.5 h.
+  - Each decision simulates 32 × 48 controls, so a run simulates at most
+    about 0.46 billion: under a fifth of an MPPI-GPS run.
+- Command: for seed in 0–5: `~/mppi-gps-venvs/cuda/bin/python -m
+  scripts.training.train_walker_mdgps --out-dir
+  runs/2026-10-23_step15_teacher_seed$seed --cfg.labeler teacher --cfg.seed
+  $seed --cfg.K 32 --cfg.H 48 --cfg.iterations 75 --cfg.episodes-per-iter 10
+  --cfg.steps 400 --cfg.replay-iterations 75 --cfg.workers 5`.
+- Comparison:
+  - The iteration-74 student alone, on held-out resets 70000–70049 (robopil5090,
+    CPU-only evaluation environment).
+  - Against its teacher (raw MPPI at K = 32, H = 48, re-evaluated), the
+    working MPPI-GPS policies (Steps 10/12), DAgger (Step 11) and SAC 800k.
+  - Primary: six-seed pooled completion. Secondary: speed MAE and time alive.
+  - Each arm also reports completion per training seed. Pooled episode
+    intervals omit training-seed variation (`docs/code_audit.md`, A7).
+  - Also reported: the teacher's own completion in training, under the
+    action noise.
+  - Also reported, a compute ledger: executed transitions, the teacher's
+    simulated transitions (decisions × K × H, plus the second iteration at
+    each episode's first decision), policy forward passes and wall time.
+  - These resets have guided Steps 5–14 (`docs/code_audit.md`, A6), so this
+    is a development decision. Final claims wait for the reserved, untouched
+    resets 5,000,000–5,000,199.
+- Predictions:
+  1. The teacher completes at least 60% of its noisy training episodes (78%
+     held out without noise).
+  2. The student's pooled completion is above DAgger's 0/150. States from a
+     planner that does the task fix what labels at the student's own states
+     could not.
+  3. The student's pooled completion is below its teacher's 78%, and below
+     MPPI-GPS's 204/300 (less certain). At H = 48 the frozen temperature
+     averages only 1–2 effective samples per action (Step 4), so labels are
+     jittery, and a cloned policy compounds its own errors.
+  4. No directional prediction on speed MAE.
+- Decision:
+  - If the student's pooled completion reaches MPPI-GPS's 204/300,
+    MPPI-generated data becomes the working base. The next step then adds
+    the policy back only where it is competent.
+  - If not, the next step targets the cause before any coupling: cleaner
+    labels from the same teacher, or more noise for coverage.
+- Status: planned, not launched.
 
 Add one entry per question using the fields below:
 
