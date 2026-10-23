@@ -47,6 +47,10 @@ class TrainConfig:
     neff_fraction_min: float = 0.05
     neff_fraction_max: float = 0.5
     probe_probability: float = 0.02
+    # Keep a label only if its improved plan costs no more than the policy's own
+    # plan on the E-step objective; otherwise label the policy's own action
+    # (docs/theory.md, Proposition 4).
+    predictive_check: bool = False
     # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
     # collect, then all of an iteration's states are labelled on the GPU with
     # the same per-episode noise streams the CPU path draws.
@@ -140,7 +144,8 @@ def _collect(job: dict) -> dict:
                 full_act = lambda s: act(env.rollout_states_to_obs(s))
                 nominal, _ = closed_loop_nominal(env, state, full_act, cfg.H, warmstart)
                 result = e_step(planner, env, state, nominal, warmstart, terminal=tail)
-                labels.append(result.label)
+                rejected = cfg.predictive_check and result.plan_cost > result.nominal_cost
+                labels.append(nominal[0].copy() if rejected else result.label)
                 diagnostics.append([result.n_eff / cfg.K, result.lam, result.nominal_cost,
                                     result.plan_cost, result.sample_improvement])
                 if rng.random() < job["probe_probability"]:
@@ -279,6 +284,9 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 result = gpu(np.asarray([p[0] for p in pending]), np.asarray([p[1] for p in pending]),
                              noise_streams=[p[2] for p in pending])
                 labels = result.labels
+                if cfg.predictive_check:
+                    own = _batch_act(actor)(obs)
+                    labels = np.where((result.plan_cost > result.nominal_cost)[:, None], own, labels)
                 diagnostics = np.stack([result.n_eff / cfg.K, result.lam, result.nominal_cost, result.plan_cost,
                                         result.sample_mean_cost - result.expected_cost], axis=1)
                 probes = [(p[0], p[1], nominal, plan) for p, flag, nominal, plan
@@ -306,6 +314,9 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             }
             if cfg.labeler == "mdgps":
                 record["predicted_improvement_mean"] = float(np.nanmean(diagnostics[:, 2] - diagnostics[:, 3]))
+                # Share of states whose improved plan costs more than the policy's
+                # own plan: the labels the predictive check replaces.
+                record["plan_worse_fraction"] = float(np.mean(diagnostics[:, 3] > diagnostics[:, 2]))
                 record["sample_improvement_min"] = float(np.nanmin(diagnostics[:, 4]))
                 if probes:
                     record["improvement_check"] = _improvement_check(actor, probes, cfg)

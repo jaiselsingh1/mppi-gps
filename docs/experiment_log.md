@@ -1752,6 +1752,104 @@ within 0.03):
   formalize the notes' trust coupling (`docs/theory.md`) and add its pieces
   to the working method one at a time.
 
+### Step 14 — the predictive check (predictions written before running)
+
+- Question: does keeping a label only when its improved plan costs no more
+  than the policy's own plan make MPPI-GPS learn faster or better? This is
+  `docs/theory.md` Proposition 4, the predictive filter of
+  `Trust coupling methods.md` with the policy's own plan as the baseline.
+- One change from the working method (Steps 10/12):
+  `--cfg.predictive-check`.
+  - At each labelled state, compare two costs on the E-step objective (32
+    controls plus the 100-control policy tail): the improved mean plan's
+    and the policy's own plan's.
+  - If the improved plan costs more, the label becomes the policy's own
+    action.
+  - Both costs are already computed, so there is no extra simulation.
+  - Every iteration logs `plan_worse_fraction`, the replaced share.
+- Fixed, as in Steps 10/12:
+  - K = 256, H = 32, 100-control tail, n_eff/K = 0.2;
+  - 10 × 400 controls per iteration, every 2nd state labelled, exec noise
+    0.1;
+  - replay 2, 2,000 Adam steps, probe probability 0.02, 75 iterations;
+  - GPU E-step (128 states per batch), 4 collection workers;
+  - training seeds 0–5, all six sharing robopil5090's GPU.
+- Command: for seed in 0–5: `~/mppi-gps-venvs/cuda/bin/python -m
+  scripts.training.train_walker_mdgps --out-dir
+  runs/2026-10-23_step14_check_seed$seed --cfg.labeler mdgps --cfg.seed
+  $seed --cfg.K 256 --cfg.H 32 --cfg.tail-steps 100 --cfg.iterations 75
+  --cfg.episodes-per-iter 10 --cfg.steps 400 --cfg.gpu-estep
+  --cfg.gpu-states-per-batch 128 --cfg.workers 4 --cfg.predictive-check`.
+- Comparison:
+  - Iteration-74 policies on held-out resets 70000–70049, on robopil5090 in
+    the CPU-only evaluation environment.
+  - Against Steps 10/12 seed by seed, paired by reset seed. GPU training is
+    not bitwise reproducible, so seed i of each arm is a separate draw.
+  - Also against raw MPPI at H = 48 (K = 32 and 256), SAC 800k and DAgger at
+    75 iterations.
+  - Primary: six-seed pooled completion. Secondary: speed MAE, time alive,
+    and take-off (the first iteration with at least 5/10 training episodes
+    reaching 400 controls).
+- Predictions:
+  1. The median replaced fraction over iterations is 30–50% in every seed.
+  2. Take-off comes earlier than the base's in at least 4 of 6 seeds (base:
+     57, 40, 73, 70, 31, 46).
+  3. Six-seed pooled completion exceeds the base's 204/300.
+  4. Pooled speed MAE is no worse than the base's 0.326.
+- Decision: keep the check if pooled completion beats the base's and at
+  least 4 of 6 seeds improve on their base seed. Step 15 then adds the
+  planner fallback to it; otherwise Step 15 builds on the base.
+
+### Step 14b — LQR oracle checks of `docs/theory.md` (predictions written before running)
+
+- Question: do Consequence 2 (the noise floor), Proposition 2 (the trust
+  step) and Proposition 4 (the predictive check) hold where the answer is
+  known exactly?
+- Setup: Step 3's LQR point mass.
+  - Linear policy u = −Gx; 6 episodes × 25 on-policy states per iteration;
+    one policy-centred E-step per state.
+  - H = 16, white noise, least-squares M-step, seeds 0 and 1.
+  - Error = ‖G − K‖/‖K‖. Runs on the local CPU (Mac).
+  - Script: `scripts/diagnostics/lqr_trust_check.py`. Every arm uses one
+    E-step implementation, `estep_label`, which reproduces `e_step`'s label
+    for the fixed-ρ rule (`tests/test_trust.py`). Noise streams differ from
+    Step 3's.
+- **A, noise floor.**
+  - Start at the optimum; fixed σ ∈ {0.15, 0.3, 0.6} × n_eff/K ∈ {0.05,
+    0.2, 0.5} at K = 256, plus K ∈ {64, 1024} at σ = 0.3, ρ = 0.2; 10
+    iterations.
+  - Floor = median error over iterations 1–10.
+  - A1: fitting log floor = a·log σ + b·log n_eff + c over the 22 runs gives
+    a ∈ [0.8, 1.2] and b ∈ [−0.65, −0.35].
+- **B, σ schedule.**
+  - K = 256, ρ = 0.2, 40 iterations, from G = 0 and from the optimum.
+  - Fixed σ = 0.3 against σ_k = 0.3·(1 + k/5)^(−1/2).
+  - B1: over iterations 31–40, the schedule's median error is at most half
+    the fixed arm's, for both starts and both seeds.
+  - B2: from G = 0, the schedule first goes below 0.10 at most 2 iterations
+    after the fixed arm.
+- **C, trust step.**
+  - From G = 0, K = 256, σ = 0.3, 30 iterations.
+  - Arms: fixed ρ = 0.05; fixed ρ = 0.2; and the trust step. The trust step
+    uses the temperature at which the samples' weighted mean cost meets the
+    exact LQR controller's noisy expected cost (same noise draws), clipped
+    between the ρ = 0.05 and ρ = 0.2 steps.
+  - C1: the trust arm first goes below 0.10 at most 1 iteration after fixed
+    ρ = 0.05, in both seeds.
+  - C2: its floor (median error over iterations 20–30) is within 0.01 of
+    fixed ρ = 0.2's and below fixed ρ = 0.05's, in both seeds.
+  - C3: its median n_eff/K is ≤ 0.08 over the first 3 iterations and
+    ≥ 0.15 over iterations 20–30.
+  - For reference, Step 3 had fixed ρ = 0.05 below 0.10 at iteration 5 with
+    a floor of 0.065–0.079, and ρ = 0.2 at iterations 7–8 with a floor of
+    0.045–0.046.
+- **D, predictive check.**
+  - Fixed ρ = 0.2 with the check, from G = 0, 30 iterations; the control is
+    C's fixed ρ = 0.2 arm.
+  - D1: its floor is below the control's, in both seeds.
+  - D2: the replaced fraction is ≥ 0.8 from iteration 20 on.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text

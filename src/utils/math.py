@@ -50,3 +50,34 @@ def temperature_for_neff_fraction(
         else:
             log_hi = log_mid
     return float(np.exp(0.5 * (log_lo + log_hi)))
+
+
+def temperature_for_budget(
+    scores: np.ndarray,
+    budget: float,
+    iterations: int = 60,
+) -> float:
+    """Temperature whose softmin-weighted mean score equals `budget`.
+
+    The weighted mean is non-decreasing in the temperature, so this bisects in
+    log space. Returns inf when the plain mean already meets the budget (no
+    step is needed: full trust, docs/theory.md Prop. 2), and the smallest
+    bracketed temperature when the budget lies below every sample.
+    """
+    finite = np.isfinite(scores)
+    if not finite.any():
+        raise FloatingPointError("No finite scores to set a temperature from.")
+    if np.mean(scores[finite]) <= budget:
+        return float("inf")
+    spread = float(np.max(scores[finite]) - np.min(scores[finite]))
+    if spread == 0.0:
+        return 0.0
+    log_lo, log_hi = np.log(spread * 1e-8), np.log(spread * 1e8)
+    for _ in range(iterations):
+        log_mid = 0.5 * (log_lo + log_hi)
+        weights = softmin_weights(scores, np.exp(log_mid))
+        if np.sum(weights[finite] * scores[finite]) > budget:
+            log_hi = log_mid
+        else:
+            log_lo = log_mid
+    return float(np.exp(0.5 * (log_lo + log_hi)))
