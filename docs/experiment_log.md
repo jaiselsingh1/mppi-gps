@@ -1391,6 +1391,42 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
 - Decision: **keep.** Before any claim, the next control is DAgger at the
   same 75-iteration budget.
 
+### Step 11 — DAgger at the 75-iteration budget (predictions written before running)
+
+- Question: does DAgger also reach Step 10's level when given the same 75
+  iterations, or is the gain specific to MPPI-GPS?
+- Settings: Step 5's DAgger (`--cfg.labeler dagger`): a raw MPPI expert at
+  K = 32, H = 32 (frozen λ = 3, its own warm start, two optimizer passes at
+  each episode's first decision) labels every visited state; iteration 0
+  executes the expert, later iterations the policy + N(0, 0.1²). Same
+  collection and fit as Step 10: 10 × 400 controls, replay 2, 2,000 Adam
+  steps, 75 iterations, training seeds 0–2. CPU path in the CPU-only
+  environment on robopil5090, 6 workers per seed.
+- Command: for seed in 0 1 2: `.venv/bin/python -m
+  scripts.training.train_walker_mdgps --out-dir
+  runs/2026-10-22_step11_dagger75_seed$seed --cfg.labeler dagger --cfg.seed
+  $seed --cfg.K 32 --cfg.H 32 --cfg.iterations 75 --cfg.episodes-per-iter 10
+  --cfg.steps 400 --cfg.workers 6`.
+- Confound, stated in advance: this matches the iteration and data budget,
+  not the teacher. MPPI-GPS's E-step uses K = 256 plus the policy's
+  100-control tail; this expert uses K = 32 and no tail. Raw MPPI's H = 32
+  completion barely depends on K (grid: 5–7/10 for K = 32–256), so the tail
+  is the main difference. A DAgger loss means "not just more iterations",
+  not "the KL-bounded policy-centred step is what matters"; separating those
+  needs an expert with the student's own tail.
+- Comparison: held-out resets 70000–70049 on robopil5090 in the CPU-only
+  evaluation environment. DAgger iterations 74 and 24 against Step 10's
+  iteration-74 MPPI-GPS policies (per-seed pairs by reset seed), raw MPPI
+  (K = 32, H = 32) and SAC 800k. Primary: completion. Secondary: time alive.
+- Predictions:
+  1. DAgger's pooled held-out completion at iteration 74 is at most its
+     expert's (raw MPPI, 15/50 = 30% on this machine).
+  2. Step 10's MPPI-GPS beats DAgger on held-out completion pooled, and in
+     at least 2 of 3 seed pairs with the paired interval above 0.
+  3. DAgger's pooled held-out time alive at iteration 74 is below raw
+     MPPI's 3.30 s.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
