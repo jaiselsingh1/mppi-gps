@@ -1,7 +1,7 @@
 # Continuation diagnostics: fixed protocol, 2026-10-12
 
 This protocol is written before either new experiment. Starting revision:
-`f6c6875`. The two experiments run sequentially: record A completely before
+`5a05a32`. The two experiments run sequentially: record A completely before
 starting B. No new policy training, active gate, qualification, or tuning.
 Results go in `docs/experiment_log.md`, not in this fixed protocol.
 

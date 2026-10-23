@@ -1,8 +1,8 @@
 # Matched-continuation scoring: v2 development protocol
 
-Protocol declared in commit `fb1a6c9` before running the seed controls or v2
+Protocol declared in commit `71b18a2` before running the seed controls or v2
 scoring. A–C are now complete; results are appended below. The audited
-S2/S3 v1 implementation is preserved in commit `fdf58ed`; its original
+S2/S3 v1 implementation is preserved in commit `b7d897e`; its original
 experiment bundles are read-only. The broader v1 accepted-state study is
 paused. This is a development experiment, not active gating or qualification.
 
@@ -125,7 +125,7 @@ and untouched qualification data are unaffected; S5 remains downstream.
 
 ## Recorded result — A–C complete, no tuning
 
-Implementation frozen in `281270c` before inspecting v2 calibration output.
+Implementation frozen in `6ed8ec8` before inspecting v2 calibration output.
 All 20 seed controls, four raw/identity pairs and 28 v2 comparisons completed.
 Every raw replay, identity check and original proposal-RNG recovery is exact.
 All 56 production H=48/K=256 scoring probes exactly reproduce their actual

@@ -1,6 +1,6 @@
 # S2: local Walker policy ladder
 
-Starting commit: `eb32e383b5370b8d710049a11caf4baee04fc28b` on `main`.
+Starting commit: `86a29d7bafc5af8e3c22235a1e7269b02535f078` on `main`.
 Question: can task-matched SAC produce policies of different measured ability
 without changing the frozen MPPI teacher? Implement and validate the adapter,
 then the learner, then run a plumbing smoke test before a full training ladder.

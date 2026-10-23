@@ -35,7 +35,7 @@ That result belongs to the recorded historical source. Cleanup edits can change 
 ```text
 Experiment ID / date: S1 / 2026-10-11
 Question: Can the frozen Walker teacher's decisions and its recorded qualification failure be reproduced exactly, mid-episode included, and what did the planner predict before that fall?
-Branch: exp/walker-instrumentation (fast-forwarded into main as f271ece; branch deleted)
+Branch: exp/walker-instrumentation (fast-forwarded into main as 9786193; branch deleted)
 Baseline commit: 02f4c2bbf2ae56d09d5ddbe58d05f86fc96dcbea
 Method and comparison: Instrumentation only; no controller, task, or simulation change. MPPI gains last_plan (pre-shift plan), snapshot() and restore(); MuJoCoEnv gains set_warmstart(); Walker traces add pre_plan_nominals, plans, planner_rng_states and initial_plan_flags. Compared against main (parity) and against archived qualification traces (replay). The fall autopsy is descriptive.
 Task/objective: configs/walker2d_task.json (frozen target-velocity task).
@@ -84,7 +84,7 @@ Results:
       - Objective: at step 501 the lowest-cost sample predicts a fall although surviving samples exist.
       - From step 502 onward, neither tested sampler (K=256, or the K=1024 probe) found a trajectory surviving H=48. That does not establish that the fall was unavoidable, nor why.
       - Control: during ordinary walking (reset 30, every 50th decision), 44% of default H=48 samples predict a fall within H. 98% of H=96 probe samples predict a fall, and 67% of H=96 probe plans do. The H=96 probe therefore does not discriminate and is not used as evidence.
-Decision: keep (instrumentation); committed as the S1 checkpoint f271ece, now on main.
+Decision: keep (instrumentation); committed as the S1 checkpoint 9786193, now on main.
 Interpretation and limitations: One fall, heuristic evidence. "Survives" means within the probe horizon only. Whether the surviving 48-step options at steps 489-501 would have avoided the fall beyond the horizon is untested; a paired counterfactual branch from those decisions (S3 machinery) would test it. Short-horizon causes are not attributed.
 Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_walker_instrumentation.tar.gz
   (SHA-256 b6a3510f313a68e3610a750345eab424522d4a3d4d7a03167e2ed254f76cec7d); all 18 files verified against the manifest after extraction.
@@ -92,7 +92,7 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
 
 ### S2a: task-matched RL interface and learning plumbing
 
-- Starting commit: `eb32e383b5370b8d710049a11caf4baee04fc28b`, on `main`.
+- Starting commit: `86a29d7bafc5af8e3c22235a1e7269b02535f078`, on `main`.
 - Question: does SAC train against the same local physics, observations and task
   costs, with correct absorbing-failure and time-limit accounting?
 - Protocol fixed before running: [S2 ladder](rl_ladder.md). No MPPI/source/task/XML
@@ -210,7 +210,7 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
 - Question: can the three frozen S2 policies be scored at actual MPPI states
   without changing the baseline trajectory, with pre-action alignment and
   explicit scoring of the actual optimized plan?
-- Starting commit: `eb32e383b5370b8d710049a11caf4baee04fc28b`. Additive working
+- Starting commit: `86a29d7bafc5af8e3c22235a1e7269b02535f078`. Additive working
   tree changes; no frozen planner, environment, task/config, XML or S2 source
   changed. No new training, no active gate, no threshold sweep.
 - Protocol declared before the runs: [S3 shadow gate](shadow_gate.md). Fixed
@@ -298,7 +298,7 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
 
 ## 2026-10-12 — Post-hoc plan-versus-realized check and v2 protocol
 
-- Audited S2/S3 v1 preserved as local commit `fdf58ed` after all 278 tests
+- Audited S2/S3 v1 preserved as local commit `b7d897e` after all 278 tests
   passed; nothing pushed. This supersedes the preceding entry's decision to
   expand v1 immediately. The broader v1 counterfactual study is paused.
 - User's original post-hoc analysis is preserved at
@@ -325,9 +325,9 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   actions, with unchanged H=48 optimization, objective, candidate first
   actions, tau=0, fall guard, checkpoints and failure accounting. All scratch
   controller states are discarded. No new training or active gate.
-- Protocol committed before the simulations as `fb1a6c9`; its file SHA-256
+- Protocol committed before the simulations as `71b18a2`; its file SHA-256
   is `4e4061c381630515e21a346d996f032d398e8936546d70e18a5bba038865feb6`.
-  Implementation and its tests committed as `281270c` before inspecting v2
+  Implementation and its tests committed as `6ed8ec8` before inspecting v2
   calibration scores. V2 scorer SHA-256:
   `11413dc5a6d84555929f9db0ee5b43de1cd03a697957afb4ff02dc06182f5f15`.
 - Status: A–C complete. No weights, policies, horizon, threshold, planner
@@ -401,7 +401,7 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
 
 ## 2026-10-12 — nominal handoff and future-randomness diagnostics (preregistered)
 
-- Starting commit: `f6c6875`. Fixed protocol:
+- Starting commit: `5a05a32`. Fixed protocol:
   [continuation diagnostics](continuation_diagnostics.md), SHA-256
   `204cc756b215919407b283be35f4baf740f6f73b5d5d03727fc303c5131e6dae`.
 - Status: planned; no new continuation outcomes inspected at registration.
@@ -425,7 +425,7 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
 
 ### A result — starting-plan handoff (recorded before B)
 
-- Protocol commit `47ddab6`; implementation commit `aa82e49`. All 24 declared
+- Protocol commit `3fcbcfa`; implementation commit `60cfef5`. All 24 declared
   continuations complete under `runs/2026-10-12_s3_nominal_ablation_001/`.
   Full regression suite before execution: 479 tests pass. No protocol,
   controller, cost, proposal, horizon or scoring parameter changed.
@@ -475,9 +475,9 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
 ### B result — paired future random streams
 
 - Status: complete. Launched only after A was audited and its results
-  committed as `eff21b4`. The protocol stayed at `47ddab6`, SHA-256
+  committed as `8805eb2`. The protocol stayed at `3fcbcfa`, SHA-256
   `204cc756b215919407b283be35f4baf740f6f73b5d5d03727fc303c5131e6dae`;
-  diagnostic implementation stayed at `aa82e49` throughout both experiments.
+  diagnostic implementation stayed at `60cfef5` throughout both experiments.
 - Run: `runs/2026-10-12_s3_future_seed_check_001/`. All 224 continuations and
   192 paired comparisons complete, using the original post-call nominal
   in every arm and all eight predeclared future seeds. Local CPU runtime
@@ -488,7 +488,7 @@ Evidence backup: /Users/jaisel/Documents/workbench/mppi-gps-evidence/2026-10-11_
   all 192 common-RNG pairs, and both horizon costs, falls and summaries
   recomputed from NPZ. No provenance, execution or accounting discrepancy.
 - Final regression: 479 tests pass. Frozen S1 planner, Walker, physics/cost
-  helpers, runner, configs and XML remain byte-identical to `f271ece`.
+  helpers, runner, configs and XML remain byte-identical to `9786193`.
 - For each fixed policy action, cost differences are **policy first action
   then MPPI minus raw MPPI**, paired within each future seed. Positive is
   worse. The ± values below are sample standard deviations of eight paired
@@ -587,7 +587,7 @@ done
 ## 2026-10-21 — MPPI-GPS as mirror descent (B): objective, audit, LQR oracle
 
 Plan: the rewritten 2026-10-21 prompt (one method, one closed-form check, one
-task, one comparison). Starting commit `806719a`. New behavior is off by
+task, one comparison). Starting commit `d128d46`. New behavior is off by
 default: `MPPIConfig.lam_target_neff_fraction=None` leaves the frozen teacher
 byte-identical (all 479 prior tests pass unchanged; also on a clean clone on
 robopil, RTX 5080 host, `uv sync --locked`).
@@ -813,7 +813,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   ~1 m/s and falls.
 - Predictions: 1 **held**. 2 **wrong** (0.7%). 3 **undecided** (1/150 vs
   0/150). 4 **held**. 5: (B) is 36–38 points below raw MPPI in every seed.
-- Reproduction: a clean clone at `d414a85` on robopil (`uv sync --locked`, no
+- Reproduction: a clean clone at `3f23193` on robopil (`uv sync --locked`, no
   local edits) reproduced all 350 held-out episodes exactly, and (B) seed 0
   iterations 0–1 bit-for-bit, including the CUDA fit loss.
 - Interpretation: the E-step does what the theory says (fact 1; positive
@@ -863,7 +863,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. (B+tail) speed MAE stays worse than SAC 800k's 0.20; no directional
      prediction against (B)'s MAE (it may learn to stand before it walks).
   5. Planner time per labeled state is ~4× (B)'s.
-- Status: complete. Launched 01:01 on 2026-10-22 at `7c30f3a`; 25 iterations
+- Status: complete. Launched 01:01 on 2026-10-22 at `78e0296`; 25 iterations
   per seed in 347–888 s wall (6 workers each).
 - Held-out result (`runs/2026-10-22_step6_heldout_001/report.json`, resets
   70000–70049, policies alone, last iteration; arms re-evaluated in the same
@@ -944,7 +944,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. The M-step realizes a larger share of the predicted improvement than
      at K = 32 (mean actual/predicted there: 4.2–5.7 of 9.1–12.1).
   5. CPU per labeled state is ~6–8× Step 5's.
-- Status: complete. Launched 01:24 on 2026-10-22 at `4066756`; 25 iterations
+- Status: complete. Launched 01:24 on 2026-10-22 at `502f62d`; 25 iterations
   per seed in 767–1,394 s wall (7 workers each).
 - Held-out result (`runs/2026-10-22_step7_heldout_001/report.json`; arms
   shared with Steps 5–6 re-evaluated identically):
@@ -1021,7 +1021,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. Pooled completion is above 0/150 but below raw MPPI's 38% (least
      certain).
   5. CPU per labeled state is ~3–5× Step 7's.
-- Status: complete. Launched 01:52 on 2026-10-22 at `62e0018`; 25 iterations
+- Status: complete. Launched 01:52 on 2026-10-22 at `b4f700f`; 25 iterations
   in 7,012 s, 6,071 s and 773 s wall (seeds 0/1/2, 7 workers each).
 - Held-out result (`runs/2026-10-22_step8_heldout_001/report.json` on
   robopil; arms shared with Steps 5–7 re-evaluated identically). The full
@@ -1124,7 +1124,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
   4. Step 9's pooled completion is above 0/150 (least certain).
   5. Step 8r reproduces Step 8 qualitatively: pooled time alive within
      ±0.5 s of 1.45 s and at most 2/150 completions.
-- Status: complete. Launched 13:40 on 2026-10-22 at `9a049de`; the last run
+- Status: complete. Launched 13:40 on 2026-10-22 at `2face5e`; the last run
   (8r seed 0, relaunched 14:31) finished ~17:40. Wall times: 0.7–3.6 h per
   run, iterations slowed to 6–15 min on the shared CPU.
 - Held-out result (`runs/2026-10-22_step9_heldout_001/report.json` on
@@ -1184,7 +1184,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
 
 - Question: can MPPI-GPS E-steps run on the RTX 5090 through MuJoCo Warp
   without changing the labels, and how much faster would they be?
-- Two bugs found first, fixed in `b62e8b3` (CUDA-only test
+- Two bugs found first, fixed in `5969c44` (CUDA-only test
   `tests/test_warp_rollout.py`):
   1. The Warp path crashed on Walker. The model has no sensors and Warp
      cannot slice the zero-width sensor buffer.
@@ -1229,7 +1229,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
 
 ### Batched GPU E-step: verification and measured speed (robopil5090)
 
-- Question: does the batched GPU E-step (`src/gps/gpu_estep.py`, `a26afad`)
+- Question: does the batched GPU E-step (`src/gps/gpu_estep.py`, `89e765b`)
   give the CPU E-step's labels, and how much faster is it?
 - Design: all of an iteration's labelled states at once, 64 or 128 states ×
   K = 256 samples as GPU worlds. Policy nominals, open-loop samples and the
@@ -1276,7 +1276,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
 
 ### GPU E-step in training: one-iteration check (robopil5090)
 
-- `--cfg.gpu-estep` (`f8d37ed`): workers only collect, using the same random
+- `--cfg.gpu-estep` (`2b2e0aa`): workers only collect, using the same random
   draws as the CPU path. All of an iteration's states are then labelled by
   `WalkerGPUEStep` with the CPU path's per-episode noise streams.
   `tests/test_train_collect.py` checks that collect-only mode visits the CPU
@@ -1340,7 +1340,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      (Step 8's 25-iteration result), and pooled completion exceeds 0/150
      (least certain).
   5. No directional prediction against raw MPPI at K = 32, H = 32.
-- Status: complete. Launched 15:52 on 2026-10-22 at `d9161d7`; 2.1–2.5 h
+- Status: complete. Launched 15:52 on 2026-10-22 at `8ed3a71`; 2.1–2.5 h
   per seed with three sharing the GPU (81–143 s labelling per iteration for
   1,400–1,900 labels). No errors.
 - Held-out result (`runs/2026-10-22_step10_heldout_001/report.json`,
@@ -1425,7 +1425,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      at least 2 of 3 seed pairs with the paired interval above 0.
   3. DAgger's pooled held-out time alive at iteration 74 is below raw
      MPPI's 3.30 s.
-- Status: complete. Launched 21:27 on 2026-10-22 at `f71eb74`; 75 iterations
+- Status: complete. Launched 21:27 on 2026-10-22 at `be130da`; 75 iterations
   took ~35 min per seed (18–30 s per iteration). No errors.
 - Held-out result (`runs/2026-10-22_step11_heldout_001/report.json`,
   robopil5090, CPU-only evaluation environment; shared arms reproduce Step
@@ -1501,7 +1501,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
     (29/30, speed MAE 1.68 m/s), so completion is reported beside speed MAE.
 - Status: complete. Seeds 3–5 ran 21:35 on 2026-10-22 to 00:00–00:32 on
   2026-10-23 (GPU E-step, 4 collection workers each, alongside Step 11);
-  75 iterations each, no errors. The held-out comparison ran at `4bf7ec1` in
+  75 iterations each, no errors. The held-out comparison ran at `2cc03ac` in
   111 s, started automatically when seed 4 finished
   (`runs/2026-10-22_step12_heldout_001/report.json`, robopil5090, CPU-only
   evaluation environment). Step 10's seeds 0–2, raw MPPI and SAC 800k
@@ -1658,7 +1658,7 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
     planner".
   - If (c) shows ≥ 25% worse plans at convergence, the next training change
     is gating labels on plan cost or shrinking the step late.
-- Status: complete. Ran 00:48–01:30 on 2026-10-23 at `4f73f0f` on
+- Status: complete. Ran 00:48–01:30 on 2026-10-23 at `763ea5b` on
   robopil5090. 13a ran with 13b's K = 32 cell (862 s); 13b's K = 256 cell
   took 2,513 s; 13c took ~22 min on the GPU.
 
@@ -1866,7 +1866,7 @@ within 0.03):
     C's fixed ρ = 0.2 arm.
   - D1: its floor is below the control's, in both seeds.
   - D2: the replaced fraction is ≥ 0.8 from iteration 20 on.
-- Status: complete. Ran on 2026-10-23 at `3bf1c1f` on the local CPU in 214 s
+- Status: complete. Ran on 2026-10-23 at `a5bf873` on the local CPU in 214 s
   (`runs/2026-10-23_step14b_lqr_trust_001/report.json`).
 - **A result.** Floor = median error over iterations 1–10 from the optimum,
   seeds 0/1:

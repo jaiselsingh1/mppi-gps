@@ -1,0 +1,54 @@
+# Commits rewritten before the first push on 2026-10-23 (messages only; trees unchanged).
+# Run artifacts written earlier cite the original hashes.
+# original	pushed	subject
+f271ece	9786193	S1: instrument Walker teacher for exact decision replay
+eb32e38	86a29d7	Switch experiment protocol to working on main
+fdf58ed	b7d897e	Preserve audited S2 policy ladder and S3 v1 diagnostics
+fb1a6c9	71b18a2	Record post-hoc findings and preregister seed controls and v2 scoring
+281270c	6ed8ec8	Implement fixed continuation scorer and single-action seed controls
+f6c6875	5a05a32	Record seed-control and v2 calibration results with evidence guards
+47ddab6	3fcbcfa	Preregister nominal handoff and paired future-seed diagnostics
+aa82e49	60cfef5	Implement isolated nominal handoff and paired future-seed diagnostics
+eff21b4	8805eb2	Record audited nominal handoff results before future-seed study
+806719a	d128d46	Record audited paired future-seed sensitivity results
+89356ef	c05e481	Write MPPI-GPS objective, audit blockers, and pass the LQR oracle
+a16fb92	4f9e5b7	Preregister the Walker headroom sweep and policy-tail test
+fa6bbc9	c99ece1	Add MPPI-GPS and DAgger Walker training and held-out comparison
+c6a43e2	55738b5	Log MDGPS predicted vs actual improvement per training iteration
+367d810	ca332cd	Preregister Step 5 and automate launch on the Step 4 selection
+d414a85	3f23193	Record the Walker headroom grid: horizon, not sample count, sets it
+f7b9b4b	3d94128	Record Step 5: MPPI-GPS without cost-to-go fails; a policy tail fixes the planner
+7c30f3a	78e0296	Preregister MPPI-GPS with the policy's own tail in the E-step
+7cfd427	fb62627	Report time alive per arm in the held-out comparison
+500bae1	aca0dc4	Record Step 6: the policy tail does not rescue MPPI-GPS at this budget
+4066756	502f62d	Preregister MPPI-GPS with K = 256 E-steps at H = 32
+e5ed6d9	09ed046	Record Step 7: clean labels optimize the wrong objective faster
+62e0018	b4f700f	Preregister MPPI-GPS with K = 256 E-steps and the policy tail
+c27c59f	0baecc7	Record Step 8: the tail helps only with clean labels
+0731e44	a448009	Add MDGPS's adaptive step size to MPPI-GPS training (off by default)
+bfc6dcb	77e3900	Add a CPU-only variant of the locked environment
+9a049de	2face5e	Record the move to robopil5090 and preregister the adaptive-step run
+8aeab02	bfcef4f	Record a disk-full crash in Step 8r and the 5090 GPU environment
+64b6b63	e6d550d	Add a MuJoCo Warp vs CPU parity and speed benchmark for Walker
+b62e8b3	5969c44	Fix the Warp rollout path for sensor-free models and stale warm starts
+181b221	f292e90	Record MuJoCo Warp parity and the GPU E-step estimate
+a26afad	89e765b	Add a batched GPU E-step for Walker with CPU-matched labels
+b1909ab	0542806	Add a check of how chaotic the tail-augmented E-step label is
+80c7cd3	561de2e	Record the GPU E-step check: 49x per thread, chaos-limited agreement
+f8d37ed	2b2e0aa	Add a GPU E-step option to MPPI-GPS training
+0ba0ad0	4bb01a0	Record the GPU E-step training check: 48 s vs 417 s per iteration
+d9161d7	8ed3a71	Preregister a 75-iteration GPU run of MPPI-GPS with K = 256 and the tail
+5a4a77d	b0770bf	Record Step 9: the adaptive step lengthens survival in two of three seeds
+08a02d5	3a7cb08	Record Step 10: 75 iterations of MPPI-GPS beat the H = 32 planner held out
+f71eb74	be130da	Preregister the 75-iteration DAgger control for MPPI-GPS
+909da1d	87c27c5	Preregister three more seeds of the 75-iteration MPPI-GPS run
+64198b2	69f0dd8	Record Step 11: DAgger does not improve with 75 iterations
+4bf7ec1	2cc03ac	Add matched-step SAC arms to Step 12 as exploratory
+2442cc0	2e49d2a	Record Step 12: six seeds of 75-iteration MPPI-GPS complete 68% held out
+4f73f0f	763ea5b	Preregister Step 13: averaged iterates, H = 48 planners, label plan check
+6f1f88c	a7a8420	Record Step 13: averaging hurts, H = 48 planners, labels mostly noise
+196843e	3d5dd28	Formalize the notes' trust coupling in docs/theory.md
+3bf1c1f	a5bf873	Preregister Step 14 (predictive check) and Step 14b (LQR trust checks)
+872bcbd	e1d2361	Record Step 14b: the sigma schedule works, the check and trust step do not
+f0b59b3	ade22fc	Preregister Step 17: a sigma schedule on the version Step 14 keeps
+309db8b	e2227b1	Resume Step 14 from saved policies after the 5090 restart
