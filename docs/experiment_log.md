@@ -1658,7 +1658,99 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
     planner".
   - If (c) shows ≥ 25% worse plans at convergence, the next training change
     is gating labels on plan cost or shrinking the step late.
-- Status: planned.
+- Status: complete. Ran 00:48–01:30 on 2026-10-23 at `4f73f0f` on
+  robopil5090. 13a ran with 13b's K = 32 cell (862 s); 13b's K = 256 cell
+  took 2,513 s; 13c took ~22 min on the GPU.
+
+**13a result** (`runs/2026-10-23_step13ab_k32_h48_001/report.json`):
+
+| Policy | Completed, seeds 0–5 | Pooled | Speed MAE | Time alive |
+|---|---|---:|---:|---:|
+| Last iterate (iteration 74) | 34, 35, 12, 25, 49, 49 | 204/300 | 0.326 | 6.63 s |
+| Action average, iterations 65–74 | 24, 38, 0, 8, 50, 49 | 169/300 | 0.340 | 6.04 s |
+| Weight average, iterations 65–74 (exploratory) | 25, 36, 1, 11, 50, 50 | 173/300 | 0.339 | 6.18 s |
+
+- Action average minus last iterate, completion (seeds 0–5): −0.20
+  [−0.38, −0.00], +0.06 [−0.12, +0.23], −0.24 [−0.37, −0.12], −0.34
+  [−0.51, −0.14], +0.02 [−0.05, +0.10], +0.00 [−0.09, +0.09].
+- Predictions: 1 **wrong**. The average matched or beat the last iterate in
+  3 of the 4 early seeds (1, 4, 5), but pooled over them it completed fewer
+  episodes (161 vs 167 of 200) with a higher speed MAE (0.282 vs 0.273);
+  seed 0 lost 0.20. 2 **held** (seeds 2 and 3 lost 0.24 and 0.34).
+- Interpretation: the last ten iterates are not noise around a fixed point.
+  Averaging is neutral where the policy has stopped changing (seeds 4 and 5)
+  and costs completion wherever it was still improving. The
+  averaged-iterate guarantee assumes convexity and does not transfer here.
+
+**13b result** (`runs/2026-10-23_step13ab_k32_h48_001`,
+`runs/2026-10-23_step13b_k256_h48_001`):
+
+| Controller | Completed | Wilson 95% | Speed MAE | Time alive | Time per decision |
+|---|---:|---|---:|---:|---:|
+| Raw MPPI, K = 32, H = 32 (Step 12) | 15/50 | 19–44% | 0.392 | 3.30 s | — |
+| Raw MPPI, K = 32, H = 48 | 39/50 (78%) | 65–87% | 0.387 | 6.94 s | 0.135 s |
+| Raw MPPI, K = 256, H = 48 | 44/50 (88%) | 76–94% | **0.162** | 7.47 s | 0.887 s |
+| MPPI-GPS policies, six seeds (Step 12) | 204/300 (68%) | 62.5–73% | 0.326 | 6.63 s | ~40 µs |
+| SAC 800k | 50/50 | 93–100% | 0.198 | 8.00 s | ~40 µs |
+
+- MPPI-GPS minus raw MPPI, completion per seed (0–5):
+  - Against K = 32, H = 48: −0.10 [−0.27, +0.08], −0.08 [−0.24, +0.08],
+    −0.54 [−0.67, −0.35], −0.28 [−0.45, −0.09], **+0.20 [+0.07, +0.33]**,
+    **+0.20 [+0.07, +0.33]**. Speed MAE −0.02, −0.10, +0.15, −0.06, −0.16,
+    −0.17 (all but seed 0's intervals exclude 0).
+  - Against K = 256, H = 48: −0.20, −0.18, −0.64, −0.38 (intervals exclude
+    0), +0.10 [−0.01, +0.22], +0.10 [−0.01, +0.22]. Speed MAE +0.06 to
+    +0.37 (all intervals exclude 0).
+- SAC 800k minus raw MPPI at K = 256, H = 48: completion +0.12
+  [+0.02, +0.24], speed MAE +0.04 [+0.02, +0.05]. The planner tracks speed
+  better than SAC.
+- Predictions: 1 **wrong** (K = 32, H = 48 completes 78%; K = 256, 88%). 2
+  **wrong** in part: both cells beat the pooled 68%, but against K = 32,
+  H = 48 seeds 0 and 1 are not below it, and seeds 4 and 5 are above it. 3
+  **held** (0.162 < 0.198, and below every MPPI-GPS seed).
+- Interpretation: at H = 48 the planner does the task, as `general.md`
+  assumes, and at K = 256 it tracks speed better than SAC 800k, at
+  0.14–0.89 s per decision against a policy's ~40 µs. The best two MPPI-GPS
+  seeds match or beat both H = 48 planners on completion but not K = 256's
+  speed tracking; the other four lose to both. "Beats the planner it learns
+  from" holds only against H = 32 planners.
+
+**13c result** (`runs/2026-10-23_step13c_label_check_001/report.json`;
+751–2,000 states per checkpoint; fractions from the first draw, the second
+within 0.03):
+
+| Seed | Gain < 0, it 24 | Gain < 0, it 74 | Sign agreement, it 24 / 74 | Median gain, it 24 / 74 |
+|---|---:|---:|---:|---:|
+| 0 | 38% | 42% | 0.70 / 0.65 | 1.65 / 2.65 |
+| 1 | 44% | 43% | 0.69 / 0.72 | 0.97 / 1.27 |
+| 2 | 23% | 38% | 0.74 / 0.66 | 23.4 / 5.50 |
+| 3 | 38% | 42% | 0.75 / 0.70 | 1.87 / 2.33 |
+| 4 | 34% | 46% | 0.76 / 0.69 | 5.05 / 0.46 |
+| 5 | 33% | 53% | 0.71 / 0.71 | 5.13 / −0.31 |
+
+- Label distance from the policy's action: median 0.096–0.120, the same
+  whether the gain is negative or positive. Weights that carry no
+  information about the noise (n_eff/K = 0.2; per-dimension noise std
+  0.30, checked) give 0.094. So a label is mostly sampling noise: its
+  systematic part is roughly 0.03 (iteration 74) to 0.07 (iteration 24) in
+  action norm, against 0.094 of noise, if the two are independent.
+- Predictions: 1 **held** (38–53% at iteration 74). 2 **wrong**: higher at
+  iteration 74 in 5 of 6 seeds, not seed 1 (44% → 43%). 3 **wrong** in part:
+  at iteration 74 the sign repeats on 65–72% of states (held), but at
+  iteration 24 only seed 4 exceeds 75%.
+- Interpretation: at every stage, a third to a half of labels point to plans
+  worse than the policy's own on the E-step's own objective, and which
+  states those are changes between noise draws. Per label, the E-step's
+  signal is weaker than its noise; learning works because the regression
+  averages over thousands of states, which fits the slow, seed-dependent
+  take-off. This supports two ideas in the notes: check the plan you would
+  execute (`Trust coupling methods.md`), and let the planner's task
+  performance, not a fixed KL step, decide how far a label moves.
+
+- Decision: keep Steps 10/12's method as the working base. Report both
+  H = 48 planners beside SAC from now on. Drop averaged iterates. Next,
+  formalize the notes' trust coupling (`docs/theory.md`) and add its pieces
+  to the working method one at a time.
 
 Add one entry per question using the fields below:
 
