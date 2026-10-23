@@ -27,6 +27,10 @@ That result belongs to the recorded historical source. Cleanup edits can change 
 5. Record complete, failed, interrupted, and rejected runs. Preserve every report and raw trace used to support a decision. State whether a check concerns simulator correctness, interface compatibility, teacher control quality, or standalone policy performance.
 6. Update status, results, interpretation, and the keep/reject/revise decision. Link artifact paths and code/config revisions. A partial run or a proposed method is not a validated result.
 7. Keep new behavior off by default so frozen controllers stay unchanged, and commit only after the relevant regression checks pass. Record the commit that produced each result. Revert rejected code in a new commit and keep its record here.
+8. Futility rule (adopted 2026-10-23, at the user's request). Learned arms are watched for learning progress as well as health.
+   - From iteration 29, and every 5 iterations after, compare the mean dev time alive over the arm's last three dev evaluations with its first three.
+   - Stop the arm if that rise is under 0.3 s and no seed has completed more than 2 of 10 dev episodes. Record it as stopped for futility.
+   - Checked against earlier arms at iteration 29: MPPI-GPS (Steps 10/12) rose +0.33 s and reached 68% held out; DAgger (Step 11) rose +0.03 s and finished at 0%.
 
 ## Experiments
 
@@ -2090,7 +2094,39 @@ within 0.03):
     the policy back only where it is competent.
   - If not, the next step targets the cause before any coupling: cleaner
     labels from the same teacher, or more noise for coverage.
-- Status: planned, not launched.
+- Status: **stopped for futility** at 16:30 on 2026-10-23, after 32–33
+  iterations. It ran from 15:36 at `77b1c54` on robopil5090. The stop applies
+  protocol rule 8, adopted at the user's request during the run.
+  Checkpoints and metrics are kept in `runs/2026-10-23_step15_teacher_seed*`.
+- Evidence at the stop (dev resets, 10 per seed):
+
+  | Arm | Mean dev time alive at iterations 4, 9, 14, 19, 24, 29 | Rise, last three minus first three |
+  |---|---|---|
+  | Step 15 student | 1.6, 1.3, 1.2, 1.1, 1.7, 1.4 s | +0.03 s |
+  | MPPI-GPS (Steps 10/12) | 1.2, 1.3, 1.6, 1.4, 1.6, 2.1 s | +0.33 s |
+  | DAgger (Step 11) | 1.5, 1.1, 1.2, 1.2, 1.4, 1.3 s | +0.03 s |
+
+  - No student seed completed a dev episode, except 2/10 for seed 2 at
+    iteration 24.
+  - The teacher completed 79–84% of its noisy training episodes (238–253 of
+    300 per seed by iteration 30).
+  - The student's fit loss stayed near 0.28, against about 0.0003 for
+    MPPI-GPS and 0.10–0.13 for DAgger.
+- Predictions: 1 **held** (79–84%). 2–4 were not tested: there was no
+  held-out evaluation.
+- Interpretation:
+  - The teacher does the task from its own states, so the states are not
+    the problem here. The labels are.
+  - With its frozen temperature at H = 48, MPPI's executed action averages
+    one or two effective samples, so it jitters by roughly the sampling
+    noise from state to state.
+  - The network can fit only the average of that jitter, and so far the
+    average does not walk. More data from the same teacher would not change
+    that average.
+- Decision: **revise.** Keep MPPI generating the states and make the labels
+  cleaner, the step's own preregistered fallback. One way is to label with a
+  smoother weighted average of MPPI's samples than the near-best single
+  sample it executes.
 
 Add one entry per question using the fields below:
 
