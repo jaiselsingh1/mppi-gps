@@ -15,6 +15,21 @@ Written 2026-10-23, after Step 13. Extends [objective.md](objective.md)
 Primary sources were read at the cited sections; their statements are
 paraphrased.
 
+**Corrections, 2026-10-23.** An adversarial review
+([audit_evidence/theory_review.md](audit_evidence/theory_review.md), items
+T1–T7) found errors here. They are corrected inline, each marked with its
+review item:
+- T1: the plug-in ESS bound covers only the observed samples, so it says
+  nothing about the population KL or about support.
+- T2: the trust fixed-point guarantee is false, and so is the route past SAC
+  built on it.
+- T3: an exact projection need not fit every label; pointwise stationarity
+  needs a class that can.
+- T4: clipping breaks the raw-noise Stein step used in Proposition 1.
+
+Propositions 2–5 hold only in the narrower scope the review gives (T5–T7).
+Several empirical statements below are hypotheses, not results.
+
 ## 0. Notation
 
 From a state $x$, an open-loop sequence $U=(u_0,\dots,u_{H-1})$ is scored on
@@ -62,13 +77,22 @@ family: regularized toward the previous policy versus toward high entropy.
 | Haarnoja et al. 2018, Lemmas 1–2, Thm 1 (soft policy iteration) | Converges to the best maximum-entropy policy *within* the policy class $\Pi$ | tabular; $\lvert\mathcal A\rvert<\infty$; bounded rewards | SAC on Walker is outside its theorem too |
 | Montgomery & Levine 2016, Lemmas 4.1–4.2 | The global policy's cost is at most the local cost plus terms in $\sqrt{2\epsilon_t}$ | a uniform per-step bound $\epsilon_t=\max_x{\rm KL}(p\Vert\pi_\theta)$; bounded costs | our KL is over sequences at sampled states, and only its plug-in estimate is bounded |
 | Bertsekas, rollout | One-step lookahead with the base policy's exact cost-to-go is no worse than the base policy | deterministic problem; exact cost-to-go | cost-to-go is truncated at $T=100$ |
-| Chatterjee & Diaconis 2018 | Importance sampling from $p$ needs about $e^{{\rm KL}(q\Vert p)}$ samples (nearly singular case) | none beyond the setting | with the plug-in ${\rm KL}\le\log(1/\rho)$, $K\gtrsim5$ suffices; $K=256$ is far above it, so the limit is variance, not support (Step 13c) |
+| Chatterjee & Diaconis 2018 | Importance sampling from $p$ needs about $e^{{\rm KL}(q\Vert p)}$ samples (nearly singular case) | the population likelihood ratio and its tail (Thms 1.1–1.2) | our plug-in bound covers only the observed samples. A batch can miss a high-weight region and still show full ESS, so it certifies nothing about support (T1) |
 
 **Proposition 1 (fixed point).** Suppose the E-step were exact ($K\to\infty$)
 and the M-step projected exactly. Then a fixed point $\bar\pi$ of $\mathcal T$
 has $\mathbb E_{q_x}[\varepsilon]_0=0$ at every visited $x$. By Stein's identity (objective.md, fact 2) this means
 $\big(\Sigma\nabla F_{\lambda_x}(\bar U_{\bar\pi}(x))\big)_0=0$, where
 $F_\lambda(U)=-\lambda\log\mathbb E_\varepsilon e^{-S_x(U+\varepsilon)/\lambda}$.
+
+Two conditions limit this:
+- **T3.** Pointwise stationarity needs a policy class that can fit every
+  label. An exact fit in a smaller class only satisfies the projected
+  condition $\mathbb E_x[J_\mu(x)^\top(\mu(x)-a(x))]=0$.
+- **T4.** Stein's identity holds for the unclipped Gaussian step at fixed
+  $\lambda$. The implementation averages clipped displacements, which near
+  the action bounds moves the label off the nominal even at infinite
+  temperature.
 
 So the working method converges, at best, to a policy whose plan is
 stationary for a cost that is:
@@ -78,15 +102,19 @@ stationary for a cost that is:
 - (c) scored with the policy's own continuation.
 
 *Consequence 1 (horizon).* SAC optimizes a discounted objective with
-$\gamma=0.995$, which puts $\gamma^{132}=0.52$ of its weight beyond 132
-controls. Half of SAC's objective is invisible to the working method's fixed
-point, except through the policy's own tail. In Step 12, half of the
+$\gamma=0.995$. Here $\gamma^{132}=0.52$ is the share of discount weight
+beyond 132 controls for a constant per-step cost. It is not the share of
+SAC's actual objective, and the two methods optimize different truncated and
+discounted objectives (review). Costs more than 1.06 s ahead reach the
+working method only through the policy's own tail. In Step 12, half of the
 held-out falls (34 of 69, seeds 0–2) came after 3.2 s.
 
 *Consequence 2 (noise floor).* With $\Sigma$ fixed and $\lambda_x$ set by
 $n_{\rm eff}$, the mean update is a constant-step stochastic approximation.
 Its iterates settle in a noise ball set by the label noise: about
-$\sigma/\sqrt{n_{\rm eff}}$ per dimension, 0.094 in norm (Step 13c). They do
+$\sigma/\sqrt{n_{\rm eff}}$ per dimension, 0.094 in norm (Step 13c). That
+figure is a scale heuristic: the weights depend on the noise, coordinates
+are correlated in time, and clipping shifts means (review). They do
 not average errors away as in Vieillard's Thm 1, where the policy sharpens
 and the effective step shrinks like $1/k$.
 - Two results fit this: Step 3's LQR floor (4.6% at K = 256, ρ = 0.2,
@@ -96,7 +124,8 @@ and the effective step shrinks like $1/k$.
   covariance of $q$, so that $\Sigma_k$ shrinks), or setting
   $\sigma_k\propto k^{-1/2}$, drives the floor toward 0.
 - Checked on the LQR oracle (Step 14b):
-  - The floor scales as $\sigma^{1.12}\,n_{\rm eff}^{-0.35}$. The $n_{\rm eff}$
+  - The floor scales as $\sigma^{1.12}\,n_{\rm eff}^{-0.35}$, a two-seed
+    diagnostic fit rather than a general exponent (review). The $n_{\rm eff}$
     exponent is weaker than $-\tfrac12$ because a larger $n_{\rm eff}/K$ also
     shrinks each step, so the noise ball shrinks less than the label noise.
   - $\sigma_k=0.3\,(1+k/5)^{-1/2}$ cut the late error to 0.35–0.38 of the
@@ -149,9 +178,16 @@ $q_\nu\propto p_\pi e^{-\nu S_x}$:
   attainable (see the cap below).
 
 Uniqueness and monotonicity follow from
-$\tfrac{d}{d\nu}\mathbb E_{q_\nu}[S]=-{\rm Var}_{q_\nu}(S)\le0$, so $\nu^*$
-grows with the competence gap
-$g(x)=\mathbb E_{p_\pi}[S_x]-J^{\mathcal P}(x)-\tau$.
+$\tfrac{d}{d\nu}\mathbb E_{q_\nu}[S]=-{\rm Var}_{q_\nu}(S)\le0$, so at a
+given state $\nu^*$ grows as the budget tightens.
+
+Scope (T5): this holds for an interior, feasible budget with nonconstant
+cost.
+- The competence gap $g(x)=\mathbb E_{p_\pi}[S_x]-J^{\mathcal P}(x)-\tau$
+  alone does not order $\nu^*$ across states, because different cost scales
+  give different variances.
+- The cap and floor below change the constrained problem. A capped step that
+  misses the budget is infeasible for (T), not its solution.
 
 Define **trust** as $t(x)=1/\nu^*(x)\in(0,\infty]$. It is infinite where the
 noisy policy already meets the planner's budget (the label is the policy's
@@ -182,10 +218,13 @@ the policy". Two more links:
 
 **Cap and floor.** Two limits keep (T) usable.
 - *Cap* (imitability and support; "the optimizer must not change in a way
-  the policy cannot follow"): ${\rm KL}(q\Vert p_\pi)\le\epsilon_{\max}$, i.e.
-  $n_{\rm eff}/K\ge\rho_{\min}$. By Chatterjee & Diaconis, past about
-  $\log K$ nats the $K$ samples cannot represent $q$. By Montgomery & Levine's
-  Lemma 4.2, the projection's cost grows with $\sqrt\epsilon$.
+  the policy cannot follow"): an ESS floor $n_{\rm eff}/K\ge\rho_{\min}$.
+  - This bounds only the empirical KL over the $K$ samples, and is stricter
+    than an empirical KL cap. It says nothing about the population KL or
+    about support (T1).
+  - Report achieved ESS, not the requested $\rho$.
+  - By Montgomery & Levine's Lemma 4.2, the projection's cost grows with
+    $\sqrt\epsilon$.
 - *Floor* (keep improving past the planner, since MPPI "absorbs the policy's
   long-term information" through the tail): $\nu\ge\nu_\rho$, the working
   method's step.
@@ -215,7 +254,10 @@ planner's plan. Step 16 uses this form.
 executed).** Let $\bar U'=\bar U_\pi+\sum_kw_k\varepsilon_k$, take candidates
 $\mathcal C(x)=\{\bar U',\bar U_\pi,U^{\mathcal P}\}$, and set the label to
 $a(x)=[\arg\min_{U\in\mathcal C}S_x(U)]_0$. Then the label's plan costs no
-more than either the policy's own plan or the planner's.
+more than either the policy's own plan or the planner's. This is a
+finite-horizon guarantee about the computed plan only. It says nothing about
+the trained student's closed-loop behaviour, and CPU/GPU numerical
+differences can change which candidate wins (T6).
 - Without the planner ($\mathcal C=\{\bar U',\bar U_\pi\}$), the label's plan
   is never worse than the policy's own.
 - The working method breaks this at 23–53% of states (Step 13c). Fact 1
@@ -228,8 +270,11 @@ more than either the policy's own plan or the planner's.
     own, so the check freezes the gain. Without it, the regression averages
     many noisy labels whose shared systematic part still points the right
     way.
-  - Per-state acceptance discards signal that only appears in aggregate. It
-    can help only if wrong-direction labels do harm beyond noise.
+  - Per-state acceptance discards signal that only appears in aggregate.
+    Step 14 found the same on Walker (55/300 against 204/300).
+  - Two LQR seeds do not show the check can never help. Selection bias,
+    suppressed exploration and regression conditioning are other mechanisms
+    that need their own tests (T6).
 
 **Proposal support when trust is low.** If $\nu^*>\nu_{\rm cap}$, the budget
 is out of reach of samples around the policy. Then draw part of the batch
@@ -237,15 +282,15 @@ around the planner's plan, $r=(1-\alpha)p_\pi+\alpha\,\mathcal N(U^{\mathcal P},
 with weights $w\propto(p_\pi/r)\,e^{-\nu S}$. The base measure, and with it
 the KL, stays the policy's.
 
-**Fixed point with trust.** With exact projection, a fixed point of the
-trust-coupled iteration has, at every visited state:
-- (i) $\mathbb E_{p_{\bar\pi}}[S_x]\le J^{\mathcal P}(x)+\tau$, since a
-  binding budget generically moves the label;
-- (ii) Proposition 1's stationarity.
+**Fixed point with trust: withdrawn (T2).** The earlier claim was that a
+fixed point of the trust-coupled iteration meets the planner's budget at
+every visited state. Under mean projection it is false.
+- With a symmetric double-well cost, a tilted distribution meets the budget
+  while its mean, and so the projected policy, does not move.
+- The unchanged policy still exceeds the budget.
 
-So at every visited state the policy's noisy plan meets the planner's budget
-in expectation, on the E-step objective. The working method's fixed point
-need not: in Step 13b, four of six policies lose to the $H=48$ planners.
+Budget satisfaction has to be checked on the actual candidate plan, as a
+measured event.
 
 **What the decomposition $u=\pi+\delta$ adds.** The label displacement
 $\delta(x)=a(x)-\mu_\theta(x)$ is what the M-step drives to zero, and
@@ -268,8 +313,13 @@ directly from optimized trajectories fails early, because the network is not
 yet competent enough to use them. This is our DAgger result (Steps 5 and 11)
 and our take-off result (Step 12).
 
-**Proposition 5 (trust is their consensus weight).** Their coupling has three
-forms:
+**Proposition 5 (trust as their consensus weight, an analogy; T7).**
+- It holds only within the equal-covariance Gaussian family, whereas the
+  unrestricted solution of (T) need not be Gaussian.
+- Their 2014 method also has dual shifts, state consistency and
+  feedback-gain supervision, and removing those changes the method.
+
+Their coupling has three forms:
 - a joint objective with a consensus constraint $a^t=\pi_\theta(s^t)$ (2014
   Eq. 3; 2015 Eq. 1);
 - the constraint relaxed by a quadratic penalty
@@ -306,7 +356,9 @@ cannot follow" from a constant cap into a learned, state-dependent one.
 **Mechanism 2: trust regions on both sides (2015, Algorithm 1).** Proximal
 terms $\tfrac\eta2\Vert X-\bar X\Vert^2$ and
 $\tfrac\eta2\Vert\theta-\bar\theta\Vert^2$ keep both the trajectories and the
-network near their previous values. Each sub-problem takes 1–10 Newton
+network near their previous values. These are Euclidean in trajectory and
+parameters, not policy-KL or performance guarantees (T7). Each sub-problem
+takes 1–10 Newton
 iterations, and the network gets one pass of SGD per iteration. Our E-step
 has a trust region (the KL to $p_\pi$), but our M-step has none: 2,000 Adam
 steps on fresh labels. That M-step could drift, which fits Step 13a's
@@ -325,9 +377,13 @@ still-moving late iterates and seed 0's oscillation.
 **The cost itself (CIO 2012; 2015 §3, Eq. 6).** The teacher's cost enforces
 physics as soft constraints: equations of motion, non-penetration and
 complementarity. Weights are continued across phases, so CIO starts from
-trivial initializations. In trust terms this is a schedule on how much
-unphysical help the teacher may use, which falls as the policy becomes
-competent. Applied to MPPI-GPS it is objective.md's C2:
+trivial initializations.
+- CIO schedules these weights by optimization phase, not by any policy's
+  competence (T7).
+- Tying the schedule to competence would be a new mechanism, needing its own
+  schedule and ablations.
+
+Applied to MPPI-GPS it is objective.md's C2:
 - the policy also outputs contact variables $c$;
 - virtual forces are priced at $k_0/(c^2+k_1)$ and annealed away.
 
@@ -341,26 +397,44 @@ Two expected effects follow:
 
 | Term | Evidence | What removes it | Planned step |
 |---|---|---|---|
-| Labels pointing the wrong way | 23–53% of states (13c) | predictive check (Prop. 4) | 14 |
+| Improved plans costing more than the policy's own (this does not establish the first action's advantage; review) | 23–53% of states (13c) | predictive check (Prop. 4): rejected in Step 14 | 14 |
 | Slow, seed-dependent take-off | take-off at iterations 31–73 sets the final result (Step 12) | planner fallback, then the trust budget (Props. 2, 4) | 15, 16 |
 | Constant-step noise floor | label signal ≈ 0.03 vs noise 0.094 (13c); LQR floor 4.6% (Step 3) | covariance projection or a falling $\sigma_k$ (Consequence 2) | 17, LQR first |
-| Truncation | 1.06 s horizon; SAC weighs 52% beyond it; half of falls after 3.2 s | longer tail or a terminal value | later |
+| Truncation | 1.06 s horizon; for a constant cost, 0.52 of SAC's discount weight lies beyond it; half of falls after 3.2 s | longer tail or a terminal value | later |
 | Coverage | training episodes 3.2 s, test 8 s | 8 s training episodes | later |
 | Projection | fit residual; DAgger's 0.10–0.13 loss vs MPPI-GPS's 0.0007 (Step 11) | the cap (Section 2); an imitability price (Section 2b, Mechanism 1) | measured every step; 18 |
 | M-step drift | late iterates still moving (13a); seed 0 oscillates | a proximal M-step (Section 2b, Mechanism 2) | 19 |
 | Contact chaos in labels | sign of the gain repeats on ~70% of states (13c) | soft physics with annealed virtual forces (Section 2b, CIO cost) | CIO track |
 
 **Where it can win.**
-- Per executed environment step, MPPI-GPS already walks after 133k–232k
-  controls, where SAC does not (Step 12).
-- Per decision, a 40 µs policy replaces a 0.14–0.89 s planner.
+- Per executed transition in the simulator, MPPI-GPS walks after 133k–232k
+  controls, where SAC does not yet (Step 12). Each label also costs about
+  34,000 simulated transitions, which must be reported beside it (review).
+- Per decision, a 40 µs policy replaces a 0.14–0.89 s planner. This is the
+  deployment-cost claim that survives the audit (C1), pending an uncontended
+  timing benchmark.
 - The H = 48, K = 256 planner tracks speed better than SAC 800k (0.162 vs
-  0.198, Step 13b). A policy that dominates it state by state, the trust
-  fixed point, therefore has a route past SAC on speed.
+  0.198, Step 13b). A student that retains that would track speed better
+  too. The trust fixed point that was meant to guarantee this is withdrawn
+  (T2), so it is an empirical question.
 - Reliability past 1 s needs the truncation term addressed.
-- Per simulator call it cannot beat SAC, by construction.
+- Whether it beats SAC per total simulator call is empirical, not settled by
+  construction (review). The present implementation spends far more
+  simulated transitions per collected one.
 
 ## 4. The ladder: one new term at a time
+
+**Superseded on 2026-10-23.** Every step below refines a loop in which MPPI
+searches around the states a poor policy reaches. Two things set that loop
+aside: criticism received that day (MPPI is local, so it cannot find good
+states from bad ones), and Step 14's result.
+
+The new plan starts at Step 15 (`docs/experiment_log.md`): MPPI generates
+the data from its own warm start, and the policy learns from it. The policy
+re-enters only where it is competent. The task budget, the predictive check
+and trust as a consensus weight (Section 2, Proposition 5) carry over in a
+changed form: MPPI's own plan is the centre of the search, and the policy is
+the pull toward it.
 
 **Base.** The working method of Steps 10/12: K = 256, H = 32, T = 100,
 ρ = 0.2, 75 iterations, GPU E-step, training seeds 0–5.
