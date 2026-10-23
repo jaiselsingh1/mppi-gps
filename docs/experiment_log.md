@@ -1499,7 +1499,89 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
     (`walker_step5_compare.py --references`). No predictions.
   - S2b classified the 200k policy as surviving while nearly stationary
     (29/30, speed MAE 1.68 m/s), so completion is reported beside speed MAE.
-- Status: planned.
+- Status: complete. Seeds 3–5 ran 21:35 on 2026-10-22 to 00:00–00:32 on
+  2026-10-23 (GPU E-step, 4 collection workers each, alongside Step 11);
+  75 iterations each, no errors. The held-out comparison ran at `4bf7ec1` in
+  111 s, started automatically when seed 4 finished
+  (`runs/2026-10-22_step12_heldout_001/report.json`, robopil5090, CPU-only
+  evaluation environment). Step 10's seeds 0–2, raw MPPI and SAC 800k
+  reproduce their earlier numbers exactly.
+- Held-out result:
+
+  | Arm | Completed | Wilson 95% | Speed MAE | Time alive (per seed) |
+  |---|---:|---|---:|---:|
+  | **MPPI-GPS, 75 iterations, seeds 3–5** | **123/150 (82%)** | 75–87% | 0.258 | **7.41 s** (6.38, 7.89, 7.97) |
+  | MPPI-GPS, 75 iterations, seeds 0–2 (Step 10) | 81/150 (54%) | 46–62% | 0.393 | 5.86 s (5.98, 6.86, 4.74) |
+  | **Six seeds pooled** | **204/300 (68%)** | 62.5–73.0% | 0.326 | 6.63 s |
+  | Seeds 3–5 at iteration 24 | 0/150 | 0–2.5% | 0.644 | 1.82 s |
+  | DAgger, 75 iterations (Step 11) | 0/150 | 0–2.5% | 0.662 | 1.13 s |
+  | Raw MPPI, K = 32, H = 32 | 15/50 (30%) | 19–44% | 0.392 | 3.30 s |
+  | SAC 800k | 50/50 | 93–100% | 0.198 | 8.00 s |
+
+  Per seed at iteration 74: 25/50 (MAE 0.33), 49/50 (0.23), 49/50 (0.22).
+- Paired by reset seed, seeds 3/4/5:
+  - **Against raw MPPI**, completion: +0.20 [+0.01, +0.37],
+    **+0.68 [+0.52, +0.79]**, **+0.68 [+0.52, +0.79]**. Speed MAE −0.06,
+    −0.16, −0.17 (all intervals exclude 0).
+  - Against SAC 800k, completion: −0.50 [−0.63, −0.35],
+    −0.02 [−0.10, +0.05], −0.02 [−0.10, +0.05]. Speed MAE +0.13, +0.03,
+    +0.02 (all intervals exclude 0).
+  - Against the same runs at iteration 24: completion +0.50, +0.98, +0.98;
+    time alive +4.9, +5.8, +6.1 s (all intervals exclude 0).
+  - Against DAgger seeds 0/1/2 (exploratory; pairs different training
+    seeds): completion +0.50, +0.98, +0.98.
+- Exploratory SAC arms (not preregistered), one checkpoint each:
+
+  | SAC checkpoint | Completed | Speed MAE | Time alive |
+  |---|---:|---:|---:|
+  | 150k | 15/50 | 1.298 | 6.03 s |
+  | 175k | 16/50 | 1.374 | 6.25 s |
+  | 200k | 47/50 | 1.699 | 7.59 s |
+
+  - The six MPPI-GPS runs executed 163k, 197k, 133k, 163k, 232k and 220k
+    training controls (seeds 0–5). They also simulated 2.3–3.9 billion
+    controls in E-steps, ~3,000–5,000× SAC 800k's total.
+  - At 150k–200k steps SAC does not walk yet; the 200k policy survives by
+    standing nearly still.
+  - Every MPPI-GPS seed tracks speed better than all three checkpoints (MAE
+    differences −0.77 to −1.48 m/s, all intervals exclude 0).
+  - On completion, seeds 0, 1, 4 and 5 beat SAC 150k and 175k (intervals
+    above 0); seeds 2 and 3 do not differ. Against SAC 200k, seeds 4 and 5
+    tie (+0.04 [−0.05, +0.14]) and the other four are lower.
+- Training: take-off (the first iteration with at least 5/10 training
+  episodes reaching 400 controls) came at iterations 70, 31 and 46 for
+  seeds 3–5, against 57, 40 and 73 for seeds 0–2. Held-out completion
+  follows that order. Dev at iteration 74: 5/10, 10/10, 10/10. Fit loss
+  0.0007–0.0009.
+- Theory checks:
+  - Minimum sample improvement was 0.041–0.088. This check holds by
+    construction: weights that decrease with cost always put the weighted
+    mean cost below the plain mean (Chebyshev's sum inequality), so
+    Prediction 1 here and in Steps 3–10 could not fail.
+  - The informative signal is on the plans. In seeds 4 and 5, median
+    predicted and actual improvement on probe states fell from 9.5–15
+    (iterations 0–24) to 1.2–1.5 (50–74). Predicted improvement was negative
+    in 6–7 of the last 25 iterations for seeds 3–5: there, the averaged plan
+    was worse than the policy's own plan.
+  - Early on, actual improvement exceeded the prediction in seeds 0, 1 and 3
+    (medians 11.5–12.9 vs 3.5–8.8).
+- Predictions: 1 **held**, but vacuously (above). 2 **held** (82%). 3
+  **held** (5 of 6 seeds: 0, 1, 3, 4, 5; seed 3's lower bound is +0.01). 4
+  **held** (lower bound 62.5%).
+- Interpretation:
+  - Step 10's result holds with three more seeds: 68% pooled completion
+    (62.5–73%). Seeds 4 and 5 are within 2 points of SAC 800k on completion,
+    with 0.02–0.03 m/s more speed error.
+  - The spread across seeds tracks take-off time (iteration 31 to 73), so at
+    a fixed 75-iteration budget final performance is mostly set by how long a
+    seed takes to start walking.
+  - The fixed n_eff/K = 0.2 step gains more than predicted early and little,
+    sometimes less than nothing, late: the pattern MDGPS's step rule exists for.
+  - At matched environment steps SAC does not walk yet, but MPPI-GPS uses
+    thousands of times more simulation.
+- Decision: **keep.** MPPI-GPS at 75 iterations beats raw MPPI at K = 32,
+  H = 32 in 5 of 6 seeds and DAgger in every seed, and two seeds approach
+  SAC 800k. The next question is take-off time.
 
 Add one entry per question using the fields below:
 
