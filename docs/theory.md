@@ -95,6 +95,12 @@ and the effective step shrinks like $1/k$.
 - Prediction for the LQR oracle: projecting the covariance too (the weighted
   covariance of $q$, so that $\Sigma_k$ shrinks), or setting
   $\sigma_k\propto k^{-1/2}$, drives the floor toward 0.
+- Checked on the LQR oracle (Step 14b):
+  - The floor scales as $\sigma^{1.12}\,n_{\rm eff}^{-0.35}$. The $n_{\rm eff}$
+    exponent is weaker than $-\tfrac12$ because a larger $n_{\rm eff}/K$ also
+    shrinks each step, so the noise ball shrinks less than the label noise.
+  - $\sigma_k=0.3\,(1+k/5)^{-1/2}$ cut the late error to 0.35–0.38 of the
+    fixed-$\sigma$ arm's, with no slower start.
 
 ## 2. Trust in the notes, as optimization problems
 
@@ -188,6 +194,23 @@ Combined: $\nu(x)=\min\{\max(\nu^*(x),\nu_\rho(x)),\,\nu_{\rm cap}(x)\}$.
 Where the policy meets the budget, this is exactly the working method.
 Elsewhere it takes a larger step, up to the cap.
 
+**Oracle check, and the revision it forces (Step 14b).** On the LQR oracle,
+with the budget set to the exact controller's noisy expected cost, the trust
+step never left the floor. It reproduced fixed $\rho=0.2$ to four digits.
+- The constraint compares the *reweighted* mean of the policy's samples with
+  the planner's unweighted mean.
+- When sampling noise dominates the spread of $S$, a tiny reweighting
+  removes more noise cost than the gap between the two plans.
+- So (T) judges competence in expectation under the policy's own noise, and
+  there even a zero policy looks almost competent.
+
+The notes' Kendall rule compares plans. The faithful version budgets on the
+improved plan:
+$$\lambda(x)=\max\{\lambda\in[\lambda_{\rm cap},\lambda_\rho]:\ S_x(\bar U'_\lambda)\le S_x(U^{\mathcal P})+\tau\},$$
+with $\lambda=\lambda_{\rm cap}$ if no $\lambda$ in the range meets it. This
+is the smallest step whose improved plan does the task as well as the
+planner's plan. Step 16 uses this form.
+
 **Proposition 4 (predictive check: Kendall's rule on the plan actually
 executed).** Let $\bar U'=\bar U_\pi+\sum_kw_k\varepsilon_k$, take candidates
 $\mathcal C(x)=\{\bar U',\bar U_\pi,U^{\mathcal P}\}$, and set the label to
@@ -198,6 +221,15 @@ more than either the policy's own plan or the planner's.
 - The working method breaks this at 23–53% of states (Step 13c). Fact 1
   bounds the weighted *sample* cost, not the cost of the averaged plan: the
   limitation `Trust coupling methods.md` names.
+- Oracle check (Step 14b): on LQR the check made learning worse.
+  - Convergence was slower (iterations 11–13 to reach 0.10, against 7–8).
+  - The floor was higher (0.066–0.074 against 0.044–0.051).
+  - Near the optimum, almost every improved plan is worse than the policy's
+    own, so the check freezes the gain. Without it, the regression averages
+    many noisy labels whose shared systematic part still points the right
+    way.
+  - Per-state acceptance discards signal that only appears in aggregate. It
+    can help only if wrong-direction labels do harm beyond noise.
 
 **Proposal support when trust is low.** If $\nu^*>\nu_{\rm cap}$, the budget
 is out of reach of samples around the policy. Then draw part of the batch
@@ -346,10 +378,11 @@ preregistered, and is kept only if it beats that version.
 2. **Step 15:** planner fallback. $\mathcal C$ gains $U^{\mathcal P}$, raw
    MPPI at H = 48 batched on the GPU at labelled states. This is Kendall's
    rule.
-3. **Step 16:** the trust step $\nu(x)$ from the budget, with cap and floor
-   (Prop. 2).
-4. **Step 17:** covariance projection or a $\sigma$ schedule, checked on the
-   LQR oracle first (Consequence 2).
+3. **Step 16:** the plan-level trust step from the planner's plan, with cap
+   and floor (Prop. 2 as revised after Step 14b).
+4. **Step 17:** a $\sigma$ schedule, the term the LQR oracle supports most
+   strongly (Step 14b B). It moves ahead of Steps 15–16 if Step 14 does not
+   beat the base.
 5. **Step 18:** an imitability price that lowers trust where the policy
    cannot follow (Mordatch & Todorov 2014, Eq. 7).
 6. **Step 19:** a proximal M-step (Mordatch et al. 2015, Algorithm 1).

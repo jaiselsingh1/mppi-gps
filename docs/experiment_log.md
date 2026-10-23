@@ -1848,7 +1848,79 @@ within 0.03):
     C's fixed ρ = 0.2 arm.
   - D1: its floor is below the control's, in both seeds.
   - D2: the replaced fraction is ≥ 0.8 from iteration 20 on.
-- Status: planned.
+- Status: complete. Ran on 2026-10-23 at `3bf1c1f` on the local CPU in 214 s
+  (`runs/2026-10-23_step14b_lqr_trust_001/report.json`).
+- **A result.** Floor = median error over iterations 1–10 from the optimum,
+  seeds 0/1:
+
+  | σ \ n_eff/K | 0.05 | 0.2 | 0.5 |
+  |---|---|---|---|
+  | 0.15 | 0.035, 0.040 | 0.023, 0.020 | 0.021, 0.014 |
+  | 0.3 | 0.065, 0.078 | 0.043, 0.039 | 0.042, 0.025 |
+  | 0.6 | 0.162, 0.151 | 0.106, 0.084 | 0.096, 0.096 |
+
+  - At σ = 0.3, ρ = 0.2, varying K: 64 gives 0.099, 0.101; 256 gives 0.043,
+    0.039; 1024 gives 0.033, 0.025.
+  - Fit: floor ∝ σ^1.12 · n_eff^−0.35.
+  - A1 **wrong**, narrowly: a = 1.12 is inside [0.8, 1.2], but b = −0.348
+    falls just outside [−0.65, −0.35].
+  - More samples at a fixed n_eff/K help about as 1/√n_eff from K = 64 to
+    256, and less after. A larger n_eff/K helps little: it also shrinks each
+    step, so the iterate's noise ball does not shrink with the label noise.
+- **B result.** Median error over iterations 31–40, seeds 0/1:
+  - fixed σ: 0.040 and 0.060;
+  - shrinking σ: 0.014 and 0.023.
+
+  Both starts end at identical late errors: the iteration forgets its start.
+  From G = 0, both arms first go below 0.10 at iterations 7 and 8. B1
+  **held** (ratios 0.35 and 0.38). B2 **held** (no delay).
+- **C result** (seeds 0/1):
+
+  | Arm | First below 0.10 | Floor (it 20–30) | n_eff/K, first 3 its / late |
+  |---|---|---|---|
+  | Fixed ρ = 0.05 | 5, 5 | 0.074, 0.094 | 0.05 / 0.05 |
+  | Fixed ρ = 0.2 | 7, 8 | 0.044, 0.051 | 0.2 / 0.2 |
+  | Trust step | 7, 8 | 0.044, 0.051 | 0.2 / 0.2 |
+
+  - C1 **wrong**; C2 **held**, trivially; C3 **wrong**. The trust step never
+    left the floor and reproduced fixed ρ = 0.2 to four digits.
+  - Why: the budget compared the reweighted policy samples' mean cost with
+    the planner's unweighted noisy mean. Sampling noise dominates the spread
+    of costs here, so a tiny reweighting removes more noise cost than the
+    gap between the policy's plan and the LQR plan. The budget was met by
+    steps smaller than the floor.
+  - So (T), as formalized, measures competence in expectation under the
+    policy's own noise; when noise dominates, even G = 0 looks almost
+    competent. The notes' Kendall rule compares plans, not noisy
+    expectations. The next version budgets on the improved plan itself: the
+    smallest step whose plan costs no more than the planner's plan.
+- **D result** (seeds 0/1):
+  - first below 0.10 at iterations 11 and 13 (control: 7 and 8);
+  - floor 0.074 and 0.066 (control: 0.044 and 0.051);
+  - replaced fraction ≥ 0.93 from iteration 20.
+
+  D1 **wrong** (the floor is higher). D2 **held**. Near the optimum almost
+  every improved plan is worse than the policy's own (Step 3 saw no plan
+  improve at convergence). The check then replaces nearly every label with
+  the policy's action, and the gain freezes near 0.07. Without the check,
+  the regression averages 150 noisy labels per iteration whose shared
+  systematic part still points at the optimum; per-state acceptance throws
+  that shared signal away.
+- Interpretation:
+  - Consequence 2 holds: the floor is a constant-step noise ball that scales
+    with σ, and shrinking σ removes most of it with no delay. Of the terms
+    tested here, this is the one the oracle supports.
+  - The trust budget as written in (T) is too weak when noise dominates; it
+    needs a plan-level version.
+  - The predictive check slows LQR learning and raises its floor. For Step
+    14 (running) this predicts the check will not help, unless Walker's
+    wrong-direction labels do harm that LQR's do not.
+- Decision:
+  - Revise `docs/theory.md`: Consequence 2's exponent, a plan-level budget
+    for Prop. 2, and the check's failure mode for Prop. 4.
+  - Step 14 runs to completion under its preregistered rule. If it does not
+    beat the base, the σ schedule (Step 17) moves up as the best-supported
+    next term.
 
 Add one entry per question using the fields below:
 
