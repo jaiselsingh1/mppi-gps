@@ -1817,6 +1817,42 @@ within 0.03):
     only, because the previous iteration's replay was in memory. The fit's
     minibatch order also restarts. GPU runs are not bitwise reproducible
     anyway, so this is treated as a statistically equivalent continuation.
+- Status: complete. Training resumed at 12:20 and finished at 15:00 on
+  2026-10-23. The held-out comparison ran in 284 s
+  (`runs/2026-10-23_step14_heldout_001/report.json`, robopil5090, CPU-only
+  evaluation environment). The base's six seeds, SAC 800k and DAgger
+  reproduce their earlier numbers exactly.
+- Held-out result:
+
+  | Arm | Completed | Wilson 95% | Speed MAE | Time alive | Per seed (0–5) |
+  |---|---:|---|---:|---:|---|
+  | Predictive check (Step 14) | 55/300 (18%) | 14–23% | 0.473 | 3.81 s | 0, 15, 0, 3, 0, 37 |
+  | Working method (Steps 10/12) | 204/300 (68%) | 62.5–73% | 0.326 | 6.63 s | 34, 35, 12, 25, 49, 49 |
+  | Raw MPPI, K = 32, H = 48 | 39/50 (78%) | 65–87% | 0.387 | 6.94 s | — |
+  | SAC 800k | 50/50 | 93–100% | 0.198 | 8.00 s | — |
+
+- Step 14 minus the base, paired by reset seed, seeds 0–5:
+  - completion −0.68, −0.40, −0.24, −0.44, −0.98, −0.24;
+  - speed MAE +0.10 to +0.28;
+  - time alive −0.9 to −5.8 s.
+
+  Every interval excludes 0.
+- Training: seeds 1, 3 and 5 took off at iterations 56, 70 and 60; seeds 0,
+  2 and 4 never did (base: 57, 40, 73, 70, 31, 46). The check replaced a
+  median of 32–36% of labels per seed, ranging from 0 to 49% across
+  iterations.
+- Predictions: 1 **held** (32–36%). 2 **wrong** (take-off earlier in 0 of 6
+  seeds). 3 **wrong** (55/300). 4 **wrong** (0.473).
+- Decision: **reject.** The check is dropped: pooled completion fell, and no
+  seed improved.
+- Interpretation:
+  - The LQR oracle predicted this (Step 14b, D). Judging each noisy label on
+    its own throws away the improvement that only shows up across many
+    labels. The policy then keeps its own action at a third of its states,
+    barely moves, and stays where it cannot walk.
+  - It also fits the criticism received on 2026-10-23: MPPI searching
+    locally around the states a poor policy reaches cannot find good states.
+    The check made that search more conservative still.
 
 ### Step 14b — LQR oracle checks of `docs/theory.md` (predictions written before running)
 
@@ -1978,7 +2014,9 @@ within 0.03):
   3. Pooled completion is not lower than the kept version's.
   4. Median take-off is no later than the kept version's plus 5 iterations.
 - Decision: keep the schedule if predictions 2 and 3 both hold.
-- Status: planned. It launches when Step 14 is recorded.
+- Status: not launched. Held on 2026-10-23 after the criticism that the
+  E-step searches locally around the states a poor policy reaches; this
+  step only refines that loop.
 
 Add one entry per question using the fields below:
 
