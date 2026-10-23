@@ -55,6 +55,8 @@ class TrainConfig:
     # sigma_0 * (1 + k / sigma_decay_iterations)^(-1/2), with sigma_0 from
     # configs/walker2d_best.json (docs/theory.md, Consequence 2).
     sigma_decay_iterations: float | None = None
+    # Continue the run in out_dir from its last saved policy (see _resume).
+    resume: bool = False
     # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
     # collect, then all of an iteration's states are labelled on the GPU with
     # the same per-episode noise streams the CPU path draws.
@@ -243,19 +245,42 @@ def _fit(actor: SacActor, obs: np.ndarray, labels: np.ndarray, cfg: TrainConfig,
     return float(np.mean(losses[-100:]))
 
 
+def _resume(out_dir: Path, cfg: TrainConfig, actor: SacActor) -> tuple[int, float]:
+    """Load the last saved policy of the run in out_dir; return the next iteration.
+
+    The next iteration index, and so every per-iteration seed, is the one an
+    unbroken run would use. Replay restarts empty and the fit's minibatches
+    differ, so a resumed run is a statistical, not exact, continuation.
+    """
+    from src.rl.sac import load_policy
+
+    stored = json.loads((out_dir / "config.json").read_text())
+    defaults = asdict(TrainConfig())
+    changed = sorted(k for k, v in asdict(cfg).items() if k != "resume" and v != stored.get(k, defaults[k]))
+    if changed:
+        raise ValueError(f"resume needs the stored config; these differ: {changed}")
+    rows = [json.loads(line) for line in (out_dir / "metrics.jsonl").read_text().splitlines() if line.strip()]
+    payload = torch.load(out_dir / f"policy_{rows[-1]['iteration']:03d}.pt", map_location="cpu", weights_only=False)
+    actor.load_state_dict(load_policy(payload).state_dict())
+    return rows[-1]["iteration"] + 1, rows[-1].get("neff_fraction_next", cfg.neff_fraction)
+
+
 def main(out_dir: Path, cfg: TrainConfig) -> None:
     if cfg.labeler not in {"mdgps", "dagger"}:
         raise ValueError("labeler must be 'mdgps' or 'dagger'.")
-    out_dir.mkdir(parents=True, exist_ok=False)
-    (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
-    if cfg.init_policy is not None:
-        from src.rl.sac import load_policy
+    neff_fraction, start = cfg.neff_fraction, 0
+    if cfg.resume:
+        start, neff_fraction = _resume(out_dir, cfg, actor)
+    else:
+        out_dir.mkdir(parents=True, exist_ok=False)
+        (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
+        if cfg.init_policy is not None:
+            from src.rl.sac import load_policy
 
-        payload = torch.load(cfg.init_policy, map_location="cpu", weights_only=False)
-        actor.load_state_dict(load_policy(payload.get("policy", payload)).state_dict())
-    neff_fraction = cfg.neff_fraction
+            payload = torch.load(cfg.init_policy, map_location="cpu", weights_only=False)
+            actor.load_state_dict(load_policy(payload.get("policy", payload)).state_dict())
     base_sigma = json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text())["noise_sigma"]
     replay: list[tuple[np.ndarray, np.ndarray]] = []
     started = time.time()
@@ -272,7 +297,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             gpu_cfg = replace(base, K=cfg.K, H=cfg.H, initial_iterations=1, lam_target_neff_fraction=neff_fraction)
             gpu = WalkerGPUEStep(_walker(), copy.deepcopy(actor).cuda().eval(), gpu_cfg, cfg.tail_steps,
                                  states_per_batch=cfg.gpu_states_per_batch)
-        for iteration in range(cfg.iterations):
+        for iteration in range(start, cfg.iterations):
             t0 = time.time()
             sigma = _noise_sigma(cfg, base_sigma, iteration)
             execute_expert = cfg.labeler == "dagger" and iteration == 0
@@ -320,6 +345,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                 "collect_completed": int(sum(ep["survived"] for ep in episodes)),
                 "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in episodes])),
                 "collect_cost_per_step": float(np.mean([ep["cost_per_step"] for ep in episodes])),
+                "resumed": bool(cfg.resume and iteration == start),
                 "labels": int(len(labels)), "fit_loss": loss, "neff_fraction_target": neff_fraction,
                 "labeling": "gpu" if gpu is not None else "cpu", "seconds_collect": seconds_collect,
                 "seconds_label": seconds_label, "seconds_fit": seconds_fit,
@@ -360,7 +386,10 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
                   f"{check.get('actual_improvement', float('nan')):.2f} "
                   f"dev_surv {dev.get('survival_rate', float('nan')):.2f} "
                   f"dev_mae {dev.get('velocity_mae', float('nan')):.3f} {record['seconds']:.0f}s", flush=True)
-    (out_dir / "status.json").write_text(json.dumps({"complete": True, "wall_time_s": time.time() - started}))
+    status = {"complete": True, "wall_time_s": time.time() - started}
+    if cfg.resume:
+        status["resumed_at"] = start
+    (out_dir / "status.json").write_text(json.dumps(status))
 
 
 if __name__ == "__main__":

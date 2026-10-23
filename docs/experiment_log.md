@@ -1799,6 +1799,24 @@ within 0.03):
 - Decision: keep the check if pooled completion beats the base's and at
   least 4 of 6 seeds improve on their base seed. Step 15 then adds the
   planner fallback to it; otherwise Step 15 builds on the base.
+- **Deviation** (recorded 2026-10-23, before resuming):
+  - **What stopped the runs.** robopil5090 restarted at 03:46. The previous
+    boot's journal ends at 03:45:00 with no kernel error, out-of-memory kill
+    or GPU fault, which fits a hard reset or power loss. All six runs
+    stopped after iterations 31, 35, 47, 39, 34 and 28 (seeds 0–5), each
+    with that iteration's policy saved.
+  - **Why it went unnoticed.** The GPU sat idle until 12:02. The watcher's
+    process count matched its own command line, so it never saw the runs
+    die; it has been replaced.
+  - **How they resume.** From those policies with `--cfg.resume`. The next
+    iteration index, and so every per-iteration collection, planner and
+    noise seed, is the one an unbroken run would use.
+    `tests/test_resume.py` checks that a resumed iteration collects exactly
+    what an unbroken one does.
+  - **What differs.** The first resumed iteration fits on its own labels
+    only, because the previous iteration's replay was in memory. The fit's
+    minibatch order also restarts. GPU runs are not bitwise reproducible
+    anyway, so this is treated as a statistically equivalent continuation.
 
 ### Step 14b — LQR oracle checks of `docs/theory.md` (predictions written before running)
 
