@@ -1427,6 +1427,27 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      MPPI's 3.30 s.
 - Status: planned.
 
+### Step 12 — three more seeds of Step 10 (predictions written before running)
+
+- Question: does Step 10's result hold beyond its first three seeds, one of
+  which lagged?
+- Settings: Step 10's exact configuration and command with training seeds
+  3, 4 and 5 (`runs/2026-10-22_step10_gpu75_seed{3,4,5}`): K = 256, H = 32,
+  100-control tail, fixed n_eff/K = 0.2, 75 iterations, GPU E-step (CUDA
+  environment), 4 collection workers each. They run alongside Step 11's
+  CPU DAgger runs.
+- Comparison: the same held-out evaluation as Step 11, which runs once both
+  finish. Seeds 3–5 enter as their own arm (`step10b_it74`); six-seed
+  results pool them with Step 10's seeds 0–2.
+- Predictions:
+  1. Fact 1 holds in every E-step.
+  2. Seeds 3–5 pooled held-out completion at iteration 74 exceeds raw
+     MPPI's 15/50 (30%).
+  3. Across all six seeds, at least 3 beat raw MPPI on completion with the
+     paired interval above 0.
+  4. The six-seed pooled completion has a Wilson 95% lower bound above 30%.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
