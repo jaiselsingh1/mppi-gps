@@ -1425,7 +1425,46 @@ iteration so n_eff = ρK (`src/utils/math.py`), bounding the step by log(1/ρ).
      at least 2 of 3 seed pairs with the paired interval above 0.
   3. DAgger's pooled held-out time alive at iteration 74 is below raw
      MPPI's 3.30 s.
-- Status: planned.
+- Status: complete. Launched 21:27 on 2026-10-22 at `f71eb74`; 75 iterations
+  took ~35 min per seed (18–30 s per iteration). No errors.
+- Held-out result (`runs/2026-10-22_step11_heldout_001/report.json`,
+  robopil5090, CPU-only evaluation environment; shared arms reproduce Step
+  10's numbers exactly):
+
+  | Arm | Completed | Speed MAE | Time alive (seeds 0/1/2) |
+  |---|---:|---:|---:|
+  | **MPPI-GPS, 75 iterations (Step 10, seeds 0–2)** | **81/150** | 0.393 | **5.86 s** (5.98, 6.86, 4.74) |
+  | DAgger, 75 iterations | 0/150 | 0.662 | 1.13 s (1.07, 1.19, 1.13) |
+  | DAgger, iteration 24 | 0/150 | 0.753 | 1.25 s (1.36, 1.16, 1.22) |
+  | Raw MPPI, K = 32, H = 32 (DAgger's expert) | 15/50 | 0.392 | 3.30 s |
+  | SAC 800k | 50/50 | 0.198 | 8.00 s |
+
+- Paired by reset seed, seeds 0/1/2:
+  - **MPPI-GPS minus DAgger at 75 iterations**, completion: **+0.68
+    [+0.52, +0.79], +0.70 [+0.55, +0.81], +0.24 [+0.12, +0.37]**. Time alive
+    +4.9, +5.7, +3.6 s; speed MAE −0.28, −0.39, −0.14 (all intervals exclude 0).
+  - DAgger iteration 74 minus iteration 24: completion +0.00 each; time alive
+    −0.29 s [−0.38, −0.19], +0.03 s [−0.11, +0.14], −0.09 s [−0.21, +0.01];
+    speed MAE −0.13, −0.07, −0.08.
+  - DAgger against its own expert: −0.30 each, intervals excluding 0.
+- Training: DAgger's fit loss stayed at 0.10–0.13 throughout. MPPI-GPS's
+  was 0.0005–0.0008, two orders of magnitude lower. Its labels come from the
+  frozen-λ expert at n_eff/K ≈ 0.13–0.16, about 5 effective samples of 32,
+  the label noise the Step 2 audit measured. Its collection episodes stayed
+  at 1.0–1.4 s.
+- Predictions: 1 **held** (0/150 ≤ 30%). 2 **held** (pooled and all three
+  pairs). 3 **held** (1.13 s < 3.30 s).
+- Interpretation: given the same 75 iterations, DAgger does not improve at
+  all, so Step 10's gain is not just a longer training budget. Its student
+  never approaches its expert (0% vs 30%) and stays at the ~1.1–1.3 s
+  plateau seen since Step 5. As preregistered, this does not isolate which
+  part of MPPI-GPS matters. Against this expert, MPPI-GPS's E-step differs
+  in the n_eff-targeted temperature (cleaner labels), K = 256, the
+  policy-centred KL-bounded step, and the policy's 100-control tail.
+- Decision: **keep.** MPPI-GPS at 75 iterations beats both the equal-budget
+  DAgger control and the planner it is derived from. Next ablation: an
+  expert with the student's own tail (DAgger + tail), or MPPI-GPS without
+  the tail at 75 iterations, to isolate the tail.
 
 ### Step 12 — three more seeds of Step 10 (predictions written before running)
 
