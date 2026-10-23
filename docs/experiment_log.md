@@ -2169,7 +2169,41 @@ within 0.03):
     quality further, for example more samples for labelling.
   - If rule 8 stops it, smoothing alone is not enough, and the next step
     changes the teacher itself (K, H or the action noise).
-- Status: planned.
+- Status: **stopped for futility** at 17:35 on 2026-10-23, after 33–34
+  iterations. It ran from 16:38 at `0d2f067` on robopil5090; the watcher
+  applied rule 8 at iteration 29. Checkpoints and metrics are kept in
+  `runs/2026-10-23_step16_smooth_seed*`.
+- Evidence at the stop (dev resets, 10 per seed):
+
+  | Arm | Mean dev time alive at iterations 4, 9, 14, 19, 24, 29 | Rise, last three minus first three |
+  |---|---|---|
+  | Step 16 student | 1.7, 1.4, 1.4, 1.6, 1.4, 1.3 s | −0.05 s |
+  | Step 15 student | 1.6, 1.3, 1.2, 1.1, 1.7, 1.4 s | +0.03 s |
+
+  - One dev completion in total: seed 2, 1/10 at iteration 19.
+  - Fit loss at iteration 29: 0.254–0.257 in every seed, against about 0.28
+    in Step 15.
+  - The smoothing was active: the median label sat 0.25–0.28 from the
+    executed action. MPPI's own weights kept a median n_eff/K of 0.05
+    (about 1.7 effective samples), as Step 15 assumed.
+  - The teacher completed 80–84% of its noisy training episodes (269–277 of
+    330–340 per seed).
+- Predictions: 1 **failed** (fit loss 0.25, not ≤ 0.10). 2 **failed** (rule
+  8 fired). 3 was not tested.
+- Interpretation:
+  - Smoothing moved the labels as intended but cut the fit loss only from
+    about 0.28 to 0.26, not to a third. Most of what the student cannot fit is
+    therefore not the sampling jitter that Step 15 blamed.
+  - The likeliest remaining cause is that MPPI's action depends on its
+    carried-over plan, which the student does not see, so the labels are not
+    a function of the state. This was not tested directly.
+  - Regressing onto MPPI's actions at MPPI's states has now failed twice,
+    with the student's time alive flat both times.
+- Decision: **reject.** Smoothing alone does not make MPPI's labels learnable.
+  The preregistered fallback (changing the teacher's K, H or action noise) is
+  on hold. On 2026-10-23 the user set the next question as how task cost
+  drives policy learning, with nothing from the policy entering MPPI: no
+  initialization, plans or sampling proposals, including as an ablation.
 
 Add one entry per question using the fields below:
 
