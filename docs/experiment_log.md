@@ -3117,7 +3117,62 @@ within 0.03):
     0.120, 0.971 and 0.983 s per decision for the four arms.
   - About 70–85 min if every memoryless episode lasts 1,000 controls, much
     less if they fall early.
-- Status: planned.
+- Status: complete. Ran on 2026-10-24 at `21dee9f` on the Mac (5,239 s on 16
+  workers). Report: `runs/2026-10-24_memoryless_001/report.json`, with
+  `episodes.jsonl` and `labels.npz`.
+- Validity: every re-recorded Step 22 episode matched Step 22's saved label
+  at every anchor; the script would have stopped otherwise.
+- Episodes (development resets; differences paired by reset with raw,
+  Newcombe for completion):
+
+  | Arm | Completed | Time alive | Speed MAE | Completion minus raw |
+  |---|---|---|---|---|
+  | raw | 39/50 [65%, 87%] | 6.75 s | 0.392 | — |
+  | memoryless_k32 | 0/50 [0%, 7%] | 1.20 s | 0.826 | −0.78 [−0.87, −0.63] |
+  | memoryless_k256 | 0/25 [0%, 13%] | 1.19 s | 0.626 | −0.72 [−0.86, −0.48] |
+  | memoryless_k64_x8 | 9/25 [20%, 55%] | 3.79 s | 0.459 | −0.36 [−0.57, −0.08] |
+
+  - Raw MPPI on the Mac completed the same 39/50 as on robopil5090 (Step
+    18), with a time alive of 6.75 s against 6.94 s there.
+  - Seconds per decision: 0.09 (raw), 0.18, 1.42 and 1.44.
+- Labels at Step 22's 256 teacher anchors (executed labels; 95% intervals
+  over episodes):
+
+  | Arm | Floor | State | Share the state explains | Label RMS |
+  |---|---|---|---|---|
+  | memoryless_k32 | 0.130 [0.124, 0.135] | 0.005 [0.004, 0.007] | 4% [3, 5] | 0.37 |
+  | memoryless_k256 | 0.111 [0.106, 0.116] | 0.009 [0.007, 0.011] | 8% [6, 9] | 0.35 |
+  | memoryless_k64_x8 | 0.262 [0.252, 0.271] | 0.025 [0.020, 0.029] | 9% [7, 10] | 0.54 |
+
+  - Smoothed labels: floors 0.078, 0.060 and 0.229.
+- Predictions: 1 **held** (39). 2 **held** (0/50). 3 **held** (0% and 36%
+  against 78%). 4 **held** (0.130 and 0.111).
+- Interpretation:
+  - Without its plan, MPPI does not walk at K = 32 or K = 256. It falls in
+    about 1.2 s, as the students did.
+  - With eight passes per decision it walks in 9 of 25, but its labels are as
+    unlearnable as raw MPPI's (floor 0.262, 9% explained by the state).
+    Eight passes travel far enough from the zero plan to walk (label RMS
+    0.54 against 0.35–0.37). Where they end up depends on the random path of
+    the search within one decision, as the carried-over plan does across
+    decisions.
+  - Prediction 4 held as stated, but the absolute floor was the wrong
+    yardstick. At K = 32 and 256 the memoryless labels have small floors
+    because their actions stay near the zero plan, not because the state
+    sets them. The state explains only 4–8% of their variance, no more than
+    raw MPPI's 8%.
+  - So no arm gave both walking and labels the state can predict. Whatever
+    lets MPPI commit to a gait, whether the carried-over plan or a long
+    search, is randomness that a state-only policy cannot see. Learnable
+    labels need that commitment pinned by something the policy sees, which
+    means the policy itself.
+- Decision: **revise**, the preregistered in-between branch. Walking and
+  learnability trade off steeply, and none of the ways tested of using MPPI
+  alone gives both. The next step needs a coupling that pins MPPI's
+  commitment to the policy without seeding it, such as the 2015-style
+  cost term with MPPI's own initialization, capped by task cost. That is
+  outside the current "MPPI unchanged" rule, so it waits on the question to
+  Kendall and on the user's decision.
 
 ### Step 26 — can a matching term pull MPPI onto a good policy's gait while it still walks? (no training; predictions written before running)
 
