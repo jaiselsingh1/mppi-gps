@@ -3412,6 +3412,17 @@ within 0.03):
   that MPPI's trajectories lie in another mode from the policy's. Step 25,
   on MPPI without its carried-over plan, bears on whether a policy can
   instead be brought into MPPI's mode.
+- Correction (2026-10-24, Kendall's critique via the user): this step did
+  not compare trajectories.
+  - The action gap compares single actions at the states MPPI visited with
+    what SAC would do there. It is not a comparison of where the two
+    trajectories go.
+  - SAC is deterministic, so from a start state it has exactly one
+    trajectory. The noisy SAC sets are therefore not SAC's own trajectories,
+    only a scale for how the scores grow.
+  - So "the policy knows its own trajectories" is not established by this
+    step. The closest real trajectory comparison so far is the joint-plot
+    distance from the same reset: MPPI to SAC 0.66, MPPI to MPPI 0.30.
 
 ### Step 29 — pulling MPPI toward a student that learned MPPI's own average (no training; predictions written before running)
 
