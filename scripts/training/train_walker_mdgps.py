@@ -14,7 +14,12 @@ labeler="teacher" (Step 15): the same raw MPPI expert runs every episode, with
 N(0, exec_noise^2) added to the action it executes, and labels every state it
 visits with its own action. The policy plays no part in planning or collection.
 With label_neff_fraction set, each label instead re-weights MPPI's last samples
-to that n_eff/K, a smoother estimate of its intent (Step 16).
+to that n_eff/K, a smoother estimate of its intent (Step 16). With
+teacher_runs > 1, MPPI runs that many times from each start state, and the
+policy learns only from the teacher_keep runs that do not fall and that it
+already explains best (lowest squared error on their labels): the policy picks
+its learnable set from MPPI's trajectories, and MPPI itself is unchanged
+(Step 20).
 
 Policies are SacActor means trained by MSE on the squashed action, saved in
 the load_policy format so scripts/runners/eval_policy_walker2d.py evaluates
@@ -68,6 +73,10 @@ class TrainConfig:
     # teacher's last samples re-weighted to n_eff/K = label_neff_fraction,
     # instead of the action it executes (Step 16).
     label_neff_fraction: float | None = None
+    # labeler="teacher": MPPI runs per start state, and how many of the runs
+    # that do not fall the policy keeps (those it already explains best).
+    teacher_runs: int = 1
+    teacher_keep: int | None = None
     # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
     # collect, then all of an iteration's states are labelled on the GPU with
     # the same per-episode noise streams the CPU path draws.
@@ -212,6 +221,24 @@ def _collect(job: dict) -> dict:
     }
 
 
+def _select_learnable(episodes: list[dict], actor: SacActor, cfg: TrainConfig) -> tuple[list[dict], dict]:
+    """From each start state's cfg.teacher_runs consecutive runs, keep the
+    cfg.teacher_keep that did not fall and that the policy fits best."""
+    act = _batch_act(actor)
+    errors = [float(np.mean((act(ep["obs"]) - ep["labels"]) ** 2)) for ep in episodes]
+    kept, kept_errors, rejected_errors, empty = [], [], [], 0
+    for start in range(0, len(episodes), cfg.teacher_runs):
+        group = [i for i in range(start, start + cfg.teacher_runs) if episodes[i]["survived"]]
+        ranked = sorted(group, key=lambda i: errors[i])
+        kept += [episodes[i] for i in ranked[:cfg.teacher_keep]]
+        kept_errors += [errors[i] for i in ranked[:cfg.teacher_keep]]
+        rejected_errors += [errors[i] for i in ranked[cfg.teacher_keep:]]
+        empty += not group
+    median = lambda values: float(np.median(values)) if values else float("nan")
+    return kept, {"runs_kept": len(kept), "start_states_without_a_kept_run": empty,
+                  "kept_fit_error_median": median(kept_errors), "rejected_fit_error_median": median(rejected_errors)}
+
+
 def _improvement_check(actor_new: SacActor, probes: list, cfg: TrainConfig) -> dict:
     """MDGPS step signal at probe states visited this iteration.
 
@@ -294,6 +321,11 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
         raise ValueError("labeler must be 'mdgps', 'dagger' or 'teacher'.")
     if cfg.label_neff_fraction is not None and cfg.labeler != "teacher":
         raise ValueError("label_neff_fraction needs labeler='teacher'.")
+    if cfg.teacher_runs > 1 and (cfg.labeler != "teacher" or cfg.teacher_keep is None
+                                 or not 1 <= cfg.teacher_keep <= cfg.teacher_runs):
+        raise ValueError("teacher_runs > 1 needs labeler='teacher' and 1 <= teacher_keep <= teacher_runs.")
+    if cfg.teacher_runs < 1 or (cfg.teacher_runs == 1 and cfg.teacher_keep is not None):
+        raise ValueError("teacher_keep selects among several runs; set teacher_runs > 1.")
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
     neff_fraction, start = cfg.neff_fraction, 0
@@ -328,13 +360,20 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             sigma = _noise_sigma(cfg, base_sigma, iteration)
             execute_expert = cfg.labeler == "teacher" or (cfg.labeler == "dagger" and iteration == 0)
             base_seed = 100_000 + 10_000 * cfg.seed + cfg.episodes_per_iter * iteration
+            # Run r of a start state shares its reset; its planner and execution
+            # noise come from a block 10^7 away, so run 0 is the single-run case.
             jobs = [{"cfg": cfg, "actor": {k: v.cpu() for k, v in actor.state_dict().items()},
-                     "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,
-                     "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert,
+                     "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e + 10_000_000 * r,
+                     "noise_seed": 900_000 + base_seed + e + 10_000_000 * r, "execute_expert": execute_expert,
                      "probe_probability": cfg.probe_probability, "neff_fraction": neff_fraction,
                      "noise_sigma": sigma}
-                    for e in range(cfg.episodes_per_iter)]
-            episodes = pool.map(_collect, jobs)
+                    for e in range(cfg.episodes_per_iter) for r in range(cfg.teacher_runs)]
+            runs = pool.map(_collect, jobs)
+            episodes, selection = runs, {}
+            if cfg.teacher_runs > 1:
+                episodes, selection = _select_learnable(runs, actor, cfg)
+                if not episodes:
+                    raise RuntimeError(f"No MPPI run stayed up at iteration {iteration}; nothing to learn from.")
             seconds_collect = time.time() - t0
             obs = np.concatenate([ep["obs"] for ep in episodes])
             own = _batch_act(actor)(obs) if cfg.labeler == "mdgps" else None
@@ -367,10 +406,11 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             seconds_fit = time.time() - fit_started
             record = {
                 "iteration": iteration, "execute_expert": execute_expert,
-                "collect_mean_steps": float(np.mean([ep["steps"] for ep in episodes])),
-                "collect_completed": int(sum(ep["survived"] for ep in episodes)),
-                "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in episodes])),
-                "collect_cost_per_step": float(np.mean([ep["cost_per_step"] for ep in episodes])),
+                "collect_mean_steps": float(np.mean([ep["steps"] for ep in runs])),
+                "collect_completed": int(sum(ep["survived"] for ep in runs)),
+                "collect_velocity_mae": float(np.mean([ep["velocity_mae"] for ep in runs])),
+                "collect_cost_per_step": float(np.mean([ep["cost_per_step"] for ep in runs])),
+                **selection,
                 "resumed": bool(cfg.resume and iteration == start),
                 "labels": int(len(labels)), "fit_loss": loss, "neff_fraction_target": neff_fraction,
                 "labeling": "gpu" if gpu is not None else "cpu", "seconds_collect": seconds_collect,
@@ -408,7 +448,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             dev = record.get("eval_dev", {})
             check = record.get("improvement_check", {})
             print(f"it {iteration:2d} steps {record['collect_mean_steps']:7.1f} "
-                  f"done {record['collect_completed']:2d}/{cfg.episodes_per_iter} labels {record['labels']:6d} "
+                  f"done {record['collect_completed']:2d}/{len(runs)} labels {record['labels']:6d} "
                   f"loss {loss:.4f} neff/K {record['median_neff_fraction']:.3f} "
                   f"pred/act {check.get('predicted_improvement', float('nan')):.2f}/"
                   f"{check.get('actual_improvement', float('nan')):.2f} "

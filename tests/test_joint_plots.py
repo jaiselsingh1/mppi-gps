@@ -1,7 +1,7 @@
 """The joint-plot regularity score: 1 for a repeating gait, near 0 for noise."""
 import numpy as np
 
-from scripts.diagnostics.joint_plots import regularity
+from scripts.diagnostics.joint_plots import distance, regularity
 
 
 def test_a_repeating_gait_scores_near_one_and_noise_near_zero():
@@ -15,3 +15,9 @@ def test_a_repeating_gait_scores_near_one_and_noise_near_zero():
 
 def test_too_short_an_episode_has_no_score():
     assert np.isnan(regularity(np.zeros((300, 6)), 0.008))
+
+
+def test_distance_is_zero_to_itself_and_grows_with_a_posture_shift():
+    angles = np.sin(0.05 * np.arange(1000))[:, None] * np.ones((1, 6))
+    assert distance(angles, angles, 0.008) == 0.0
+    np.testing.assert_allclose(distance(angles + 0.4, angles, 0.008), 0.4)

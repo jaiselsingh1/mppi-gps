@@ -2482,6 +2482,98 @@ within 0.03):
   formulation: MPPI makes trajectories for policy learning, not the other way
   around, and the policy picks the learnable set (Step 20).
 
+### Step 20 — the policy picks its learnable set from MPPI's runs (predictions written before running)
+
+- Question: if MPPI runs several times from each start state and the policy
+  learns only from the runs it already explains best, does it become a
+  distilled MPPI: MPPI's gait, made regular, as in Mordatch & Todorov (2014),
+  Figure 3?
+  - The user's formulation (2026-10-24, Obsidian `MPPI GPS/general.md`):
+    policies compress the space of trajectories that do a task; given all of
+    them, a policy learns nothing; the trajectories must be constrained to a
+    learnable set, and the policy can say which set that is. MPPI makes
+    trajectories for policy learning, not the other way around, and stays
+    unchanged.
+  - Steps 15–16 gave the policy every MPPI trajectory. Its fit loss stayed at
+    0.25–0.28 and it fell within about 1.4 s.
+- Joint plots before this step (`scripts/diagnostics/joint_plots.py`, reset
+  81000, 8 s; `runs/2026-10-24_joint_plots_004`):
+
+  | Controller | Regularity | Distance to MPPI (rad) |
+  |---|---:|---:|
+  | MPPI, K = 32, H = 48, planner seed 95000 | 0.32 | 0 (reference) |
+  | Same MPPI, planner seed 95001 | 0.22 | 0.30 |
+  | SAC 800k | 0.98 | 0.66 |
+  | MPPI-GPS, Step 12 seed 4 | 0.45 | 0.65 |
+  | Step 19 seed 1 | 0.28 | 0.23 |
+  | Step 15 student | fell at 1.0 s | — |
+
+  - Regularity is the mean over joints of each angle's autocorrelation at
+    its dominant period (0.4–1.5 s), after the first second. Distance is the
+    mean over joints of the Wasserstein-1 distance between joint-angle
+    distributions after the first second.
+  - No current policy is a distilled MPPI. The regular ones walk with other
+    gaits, the MPPI-like one is as irregular as MPPI, and the one trained
+    only on MPPI falls.
+- One change from Step 15 (`--cfg.teacher-runs 8 --cfg.teacher-keep 2`,
+  `_select_learnable` in `scripts/training/train_walker_mdgps.py`,
+  `tests/test_learnable_set.py`):
+  - MPPI (K = 32, H = 48, frozen λ = 3, own warm start, N(0, 0.1²) on the
+    action it executes) runs 8 times from each start state. The runs share
+    the reset and differ in planner seed and execution noise; run 0 uses
+    Step 15's seeds.
+  - Of the runs that do not fall in 400 controls, the policy keeps the 2 with
+    the lowest squared error between its own actions and MPPI's labels.
+    Only those enter replay.
+  - 5 start states per iteration, so the policy learns from 10 runs per
+    iteration, as in Step 15. Only which runs differs. MPPI simulates four
+    times as much.
+  - Everything else as Step 15: 75 iterations, replay of every iteration,
+    2,000 Adam steps (batch 256, lr 3e-4), dev evaluation every 5 iterations
+    (10 episodes from 81000), training seeds 0–5.
+- Command: for seed in 0–5: `~/mppi-gps-venvs/cuda/bin/python -m
+  scripts.training.train_walker_mdgps --out-dir
+  runs/2026-10-24_step20_learnable_seed$seed --cfg.labeler teacher
+  --cfg.seed $seed --cfg.K 32 --cfg.H 48 --cfg.iterations 75
+  --cfg.episodes-per-iter 5 --cfg.steps 400 --cfg.replay-iterations 75
+  --cfg.workers 5 --cfg.teacher-runs 8 --cfg.teacher-keep 2`. On
+  robopil5090's CPU, fitting on the GPU; about 8 h for 75 iterations, about
+  3 h to rule 8's first check at iteration 29.
+- Monitoring: rule 8 in the watcher, as in Steps 15–16. Logged per
+  iteration: runs that stayed up, runs kept, start states with no kept run,
+  and the kept and rejected runs' median fit errors.
+- Smoke test (Mac, 2 iterations of 2 start states × 8 runs of 100 controls):
+  all runs stayed up. The kept runs' median fit error was 0.41 against 0.48
+  for the rejected runs at iteration 0, and 0.30 against 0.37 at iteration 1.
+- Comparison, if the arm completes:
+  - Held out: the iteration-74 students, policy alone, on resets
+    70000–70049, against the teacher (raw MPPI, K = 32, H = 48, which must
+    reproduce 39/50), MPPI-GPS (Steps 10/12) and SAC 800k.
+  - Joint plots: each seed's iteration-74 student on reset 81000, with
+    regularity and distance to the reference MPPI run.
+  - Development resets only. Final claims wait for the reserved resets
+    5,000,000–5,000,199.
+- Predictions:
+  1. Fit loss at iteration 29 is at most 0.20 in every seed (Step 15: 0.28;
+     Step 16: 0.25).
+  2. The arm passes rule 8 at iteration 29.
+  3. If it completes, pooled held-out completion is at least 100/300.
+  4. In every seed whose iteration-74 student stays up for the full 8 s on
+     reset 81000, its distance to MPPI is at most 0.30 (MPPI's own
+     seed-to-seed distance) and its regularity is at least 0.8.
+- What each result changes:
+  - If 2 and 4 hold, selection by the policy is the working base, and the
+    figure is reproduced. The next terms, one at a time: soft selection whose
+    sharpness grows with the policy's fit (the notes' trust), and the
+    policy's uncertainty choosing where MPPI runs (what it does not know).
+  - If 1 holds but rule 8 stops the arm, the labels became learnable but a
+    student trained only on MPPI's states still falls on its own. The next
+    step keeps the selection and addresses coverage.
+  - If 1 fails, selecting whole runs by fit does not make MPPI's
+    trajectories learnable, and the selection has to act on finer units than
+    runs.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
