@@ -3119,6 +3119,54 @@ within 0.03):
     less if they fall early.
 - Status: planned.
 
+### Step 26 — can a matching term pull MPPI onto a good policy's gait while it still walks? (no training; predictions written before running)
+
+- Question: if MPPI's cost includes the network-matching term of Mordatch,
+  Lowrey et al. (NeurIPS 2015, eq. 3), does MPPI still walk while its
+  behaviour moves onto that policy's regular gait? The 2015 paper credits its
+  regular gait (Figure 3) to this term.
+  - The user allowed the term on 2026-10-24: MPPI keeps its own warm start,
+    plan and sampling, and only its cost changes. It answers Kendall's
+    "close to the policy but better". A strong fixed policy comes first, as
+    Kendall asked.
+  - Steps 15–24 found that MPPI's labels are not a function of the state
+    when MPPI knows nothing of the policy.
+- Method (`src/gps/policy_matching.py`, `scripts/diagnostics/matching_check.py`,
+  `tests/test_policy_matching.py`):
+  - Each MPPI sample is charged (α/2)·Σ_t ‖u_t − π(s_t)‖² over its horizon,
+    with π = SAC 800k acting deterministically at the states where the
+    sample applies each action. This is MPPI's `prior_cost` hook.
+  - MPPI at K = 32, H = 48, frozen λ = 3, own warm start, the rest of
+    `configs/walker2d_best.json`. α ∈ {0, 0.03, 0.1, 0.3, 1}; α = 0 is raw
+    MPPI. SAC alone also runs from each reset as the reference gait.
+  - Development resets 81000–81004, planner seeds 95000+, 1,000 controls.
+  - Per episode: completion, speed MAE, the mean squared gap between the
+    executed action and SAC's action at the same state, joint-angle
+    regularity, and joint-angle distance to SAC's own episode and to raw
+    MPPI's from the same reset.
+- Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.matching_check --out-dir
+  runs/2026-10-24_step26_matching_001 --workers 24`, on robopil5090's CPU.
+  It runs there because Step 25 occupies the Mac. About 5–10 min.
+- Predictions:
+  1. Raw MPPI (α = 0) completes at least 3 of 5. Its distance to SAC is
+     about 0.6, its regularity at most 0.4 and its action gap to SAC about
+     0.8 (the joint plots and Step 21 gave 0.66, 0.2–0.3 and 0.8).
+  2. As α rises, the mean action gap and distance to SAC fall and
+     regularity rises, monotonically over the five values.
+  3. At the largest α that still completes at least 4 of 5, the distance to
+     SAC is at most 0.30 (as close as two MPPI runs are to each other) and
+     regularity is at least 0.6.
+- What each result changes:
+  - If 3 holds, the term can put MPPI on a learnable gait while it still does
+    the task. The next step is the 2015 paper's loop: match toward the
+    policy being trained, regress the policy onto MPPI's actions, and raise α
+    as the policy improves (the notes' trust rule).
+  - If MPPI falls before it gets close to SAC, the term fights MPPI's own
+    search at these settings. The coupling then needs a different form (the
+    2015 paper also has a proximal term) before any training.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
