@@ -2205,6 +2205,101 @@ within 0.03):
   drives policy learning, with nothing from the policy entering MPPI: no
   initialization, plans or sampling proposals, including as an ablation.
 
+### Step 18 — a policy's long-term context, attached after MPPI's search (predictions written before running)
+
+- Question: if a policy's cost-to-go is added to MPPI's own samples after its
+  search, does the re-weighted choice beat MPPI alone, and most at short
+  horizons?
+  - This is the no-training check of the 2026-10-23 direction: MPPI keeps
+    its own plan and search, and a policy supplies the long-term context.
+    Nothing from a policy enters MPPI's search.
+  - If a good context cannot improve MPPI's own choices, a critic built from
+    those samples cannot help a policy either.
+- Code: `scripts/diagnostics/context_rescore_check.py`,
+  `tests/test_context_rescore.py`.
+- Controller:
+  - MPPI at K = 32, frozen λ = 3, own warm start, the rest of
+    `configs/walker2d_best.json`; H ∈ {16, 32, 48}.
+  - After each search, every final sample k gets G_k = S_k + tail_k. S_k is
+    MPPI's own score. tail_k is the cost of the context policy acting
+    deterministically for 100 controls (0.8 s) from the sample's end state,
+    scored as MPPI scores rollouts. Samples that fell inside the horizon are
+    charged the absorbing cost instead. This is Step 4's tail
+    (`src/gps/policy_tail.py`), run after the search instead of as MPPI's
+    terminal cost.
+  - The executed action is the first action of the samples re-weighted by G.
+    MPPI's own update, and so its warm start, uses S only.
+  - Two weighting rules:
+    - **neff (primary):** the temperature that keeps MPPI's own n_eff at that
+      decision. Only the context's ranking of the samples differs.
+    - **temperature:** MPPI's λ = 3, the weights MPPI would give these samples
+      if it could see the context. Where MPPI's own weights are flat this
+      also sharpens the choice (smoke test at H = 16: n_eff 24 → 3.6 of 32),
+      so it mixes ranking with concentration.
+  - Without a context an episode is raw MPPI; a test checks it against
+    `walker_headroom.py`.
+- Contexts:
+  - SAC 800k, which completes 50/50 alone.
+  - The Step 15 student, seed 0, iteration 32
+    (`runs/2026-10-23_step15_teacher_seed0/policy_032.pt`). Step 15's students
+    stay alive for about 1.4 s.
+- Arms: per horizon, MPPI alone plus 2 contexts × 2 rules; 15 arms × 50
+  episodes.
+- Resets 70000–70049 (development data), planner seeds 95000+, 1,000
+  controls, as in Steps 12 and 13b. On robopil5090, Step 12's CPU-only
+  environment, one thread per worker, 30 workers; about 2 h. Command: `cd
+  ~/mppi-gps && OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.context_rescore_check --out-dir
+  runs/2026-10-23_step18_context_001 --workers 30`.
+- Validity check: MPPI alone must reproduce Steps 12 and 13b exactly, 15/50
+  at H = 32 and 39/50 at H = 48. Nothing in `src/mppi`, `src/envs`,
+  `configs` or `src/gps/policy_tail.py` has changed since `763ea5b`;
+  `src/utils` only gained a function MPPI does not call. If either count
+  differs, the run is invalid and is not interpreted.
+- Comparisons, paired by reset seed:
+  - Primary: completion of each context arm against MPPI alone at the same
+    H (Newcombe 95%).
+  - Secondary: speed MAE and time alive (paired bootstrap). Also each
+    context arm at H = 16 and 32 against MPPI alone at H = 48, SAC against
+    the student under the same rule, and the two rules against each other.
+  - Logged per arm: median n_eff used, median distance between MPPI's action
+    and the executed one, seconds per decision.
+- Prior evidence: Step 4 put the same tails inside the search, at K = 32,
+  H = 32 on dev resets. Completion went from 2/10 without a tail to 9–10/10
+  with SAC tails at 0k, 200k and 800k; even a policy that falls in 0.2 s
+  ranked end states usefully. Here the context never shapes MPPI's plan, only
+  the choice among its finished samples, so smaller effects are expected.
+- Predictions:
+  1. The validity check holds. MPPI alone at H = 16 completes at most 5/50
+     (Step 4: 0/10).
+  2. Under the neff rule, the SAC context raises completion over MPPI alone
+     at H = 32 by at least 0.20, with the interval excluding 0.
+  3. At H = 16, the SAC context raises time alive over MPPI alone under both
+     rules (interval excluding 0), more under the temperature rule. No
+     prediction on completion.
+  4. At H = 48, neither context lowers completion by more than 0.10 (point
+     estimate). The SAC context lowers speed MAE under both rules (interval
+     excluding 0).
+  5. The student context raises completion at H = 32 (point estimate), but
+     less than SAC under the same rule. Its speed MAE is not below MPPI
+     alone's at any H (point estimate).
+- What each result changes:
+  - If 2 holds, a policy's long-term context, applied only to MPPI's finished
+    samples, improves its choices. The next step builds the learning rule on
+    it: a critic fit to these re-weighted samples, with the policy's own
+    cost-to-go as the context and its weight rising with the policy's
+    measured competence.
+  - If SAC's context helps and the student's does not, the weight on a
+    policy's context has to start near 0 and grow with its quality.
+  - If the student's helps about as much as SAC's, the context mostly supplies
+    balance (whether an end state can be held), which a poor policy already
+    provides, so its weight can start high.
+  - If no context helps at H ≤ 32 under either rule, context applied after
+    the search cannot steer MPPI, and Step 4's effect came from shaping its
+    plan. The formulation then fails under the rule, and the next step looks
+    for long-term context inside the policy's own learning instead.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
