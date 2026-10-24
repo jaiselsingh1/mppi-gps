@@ -3323,7 +3323,40 @@ within 0.03):
     not. The "knows what it doesn't know" half then needs an explicit
     uncertainty model, such as an ensemble, before any selection or
     coupling by the policy can be trusted.
-- Status: planned.
+- Status: complete. Ran at `0c9db1f` on robopil5090, about 7 min. Results:
+  `runs/2026-10-24_step28_own_trajectories_001/` (`summary.json`,
+  `episodes.jsonl`, `own_trajectories.png`); 20,000 reference states.
+- Result, 10 trajectories per set (medians):
+
+  | Set | Completed | Action gap | Unfamiliarity |
+  |---|---:|---:|---:|
+  | SAC alone | 10/10 | 0.000 | 0.04 |
+  | SAC, σ = 0.1 | 10/10 | 0.009 | 0.58 |
+  | SAC, σ = 0.3 | 10/10 | 0.072 | 1.86 |
+  | SAC, σ = 0.5 | 9/10 | 0.173 | 3.29 |
+  | MPPI, pulled at α = 1 | 7/10 | 0.716 | 9.62 |
+  | MPPI, pulled at α = 0.3 | 8/10 | 0.766 | 9.87 |
+  | Raw MPPI | 6/10 | 0.874 | 10.08 |
+
+  - AUC against the own trajectories was 1.0 for every other set on both
+    scores: no overlap at all.
+- Predictions: 1, 2 and 3 all **held**. Raw MPPI's unfamiliarity was 17
+  times that of SAC at σ = 0.1, and both scores ranked every in-between set
+  in order.
+- Interpretation:
+  - The policy knows its own trajectories. By its actions and by its states,
+    it separates them from MPPI's without overlap, and it grades
+    trajectories by how far they stray.
+  - They do not match. MPPI walks in a different region of state space,
+    three times farther from SAC's states than SAC under heavy noise, and
+    the strongest pull moved it only from 10.1 to 9.6.
+  - Steps 20–21 had nothing to select because no MPPI run lies near the
+    policy's mode. The measure itself works.
+- Decision: **keep** the matching measures (action gap and unfamiliarity) as
+  the test of whether trajectories belong to the policy. The open problem is
+  that MPPI's trajectories lie in another mode from the policy's. Step 25,
+  on MPPI without its carried-over plan, bears on whether a policy can
+  instead be brought into MPPI's mode.
 
 Add one entry per question using the fields below:
 
