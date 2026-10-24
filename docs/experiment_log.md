@@ -3165,7 +3165,44 @@ within 0.03):
   - If MPPI falls before it gets close to SAC, the term fights MPPI's own
     search at these settings. The coupling then needs a different form (the
     2015 paper also has a proximal term) before any training.
-- Status: planned.
+- Status: complete. Ran at `d47890a` on robopil5090, about 8 min. Results:
+  `runs/2026-10-24_step26_matching_001/` (`summary.json`, `episodes.jsonl`,
+  `matching_check.png`).
+- Result, 5 resets each (means; regularity and distances over episodes that
+  stayed up):
+
+  | Controller | Completed | Speed MAE | Action gap to SAC | Regularity | Distance to SAC | Distance to raw MPPI |
+  |---|---:|---:|---:|---:|---:|---:|
+  | SAC alone | 5/5 | 0.197 | 0 | 0.98 | 0 | 0.75 |
+  | MPPI, α = 0 | 3/5 | 0.377 | 0.90 | 0.18 | 0.66 | 0 |
+  | α = 0.03 | 5/5 | 0.344 | 0.85 | 0.18 | 0.65 | 0.28 |
+  | α = 0.1 | 4/5 | 0.383 | 0.82 | 0.22 | 0.60 | 0.34 |
+  | α = 0.3 | 4/5 | 0.430 | 0.79 | 0.20 | 0.61 | 0.22 |
+  | α = 1 | 3/5 | 0.468 | 0.71 | 0.21 | 0.55 | 0.37 |
+
+  - The joint plots look alike at every α: MPPI's irregular gait, not SAC's.
+  - Raw MPPI on reset 81000 fell at 5.3 s here, though it walked the full
+    8 s on the Mac: results are not bit-identical across machines.
+- Predictions:
+  - 1 **held** (3/5, 0.66, 0.18, 0.90).
+  - 2 **partly wrong**: the action gap fell monotonically, but the distance
+    to SAC and regularity did not move with α.
+  - 3 **failed**: at α = 0.3, the largest α with 4/5, the distance to SAC
+    was 0.61 and regularity 0.20.
+- Interpretation:
+  - Even the strongest term moved MPPI's actions only about a fifth of the
+    way toward SAC's. It left MPPI's gait and its irregularity in place, and
+    cost speed tracking and completions.
+  - MPPI samples within about 0.3 of its own plan, and SAC's gait is a
+    different mode. A local search cannot be pulled onto it: Kendall's "MPPI
+    is a local method", from the other side.
+  - This tested a distant target. In the 2015 paper the network is trained
+    on the optimizer's own trajectories, so the pull is toward a nearby
+    version of the optimizer's own behaviour. That case is untested.
+- Decision: **revise**, the preregistered branch. The term cannot put MPPI
+  on a distant policy's gait. Before any training, test the nearby case:
+  match toward a policy trained on MPPI's own data that walks with an
+  MPPI-like gait (Step 19 seed 1; joint-plot distance to MPPI 0.23).
 
 Add one entry per question using the fields below:
 
