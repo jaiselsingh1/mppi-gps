@@ -3,8 +3,11 @@ import json
 
 import numpy as np
 import pytest
+import torch
 
-from scripts.training.train_walker_mdgps import TrainConfig, _batch_act, _new_actor, _select_learnable, main
+import scripts.training.train_walker_mdgps as training
+from scripts.training.train_walker_mdgps import (TrainConfig, _batch_act, _new_actor, _select_learnable, main,
+                                                 policy_state)
 
 
 def _run(obs, labels, survived):
@@ -28,10 +31,31 @@ def test_each_start_state_keeps_the_runs_it_fits_best_among_those_that_stayed_up
 @pytest.mark.parametrize("bad", [dict(labeler="dagger", teacher_runs=2, teacher_keep=1),
                                  dict(labeler="teacher", teacher_runs=2),
                                  dict(labeler="teacher", teacher_runs=2, teacher_keep=3),
-                                 dict(labeler="teacher", teacher_keep=1)])
+                                 dict(labeler="teacher", teacher_keep=1),
+                                 dict(labeler="teacher", teacher_selector="selector.pt")])
 def test_selection_settings_are_checked(tmp_path, bad):
     with pytest.raises(ValueError):
         main(tmp_path / "run", TrainConfig(**bad))
+
+
+def test_a_fixed_selector_ranks_the_runs_in_place_of_the_student(tmp_path, monkeypatch):
+    path = tmp_path / "selector.pt"
+    selector = _new_actor(7)
+    torch.save(policy_state(selector), path)
+    rankers = []
+    original = training._select_learnable
+
+    def spy(runs, actor, cfg):
+        rankers.append({k: v.clone() for k, v in actor.state_dict().items()})
+        return original(runs, actor, cfg)
+
+    monkeypatch.setattr(training, "_select_learnable", spy)
+    main(tmp_path / "run", TrainConfig(labeler="teacher", K=8, H=4, steps=10, episodes_per_iter=2, workers=1,
+                                       grad_steps=5, eval_every=100, eval_episodes=1, iterations=2, teacher_runs=3,
+                                       teacher_keep=1, teacher_selector=str(path)))
+    assert len(rankers) == 2
+    for ranker in rankers:
+        assert all(torch.equal(ranker[k], v) for k, v in selector.state_dict().items())
 
 
 def test_a_selecting_run_learns_from_the_kept_runs_and_reports_all_of_mppi(tmp_path):

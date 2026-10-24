@@ -19,7 +19,8 @@ teacher_runs > 1, MPPI runs that many times from each start state, and the
 policy learns only from the teacher_keep runs that do not fall and that it
 already explains best (lowest squared error on their labels): the policy picks
 its learnable set from MPPI's trajectories, and MPPI itself is unchanged
-(Step 20).
+(Step 20). With teacher_selector set, a fixed policy ranks the runs instead
+of the policy being trained (Step 21).
 
 Policies are SacActor means trained by MSE on the squashed action, saved in
 the load_policy format so scripts/runners/eval_policy_walker2d.py evaluates
@@ -77,6 +78,9 @@ class TrainConfig:
     # that do not fall the policy keeps (those it already explains best).
     teacher_runs: int = 1
     teacher_keep: int | None = None
+    # Optional checkpoint (load_policy format) of a fixed policy that ranks the
+    # runs in place of the policy being trained.
+    teacher_selector: str | None = None
     # Label with the batched GPU E-step (src/gps/gpu_estep.py): workers only
     # collect, then all of an iteration's states are labelled on the GPU with
     # the same per-episode noise streams the CPU path draws.
@@ -324,8 +328,15 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
     if cfg.teacher_runs > 1 and (cfg.labeler != "teacher" or cfg.teacher_keep is None
                                  or not 1 <= cfg.teacher_keep <= cfg.teacher_runs):
         raise ValueError("teacher_runs > 1 needs labeler='teacher' and 1 <= teacher_keep <= teacher_runs.")
-    if cfg.teacher_runs < 1 or (cfg.teacher_runs == 1 and cfg.teacher_keep is not None):
-        raise ValueError("teacher_keep selects among several runs; set teacher_runs > 1.")
+    if cfg.teacher_runs < 1 or (cfg.teacher_runs == 1 and (cfg.teacher_keep is not None
+                                                           or cfg.teacher_selector is not None)):
+        raise ValueError("teacher_keep and teacher_selector select among several runs; set teacher_runs > 1.")
+    selector = None
+    if cfg.teacher_selector is not None:
+        from src.rl.sac import load_policy
+
+        payload = torch.load(cfg.teacher_selector, map_location="cpu", weights_only=False)
+        selector = load_policy(payload.get("policy", payload))
     rng = np.random.default_rng(cfg.seed)
     actor = _new_actor(cfg.seed)
     neff_fraction, start = cfg.neff_fraction, 0
@@ -371,7 +382,7 @@ def main(out_dir: Path, cfg: TrainConfig) -> None:
             runs = pool.map(_collect, jobs)
             episodes, selection = runs, {}
             if cfg.teacher_runs > 1:
-                episodes, selection = _select_learnable(runs, actor, cfg)
+                episodes, selection = _select_learnable(runs, actor if selector is None else selector, cfg)
                 if not episodes:
                     raise RuntimeError(f"No MPPI run stayed up at iteration {iteration}; nothing to learn from.")
             seconds_collect = time.time() - t0

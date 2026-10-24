@@ -2602,6 +2602,56 @@ within 0.03):
   to see whether selecting whole runs can produce learnable data when the
   selector already walks.
 
+### Step 21 — MPPI's runs selected by a strong fixed policy (predictions written before running)
+
+- Question: if a policy that already walks chooses which MPPI runs the
+  student learns from, does the student learn to walk? This is Kendall's
+  "did you do 5 against an optimal policy?" (2026-10-24), with SAC 800k as
+  the stand-in for the optimal policy.
+  - Step 20 selected with the student itself, which cannot walk, and the
+    selection barely discriminated. This step separates that bootstrap
+    problem from whether selecting whole runs can work at all.
+- One change from Step 20: `--cfg.teacher-selector
+  runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt`.
+  - SAC 800k, fixed, ranks each start state's MPPI runs that stay up by its
+    own squared error on their labels. The student learns from the 2 runs
+    SAC fits best.
+  - MPPI, seeds, 8 runs per start state, 5 start states per iteration and
+    the fit are as in Step 20. The student starts from scratch.
+  - `teacher_selector` in `scripts/training/train_walker_mdgps.py`; a test
+    checks that the fixed policy, not the student, ranks the runs.
+- Smoke test (Mac, 2 iterations of 2 start states × 8 runs of 100
+  controls): SAC's median error was 0.75 on the kept runs and 0.86 on the
+  rejected ones, a 12% gap (Step 20's student: 5–7%). Every run was far from
+  SAC: MPPI walks a different gait (joint-plot distance 0.66, against 0.30
+  between two MPPI runs).
+- Command: Step 20's, with `--out-dir runs/2026-10-24_step21_sacselect_seed$seed`
+  and `--cfg.teacher-selector` added; six seeds on robopil5090, about 3.3 h
+  to rule 8's first check and 8 h in all.
+- Monitoring and comparison as in Step 20: rule 8 in the watcher; if the arm
+  completes, held-out completion, joint plots and a video of the
+  iteration-74 students.
+- Predictions:
+  1. The selection discriminates: at iteration 29, in every seed, the kept
+     runs' median SAC error is at least 10% below the rejected runs'.
+  2. No MPPI run comes close to SAC: the kept runs' median SAC error stays
+     above 0.5 in every seed and iteration.
+  3. Rule 8 stops the arm at iteration 29. Choosing the MPPI runs least
+     unlike SAC does not make them learnable, because none is like SAC.
+  4. Fit loss at iteration 29 is within 0.03 of Step 20's last value (0.27)
+     in every seed.
+- What each result changes:
+  - If 3 holds, selecting whole runs cannot give the student a learnable set
+    even with a strong selector, because MPPI's runs do not contain that
+    selector's gait. "Close to the policy" is then not available among whole
+    runs. The next step selects finer units than runs, or makes MPPI's own
+    runs more consistent through its own settings (more samples, less
+    jitter), before returning to "close but better".
+  - If the arm passes rule 8, selection works once the selector walks, and
+    Step 20 failed on the bootstrap. The next step hands the selection from
+    a strong policy to the student as its fit improves (the notes' trust).
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
