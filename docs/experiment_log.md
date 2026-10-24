@@ -2298,7 +2298,73 @@ within 0.03):
     the search cannot steer MPPI, and Step 4's effect came from shaping its
     plan. The formulation then fails under the rule, and the next step looks
     for long-term context inside the policy's own learning instead.
-- Status: planned.
+- Status: complete. Ran 22:08–23:06 on 2026-10-23 at `ad6fdec` on
+  robopil5090 (3,461 s on 30 workers). Report:
+  `runs/2026-10-23_step18_context_001/report.json`.
+- Validity check: **held.** MPPI alone reproduced Steps 12 and 13b exactly:
+  15/50 at H = 32 and 39/50 at H = 48, with the same speed MAE and time alive.
+- Result, completed of 50 and mean time alive:
+
+  | Arm | H = 16 | H = 32 | H = 48 |
+  |---|---|---|---|
+  | MPPI alone | 0, 1.12 s | 15, 3.30 s | 39, 6.94 s |
+  | SAC 800k context, neff | 0, 1.16 s | 18, 4.13 s | 43, 7.38 s |
+  | SAC 800k context, temperature | 0, 1.22 s | 22, 4.47 s | 41, 7.27 s |
+  | Step 15 student context, neff | 0, 1.24 s | 19, 4.00 s | 42, 7.15 s |
+  | Step 15 student context, temperature | 0, 1.38 s | 23, 5.05 s | 40, 7.10 s |
+
+  - Completion minus MPPI alone (Newcombe 95%), in the table's order:
+    - H = 32: +0.06 [−0.15, +0.26], +0.14 [−0.05, +0.32], +0.08 [−0.09,
+      +0.24], +0.16 [−0.04, +0.34].
+    - H = 48: +0.08 [−0.09, +0.24], +0.04 [−0.14, +0.21], +0.06 [−0.10,
+      +0.21], +0.02 [−0.16, +0.20].
+  - Time alive minus MPPI alone:
+    - H = 32: +0.83 [−0.59, +2.23], +1.17 [−0.12, +2.43], +0.69 [−0.38,
+      +1.80], +1.74 [+0.40, +3.02] s.
+    - H = 16: +0.04 [−0.03, +0.12], +0.10 [−0.01, +0.25], +0.12 [+0.01,
+      +0.26], +0.26 [+0.14, +0.41] s.
+  - SAC minus student under the same rule: −0.02 completion at H = 32 and
+    +0.02 at H = 48, under both rules.
+  - Speed MAE moved by at most 0.04 m/s in any arm. Two intervals exclude 0:
+    SAC/neff at H = 16 (−0.03) and student/temperature at H = 16 (+0.04).
+  - The neff rule kept MPPI's own n_eff exactly. The temperature rule cut it
+    to 1.0–2.3 samples. The median executed action moved 0.10–0.61 from
+    MPPI's own.
+  - Seconds per decision: 0.043, 0.085 and 0.125 for MPPI alone at H = 16,
+    32 and 48; 0.28–0.32 with a context's tail.
+- Predictions: 1 **held**. 2 **failed** (+0.06, interval includes 0).
+  3 **failed**: both intervals include 0, though the temperature rule gained
+  more, as predicted. 4 **partly wrong**: no context lowered completion at
+  H = 48, but SAC did not lower speed MAE. 5 **failed**: the student raised
+  completion at H = 32, but as much as SAC, and its speed MAE was lower
+  than MPPI alone's at H = 32.
+- Interpretation:
+  - A context attached after the search helps a little and never
+    decisively. Every completion estimate at H = 32 and 48 is positive
+    (+0.02 to +0.16), but no interval excludes 0, and no H = 16 episode
+    completed.
+  - That is an order of magnitude below Step 4, where the same tails inside
+    the search took K = 32, H = 32 from 2/10 to 9–10/10. Step 4 used dev
+    resets and a matched temperature, so the two are not paired.
+  - The likely reason: re-ranking only picks among samples near MPPI's own
+    plan at each decision, and the next plan does not move toward the
+    context's preference. Inside the search, that preference accumulated
+    through the warm start.
+  - The quality of the context did not matter. The student, which stays
+    alive about 1.4 s on its own, matched SAC 800k within noise on every
+    metric, as Step 4's weak tail did. What a context supplies here is
+    balance (whether an end state can be held), not skill.
+  - The tails cost 2.3–7 times MPPI's own time per decision.
+- Decision: **reject**, the preregistered branch "no context helps at
+  H ≤ 32". Re-scoring MPPI's finished samples with a policy's cost-to-go
+  cannot steer it, so a critic built from those samples is dropped as the
+  learning rule. The next step looks for long-term context inside the
+  policy's own learning.
+  - Open, for the user: the evidence places the effect inside MPPI's
+    search, as a terminal cost (Step 4). That changes what MPPI's search
+    optimizes, though not its initialization, plans or sampling. The
+    2026-10-23 rule says "MPPI maintains its own plan and search", so this
+    is excluded unless the user decides otherwise.
 
 Add one entry per question using the fields below:
 
