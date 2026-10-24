@@ -3461,7 +3461,50 @@ within 0.03):
   - If the floor falls only once MPPI stops walking, or not at all, pulling
     toward MPPI's own average does not pin its commitment at these settings,
     and the coupling needs rethinking with Kendall.
-- Status: planned.
+- Status: complete. Ran at `822ff4b` on robopil5090, about 25 min. Summary:
+  `runs/2026-10-24_step29_matched_floor_001/summary.json`, with
+  `labels.npz` there.
+- Result (64 anchors per α; 95% intervals over episodes):
+
+  | α | Walked (of 20) | Time alive | Speed MAE | Warm start | Floor | State's share | Gap to student |
+  |---|---:|---:|---:|---:|---:|---:|---:|
+  | 0 | 16 | 6.92 s | 0.380 | 0.280 | 0.323 [0.302, 0.343] | 10% [5, 14] | 0.371 |
+  | 1 | 15 | 6.88 s | 0.377 | 0.255 | 0.301 [0.269, 0.332] | 10% [6, 14] | 0.347 |
+  | 3 | 13 | 6.04 s | 0.484 | 0.246 | 0.297 [0.284, 0.310] | 8% [6, 10] | 0.325 |
+  | 10 | 1 | 2.19 s | 0.720 | 0.247 | 0.307 [0.301, 0.314] | 7% [4, 10] | 0.326 |
+
+  - Validity: α = 0 walked exactly as Step 18's raw episodes on these resets
+    (all 20 matched), with Step 22's floor (0.32).
+  - Jitter rose with α, from 0.043 to 0.060.
+- Predictions:
+  - 1 **held**.
+  - 2 **failed**: the floor moved only from 0.32 to 0.30, and the state's
+    share did not rise.
+  - 3 **failed**: at α = 3 the floor was 0.30, against at most 0.16, and the
+    share 8%, against at least 30%.
+  - 4 **held**: 1 of 20 walked at α = 10.
+- Interpretation:
+  - Pulling toward MPPI's own average did not tie its action to the state.
+    The warm-start component stayed near 0.25 at every α, and MPPI stopped
+    walking before the term changed that.
+  - With K = 32 and σ = 0.3, one decision is the carried-in plan plus a small
+    adjustment. A cost term only changes the adjustment, so the label keeps
+    following the plan.
+  - Steps 22, 25 and 29 together: at these budgets, MPPI's label becomes a
+    function of the state only if its starting plan is. A long search from
+    zero (Step 25) and a cost term (here) do not make it one.
+  - The one state-determined starting plan that has worked here is the
+    policy's own rollout. That was Steps 10–12's policy-seeded E-step, with
+    fit loss 0.0007, and it is excluded by the rule set after Kendall's
+    objection.
+- Decision: **reject** the cost-term coupling as a way to make MPPI's labels
+  learnable at these settings. The next direction is a decision for the user,
+  and possibly Kendall:
+  - a state-determined starting plan for MPPI, such as the policy's plan
+    only where the policy is competent (the notes' trust); this conflicts
+    with the current rule;
+  - having the policy learn something other than MPPI's actions from it;
+  - or a different trajectory optimizer that converges per decision.
 
 Add one entry per question using the fields below:
 
