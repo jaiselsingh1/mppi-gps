@@ -2572,7 +2572,35 @@ within 0.03):
   - If 1 fails, selecting whole runs by fit does not make MPPI's
     trajectories learnable, and the selection has to act on finer units than
     runs.
-- Status: planned.
+- Status: **stopped by the user** at 14:27 on 2026-10-24, after 16–17
+  iterations, before rule 8's first check. It ran from 12:36 at `42ae373`
+  on robopil5090, about 6.5–7 min per iteration. Kendall's reply to the
+  summary (2026-10-24) asked whether the selection had been tried against an
+  "optimal" policy. He added that the policy should learn from what is
+  "close to the policy but better", not what it already knows. The user
+  stopped this arm to test selection by a strong fixed policy first
+  (Step 21). Checkpoints and metrics are kept in
+  `runs/2026-10-24_step20_learnable_seed*`.
+- Evidence at the stop:
+  - Fit loss 0.19–0.20 at iteration 0, then 0.25, 0.27 and 0.27 at
+    iterations 5, 10 and 15 in every seed: back at Step 15's level.
+  - Mean dev time alive 1.54, 1.24 and 1.39 s at iterations 4, 9 and 14; no
+    dev completions.
+  - Selection barely discriminated. The kept runs' median fit error was only
+    5–7% below the rejected runs' (0.33 against 0.35 at the stop).
+  - MPPI's runs stayed up in 75–90% of cases per iteration.
+  - Rendered at iteration 11 (`runs/2026-10-24_walker_videos_001`), the
+    seed-3 policy stood stiffly with both legs together, never stepped, and
+    toppled at 1.8 s. Step 15's student did the same.
+- Predictions: none was tested. Iteration 29 was not reached, but fit loss
+  had already plateaued at 0.27, above prediction 1's 0.20.
+- Interpretation: to a policy that does not yet walk, MPPI's runs look about
+  equally far away. Choosing the closest of them did not make the data
+  consistent, and the policy still averages left and right steps into no
+  step.
+- Decision: **revise** (Step 21). Select with a strong fixed policy first,
+  to see whether selecting whole runs can produce learnable data when the
+  selector already walks.
 
 Add one entry per question using the fields below:
 
