@@ -3413,6 +3413,56 @@ within 0.03):
   on MPPI without its carried-over plan, bears on whether a policy can
   instead be brought into MPPI's mode.
 
+### Step 29 — pulling MPPI toward a student that learned MPPI's own average (no training; predictions written before running)
+
+- Question: does the matching term, pulling toward a student trained on
+  MPPI's own labels, tie MPPI's action to the state while MPPI still walks?
+  - Step 25 found that MPPI walks only by committing to a gait through
+    randomness a state-only policy cannot see: its carried-over plan or a
+    long search. Learnable labels need that commitment pinned by something
+    the policy sees.
+  - Steps 26–27 pulled toward distant gaits, which barely moved MPPI. This is
+    the 2015 loop's first step instead. The Step 15 student's actions at
+    MPPI's states are MPPI's average label there (fit loss 0.28, against
+    SAC's gap of 0.8).
+- Method (`scripts/diagnostics/matched_label_floor.py`,
+  `tests/test_matched_label_floor.py`):
+  - MPPI at K = 32, H = 48, frozen λ = 3, own warm start and samples, with
+    the matching term toward the Step 15 student (seed 0, iteration 32) at
+    α ∈ {0, 1, 3, 10}. α = 0 is raw MPPI.
+  - Walking: 20 episodes per α from resets 70000+ with planner seeds 95000+,
+    1,000 controls, no action noise.
+  - Labels: per α, 8 teacher episodes of 400 controls (MPPI's action plus
+    N(0, 0.1²), the term on), 8 anchors each, 5 warm starts (the recorded
+    one and 4 regenerated with the term on) × 4 queries. Components and
+    episode-bootstrap intervals use Step 22's functions
+    (`label_variance_split.py`).
+  - Seeds from 8,000,000, the same for every α. A test checks that the
+    replays reproduce the recorded states with the term on, and that α = 0
+    walks as raw MPPI.
+- Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.matched_label_floor --out-dir
+  runs/2026-10-24_step29_matched_floor_001 --workers 24`, on robopil5090.
+  About 20 min.
+- Predictions:
+  1. α = 0 reproduces raw MPPI. Its walking episodes match Step 18's raw
+     H = 48 episodes on resets 70000–70019 exactly, its floor lies in
+     [0.25, 0.40] (Step 22: 0.32), and the state explains at most 15%.
+  2. As α rises, the floor falls and the state's share rises.
+  3. At the largest α that still completes at least 12 of 20, the floor is
+     at most half of α = 0's, and the state's share at least three times
+     α = 0's.
+  4. α = 10 completes fewer walking episodes than α = 0, because the student
+     does not walk.
+- What each result changes:
+  - If 3 holds, pulling toward the student ties MPPI's action to the state
+    while MPPI still walks. The next step is the 2015 loop: train the student
+    on the pulled MPPI's labels and raise α as the student improves.
+  - If the floor falls only once MPPI stops walking, or not at all, pulling
+    toward MPPI's own average does not pin its commitment at these settings,
+    and the coupling needs rethinking with Kendall.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
