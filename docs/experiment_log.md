@@ -3276,6 +3276,55 @@ within 0.03):
   MPPI's label floor, rather than how close it brings MPPI to a fixed
   policy.
 
+### Step 28 — does a near-optimal policy know its own trajectories? (no training; predictions written before running)
+
+- Question (Kendall, clarified by the user on 2026-10-24): step 5 tests how
+  trajectories are matched to the policy; it is not a training method. With
+  a policy that is close to optimal and an MPPI that also does the task:
+  - Do their trajectories match?
+  - Can the policy tell which trajectories it would not produce?
+  - Steps 21 and 26 gave part of the answer. SAC's action error was about
+    0.8 on every MPPI run and 0 on its own, and MPPI's runs differed among
+    themselves by only 4–8%. Not yet measured: the scores of SAC's own
+    trajectories when they vary, and whether SAC can tell states it visits
+    from states it does not.
+- Method (`scripts/diagnostics/own_trajectories_check.py`,
+  `tests/test_own_trajectories_check.py`):
+  - Policy: SAC 800k.
+  - Trajectory sets from development resets 81000–81009, 1,000 controls:
+    SAC alone; SAC with N(0, σ²) on its executed actions for σ ∈ {0.1, 0.3,
+    0.5}; raw MPPI (K = 32, H = 48); MPPI with the matching term toward SAC
+    at α ∈ {0.3, 1}.
+  - Two scores per trajectory, higher meaning less like SAC's own:
+    - action gap: the mean squared difference between the executed action
+      and SAC's deterministic action at the same state;
+    - unfamiliarity: the median distance from the trajectory's observations
+      to the nearest observation in 20 deterministic SAC rollouts from
+      resets 82000–82019, after standardizing each dimension.
+  - "Own" is SAC alone together with SAC at σ = 0.1. AUC is the probability
+    that a trajectory from another set scores higher than an own one.
+- Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.own_trajectories_check --out-dir
+  runs/2026-10-24_step28_own_trajectories_001 --workers 24`, on robopil5090
+  (Step 25 occupies the Mac). About 5–10 min.
+- Predictions:
+  1. The action gap separates own trajectories from raw MPPI's perfectly
+     (AUC = 1). The own ones score at most 0.02, MPPI's at least 0.6.
+  2. Unfamiliarity also separates them: AUC at least 0.9, with raw MPPI's
+     median at least twice that of SAC at σ = 0.1.
+  3. Both scores rank the in-between sets in order on their medians: σ =
+     0.1 < 0.3 < 0.5, and MPPI pulled at α = 1 < α = 0.3 < raw MPPI.
+- What each result changes:
+  - If 1 and 2 hold, the policy can tell its own trajectories from MPPI's,
+    by actions and by states, so the matching measure is sound. What remains
+    is that MPPI's trajectories lie in another mode, and the work moves to
+    bringing MPPI into the policy's mode.
+  - If 2 fails, the policy cannot tell where it has been from where it has
+    not. The "knows what it doesn't know" half then needs an explicit
+    uncertainty model, such as an ensemble, before any selection or
+    coupling by the policy can be trusted.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
