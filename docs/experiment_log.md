@@ -3204,6 +3204,41 @@ within 0.03):
   match toward a policy trained on MPPI's own data that walks with an
   MPPI-like gait (Step 19 seed 1; joint-plot distance to MPPI 0.23).
 
+### Step 27 — the matching term toward a nearby, MPPI-trained policy (no training; predictions written before running)
+
+- Question: can the matching term bring MPPI close to a policy whose gait is
+  already MPPI-like while MPPI still walks, and at least as well as that
+  policy alone? That is the 2015 loop's case, where the network is trained on
+  the optimizer's own trajectories. It is also Kendall's "close to the
+  policy but better".
+- One change from Step 26: the target is the Step 19 seed-1 policy at 200k
+  (`--policy runs/2026-10-23_step19_ctx_seed1/checkpoints/step_0200000.pt`).
+  It was trained partly on MPPI's data, completed 33/50 held out, and its
+  joint-plot distance to MPPI was 0.23 with regularity 0.28. Same α values,
+  resets, seeds, metrics and machine as Step 26.
+- Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.matching_check --out-dir
+  runs/2026-10-24_step27_matching_near_001 --policy
+  runs/2026-10-23_step19_ctx_seed1/checkpoints/step_0200000.pt --workers 24`,
+  on robopil5090. About 8 min.
+- Predictions:
+  1. The policy alone completes at least 3 of 5.
+  2. Raw MPPI's action gap to this policy is at most 0.6 (to SAC: 0.90).
+  3. At α = 1, MPPI's action gap to the policy is at most half its α = 0
+     gap, and MPPI completes at least 4 of 5 and at least as many as the
+     policy alone: close to the policy but better.
+  4. No prediction on regularity: the target is itself irregular.
+- What each result changes:
+  - If 3 holds, MPPI can be held close to a nearby policy while it still does
+    the task, so the 2015 loop's trajectory step works here. The next step is
+    the loop itself: match toward the student, regress the student onto
+    MPPI's actions, and raise α as the student improves.
+  - If MPPI cannot get close even to a nearby policy without losing the
+    task, the matching term does not make MPPI's labels learnable at these
+    settings. The coupling then has to be rethought, using Step 25's answer
+    on MPPI without its carried-over plan, before any training.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
