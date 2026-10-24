@@ -2452,7 +2452,35 @@ within 0.03):
     to learning beyond MPPI's data.
   - If arms 2 and 3 do no better than arm 1, MPPI's data does not speed up
     SAC here.
-- Status: planned.
+- Status: **stopped after arm 3** by the user's decision on 2026-10-24. The
+  six arm-3 runs ran from 23:34 on 2026-10-23 at `14f5e4b` on robopil5090
+  (92–94 min each) and finished. Arms 1 and 2 were never started: at 150k
+  the policies were not walking, and the user redirected the work to the
+  Obsidian notes' formulation (Step 20). Deviation: the held-out comparison
+  covered arm 3 only (`runs/2026-10-23_step19_heldout_001/report.json`).
+- Validity: the raw MPPI cell reproduced 15/50 exactly.
+- Result, arm 3 at 200k executed controls, policy alone on resets
+  70000–70049:
+  - Pooled 87/300 completed (29%), speed MAE 0.883 m/s, time alive 4.58 s.
+  - Per seed: 18, 33, 0, 12, 7 and 17 of 50; speed MAE 0.77, 0.87, 0.81,
+    0.55, 1.75 and 0.55.
+  - No seed met the walking criterion.
+  - MPPI's own episodes fell in 3–9 of 103–108 per run (3–8%). Its speed
+    rose from about 0.7 to 1.3–1.5 m/s over training, as the actor improved.
+  - Plain SAC's 200k checkpoint (ladder, one seed) completes 47/50 but
+    stands nearly still (speed MAE 1.70).
+- Predictions: 1 **held** for arm 3 (92–97% of MPPI's episodes without a
+  fall); arm 2's half was not tested. 2 **failed** (no seed walks). 3 and 4
+  were not tested.
+- Interpretation:
+  - The actor's cost-to-go made a short-horizon MPPI a competent data source
+    from the start, and MPPI's behaviour improved with the actor.
+  - The policy learned to move at speed (MAE 0.55–0.87 in five seeds) but
+    not to stay up, and by 200k it walked in no seed. Without arm 1 at the
+    same budget, nothing here says whether the stream sped SAC up.
+- Decision: **set aside.** On 2026-10-24 the user returned to the notes'
+  formulation: MPPI makes trajectories for policy learning, not the other way
+  around, and the policy picks the learnable set (Step 20).
 
 Add one entry per question using the fields below:
 
