@@ -2653,7 +2653,34 @@ within 0.03):
   - If the arm passes rule 8, selection works once the selector walks, and
     Step 20 failed on the bootstrap. The next step hands the selection from
     a strong policy to the student as its fit improves (the notes' trust).
-- Status: planned.
+- Status: **stopped by the user** at 16:34 on 2026-10-24, after 17–18
+  iterations. It ran from 14:30 at `2d20d14` on robopil5090. The evidence
+  already answered the question, and waiting for rule 8 at iteration 29
+  would only have spent compute. From now on, a run stops as soon as the
+  mechanism it tests has visibly failed in every seed, without waiting for
+  rule 8. Checkpoints and metrics are kept in
+  `runs/2026-10-24_step21_sacselect_seed*`.
+- Evidence at the stop:
+  - SAC's median error on the kept runs was 0.80–0.83, against 0.85–0.88 on
+    the rejected runs: a 4–7% gap, no better than the student's in Step 20.
+  - Fit loss 0.20, 0.26, 0.27–0.28 and 0.27–0.28 at iterations 0, 5, 10 and
+    15: Step 20's plateau.
+  - Mean dev time alive 1.60, 1.30 and 1.16 s at iterations 4, 9 and 14; no
+    dev completions.
+  - MPPI's runs stayed up in 70–85% of cases.
+- Predictions:
+  - 1 **failed**: a 4–7% gap, under 10%, at the stop rather than at
+    iteration 29.
+  - 2 **held**: every kept run stayed far from SAC.
+  - 3 was not formally tested (stopped before iteration 29), though time
+    alive fell and nothing completed.
+  - 4 **held** in substance: fit loss 0.27–0.28.
+- Interpretation: selecting whole MPPI runs fails even when the selector
+  walks. None of MPPI's runs is close to that selector's gait, so choosing
+  the least unlike ones changes nothing the student can use. Steps 15, 16,
+  20 and 21 all point the same way: an MPPI that knows nothing of the policy
+  does not produce trajectories the policy can learn.
+- Decision: **reject** selection among whole runs.
 
 ### Step 22 — how much of MPPI's label a policy that sees only the state can fit (diagnostic A; predictions written before running)
 
