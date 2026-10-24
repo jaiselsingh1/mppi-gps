@@ -2866,6 +2866,106 @@ within 0.03):
 - Command: `.venv/bin/python -m scripts.diagnostics.label_modes --raw
   runs/2026-10-24_label_variance_001/raw.npz --out-dir
   runs/2026-10-24_label_modes_001`, seconds on the Mac.
+- Status: complete. Ran on 2026-10-24 at `0d10017` on the Mac. Report:
+  `runs/2026-10-24_label_modes_001/report.json`.
+- Result (95% intervals over episodes):
+
+  | Anchors, label | Student share | Bimodal anchors | Median ΔBIC |
+  |---|---|---|---|
+  | Teacher, executed | 1.70 [1.42, 2.06] | 44% [38, 50] | 10.3 |
+  | Teacher, smoothed | 1.77 [1.48, 2.14] | 65% [57, 71] | 20.3 |
+  | Student, executed | 1.20 [1.02, 1.46] | 46% [40, 52] | 12.5 |
+  | Student, smoothed | 1.20 [1.02, 1.45] | 59% [53, 65] | 19.8 |
+
+  - The first principal axis carries 40–43% of the spread at an anchor. Its
+    loadings average 0.33–0.38 on every actuator, so no single joint or leg
+    carries the split.
+  - Check added after seeing the shares (not preregistered): the student's
+    squared error on the recorded labels at the same anchors, against one
+    constant action (the mean recorded label):
+    - Teacher anchors: student 0.319, constant 0.341.
+    - Student anchors: student 0.359, constant 0.343.
+- Predictions: 1 **failed as stated** (share 1.70), but its test is invalid
+  for the teacher anchors; see the first interpretation point. 2 **failed**
+  (44%, not under a quarter).
+- Interpretation:
+  - Prediction 1 measured the student against the regenerated warm starts'
+    conditional mean. On the natural labels the student was trained on, it
+    beats a constant action at the teacher's states (0.319 against 0.341).
+    Farther from the regenerated mean yet closer to the natural labels means
+    the stale regenerated plans (Step 22's cost gap) shift the conditional
+    mean.
+    - This does not show that the student failed to learn the natural
+      conditional mean.
+    - It does show that Step 22's teacher floor is measured around a shifted
+      mean. The natural floor is at most about the student's 0.319, and
+      diagnostic C has to settle it.
+  - At its own states the student does worse than a constant (0.359 against
+    0.343), but it never trained on its own states or on labels from a
+    planner riding along.
+  - MPPI's labels at a state often fall into two distinct clusters: about
+    half the anchors in both populations, more once smoothing removes the
+    jitter. Since the carried-over plan accounts for 86% of the spread at a
+    state (Step 22), the plan mostly picks the cluster. E[label | state]
+    sits between them, the "average of two choices" that the Obsidian
+    `tinkering` note predicted.
+  - The student population is clean (exchangeable warm starts) and shows
+    the same bimodality, so it is not an artifact of stale plans.
+- Decision: **revise.** The preregistered branch for 2 applies: the hidden
+  plan picks between distinct choices, so a policy or a coupling that commits
+  to one choice is a candidate. Prediction 1's question moves to diagnostic C,
+  which estimates the floor and the learner's gap from natural histories
+  only.
+
+### Step 24 — the label floor under natural histories (diagnostic C; predictions written before running)
+
+- Question: Steps 22–23 measured the spread of MPPI's labels with
+  regenerated warm starts, and in the teacher population those plans are
+  staler than natural ones and shift the conditional mean (Step 23). From
+  labels made only by planners that drove their own episodes: how much of the
+  label can a predictor that sees only the state fit, and how close does the
+  students' network come?
+- Data: 400 teacher episodes as in Step 15 (MPPI at K = 32, H = 48
+  executing its action + N(0, 0.1²), up to 400 controls), with both labels at
+  every decision. A test checks they equal Step 15's and Step 16's labels
+  under the same seeds. Resets 7,500,000+, planner seeds 7,600,000+, noise
+  seeds 7,700,000+. 80 episodes held out at random.
+- Estimators (`scripts/diagnostics/label_floor_knn.py`,
+  `tests/test_label_floor_knn.py`):
+  - k-NN regression on standardized observations, k from 1 to 200: held-out
+    squared error per action dimension. The best k gives an upper estimate
+    of the floor at this data size.
+  - Nugget: half the squared label gap to the nearest training state,
+    regressed on that distance over the closest quarter of held-out states
+    and extrapolated to 0. It estimates Var(label | state).
+  - The students' network (2 × 256, raw observations, MSE, Adam, batch 256,
+    lr 3e-4) and a wider one (2 × 1024), 20,000 Adam steps on 40, 80, 160
+    and 320 training episodes: training and held-out squared error.
+  - 95% intervals resample held-out episodes.
+- Predictions:
+  1. Executed labels: nugget ≥ 0.20. Fails below 0.14 (half of Step 15's
+     0.28).
+  2. Executed labels: best k-NN held-out error ≥ 0.25.
+  3. Smoothed labels: nugget ≥ 0.8 × the executed nugget.
+  4. The 2 × 256 network at 320 episodes: held-out error ≥ 0.28, at least
+     0.02 above its training loss (it memorizes part of the noise).
+  5. Neither network beats the best k-NN by more than 0.02 at 320 episodes.
+- What each result changes:
+  - 1–2 hold: the floor holds under natural histories, and Steps 22–23's
+    conclusion stands for the teacher's own labels. Labels from MPPI's own
+    runs are mostly set by the carried-over plan, so the method has to make
+    labels depend on the state.
+  - 1 fails: natural labels are mostly a function of the state, and the
+    hidden-plan spread was mostly an artifact of regenerated warm starts.
+    The students' problem is then the learner (overfitting a target with
+    little signal), and the next step works on the learner with unchanged
+    labels.
+  - 4–5 say whether the students' network is near the best a state-only
+    predictor can do at this data size.
+- Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.label_floor_knn --out-dir
+  runs/2026-10-24_label_floor_001 --cfg.workers 16`, on the Mac, about
+  20 min.
 - Status: planned.
 
 Add one entry per question using the fields below:
