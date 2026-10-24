@@ -2822,6 +2822,52 @@ within 0.03):
   student close to it?), then diagnostic C (the floor under natural
   histories).
 
+### Step 23 — what a state-only policy learns from these labels (diagnostic B; predictions written before running)
+
+- Question: Step 22 found that E[label | state] carries only 8% of the label
+  variance at the teacher's states. Did the Step 15 student learn that
+  conditional mean? And is the rest of the spread at a state a set of
+  distinct choices (modes) that the mean averages away, or one wide cloud?
+- Data: Step 22's raw labels (`runs/2026-10-24_label_variance_001/raw.npz`),
+  72 per anchor (9 warm starts × 8 seeds), 256 anchors per population. No
+  new simulation.
+- Measures (`scripts/diagnostics/label_modes.py`,
+  `tests/test_label_modes.py`):
+  - Student against the conditional mean: the Step 15 student (seed 0,
+    iteration 32) at each anchor's observation, against the anchor's mean
+    label. The squared distance minus the mean label's own sampling variance
+    estimates the distance to E[label | state]. Reported as a share of Step
+    22's state component: 0 means the student is E[label | state]; 1 means
+    it does no better than one constant action.
+  - Modes: each anchor's 72 labels projected on their first principal axis,
+    fit by one- and two-component Gaussian mixtures (EM). An anchor counts as
+    bimodal if BIC favours two components by more than 10, both weights are
+    at least 0.2 and Ashman's D exceeds 2 (clearly separated).
+  - Descriptive: the principal axis's loadings by actuator (thighs, legs,
+    feet) and its share of the spread at an anchor.
+  - 95% intervals resample whole episodes, as in Step 22.
+- Predictions:
+  1. Teacher anchors: the student's share is below 0.5, i.e. it is closer to
+     E[label | state] than to a constant action. Fails at a share of 1 or
+     more.
+  2. Teacher anchors, executed labels: fewer than a quarter of anchors are
+     bimodal; the spread is mostly one wide cloud (low confidence).
+  - Student anchors: no prediction; reported.
+- What each result changes:
+  - 1 holds: the students learned E[label | state], and it does not walk.
+    More data, capacity or training cannot help; only labels that depend on
+    the state can. 1 fails: the students did not even learn the conditional
+    mean, so the learner is part of the problem (diagnostic C's learning
+    curves test it).
+  - 2 holds: there are no distinct gaits for an expressive policy (mixture,
+    diffusion, chunked actions) to represent; the fix is labels that depend on
+    the state. 2 fails: the hidden plan picks between distinct choices, and a
+    policy or coupling that commits to one becomes a candidate.
+- Command: `.venv/bin/python -m scripts.diagnostics.label_modes --raw
+  runs/2026-10-24_label_variance_001/raw.npz --out-dir
+  runs/2026-10-24_label_modes_001`, seconds on the Mac.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
