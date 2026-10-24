@@ -3237,7 +3237,44 @@ within 0.03):
     task, the matching term does not make MPPI's labels learnable at these
     settings. The coupling then has to be rethought, using Step 25's answer
     on MPPI without its carried-over plan, before any training.
-- Status: planned.
+- Status: complete. Ran at `72dd5b5` on robopil5090, about 8 min. Results:
+  `runs/2026-10-24_step27_matching_near_001/`.
+- Result, 5 resets each:
+
+  | Controller | Completed | Speed MAE | Action gap to target | Regularity | Distance to target | Distance to raw MPPI |
+  |---|---:|---:|---:|---:|---:|---:|
+  | Target alone (Step 19 seed 1) | 5/5 | 1.160 | 0 | 0.32 | 0 | 0.63 |
+  | MPPI, α = 0 | 3/5 | 0.377 | 0.80 | 0.18 | 0.61 | 0 |
+  | α = 0.03 | 4/5 | 0.342 | 0.78 | 0.21 | 0.62 | 0.19 |
+  | α = 0.1 | 4/5 | 0.408 | 0.78 | 0.19 | 0.69 | 0.28 |
+  | α = 0.3 | 5/5 | 0.390 | 0.69 | 0.20 | 0.60 | 0.27 |
+  | α = 1 | 5/5 | 0.409 | 0.64 | 0.21 | 0.60 | 0.28 |
+
+  - The target was not MPPI-like on this machine. On reset 81000 it
+    crouched and stood still after about 2 s (speed MAE 1.16 over the five
+    resets), where on the Mac it had walked the full 8 s. Its distance to
+    raw MPPI was 0.63, not 0.23. The premise of a nearby target did not
+    hold.
+- Predictions:
+  - 1 **held** (5/5).
+  - 2 **failed** (raw gap 0.80).
+  - 3 **failed** on closeness (0.64 at α = 1, against at most 0.40) but held
+    on the task (5/5, as many as the target alone).
+- Interpretation:
+  - Toward both targets, the term moved MPPI's actions about a fifth of the
+    way (0.80 → 0.64 here, 0.90 → 0.71 in Step 26). MPPI's own gait and its
+    irregularity stayed in place.
+  - Completions rose with the pull here (3/5 → 5/5), and in Step 26 at
+    α = 0.03. With five resets per arm that is not evidence.
+  - Closeness to a fixed policy is not the quantity that decides
+    learnability. That quantity is the label floor of Steps 22–24: how much
+    MPPI's action at a state varies with its carried-over plan.
+- Decision: **revise.** A fixed-target pull does not bring MPPI close to a
+  policy at these settings. Step 25 (MPPI without its carried-over plan)
+  says whether a learnable teacher exists without coupling. If coupling is
+  still needed, the next check measures whether the matching term lowers
+  MPPI's label floor, rather than how close it brings MPPI to a fixed
+  policy.
 
 Add one entry per question using the fields below:
 
