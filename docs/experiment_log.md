@@ -3027,6 +3027,71 @@ within 0.03):
   plan to depend on the state, which selecting among whole runs cannot do.
   This completes the three no-training diagnostics of label learnability.
 
+### Step 25 — does MPPI still walk without the plan it carries in? (predictions written before running)
+
+- Question: Steps 22–24 found that MPPI's label at a state is mostly set by
+  its carried-over plan. If MPPI re-plans from the zero plan at every
+  decision, its label depends only on the state and its samples. Does it
+  still walk, and how small is its label floor then?
+  - If it walks, there is a learnable teacher with no policy coupling at
+    all: MPPI's algorithm is unchanged, and nothing from a policy enters it.
+  - If not, MPPI's competence depends on its plan. Learnable labels then need
+    the plan tied to the state through the policy (the 2015-style cost term,
+    the open question to Kendall).
+- Arms (`scripts/diagnostics/memoryless_check.py`,
+  `tests/test_memoryless_check.py`), all at H = 48 with the rest of
+  `configs/walker2d_best.json` unchanged:
+  - raw: MPPI as in Steps 13b and 18, K = 32, two passes at the first
+    decision only.
+  - memoryless_k32: `planner.reset()` before every decision, so every
+    decision runs two passes from the zero plan at K = 32. This is MPPI's own
+    first-decision procedure, applied every time.
+  - memoryless_k256 and memoryless_k64_x8: the same with 512 rollouts per
+    decision (16× raw), spent on more samples (K = 256, 2 passes) or on more
+    refinement (K = 64, 8 passes).
+- Episodes: development resets 70,000+ with planner seeds 95,000+, 1,000
+  controls, no action noise, as in Step 18. 50 episodes for raw and
+  memoryless_k32, 25 for each 16× arm. Completion means no fall in 1,000
+  controls; arms are paired by reset with raw.
+  - Raw MPPI is re-run on the Mac rather than taken from Step 18. Results are
+    not bit-identical across machines (2026-10-22 cross-check), so every arm
+    is compared with the Mac's raw run. A test checks that the raw arm
+    matches Step 18's runner.
+- Labels: Step 22's 256 teacher anchors, re-recorded on the Mac with Step
+  22's seeds. The script stops if any re-recorded label differs from Step
+  22's saved one. Each memoryless arm is queried 8 times per anchor with new
+  planner seeds. With the zero plan fixed, the variance over those queries is
+  the whole floor. Executed and smoothed labels; 95% intervals over episodes.
+- Predictions:
+  1. Raw completes within the Wilson interval of robopil5090's 39/50
+     (65–87%, i.e. 33–43 of 50). A sanity check, not a validity gate.
+  2. memoryless_k32 completes at most 5 of 50.
+  3. memoryless_k256 and memoryless_k64_x8 each complete a smaller share
+     than raw, and neither reaches 60%.
+  4. At Step 22's anchors, the executed-label floor of memoryless_k32 and
+     memoryless_k256 is below 0.15, half of raw MPPI's walking-state floor
+     (Step 24: 0.22–0.30). No prediction for memoryless_k64_x8, whose eight
+     passes may re-create a path-dependent choice within one decision.
+- What each result changes:
+  - A memoryless arm completes at least 60% with a floor below 0.15: a
+    competent, learnable teacher exists without policy coupling. Next comes
+    Step 15's student setup with that teacher.
+  - Every memoryless arm completes at most 20%: at these budgets MPPI's
+    competence depends on its carried-over plan. Learnable labels then need
+    the plan tied to the state through the policy, and Kendall's answer to
+    the cost-term question decides the next step.
+  - In between: walking and learnability trade off, and the size of the
+    trade-off sets what a coupling has to buy back.
+- Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  .venv/bin/python -m scripts.diagnostics.memoryless_check --out-dir
+  runs/2026-10-24_memoryless_001 --workers 16`, on the Mac.
+  - Timing, measured after the predictions above were written (one process,
+    12 decisions from reset 9,000,000, outside the development set): 0.066,
+    0.120, 0.971 and 0.983 s per decision for the four arms.
+  - About 70–85 min if every memoryless episode lasts 1,000 controls, much
+    less if they fall early.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
