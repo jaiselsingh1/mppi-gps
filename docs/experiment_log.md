@@ -2486,8 +2486,11 @@ within 0.03):
 
 - Question: if MPPI runs several times from each start state and the policy
   learns only from the runs it already explains best, does it become a
-  distilled MPPI: MPPI's gait, made regular, as in Mordatch & Todorov (2014),
-  Figure 3?
+  distilled MPPI: MPPI's gait, made regular, as in Mordatch, Lowrey, Andrew,
+  Popović & Todorov (NeurIPS 2015), Figure 3? (Corrected 2026-10-24: this
+  entry first credited the figure to Mordatch & Todorov 2014. That paper
+  credits the regularity to a network-matching term in the trajectory
+  optimizer's cost.)
   - The user's formulation (2026-10-24, Obsidian `MPPI GPS/general.md`):
     policies compress the space of trajectories that do a task; given all of
     them, a policy learns nothing; the trajectories must be constrained to a

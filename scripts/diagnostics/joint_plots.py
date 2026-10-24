@@ -1,6 +1,6 @@
-"""Joint-angle trajectories of MPPI and of learned policies, after Mordatch &
-Todorov (2014), Figure 3: under MPC the joints wander, under a good policy they
-cycle.
+"""Joint-angle trajectories of MPPI and of learned policies, after Mordatch,
+Lowrey, Andrew, Popović & Todorov (NeurIPS 2015), Figure 3: under MPC the joints
+wander, under a good policy they cycle.
 
 Each panel runs one controller from the same reset for `steps` controls and
 plots the six actuated joint angles. Regularity is the mean over joints of the
