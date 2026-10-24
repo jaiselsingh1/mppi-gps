@@ -2966,7 +2966,66 @@ within 0.03):
   .venv/bin/python -m scripts.diagnostics.label_floor_knn --out-dir
   runs/2026-10-24_label_floor_001 --cfg.workers 16`, on the Mac, about
   20 min.
-- Status: planned.
+- Status: complete. Ran 15:53–16:10 on 2026-10-24 at `7fb10ee` on the Mac
+  (1,027 s on 16 workers). The preregistration text was committed in
+  `7110a78`, before the run. Report:
+  `runs/2026-10-24_label_floor_001/report.json`; labels in `raw.npz`.
+- Data: 115,676 training and 29,374 held-out states; 70 of 400 episodes
+  fell.
+- Result, held-out squared error per action dimension (95% intervals over
+  held-out episodes):
+
+  | Label | Label variance | Nugget | Best k-NN (k = 200) | 2 × 256, 320 episodes | 2 × 1024, 320 episodes |
+  |---|---|---|---|---|---|
+  | Executed | 0.345 | 0.127 [0.112, 0.143] | 0.316 [0.312, 0.320] | 0.319 (train 0.289) | 0.339 (train 0.259) |
+  | Smoothed | 0.314 | 0.100 [0.087, 0.113] | 0.286 [0.283, 0.289] | 0.288 (train 0.261) | 0.306 (train 0.233) |
+
+  - Executed labels, k-NN error by k: 0.611 at k = 1, 0.346 at 10, 0.319 at
+    50, 0.316 at 200. Error keeps falling up to the largest k.
+  - Learning curves on executed labels, held-out (training) error for 40,
+    80, 160 and 320 training episodes:
+    - 2 × 256: 0.440 (0.166), 0.376 (0.234), 0.337 (0.273), 0.319 (0.289).
+    - 2 × 1024: 0.570 (0.020), 0.512 (0.078), 0.404 (0.187), 0.339 (0.259).
+- Predictions: 1 **failed** (nugget 0.127, below 0.14). 2 **held** (0.316).
+  3 **failed narrowly** (0.79 against 0.8). 4 **held** (0.319, 0.030 above
+  training). 5 **held** (0.319 and 0.339 against 0.316).
+- Check added after seeing the nugget (not preregistered):
+  - The nugget's closest pairs over-represent the start of episodes: 27% of
+    them have t < 48, against 13% of all held-out states. Every episode
+    starts from nearly the same pose with the same zero plan, so early states
+    also share their young plans across episodes.
+  - Nugget split by time, executed labels (neighbours from the same time
+    range): t < 48, 0.138; t ≥ 96, 0.218; t ≥ 200, 0.232. Smoothed: 0.080,
+    0.199, 0.211.
+  - For t ≥ 96, half the squared label gap to the nearest state rises only
+    from 0.297 (the closest eighth of pairs, distances 0.36–1.13) to 0.332
+    (the farthest), against a label variance of 0.360. Nearby walking states
+    from different episodes get almost unrelated labels.
+- Interpretation:
+  - For walking states (t ≥ 96), the natural floor lies between about 0.22
+    (the nugget extrapolated to distance 0) and 0.30 (the closest pairs
+    observed), against a label variance of 0.36. No state-only predictor
+    tried gets below 0.316 held out. That is about 8% of the variance
+    explained, the share Step 22 found with regenerated warm starts.
+  - The preregistered nugget failed because early-episode states share their
+    plan, not because the labels are a function of the state. The other
+    estimators and the time split agree, so the "1 fails" branch (the learner
+    is the problem) is not taken. This judgement rests on a post-hoc check
+    and is stated as such.
+  - Step 22's replay floor for the teacher (0.32) overstates the natural
+    floor (0.22–0.30), consistent with Step 23's shifted conditional mean.
+  - The Step 15 students were as good as this network gets at their data
+    size. The 2 × 256 fit at 320 episodes has a training loss of 0.289 (Step
+    15: 0.28) and a held-out error of 0.319, the same as the Step 15
+    student's held-out error in Step 23. More data helps slowly (the last
+    doubling gained 0.018). What it converges to is E[label | state], which
+    Step 23 found is a compromise between two plan-chosen clusters.
+  - The wider network memorizes more and does worse held out, the signature
+    of a target that is mostly noise to the learner.
+- Decision: **keep** Steps 22–23's conclusion for the teacher's own labels.
+  They are mostly set by the carried-over plan, so learnable labels need the
+  plan to depend on the state, which selecting among whole runs cannot do.
+  This completes the three no-training diagnostics of label learnability.
 
 Add one entry per question using the fields below:
 
