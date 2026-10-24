@@ -2366,6 +2366,94 @@ within 0.03):
     2026-10-23 rule says "MPPI maintains its own plan and search", so this
     is excluded unless the user decides otherwise.
 
+### Step 19 — SAC with an MPPI stream that sees the actor's cost-to-go (predictions written before running)
+
+- Question: if a quarter of SAC's executed controls come from MPPI episodes
+  whose terminal cost is the current actor's cost-to-go, does SAC learn to
+  walk with far fewer executed controls?
+  - On 2026-10-23, after Step 18, the user allowed a policy's cost-to-go to
+    enter MPPI's search as a terminal cost. MPPI's initialization, plans and
+    sampling stay its own.
+  - Task cost drives the policy through SAC's critic and actor. Nothing is
+    cloned: Steps 15–16 showed MPPI's actions are not a function of the
+    state.
+  - MPPI runs its own episodes from training resets, never from the
+    policy's states (Kendall's objection).
+  - Relatives: POLO has no policy and learns MPPI's terminal value; TD-MPC
+    and its successors have the actor propose trajectories to the planner.
+    Here the actor reaches MPPI only through the terminal cost.
+- Arms, one change from SAC in two variants:
+  1. **SAC alone:** `scripts/training/train_walker2d_sac.py` at its
+     defaults.
+  2. **SAC + MPPI, no terminal cost:** `--mppi-share 0.25 --mppi-terminal
+     none`.
+  3. **SAC + MPPI with the actor's cost-to-go:** `--mppi-share 0.25
+     --mppi-terminal actor`.
+  - Arm 1 against 2 isolates MPPI's data; 2 against 3 isolates the actor's
+    cost-to-go.
+- The stream (`src/rl/mppi_stream.py`, `tests/test_mppi_stream.py`):
+  - In every 10,000 executed controls the policy executes 7,500 and MPPI
+    2,500. MPPI's transitions enter the same replay buffer with WalkerRL's
+    rewards and failure accounting. SAC still makes one update per executed
+    control, so every arm makes the same number of updates.
+  - MPPI: K = 32, H = 32, frozen λ = 3, own warm start, the rest of
+    `configs/walker2d_best.json`. Episodes of at most 500 controls, from
+    resets 200000 + 10000·seed + j with planner seeds 300000 + 10000·seed + j.
+  - Arm 3's terminal cost is the actor at that block, acting
+    deterministically for 100 controls from each sample's end state (Step
+    4's tail, `src/gps/policy_tail.py`), passed as MPPI's `prior_cost`. A
+    test checks that MPPI receives nothing else from the actor.
+- Budget: 200,000 executed controls per run (150,000 by the policy, 50,000
+  by MPPI), SAC seeds 0–5. Everything else stays at the ladder's defaults:
+  learning starts at 5,000; dev monitoring every 25,000 controls, 5 episodes
+  from seed 60000.
+- Comparison: each run's 200k checkpoint, policy alone, on resets
+  70000–70049 (`walker_step5_compare.py`). Its raw MPPI cell, K = 32,
+  H = 32, must reproduce 15/50; SAC 800k is the reference. Per seed and
+  pooled, with arms paired seed by seed.
+  - Walking criterion, per seed: completion ≥ 45/50 and speed MAE ≤ 0.30
+    m/s (SAC 800k: 50/50, 0.198).
+- Compute ledger: executed controls by source, MPPI's simulated controls
+  (search plus tails), wall time.
+  - Smoke test (Mac, arm 3, 20,000 controls): both MPPI blocks ran all five
+    episodes without a fall, at 0.73–0.83 m/s. They simulated about 3,050
+    controls per MPPI decision, so an arm-3 run simulates about 0.15 billion
+    (an MPPI-GPS run: 2.3–3.9 billion).
+- Machine: robopil5090's CPU in Step 12's CPU-only environment, one thread
+  per process, 4 MPPI workers per run, 6 runs at a time; about 2 h. Runs
+  `runs/2026-10-23_step19_{sac,raw,ctx}_seed{0..5}`; held-out comparison
+  `runs/2026-10-23_step19_heldout_001`.
+- Prior evidence:
+  - SAC alone (S2 ladder, seed 0) first walked on dev at 400k controls. Its
+    200k checkpoint completes 47/50 held out but stands nearly still
+    (speed MAE 1.70).
+  - Step 4: MPPI at H = 32 with a policy's cost-to-go completed 9–10/10 dev
+    episodes against 2/10 without, even with a policy that falls in 0.2 s.
+    Its speed improved only with a strong policy.
+- Predictions:
+  1. In arm 3, at least 80% of MPPI's episodes end without a fall in every
+     run. In arm 2, fewer than 50%.
+  2. Arm 3 meets the walking criterion in at least 4 of 6 seeds.
+  3. Arm 1 meets it in no seed.
+  4. Arm 2 meets it in fewer seeds than arm 3, with a higher pooled speed
+     MAE.
+- Risk: the critic learns partly from MPPI's actions but is queried at the
+  actor's, the support mismatch TD-M(PC)² targets. If arms 2–3 lag arm 1,
+  check the critic for overestimation before changing the stream.
+- What each result changes:
+  - If 2 holds, SAC with this stream becomes the working base. The next
+    terms, one at a time: MPPI's share set by comparing the policy with MPPI
+    (the notes' trust rule), SAC's critic as the terminal cost instead of
+    rollouts, and a shorter horizon.
+  - If arm 3 beats arm 1 on dev time-to-walk or held-out speed MAE but
+    misses 2, the stream helps but not enough at this budget; next, a larger
+    share or budget.
+  - If arm 3 does no better than arm 2, the actor's cost-to-go adds nothing
+    to learning beyond MPPI's data.
+  - If arms 2 and 3 do no better than arm 1, MPPI's data does not speed up
+    SAC here.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
