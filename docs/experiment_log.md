@@ -2751,7 +2751,76 @@ within 0.03):
 - The working tree also carries the uncommitted audit fixes (A4, A8–A10). Of
   those, this run imports only A8's `src/utils/math.py`, whose change affects
   zero, infinite or non-finite temperatures only.
-- Status: planned.
+- Status: complete. Ran 15:28–15:45 on 2026-10-24 at `8c39ce0` on the Mac
+  (1,010 s on 16 workers). Report:
+  `runs/2026-10-24_label_variance_001/report.json`; every query's labels,
+  samples and costs are in `raw.npz` there.
+- Validity:
+  - Every replay reproduced the recorded states and solver warm starts bit
+    for bit; the script would have stopped otherwise.
+  - Student population, exchangeable as built: distance ratio 1.005 [0.965,
+    1.044], cost gap 0.16 [−2.4, 2.9].
+- Result, per action dimension (95% intervals over episodes):
+
+  | Population, label | Jitter | Warm start | Floor | State | Floor / fit loss |
+  |---|---|---|---|---|---|
+  | Teacher, executed | 0.045 [0.043, 0.047] | 0.276 [0.269, 0.282] | 0.320 [0.313, 0.328] | 0.027 [0.023, 0.031] | 1.14 (of 0.28) |
+  | Teacher, smoothed | 0.011 [0.011, 0.012] | 0.275 [0.268, 0.281] | 0.286 [0.279, 0.292] | 0.026 [0.022, 0.031] | 1.12 (of 0.255) |
+  | Student, executed | 0.037 [0.035, 0.039] | 0.249 [0.239, 0.258] | 0.286 [0.276, 0.296] | 0.054 [0.044, 0.062] | — |
+  | Student, smoothed | 0.011 [0.011, 0.012] | 0.248 [0.238, 0.257] | 0.259 [0.249, 0.268] | 0.054 [0.044, 0.062] | — |
+
+  - The state explains 8% of the teacher's executed-label variance (7–9%)
+    and 16% of the student population's (13–18%).
+  - Teacher anchors before the plan had aged a full horizon (t < 48, 44
+    anchors): floor 0.278; later ones (212): 0.329. Student anchors in the
+    last 40 decisions before a fall (65): floor 0.263.
+  - Teacher exchangeability:
+    - Labels: the recorded warm start's mean label sits as far from the
+      regenerated ones as they sit from each other (ratio 1.008 [0.983,
+      1.037]).
+    - Costs: the regenerated plans' lowest sample cost is 19.9 higher [17.4,
+      22.2] than the recorded plan's.
+    - So they are staler plans whose labels are distributed like the
+      recorded one's.
+  - Median n_eff/K: 0.048 (teacher), 0.062 (student). 6 of 32 teacher
+    episodes fell; all 32 student episodes fell (median 164 decisions).
+- Predictions: 1 **held** (0.320). 2 **held** (0.276 against 0.045). 3
+  **held** (0.89). 4 **held** (0.045 and 0.011). 5 **held** (0.286 < 0.320),
+  at the low confidence stated.
+- Interpretation:
+  - MPPI's label at a state is mostly set by the plan it carries in. A
+    policy that sees only the state can explain about a tenth of the label
+    variance; the rest is noise to it, and sampling jitter is only a seventh
+    of that noise. This is Step 16's untested explanation, now measured.
+  - The students' training losses (0.28, 0.255) sat 11–13% below these
+    floors, as a network that memorizes part of the noise would. They had
+    learned about all there was to learn.
+  - What there is to learn, E[label | state], varies little across states
+    (state component 0.027 per dimension, a standard deviation of 0.16).
+    That fits students that stood stiffly and never stepped (Step 20's
+    video).
+  - Selecting whole runs (Steps 20–21) cannot remove this, because each run's
+    labels carry their own plan. Step 22 therefore predicts Step 21's
+    outcome: fit loss near Step 20's 0.27 and no walking student, as Step
+    21's own predictions 3–4 say. Recorded before Step 21's result.
+  - Smoothing (Step 16) removed three quarters of the jitter (0.045 → 0.011)
+    but left the floor at 0.286, as Step 16 observed.
+  - Consistent with this, policy-centred MPPI-GPS labels fit below 0.001
+    (Steps 10–12): there the plan was the policy's own rollout, a function of
+    the state. Kendall's "1" removes the hidden plan; his "2" leaves it in.
+  - Teacher caveat, as preregistered: the regenerated plans are staler (cost
+    gap), so the teacher's floor is formally bracketed by its jitter (0.045)
+    and the replay floor (0.320). The label ratio of 1.0 argues that the
+    replay floor applies to the recorded labels. But one recorded draw per
+    anchor cannot separate an offset from a smaller natural spread, so
+    diagnostic C (natural histories) is the independent check. The student
+    population has no such caveat and gives the same picture.
+- Decision: **keep.** Labels from MPPI's own runs are not a function of the
+  state, and the fix has to change how labels are made, not which runs are
+  kept. Next, the two preregistered follow-ups: diagnostic B on this raw data
+  (does E[label | state] average distinct choices, and is the Step 15
+  student close to it?), then diagnostic C (the floor under natural
+  histories).
 
 Add one entry per question using the fields below:
 
