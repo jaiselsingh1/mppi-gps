@@ -48,6 +48,10 @@ and a standalone tanh MLP. Run `scripts.training.train_policy_selective` for the
 smoke-test overrides, GPU memory limits, and standalone evaluation commands.
 The [research telemetry suite](docs/research_telemetry.md) adds diagnostics,
 default health stops, and four-controller limit-cycle artifacts for future runs.
+The separate [decoupled planning/value pilot](docs/decoupled_value_study.md)
+adds split proposals, rollout-verified discrete fallback and a policy-only
+TD(H) value in `scripts.training.train_decoupled_study`. It leaves the existing
+training entry points unchanged; learning quality remains an empirical question.
 
 [What MPPI-GPS optimizes](docs/objective.md) defines the method under test:
 MPPI samples around the policy's own rollout, takes one weighted update

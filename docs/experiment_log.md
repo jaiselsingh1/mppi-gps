@@ -3948,3 +3948,28 @@ reward-learning study remains a draft until the diagnostic is recorded.
   teacher searches. [Full factual record and hashes](experiment_evidence/2026-10-25_independent_teacher_diagnostics/README.md).
   All26 focused diagnostic tests passed. The learner design remains undecided;
   no subsequent training study was launched.
+
+### Decoupled planning and actual-policy value pilot (2026-10-25)
+
+- Question: can split local proposals and verified discrete fallback improve
+  standalone learning, and does a value fitted strictly to the learner's own
+  deterministic rollouts help? Working algorithm first; accounting supports
+  later comparison. [Prelaunch protocol](decoupled_value_study.md).
+- Starting commit: `56c09b5`. Four paired seed-0 arms, 15 iterations,
+  K256/H32, M1, shared logical query count≤2000. The first three arms use
+  the actual frozen policy's T100 tail. The critic arm uses a discounted
+  continuing policy value and strict snapshot-change gate, with an explicit
+  iteration0 bootstrap bypass. Its changed objective is a comparison limit.
+- User decisions: keep candidate cap rather than treating67.6M as total
+  compute; itemize overhead. Fit Vπ only on learner-policy rollouts, excluding
+  accepted MPPI plans. Original completed75-iteration studies are unchanged.
+- Validation before launch: exact saddle failure/rescue test passes; all four
+  arms complete two iterations in CPU and real5090 GPU smoke tests. Local
+  regression:787 passed,6 skipped,3 expected failures; six sandbox-only shared
+  memory failures passed on rerun with subprocess access (21 tests passed).
+- Status: implementation validated; full15-iteration study pending launch.
+  Primary development evaluations are fixed at iterations5/10/15 on100 resets
+  8600000–8600099 for1000 controls, no planner. Reserved final resets untouched.
+- Limitations: one paired training seed, own-policy state distributions,
+  combined proposal/fallback and objective/gate changes. This pilot cannot
+  establish exploration/sample efficiency, seeding necessity or global optimality.
