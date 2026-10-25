@@ -63,8 +63,10 @@ both critics and entropy coefficient, retaining its recorded gamma.995 and
 absorbing-failure semantics. This checkpoint was trained with a coupled
 teacher; it cannot establish whether a future independent mixture succeeds.
 
-Select at most eight available Probe1 anchors by a fixed rule recorded before
-any continuation results, retaining source indices. At each, query the same
+Select at most eight available Probe1 anchors using integer-truncated evenly
+spaced indices from0 throughN-1 (`numpy.linspace`), before any critic
+continuation results, retaining source indices. With eleven collected anchors,
+these rows are0,1,2,4,5,7,8,10. At each, query the same
 independent MPPI action and this SAC actor's deterministic first action.
 For each first action, perform eight paired stochastic-actor continuations
 from identical state/solver warm start, for at most2500 controls. Independent
