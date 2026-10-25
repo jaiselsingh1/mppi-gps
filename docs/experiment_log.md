@@ -4209,3 +4209,42 @@ reward-learning study remains a draft until the diagnostic is recorded.
   interruptions, can resume the existing job after infrastructure failure,
   and delivers final policy-only results before disabling itself. No new
   experiment, retuning or automatic extra training budget is authorized.
+
+### Option1 complete: learner-critic experience trial (2026-10-25)
+
+- Finished200/200iterations without resume; all19source files and200checkpoint
+  hashes verified. Final actor equals checkpoint0199; frozen`fed056a` unchanged.
+- Final policy alone,100fixeddevelopmentresets12900000–12900099,1000controls:
+  **0/100 completions**,mean duration0.89248s,speed MAE1.237366m/s,
+  finite discounted cost2945.104150. Initial0/100,0.50544s,1.803970m/s,
+  3133.912248. Both fail the joint walking gate. Improvement is not reliable
+  walking and does not establish an exploration/sample-efficiency advantage.
+- Accepted3/200:1/40 at handover900,0/40 at500,2/120 root-only. All three
+  were best sampled whole policies; no synthesized ES proposal was accepted.
+  No teacher takeover or teacher whole-return target was used.
+- Critic evaluation was severely miscalibrated: current-learner Monte Carlo
+  RMSE1189.866 initially→2247149.500 finally; heldout Bellman RMSE
+  173.641→311760.813. These are adverse value-learning observations;
+  the single arm does not isolate their causal contribution to weak learning.
+- Recorded elapsed527.347s to last committed update;2449347policy controls,
+  6305teacher controls,9696768teacher-candidate controls,92446standalone
+  evaluation controls. Additional preselected rendering186controls is recorded
+  separately. No new evaluation panel or best-checkpoint selection was added.
+- [Portable final record](experiment_evidence/2026-10-25_option1_mppi_experience_walking_seed0/README.md)
+  and generated completion reports/plots/videos are preserved under
+  `runs/2026-10-25_option1_mppi_experience_walking_seed0_001/completion/`.
+  One training seed, differing settings from historical studies, no matched
+  control. Keep this bounded negative result; do not silently extend or retune.
+- Final evidence delivered during the Obsidian review task; completion
+  automation`finish-option-1-walking-trial` was deleted after verification.
+
+### Obsidian experiment review (2026-10-25)
+
+- User requested a concise review of the complete logged experiment history.
+  Saved `MPPI GPS/Experiment summary 2026-10-25.md` in the labspace vault,
+  grouping repeated seeds/smokes while retaining completed, stopped,
+  interrupted and unexecuted distinctions. Includes final option1 results,
+  links to evidence, historical SAC/MDGPS/DAgger/selection studies and the
+  planner-memory/label/continuation diagnostics. Source metrics were reviewed
+  against the log and available raw reports; no training was launched for
+  this documentation request.
