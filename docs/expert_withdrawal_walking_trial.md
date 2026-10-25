@@ -1,6 +1,6 @@
 # Independent-expert withdrawal: bounded walking trial preregistration
 
-Status: running a single-training-seed walking attempt at immutable revision `47217b4a6f819a4aee7fa8af7cddfd69d712dbbb`, driver PID353962, started2026-10-25T15:18:33UTC. Configuration is fixed below. This is a substantive capability trial of the current formulation, not a comparison, tuning sweep, novelty claim or sample-efficiency experiment. The earlier completed studies and implementation validations remain unchanged.
+Status: **interrupted after22updates; latest policy fails the walking gate**. Immutable revision `47217b4a6f819a4aee7fa8af7cddfd69d712dbbb`, driver PID353962, started2026-10-25T15:18:33UTC; the driver is now absent and no configured final evaluation was written. See the [recovery result](experiment_evidence/2026-10-25_expert_withdrawal_walking_seed0/README.md). The original source/configuration and raw stale status are preserved. This is a substantive capability trial of the current formulation, not a comparison, tuning sweep, novelty claim or sample-efficiency experiment. The earlier completed studies and implementation validations remain unchanged.
 
 ## Working question and fixed success criterion
 

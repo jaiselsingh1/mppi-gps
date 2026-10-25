@@ -4093,3 +4093,110 @@ reward-learning study remains a draft until the diagnostic is recorded.
   Reset panel11060000–11060099 is development evidence (first16 previously
   used in a smoke), not a new held-out qualification set. Reserved final
   resets remain untouched. No walking, exploration or efficiency result yet.
+
+### Mechanism review — assisted improvement versus standalone behavior (2026-10-25)
+
+- [Full derivation, evidence audit and bounded next assay](assistance_transfer_mechanism.md).
+  The running walking trial, its frozen source/configuration and all its
+  artifacts remain unchanged. No additional Walker training was launched.
+- Executed the existing coordinated-action example with an exact assisted
+  gradient step: policy `(.5,0) -> (.55,0)` improves assisted cost
+  `.3125 -> .278125` while worsening standalone cost `.5625 -> .580625`.
+  The exact identity `J = A_L + gamma^L E[V_policy - V_expert_restart]`
+  attributes the difference to a growing completion gap; critic error,
+  expressivity and failed optimization are unnecessary for this counterexample.
+- Added `scripts/diagnostics/assistance_transfer_check.py`. Fresh evidence:
+  `runs/2026-10-25_assistance_transfer_check_001/results.json`, with source
+  hash/copy. Analytic assertions also cover own-return reverse handover,
+  reset-distribution interference and finite absorbing costs. Repeat output
+  directory reuse is rejected. This is an analytic check, not locomotion or
+  exploration-performance evidence.
+- Recomputed the completed mixed-smoke critic on identical saved queries:
+  train RMSE 7.071677, holdout RMSE 36.850187. Only four fit/two holdout
+  single-seed targets exist. The completed mixed smoke has zero accepted
+  assisted updates; its accepted update is at full N. Current evidence
+  therefore validates ownership/withdrawal plumbing, not assisted transfer.
+- Recommendation: independent MPPI supplies executed reachable handover
+  states; the learner optimizes its own entire suffix, with progressively
+  earlier handover and paired root-return admission. This has Jump-Start RL
+  precedent and remains vulnerable to state-distribution interference and
+  optimization stalls. The proposed small mechanism assay is documented,
+  **not launched**; no larger study follows without its fixed continuation gate.
+- Validation: 73 focused takeover, coordinated-action, expert-value,
+  withdrawal and parameter-search tests pass. No existing training code changed.
+
+### Walking-trial interim check at nine completed updates (2026-10-25,16:36UTC)
+
+- Frozen driver PID353962 remains active, source hashes unchanged:9updates,
+  3accepted, currently at L128 (1.024seconds), stage update5 of at most40.
+  Recent candidate scoring uses the declared exact-takeover fallback.
+- Independently evaluated the latest completed checkpoint `policy_0008.pt`
+  on the same100 development resets11060000–11060099 for1000controls,
+  deterministic actor alone. Checkpoint SHA and all18 local executed-source
+  hashes matched the frozen protocol before evaluation. No source,
+  configuration, stopping rule or active experiment artifact was modified.
+- Standalone result:0/100 completions,0.52296s mean duration,
+  speed MAE1.731371m/s, finite discounted cost3099.290827. Initial:
+  0/100,0.51792s,1.731022m/s,3099.848534. The current policy fails the joint
+  walking gate and shows no meaningful walking improvement. This is interim,
+  not the final outcome or evidence for/against the new reverse-handover assay.
+- [Raw interim report](../runs/2026-10-25_expert_withdrawal_walking_seed0_001/interim/update_0008_20261025T1636Z/standalone.json)
+  retains checkpoint hash, full raw trace and local evaluation provenance.
+  Additional monitoring evaluation controls6537 are recorded separately in
+  that report, outside the immutable training driver's ledger.
+
+### Overnight walking trial interrupted; latest policy recovered (2026-10-25)
+
+- Driver353962 is absent, with22 completed updates/12accepted at L128.
+  L400 and full-N training were never reached. Original status is stale and
+  untouched; no configured final evaluation exists. This is an interrupted
+  run, not successful completion or a completed curriculum stall.
+- Latest checkpoint0021 independently evaluated on100 predeclared development
+  resets11060000–11060099,1000controls, no planner:0/100 survival,
+  mean duration0.57864s, speed MAE1.705040m/s, finite cost3084.402590.
+  Initial0/100,0.51792s,1.731022m/s,3099.848534. Small improvements do not
+  meet the joint walking gate or establish assistance transfer.
+- All18 source manifests and22 checkpoint hashes verified; source unchanged.
+  Last completed ledger:727754policy,1240523teacher,1908060672candidate,
+  6474initial-evaluation controls; elapsed9877.758s. Unknown in-flight work
+  is excluded. Recovery adds7233evaluation+72render controls separately.
+- Restarted log ends at14:03:14 America/New_York without a traceback;
+  observed server boot14:13:27 follows it. Stop cause is unconfirmed.
+  Do not conflate this with the earlier startup FD-exhaustion failure.
+- [Portable recovery record](experiment_evidence/2026-10-25_expert_withdrawal_walking_seed0/README.md),
+  [curves](../runs/2026-10-25_expert_withdrawal_walking_seed0_001/recovery/training_curves.png),
+  [standalone metrics](../runs/2026-10-25_expert_withdrawal_walking_seed0_001/recovery/standalone_metrics.png),
+  [preselected video](../runs/2026-10-25_expert_withdrawal_walking_seed0_001/recovery/latest_reset_11060000.mp4).
+
+### Option1: mixed independent-MPPI experience and learner-continuation value (2026-10-25)
+
+- User explicitly authorized implementation and a new walking training run.
+  [Frozen design and settings](mppi_experience_option1.md).
+  Independent MPPI supplies actual transitions and guide snapshots; every
+  healthy Q target follows the frozen current learner. Teacher whole-episode
+  returns and next teacher actions are not learner-return targets.
+- New critic uses twin finite-horizon cost evaluation on balanced teacher and
+  policy transitions, plus separate current-learner Monte Carlo calibration.
+  Parameter ES scores an own-policy H32 prefix plus a declared base-policy
+  Q tail. Both the ES policy and the best sampled whole policy are verified
+  through actual full candidate-policy rollouts; no teacher rescues/cloning.
+- Fixed handovers900/500/0 with40/40/120search iterations,32antithetic pairs,
+  actor64/critic128hidden units, one seed. Early normalized root/guide mixture
+  permits root tradeoffs; the final120iterations use ordinary roots only.
+  Stage changes are fixed budget changes, not mastery or walking claims.
+- Workers exchange serialized bytes instead of shared Torch tensors. Atomic
+  per-update state includes actor, critic/targets/optimizer and ledger; resume
+  validates frozen source/config. Unknown interrupted work is explicitly a
+  lower bound. Original experiments remain unchanged.
+- Standalone evaluation initially/every20/finally on100development resets
+  12900000–12900099 for1000controls. Joint gate≥90/100survival AND≤0.30m/sMAE.
+  No matched control, novelty, training-seed robustness or efficiency claim.
+- Status: prelaunch validation; isolated checkout
+  `/home/jaisel/mppi-gps-option1-walking-20261025-seed0-001`, planned study
+  `runs/2026-10-25_option1_mppi_experience_walking_seed0_001`.
+- Validation: full regression894passed,6skipped,3expected failures. New
+  tests cover delayed learner credit from mixed transitions, teacher-action
+  versus learner-bootstrap ownership, finite falls, independent teacher
+  execution, bytes-only worker payloads, actual-return acceptance and exact
+  control accounting. Real tiny CPU integration and completed/interrupted
+  resume paths pass. Server process-pool smoke is the remaining launch check.
