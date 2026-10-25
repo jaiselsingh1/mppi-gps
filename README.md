@@ -52,6 +52,9 @@ The separate [decoupled planning/value pilot](docs/decoupled_value_study.md)
 adds split proposals, rollout-verified discrete fallback and a policy-only
 TD(H) value in `scripts.training.train_decoupled_study`. It leaves the existing
 training entry points unchanged; learning quality remains an empirical question.
+The [expert-withdrawal formulation](docs/expert_withdrawal.md) learns an
+independent MPPI continuation value and searches complete learner-policy
+prefixes, increasing responsibility toward a fully standalone policy.
 
 [What MPPI-GPS optimizes](docs/objective.md) defines the method under test:
 MPPI samples around the policy's own rollout, takes one weighted update

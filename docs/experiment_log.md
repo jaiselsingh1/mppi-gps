@@ -4010,3 +4010,31 @@ reward-learning study remains a draft until the diagnostic is recorded.
 - Limitations: one paired training seed, own-policy state distributions,
   combined proposal/fallback and objective/gate changes. This pilot cannot
   establish exploration/sample efficiency, seeding necessity or global optimality.
+
+### Independent expert value and increasing policy responsibility (2026-10-25)
+
+- User request: investigate and implement the other earlier formulation.
+  The earlier chat proposal was recovered explicitly: measure independent
+  MPPI continuations, optimize a learner-controlled prefix for outcome, then
+  increase its responsibility until it acts alone. This is separate from the
+  drafted SAC study and the completed Vπ/split-proposal comparison.
+- Starting commit:`cde80a6`. [Formulation and entry point](expert_withdrawal.md).
+  New modules only; no completed experiment source or configuration changed.
+  The policy uses parameter-space ES on its own complete action prefixes;
+  actual paired takeover returns verify proposed updates on separate starts.
+  The expert value is explicitly finite-horizon V_MPPI(obs,remaining), fitted
+  to actual independent MPPI suffix outcomes. No policy-action regression.
+- Validation: full local regression870passed,6skipped,3expected failures;
+  two additional coordinated-action counterexample tests passed. The toy
+  verifies negative weak-policy advantage for expert action1, yet learns a
+  fully standalone two-action policy of cost0.20 versus expert0.25.
+- Status: implementation tested; bounded real-server validation pending.
+  Planned integration check: N64,prefixes1/64,at most2updates/stage,
+  two antithetic pairs,K8/H4,50value updates,256hidden units,two workers.
+  Separate full-withdrawal check: N1000,prefix1000,three updates,four pairs,
+  sixteen standalone evaluation episodes; no expert/value calls permitted.
+  These verify code paths and finite costs, not a gait-training benchmark.
+- Limits: expert competence at restart endpoints, critic extrapolation,
+  costly parameter search and curriculum stalls remain empirical questions.
+  Prior art includes expert cost-to-go/short-horizon policy search; no novelty,
+  exploration or sample-efficiency claim is made from these checks.
