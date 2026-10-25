@@ -3517,6 +3517,56 @@ within 0.03):
   - having the policy learn something other than MPPI's actions from it;
   - or a different trajectory optimizer that converges per decision.
 
+### Step 30 — what the carried-over plan chooses, physically (no training; predictions written before running)
+
+- Question: Step 23 found MPPI's labels at a state split into two clusters,
+  picked by the plan MPPI carries in. What is that choice in the body: which
+  leg steps, when it steps, or something else? The answer decides what a
+  student would need: memory, a multimodal output, or chunks of actions.
+- Raw material:
+  - Step 22's per-decision records (`runs/2026-10-24_label_variance_001/raw.npz`):
+    every anchor's 9 plans × 8 queries.
+  - The model (`assets/walker2d.xml`): the legs are identical except foot
+    friction (right 0.9, left 1.9), and the task cost has no leg-specific
+    term. Mirror gaits are therefore nearly equally good.
+  - Already measured on the raw labels before writing this: the difference
+    between the two clusters' means is 66% opposite-leg at the median
+    (random directions: 50%), and clearly leg-swap-like (over 80%) at 29% of
+    the 112 bimodal teacher anchors.
+- Method (`scripts/diagnostics/hidden_variable.py`,
+  `tests/test_hidden_variable.py`):
+  - At each bimodal teacher anchor, take the two plans whose queries sit
+    farthest apart along the labels' first principal axis.
+  - Re-record the anchor's exact state with Step 22's seeds; the script stops
+    if any label differs.
+  - From that state, run MPPI on from each plan for 125 controls (1 s), with
+    the same planner seed and no action noise.
+  - Compare the two branches: the first foot to touch down and when; the
+    share of controls whose foot contacts differ; and the joint-angle
+    distance as recorded, with one branch's legs swapped, and at the best
+    time shift within ±25 controls.
+- Command: `.venv/bin/python -m scripts.diagnostics.hidden_variable
+  --out-dir runs/2026-10-24_step30_hidden_variable_001`, on the Mac, a few
+  minutes.
+- Predictions:
+  1. Every re-recorded label matches Step 22's.
+  2. The two branches put down the same foot first at at least 60% of the
+     anchors, because the state fixes which leg is in the air.
+  3. Their first touchdowns differ by at least 5 controls (40 ms) at at least
+     half the anchors: the plan sets the timing.
+  4. Swapping legs brings the branches closer than they are as recorded at
+     fewer than 20% of anchors.
+- What each result changes:
+  - If 2 and 3 hold, the hidden variable is the step timing (gait phase). A
+    student with memory, or a teacher whose timing the state fixes, is the
+    candidate.
+  - If the first foot often differs, the hidden variable is a discrete
+    lead-leg choice. A multimodal student, or a convention that breaks the
+    left–right symmetry, is the candidate.
+  - If neither holds, the plan carries richer intent, and a student that
+    outputs chunks of actions (the plan itself) is the candidate.
+- Status: planned.
+
 Add one entry per question using the fields below:
 
 ```text
