@@ -4050,3 +4050,32 @@ reward-learning study remains a draft until the diagnostic is recorded.
   costly parameter search and curriculum stalls remain empirical questions.
   Prior art includes expert cost-to-go/short-horizon policy search; no novelty,
   exploration or sample-efficiency claim is made from these checks.
+
+### Independent-expert withdrawal: bounded walking training (2026-10-25)
+
+- User authorized a substantive walking attempt after the implementation-only
+  validations. One seed, no additional comparison arms. The
+  [frozen protocol](expert_withdrawal_walking_trial.md) fixes N1000,
+  prefixes1/8/32/128/400/1000, at most40 ES updates per stage,32 antithetic
+  pairs,8 training/4 calibration/4 verification starts,32 expert labels,
+  1000 value updates,16 workers and100 standalone evaluation episodes.
+- Prelaunch correction: insufficient healthy critic-fitting/calibration data
+  now trigger exact candidate takeover scoring. Failed prefixes retain finite
+  observed costs plus absorption; healthy prefixes receive actual independent
+  MPPI continuations. No invented critic, cloning loss, acceptance relaxation
+  or curriculum promotion was introduced. Focused regressions exercise both
+  an accepted all-fallen update and a rejected unsupported-calibration update,
+  including full endpoint/warmstart and simulation-accounting checks.
+- Prelaunch checks: focused withdrawal regressions24passed; the full suite
+  produced868passed,6skipped,3expected failures plus6 sandbox-only shared
+  memory errors. All21 tests in the affected integration files passed with
+  normal subprocess access, resolving all6 errors (874 distinct passes).
+- Status: prepared for isolated launch at
+  `/home/jaisel/mppi-gps-withdrawal-walking-20261025-seed0-001`, study
+  `runs/2026-10-25_expert_withdrawal_walking_seed0_001`. The launch record and
+  protocol retain executed revision, source hashes and exact command.
+- Fixed final gate:≥90/100 eight-second completions AND mean speed MAE≤0.30m/s,
+  policy alone. Evaluate the actual final policy even if curriculum stalls.
+  Reset panel11060000–11060099 is development evidence (first16 previously
+  used in a smoke), not a new held-out qualification set. Reserved final
+  resets remain untouched. No walking, exploration or efficiency result yet.

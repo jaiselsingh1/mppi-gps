@@ -80,6 +80,14 @@ counts distinguish policy execution, teacher execution and all teacher candidate
 planning. Final eight-second survival and velocity MAE remain the walking check;
 short-horizon smoke completions do not qualify walking.
 
+If fewer than two healthy training endpoints or no healthy calibration endpoints
+remain, the runner scores candidates with actual finite takeover costs instead
+of fitting an ungrounded value or aborting the search. Fallen prefixes need no
+teacher; healthy prefixes receive independently simulated suffixes. The fallback
+and its extra planning work are logged. The actual acceptance and curriculum
+criteria remain unchanged. The [bounded walking trial](expert_withdrawal_walking_trial.md)
+fixes one substantive run and its standalone success criterion.
+
 Implementation evidence is preserved in
 `runs/expert_withdrawal_validation_20261025_001/` and the
 [portable validation record](experiment_evidence/2026-10-25_expert_withdrawal_implementation/README.md).

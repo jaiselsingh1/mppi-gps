@@ -9,6 +9,7 @@ import numpy as np
 import pytest
 
 from scripts.training import train_expert_withdrawal as training
+from src.gps.expert_continuation import PrefixResult, Snapshot
 from src.gps.expert_value import ExpertValueTrainer
 
 
@@ -177,3 +178,149 @@ def test_mixed_cpu_run_withdraws_teacher_and_freezes_value_during_search(tmp_pat
         assert rows[0]["ledger_cumulative"][key] > 0
         assert rows[0]["ledger_cumulative"][key] == rows[-1]["ledger_cumulative"][key] == status["ledger"][key]
     assert len(list(out.glob("expert_data_*.npz"))) == len(list(out.glob("expert_value_*.pt"))) == 1
+
+
+def _fallback_jobs(monkeypatch, *, all_fallen):
+    """Finite measured objectives with independently checkable suffix accounting.
+
+    One searched actor bias controls a smooth cost. Training prefers +1; the
+    healthy/calibration-failure case has a verification panel preferring -1.
+    Thus the real ES proposal is useful on training, while the real paired
+    acceptance gate respectively accepts or rejects it.
+    """
+    dispatched, suffix_queries = [], []
+
+    def starts(seed, count, horizon):
+        return [Snapshot(np.array([seed + i, 0.]), np.array([.125, -.25]))
+                for i in range(count)]
+
+    def ledger(policy=0, teacher=0, iterations=0, planner=None):
+        return {"policy_controls": policy, "teacher_controls": teacher,
+                "teacher_candidate_controls": iterations * planner.K * planner.H if planner else 0,
+                "teacher_planner_calls": teacher,
+                "teacher_optimization_iterations": iterations}
+
+    def prefix(job):
+        # Root groups occupy the runner's declared disjoint reset blocks.
+        root = int(job["snapshot"].state[0])
+        calibration = 11_020_000 <= root < 11_040_000
+        verification = 11_040_000 <= root < 11_060_000
+        x = float(job["policy"]["actor"]["fc_mean.bias"][0])
+        target = -1. if verification and not all_fallen else 1.
+        fallen = all_fallen or calibration
+        controls = 1 if fallen else job["steps"]
+        raw = np.full(controls, (x - target) ** 2 + .25)
+        if fallen:
+            raw[-1] += 20.  # Already included exactly once in executed cost.
+        cost = float(np.dot(job["gamma"] ** np.arange(controls), raw))
+        observation = np.zeros(17); observation[0] = x
+        return PrefixResult(np.array([root, x]), job["snapshot"].warmstart.copy(),
+            observation, not fallen, cost, controls, job["steps"], fallen,
+            not fallen, raw, np.zeros((controls, 6)), job["gamma"], 5., ledger(policy=controls))
+
+    def teacher(job):
+        # The actual suffix has local cost 1 on every executed control. It
+        # consumes the supplied endpoint and its solver warmstart unchanged.
+        n = job["steps"]
+        iterations = n + job["planner"].initial_iterations - 1 if n else 0
+        return SimpleNamespace(cost=float(sum(job["gamma"] ** j for j in range(n))),
+            endpoint_state=job["snapshot"].state.copy(),
+            endpoint_warmstart=job["snapshot"].warmstart.copy(),
+            endpoint_obs=np.r_[job["snapshot"].state[1], np.zeros(16)],
+            healthy=True, steps=n, requested_steps=n, gamma=job["gamma"], terminated=False, truncated=True,
+            ledger=ledger(teacher=n, iterations=iterations, planner=job["planner"]))
+
+    def finite_cost(p, n, suffix=None):
+        if p.terminated:
+            tail = sum(5. * p.gamma ** j for j in range(n - p.steps))
+        else:
+            tail = 0. if p.steps == n else suffix.cost
+        return p.cost + p.gamma ** p.steps * tail
+
+    def job(item):
+        if item["kind"] == "prefix":
+            result = prefix(item)
+        elif item["kind"] == "teacher":
+            result = teacher(item)
+            suffix_queries.append((item, result))
+        else:
+            assert item["kind"] == "takeover"
+            p = prefix(item)
+            suffix = None
+            if p.healthy and p.steps < item["total_steps"]:
+                suffix = teacher({**item, "snapshot": p.snapshot,
+                                  "steps": item["total_steps"] - p.steps})
+            counts = p.ledger.copy()
+            if suffix:
+                for key, value in suffix.ledger.items():
+                    counts[key] += value
+            result = SimpleNamespace(cost=finite_cost(p, item["total_steps"], suffix),
+                                     prefix=p, suffix=suffix, ledger=counts)
+        dispatched.append((item, result))
+        return result
+
+    monkeypatch.setattr(training, "_starts", starts)
+    monkeypatch.setattr(training, "_job", job)
+    monkeypatch.setattr(training.ExpertValueTrainer, "fit",
+                        lambda *a, **k: pytest.fail("Unavailable data fabricated an expert critic"))
+    monkeypatch.setattr(training.ExpertValueTrainer, "snapshot",
+                        lambda *a, **k: pytest.fail("Fallback queried a fabricated expert critic"))
+    return dispatched, suffix_queries, finite_cost
+
+
+@pytest.mark.parametrize("all_fallen", [True, False], ids=["all-fallen", "no-healthy-calibration"])
+def test_unavailable_value_uses_measured_fallback_and_continues_search(tmp_path, monkeypatch, all_fallen):
+    dispatched, suffix_queries, finite_cost = _fallback_jobs(monkeypatch, all_fallen=all_fallen)
+    out = tmp_path / ("fallen" if all_fallen else "calibration")
+    cfg = _tiny(prefix_schedule=(1, 8), updates_per_stage=1, gamma=.5,
+                teacher_K=4, teacher_H=2, teacher_initial_iterations=2,
+                teacher_tolerance=1e6)
+    training.run(out, cfg)
+    status = _check_final_artifacts(out, 2)
+    rows = _rows(out)
+    assert [row["prefix_steps"] for row in rows] == [1, 8]
+    assert all(row["expert_value_fit"] is None for row in rows)
+    assert rows[0]["scoring_mode"] == "exact_takeover"
+    assert rows[0]["expert_value_unavailable_reason"] == (
+        "insufficient healthy expert-value training endpoints" if all_fallen
+        else "no healthy expert-value calibration endpoints")
+    assert not status.get("stall_reason")
+    assert not list(out.glob("expert_data_*.npz")) and not list(out.glob("expert_value_*.pt"))
+
+    # Reconstruct every candidate's finite objective without the runner's
+    # helper: the falling transition contains20 once; only the missing
+    # controls absorb5. Healthy fallback tails start at gamma**prefix.steps.
+    first_prefixes = [result for item, result in dispatched
+                      if item["kind"] == "prefix" and item["steps"] == 1
+                      and int(item["snapshot"].state[0]) < 11_020_000]
+    assert len(first_prefixes) == (1 + 2 * cfg.pairs) * cfg.train_starts
+    expected = []
+    for p in first_prefixes:
+        tail = None if p.terminated else SimpleNamespace(
+            cost=sum(cfg.gamma ** j for j in range(cfg.total_steps - p.steps)))
+        expected.append(finite_cost(p, cfg.total_steps, tail))
+    expected = np.asarray(expected).reshape(1 + 2 * cfg.pairs, cfg.train_starts).mean(axis=1)
+    assert rows[0]["estimated_base_cost"] == pytest.approx(expected[0])
+    assert rows[0]["candidate_costs"] == pytest.approx(expected[1:])
+
+    assert rows[0]["train_proposed_cost"] < rows[0]["train_base_cost"]
+    if all_fallen:
+        assert rows[0]["verification_proposed_cost"] < rows[0]["verification_base_cost"]
+        assert rows[0]["accepted"]
+        # A fallen endpoint never invokes an expert, although the curriculum
+        # still measures its separate pure-teacher reference from reset roots.
+        assert all(len(item["snapshot"].state) == 2 and item["snapshot"].state[1] == 0.
+                   for item, _ in suffix_queries)
+    else:
+        assert rows[0]["verification_proposed_cost"] > rows[0]["verification_base_cost"]
+        assert not rows[0]["accepted"]
+        endpoint_queries = [(item, result) for item, result in suffix_queries if item["steps"] == 7]
+        assert len(endpoint_queries) >= len(first_prefixes)
+        for p in first_prefixes:
+            assert any(np.array_equal(item["snapshot"].state, p.endpoint_state)
+                       and np.array_equal(item["snapshot"].warmstart, p.endpoint_warmstart)
+                       for item, _ in endpoint_queries)
+
+    for key in ("policy_controls", "teacher_controls", "teacher_candidate_controls",
+                "teacher_planner_calls", "teacher_optimization_iterations"):
+        assert status["ledger"][key] == sum(result.ledger[key] for _, result in dispatched)

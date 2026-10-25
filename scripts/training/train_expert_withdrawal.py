@@ -150,6 +150,30 @@ def prefix_objective(prefix: Any, *, total_steps: int, value: Any | None) -> flo
     return cost
 
 
+def candidate_objectives(prefixes: list[Any], *, total_steps: int, value: Any | None,
+                         exact_suffixes: dict[int, Any] | None = None) -> np.ndarray:
+    """Score the same takeover objective with a fitted or actually executed tail.
+
+    Failed prefixes remain informative even when no healthy endpoints exist to
+    fit a value model. Exact suffixes are used only when that model cannot be
+    grounded; they never turn an MPPI action into a policy training target.
+    """
+    costs = []
+    for i, prefix in enumerate(prefixes):
+        remaining = total_steps - prefix.steps
+        if not prefix.terminated and remaining > 0 and exact_suffixes is not None:
+            suffix = exact_suffixes[i]
+            if suffix.requested_steps != remaining or suffix.gamma != prefix.gamma:
+                raise ValueError("Exact suffix must match the remaining horizon and discount")
+            cost = float(prefix.cost + prefix.gamma ** prefix.steps * suffix.cost)
+        else:
+            cost = prefix_objective(prefix, total_steps=total_steps, value=value)
+        if not np.isfinite(cost):
+            raise FloatingPointError("Nonfinite candidate objective")
+        costs.append(cost)
+    return np.asarray(costs)
+
+
 def _standalone(actor: TanhMLPPolicy, directory: Path, name: str,
                 cfg: WithdrawalConfig) -> dict[str, Any]:
     trace = directory / f"{name}.npz"
@@ -206,7 +230,7 @@ def run(out_dir: Path, cfg: WithdrawalConfig) -> None:
         "source_sha256": hashes, "environment": provenance(),
         "git_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "objective": "Own policy prefix then independent fresh-plan MPPI for exactly N-L controls; finite discounted raw task cost. Expert cost is not Vpi or standalone return.",
-        "policy_update": "Antithetic parameter-space ES; frozen expert value; actual paired takeovers must improve on both training and separate verification starts. No action-cloning loss.",
+        "policy_update": "Antithetic parameter-space ES; frozen expert value, or exact takeover scoring if healthy fit/calibration data are unavailable; actual paired takeovers must improve on both training and separate verification starts. No action-cloning loss.",
         "curriculum": "Advance short stages only when actual verification cost is within declared tolerance of pure MPPI. Exhaustion stalls honestly. The final full-N stage uses no expert/value and runs its configured updates.",
         "interpretation": "Implementation/feasibility run, not an exploration or sample-efficiency benchmark."})
     torch.save(actor.policy_state(), out_dir / "policy_initial.pt")
@@ -246,60 +270,69 @@ def run(out_dir: Path, cfg: WithdrawalConfig) -> None:
                 prefixes = evaluate(jobs)
                 fit_log = None
                 snapshot_value = None
+                exact_suffixes = None
+                scoring_mode = "standalone_exact" if prefix_steps == cfg.total_steps else "expert_value"
+                unavailable_reason = None
                 if prefix_steps < cfg.total_steps:
                     eligible = [i for i, prefix in enumerate(prefixes) if prefix.healthy]
                     selected = [eligible[i] for i in np.linspace(0, len(eligible) - 1,
                         min(cfg.value_labels, len(eligible)), dtype=int)] if eligible else []
-                    if len(selected) < 2:
-                        status["stall_reason"] = "insufficient healthy expert-value training endpoints"
-                        stalled = True
-                        break
-                    suffix_jobs = [{**common, "kind": "teacher", "snapshot": prefixes[i].snapshot,
-                        "steps": cfg.total_steps - prefix_steps,
-                        "planner_seed": 20_000_000 + cfg.seed * 100_000 + iteration * 1000 + i % cfg.train_starts}
-                        for i in selected]
-                    suffixes = evaluate(suffix_jobs)
                     held_prefixes = evaluate([{**common, "kind": "prefix", "snapshot": s,
-                        "policy": actor.policy_state()} for s in calibration])
+                        "policy": actor.policy_state()} for s in calibration]) if len(selected) >= 2 else []
                     held_eligible = [i for i, p in enumerate(held_prefixes) if p.healthy]
-                    if not held_eligible:
-                        status["stall_reason"] = "no healthy expert-value calibration endpoints"
-                        stalled = True
-                        break
-                    held_suffixes = evaluate([{**common, "kind": "teacher", "snapshot": held_prefixes[i].snapshot,
-                        "steps": cfg.total_steps - prefix_steps,
-                        "planner_seed": 30_000_000 + cfg.seed * 100_000 + iteration * 1000 + i}
-                        for i in held_eligible])
-                    training_ids = [base_seed + iteration * cfg.train_starts + i % cfg.train_starts for i in selected]
-                    held_ids = [base_seed + 20_000 + iteration * cfg.calibration_starts + i for i in held_eligible]
-                    def dataset(rows, targets, ids):
-                        return ExpertValueData(np.asarray([p.endpoint_obs for p in rows]),
-                            np.asarray([p.cost for p in targets]), np.full(len(rows), cfg.total_steps - prefix_steps),
-                            np.asarray(ids), source=EXPERT_SOURCE,
-                            provenance={"planner": json.dumps(asdict(planner)), "expert_id": expert_identity})
-                    selected_prefixes = [prefixes[i] for i in selected]
-                    training_data = dataset(selected_prefixes, suffixes, training_ids)
-                    held_data = dataset([held_prefixes[i] for i in held_eligible], held_suffixes, held_ids)
-                    fit_log = value_trainer.fit(training_data, held_data, updates=cfg.value_updates,
-                        batch_size=cfg.value_batch_size, seed=cfg.seed * 1000 + iteration)
-                    snapshot_value = value_trainer.snapshot()
-                    np.savez_compressed(out_dir / f"expert_data_{iteration:04d}.npz",
-                        observations=training_data.observations, targets=training_data.cost_targets,
-                        remaining=training_data.remaining, reset_ids=training_data.reset_ids,
-                        states=np.asarray([p.endpoint_state for p in selected_prefixes]),
-                        warmstarts=np.asarray([p.endpoint_warmstart for p in selected_prefixes]),
-                        planner_seeds=np.asarray([j["planner_seed"] for j in suffix_jobs]),
-                        holdout_observations=held_data.observations, holdout_targets=held_data.cost_targets,
-                        holdout_remaining=held_data.remaining, holdout_reset_ids=held_data.reset_ids,
-                        holdout_states=np.asarray([held_prefixes[i].endpoint_state for i in held_eligible]),
-                        holdout_warmstarts=np.asarray([held_prefixes[i].endpoint_warmstart for i in held_eligible]),
-                        holdout_planner_seeds=np.asarray([30_000_000 + cfg.seed * 100_000 + iteration * 1000 + i
-                                                        for i in held_eligible]),
-                        source=EXPERT_SOURCE, expert_id=expert_identity, gamma=cfg.gamma,
-                        total_steps=cfg.total_steps)
-                    torch.save(value_trainer.state_dict(), out_dir / f"expert_value_{iteration:04d}.pt")
-                estimates = np.array([prefix_objective(p, total_steps=cfg.total_steps, value=snapshot_value)
-                                      for p in prefixes]).reshape(len(policies), cfg.train_starts).mean(axis=1)
+                    if len(selected) >= 2 and held_eligible:
+                        suffix_jobs = [{**common, "kind": "teacher", "snapshot": prefixes[i].snapshot,
+                            "steps": cfg.total_steps - prefix_steps,
+                            "planner_seed": 20_000_000 + cfg.seed * 100_000 + iteration * 1000 + i % cfg.train_starts}
+                            for i in selected]
+                        suffixes = evaluate(suffix_jobs)
+                        held_suffixes = evaluate([{**common, "kind": "teacher", "snapshot": held_prefixes[i].snapshot,
+                            "steps": cfg.total_steps - prefix_steps,
+                            "planner_seed": 30_000_000 + cfg.seed * 100_000 + iteration * 1000 + i}
+                            for i in held_eligible])
+                        training_ids = [base_seed + iteration * cfg.train_starts + i % cfg.train_starts for i in selected]
+                        held_ids = [base_seed + 20_000 + iteration * cfg.calibration_starts + i for i in held_eligible]
+                        def dataset(rows, targets, ids):
+                            return ExpertValueData(np.asarray([p.endpoint_obs for p in rows]),
+                                np.asarray([p.cost for p in targets]), np.full(len(rows), cfg.total_steps - prefix_steps),
+                                np.asarray(ids), source=EXPERT_SOURCE,
+                                provenance={"planner": json.dumps(asdict(planner)), "expert_id": expert_identity})
+                        selected_prefixes = [prefixes[i] for i in selected]
+                        training_data = dataset(selected_prefixes, suffixes, training_ids)
+                        held_data = dataset([held_prefixes[i] for i in held_eligible], held_suffixes, held_ids)
+                        fit_log = value_trainer.fit(training_data, held_data, updates=cfg.value_updates,
+                            batch_size=cfg.value_batch_size, seed=cfg.seed * 1000 + iteration)
+                        snapshot_value = value_trainer.snapshot()
+                        np.savez_compressed(out_dir / f"expert_data_{iteration:04d}.npz",
+                            observations=training_data.observations, targets=training_data.cost_targets,
+                            remaining=training_data.remaining, reset_ids=training_data.reset_ids,
+                            states=np.asarray([p.endpoint_state for p in selected_prefixes]),
+                            warmstarts=np.asarray([p.endpoint_warmstart for p in selected_prefixes]),
+                            planner_seeds=np.asarray([j["planner_seed"] for j in suffix_jobs]),
+                            holdout_observations=held_data.observations, holdout_targets=held_data.cost_targets,
+                            holdout_remaining=held_data.remaining, holdout_reset_ids=held_data.reset_ids,
+                            holdout_states=np.asarray([held_prefixes[i].endpoint_state for i in held_eligible]),
+                            holdout_warmstarts=np.asarray([held_prefixes[i].endpoint_warmstart for i in held_eligible]),
+                            holdout_planner_seeds=np.asarray([30_000_000 + cfg.seed * 100_000 + iteration * 1000 + i
+                                                            for i in held_eligible]),
+                            source=EXPERT_SOURCE, expert_id=expert_identity, gamma=cfg.gamma,
+                            total_steps=cfg.total_steps)
+                        torch.save(value_trainer.state_dict(), out_dir / f"expert_value_{iteration:04d}.pt")
+                    else:
+                        # A fall supplies an exact finite return, not grounds for
+                        # aborting ES. Healthy survivors get an actual expert tail
+                        # when a held-out value fit cannot yet be grounded.
+                        unavailable_reason = ("insufficient healthy expert-value training endpoints"
+                            if len(selected) < 2 else "no healthy expert-value calibration endpoints")
+                        scoring_mode = "exact_takeover"
+                        exact_jobs = [{**common, "kind": "teacher", "snapshot": prefixes[i].snapshot,
+                            "steps": cfg.total_steps - prefixes[i].steps,
+                            "planner_seed": 20_000_000 + cfg.seed * 100_000 + iteration * 1000 + i % cfg.train_starts}
+                            for i in eligible]
+                        exact_suffixes = dict(zip(eligible, evaluate(exact_jobs)))
+                estimates = candidate_objectives(prefixes, total_steps=cfg.total_steps,
+                    value=snapshot_value, exact_suffixes=exact_suffixes).reshape(
+                        len(policies), cfg.train_starts).mean(axis=1)
                 proposal = propose_es_update(candidates, estimates[1:], learning_rate=cfg.parameter_lr,
                     max_step_norm=cfg.max_step_norm, normalize_costs=cfg.normalize_costs)
                 proposed = candidates.space.actor_copy(actor, proposal.proposed_parameters)
@@ -337,6 +370,7 @@ def run(out_dir: Path, cfg: WithdrawalConfig) -> None:
                     "teacher_reference_cost": teacher_reference, "stage_advanced": bool(advanced),
                     "estimated_base_cost": float(estimates[0]), "candidate_costs": estimates[1:].tolist(),
                     "parameter_step_norm": proposal.step_norm, "expert_value_fit": fit_log,
+                    "scoring_mode": scoring_mode, "expert_value_unavailable_reason": unavailable_reason,
                     "expert_assistance": prefix_steps < cfg.total_steps,
                     "checkpoint_sha256": _hash(checkpoint), "ledger_cumulative": dict(ledger)}
                 with (out_dir / "metrics.jsonl").open("a") as stream:
