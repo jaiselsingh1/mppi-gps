@@ -3967,9 +3967,46 @@ reward-learning study remains a draft until the diagnostic is recorded.
   arms complete two iterations in CPU and real5090 GPU smoke tests. Local
   regression:787 passed,6 skipped,3 expected failures; six sandbox-only shared
   memory failures passed on rerun with subprocess access (21 tests passed).
-- Status: implementation validated; full15-iteration study pending launch.
+- Status: complete, all four arms15/15, `source_unchanged=true`, no report
+  validation warnings. Ran committed/pushed `248f835` from05:28UTC for
+  2,012.6 training seconds. Isolated
+  server checkout `/home/jaisel/mppi-gps-decoupled-20261025-h7d2_fjq`,
+  persistent driver PID62870, study
+  `runs/2026-10-25_decoupled_value_15_seed0_001/`. Full-size first-iteration
+  label batches passed; CUDA memory about2.3GB. Source/configuration and
+  initial checkpoint fingerprints are saved with a107-file source copy.
+  The full study and driver log are mirrored locally.
   Primary development evaluations are fixed at iterations5/10/15 on100 resets
   8600000–8600099 for1000 controls, no planner. Reserved final resets untouched.
+- Final standalone results (survival/100, mean duration, velocity MAE,
+  adjusted return): initial0/100,0.51744s,1.735645,-1256.28;
+  Anchor0/100,1.78600s,0.635169,-1362.61;
+  Selective0/100,1.71976s,0.716738,-1395.49;
+  Split-Medoid0/100,1.76984s,0.706126,-1389.79;
+  Split-Medoid-Critic0/100,1.54200s,1.208807,-1524.88.
+  All fail the joint90% survival /0.30m/s MAE development gate.
+- Mechanical result: the saddle test and actual Walker fallback work;
+  Split-Medoid rescues1150/1150 collapse-proxy cases and the critic arm907/907.
+  Every arm applies30,000 policy optimizer updates; no empty-weight skips.
+  All four start with identical parameters. Actual-policy value data remain
+  separate from accepted plans. Successful full-plan verification does not
+  certify the fitted policy's closed-loop behavior.
+- Learning result: Split-Medoid minus Selective final MAE difference is
+  -0.0106m/s (paired reset95% interval[-0.0380,0.0134]); no clear final benefit.
+  Critic minus Split-Medoid is+0.5027m/s[0.4213,0.5898], worse in this seed.
+  First-three candidate counts match380,633,088 controls each; the critic uses
+  92,274,688 candidate controls and93,094,307 total ledgered controls.
+  Reduced simulation work has not established better learning efficiency.
+- Decision: retain the bounded negative result and implementation; revise
+  before claiming a working new walking algorithm. A policy-only tail/value
+  leaves the optimized H-prefix / first-action distillation gap unresolved;
+  this experiment does not identify it as the cause. Do not extend or retune
+  this frozen study based on its results.
+- Evidence: [portable final record](experiment_evidence/2026-10-25_decoupled_value_15_seed0/README.md),
+  [full comparison](../runs/2026-10-25_decoupled_value_15_seed0_001/comparison.md),
+  [learning curves](../runs/2026-10-25_decoupled_value_15_seed0_001/learning_curves.png),
+  [standalone plot](../runs/2026-10-25_decoupled_value_15_seed0_001/standalone_metrics.png),
+  [hash audit](../runs/2026-10-25_decoupled_value_15_seed0_001/operations/validation.json).
 - Limitations: one paired training seed, own-policy state distributions,
   combined proposal/fallback and objective/gate changes. This pilot cannot
   establish exploration/sample efficiency, seeding necessity or global optimality.
