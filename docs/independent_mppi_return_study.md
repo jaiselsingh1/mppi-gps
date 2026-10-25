@@ -1,5 +1,11 @@
 # Independent MPPI experience and long-return policy learning
 
+The user subsequently authorized testing the core research points after
+committing/pushing the completed work. The first authorized tests are the
+[bounded independence and continuation diagnostics](independent_teacher_diagnostics.md),
+which freeze existing policies/critics and do not launch the larger learning
+comparison below.
+
 **Research draft, not a launch protocol.** On 2026-10-24 the user first
 questioned adding SAC/a critic because the original goal was an alternative to
 standard policy-gradient methods, then reopened the critic idea as a possible
