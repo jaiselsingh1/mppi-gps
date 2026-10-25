@@ -80,6 +80,14 @@ counts distinguish policy execution, teacher execution and all teacher candidate
 planning. Final eight-second survival and velocity MAE remain the walking check;
 short-horizon smoke completions do not qualify walking.
 
+Implementation evidence is preserved in
+`runs/expert_withdrawal_validation_20261025_001/` and the
+[portable validation record](experiment_evidence/2026-10-25_expert_withdrawal_implementation/README.md).
+The real-server mixed-prefix smoke reached its full64-control stage; a separate
+1,000-control policy-search smoke made zero MPPI/value calls and accepted two
+of three measured parameter proposals. Its final policy still completed0/16
+eight-second episodes. These validate execution and withdrawal, not gait learning.
+
 Finite costs discount raw task costs, including the falling transition's terminal
 charge once, then add `gamma^h * 5 * sum(gamma^j, j=0..N-h-1)` after a fall.
 Healthy N-control cutoffs receive no extra suffix. The adapter's infinite

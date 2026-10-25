@@ -4028,12 +4028,24 @@ reward-learning study remains a draft until the diagnostic is recorded.
   two additional coordinated-action counterexample tests passed. The toy
   verifies negative weak-policy advantage for expert action1, yet learns a
   fully standalone two-action policy of cost0.20 versus expert0.25.
-- Status: implementation tested; bounded real-server validation pending.
-  Planned integration check: N64,prefixes1/64,at most2updates/stage,
+- Status: implemented in committed/pushed`66353f1`; both bounded real-server
+  validations complete with unchanged source. Integration check:
+  N64,prefixes1/64,at most2updates/stage,
   two antithetic pairs,K8/H4,50value updates,256hidden units,two workers.
-  Separate full-withdrawal check: N1000,prefix1000,three updates,four pairs,
-  sixteen standalone evaluation episodes; no expert/value calls permitted.
-  These verify code paths and finite costs, not a gait-training benchmark.
+  It reached the final stage in three total updates, fitted the expert value
+  once and accepted one parameter update. Separate full-withdrawal check:
+  N1000,prefix1000,three updates,four pairs,
+  sixteen standalone evaluation episodes; verified zero expert/value calls.
+  Two of three proposals passed both actual-return checks. Its final network
+  still scored0/16 eight-second completions,0.5185s mean duration and
+  1.724435m/s speed MAE. These verify code paths and finite costs, not gait
+  learning or a training benchmark.
+- Evidence: server checkout
+  `/home/jaisel/mppi-gps-withdrawal-validation-20261025-o0MD2E`, full local
+  evidence`runs/expert_withdrawal_validation_20261025_001/`, including both
+  runs/logs, raw expert targets, source copies and
+  [independent hash/withdrawal audit](../runs/expert_withdrawal_validation_20261025_001/validation.json).
+  [Portable record](experiment_evidence/2026-10-25_expert_withdrawal_implementation/README.md).
 - Limits: expert competence at restart endpoints, critic extrapolation,
   costly parameter search and curriculum stalls remain empirical questions.
   Prior art includes expert cost-to-go/short-horizon policy search; no novelty,
