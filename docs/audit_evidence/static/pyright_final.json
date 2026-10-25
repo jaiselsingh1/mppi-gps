@@ -1,0 +1,990 @@
+{
+    "version": "1.1.414",
+    "time": "1792778807606",
+    "generalDiagnostics": [
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Object of type \"Tensor\" is not callable\n  Attribute \"__call__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 98,
+                    "character": 22
+                },
+                "end": {
+                    "line": 98,
+                    "character": 53
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Object of type \"Tensor\" is not callable\n  Attribute \"__call__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 99,
+                    "character": 23
+                },
+                "end": {
+                    "line": 99,
+                    "character": 55
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Operator \"+\" not supported for types \"Tensor | Unknown\" and \"Tensor | Module\"\n  Operator \"+\" not supported for types \"Tensor\" and \"Module\"",
+            "range": {
+                "start": {
+                    "line": 107,
+                    "character": 14
+                },
+                "end": {
+                    "line": 107,
+                    "character": 73
+                }
+            },
+            "rule": "reportOperatorIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Operator \"*\" not supported for types \"Tensor\" and \"Tensor | Module\"\n  Operator \"*\" not supported for types \"Tensor\" and \"Module\"",
+            "range": {
+                "start": {
+                    "line": 107,
+                    "character": 15
+                },
+                "end": {
+                    "line": 107,
+                    "character": 52
+                }
+            },
+            "rule": "reportOperatorIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Argument of type \"Array\" cannot be assigned to parameter \"obs\" of type \"ndarray[_AnyShape, dtype[Any]]\" in function \"act\"\n  \"Array\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 156,
+                    "character": 41
+                },
+                "end": {
+                    "line": 156,
+                    "character": 69
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]] | NDArray[float64] | None\" cannot be assigned to parameter \"action\" of type \"ndarray[_AnyShape, dtype[Any]]\" in function \"step\"\n  Type \"ndarray[_AnyShape, dtype[Any]] | NDArray[float64] | None\" is not assignable to type \"ndarray[_AnyShape, dtype[Any]]\"\n    \"None\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 175,
+                    "character": 46
+                },
+                "end": {
+                    "line": 175,
+                    "character": 52
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "\"done\" is possibly unbound",
+            "range": {
+                "start": {
+                    "line": 183,
+                    "character": 57
+                },
+                "end": {
+                    "line": 183,
+                    "character": 61
+                }
+            },
+            "rule": "reportPossiblyUnboundVariable"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Argument of type \"Array\" cannot be assigned to parameter \"obs\" of type \"ndarray[_AnyShape, dtype[Any]]\" in function \"act\"\n  \"Array\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 207,
+                    "character": 64
+                },
+                "end": {
+                    "line": 207,
+                    "character": 92
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]]\" cannot be assigned to parameter \"states\" of type \"Array\" in function \"rollout_states_to_obs\"\n  \"ndarray[_AnyShape, dtype[Any]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 207,
+                    "character": 90
+                },
+                "end": {
+                    "line": 207,
+                    "character": 91
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Operator \"*\" not supported for types \"Tensor\" and \"Tensor | Module\"\n  Operator \"*\" not supported for types \"Tensor\" and \"Module\"",
+            "range": {
+                "start": {
+                    "line": 237,
+                    "character": 21
+                },
+                "end": {
+                    "line": 237,
+                    "character": 58
+                }
+            },
+            "rule": "reportOperatorIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Operator \"+\" not supported for types \"Tensor | Unknown\" and \"Tensor | Module\"\n  Operator \"+\" not supported for types \"Tensor\" and \"Module\"",
+            "range": {
+                "start": {
+                    "line": 237,
+                    "character": 21
+                },
+                "end": {
+                    "line": 237,
+                    "character": 78
+                }
+            },
+            "rule": "reportOperatorIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "No overloads for \"where\" match the provided arguments",
+            "range": {
+                "start": {
+                    "line": 332,
+                    "character": 29
+                },
+                "end": {
+                    "line": 332,
+                    "character": 101
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]] | None\" cannot be assigned to parameter \"x\" of type \"ArrayLike\" in function \"where\"\n  Type \"ndarray[_AnyShape, dtype[Any]] | None\" is not assignable to type \"ArrayLike\"\n    Type \"None\" is not assignable to type \"ArrayLike\"\n      \"None\" is incompatible with protocol \"_Buffer\"\n        \"__buffer__\" is not present\n      \"None\" is incompatible with protocol \"_SupportsArray[dtype[Any]]\"\n        \"__array__\" is not present\n      \"None\" is incompatible with protocol \"_NestedSequence[_SupportsArray[dtype[Any]]]\"\n        \"__len__\" is not present\n  ...",
+            "range": {
+                "start": {
+                    "line": 332,
+                    "character": 89
+                },
+                "end": {
+                    "line": 332,
+                    "character": 92
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Object of type \"None\" cannot be called",
+            "range": {
+                "start": {
+                    "line": 63,
+                    "character": 58
+                },
+                "end": {
+                    "line": 63,
+                    "character": 77
+                }
+            },
+            "rule": "reportOptionalCall"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"Graph | None\" cannot be assigned to parameter \"graph\" of type \"Graph\" in function \"capture_launch\"\n  Type \"Graph | None\" is not assignable to type \"Graph\"\n    \"None\" is not assignable to \"Graph\"",
+            "range": {
+                "start": {
+                    "line": 70,
+                    "character": 30
+                },
+                "end": {
+                    "line": 70,
+                    "character": 40
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Operator \"*\" not supported for types \"Tensor\" and \"Tensor | Module\"\n  Operator \"*\" not supported for types \"Tensor\" and \"Module\"",
+            "range": {
+                "start": {
+                    "line": 118,
+                    "character": 17
+                },
+                "end": {
+                    "line": 118,
+                    "character": 59
+                }
+            },
+            "rule": "reportOperatorIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Operator \"+\" not supported for types \"Tensor | Unknown\" and \"Tensor | Module\"\n  Operator \"+\" not supported for types \"Tensor\" and \"Module\"",
+            "range": {
+                "start": {
+                    "line": 118,
+                    "character": 17
+                },
+                "end": {
+                    "line": 118,
+                    "character": 84
+                }
+            },
+            "rule": "reportOperatorIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]]\" cannot be assigned to parameter \"states\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[_AnyShape, dtype[Any]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 128,
+                    "character": 32
+                },
+                "end": {
+                    "line": 128,
+                    "character": 38
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]]\" cannot be assigned to parameter \"actions\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[_AnyShape, dtype[Any]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 128,
+                    "character": 40
+                },
+                "end": {
+                    "line": 128,
+                    "character": 47
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"_Array[tuple[int], float64]\" cannot be assigned to parameter \"sensordata\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[tuple[int], dtype[float64]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 128,
+                    "character": 49
+                },
+                "end": {
+                    "line": 128,
+                    "character": 56
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Type \"Array\" is not assignable to return type \"ndarray[_AnyShape, dtype[Any]]\"\n  \"Array\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 130,
+                    "character": 19
+                },
+                "end": {
+                    "line": 130,
+                    "character": 23
+                }
+            },
+            "rule": "reportReturnType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]]\" cannot be assigned to parameter \"states\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[_AnyShape, dtype[Any]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 135,
+                    "character": 32
+                },
+                "end": {
+                    "line": 135,
+                    "character": 43
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]]\" cannot be assigned to parameter \"actions\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[_AnyShape, dtype[Any]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 135,
+                    "character": 45
+                },
+                "end": {
+                    "line": 135,
+                    "character": 70
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"_Array[tuple[int], float64]\" cannot be assigned to parameter \"sensordata\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[tuple[int], dtype[float64]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 135,
+                    "character": 72
+                },
+                "end": {
+                    "line": 135,
+                    "character": 110
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Type \"Array\" is not assignable to return type \"ndarray[_AnyShape, dtype[Any]]\"\n  \"Array\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 137,
+                    "character": 15
+                },
+                "end": {
+                    "line": 137,
+                    "character": 26
+                }
+            },
+            "rule": "reportReturnType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Object of type \"None\" is not subscriptable",
+            "range": {
+                "start": {
+                    "line": 157,
+                    "character": 43
+                },
+                "end": {
+                    "line": 157,
+                    "character": 54
+                }
+            },
+            "rule": "reportOptionalSubscript"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+            "severity": "error",
+            "message": "Argument of type \"float | None\" cannot be assigned to parameter \"target_fraction\" of type \"float\" in function \"temperature_for_neff_fraction\"\n  Type \"float | None\" is not assignable to type \"float\"\n    \"None\" is not assignable to \"float\"",
+            "range": {
+                "start": {
+                    "line": 180,
+                    "character": 63
+                },
+                "end": {
+                    "line": 180,
+                    "character": 91
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/mdgps.py",
+            "severity": "error",
+            "message": "\"mjtState\" is not a known attribute of module \"mujoco\"",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 22
+                },
+                "end": {
+                    "line": 15,
+                    "character": 30
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/mdgps.py",
+            "severity": "error",
+            "message": "\"MjData\" is not a known attribute of module \"mujoco\"",
+            "range": {
+                "start": {
+                    "line": 31,
+                    "character": 18
+                },
+                "end": {
+                    "line": 31,
+                    "character": 24
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/mdgps.py",
+            "severity": "error",
+            "message": "\"mj_setState\" is not a known attribute of module \"mujoco\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 11
+                },
+                "end": {
+                    "line": 32,
+                    "character": 22
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/mdgps.py",
+            "severity": "error",
+            "message": "\"mj_step\" is not a known attribute of module \"mujoco\"",
+            "range": {
+                "start": {
+                    "line": 43,
+                    "character": 19
+                },
+                "end": {
+                    "line": 43,
+                    "character": 26
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/mdgps.py",
+            "severity": "error",
+            "message": "\"mj_getState\" is not a known attribute of module \"mujoco\"",
+            "range": {
+                "start": {
+                    "line": 44,
+                    "character": 15
+                },
+                "end": {
+                    "line": 44,
+                    "character": 26
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/mdgps.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]] | None\" cannot be assigned to parameter \"sequence\" of type \"ndarray[_AnyShape, dtype[Any]]\" in function \"total_cost\"\n  Type \"ndarray[_AnyShape, dtype[Any]] | None\" is not assignable to type \"ndarray[_AnyShape, dtype[Any]]\"\n    \"None\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 122,
+                    "character": 29
+                },
+                "end": {
+                    "line": 122,
+                    "character": 46
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"Array\" cannot be assigned to parameter of type \"ndarray[_AnyShape, dtype[Any]]\"\n  \"Array\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 42,
+                    "character": 45
+                },
+                "end": {
+                    "line": 42,
+                    "character": 79
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"Any | Unknown | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | str | complex | bytes | _NestedSequence[complex | bytes | str] | ndarray[_AnyShape, dtype[float64]]\" cannot be assigned to parameter \"states\" of type \"Array\" in function \"rollout_states_to_obs\"\n  Type \"Any | Unknown | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | str | complex | bytes | _NestedSequence[complex | bytes | str] | ndarray[_AnyShape, dtype[float64]]\" is not assignable to type \"Array\"\n    \"bytes\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 42,
+                    "character": 71
+                },
+                "end": {
+                    "line": 42,
+                    "character": 78
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "\"__getitem__\" method not defined on type \"_Buffer\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 33
+                }
+            },
+            "rule": "reportIndexIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "\"__getitem__\" method not defined on type \"_SupportsArray[dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 33
+                }
+            },
+            "rule": "reportIndexIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"tuple[slice[None, None, None], Literal[-1]]\" cannot be assigned to parameter \"index\" of type \"int\" in function \"__getitem__\"\n  \"tuple[slice[None, None, None], Literal[-1]]\" is not assignable to \"int\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 40
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "\"__getitem__\" method not defined on type \"complex\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 33
+                }
+            },
+            "rule": "reportIndexIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "No overloads for \"__getitem__\" match the provided arguments",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 40
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"tuple[slice[None, None, None], Literal[-1]]\" cannot be assigned to parameter \"key\" of type \"slice[SupportsIndex | None, SupportsIndex | None, SupportsIndex | None]\" in function \"__getitem__\"\n  \"tuple[slice[None, None, None], Literal[-1]]\" is not assignable to \"slice[SupportsIndex | None, SupportsIndex | None, SupportsIndex | None]\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 40
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"tuple[slice[None, None, None], Literal[-1]]\" cannot be assigned to parameter \"key\" of type \"SupportsIndex | slice[SupportsIndex | None, SupportsIndex | None, SupportsIndex | None]\" in function \"__getitem__\"\n  Type \"tuple[slice[None, None, None], Literal[-1]]\" is not assignable to type \"SupportsIndex | slice[SupportsIndex | None, SupportsIndex | None, SupportsIndex | None]\"\n    \"tuple[slice[None, None, None], Literal[-1]]\" is incompatible with protocol \"SupportsIndex\"\n      \"__index__\" is not present\n    \"tuple[slice[None, None, None], Literal[-1]]\" is not assignable to \"slice[SupportsIndex | None, SupportsIndex | None, SupportsIndex | None]\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 40
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Object of type \"None\" is not subscriptable",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 26
+                },
+                "end": {
+                    "line": 45,
+                    "character": 33
+                }
+            },
+            "rule": "reportOptionalSubscript"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"_Array[tuple[int, int, int], float64]\" cannot be assigned to parameter \"states\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[tuple[int, int, int], dtype[float64]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 49,
+                    "character": 42
+                },
+                "end": {
+                    "line": 49,
+                    "character": 53
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"_Array[tuple[int, int, int], float64]\" cannot be assigned to parameter \"actions\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[tuple[int, int, int], dtype[float64]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 49,
+                    "character": 55
+                },
+                "end": {
+                    "line": 49,
+                    "character": 67
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/gps/policy_tail.py",
+            "severity": "error",
+            "message": "Argument of type \"_Array[tuple[int, int, int], float64]\" cannot be assigned to parameter \"sensordata\" of type \"Array\" in function \"rollout_cost\"\n  \"ndarray[tuple[int, int, int], dtype[float64]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 49,
+                    "character": 69
+                },
+                "end": {
+                    "line": 49,
+                    "character": 79
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/gate.py",
+            "severity": "error",
+            "message": "Argument of type \"int\" cannot be assigned to parameter \"cost_style\" of type \"str\" in function \"__init__\"\n  \"int\" is not assignable to \"str\"",
+            "range": {
+                "start": {
+                    "line": 78,
+                    "character": 31
+                },
+                "end": {
+                    "line": 78,
+                    "character": 38
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/gate.py",
+            "severity": "error",
+            "message": "Argument of type \"int\" cannot be assigned to parameter \"apply_terminal_cost_on_done\" of type \"bool\" in function \"__init__\"\n  \"int\" is not assignable to \"bool\"",
+            "range": {
+                "start": {
+                    "line": 78,
+                    "character": 31
+                },
+                "end": {
+                    "line": 78,
+                    "character": 38
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/gate.py",
+            "severity": "error",
+            "message": "Argument of type \"ndarray[_AnyShape, dtype[Any]]\" cannot be assigned to parameter \"states\" of type \"Array\" in function \"rollout_states_to_obs\"\n  \"ndarray[_AnyShape, dtype[Any]]\" is not assignable to \"Array\"",
+            "range": {
+                "start": {
+                    "line": 122,
+                    "character": 50
+                },
+                "end": {
+                    "line": 122,
+                    "character": 60
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/gate.py",
+            "severity": "error",
+            "message": "Argument of type \"Array\" cannot be assigned to parameter \"obs\" of type \"ndarray[_AnyShape, dtype[Any]]\" in function \"act\"\n  \"Array\" is not assignable to \"ndarray[_AnyShape, dtype[Any]]\"",
+            "range": {
+                "start": {
+                    "line": 124,
+                    "character": 41
+                },
+                "end": {
+                    "line": 124,
+                    "character": 44
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/gate_v2.py",
+            "severity": "error",
+            "message": "Argument of type \"int\" cannot be assigned to parameter \"cost_style\" of type \"str\" in function \"__init__\"\n  \"int\" is not assignable to \"str\"",
+            "range": {
+                "start": {
+                    "line": 80,
+                    "character": 31
+                },
+                "end": {
+                    "line": 80,
+                    "character": 68
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/gate_v2.py",
+            "severity": "error",
+            "message": "Argument of type \"int\" cannot be assigned to parameter \"apply_terminal_cost_on_done\" of type \"bool\" in function \"__init__\"\n  \"int\" is not assignable to \"bool\"",
+            "range": {
+                "start": {
+                    "line": 80,
+                    "character": 31
+                },
+                "end": {
+                    "line": 80,
+                    "character": 68
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "No overloads for \"isclose\" match the provided arguments",
+            "range": {
+                "start": {
+                    "line": 52,
+                    "character": 19
+                },
+                "end": {
+                    "line": 52,
+                    "character": 79
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "Argument of type \"float | None\" cannot be assigned to parameter \"a\" of type \"ArrayLike\" in function \"isclose\"\n  Type \"float | None\" is not assignable to type \"ArrayLike\"\n    Type \"None\" is not assignable to type \"ArrayLike\"\n      \"None\" is incompatible with protocol \"_Buffer\"\n        \"__buffer__\" is not present\n      \"None\" is incompatible with protocol \"_SupportsArray[dtype[Any]]\"\n        \"__array__\" is not present\n      \"None\" is incompatible with protocol \"_NestedSequence[_SupportsArray[dtype[Any]]]\"\n        \"__len__\" is not present\n  ...",
+            "range": {
+                "start": {
+                    "line": 52,
+                    "character": 30
+                },
+                "end": {
+                    "line": 52,
+                    "character": 63
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"_dt\" for class \"BaseEnv\"\n  Attribute \"_dt\" is unknown",
+            "range": {
+                "start": {
+                    "line": 52,
+                    "character": 75
+                },
+                "end": {
+                    "line": 52,
+                    "character": 78
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "\"info\" is possibly unbound",
+            "range": {
+                "start": {
+                    "line": 121,
+                    "character": 8
+                },
+                "end": {
+                    "line": 121,
+                    "character": 12
+                }
+            },
+            "rule": "reportPossiblyUnboundVariable"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "\"action\" is possibly unbound",
+            "range": {
+                "start": {
+                    "line": 122,
+                    "character": 15
+                },
+                "end": {
+                    "line": 122,
+                    "character": 21
+                }
+            },
+            "rule": "reportPossiblyUnboundVariable"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "\"info\" is possibly unbound",
+            "range": {
+                "start": {
+                    "line": 122,
+                    "character": 23
+                },
+                "end": {
+                    "line": 122,
+                    "character": 27
+                }
+            },
+            "rule": "reportPossiblyUnboundVariable"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "Expression with type \"tuple[ndarray[_AnyShape, dtype[Any]], ndarray[_AnyShape, dtype[Any]]]\" cannot be assigned to target tuple\n  Type \"tuple[ndarray[_AnyShape, dtype[Any]], ndarray[_AnyShape, dtype[Any]]]\" is incompatible with target tuple\n    Tuple size mismatch; expected 3 but received 2",
+            "range": {
+                "start": {
+                    "line": 144,
+                    "character": 8
+                },
+                "end": {
+                    "line": 144,
+                    "character": 33
+                }
+            },
+            "rule": "reportAssignmentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "Expression with type \"tuple[Any | Array | Unknown, Unknown | Array | Any, Unknown] | tuple[Any | Array, Array] | Any | None\" cannot be assigned to target tuple\n  Type \"tuple[Any | Array | Unknown, Unknown | Array | Any, Unknown]\" is incompatible with target tuple\n    Tuple size mismatch; expected 2 but received 3",
+            "range": {
+                "start": {
+                    "line": 263,
+                    "character": 8
+                },
+                "end": {
+                    "line": 263,
+                    "character": 30
+                }
+            },
+            "rule": "reportAssignmentType"
+        },
+        {
+            "file": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+            "severity": "error",
+            "message": "\"None\" is not iterable\n  \"__iter__\" method not defined",
+            "range": {
+                "start": {
+                    "line": 263,
+                    "character": 33
+                },
+                "end": {
+                    "line": 269,
+                    "character": 9
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        }
+    ],
+    "summary": {
+        "filesAnalyzed": 11,
+        "errorCount": 61,
+        "warningCount": 0,
+        "informationCount": 0,
+        "timeInSec": 2.261
+    }
+}
+

@@ -1,0 +1,36 @@
+............xx.ss....................................................... [ 13%]
+.............................F.......................................... [ 27%]
+........................................................................ [ 41%]
+........................................................................ [ 55%]
+........................................................................ [ 68%]
+........................................................................ [ 82%]
+....................x................................................... [ 96%]
+...................                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_weight_average_loads_and_averages_parameters _______________
+
+    def test_weight_average_loads_and_averages_parameters():
+        actors = [_new_actor(seed) for seed in (0, 1)]
+        averaged = load_policy(weight_average([policy_state(actor) for actor in actors]))
+        for name, value in averaged.state_dict().items():
+            torch.testing.assert_close(value, (actors[0].state_dict()[name] + actors[1].state_dict()[name]) / 2)
+        same = load_policy(weight_average([policy_state(actors[0])] * 3))
+        obs = np.zeros(actors[0].obs_dim)
+>       np.testing.assert_allclose(same.act(obs), actors[0].act(obs), rtol=1e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-06, atol=0
+E       
+E       Mismatched elements: 1 / 6 (16.7%)
+E       Mismatch at index:
+E        [4]: 0.00032332539558410645 (ACTUAL), 0.0003233179450035095 (DESIRED)
+E       Max absolute difference among violations: 7.450581e-09
+E       Max relative difference among violations: 2.304413e-05
+E        ACTUAL: array([ 0.07082 ,  0.022925,  0.051386, -0.026979,  0.000323,  0.010238],
+E             dtype=float32)
+E        DESIRED: array([ 0.07082 ,  0.022925,  0.051386, -0.026979,  0.000323,  0.010238],
+E             dtype=float32)
+
+tests/test_policy_averaging.py:25: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_policy_averaging.py::test_weight_average_loads_and_averages_parameters
+1 failed, 517 passed, 5 skipped, 3 xfailed in 13.91s

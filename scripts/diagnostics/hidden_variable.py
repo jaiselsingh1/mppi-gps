@@ -49,9 +49,10 @@ def branch_distances(a: np.ndarray, b: np.ndarray, max_shift: int) -> dict[str, 
     a, b = a[:n], b[:n]
     plain = float(np.mean(np.linalg.norm(a - b, axis=1)))
     swapped = float(np.mean(np.linalg.norm(a - b[:, SWAP], axis=1)))
+    # Shifts that keep more than half of the shorter branch overlapping (s = 0 always does).
     shifted = min(float(np.mean(np.linalg.norm(a[s:] - b[:n - s], axis=1))) if s >= 0 else
                   float(np.mean(np.linalg.norm(a[:n + s] - b[-s:], axis=1)))
-                  for s in range(-max_shift, max_shift + 1) if n - abs(s) > max_shift)
+                  for s in range(-max_shift, max_shift + 1) if n - abs(s) > n // 2)
     return {"plain": plain, "legs_swapped": swapped, "best_time_shift": shifted}
 
 

@@ -1,5 +1,13 @@
 # Theory: MPPI-GPS and the trust coupling in the notes
 
+**Historical research notes, not established guarantees.** The subsequent
+[theory audit](audit_evidence/theory_review.md) corrects the convergence,
+policy-KL and CIO interpretations below. In particular, sample ESS does not
+certify population or neural-policy KL; proximal penalties are not hard trust
+regions; and the implemented alternation has no general convergence or
+long-return improvement proof. The original derivations remain below for the
+research record.
+
 Written 2026-10-23, after Step 13. Extends [objective.md](objective.md)
 (method B, facts 1–3) in its notation. Three parts:
 

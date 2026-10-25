@@ -22,3 +22,8 @@ def test_branch_distances_recognise_a_time_shift_and_a_leg_swap():
     assert branch_distances(a, shifted, 10)["best_time_shift"] < 0.05 < branch_distances(a, shifted, 10)["plain"]
     swapped = a[:, SWAP]
     assert branch_distances(a, swapped, 10)["legs_swapped"] == 0.0 < branch_distances(a, swapped, 10)["plain"]
+
+
+def test_a_branch_that_falls_early_still_gets_distances():
+    a = np.ones((3, 6))
+    assert branch_distances(a, np.zeros((100, 6)), 25)["best_time_shift"] > 0

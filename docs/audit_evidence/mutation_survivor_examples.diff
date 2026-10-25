@@ -1,0 +1,124 @@
+
+MUTANT audit_subject.utils.math.x_softmin_weights__mutmut_23
+# audit_subject.utils.math.x_softmin_weights__mutmut_23: survived
+--- audit_subject/utils/math.py
++++ audit_subject/utils/math.py
+@@ -12,7 +12,7 @@
+         raise FloatingPointError("No finite scores to weight.")
+     unnorm = np.zeros_like(scores, dtype=float)
+     if np.isinf(lam):
+-        unnorm[finite] = 1.0
++        unnorm[finite] = 2.0
+     elif lam == 0.0:
+         unnorm[finite] = scores[finite] == np.min(scores[finite])
+     else:
+
+MUTANT audit_subject.gps.mdgps.x_e_step__mutmut_8
+# audit_subject.gps.mdgps.x_e_step__mutmut_8: survived
+--- audit_subject/gps/mdgps.py
++++ audit_subject/gps/mdgps.py
+@@ -15,7 +15,7 @@
+     """
+     if planner.initial_iterations != 1:
+         raise ValueError("The E-step takes exactly one KL-bounded step per state.")
+-    kwargs = {} if warmstart is None else {"initial_warmstart": warmstart}
++    kwargs = {} if (warmstart is None) and False else {"initial_warmstart": warmstart}
+     action, info = planner.plan_step(state, nominal=nominal, prior_cost=terminal, **kwargs)
+     rollout = planner.get_rollout_data()
+     sample_costs = rollout["costs"] + (terminal.last_tail if terminal is not None else 0.0)
+
+MUTANT audit_subject.gps.mdgps.x_e_step__mutmut_20
+# audit_subject.gps.mdgps.x_e_step__mutmut_20: survived
+--- audit_subject/gps/mdgps.py
++++ audit_subject/gps/mdgps.py
+@@ -16,7 +16,7 @@
+     if planner.initial_iterations != 1:
+         raise ValueError("The E-step takes exactly one KL-bounded step per state.")
+     kwargs = {} if warmstart is None else {"initial_warmstart": warmstart}
+-    action, info = planner.plan_step(state, nominal=nominal, prior_cost=terminal, **kwargs)
++    action, info = planner.plan_step(state, nominal=nominal, prior_cost=terminal, )
+     rollout = planner.get_rollout_data()
+     sample_costs = rollout["costs"] + (terminal.last_tail if terminal is not None else 0.0)
+ 
+
+MUTANT scripts.training.train_walker_mdgps.x__collect__mutmut_19
+# scripts.training.train_walker_mdgps.x__collect__mutmut_19: survived
+--- scripts/training/train_walker_mdgps.py
++++ scripts/training/train_walker_mdgps.py
+@@ -10,7 +10,7 @@
+     actor = _new_actor(0)
+     actor.load_state_dict(job["actor"])
+     act = _batch_act(actor)
+-    base = MPPIConfig(**json.loads((_REPO_ROOT / "configs/walker2d_best.json").read_text()))
++    base = MPPIConfig(**json.loads((_REPO_ROOT / "CONFIGS/WALKER2D_BEST.JSON").read_text()))
+     if cfg.labeler == "mdgps":
+         planner_cfg = replace(base, K=cfg.K, H=cfg.H, initial_iterations=1,
+                               lam_target_neff_fraction=job["neff_fraction"],
+
+MUTANT scripts.training.train_walker_mdgps.x__collect__mutmut_45
+# scripts.training.train_walker_mdgps.x__collect__mutmut_45: survived
+--- scripts/training/train_walker_mdgps.py
++++ scripts/training/train_walker_mdgps.py
+@@ -16,7 +16,7 @@
+                               lam_target_neff_fraction=job["neff_fraction"],
+                               noise_sigma=job.get("noise_sigma", base.noise_sigma))
+     else:
+-        planner_cfg = replace(base, K=cfg.K, H=cfg.H)
++        planner_cfg = None
+     planner = MPPI(env, planner_cfg, seed=job["planner_seed"])
+     tail = WalkerPolicyTail(env, act, cfg.tail_steps) if cfg.tail_steps else None
+     rng = np.random.default_rng(job["noise_seed"])
+
+MUTANT audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_39
+# audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_39: survived
+--- audit_subject/gps/gpu_estep.py
++++ audit_subject/gps/gpu_estep.py
+@@ -8,7 +8,7 @@
+     cost = env.rollout_cost(states, actions, sensors)
+     if not self.tail_steps:
+         return cost
+-    fell = ~np.all(env._is_healthy(states[..., 2], states[..., 3]), axis=1)
++    fell = ~np.all(env._is_healthy(states[..., 2], states[..., 3]), axis=None)
+     tq, tv, tu = worlds.rollout(self.tail_steps, n, policy=self.policy,
+                                 reset_warmstart_each_step=True)
+     tail_states = _full_states(tq, tv)
+
+MUTANT audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_47
+# audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_47: survived
+--- audit_subject/gps/gpu_estep.py
++++ audit_subject/gps/gpu_estep.py
+@@ -8,7 +8,7 @@
+     cost = env.rollout_cost(states, actions, sensors)
+     if not self.tail_steps:
+         return cost
+-    fell = ~np.all(env._is_healthy(states[..., 2], states[..., 3]), axis=1)
++    fell = ~np.all(env._is_healthy(states[..., 2], states[..., 4]), axis=1)
+     tq, tv, tu = worlds.rollout(self.tail_steps, n, policy=self.policy,
+                                 reset_warmstart_each_step=True)
+     tail_states = _full_states(tq, tv)
+
+MUTANT audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_76
+# audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_76: survived
+--- audit_subject/gps/gpu_estep.py
++++ audit_subject/gps/gpu_estep.py
+@@ -13,5 +13,5 @@
+                                 reset_warmstart_each_step=True)
+     tail_states = _full_states(tq, tv)
+     tail = env.rollout_cost(tail_states, tu.double().cpu().numpy(), np.zeros(tail_states.shape[:2] + (0,)))
+-    tail[fell] = env._w_unhealthy * self.tail_steps
++    tail[fell] = env._w_unhealthy / self.tail_steps
+     return cost + tail
+
+MUTANT audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_17
+# audit_subject.gps.gpu_estep.xǁWalkerGPUEStepǁ_cost__mutmut_17: survived
+--- audit_subject/gps/gpu_estep.py
++++ audit_subject/gps/gpu_estep.py
+@@ -2,7 +2,7 @@
+     """H-step cost of open-loop `actions`, plus the policy tail (absorbing if fallen)."""
+     env = self.env
+     u = torch.as_tensor(actions, dtype=torch.float32, device="cuda")
+-    hq, hv, _ = worlds.rollout(self.cfg.H, n, actions=u)
++    hq, hv, _ = worlds.rollout(self.cfg.H, n, )
+     states = _full_states(hq, hv)
+     sensors = np.zeros(states.shape[:2] + (0,))
+     cost = env.rollout_cost(states, actions, sensors)

@@ -3567,6 +3567,320 @@ within 0.03):
     outputs chunks of actions (the plan itself) is the candidate.
 - Status: planned.
 
+### Policy-selective MPPI distillation — implementation and execution checks (2026-10-24)
+
+- Question: implement the supplied memoryless MPPI-GPS plan, including Mode A
+  anchoring and Mode B strict-improvement/proximity weighting, then verify two
+  iterations without changing the frozen MPPI task objective.
+- Baseline commit: `81601b3a8bbe8f1317a4b6caafe86130b1c18959`, with existing
+  uncommitted audit fixes retained. New changes remain in the working tree.
+- Audit and implementation map: [policy_selective.md](policy_selective.md).
+  Added `scripts.training.train_policy_selective`, a deterministic tanh MLP,
+  immutable weighted replay, exact weighted action-norm regression, device
+  task/tail scoring, vectorized ESS bisection/synthesis and consistent GPU
+  before/after probes. The original training configuration remains available.
+- Task/objective: unchanged `walker2d_task.json` and `walker2d_best.json`;
+  H=32 controls, K=256, 100-control policy tail, rho=.2, sigma=.3 annealed with
+  k/25. No tracking cost, no shifted teacher plan, and no planner at inference.
+- Criteria fixed before running: valid shapes and tanh deployment; exact
+  anchor/selective formulas; frozen replay weights; safe zero-mass skip;
+  finite diagnostics through two iterations, achieved ESS 51.2; relevant
+  regressions and CUDA parity pass. These are execution criteria, not a
+  controller-quality or convergence experiment.
+- Environment: robopil5090 RTX 5090, existing CUDA environment
+  `~/mppi-gps-venvs/cuda` (torch 2.10.0+cu128, Warp 1.12.1). Isolated source:
+  `/home/jaisel/mppi-gps-selective-20261024-5qDXPx`; existing checkouts and runs
+  were not modified. Physical GPU chunks contain 128 independent states.
+- Method: each mode used seed 0, 2 outer iterations, the full 10 x 400
+  collection budget (episodes stop at first fall), and 2,000 Adam updates.
+  `eval_every=1`, `eval_episodes=1`, and `save_labels=true`; other settings
+  were the new preset defaults. A preceding short selective smoke used 2 x 40
+  collection, 20 updates and 16-state chunks, retaining K/H/T.
+- Development seeds: collection resets 100000–100019; periodic deterministic
+  evaluation reset 81000. An extra standalone CLI check evaluated the saved
+  selective checkpoint on resets 81000–81001. No final held-out panel was used.
+- Command, per mode: `python -m scripts.training.train_policy_selective
+  --out-dir runs/full_smoke_<mode> --cfg.iterations 2 --cfg.selection-mode
+  <mode> --cfg.eval-every 1 --cfg.eval-episodes 1 --cfg.save-labels`, using
+  the server CUDA Python, with OMP/MKL thread counts set to one.
+- Status: complete. Full local suite before the final added probe test:
+  647 passed, 5 skipped, 3 expected failures. Final full CUDA suite:
+  **650 passed, 3 skipped, 3 expected failures**, zero unexpected failures.
+  The isolated checkout initially lacked Git metadata and the lockfile needed
+  by existing SAC provenance tests; those setup omissions were restored and
+  the complete suite rerun successfully. Targeted final local integration,
+  probe, weighting and resume checks also passed (35 tests).
+
+  | Mode | Iteration | Collected labels | Positive weights | Worse plans | Mean ESS |
+  | --- | ---: | ---: | ---: | ---: | ---: |
+  | Anchor | 0 | 323 | 323 | 2.79% | 51.2 |
+  | Anchor | 1 | 763 | 763 | 25.29% | 51.2 |
+  | Selective | 0 | 323 | 314 | 2.79% | 51.2 |
+  | Selective | 1 | 684 | 450 | 34.21% | 51.2 |
+
+- Results: all required logged diagnostics were finite, ESS errors were below
+  1e-6 and no state missed the target. Saved labels and weights independently
+  reproduce the exact selection formulas; iteration-1 replay mass equals the
+  two frozen snapshot masses. Both deployed checkpoints load as `tanh_mlp`
+  without planner state. The separate standalone CLI run completed with finite
+  metrics. All four periodic single-episode evaluations fell before 1,000
+  controls; these two-iteration policies are not qualified walking controllers.
+- Artifacts and fingerprints: local
+  `runs/policy_selective_validation_20261024_001/validation_summary.json`
+  contains source/config/model and checkpoint SHA-256 fingerprints, selected
+  metrics and the final server JUnit result. The same directory contains raw
+  labels, both modes' checkpoints/JSONL metrics, standalone report and XML test
+  evidence, copied from the isolated server's `runs/` directory.
+- Decision: keep the implementation and expose the 75-iteration preset for
+  subsequent training. No 75-iteration comparison or superiority claim is made.
+  GPU float32 contact dynamics retain the earlier audit's CPU/GPU label
+  sensitivity. Concurrent server activity makes these smoke timings unsuitable
+  as a performance benchmark; the two modes are not a powered ablation.
+
+### Policy-selective versus anchor — full 75-iteration comparison (2026-10-24)
+
+- Question: does either standalone policy learn the walking task after the full
+  75-iteration preset, and does selective regression improve on anchoring?
+- Baseline: the implementation and source validated in the preceding entry;
+  commit `81601b3a8bbe8f1317a4b6caafe86130b1c18959` plus the preserved working
+  changes. The server driver records SHA-256 fingerprints of executed source,
+  configs and assets before starting either arm, and checks them after training.
+- Authorized scope: two full runs, anchor and selective, on robopil5090. Both
+  start from the identical seed-0 random tanh MLP and use the full preset:
+  K=256, H=32, T=100, rho=.2, sigma=.3/sqrt(1+k/25), 10x400 noisy-policy
+  collection, replay 2, 2,000 Adam updates, 75 iterations. Only selection mode
+  differs. Periodic evaluation remains the preset's 10 development episodes
+  every five iterations. Labels and every iteration checkpoint are saved.
+- Evaluation fixed before outcomes: final `policy_074.pt`, plus the random
+  initial policy, on identical fresh development resets 8200000–8200099,
+  100 episodes of at most 1,000 controls (8 seconds), deterministic standalone
+  actions, no planner. This panel had no recorded use in a scoped scan of 314
+  server protocol/config/doc/manifest files. The reserved final panel
+  5000000–5000199 remains untouched. Checkpoints and video episodes will not
+  be selected by their outcomes; videos use reset 8200000.
+- Primary metrics: completion, time alive and per-episode velocity MAE with
+  failures retained; secondary adjusted training return and mean speed.
+  Working development gate: at least 90% completion and MAE <=0.30 m/s
+  against the target 1.5 m/s. Report paired reset uncertainty conditional on
+  these trained policies; one training seed cannot establish seed robustness.
+- Run directory: server
+  `/home/jaisel/mppi-gps-selective-20261024-5qDXPx/runs/2026-10-24_policy_selective_75_seed0_001`;
+  local mirror `runs/2026-10-24_policy_selective_75_seed0_001`.
+- Status: **complete**, 2026-10-24 23:13:55 EDT (2026-10-25 03:13:55 UTC).
+  Both arms completed exactly 75 ordered iterations, with complete arm status
+  files and matched configurations differing only by selection mode. Driver
+  `study_status.json` reports `source_unchanged=true`; the frozen executed
+  source/configuration was preserved. All three final evaluation reports and
+  preselected-reset videos completed. The entire study was mirrored locally.
+- Final comparison: deterministic standalone networks, no planner, common fresh
+  development resets 8200000–8200099, 1,000 controls (eight seconds), all failed
+  episodes retained. The fixed final checkpoints were `policy_074.pt`; no best
+  checkpoint was selected from outcomes.
+
+  | Policy | Survived eight seconds | Mean time alive | Speed MAE | Adjusted return | Joint working gate |
+  | --- | ---: | ---: | ---: | ---: | --- |
+  | Initial | 0/100 | 0.5164 s | 1.73613 m/s | -1255.63 | FAIL |
+  | Anchor | 96/100 | 7.89312 s | 0.22384 m/s | -621.49 | PASS |
+  | Selective | 95/100 | 7.80552 s | 0.20290 m/s | -533.71 | PASS |
+
+- Decision: both final policies learned standalone locomotion meeting the
+  predeclared observed-mean development gate: >=90% eight-second completion
+  and <=0.30 m/s speed MAE. This is not confidence-bound certification or
+  evidence of robustness across training seeds. Anchor survival's 95% Wilson
+  interval is [90.16%, 98.43%], Selective's [88.82%, 97.85%]. These are reset
+  intervals conditional on one seed-0 training pair.
+- Mode comparison: Selective minus Anchor survival is -1 percentage point,
+  paired score 95% interval [-7.74, +5.61] pp; duration difference -0.0876 s,
+  paired bootstrap [-0.3140, +0.1237] s. There is no clear survival/duration
+  winner in this pair. Selective's MAE is lower by 0.02093 m/s, paired bootstrap
+  interval [-0.02708, -0.01444] m/s; adjusted return is higher by 87.77,
+  interval [29.22, 146.07]. Lower speed MAE does not establish a smoother or
+  more natural gait: Selective's action-change RMS is higher. These outcomes
+  do not compare against independent MPPI, teleoperation, or equal-budget RL,
+  and do not establish an exploration/sample-efficiency advantage or whether
+  policy seeding helps. Reserved final resets 5000000–5000199 remain untouched.
+- Tracked evidence: [audited result summary, protocol and hash inventory](experiment_evidence/2026-10-24_policy_selective_75_seed0/README.md).
+  Generated reports, plots, checkpoints and videos remain local in the ignored
+  run directory under the existing artifact policy.
+- Final evidence: [complete report](../runs/2026-10-24_policy_selective_75_seed0_001/comparison.md),
+  [metrics, paired intervals and hashes](../runs/2026-10-24_policy_selective_75_seed0_001/comparison.json),
+  [all learning curves](../runs/2026-10-24_policy_selective_75_seed0_001/training_curves.png),
+  [final standalone plot](../runs/2026-10-24_policy_selective_75_seed0_001/final_metrics.png),
+  [labeled side-by-side video](../runs/2026-10-24_policy_selective_75_seed0_001/videos/standalone_side_by_side.mp4).
+  Both trained policies complete the preselected video reset 8200000. The
+  combined video is eight seconds at real time (250 frames, 31.25 fps), with
+  75/75 labels; original initial/Anchor/Selective videos are preserved. Milestone
+  supervision includes zero-based 5, 15, 30, 50 and 74; unrecorded historical
+  research metrics remain explicitly unavailable.
+- Final checkpoint fingerprints: Anchor
+  `9021a386b879d812e698ed59e854689e70f16a57614ce2db7ea7729d433286cb`;
+  Selective `49e72d0e2db46a7202d517c9093f6412f75c70152846c83688f2740e1823d648`.
+  All report checkpoint hashes were verified against local files. A local
+  report-only fix renders absolute confidence intervals around their own
+  midpoints, avoiding a zero-survival Wilson roundoff failure; it changes no
+  training source or numeric result. The report regression suite passed six
+  tests, including the actual 0/100 boundary, and final figures/video were
+  visually inspected.
+
+- Interim snapshot requested by the user, evaluated 2026-10-25 01:48 UTC
+  (2026-10-24 21:48 EDT): Anchor after 36 iterations (`policy_035.pt`) and
+  Selective after 34 (`policy_033.pt`). Both original training processes remain
+  unchanged and continue toward 75; this snapshot does not replace the fixed
+  final comparison. All frozen source hashes matched the prelaunch protocol
+  immediately before this evaluation. The existing final development panel and
+  reserved qualification panel were not used for these interim trained policies.
+- Interim evaluation: the identical 30 fresh development resets
+  8400000–8400029, at most 1,000 controls (8 seconds), deterministic saved
+  networks with no planner. All failures remain in episode averages. Reset
+  8400000 was selected for both videos before observing outcomes.
+
+  | Policy | Completed iterations | Survived 8 seconds | Mean time alive | Speed MAE | Mean speed | Adjusted return |
+  | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+  | Initial | 0 | 0/30 | 0.5176 s | 1.7354 m/s | -0.2354 m/s | -1256.20 |
+  | Anchor | 36 | 0/30 | 2.9240 s | 0.5715 m/s | 1.2266 m/s | -1553.05 |
+  | Selective | 34 | 5/30 | 4.6693 s | 0.4641 m/s | 1.3247 m/s | -1496.97 |
+
+- Interim interpretation: both improve time alive and speed tracking over the
+  initial policy. Selective is ahead in this partial snapshot, but neither
+  meets either component of the working gate (>=90% survival and <=0.30 m/s
+  MAE). They show partial forward-locomotion learning, not reliable walking.
+  Unequal snapshot training counts and one training seed prevent a final
+  selection-mode superiority claim. Curves were refreshed through 38/36
+  completed Anchor/Selective iterations at 01:50 UTC. At the latest common
+  periodic evaluation, 35 completed iterations on the same 10 monitoring resets,
+  Anchor/Selective averaged 2.8672/4.6856 seconds with MAE 0.5179/0.4396 m/s
+  and 0/10 versus 1/10 completions. Adjusted return includes executed costs plus an analytic failure
+  tail; a longer failed episode can have a more negative return.
+- Interim evidence: [report](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0147Z/comparison.md),
+  [metrics and gate results](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0147Z/comparison.json),
+  [learning curves](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0147Z/latest_learning_curves.png),
+  [standalone comparison plot](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0147Z/latest_standalone.png),
+  [preselected-reset video](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0147Z/standalone_side_by_side.mp4).
+  `metadata.json` preserves reset/provenance details and full checkpoint hashes:
+  Anchor `191760c6a0633112c11b3997cb8b8bea2ada120a7d40a1f8b40c3520c333eaef`;
+  Selective `58adb818bf99fd9a38118660071a2088943c258e778771f0026bcada2b9bc43f`.
+- Second user-requested interim check, 2026-10-25 02:24 UTC (22:24 EDT):
+  runs still training at Anchor 54/75 and Selective 52/75. At common completed
+  iteration 50 on the original 10 monitoring resets 81000–81009, Anchor
+  completed 5/10 (6.5616 s mean duration, 0.33819 m/s MAE, -1267.95 adjusted
+  return); Selective completed 6/10 (6.4392 s, 0.33041 m/s MAE, -1028.05
+  return). Both still fail both gate components. These same monitoring metrics
+  were reproduced from saved `policy_049.pt` networks without a planner and
+  both videos used the first monitoring reset 81000, selected before rendering.
+  Frozen source hashes still matched the prelaunch protocol. This does not
+  replace the final 100-reset evaluation. Evidence:
+  [current curves](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0224Z/learning_curves.png),
+  [metrics](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0224Z/current_metrics.json),
+  [iteration-50 side-by-side video](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0224Z/standalone_side_by_side.mp4).
+- Third user-requested interim check, 2026-10-25 02:57 UTC (22:57 EDT):
+  Anchor 68/75 and Selective 66/75, still training unchanged. At common
+  completed iteration 65 on the same 10 monitoring resets, Anchor completed
+  6/10 (6.5888 s, 0.30459 m/s MAE, -1044.89 return), Selective 8/10
+  (6.9272 s, 0.25853 m/s MAE, -724.22 return). Selective meets the speed
+  threshold but misses survival; Anchor misses both. The fixed first video
+  reset 81000 completed all eight seconds for both policies. These remain
+  interim monitoring results, not the final 100-reset comparison. Reproduced
+  policy-only evaluations and the frozen source hash check passed. Evidence:
+  [curves](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0257Z/learning_curves.png),
+  [metrics](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0257Z/current_metrics.json),
+  [iteration-65 video](../runs/2026-10-24_policy_selective_75_seed0_001/interim/latest_20261025T0257Z/standalone_side_by_side.mp4).
+- Research-goal clarification from the user (2026-10-24): model-based MPPI
+  should supply demonstrations without a poor student restricting the teacher.
+  The eventual claim concerns exploration and sample efficiency relative to
+  learning without those demonstrations, including comparison with human
+  demonstrations when available. The two frozen runs test selection within a
+  policy-conditioned teacher; they do not isolate seeding harm, independent
+  teacher quality, or policy-gradient sample efficiency. Finish both unchanged
+  as reference experiments. A subsequent independent teacher must remove both
+  the student's nominal and its continuation cost; MPPI may retain its own
+  optimized plan. Earlier Step 15 shows teacher competence alone did not make
+  state-only cloning succeed, and Step 25 shows zero-reset planning can lose
+  competence. Next designs should test the teacher's seeding/tail dependencies
+  separately and student temporal representation on identical demonstrations.
+  Count actual executed transitions, demonstration acquisition, model rollout
+  controls and compute separately; training iterations alone cannot substantiate
+  sample efficiency. No additional training run is launched by this clarification.
+- Subsequent design discussion: a proposed independent-MPPI/SAC study is
+  documented in [this draft](independent_mppi_return_study.md). The user first
+  clarified an interest in replacing standard policy-gradient methods without
+  a critic, then reopened the critic idea specifically as a bridge between
+  planner and policy experience, questioning distribution mismatch. This is
+  an unresolved research direction, not authorization to launch an experiment.
+  A critic must not attribute teacher rewards directly to unexecuted learner
+  actions. The relevant risk is unsupported actor and bootstrap action queries;
+  Monte Carlo calibration must evaluate continuation under the learner, not
+  confuse a successful teacher trajectory with the current policy's return.
+  None of these discussions changed the completed frozen comparison.
+
+### Research telemetry, early aborts and controller ladder (2026-10-24)
+
+- Question: expose silent E-step/M-step failure modes without additional
+  per-iteration simulator work, save compute with explicit health stops, and
+  produce paired controller/regularity artifacts for subsequent runs.
+- Scope decision: the user explicitly chose to keep the two active 75-iteration
+  runs unchanged and use this suite for subsequent runs. Those original sources
+  were hash-checked against their prelaunch protocol; no files differed.
+- Implementation: `src/gps/telemetry.py`, `health_monitor.py`, `research.py`
+  and `eval_ladder.py`, integrated into the trainer. CPU/GPU E-step result
+  fields retain existing sample-tail variance, weighted costs and actual solver
+  saturation. No MPPI objective changes or added E-step rollouts.
+- Diagnostics: required collection/trust/probe scalars, Jensen gap, tail variance
+  ratio, cross-trajectory Lipschitz slopes, and exact k−5 holdout drift/MSE.
+  Probes use deterministic ceil(2%M) selection independent of collection RNG.
+  Holdouts and scalar histories are bounded. JSONL/CSV/console logging is
+  unconditional when enabled; WandB/TensorBoard remain optional lazy backends.
+- Health stops: default enabled; the requested k=12 bootstrap, k>=15 chronic
+  negative realization, three-iteration saturation and immediate numerical
+  rules are covered by tests. Missing probe coverage never becomes a false
+  negative realization. Stops save diagnostic history and checkpoint metadata
+  with `complete=false`, `early_aborted=true`, without a traceback. Optional
+  writer failures do not mask health stops or leave other writers unclosed.
+- Dedicated evaluation: four controllers on ten fixed development resets,
+  400 controls, at k=0, every five completed iterations and the final iteration.
+  Raw cold MPPI is policy-independent and cached with fingerprints/checksums.
+  Guided MPPI uses fresh policy nominals, one ESS-controlled update and the
+  policy tail. Controller/action timings and unequal trust/tail budgets are
+  explicit. Phase portraits, four-controller return curves, periodicity,
+  action-change metrics, and compressed executed traces are saved.
+- Validation criteria: exact array formulas; no extra diagnostic simulator
+  calls; deterministic probes; five-iteration holdout identity; all kill-switch
+  branches and clean abort checkpoint retention; safe writer construction and
+  shutdown failures; cold-cache integrity/reuse; correct fall accounting; no
+  invented periodicity for short/constant/drifting traces.
+- Results: **712 passed, 3 skipped, 3 expected failures** in the final full
+  CUDA suite. The earlier full local integration suite passed 701 tests;
+  additional cleanup/probe-validity checks are included in the final CUDA count.
+  The six-iteration real-collector call-count regression confirms identical
+  simulator rollout counts with research diagnostics on/off when probes and
+  ladder are disabled. Zero-rollout pure helper tests and all early-stop
+  conditions passed.
+- GPU smokes: both anchor and selective completed two iterations on the
+  finalized source with K=8, H=4, T=3, two episodes x12 controls, three Adam
+  updates, and a two-episode x12-control ladder. Required available metrics were
+  finite; achieved ESS was 1.6; JSONL/CSV, both NPZ/PNG sets and cold cache were
+  verified. The second hook charged no new cold-controller evaluation time.
+  Holdout/cycle scores correctly remained null when evidence was unavailable.
+- Environment and artifacts: separate server source
+  `/home/jaisel/mppi-gps-telemetry-20261024-x65Kdq`, same existing CUDA environment.
+  Local evidence is in `runs/research_telemetry_validation_20261024_001/`:
+  `validation_summary.json` contains source fingerprints and checked metrics;
+  `telemetry_tests_final.xml` contains the full test result;
+  `telemetry_smoke_{anchor,selective}_final/` contains both complete runs and
+  plots. Operational details and commands: [research_telemetry.md](research_telemetry.md).
+- Active original-run supervision, 21:43 America/New_York: anchor 34/75,
+  selective 32/75. At the completed-iteration-30 development check, both were
+  0/10 in eight-second survival. Anchor mean length 280.1 controls, speed MAE
+  .540 m/s; selective 475.6 controls, MAE .509 m/s. These are intermediate
+  monitoring results, not the final paired evaluation. At zero-based k=30,
+  anchor's predicted/realized probe improvements were 29.21/2.35; at k=15,
+  both modes still had positive mean realization. Missing historical deep
+  diagnostics and cold-ladder results are marked unavailable, not reconstructed.
+  The existing completion check now also records the requested supervision
+  milestones and flags material anomalies while preserving the running jobs.
+- Decision: keep the suite for subsequent experiments. The short smokes verify
+  instrumentation, not a gait limit cycle or superiority over MPPI. No additional
+  full 75-iteration experiment was launched with the new suite in this task.
+
 Add one entry per question using the fields below:
 
 ```text
@@ -3587,3 +3901,31 @@ Results:
 Decision: keep | reject | revise
 Interpretation and limitations:
 ```
+
+
+### Publication checkpoint and next diagnostic (2026-10-24)
+
+The user requested committing/pushing the implemented code and observations,
+then testing the independent-teacher / long-return idea. The completed
+75-iteration study remains unchanged. Current code includes the policy-selective
+implementation, future-run telemetry/health suite and audit fixes, alongside
+adverse findings and historical limitations. The portable final-results record
+is [here](experiment_evidence/2026-10-24_policy_selective_75_seed0/README.md).
+Large study artifacts and upstream full papers remain outside Git.
+
+Validation before publication: `.venv/bin/python -m pytest -q` passed **710 tests,
+5 skips, 3 expected failures** in28.71s on macOS. An initial sandboxed invocation
+had six infrastructure failures because PyTorch's shared-memory helper was
+blocked; rerunning with subprocess access passed without changing numerical
+code or tests. Whitespace checks passed for code and authored documentation;
+archived audit transcripts retain their original whitespace. Earlier real-CUDA validation is recorded
+in [research_telemetry.md](research_telemetry.md); these local results do not
+replace the CPU/GPU contact-dynamics caveat.
+
+The next bounded diagnostic will retain independent MPPI's own plan memory,
+verify identical teacher queries across student changes, distinguish weighted
+mean synthesis from best sampled/nominal plans, and compare short versus
+8-second first-action continuations under an initial and trained actor. This
+is a diagnostic of the user's proposed mechanism, not a sample-efficiency
+benchmark or evidence that a critic transfers correctly. The proposed larger
+reward-learning study remains a draft until the diagnostic is recorded.

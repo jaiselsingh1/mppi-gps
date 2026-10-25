@@ -1,0 +1,33 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_reject_overlapping_training_seed_blocks_before_start ___________
+
+tmp_path = PosixPath('/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-68/test_reject_overlapping_traini0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x118a74550>
+
+    def test_reject_overlapping_training_seed_blocks_before_start(tmp_path, monkeypatch):
+        def must_not_build_actor(seed):
+            pytest.fail("overlapping seed blocks reached actor initialization")
+    
+        monkeypatch.setattr(training, "_new_actor", must_not_build_actor)
+        cfg = training.TrainConfig(iterations=101, episodes_per_iter=100)
+        with pytest.raises(ValueError, match="10,000"):
+>           training.main(tmp_path / "invalid", cfg)
+
+tests/test_training_seed_budget.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/training/train_walker_mdgps.py:272: in main
+    actor = _new_actor(cfg.seed)
+            ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+seed = 0
+
+    def must_not_build_actor(seed):
+>       pytest.fail("overlapping seed blocks reached actor initialization")
+E       Failed: overlapping seed blocks reached actor initialization
+
+tests/test_training_seed_budget.py:9: Failed
+=========================== short test summary info ============================
+FAILED tests/test_training_seed_budget.py::test_reject_overlapping_training_seed_blocks_before_start
+1 failed in 1.80s

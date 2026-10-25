@@ -8,10 +8,24 @@ def effective_sample_size(weights: np.ndarray) -> float:
 
 
 def softmin_weights(scores: np.ndarray, lam: float) -> np.ndarray:
-    """exp(-(S_k - min S)/lam), normalized; infinite scores get zero weight."""
+    """Normalized Gibbs weights; nonfinite scores get zero weight.
+
+    Zero and infinite temperatures use their limits (uniform over finite
+    minima and all finite samples, respectively), including the boundary
+    temperatures returned by :func:`temperature_for_budget`.
+    """
+    if np.isnan(lam) or lam < 0.0:
+        raise ValueError("softmin temperature must be nonnegative and not NaN.")
     finite = np.isfinite(scores)
-    shifted = np.where(finite, scores - np.min(scores[finite]), np.inf)
-    unnorm = np.exp(-shifted / lam)
+    if not finite.any():
+        raise FloatingPointError("No finite scores to weight.")
+    unnorm = np.zeros_like(scores, dtype=float)
+    if np.isinf(lam):
+        unnorm[finite] = 1.0
+    elif lam == 0.0:
+        unnorm[finite] = scores[finite] == np.min(scores[finite])
+    else:
+        unnorm[finite] = np.exp(-(scores[finite] - np.min(scores[finite])) / lam)
     return unnorm / np.sum(unnorm)
 
 

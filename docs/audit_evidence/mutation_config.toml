@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+[tool.mutmut]
+source_paths = ["audit_subject", "scripts"]
+only_mutate = ["audit_subject/gps/*.py", "audit_subject/mppi/*.py", "audit_subject/utils/math.py", "scripts/training/train_walker_mdgps.py"]
+also_copy = ["tests", "assets", "configs", "docs"]
+pytest_add_cli_args = ["-p", "hypothesis.extra.pytestplugin"]
+pytest_add_cli_args_test_selection = ["tests"]

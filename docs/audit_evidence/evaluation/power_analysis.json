@@ -1,0 +1,244 @@
+{
+  "pilot_completion_rates": [
+    0.68,
+    0.7,
+    0.24,
+    0.5,
+    0.98,
+    0.98
+  ],
+  "pilot_training_seeds": 6,
+  "pilot_sd_fixed_reference": 0.28509647489928736,
+  "chi_squared_95pct_upper_sd_normal_approximation": 0.595639937847417,
+  "sd_upper_bound_fixed_reference": 0.5,
+  "sd_upper_bound_learned_pair": 1.0,
+  "formula": "P[T_(n-1, sqrt(n)*delta/sigma) > t_(1-alpha/2,n-1)] + P[T < -t_(1-alpha/2,n-1)]",
+  "assumptions": "All t calculations are conditional on a fixed common reset/planner-randomness panel. Independent training seeds; each observation is one policy's mean over that panel minus paired comparator mean. Student t planning approximation, not a distribution-free guarantee. Frozen comparator has no between-training-seed variation CONDITIONAL on the panel; its reset sampling variation remains for a population claim. Pilot single-arm SD is NOT a learned-pair SD. Sensitivity counts do not establish power over unseen reset populations.",
+  "conditional_panel_plan": {
+    "primary": "Completion noninferiority to frozen K256/H48 strong planner, accompanied by lower deployment inference cost",
+    "estimand": "Expected training-seed performance difference averaged over the fixed200-reset panel, conditional on that panel and its prescribed planner randomness",
+    "population_power_established": false,
+    "noninferiority_margin": 0.05,
+    "assumed_true_completion_difference": 0.0,
+    "alpha_one_sided": 0.025,
+    "training_seeds": 800,
+    "calculated_threshold": 787,
+    "fixed_panel_resets": 200,
+    "conditional_bounded_variance_power": 0.8064975940104729,
+    "note": "This is NOT an800x200 population-power guarantee. Conditional on a fixed reset panel and a method expected to match the planner,787 is the calculated threshold and800 the rounded seed count. Current pilot gap.68-.88=-.20 is outside the-.05 margin, so more seeds do not validate existing-method noninferiority. The+15pp superiority table applies only to a lower-performing comparator; it is impossible versus a.88 baseline under the current pilot ceiling."
+  },
+  "population_design": {
+    "estimand": "Expected paired difference over both fresh training randomness and the deployment reset distribution (and any planner randomness included in the claim)",
+    "variance_decomposition": "Var(mean_D) = sigma_train^2/n + sigma_reset^2/m + sigma_interaction^2/(n*m)",
+    "decomposition_assumptions": "Independent sampled training seeds and reset cases; centered crossed random effects; interaction term includes independent cell noise. Additional shared planner randomness must be modeled or included in the reset-case definition, not silently treated as deterministic population behavior.",
+    "population_training_seed_count": null,
+    "population_reset_count": null,
+    "required_before_final_access": "An independent paired crossed development pilot after algorithm selection must estimate all variance components with uncertainty; jointly choose n and m and validate power for the prespecified noninferiority test. Reused70000-70049 outcomes are not that independent pilot. Until then no finite n with m=200 is asserted to achieve80% population power.",
+    "illustrative_reset_bottleneck": {
+      "not_an_empirical_estimate": true,
+      "sigma_reset": 0.3,
+      "m": 200,
+      "n_limit": "infinity",
+      "margin": 0.05,
+      "true_difference": 0.0,
+      "alpha_one_sided": 0.025,
+      "normal_approximation_max_power": 0.6543378830489771
+    },
+    "normal_approximation_required_total_variance_for80pct": 0.00031851679279263744,
+    "at_m200_max_sigma_reset_even_if_other_variance_zero": 0.25239524274147385
+  },
+  "sensitivity": [
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_pilot",
+      "sd": 0.28509647489928736,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 66,
+      "power": 0.8015800535856246
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_pilot",
+      "sd": 0.28509647489928736,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 31,
+      "power": 0.8090869729678466
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_pilot",
+      "sd": 0.28509647489928736,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 18,
+      "power": 0.8008851641129738
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_25pct_inflation",
+      "sd": 0.35637059362410917,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 102,
+      "power": 0.8014981874735253
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_25pct_inflation",
+      "sd": 0.35637059362410917,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 47,
+      "power": 0.8064618586042032
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_25pct_inflation",
+      "sd": 0.35637059362410917,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 27,
+      "power": 0.8015068145248156
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_bounded_worst_case",
+      "sd": 0.5,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 199,
+      "power": 0.8016910240370658
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_bounded_worst_case",
+      "sd": 0.5,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 90,
+      "power": 0.8037942968932215
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "fixed_reference_bounded_worst_case",
+      "sd": 0.5,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 52,
+      "power": 0.8077878088760596
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "learned_pair_bounded_worst_case",
+      "sd": 1.0,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 787,
+      "power": 0.8000954422116195
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "learned_pair_bounded_worst_case",
+      "sd": 1.0,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 351,
+      "power": 0.8002653636827302
+    },
+    {
+      "comparison_family": 1,
+      "variance_model": "learned_pair_bounded_worst_case",
+      "sd": 1.0,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 199,
+      "power": 0.8016910240370658
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_pilot",
+      "sd": 0.28509647489928736,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 88,
+      "power": 0.8001133856898693
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_pilot",
+      "sd": 0.28509647489928736,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 41,
+      "power": 0.8032446226234687
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_pilot",
+      "sd": 0.28509647489928736,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 25,
+      "power": 0.8162734829728504
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_25pct_inflation",
+      "sd": 0.35637059362410917,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 136,
+      "power": 0.8005564465715488
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_25pct_inflation",
+      "sd": 0.35637059362410917,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 62,
+      "power": 0.8001050908422144
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_25pct_inflation",
+      "sd": 0.35637059362410917,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 37,
+      "power": 0.8112719033879703
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_bounded_worst_case",
+      "sd": 0.5,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 265,
+      "power": 0.8006908652835931
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_bounded_worst_case",
+      "sd": 0.5,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 120,
+      "power": 0.8030795657767009
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "fixed_reference_bounded_worst_case",
+      "sd": 0.5,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 69,
+      "power": 0.8046386735009575
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "learned_pair_bounded_worst_case",
+      "sd": 1.0,
+      "absolute_completion_effect": 0.1,
+      "training_seeds": 1050,
+      "power": 0.8000957335433458
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "learned_pair_bounded_worst_case",
+      "sd": 1.0,
+      "absolute_completion_effect": 0.15,
+      "training_seeds": 469,
+      "power": 0.8008130275938828
+    },
+    {
+      "comparison_family": 3,
+      "variance_model": "learned_pair_bounded_worst_case",
+      "sd": 1.0,
+      "absolute_completion_effect": 0.2,
+      "training_seeds": 265,
+      "power": 0.8006908652835931
+    }
+  ]
+}

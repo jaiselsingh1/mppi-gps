@@ -10,12 +10,15 @@ from __future__ import annotations
 import copy
 import math
 from dataclasses import asdict, dataclass
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
 import torch
 from torch import nn
 from torch.nn import functional as F
+
+if TYPE_CHECKING:
+    from src.gps.policy import TanhMLPPolicy
 
 
 @dataclass(frozen=True)
@@ -315,14 +318,22 @@ class SACAgent:
             self.alpha_opt.load_state_dict(state["alpha_opt"])
 
 
-def load_policy(state: dict[str, Any], device: str | torch.device = "cpu") -> SacActor:
+def load_policy(state: dict[str, Any], device: str | torch.device = "cpu") -> SacActor | TanhMLPPolicy:
     """Load a frozen deterministic policy without a learner or replay buffer."""
     if state.get("format_version") != 1 or state.get("observation_transform") != "identity":
         raise ValueError("unsupported policy format or observation transform")
+    policy_type = state.get("policy_type", "sac")
+    if policy_type == "tanh_mlp":
+        from src.gps.policy import TanhMLPPolicy
+        actor_type = TanhMLPPolicy
+    elif policy_type == "sac":
+        actor_type = SacActor
+    else:
+        raise ValueError(f"unsupported policy type: {policy_type!r}")
     # Initialization is overwritten immediately; do not consume the caller's
     # training RNG just to load a frozen checkpoint for evaluation.
     with torch.random.fork_rng(devices=[]):
-        actor = SacActor(state["obs_dim"], state["action_low"], state["action_high"], state["hidden_dim"])
+        actor = actor_type(state["obs_dim"], state["action_low"], state["action_high"], state["hidden_dim"])
     actor = actor.to(device)
     expected_bounds = {name: getattr(actor, name).clone() for name in
                        ("action_low", "action_high", "action_scale", "action_bias")}

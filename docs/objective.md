@@ -1,5 +1,13 @@
 # What MPPI-GPS optimizes
 
+**Scope correction from the [theory audit](audit_evidence/theory_review.md).**
+The population exponential-tilting identities and empirical-weight inequalities
+below do not guarantee improvement of a finite-sample weighted mean, its first
+action, or the fitted neural policy. ESS constrains empirical weights, not
+population/policy KL. These are historical design notes; consult
+[policy-selective implementation notes](policy_selective.md) for the executed
+75-iteration experiment and its limitations.
+
 Step 1 of the 2026-10-21 plan. One notation throughout. Sources, read at the
 cited sections: Williams et al. 2018 (T-RO) §III; Montgomery & Levine 2016
 (MDGPS) §§2–4; Chebotar et al. 2017 (PI²-GPS) §§III–IV; Mordatch, Todorov &

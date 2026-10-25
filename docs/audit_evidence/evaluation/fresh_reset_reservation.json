@@ -1,0 +1,16 @@
+{
+  "range_inclusive": [
+    5000000,
+    5000199
+  ],
+  "role": "final claims only; not evaluated in this audit",
+  "current_text_files_scanned": 421,
+  "local_npz_files_scanned": 485,
+  "npz_errors": [],
+  "literal_collisions": [],
+  "git_patch_collisions": [],
+  "training_schedule_collisions": [],
+  "limits": "Scans observed local and robopil5090 JSON, local seed arrays, and reachable source/config history. Unavailable robopil artifacts, external/manual commands, overwritten/deleted untracked data, arbitrary checkpoint pickles and external logs are not proven absent.",
+  "reservation_is_not_population_power_validation": true,
+  "execution_policy": "Freeze code, task, algorithms, checkpoints, budgets, metrics, hypotheses and analysis before a single final run. The reserved200-reset panel remains untouched; its reservation does not establish population-level power. A population claim requires an independent crossed training-seed/reset development pilot and joint selection of n and m before any final access. If800 training seeds are used, choose training_seed=1000+100*i for i=0..799 (MDGPS reset blocks start10100000 and end809100749 at75x10), disjoint from final5000000..5000199 and from each other across reset/planner/execution roles. Do not inspect interim outcomes or reuse final resets to choose variants. A failed final job may resume missing episodes only from an append-only manifest; retain every completed episode."
+}

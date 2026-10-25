@@ -1,0 +1,59 @@
+{
+  "audit_date": "2026-10-23",
+  "baseline_commit": "01eb594ccba3780f29179f14db3caf9755c5d6dc",
+  "local_checkout": "/Users/jaisel/Documents/mppi-gps",
+  "server_live_checkout": "robopil5090:/home/jaisel/mppi-gps",
+  "server_review_checkout": "robopil5090:/home/jaisel/mppi-gps-audit-20261023",
+  "server_live_source_modified": false,
+  "source_files": {
+    "src/utils/math.py": "a593998ee603a4e24e964723807d3d9010a30641ff01e3f79aaab234ef2d8a36",
+    "src/gps/gpu_estep.py": "8f8522a7cc2a780c8132eee2119b802cfe339b8c847705737c5f0f39f5957ec9",
+    "scripts/training/train_walker_mdgps.py": "f34845c8b2881ec77d39fe2ef20f930117c5dfaba524293126093d4f06208c9c",
+    "scripts/tuning/tune_acrobot.py": "85b7e0868c8134aa4884ec28578ccbb8e5b2d95c48965ab37e25b876511dbeb2"
+  },
+  "primary_reports": [
+    "docs/related_work.md",
+    "docs/code_audit.md"
+  ],
+  "final_resets_evaluated": false,
+  "runtime_tests": {
+    "local": "525 passed, 2 skipped, 3 xfailed",
+    "server_cpu": "518 passed, 5 skipped, 3 xfailed",
+    "server_cuda_short": "1 passed",
+    "server_cuda_production_horizon": "disagrees; acceptance decision flips"
+  },
+  "source_fixes": [
+    "softmin limiting temperatures",
+    "GPU tail warmstart matches CPU contract",
+    "training reset-block overlap guard",
+    "Acrobot tuning search/validation separation"
+  ],
+  "test_only_correction": "float32 averaging action near zero needs absolute tolerance",
+  "external_blockers": [
+    "No official VAMPS implementation located",
+    "Recent OpenReview discussions inaccessible",
+    "No fresh closest-competitor training replication",
+    "Interactive browser fallback unavailable: browser inventory empty"
+  ],
+  "mutation": {
+    "generated": 3393,
+    "killed": 2390,
+    "survived": 648,
+    "uncovered": 354,
+    "segfault": 1,
+    "timed_out": 0,
+    "pending": 0,
+    "note": "Snapshot predates final M-step and strengthened GPU tests; no retroactive score credit."
+  },
+  "coverage": {
+    "statements_percent": 82.902033,
+    "branches_percent": 72.297297,
+    "combined_percent": 80.62409,
+    "scope": "Requested source targets, local CPU suite; actual CUDA evidence separate."
+  },
+  "report_sha256": {
+    "docs/related_work.md": "1c18dade43c66542b8051b31960e77e88b4ec9ac479aeaf3e1b8220cf2818044",
+    "docs/code_audit.md": "f21a133d5d7a08dd5e10d8d830e6345ed4d5fa64707afc4fbe19285cd9b16500"
+  },
+  "population_power_status": "Training-seed count conditional on fixed reset panel; joint seed/reset population power requires paired development pilot."
+}

@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/alvaro-serra/pompc",
+  "commit": "e0e1efea2f1e33ea98568ace960641d19b36a770",
+  "source_path": "pompc/world_model.py",
+  "source_sha256": "e1fb968787790dcd5741d17d7b5606c1f3ec629e8c6fa10c109eda76b4638710",
+  "check": "original method body versus independent scalar Normal density",
+  "action_dimension": 2,
+  "noise": [
+    0.3,
+    -0.4
+  ],
+  "actual_log_density": -1.5073801558029238,
+  "expected_log_density": -1.3823801558029238,
+  "difference": -0.125,
+  "passed": false,
+  "scope": "external implementation discrepancy; upstream left unmodified"
+}

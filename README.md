@@ -41,10 +41,20 @@ Other standalone runners are retained under `scripts/runners/`, with CPU tuning 
 
 ## Baseline evidence and new work
 
+[Policy-selective MPPI distillation](docs/policy_selective.md) implements the
+memoryless training teacher, anchor/selective ablation, frozen weighted replay,
+and a standalone tanh MLP. Run `scripts.training.train_policy_selective` for the
+75-iteration K=256/H=32/T=100 preset; the linked notes include CPU fallback,
+smoke-test overrides, GPU memory limits, and standalone evaluation commands.
+The [research telemetry suite](docs/research_telemetry.md) adds diagnostics,
+default health stops, and four-controller limit-cycle artifacts for future runs.
+
 [What MPPI-GPS optimizes](docs/objective.md) defines the method under test:
-MPPI samples around the policy's own rollout, takes one KL-bounded step
-(temperature set by `lam_target_neff_fraction`, off by default) and the policy
-regresses onto it. `src/gps/` holds the E-step and the policy-tail terminal
+MPPI samples around the policy's own rollout, takes one weighted update
+(optional temperature selection targets empirical sample ESS) and the policy
+regresses onto it. ESS does not certify population or neural-policy KL, or
+long-horizon improvement. See the [theory audit](docs/audit_evidence/theory_review.md).
+`src/gps/` holds the E-step and the policy-tail terminal
 cost. `scripts/diagnostics/lqr_oracle.py` checks it against the LQR gain,
 `scripts/diagnostics/walker_headroom.py` maps raw MPPI's Walker headroom, and
 `scripts/training/train_walker_mdgps.py` trains MPPI-GPS or DAgger

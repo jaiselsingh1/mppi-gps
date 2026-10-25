@@ -1,0 +1,400 @@
+scripts/benchmarks/warp_parity.py:32:_SAC = _REPO_ROOT / "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt"
+scripts/benchmarks/warp_parity.py:44:def _sac_states(env: Walker2d, actor, count: int, reset_seed: int) -> list:
+scripts/benchmarks/warp_parity.py:45:    np.random.seed(reset_seed)
+scripts/benchmarks/warp_parity.py:46:    obs = env.reset()
+scripts/benchmarks/warp_parity.py:78:        draws = [np.clip(nominal[None] + MPPI(env_cpu, cfg, seed=7_000 + 2 * index + d)._sample_noise(), low, high)
+scripts/benchmarks/warp_parity.py:115:    rng = np.random.default_rng(0)
+scripts/benchmarks/warp_parity.py:117:    np.random.seed(0)
+scripts/benchmarks/warp_parity.py:118:    env_cpu.reset()
+scripts/benchmarks/warp_parity.py:144:    np.random.seed(0)
+scripts/benchmarks/warp_parity.py:145:    env.reset()
+scripts/visualisation/visualise_rollouts.py:39:        max_rollouts: max number of rollouts to draw (subsampled randomly)
+scripts/visualisation/visualise_rollouts.py:46:        indices = np.random.choice(K, max_rollouts, replace=False)
+scripts/visualisation/visualise_rollouts.py:81:    env.reset()
+scripts/visualisation/visualise_rollouts.py:82:    controller.reset()
+scripts/benchmarks/benchmark_mppi_loop.py:18:        mppi = MPPI(env, mppi_cfg, seed=10_000)
+scripts/benchmarks/benchmark_mppi_loop.py:19:        np.random.seed(0)
+scripts/benchmarks/benchmark_mppi_loop.py:20:        env.reset()
+scripts/diagnostics/walker_fall_autopsy.py:65:def _probe(env, cfg, nominal, state, warmstart, seed) -> dict:
+scripts/diagnostics/walker_fall_autopsy.py:66:    probe = MPPI(env, cfg, seed=seed)
+scripts/diagnostics/walker_fall_autopsy.py:76:def _h_probe_control(env, cfg, h_cfg, trace, stride, seed) -> dict:
+scripts/diagnostics/walker_fall_autopsy.py:89:        probe = _probe(env, h_cfg, padded, state, warmstart, seed + step)
+scripts/diagnostics/walker_fall_autopsy.py:97:        "trace": str(trace.resolve()), "reset_seed": recorded["reset_seed"],
+scripts/diagnostics/walker_fall_autopsy.py:98:        "planner_seed": recorded["planner_seed"], "rows": rows,
+scripts/diagnostics/walker_fall_autopsy.py:149:    probe_seed: int = 900_000,
+scripts/diagnostics/walker_fall_autopsy.py:193:                "probe_k": _probe(env, k_cfg, nominal, state, warmstart, probe_seed + step),
+scripts/diagnostics/walker_fall_autopsy.py:194:                "probe_h": _probe(env, h_cfg, padded, state, warmstart, probe_seed + step),
+scripts/diagnostics/walker_fall_autopsy.py:198:            control = _h_probe_control(env, cfg, h_cfg, control_trace, control_stride, probe_seed)
+scripts/diagnostics/walker_fall_autopsy.py:208:        "reset_seed": recorded["reset_seed"], "planner_seed": recorded["planner_seed"],
+scripts/diagnostics/walker_fall_autopsy.py:211:        "probes": {"samples": probe_samples, "horizon": probe_horizon, "seed_base": probe_seed},
+scripts/runners/eval_policy_walker2d.py:45:                    episodes: int = 30, steps: int = 1000, seed: int = 50_000,
+scripts/runners/eval_policy_walker2d.py:48:    if episodes < 1 or steps < 1 or seed < 0 or seed + episodes > 2**32:
+scripts/runners/eval_policy_walker2d.py:49:        raise ValueError("Require positive episodes/steps and valid consecutive reset seeds.")
+scripts/runners/eval_policy_walker2d.py:65:            obs, _ = env.reset(seed=seed + episode)
+scripts/runners/eval_policy_walker2d.py:99:                "reset_seed": seed + episode, "steps": len(actions),
+scripts/runners/eval_policy_walker2d.py:127:               if key not in {"reset_seed", "terminated", "truncated"}}
+scripts/runners/eval_policy_walker2d.py:136:                      reset_seeds=np.arange(seed, seed + episodes))
+scripts/runners/eval_policy_walker2d.py:142:                    "reset_seed_base": seed, "elapsed_seconds": time.perf_counter() - started},
+scripts/runners/eval_policy_walker2d.py:164:         seed: int = 50_000, task_config: Path = DEFAULT_TASK,
+scripts/runners/eval_policy_walker2d.py:185:                             episodes=episodes, steps=steps, seed=seed, video_path=video,
+scripts/runners/eval_policy_walker2d.py:196:    """Evaluate the complete saved ladder on the predeclared development seeds.
+scripts/runners/eval_policy_walker2d.py:203:    records = [json.loads(line) for line in (run_dir / "checkpoints.jsonl").read_text().splitlines()]
+scripts/runners/eval_policy_walker2d.py:221:                   "reset_seeds": [50000, 50029], "episodes_per_checkpoint": 30, "steps": 1000,
+scripts/benchmarks/gpu_estep_check.py:6:Label noise is the GPU label difference between two independent noise seeds.
+scripts/benchmarks/gpu_estep_check.py:28:def _collect(env, act, episodes: int, steps: int, every: int, noise: float, seed: int):
+scripts/benchmarks/gpu_estep_check.py:29:    rng = np.random.default_rng(900_000 + seed)
+scripts/benchmarks/gpu_estep_check.py:33:        np.random.seed(seed + episode)
+scripts/benchmarks/gpu_estep_check.py:34:        obs = env.reset()
+scripts/benchmarks/gpu_estep_check.py:64:    seeds = [10_000 + i for i in range(len(states))]
+scripts/benchmarks/gpu_estep_check.py:72:        gpu_results[batch] = gpu(states, warmstarts, seeds)
+scripts/benchmarks/gpu_estep_check.py:86:        cpu_rows.append(e_step(MPPI(env, cfg, seed=seeds[i]), env, states[i], nominal, warmstarts[i], terminal=tail))
+scripts/benchmarks/gpu_estep_check.py:96:        "label_noise_two_seeds_gpu": {"median": float(np.median(noise)), "p95": float(np.quantile(noise, 0.95))},
+scripts/tuning/tune_cheetah.py:12:n_seeds = 2
+scripts/tuning/tune_cheetah.py:27:    for seed in range(n_seeds):
+scripts/tuning/tune_cheetah.py:28:        # the seeds are for the noise that's being used within mppi 
+scripts/tuning/tune_cheetah.py:29:        np.random.seed(seed)
+scripts/tuning/tune_cheetah.py:32:        env.reset()
+scripts/tuning/tune_cheetah.py:55:    return total_cost / n_seeds
+scripts/benchmarks/estep_chaos_check.py:51:    seeds = [10_000 + i for i in range(states)]
+scripts/benchmarks/estep_chaos_check.py:60:            out.append(e_step(MPPI(env, cfg, seed=seeds[i]), env, x, nominal, w, terminal=tail).label)
+scripts/benchmarks/estep_chaos_check.py:65:    gpu_a, gpu_b = gpu_step(xs, ws, seeds).labels, gpu_step(xs, ws, seeds).labels
+scripts/benchmarks/estep_chaos_check.py:66:    seed_noise = gpu_step(xs, ws, [50_000 + i for i in range(states)]).labels
+scripts/benchmarks/estep_chaos_check.py:75:        "sampling_noise_two_seeds": summary(diff(seed_noise, gpu_a)),
+scripts/runners/run_humanoid.py:55:    np.random.seed(0)
+scripts/runners/run_humanoid.py:56:    env.reset()
+scripts/tuning/tune_humanoid.py:30:    seeds: int = 3
+scripts/tuning/tune_humanoid.py:80:def evaluate_seed(trial: HumanoidTrial, seed: int) -> dict[str, float]:
+scripts/tuning/tune_humanoid.py:81:    np.random.seed(seed)
+scripts/tuning/tune_humanoid.py:104:    env.reset()
+scripts/tuning/tune_humanoid.py:150:        "seed": seed,
+scripts/tuning/tune_humanoid.py:173:    keys = [k for k in runs[0].keys() if k != "seed"]
+scripts/tuning/tune_humanoid.py:456:    parser.add_argument("--seeds", type=int, default=None)
+scripts/tuning/tune_humanoid.py:478:    if args.seeds is not None:
+scripts/tuning/tune_humanoid.py:480:            trial.seeds = args.seeds
+scripts/tuning/tune_humanoid.py:486:        for seed in range(trial.seeds):
+scripts/tuning/tune_humanoid.py:487:            run = evaluate_seed(trial, seed)
+scripts/tuning/tune_humanoid.py:490:                "seed={seed} survived={survived_steps:.0f} healthy={healthy_final:.0f} "
+scripts/diagnostics/lqr_trust_check.py:57:def run(env, start_at_optimum, seed, iterations, samples, rho, sigma_at, rho_cap=None, check=False,
+scripts/diagnostics/lqr_trust_check.py:59:    rng = np.random.default_rng(seed + 1)
+scripts/diagnostics/lqr_trust_check.py:68:        planner = MPPI(env, MPPIConfig(K=samples, H=horizon, noise_sigma=sigma_at(k)), seed=1000 * seed + k)
+scripts/diagnostics/lqr_trust_check.py:91:def main(out_dir: Path, seeds: tuple[int, ...] = (0, 1)) -> None:
+scripts/diagnostics/lqr_trust_check.py:97:    report = {"seeds": list(seeds), "A": [], "B": [], "C": [], "D": []}
+scripts/diagnostics/lqr_trust_check.py:100:        for seed in seeds:
+scripts/diagnostics/lqr_trust_check.py:101:            row = run(env, True, seed, 10, samples, rho, fixed(sigma))
+scripts/diagnostics/lqr_trust_check.py:103:            report["A"].append({"K": samples, "rho": rho, "sigma": sigma, "seed": seed, "floor": floor,
+scripts/diagnostics/lqr_trust_check.py:105:            print(f"A K={samples} rho={rho} sigma={sigma} seed={seed}: floor {floor:.4f}", flush=True)
+scripts/diagnostics/lqr_trust_check.py:114:            for seed in seeds:
+scripts/diagnostics/lqr_trust_check.py:115:                row = run(env, start_opt, seed, 40, 256, 0.2, sigma_at)
+scripts/diagnostics/lqr_trust_check.py:118:                report["B"].append({"arm": name, "start_at_optimum": start_opt, "seed": seed, **summary, **row})
+scripts/diagnostics/lqr_trust_check.py:119:                print(f"B {name} start_opt={start_opt} seed={seed}: {summary}", flush=True)
+scripts/diagnostics/lqr_trust_check.py:123:        for seed in seeds:
+scripts/diagnostics/lqr_trust_check.py:124:            row = run(env, False, seed, 30, 256, rho, fixed(0.3), rho_cap=cap, check=check)
+scripts/diagnostics/lqr_trust_check.py:130:            report["D" if name == "check" else "C"].append({"arm": name, "seed": seed, **summary, **row})
+scripts/diagnostics/lqr_trust_check.py:131:            print(f"{'D' if name == 'check' else 'C'} {name} seed={seed}: {summary}", flush=True)
+scripts/training/train_walker_mdgps.py:66:    # Optional checkpoint (load_policy format) to start from instead of a random policy.
+scripts/training/train_walker_mdgps.py:79:    seed: int = 0
+scripts/training/train_walker_mdgps.py:88:def _new_actor(seed: int) -> SacActor:
+scripts/training/train_walker_mdgps.py:91:    torch.manual_seed(seed)
+scripts/training/train_walker_mdgps.py:138:    planner = MPPI(env, planner_cfg, seed=job["planner_seed"])
+scripts/training/train_walker_mdgps.py:140:    rng = np.random.default_rng(job["noise_seed"])
+scripts/training/train_walker_mdgps.py:142:    np.random.seed(job["reset_seed"])
+scripts/training/train_walker_mdgps.py:143:    obs = env.reset()
+scripts/training/train_walker_mdgps.py:151:                # Same random draws as the CPU branch, so the same states are visited.
+scripts/training/train_walker_mdgps.py:152:                pending.append((state, warmstart, (job["planner_seed"], len(pending))))
+scripts/training/train_walker_mdgps.py:153:                probe_flags.append(bool(rng.random() < job["probe_probability"]))
+scripts/training/train_walker_mdgps.py:164:                if rng.random() < job["probe_probability"]:
+scripts/training/train_walker_mdgps.py:219:def _evaluate(actor: SacActor, episodes: int, seed: int) -> dict:
+scripts/training/train_walker_mdgps.py:224:    return evaluate_policy(policy.eval(), episodes=episodes, seed=seed)["summary"]
+scripts/training/train_walker_mdgps.py:227:def _fit(actor: SacActor, obs: np.ndarray, labels: np.ndarray, cfg: TrainConfig, rng: np.random.Generator) -> float:
+scripts/training/train_walker_mdgps.py:251:    The next iteration index, and so every per-iteration seed, is the one an
+scripts/training/train_walker_mdgps.py:262:    rows = [json.loads(line) for line in (out_dir / "metrics.jsonl").read_text().splitlines() if line.strip()]
+scripts/training/train_walker_mdgps.py:271:    rng = np.random.default_rng(cfg.seed)
+scripts/training/train_walker_mdgps.py:272:    actor = _new_actor(cfg.seed)
+scripts/training/train_walker_mdgps.py:304:            base_seed = 100_000 + 10_000 * cfg.seed + cfg.episodes_per_iter * iteration
+scripts/training/train_walker_mdgps.py:306:                     "reset_seed": base_seed + e, "planner_seed": 500_000 + base_seed + e,
+scripts/training/train_walker_mdgps.py:307:                     "noise_seed": 900_000 + base_seed + e, "execute_expert": execute_expert,
+scripts/runners/run_point_mass.py:18:        env.reset()
+scripts/runners/run_point_mass.py:19:        controller.reset()
+scripts/diagnostics/walker_gate_v2_diagnostic.py:3:No controller executes here: the four policy outcomes and twenty seed-control
+scripts/diagnostics/walker_gate_v2_diagnostic.py:132:    """Score known policy, identity and seed actions without re-executing them."""
+scripts/diagnostics/walker_gate_v2_diagnostic.py:149:        raise ValueError("Policy and seed controls have different raw baselines.")
+scripts/diagnostics/walker_gate_v2_diagnostic.py:156:    options += [(label, "identity" if label == "identity" else "seed_control",
+scripts/diagnostics/walker_gate_v2_diagnostic.py:219:            for category in ("policy", "seed_control", "identity")
+scripts/diagnostics/walker_gate_v2_diagnostic.py:266:                  "limits": "Known policy outcomes plus declared seed controls; not held-out validation. One replan with open-loop tail remains an approximation; sign agreement at H does not guarantee 250-control benefit."}
+scripts/runners/run_ant_maze.py:95:    seed: int = 0,
+scripts/runners/run_ant_maze.py:138:            np.random.seed(seed + episode)
+scripts/runners/run_ant_maze.py:139:            env.reset()
+scripts/runners/run_ant_maze.py:140:            controller.reset()
+scripts/runners/run_ant_maze.py:144:            hold_count = 0
+scripts/runners/run_ant_maze.py:145:            max_hold_count = 0
+scripts/runners/run_ant_maze.py:164:                    hold_count += 1
+scripts/runners/run_ant_maze.py:166:                    hold_count = 0
+scripts/runners/run_ant_maze.py:167:                max_hold_count = max(max_hold_count, hold_count)
+scripts/runners/run_ant_maze.py:200:                "final_hold_success": hold_count >= 25,
+scripts/runners/run_ant_maze.py:201:                "max_hold_steps": max_hold_count,
+scripts/runners/run_ant_maze.py:218:                f"hold25={summary['final_hold_success']}"
+scripts/runners/run_ant_maze.py:242:        "seed": seed,
+scripts/runners/run_ant_maze.py:254:        "final_hold_success_rate": float(np.mean([ep["final_hold_success"] for ep in episode_summaries])),
+scripts/runners/run_ant_maze.py:268:        f"hold25={summary['final_hold_success_rate']:.3f} "
+scripts/tuning/tune_acrobot.py:37:    "hold_success_rate": 0.7,
+scripts/tuning/tune_acrobot.py:58:    seeds: tuple[int, ...]
+scripts/tuning/tune_acrobot.py:60:    hold_steps: int
+scripts/tuning/tune_acrobot.py:72:    sampler_seed: int
+scripts/tuning/tune_acrobot.py:78:def parse_seed_list(raw: str) -> tuple[int, ...]:
+scripts/tuning/tune_acrobot.py:79:    seeds = tuple(int(part.strip()) for part in raw.split(",") if part.strip())
+scripts/tuning/tune_acrobot.py:80:    if not seeds:
+scripts/tuning/tune_acrobot.py:81:        raise argparse.ArgumentTypeError("seed list must contain at least one integer")
+scripts/tuning/tune_acrobot.py:82:    return seeds
+scripts/tuning/tune_acrobot.py:157:    hold_successes: list[bool] = []
+scripts/tuning/tune_acrobot.py:159:    final_hold_successes: list[bool] = []
+scripts/tuning/tune_acrobot.py:168:        for seed_idx, seed in enumerate(settings.seeds):
+scripts/tuning/tune_acrobot.py:169:            np.random.seed(seed)
+scripts/tuning/tune_acrobot.py:170:            env.reset()
+scripts/tuning/tune_acrobot.py:171:            controller.reset()
+scripts/tuning/tune_acrobot.py:175:            hold_count = 0
+scripts/tuning/tune_acrobot.py:176:            max_hold_count = 0
+scripts/tuning/tune_acrobot.py:198:                    hold_count += 1
+scripts/tuning/tune_acrobot.py:200:                    hold_count = 0
+scripts/tuning/tune_acrobot.py:201:                max_hold_count = max(max_hold_count, hold_count)
+scripts/tuning/tune_acrobot.py:210:            hold_successes.append(max_hold_count >= settings.hold_steps)
+scripts/tuning/tune_acrobot.py:212:            final_hold_successes.append(hold_count >= settings.hold_steps)
+scripts/tuning/tune_acrobot.py:219:                trial.report(float(np.sum(episode_costs) / total_steps), step=seed_idx)
+scripts/tuning/tune_acrobot.py:231:        "seeds": list(settings.seeds),
+scripts/tuning/tune_acrobot.py:233:        "hold_steps": int(settings.hold_steps),
+scripts/tuning/tune_acrobot.py:240:        "hold_success_rate": float(np.mean(hold_successes)),
+scripts/tuning/tune_acrobot.py:242:        "final_hold_success_rate": float(np.mean(final_hold_successes)),
+scripts/tuning/tune_acrobot.py:268:        + 1000.0 * (1.0 - metrics["hold_success_rate"])
+scripts/tuning/tune_acrobot.py:270:        + 500.0 * (1.0 - metrics["final_hold_success_rate"])
+scripts/tuning/tune_acrobot.py:289:        trial.set_user_attr("hold_success_rate", metrics["hold_success_rate"])
+scripts/tuning/tune_acrobot.py:290:        trial.set_user_attr("final_hold_success_rate", metrics["final_hold_success_rate"])
+scripts/tuning/tune_acrobot.py:346:            "hit={hit:.2f} hold={hold:.2f} final_hold={final_hold:.2f}".format(
+scripts/tuning/tune_acrobot.py:351:                hold=metrics["hold_success_rate"],
+scripts/tuning/tune_acrobot.py:352:                final_hold=metrics["final_hold_success_rate"],
+scripts/tuning/tune_acrobot.py:363:            -metrics["hold_success_rate"],
+scripts/tuning/tune_acrobot.py:365:            -metrics["final_hold_success_rate"],
+scripts/tuning/tune_acrobot.py:381:        and metrics["hold_success_rate"] >= RELIABILITY_GATE["hold_success_rate"]
+scripts/tuning/tune_acrobot.py:398:        "objective": "reliability-first score over search seeds" if settings.mode == "reliability" else "minimize mean_cost_per_step over search seeds",
+scripts/tuning/tune_acrobot.py:399:        "selection_rule": "hold_success_rate, hit_success_rate, final_hold_success_rate, cost, time_to_hit" if settings.mode == "reliability" else "mean_cost_per_step",
+scripts/tuning/tune_acrobot.py:430:    parser.add_argument("--search-seeds", type=parse_seed_list, default=parse_seed_list("0,1,2,3,4"))
+scripts/tuning/tune_acrobot.py:431:    parser.add_argument("--validation-seeds", type=parse_seed_list, default=parse_seed_list("0,1,2,3,4,5,6,7,8,9"))
+scripts/tuning/tune_acrobot.py:434:    parser.add_argument("--hold-steps", type=int, default=25)
+scripts/tuning/tune_acrobot.py:436:    parser.add_argument("--sampler-seed", type=int, default=0)
+scripts/tuning/tune_acrobot.py:462:        search=EvalSettings(args.search_seeds, args.search_steps, args.hold_steps),
+scripts/tuning/tune_acrobot.py:463:        validation=EvalSettings(args.validation_seeds, args.validation_steps, args.hold_steps),
+scripts/tuning/tune_acrobot.py:465:        sampler_seed=args.sampler_seed,
+scripts/tuning/tune_acrobot.py:472:        seed=args.sampler_seed,
+scripts/tuning/tune_acrobot.py:513:        "validation mean_cost_per_step={cost:.6f} hit={hit:.2f} hold={hold:.2f} final_hold={final_hold:.2f}".format(
+scripts/tuning/tune_acrobot.py:516:            hold=selected["hold_success_rate"],
+scripts/tuning/tune_acrobot.py:517:            final_hold=selected["final_hold_success_rate"],
+scripts/runners/run_acrobot.py:31:        env.reset()
+scripts/runners/run_acrobot.py:32:        controller.reset()
+scripts/diagnostics/lqr_oracle.py:3:Each iteration executes the current policy u = -G x from random starts, runs
+scripts/diagnostics/lqr_oracle.py:25:    seed: int,
+scripts/diagnostics/lqr_oracle.py:38:    planner = MPPI(env, cfg, seed=seed)
+scripts/diagnostics/lqr_oracle.py:39:    rng = np.random.default_rng(seed + 1)
+scripts/diagnostics/lqr_oracle.py:67:        "seed": seed,
+scripts/diagnostics/lqr_oracle.py:84:    seeds: tuple[int, ...] = (0, 1),
+scripts/diagnostics/lqr_oracle.py:93:        for seed in seeds:
+scripts/diagnostics/lqr_oracle.py:94:            row = run_setting(samples, rho, lam, seed, at_opt, iterations, episodes,
+scripts/diagnostics/lqr_oracle.py:97:            label = f"K={samples:5d} rho={rho} lam={row['fixed_lam']} start_opt={at_opt} seed={seed}"
+scripts/diagnostics/lqr_oracle.py:104:                     "horizon": horizon, "sigma": sigma, "seeds": list(seeds)},
+scripts/diagnostics/audit_b_measurements.py:6:   planner seeds from the same state, warm start and nominal, for the frozen
+scripts/diagnostics/audit_b_measurements.py:32:def neff_trace(env, cfg: MPPIConfig, reset_seed: int, planner_seed: int, steps: int) -> dict:
+scripts/diagnostics/audit_b_measurements.py:33:    np.random.seed(reset_seed)
+scripts/diagnostics/audit_b_measurements.py:34:    env.reset()
+scripts/diagnostics/audit_b_measurements.py:35:    planner = MPPI(env, cfg, seed=planner_seed)
+scripts/diagnostics/audit_b_measurements.py:57:    reset_seed: int,
+scripts/diagnostics/audit_b_measurements.py:58:    planner_seed: int,
+scripts/diagnostics/audit_b_measurements.py:60:    n_seeds: int,
+scripts/diagnostics/audit_b_measurements.py:63:    np.random.seed(reset_seed)
+scripts/diagnostics/audit_b_measurements.py:64:    env.reset()
+scripts/diagnostics/audit_b_measurements.py:65:    planner = MPPI(env, cfg, seed=planner_seed)
+scripts/diagnostics/audit_b_measurements.py:81:            for seed in range(n_seeds):
+scripts/diagnostics/audit_b_measurements.py:82:                probe = MPPI(env, setting, seed=50_000 + seed)
+scripts/diagnostics/audit_b_measurements.py:91:            "first_action_std_across_seeds": float(np.mean(spreads)),
+scripts/diagnostics/audit_b_measurements.py:95:    return {"decisions": list(decisions), "seeds_per_state": n_seeds, "settings": rows}
+scripts/diagnostics/audit_b_measurements.py:98:def main(out_dir: Path, walker_steps: int = 150, other_steps: int = 50, n_seeds: int = 16) -> None:
+scripts/diagnostics/audit_b_measurements.py:107:                PointMass(random_goal=False), MPPIConfig.load("point_mass"), 0, 10_000, other_steps
+scripts/diagnostics/audit_b_measurements.py:111:            _walker(), walker_cfg, 30, 20030, (20, 50, 80, 110, 140), n_seeds, (None, 0.05, 0.2)
+scripts/runners/run_walker2d.py:65:                 traces_output, metrics_output, steps, episodes, seed, planner_seed):
+scripts/runners/run_walker2d.py:77:        arrays["reset_seeds"] = np.array([r["reset_seed"] for r in results])
+scripts/runners/run_walker2d.py:78:        arrays["planner_seeds"] = np.array([r["planner_seed"] for r in results])
+scripts/runners/run_walker2d.py:89:                    "elapsed_seconds": elapsed, "reset_seed_base": seed,
+scripts/runners/run_walker2d.py:90:                    "planner_seed_base": planner_seed},
+scripts/runners/run_walker2d.py:124:    planner_seed: int = 10_000,
+scripts/runners/run_walker2d.py:128:    seed: int = 0,
+scripts/runners/run_walker2d.py:134:    """Run a seeded Walker2d MPPI baseline.
+scripts/runners/run_walker2d.py:137:        planner_seed: First planner seed, independent of reset seed.
+scripts/runners/run_walker2d.py:144:    if any(value < 0 or value + episodes > 2**32 for value in (seed, planner_seed)):
+scripts/runners/run_walker2d.py:145:        _argument_error("Reset and planner seeds must remain in [0, 2**32).")
+scripts/runners/run_walker2d.py:195:            reset_seed = seed + episode
+scripts/runners/run_walker2d.py:196:            episode_planner_seed = planner_seed + episode
+scripts/runners/run_walker2d.py:197:            np.random.seed(reset_seed)
+scripts/runners/run_walker2d.py:198:            env.reset()
+scripts/runners/run_walker2d.py:199:            controller.reset(seed=episode_planner_seed)
+scripts/runners/run_walker2d.py:271:                "reset_seed": reset_seed,
+scripts/runners/run_walker2d.py:272:                "planner_seed": episode_planner_seed,
+scripts/runners/run_walker2d.py:299:                f"episode={episode:2d}  reset_seed={reset_seed}  "
+scripts/runners/run_walker2d.py:300:                f"planner_seed={episode_planner_seed}  steps={result['steps']}/{steps}  "
+scripts/runners/run_walker2d.py:341:                         seed=seed, planner_seed=planner_seed)
+scripts/runners/run_walker_shadow.py:3:Re-run a complete reference episode continuously from its reset/planner seeds.
+scripts/runners/run_walker_shadow.py:36:DEFAULT_SELECTION = (_ROOT / "runs/2026-10-11_s2_sac_ladder_seed0_001/"
+scripts/runners/run_walker_shadow.py:107:                      reset_seeds=np.array([reference["reset_seed"]]),
+scripts/runners/run_walker_shadow.py:108:                      planner_seeds=np.array([reference["planner_seed"]]))
+scripts/runners/run_walker_shadow.py:140:            np.random.seed(reference["reset_seed"])
+scripts/runners/run_walker_shadow.py:141:            env.reset()
+scripts/runners/run_walker_shadow.py:142:            controller.reset(seed=reference["planner_seed"])
+scripts/runners/run_walker_shadow.py:266:                "reset_seed": expected["reset_seed"], "planner_seed": expected["planner_seed"]}
+scripts/diagnostics/compare_walker_plan_realized.py:92:    for key in ("reset_seed", "planner_seed"):
+scripts/diagnostics/compare_walker_plan_realized.py:94:            raise ValueError(f"Reference/shadow seed mismatch: {key}")
+scripts/diagnostics/compare_walker_plan_realized.py:219:def main(success_trace: Path = _S1 / "replay_reset30_planner20030/traces.npz",
+scripts/diagnostics/compare_walker_plan_realized.py:220:         failure_trace: Path = _S1 / "replay_reset31_planner20031/traces.npz",
+scripts/diagnostics/label_plan_check.py:28:         neff_fraction: float = 0.2, episodes: int = 10, steps: int = 400, collect_seed: int = 123_000,
+scripts/diagnostics/label_plan_check.py:37:              "steps": steps, "collect_seed": collect_seed, "noise_seeds": _NOISE_SEEDS, "checkpoints": {}}
+scripts/diagnostics/label_plan_check.py:39:        name, path = entry.split("=", 1)
+scripts/diagnostics/label_plan_check.py:49:        states, warmstarts = _collect(env, act, episodes, steps, 2, 0.1, collect_seed)
+scripts/diagnostics/label_plan_check.py:52:        draws = [estep(states, warmstarts, [seed + i for i in range(len(states))]) for seed in _NOISE_SEEDS]
+scripts/training/train_walker2d_sac.py:25:    """Save the *final* observation before the caller can reset after a timeout.
+scripts/training/train_walker2d_sac.py:43:    seed: int = 0,
+scripts/training/train_walker2d_sac.py:57:    Evaluation uses development seeds 60000 onward. Training resets use only
+scripts/training/train_walker2d_sac.py:58:    0..39999. The 30-seed checkpoint classification is a separate evaluation.
+scripts/training/train_walker2d_sac.py:63:    if not 0 <= seed < 2**32 or learning_starts < 0 or buffer_size < batch_size:
+scripts/training/train_walker2d_sac.py:64:        raise ValueError("Invalid seed, learning_starts or buffer_size.")
+scripts/training/train_walker2d_sac.py:66:        raise ValueError("Monitoring reset seeds are reserved to 60000..69999.")
+scripts/training/train_walker2d_sac.py:72:    torch.manual_seed(seed)
+scripts/training/train_walker2d_sac.py:74:    action_rng = np.random.default_rng(seed)
+scripts/training/train_walker2d_sac.py:75:    reset_rng = np.random.default_rng(seed + 1)
+scripts/training/train_walker2d_sac.py:80:    replay = ReplayBuffer(buffer_size, 17, len(low), seed=seed + 2)
+scripts/training/train_walker2d_sac.py:90:    config = {"seed": seed, "total_steps": total_steps, "learning_starts": learning_starts,
+scripts/training/train_walker2d_sac.py:96:              "device": "cpu", "training_reset_seed_range": [0, 39999],
+scripts/training/train_walker2d_sac.py:97:              "monitor_reset_seed_base": 60000, "classification_reset_seeds": [50000, 50029],
+scripts/training/train_walker2d_sac.py:122:        payload = {"format_version": 1, "step": step, "seed": seed, "gamma": cfg.gamma,
+scripts/training/train_walker2d_sac.py:135:                                 episodes=eval_episodes, steps=max_episode_steps, seed=60000,
+scripts/training/train_walker2d_sac.py:147:        reset_seed = int(reset_rng.integers(0, 40000))
+scripts/training/train_walker2d_sac.py:148:        obs, _ = env.reset(seed=reset_seed)
+scripts/training/train_walker2d_sac.py:167:                    "reset_seed": reset_seed, "steps": info["elapsed_steps"],
+scripts/training/train_walker2d_sac.py:171:                reset_seed = int(reset_rng.integers(0, 40000))
+scripts/training/train_walker2d_sac.py:172:                obs, _ = env.reset(seed=reset_seed)
+scripts/training/launch_step5.sh:4:# training seeds 0-2 and the Step 4 policy-tail test, all in the background.
+scripts/training/launch_step5.sh:16:for seed in 0 1 2; do
+scripts/training/launch_step5.sh:19:      --out-dir "runs/2026-10-22_step5_${labeler}_seed${seed}" --cfg.labeler "$labeler" --cfg.seed "$seed" \
+scripts/training/launch_step5.sh:20:      "${common[@]}" > "runs/step5_${labeler}_seed${seed}.log" 2>&1 &
+scripts/diagnostics/walker_future_seed_check.py:1:"""Repeat fixed first actions under paired, fresh future-planner randomness.
+scripts/diagnostics/walker_future_seed_check.py:4:Only the future RNG is changed. This diagnoses seed sensitivity of the
+scripts/diagnostics/walker_future_seed_check.py:45:def future_snapshot(original: dict, seed: int) -> dict:
+scripts/diagnostics/walker_future_seed_check.py:47:    if type(seed) is not int or seed < 0:
+scripts/diagnostics/walker_future_seed_check.py:48:        raise ValueError("Future seed must be a nonnegative integer.")
+scripts/diagnostics/walker_future_seed_check.py:52:    snapshot["rng_state"] = copy.deepcopy(np.random.default_rng(seed).bit_generator.state)
+scripts/diagnostics/walker_future_seed_check.py:58:    """Check common control-boundary randomness through either first fall."""
+scripts/diagnostics/walker_future_seed_check.py:79:        raise RuntimeError("Paired branches consumed different future planner random streams.")
+scripts/diagnostics/walker_future_seed_check.py:92:        raise RuntimeError("Future randomness changed the fixed first transition from saved evidence.")
+scripts/diagnostics/walker_future_seed_check.py:125:    if (manifest["proposal_seeds"] != list(PROPOSAL_SEEDS)
+scripts/diagnostics/walker_future_seed_check.py:128:    labels = [f"seed_{seed}" for seed in PROPOSAL_SEEDS]
+scripts/diagnostics/walker_future_seed_check.py:140:        raise ValueError("Policy and seed controls have different saved raw continuations.")
+scripts/diagnostics/walker_future_seed_check.py:147:    for seed, label in zip(PROPOSAL_SEEDS, labels):
+scripts/diagnostics/walker_future_seed_check.py:153:        if (proposal["proposal_seed"] != seed
+scripts/diagnostics/walker_future_seed_check.py:156:            raise ValueError("Saved proposal action/seed disagrees with executed control.")
+scripts/diagnostics/walker_future_seed_check.py:181:    """Describe repeat seeds within each fixed intervention; no pooled CI."""
+scripts/diagnostics/walker_future_seed_check.py:187:            "future_seeds": [row["future_seed"] for row in group],
+scripts/diagnostics/walker_future_seed_check.py:203:    """Raw MPPI variability across future seeds, distinct from paired effects."""
+scripts/diagnostics/walker_future_seed_check.py:224:def run_case(start: dict, actions: dict, out_dir: Path, *, future_seeds: tuple[int, ...],
+scripts/diagnostics/walker_future_seed_check.py:226:    """Run paired repeats; the public CLI fixes seeds, actions and horizons."""
+scripts/diagnostics/walker_future_seed_check.py:230:    if not future_seeds or len(set(future_seeds)) != len(future_seeds):
+scripts/diagnostics/walker_future_seed_check.py:231:        raise ValueError("Require distinct future seeds.")
+scripts/diagnostics/walker_future_seed_check.py:232:    for seed in future_seeds:
+scripts/diagnostics/walker_future_seed_check.py:233:        future_snapshot(start["snapshot"], seed)
+scripts/diagnostics/walker_future_seed_check.py:260:        "future_seeds": list(future_seeds), "steps": steps, "score_horizon": score_horizon,
+scripts/diagnostics/walker_future_seed_check.py:264:              "requested_branches": len(actions) * len(future_seeds), "pairs": [],
+scripts/diagnostics/walker_future_seed_check.py:278:        for seed in future_seeds:
+scripts/diagnostics/walker_future_seed_check.py:279:            shared = future_snapshot(snapshot, seed)
+scripts/diagnostics/walker_future_seed_check.py:280:            seed_dir = out_dir / f"future_{seed}"
+scripts/diagnostics/walker_future_seed_check.py:281:            seed_dir.mkdir()
+scripts/diagnostics/walker_future_seed_check.py:284:                save(f"future_{seed}/{label}")
+scripts/diagnostics/walker_future_seed_check.py:295:                _save_trace(seed_dir / f"{label}.npz", trace)
+scripts/diagnostics/walker_future_seed_check.py:297:                report["branches"][f"future_{seed}/{label}"] = summary
+scripts/diagnostics/walker_future_seed_check.py:304:                        "future_seed": seed, "intervention": label,
+scripts/diagnostics/walker_future_seed_check.py:333:    """Run the fixed 4 cases × 8 future seeds × 7 actions, with original U only."""
+scripts/diagnostics/walker_future_seed_check.py:353:        "scripts/diagnostics/walker_future_seed_check.py")
+scripts/diagnostics/walker_future_seed_check.py:361:        "future_seeds": list(FUTURE_SEEDS), "fixed_proposal_seeds": list(PROPOSAL_SEEDS),
+scripts/diagnostics/walker_future_seed_check.py:369:        "intervention": "Fixed original first actions, original post-call U and refinement flag. Change only future RNG; pair raw/intervention within each future seed. No nominal-mode choice based on the preceding ablation.",
+scripts/diagnostics/walker_future_seed_check.py:370:        "limits": "Eight repeated future seeds at four fixed states; not independent episodes or a population CI. Descriptive within-intervention sample SD and signs only. No policy training or active gate."})
+scripts/diagnostics/walker_future_seed_check.py:385:            reports[name] = run_case(start, actions, out_dir / name, future_seeds=FUTURE_SEEDS,
+scripts/diagnostics/replay_walker.py:3:Re-runs one reset/planner seed pair through the standard runner, compares the
+scripts/diagnostics/replay_walker.py:77:                seed=expected["reset_seed"], planner_seed=expected["planner_seed"],
+scripts/diagnostics/replay_walker.py:93:                      "reset_seed": expected["reset_seed"], "planner_seed": expected["planner_seed"],
+scripts/diagnostics/walker_gate_counterfactual.py:121:    # spend the same random samples twice and invalidate the intervention.
+scripts/diagnostics/walker_gate_counterfactual.py:172:        env.reset(state=state)
+scripts/runners/run_cheetah.py:14:    env.reset()
+scripts/diagnostics/walker_headroom.py:23:_LADDER = _REPO_ROOT / "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints"
+scripts/diagnostics/walker_headroom.py:56:    np.random.seed(job["reset_seed"])
+scripts/diagnostics/walker_headroom.py:57:    env.reset()
+scripts/diagnostics/walker_headroom.py:58:    planner = MPPI(env, cfg, seed=job["planner_seed"])
+scripts/diagnostics/walker_headroom.py:75:                                     "reset_seed", "planner_seed")},
+scripts/diagnostics/walker_headroom.py:130:    reset_seed: int = 80_000,
+scripts/diagnostics/walker_headroom.py:131:    planner_seed: int = 90_000,
+scripts/diagnostics/walker_headroom.py:145:                                 "reset_seed": reset_seed + episode,
+scripts/diagnostics/walker_headroom.py:146:                                 "planner_seed": planner_seed + episode})
+scripts/diagnostics/walker_nominal_ablation.py:3:For each archived seed action, reuse its original-U branch and run one branch
+scripts/diagnostics/walker_nominal_ablation.py:54:        raise RuntimeError("Nominal ablation changed the common future planner random stream.")
+scripts/diagnostics/walker_nominal_ablation.py:63:    required.update(f"seed_{seed}.npz" for seed in range(31000, 31005))
+scripts/diagnostics/walker_nominal_ablation.py:66:    if (manifest["steps"] != 250 or manifest["proposal_seeds"] != list(range(31000, 31005))
+scripts/diagnostics/walker_nominal_ablation.py:68:        raise ValueError("Require the declared five-seed, 250-control audited experiment.")
+scripts/diagnostics/walker_nominal_ablation.py:83:              for name in ("raw", "identity", *(f"seed_{seed}" for seed in manifest["proposal_seeds"]))}
+scripts/diagnostics/walker_nominal_ablation.py:87:    if set(proposals) != {f"seed_{seed}" for seed in manifest["proposal_seeds"]}:
+scripts/diagnostics/walker_nominal_ablation.py:88:        raise ValueError("Proposal labels differ from the declared seeds.")
+scripts/diagnostics/walker_nominal_ablation.py:109:    for seed in manifest["proposal_seeds"]:
+scripts/diagnostics/walker_nominal_ablation.py:110:        name = f"seed_{seed}"
+scripts/diagnostics/walker_nominal_ablation.py:124:        if (proposal["proposal_seed"] != seed or before["U"] != pre["U"]
+scripts/diagnostics/walker_nominal_ablation.py:126:                or before["rng_state"] != np.random.default_rng(seed).bit_generator.state):
+scripts/diagnostics/walker_nominal_ablation.py:127:            raise ValueError(f"Proposal changed more than its declared random stream: {name}")
+scripts/diagnostics/walker_nominal_ablation.py:186:                     *(f"seed_{seed}.npz" for seed in inputs["manifest"]["proposal_seeds"])):
+scripts/diagnostics/walker_nominal_ablation.py:211:              "limits": "Development ablation on preselected seed actions, not a policy gate or population qualification. Negative cost difference favors matched nominal; MAE covers executed prefixes only."}
+scripts/diagnostics/walker_nominal_ablation.py:247:                "proposal_seed": proposal["proposal_seed"], "action": action.tolist(),
+scripts/diagnostics/walker_action_controls.py:1:"""Single-action MPPI seed sensitivity, with a shared original continuation.
+scripts/diagnostics/walker_action_controls.py:3:Alternative seeds change only the proposal at one saved decision. Their planner
+scripts/diagnostics/walker_action_controls.py:5:and random stream. This is a sensitivity control, not a zero-centered or
+scripts/diagnostics/walker_action_controls.py:35:def _validate_seed(seed: int | None) -> None:
+scripts/diagnostics/walker_action_controls.py:36:    if seed is not None and (type(seed) is not int or seed < 0):
+scripts/diagnostics/walker_action_controls.py:37:        raise ValueError("Proposal seed must be a nonnegative integer, or None for the original RNG.")
+scripts/diagnostics/walker_action_controls.py:40:def generate_alternative(start: dict, seed: int | None) -> tuple[np.ndarray, dict]:
+scripts/diagnostics/walker_action_controls.py:43:    ``None`` preserves the saved random stream and is the exact-recovery audit.
+scripts/diagnostics/walker_action_controls.py:45:    Neither this helper nor its returned post-call snapshot is used to seed the
+scripts/diagnostics/walker_action_controls.py:48:    _validate_seed(seed)
+scripts/diagnostics/walker_action_controls.py:50:    if seed is not None:
+scripts/diagnostics/walker_action_controls.py:51:        before["rng_state"] = copy.deepcopy(np.random.default_rng(seed).bit_generator.state)
+scripts/diagnostics/walker_action_controls.py:54:        env.reset(state=start["state"].copy())
+scripts/diagnostics/walker_action_controls.py:69:            "proposal_seed": seed,
+scripts/diagnostics/walker_action_controls.py:70:            "original_rng_preserved": seed is None,
+scripts/diagnostics/walker_action_controls.py:118:         proposal_seeds: tuple[int, ...] = (31000, 31001, 31002, 31003, 31004),
+scripts/diagnostics/walker_action_controls.py:120:    """Run one raw branch, one identical-action control, and seeded alternatives."""
+scripts/diagnostics/walker_action_controls.py:128:    if not proposal_seeds or len(set(proposal_seeds)) != len(proposal_seeds):
+scripts/diagnostics/walker_action_controls.py:129:        raise ValueError("Specify at least one distinct proposal seed.")
+scripts/diagnostics/walker_action_controls.py:130:    for seed in proposal_seeds:
+scripts/diagnostics/walker_action_controls.py:131:        _validate_seed(seed)
+scripts/diagnostics/walker_action_controls.py:132:        if seed is None:
+scripts/diagnostics/walker_action_controls.py:133:            raise ValueError("CLI proposal seeds must be integers; original-RNG recovery runs automatically.")
+scripts/diagnostics/walker_action_controls.py:163:        "proposal_seeds": list(proposal_seeds), "task": start["task"], "mppi_config": asdict(start["cfg"]),
+scripts/diagnostics/walker_action_controls.py:179:        "limits": "Single-action MPPI seed sensitivity, not a zero-centered, magnitude-matched null or population-level effect. Compare action differences and paired costs together.",
+scripts/diagnostics/walker_action_controls.py:188:            "total_branches": len(proposal_seeds) + 2,
+scripts/diagnostics/walker_action_controls.py:204:        for label, seed in [("raw", None), ("identity", None)] + [(f"seed_{seed}", seed) for seed in proposal_seeds]:
+scripts/diagnostics/walker_action_controls.py:206:            if seed is None:
+scripts/diagnostics/walker_action_controls.py:209:                action, proposal = generate_alternative(start, seed)
+scripts/diagnostics/walker_action_controls.py:217:                           first_action=action.tolist(), proposal_seed=seed,
+scripts/diagnostics/walker_step5_compare.py:1:"""Step 5 comparison: policy-alone completion and speed MAE on held-out resets.
+scripts/diagnostics/walker_step5_compare.py:3:Every arm is scored on the same held-out reset seeds (70000+). Policies run
+scripts/diagnostics/walker_step5_compare.py:32:    for path in str(job["path"]).split("+"):
+scripts/diagnostics/walker_step5_compare.py:36:    episodes = evaluate_policy(policy, episodes=job["episodes"], seed=job["seed"])["episodes"]
+scripts/diagnostics/walker_step5_compare.py:65:    reset_seed: int = 70_000,
+scripts/diagnostics/walker_step5_compare.py:66:    planner_seed: int = 95_000,
+scripts/diagnostics/walker_step5_compare.py:71:    """checkpoints: "arm=path" entries; repeat an arm name for its training seeds.
+scripts/diagnostics/walker_step5_compare.py:75:    pairs: "candidate:reference" arm names compared seed by seed, the i-th
+scripts/diagnostics/walker_step5_compare.py:76:    checkpoint of one against the i-th of the other, paired by reset seed.
+scripts/diagnostics/walker_step5_compare.py:77:    references: single-checkpoint arms that every seed of every other arm is
+scripts/diagnostics/walker_step5_compare.py:82:        arm, path = entry.split("=", 1)
+scripts/diagnostics/walker_step5_compare.py:83:        policy_jobs.append({"arm": arm, "path": Path(path), "episodes": episodes, "seed": reset_seed})
+scripts/diagnostics/walker_step5_compare.py:90:                  "steps": 1000, "reset_seed": reset_seed + e, "planner_seed": planner_seed + e}
+scripts/diagnostics/walker_step5_compare.py:95:    mppi_rows.sort(key=lambda r: r["reset_seed"])
+scripts/diagnostics/walker_step5_compare.py:105:    report = {"held_out_reset_seeds": [reset_seed, reset_seed + episodes - 1],
+scripts/diagnostics/walker_step5_compare.py:112:        entry = {"pooled": _arm_summary(survived, mae, steps), "per_seed": [], "paired": {}}
+scripts/diagnostics/walker_step5_compare.py:114:            entry["per_seed"].append({"source": r["source"], **_arm_summary(
+scripts/diagnostics/walker_step5_compare.py:129:        candidate, reference_arm = pair.split(":", 1)

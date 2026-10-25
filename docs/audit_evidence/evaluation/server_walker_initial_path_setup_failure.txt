@@ -1,0 +1,153 @@
+FFFx.F                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_same_xml_physics_observation_termination_and_independent_task_cost[914] _
+
+seed = 914
+
+    @pytest.mark.parametrize("seed", [914, 915, 916])
+    def test_same_xml_physics_observation_termination_and_independent_task_cost(seed):
+        local = Walker2d(cost_style="target_velocity", vel_cost_weight=2.0,
+                         vertical_velocity_cost_weight=0.5, nthread=1)
+>       reference = gym.make("Walker2d-v5", xml_file=str(XML)).unwrapped
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/test_walker_gymnasium_differential_audit.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.11/site-packages/gymnasium/envs/registration.py:734: in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/walker2d_v5.py:219: in __init__
+    MujocoEnv.__init__(
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:72: in __init__
+    self.fullpath = expand_model_path(model_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+model_path = '/assets/walker2d.xml'
+
+    def expand_model_path(model_path: str) -> str:
+        """Expands the `model_path` to a full path if it starts with '~' or '.' or '/'."""
+        if model_path.startswith(".") or model_path.startswith("/"):
+            fullpath = model_path
+        elif model_path.startswith("~"):
+            fullpath = path.expanduser(model_path)
+        else:
+            fullpath = path.join(path.dirname(__file__), "assets", model_path)
+        if not path.exists(fullpath):
+>           raise OSError(f"File {fullpath} does not exist")
+E           OSError: File /assets/walker2d.xml does not exist
+
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:31: OSError
+_ test_same_xml_physics_observation_termination_and_independent_task_cost[915] _
+
+seed = 915
+
+    @pytest.mark.parametrize("seed", [914, 915, 916])
+    def test_same_xml_physics_observation_termination_and_independent_task_cost(seed):
+        local = Walker2d(cost_style="target_velocity", vel_cost_weight=2.0,
+                         vertical_velocity_cost_weight=0.5, nthread=1)
+>       reference = gym.make("Walker2d-v5", xml_file=str(XML)).unwrapped
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/test_walker_gymnasium_differential_audit.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.11/site-packages/gymnasium/envs/registration.py:734: in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/walker2d_v5.py:219: in __init__
+    MujocoEnv.__init__(
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:72: in __init__
+    self.fullpath = expand_model_path(model_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+model_path = '/assets/walker2d.xml'
+
+    def expand_model_path(model_path: str) -> str:
+        """Expands the `model_path` to a full path if it starts with '~' or '.' or '/'."""
+        if model_path.startswith(".") or model_path.startswith("/"):
+            fullpath = model_path
+        elif model_path.startswith("~"):
+            fullpath = path.expanduser(model_path)
+        else:
+            fullpath = path.join(path.dirname(__file__), "assets", model_path)
+        if not path.exists(fullpath):
+>           raise OSError(f"File {fullpath} does not exist")
+E           OSError: File /assets/walker2d.xml does not exist
+
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:31: OSError
+_ test_same_xml_physics_observation_termination_and_independent_task_cost[916] _
+
+seed = 916
+
+    @pytest.mark.parametrize("seed", [914, 915, 916])
+    def test_same_xml_physics_observation_termination_and_independent_task_cost(seed):
+        local = Walker2d(cost_style="target_velocity", vel_cost_weight=2.0,
+                         vertical_velocity_cost_weight=0.5, nthread=1)
+>       reference = gym.make("Walker2d-v5", xml_file=str(XML)).unwrapped
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/test_walker_gymnasium_differential_audit.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.11/site-packages/gymnasium/envs/registration.py:734: in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/walker2d_v5.py:219: in __init__
+    MujocoEnv.__init__(
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:72: in __init__
+    self.fullpath = expand_model_path(model_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+model_path = '/assets/walker2d.xml'
+
+    def expand_model_path(model_path: str) -> str:
+        """Expands the `model_path` to a full path if it starts with '~' or '.' or '/'."""
+        if model_path.startswith(".") or model_path.startswith("/"):
+            fullpath = model_path
+        elif model_path.startswith("~"):
+            fullpath = path.expanduser(model_path)
+        else:
+            fullpath = path.join(path.dirname(__file__), "assets", model_path)
+        if not path.exists(fullpath):
+>           raise OSError(f"File {fullpath} does not exist")
+E           OSError: File /assets/walker2d.xml does not exist
+
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:31: OSError
+_____ test_gymnasium_style_is_endpoint_velocity_surrogate_not_stock_reward _____
+
+    def test_gymnasium_style_is_endpoint_velocity_surrogate_not_stock_reward():
+        local = Walker2d(nthread=1, apply_terminal_cost_on_done=False)
+>       reference = gym.make("Walker2d-v5", xml_file=str(XML)).unwrapped
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/test_walker_gymnasium_differential_audit.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.11/site-packages/gymnasium/envs/registration.py:734: in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/walker2d_v5.py:219: in __init__
+    MujocoEnv.__init__(
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:72: in __init__
+    self.fullpath = expand_model_path(model_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+model_path = '/assets/walker2d.xml'
+
+    def expand_model_path(model_path: str) -> str:
+        """Expands the `model_path` to a full path if it starts with '~' or '.' or '/'."""
+        if model_path.startswith(".") or model_path.startswith("/"):
+            fullpath = model_path
+        elif model_path.startswith("~"):
+            fullpath = path.expanduser(model_path)
+        else:
+            fullpath = path.join(path.dirname(__file__), "assets", model_path)
+        if not path.exists(fullpath):
+>           raise OSError(f"File {fullpath} does not exist")
+E           OSError: File /assets/walker2d.xml does not exist
+
+.venv/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py:31: OSError
+=========================== short test summary info ============================
+XFAIL ../../../tmp/test_walker_gymnasium_differential_audit.py::test_frozen_walker_is_stock_v5_dynamics - Frozen XML right-foot friction 0.9 differs from stock v5 1.9
+4 failed, 1 passed, 1 xfailed in 1.40s

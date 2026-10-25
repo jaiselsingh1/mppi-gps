@@ -1,0 +1,109 @@
+{
+  "mujoco": "3.6.0",
+  "gymnasium": "1.2.3",
+  "reference_source_sha256": "19d1b72f0deda2fd51b31984c08ca97081f5fe35021dedb41d487eb96041176d",
+  "local_xml_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590",
+  "official_v5_xml_sha256": "6bed53a6cc3ca73c4fe8ac3486d3b4228927264a6454f4ef16d3eed3c58bc09d",
+  "model_difference": [
+    {
+      "geometry": "foot_geom",
+      "local_friction": [
+        0.9,
+        0.1,
+        0.1
+      ],
+      "stock_friction": [
+        1.9,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "geometry": "foot_left_geom",
+      "local_friction": [
+        1.9,
+        0.1,
+        0.1
+      ],
+      "stock_friction": [
+        1.9,
+        0.1,
+        0.1
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "reference": "stock Walker2d-v5",
+      "reset_seed": 914,
+      "action_seed": 915,
+      "aligned_initial_state": true,
+      "executed_identical_actions": 19,
+      "first_obs_divergence_gt_1e-12": 4,
+      "max_observation_error": 1.3327255164677319,
+      "max_abs_reward_difference_no_local_fall_penalty": 0.24837397663580274,
+      "same_integer_seed_initial_observation_gap": 0.009297424050114057,
+      "termination_always_agreed": true
+    },
+    {
+      "reference": "stock Walker2d-v5",
+      "reset_seed": 915,
+      "action_seed": 916,
+      "aligned_initial_state": true,
+      "executed_identical_actions": 33,
+      "first_obs_divergence_gt_1e-12": 9,
+      "max_observation_error": 7.743467214009815,
+      "max_abs_reward_difference_no_local_fall_penalty": 1.0789146026429648,
+      "same_integer_seed_initial_observation_gap": 0.007805726967543993,
+      "termination_always_agreed": false
+    },
+    {
+      "reference": "stock Walker2d-v5",
+      "reset_seed": 916,
+      "action_seed": 917,
+      "aligned_initial_state": true,
+      "executed_identical_actions": 30,
+      "first_obs_divergence_gt_1e-12": 12,
+      "max_observation_error": 2.399761693902159,
+      "max_abs_reward_difference_no_local_fall_penalty": 0.48579932740274423,
+      "same_integer_seed_initial_observation_gap": 0.008040885054475899,
+      "termination_always_agreed": true
+    },
+    {
+      "reference": "Walker2d-v5 with local XML",
+      "reset_seed": 914,
+      "action_seed": 915,
+      "aligned_initial_state": true,
+      "executed_identical_actions": 19,
+      "first_obs_divergence_gt_1e-12": null,
+      "max_observation_error": 0.0,
+      "max_abs_reward_difference_no_local_fall_penalty": 0.24837397663580274,
+      "same_integer_seed_initial_observation_gap": 0.009297424050114057,
+      "termination_always_agreed": true
+    },
+    {
+      "reference": "Walker2d-v5 with local XML",
+      "reset_seed": 915,
+      "action_seed": 916,
+      "aligned_initial_state": true,
+      "executed_identical_actions": 34,
+      "first_obs_divergence_gt_1e-12": null,
+      "max_observation_error": 0.0,
+      "max_abs_reward_difference_no_local_fall_penalty": 0.3029910985608527,
+      "same_integer_seed_initial_observation_gap": 0.007805726967543993,
+      "termination_always_agreed": true
+    },
+    {
+      "reference": "Walker2d-v5 with local XML",
+      "reset_seed": 916,
+      "action_seed": 917,
+      "aligned_initial_state": true,
+      "executed_identical_actions": 30,
+      "first_obs_divergence_gt_1e-12": null,
+      "max_observation_error": 0.0,
+      "max_abs_reward_difference_no_local_fall_penalty": 0.4110789865717609,
+      "same_integer_seed_initial_observation_gap": 0.008040885054475899,
+      "termination_always_agreed": true
+    }
+  ]
+}

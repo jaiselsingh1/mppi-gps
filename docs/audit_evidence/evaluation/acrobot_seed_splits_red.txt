@@ -1,0 +1,33 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+____________ test_default_search_and_validation_seeds_are_disjoint _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11314f790>
+
+    def test_default_search_and_validation_seeds_are_disjoint(monkeypatch):
+        monkeypatch.setattr(sys, "argv", ["tune_acrobot"])
+        args = parse_args()
+>       assert set(args.search_seeds).isdisjoint(args.validation_seeds)
+E       AssertionError: assert False
+E        +  where False = <built-in method isdisjoint of set object at 0x1131710e0>((0, 1, 2, 3, 4, 5, ...))
+E        +    where <built-in method isdisjoint of set object at 0x1131710e0> = {0, 1, 2, 3, 4}.isdisjoint
+E        +      where {0, 1, 2, 3, 4} = set((0, 1, 2, 3, 4))
+E        +        where (0, 1, 2, 3, 4) = Namespace(study_name='acrobot_mppi_bounded_retune_20260524', storage='sqlite:///logs/acrobot_mppi_bounded_retune_20260...d_steps=25, validate_top_n=8, sampler_seed=0, n_startup_trials=8, write_best=False, mode='cost', no_progress_bar=False).search_seeds
+E        +    and   (0, 1, 2, 3, 4, 5, ...) = Namespace(study_name='acrobot_mppi_bounded_retune_20260524', storage='sqlite:///logs/acrobot_mppi_bounded_retune_20260...d_steps=25, validate_top_n=8, sampler_seed=0, n_startup_trials=8, write_best=False, mode='cost', no_progress_bar=False).validation_seeds
+
+tests/test_acrobot_seed_splits.py:13: AssertionError
+_______________ test_explicit_overlapping_seed_sets_are_rejected _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x111b9e9d0>
+
+    def test_explicit_overlapping_seed_sets_are_rejected(monkeypatch):
+        monkeypatch.setattr(sys, "argv", ["tune_acrobot", "--search-seeds", "1,2",
+                                          "--validation-seeds", "2,3"])
+>       with pytest.raises(SystemExit, match="2"):
+E       Failed: DID NOT RAISE SystemExit
+
+tests/test_acrobot_seed_splits.py:19: Failed
+=========================== short test summary info ============================
+FAILED tests/test_acrobot_seed_splits.py::test_default_search_and_validation_seeds_are_disjoint
+FAILED tests/test_acrobot_seed_splits.py::test_explicit_overlapping_seed_sets_are_rejected
+2 failed in 1.26s

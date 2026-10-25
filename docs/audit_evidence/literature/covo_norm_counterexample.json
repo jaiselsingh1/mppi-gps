@@ -1,0 +1,53 @@
+{
+  "audit_date": "2026-10-23",
+  "sources": [
+    "https://proceedings.mlr.press/v242/yi24b/yi24b.pdf#page=5",
+    "https://arxiv.org/pdf/2401.07369v1#page=17"
+  ],
+  "claim_checked": "For arbitrary SPD D and Sigma, norm_2((I + 2 Sigma D / lambda)^-1) <= 1",
+  "D": [
+    [
+      100.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0
+    ]
+  ],
+  "Sigma": [
+    [
+      1.0,
+      0.9
+    ],
+    [
+      0.9,
+      1.0
+    ]
+  ],
+  "lambda": 2.0,
+  "update_matrix": [
+    [
+      0.01652892561983471,
+      -0.00743801652892562
+    ],
+    [
+      -0.743801652892562,
+      0.8347107438016529
+    ]
+  ],
+  "operator_norm_2": 1.1181488381621811,
+  "initial_error": [
+    -0.6653540192803143,
+    0.7465279827491607
+  ],
+  "final_error": [
+    -0.016550274570536143,
+    1.1180263470487066
+  ],
+  "initial_cost": 44.82690112627442,
+  "final_cost": 1.2773740715310886,
+  "euclidean_contraction_assertion_holds": false,
+  "quadratic_cost_decreases": true,
+  "scope": "Population quadratic tilted-Gaussian mean update; noncommuting SPD matrices. Does not test finite samples or refute commuting covariance design."
+}

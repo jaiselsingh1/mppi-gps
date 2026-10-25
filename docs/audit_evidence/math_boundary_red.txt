@@ -1,0 +1,118 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+___________ test_budget_zero_temperature_has_a_defined_minimum_limit ___________
+
+    def test_budget_zero_temperature_has_a_defined_minimum_limit():
+        scores = np.array([3.0, 3.0, np.inf])
+        lam = temperature_for_budget(scores, 2.0)
+        assert lam == 0.0
+>       np.testing.assert_array_equal(softmin_weights(scores, lam), [0.5, 0.5, 0.0])
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       nan location mismatch:
+E        ACTUAL: array([nan, nan, nan])
+E        DESIRED: array([0.5, 0.5, 0. ])
+
+tests/test_math_properties.py:13: AssertionError
+_______________ test_infinite_temperature_ignores_invalid_scores _______________
+
+    def test_infinite_temperature_ignores_invalid_scores():
+        scores = np.array([1.0, 3.0, np.inf, np.nan])
+        lam = temperature_for_budget(scores, 2.0)
+        assert lam == np.inf
+>       np.testing.assert_array_equal(softmin_weights(scores, lam), [0.5, 0.5, 0.0, 0.0])
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       nan location mismatch:
+E        ACTUAL: array([nan, nan, nan, nan])
+E        DESIRED: array([0.5, 0.5, 0. , 0. ])
+
+tests/test_math_properties.py:20: AssertionError
+____________________ test_softmin_rejects_an_unscored_batch ____________________
+
+    def test_softmin_rejects_an_unscored_batch():
+        with pytest.raises(FloatingPointError, match="finite"):
+>           softmin_weights(np.array([np.inf, np.nan]), 1.0)
+
+tests/test_math_properties.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/utils/math.py:13: in softmin_weights
+    shifted = np.where(finite, scores - np.min(scores[finite]), np.inf)
+                                        ^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/numpy/_core/fromnumeric.py:3261: in min
+    return _wrapreduction(a, np.minimum, 'min', axis, None, out,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = array([], dtype=float64), ufunc = <ufunc 'minimum'>, method = 'min'
+axis = None, dtype = None, out = None
+kwargs = {'keepdims': <no value>, 'initial': <no value>, 'where': <no value>}
+
+    def _wrapreduction(obj, ufunc, method, axis, dtype, out, **kwargs):
+        passkwargs = {k: v for k, v in kwargs.items()
+                      if v is not np._NoValue}
+    
+        if type(obj) is not mu.ndarray:
+            try:
+                reduction = getattr(obj, method)
+            except AttributeError:
+                pass
+            else:
+                # This branch is needed for reductions like any which don't
+                # support a dtype.
+                if dtype is not None:
+                    return reduction(axis=axis, dtype=dtype, out=out, **passkwargs)
+                else:
+                    return reduction(axis=axis, out=out, **passkwargs)
+    
+>       return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: zero-size array to reduction operation minimum which has no identity
+
+.venv/lib/python3.11/site-packages/numpy/_core/fromnumeric.py:83: ValueError
+________________ test_softmin_rejects_invalid_temperature[-1.0] ________________
+
+lam = -1.0
+
+    @pytest.mark.parametrize("lam", [-1.0, -np.inf, np.nan])
+    def test_softmin_rejects_invalid_temperature(lam):
+>       with pytest.raises(ValueError, match="temperature"):
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_math_properties.py:30: Failed
+________________ test_softmin_rejects_invalid_temperature[-inf] ________________
+
+lam = -inf
+
+    @pytest.mark.parametrize("lam", [-1.0, -np.inf, np.nan])
+    def test_softmin_rejects_invalid_temperature(lam):
+>       with pytest.raises(ValueError, match="temperature"):
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_math_properties.py:30: Failed
+________________ test_softmin_rejects_invalid_temperature[nan] _________________
+
+lam = nan
+
+    @pytest.mark.parametrize("lam", [-1.0, -np.inf, np.nan])
+    def test_softmin_rejects_invalid_temperature(lam):
+>       with pytest.raises(ValueError, match="temperature"):
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_math_properties.py:30: Failed
+=============================== warnings summary ===============================
+tests/test_math_properties.py::test_budget_zero_temperature_has_a_defined_minimum_limit
+tests/test_math_properties.py::test_infinite_temperature_ignores_invalid_scores
+  /Users/jaisel/Documents/mppi-gps/src/utils/math.py:14: RuntimeWarning: invalid value encountered in divide
+    unnorm = np.exp(-shifted / lam)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_math_properties.py::test_budget_zero_temperature_has_a_defined_minimum_limit
+FAILED tests/test_math_properties.py::test_infinite_temperature_ignores_invalid_scores
+FAILED tests/test_math_properties.py::test_softmin_rejects_an_unscored_batch
+FAILED tests/test_math_properties.py::test_softmin_rejects_invalid_temperature[-1.0]
+FAILED tests/test_math_properties.py::test_softmin_rejects_invalid_temperature[-inf]
+FAILED tests/test_math_properties.py::test_softmin_rejects_invalid_temperature[nan]
+6 failed, 2 warnings in 0.04s

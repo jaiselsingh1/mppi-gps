@@ -1,0 +1,764 @@
+[
+  {
+    "campaign": "2026-10-22_5090_crosscheck_heldout",
+    "raw_file": "server_snapshot/runs/2026-10-22_5090_crosscheck_heldout/episodes.json",
+    "sha256": "5b6e25f287247101914206976d4c000ab8bb52d73d3e5892105021c085039dc4",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 32,
+    "raw_mppi_H": 32,
+    "raw_mppi_completed": 15,
+    "policy_evaluations": [
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      }
+    ]
+  },
+  {
+    "campaign": "2026-10-22_step10_heldout_001",
+    "raw_file": "server_snapshot/runs/2026-10-22_step10_heldout_001/episodes.json",
+    "sha256": "f727a041c98c52a7d110b0f490610a0192785dd93731e7d56f6ec9a9d6a9bf90",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 32,
+    "raw_mppi_H": 32,
+    "raw_mppi_completed": 15,
+    "policy_evaluations": [
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 34,
+        "completion_rate": 0.68,
+        "velocity_mae": 0.36454116835747186,
+        "seconds_alive": 5.97776
+      },
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 35,
+        "completion_rate": 0.7,
+        "velocity_mae": 0.2816461956338264,
+        "seconds_alive": 6.855840000000001
+      },
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 12,
+        "completion_rate": 0.24,
+        "velocity_mae": 0.5323072259974844,
+        "seconds_alive": 4.7376000000000005
+      },
+      {
+        "arm": "step10_it24",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_024.pt",
+        "episodes": 50,
+        "completed": 2,
+        "completion_rate": 0.04,
+        "velocity_mae": 0.8880104722834679,
+        "seconds_alive": 1.70272
+      },
+      {
+        "arm": "step10_it24",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.7119674725438141,
+        "seconds_alive": 1.4576
+      },
+      {
+        "arm": "step10_it24",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 1.30045709240487,
+        "seconds_alive": 1.32304
+      },
+      {
+        "arm": "step8r_fixed",
+        "source": "runs/2026-10-22_step8r_fixed_seed0/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.5673856075016013,
+        "seconds_alive": 1.7676800000000001
+      },
+      {
+        "arm": "step8r_fixed",
+        "source": "runs/2026-10-22_step8r_fixed_seed1/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.7083578102430979,
+        "seconds_alive": 1.74624
+      },
+      {
+        "arm": "step8r_fixed",
+        "source": "runs/2026-10-22_step8r_fixed_seed2/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 1.18769148748505,
+        "seconds_alive": 1.0299200000000002
+      },
+      {
+        "arm": "step9_adaptive",
+        "source": "runs/2026-10-22_step9_adaptive_seed0/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.66006732604555,
+        "seconds_alive": 1.60656
+      },
+      {
+        "arm": "step9_adaptive",
+        "source": "runs/2026-10-22_step9_adaptive_seed1/policy_024.pt",
+        "episodes": 50,
+        "completed": 1,
+        "completion_rate": 0.02,
+        "velocity_mae": 0.5959479255236385,
+        "seconds_alive": 2.57904
+      },
+      {
+        "arm": "step9_adaptive",
+        "source": "runs/2026-10-22_step9_adaptive_seed2/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 1.452992128885488,
+        "seconds_alive": 1.37616
+      },
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      }
+    ]
+  },
+  {
+    "campaign": "2026-10-22_step11_heldout_001",
+    "raw_file": "server_snapshot/runs/2026-10-22_step11_heldout_001/episodes.json",
+    "sha256": "ec34c13df9b8212edec6f1946054cfe2b6b2b340a37fabccc04d052833dbaff1",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 32,
+    "raw_mppi_H": 32,
+    "raw_mppi_completed": 15,
+    "policy_evaluations": [
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 34,
+        "completion_rate": 0.68,
+        "velocity_mae": 0.36454116835747186,
+        "seconds_alive": 5.97776
+      },
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 35,
+        "completion_rate": 0.7,
+        "velocity_mae": 0.2816461956338264,
+        "seconds_alive": 6.855840000000001
+      },
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 12,
+        "completion_rate": 0.24,
+        "velocity_mae": 0.5323072259974844,
+        "seconds_alive": 4.7376000000000005
+      },
+      {
+        "arm": "dagger75_it74",
+        "source": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6416208507266445,
+        "seconds_alive": 1.06864
+      },
+      {
+        "arm": "dagger75_it74",
+        "source": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6735151532218486,
+        "seconds_alive": 1.1928
+      },
+      {
+        "arm": "dagger75_it74",
+        "source": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6694839396673247,
+        "seconds_alive": 1.12528
+      },
+      {
+        "arm": "dagger75_it24",
+        "source": "runs/2026-10-22_step11_dagger75_seed0/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.772004921343501,
+        "seconds_alive": 1.356
+      },
+      {
+        "arm": "dagger75_it24",
+        "source": "runs/2026-10-22_step11_dagger75_seed1/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.7428346339350881,
+        "seconds_alive": 1.1624
+      },
+      {
+        "arm": "dagger75_it24",
+        "source": "runs/2026-10-22_step11_dagger75_seed2/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.7449498563456659,
+        "seconds_alive": 1.2185599999999999
+      },
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      }
+    ]
+  },
+  {
+    "campaign": "2026-10-22_step12_heldout_001",
+    "raw_file": "server_snapshot/runs/2026-10-22_step12_heldout_001/episodes.json",
+    "sha256": "07551330a80cd43d37dbf35382c71e8fdba1ff72e4029e0f78d1a5365fdae60b",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 32,
+    "raw_mppi_H": 32,
+    "raw_mppi_completed": 15,
+    "policy_evaluations": [
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 34,
+        "completion_rate": 0.68,
+        "velocity_mae": 0.36454116835747186,
+        "seconds_alive": 5.97776
+      },
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 35,
+        "completion_rate": 0.7,
+        "velocity_mae": 0.2816461956338264,
+        "seconds_alive": 6.855840000000001
+      },
+      {
+        "arm": "step10_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 12,
+        "completion_rate": 0.24,
+        "velocity_mae": 0.5323072259974844,
+        "seconds_alive": 4.7376000000000005
+      },
+      {
+        "arm": "step10b_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed3/policy_074.pt",
+        "episodes": 50,
+        "completed": 25,
+        "completion_rate": 0.5,
+        "velocity_mae": 0.3287831561325932,
+        "seconds_alive": 6.37632
+      },
+      {
+        "arm": "step10b_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed4/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.2283442605393172,
+        "seconds_alive": 7.889600000000001
+      },
+      {
+        "arm": "step10b_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed5/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.21836962061148502,
+        "seconds_alive": 7.96752
+      },
+      {
+        "arm": "step10b_it24",
+        "source": "runs/2026-10-22_step10_gpu75_seed3/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.7031191243427929,
+        "seconds_alive": 1.5078399999999998
+      },
+      {
+        "arm": "step10b_it24",
+        "source": "runs/2026-10-22_step10_gpu75_seed4/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.5818833627503993,
+        "seconds_alive": 2.08816
+      },
+      {
+        "arm": "step10b_it24",
+        "source": "runs/2026-10-22_step10_gpu75_seed5/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6455251832657634,
+        "seconds_alive": 1.8747200000000002
+      },
+      {
+        "arm": "dagger75_it74",
+        "source": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6416208507266445,
+        "seconds_alive": 1.06864
+      },
+      {
+        "arm": "dagger75_it74",
+        "source": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6735151532218486,
+        "seconds_alive": 1.1928
+      },
+      {
+        "arm": "dagger75_it74",
+        "source": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.6694839396673247,
+        "seconds_alive": 1.12528
+      },
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      },
+      {
+        "arm": "sac_150k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0150000.pt",
+        "episodes": 50,
+        "completed": 15,
+        "completion_rate": 0.3,
+        "velocity_mae": 1.2975978772244015,
+        "seconds_alive": 6.02832
+      },
+      {
+        "arm": "sac_175k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0175000.pt",
+        "episodes": 50,
+        "completed": 16,
+        "completion_rate": 0.32,
+        "velocity_mae": 1.3739578247130413,
+        "seconds_alive": 6.248640000000001
+      },
+      {
+        "arm": "sac_200k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0200000.pt",
+        "episodes": 50,
+        "completed": 47,
+        "completion_rate": 0.94,
+        "velocity_mae": 1.698600434029879,
+        "seconds_alive": 7.5904
+      }
+    ]
+  },
+  {
+    "campaign": "2026-10-22_step9_heldout_001",
+    "raw_file": "server_snapshot/runs/2026-10-22_step9_heldout_001/episodes.json",
+    "sha256": "f217bab1d7147274c56a0ac7360b06c85259dba381bce45117a62dcaf2eb5fbb",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 32,
+    "raw_mppi_H": 32,
+    "raw_mppi_completed": 15,
+    "policy_evaluations": [
+      {
+        "arm": "step9_adaptive",
+        "source": "runs/2026-10-22_step9_adaptive_seed0/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.66006732604555,
+        "seconds_alive": 1.60656
+      },
+      {
+        "arm": "step9_adaptive",
+        "source": "runs/2026-10-22_step9_adaptive_seed1/policy_024.pt",
+        "episodes": 50,
+        "completed": 1,
+        "completion_rate": 0.02,
+        "velocity_mae": 0.5959479255236385,
+        "seconds_alive": 2.57904
+      },
+      {
+        "arm": "step9_adaptive",
+        "source": "runs/2026-10-22_step9_adaptive_seed2/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 1.452992128885488,
+        "seconds_alive": 1.37616
+      },
+      {
+        "arm": "step8r_fixed",
+        "source": "runs/2026-10-22_step8r_fixed_seed0/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.5673856075016013,
+        "seconds_alive": 1.7676800000000001
+      },
+      {
+        "arm": "step8r_fixed",
+        "source": "runs/2026-10-22_step8r_fixed_seed1/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.7083578102430979,
+        "seconds_alive": 1.74624
+      },
+      {
+        "arm": "step8r_fixed",
+        "source": "runs/2026-10-22_step8r_fixed_seed2/policy_024.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 1.18769148748505,
+        "seconds_alive": 1.0299200000000002
+      },
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      }
+    ]
+  },
+  {
+    "campaign": "2026-10-23_step13ab_k32_h48_001",
+    "raw_file": "server_snapshot/runs/2026-10-23_step13ab_k32_h48_001/episodes.json",
+    "sha256": "e132afb4a89a06933a30236707407963bea41d7505fe6f5ef85863b35a04bcbc",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 32,
+    "raw_mppi_H": 48,
+    "raw_mppi_completed": 39,
+    "policy_evaluations": [
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 34,
+        "completion_rate": 0.68,
+        "velocity_mae": 0.36454116835747186,
+        "seconds_alive": 5.97776
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 35,
+        "completion_rate": 0.7,
+        "velocity_mae": 0.2816461956338264,
+        "seconds_alive": 6.855840000000001
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 12,
+        "completion_rate": 0.24,
+        "velocity_mae": 0.5323072259974844,
+        "seconds_alive": 4.7376000000000005
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed3/policy_074.pt",
+        "episodes": 50,
+        "completed": 25,
+        "completion_rate": 0.5,
+        "velocity_mae": 0.3287831561325932,
+        "seconds_alive": 6.37632
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed4/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.2283442605393172,
+        "seconds_alive": 7.889600000000001
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed5/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.21836962061148502,
+        "seconds_alive": 7.96752
+      },
+      {
+        "arm": "gps_avg65_74",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_065.pt+runs/2026-10-22_step10_gpu75_seed0/policy_066.pt+runs/2026-10-22_step10_gpu75_seed0/policy_067.pt+runs/2026-10-22_step10_gpu75_seed0/policy_068.pt+runs/2026-10-22_step10_gpu75_seed0/policy_069.pt+runs/2026-10-22_step10_gpu75_seed0/policy_070.pt+runs/2026-10-22_step10_gpu75_seed0/policy_071.pt+runs/2026-10-22_step10_gpu75_seed0/policy_072.pt+runs/2026-10-22_step10_gpu75_seed0/policy_073.pt+runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 24,
+        "completion_rate": 0.48,
+        "velocity_mae": 0.4201491756509729,
+        "seconds_alive": 4.76128
+      },
+      {
+        "arm": "gps_avg65_74",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_065.pt+runs/2026-10-22_step10_gpu75_seed1/policy_066.pt+runs/2026-10-22_step10_gpu75_seed1/policy_067.pt+runs/2026-10-22_step10_gpu75_seed1/policy_068.pt+runs/2026-10-22_step10_gpu75_seed1/policy_069.pt+runs/2026-10-22_step10_gpu75_seed1/policy_070.pt+runs/2026-10-22_step10_gpu75_seed1/policy_071.pt+runs/2026-10-22_step10_gpu75_seed1/policy_072.pt+runs/2026-10-22_step10_gpu75_seed1/policy_073.pt+runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 38,
+        "completion_rate": 0.76,
+        "velocity_mae": 0.2671363010255179,
+        "seconds_alive": 7.149439999999999
+      },
+      {
+        "arm": "gps_avg65_74",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_065.pt+runs/2026-10-22_step10_gpu75_seed2/policy_066.pt+runs/2026-10-22_step10_gpu75_seed2/policy_067.pt+runs/2026-10-22_step10_gpu75_seed2/policy_068.pt+runs/2026-10-22_step10_gpu75_seed2/policy_069.pt+runs/2026-10-22_step10_gpu75_seed2/policy_070.pt+runs/2026-10-22_step10_gpu75_seed2/policy_071.pt+runs/2026-10-22_step10_gpu75_seed2/policy_072.pt+runs/2026-10-22_step10_gpu75_seed2/policy_073.pt+runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "velocity_mae": 0.5370868833601835,
+        "seconds_alive": 3.32544
+      },
+      {
+        "arm": "gps_avg65_74",
+        "source": "runs/2026-10-22_step10_gpu75_seed3/policy_065.pt+runs/2026-10-22_step10_gpu75_seed3/policy_066.pt+runs/2026-10-22_step10_gpu75_seed3/policy_067.pt+runs/2026-10-22_step10_gpu75_seed3/policy_068.pt+runs/2026-10-22_step10_gpu75_seed3/policy_069.pt+runs/2026-10-22_step10_gpu75_seed3/policy_070.pt+runs/2026-10-22_step10_gpu75_seed3/policy_071.pt+runs/2026-10-22_step10_gpu75_seed3/policy_072.pt+runs/2026-10-22_step10_gpu75_seed3/policy_073.pt+runs/2026-10-22_step10_gpu75_seed3/policy_074.pt",
+        "episodes": 50,
+        "completed": 8,
+        "completion_rate": 0.16,
+        "velocity_mae": 0.37609014339763314,
+        "seconds_alive": 5.08496
+      },
+      {
+        "arm": "gps_avg65_74",
+        "source": "runs/2026-10-22_step10_gpu75_seed4/policy_065.pt+runs/2026-10-22_step10_gpu75_seed4/policy_066.pt+runs/2026-10-22_step10_gpu75_seed4/policy_067.pt+runs/2026-10-22_step10_gpu75_seed4/policy_068.pt+runs/2026-10-22_step10_gpu75_seed4/policy_069.pt+runs/2026-10-22_step10_gpu75_seed4/policy_070.pt+runs/2026-10-22_step10_gpu75_seed4/policy_071.pt+runs/2026-10-22_step10_gpu75_seed4/policy_072.pt+runs/2026-10-22_step10_gpu75_seed4/policy_073.pt+runs/2026-10-22_step10_gpu75_seed4/policy_074.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.21606607184141882,
+        "seconds_alive": 8.0
+      },
+      {
+        "arm": "gps_avg65_74",
+        "source": "runs/2026-10-22_step10_gpu75_seed5/policy_065.pt+runs/2026-10-22_step10_gpu75_seed5/policy_066.pt+runs/2026-10-22_step10_gpu75_seed5/policy_067.pt+runs/2026-10-22_step10_gpu75_seed5/policy_068.pt+runs/2026-10-22_step10_gpu75_seed5/policy_069.pt+runs/2026-10-22_step10_gpu75_seed5/policy_070.pt+runs/2026-10-22_step10_gpu75_seed5/policy_071.pt+runs/2026-10-22_step10_gpu75_seed5/policy_072.pt+runs/2026-10-22_step10_gpu75_seed5/policy_073.pt+runs/2026-10-22_step10_gpu75_seed5/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.22335969549571494,
+        "seconds_alive": 7.90768
+      },
+      {
+        "arm": "gps_wavg65_74",
+        "source": "runs/2026-10-23_step13a_weight_averages/seed0_065_074.pt",
+        "episodes": 50,
+        "completed": 25,
+        "completion_rate": 0.5,
+        "velocity_mae": 0.3922351129773612,
+        "seconds_alive": 5.268479999999999
+      },
+      {
+        "arm": "gps_wavg65_74",
+        "source": "runs/2026-10-23_step13a_weight_averages/seed1_065_074.pt",
+        "episodes": 50,
+        "completed": 36,
+        "completion_rate": 0.72,
+        "velocity_mae": 0.2835154584246815,
+        "seconds_alive": 6.9356800000000005
+      },
+      {
+        "arm": "gps_wavg65_74",
+        "source": "runs/2026-10-23_step13a_weight_averages/seed2_065_074.pt",
+        "episodes": 50,
+        "completed": 1,
+        "completion_rate": 0.02,
+        "velocity_mae": 0.5438387723610452,
+        "seconds_alive": 3.8475200000000003
+      },
+      {
+        "arm": "gps_wavg65_74",
+        "source": "runs/2026-10-23_step13a_weight_averages/seed3_065_074.pt",
+        "episodes": 50,
+        "completed": 11,
+        "completion_rate": 0.22,
+        "velocity_mae": 0.38072588048079936,
+        "seconds_alive": 5.019520000000001
+      },
+      {
+        "arm": "gps_wavg65_74",
+        "source": "runs/2026-10-23_step13a_weight_averages/seed4_065_074.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.2143629329677224,
+        "seconds_alive": 8.0
+      },
+      {
+        "arm": "gps_wavg65_74",
+        "source": "runs/2026-10-23_step13a_weight_averages/seed5_065_074.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.21922471221820067,
+        "seconds_alive": 8.0
+      },
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      }
+    ]
+  },
+  {
+    "campaign": "2026-10-23_step13b_k256_h48_001",
+    "raw_file": "server_snapshot/runs/2026-10-23_step13b_k256_h48_001/episodes.json",
+    "sha256": "6100f2cbc5e4f9f2662e0331a47d02a42d1b1903086e034b03fe4e01d91d2060",
+    "reset_range": [
+      70000,
+      70049
+    ],
+    "reset_count": 50,
+    "raw_mppi_K": 256,
+    "raw_mppi_H": 48,
+    "raw_mppi_completed": 44,
+    "policy_evaluations": [
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "episodes": 50,
+        "completed": 34,
+        "completion_rate": 0.68,
+        "velocity_mae": 0.36454116835747186,
+        "seconds_alive": 5.97776
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "episodes": 50,
+        "completed": 35,
+        "completion_rate": 0.7,
+        "velocity_mae": 0.2816461956338264,
+        "seconds_alive": 6.855840000000001
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "episodes": 50,
+        "completed": 12,
+        "completion_rate": 0.24,
+        "velocity_mae": 0.5323072259974844,
+        "seconds_alive": 4.7376000000000005
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed3/policy_074.pt",
+        "episodes": 50,
+        "completed": 25,
+        "completion_rate": 0.5,
+        "velocity_mae": 0.3287831561325932,
+        "seconds_alive": 6.37632
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed4/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.2283442605393172,
+        "seconds_alive": 7.889600000000001
+      },
+      {
+        "arm": "gps_it74",
+        "source": "runs/2026-10-22_step10_gpu75_seed5/policy_074.pt",
+        "episodes": 50,
+        "completed": 49,
+        "completion_rate": 0.98,
+        "velocity_mae": 0.21836962061148502,
+        "seconds_alive": 7.96752
+      },
+      {
+        "arm": "sac_800k",
+        "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "velocity_mae": 0.19784610434159977,
+        "seconds_alive": 8.0
+      }
+    ]
+  }
+]

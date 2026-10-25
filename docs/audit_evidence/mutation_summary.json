@@ -1,0 +1,159 @@
+{
+  "mutmut_version": "3.8.0",
+  "total": 3393,
+  "killed": 2390,
+  "survived": 648,
+  "uncovered": 354,
+  "pending": 0,
+  "files": [
+    {
+      "file": "src/gps/__init__.py",
+      "total": 0,
+      "killed": 0,
+      "survived": 0,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {},
+      "segfault": 0
+    },
+    {
+      "file": "src/gps/averaging.py",
+      "total": 60,
+      "killed": 39,
+      "survived": 21,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {
+        "1": 39,
+        "0": 21
+      },
+      "segfault": 0
+    },
+    {
+      "file": "src/gps/gpu_estep.py",
+      "total": 425,
+      "killed": 64,
+      "survived": 24,
+      "uncovered": 337,
+      "pending": 0,
+      "raw_exit_counts": {
+        "33": 337,
+        "1": 64,
+        "0": 24
+      },
+      "segfault": 0
+    },
+    {
+      "file": "src/gps/mdgps.py",
+      "total": 148,
+      "killed": 135,
+      "survived": 13,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {
+        "1": 135,
+        "0": 13
+      },
+      "segfault": 0
+    },
+    {
+      "file": "src/gps/policy_tail.py",
+      "total": 94,
+      "killed": 74,
+      "survived": 19,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {
+        "0": 19,
+        "1": 74,
+        "-11": 1
+      },
+      "segfault": 1
+    },
+    {
+      "file": "src/mppi/__init__.py",
+      "total": 0,
+      "killed": 0,
+      "survived": 0,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {},
+      "segfault": 0
+    },
+    {
+      "file": "src/mppi/gate.py",
+      "total": 316,
+      "killed": 218,
+      "survived": 97,
+      "uncovered": 1,
+      "pending": 0,
+      "raw_exit_counts": {
+        "33": 1,
+        "1": 218,
+        "0": 97
+      },
+      "segfault": 0
+    },
+    {
+      "file": "src/mppi/gate_v2.py",
+      "total": 394,
+      "killed": 279,
+      "survived": 115,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {
+        "1": 279,
+        "0": 115
+      },
+      "segfault": 0
+    },
+    {
+      "file": "src/mppi/mppi.py",
+      "total": 788,
+      "killed": 505,
+      "survived": 267,
+      "uncovered": 16,
+      "pending": 0,
+      "raw_exit_counts": {
+        "1": 505,
+        "0": 267,
+        "33": 16
+      },
+      "segfault": 0
+    },
+    {
+      "file": "src/utils/math.py",
+      "total": 152,
+      "killed": 120,
+      "survived": 32,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {
+        "1": 120,
+        "0": 32
+      },
+      "segfault": 0
+    },
+    {
+      "file": "scripts/training/train_walker_mdgps.py",
+      "total": 1016,
+      "killed": 956,
+      "survived": 60,
+      "uncovered": 0,
+      "pending": 0,
+      "raw_exit_counts": {
+        "1": 956,
+        "0": 60
+      },
+      "segfault": 0
+    }
+  ],
+  "snapshot_note": "Package src temporarily renamed audit_subject. Earlier tests snapshot predates independent Mstep and strengthened real-_Worlds regression. Source code matches audited fixes.",
+  "raw_exit_counts": {
+    "1": 2390,
+    "0": 648,
+    "33": 354,
+    "-11": 1
+  },
+  "segfault": 1
+}

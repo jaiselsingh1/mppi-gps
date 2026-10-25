@@ -428,7 +428,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-dir", default="runs/acrobot_mppi_bounded_retune_20260524")
     parser.add_argument("--n-trials", type=int, default=48)
     parser.add_argument("--search-seeds", type=parse_seed_list, default=parse_seed_list("0,1,2,3,4"))
-    parser.add_argument("--validation-seeds", type=parse_seed_list, default=parse_seed_list("0,1,2,3,4,5,6,7,8,9"))
+    parser.add_argument("--validation-seeds", type=parse_seed_list, default=parse_seed_list("100,101,102,103,104,105,106,107,108,109"))
     parser.add_argument("--search-steps", type=int, default=600)
     parser.add_argument("--validation-steps", type=int, default=600)
     parser.add_argument("--hold-steps", type=int, default=25)
@@ -438,7 +438,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--write-best", action="store_true")
     parser.add_argument("--mode", choices=("cost", "reliability"), default="cost")
     parser.add_argument("--no-progress-bar", action="store_true")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if not set(args.search_seeds).isdisjoint(args.validation_seeds):
+        parser.error("search and validation seeds must be disjoint")
+    return args
 
 
 def main() -> None:

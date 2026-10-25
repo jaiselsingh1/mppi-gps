@@ -1,0 +1,39 @@
+8f8522a7cc2a780c8132eee2119b802cfe339b8c847705737c5f0f39f5957ec9  src/gps/gpu_estep.py
+fc1fd4f059ddd03ce086810aebc2060a3e02a13f20daa69380398ba9fa4f0481  src/gps/policy_tail.py
+4f76a413c9400b829c0ec3ab974f6e60663ba65be6ce4366d15b6b2bf1f08006  src/utils/math.py
+177b6b97718b32e2d8c88a81b555166dd443dda176a8972dbd514006a9671273  scripts/benchmarks/audit_gpu_estep.py
+diff --git a/src/gps/gpu_estep.py b/src/gps/gpu_estep.py
+index 67163c7b..b49dc06b 100644
+--- a/src/gps/gpu_estep.py
++++ b/src/gps/gpu_estep.py
+@@ -52,7 +52,8 @@ class _Worlds:
+         """Walker2d.rollout_states_to_obs for the first n worlds."""
+         return torch.cat([self.qpos[:n, 1:], self.qvel[:n].clamp(-10.0, 10.0)], dim=1)
+ 
+-    def rollout(self, steps: int, n: int, actions: torch.Tensor | None = None, policy=None):
++    def rollout(self, steps: int, n: int, actions: torch.Tensor | None = None, policy=None,
++                reset_warmstart_each_step: bool = False):
+         """Open loop (actions (n, steps, nu)) or closed loop (policy(obs) -> ctrl).
+ 
+         Returns qpos (n, steps, nq), qvel (n, steps, nv) after each control
+@@ -62,6 +63,10 @@ class _Worlds:
+         for t in range(steps):
+             u = actions[:, t] if actions is not None else policy(self.obs(n))
+             self.ctrl[:n].copy_(u)
++            if reset_warmstart_each_step:
++                # WalkerPolicyTail starts a separate CPU rollout at each
++                # control boundary; mjSTATE_FULLPHYSICS excludes warmstart.
++                self.warmstart.zero_()
+             torch.cuda.synchronize()
+             wp.capture_launch(self.graph)
+             wp.synchronize()
+@@ -125,7 +130,8 @@ class WalkerGPUEStep:
+         if not self.tail_steps:
+             return cost
+         fell = ~np.all(env._is_healthy(states[..., 2], states[..., 3]), axis=1)
+-        tq, tv, tu = worlds.rollout(self.tail_steps, n, policy=self.policy)
++        tq, tv, tu = worlds.rollout(self.tail_steps, n, policy=self.policy,
++                                    reset_warmstart_each_step=True)
+         tail_states = _full_states(tq, tv)
+         tail = env.rollout_cost(tail_states, tu.double().cpu().numpy(), np.zeros(tail_states.shape[:2] + (0,)))
+         tail[fell] = env._w_unhealthy * self.tail_steps

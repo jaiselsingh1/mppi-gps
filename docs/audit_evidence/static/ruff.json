@@ -1,0 +1,161 @@
+[
+  {
+    "cell": null,
+    "code": "RUF046",
+    "end_location": {
+      "column": 39,
+      "row": 214
+    },
+    "filename": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "len(probes)",
+          "end_location": {
+            "column": 39,
+            "row": 214
+          },
+          "location": {
+            "column": 23,
+            "row": 214
+          }
+        }
+      ],
+      "message": "Remove unnecessary `int` call"
+    },
+    "location": {
+      "column": 23,
+      "row": 214
+    },
+    "message": "Value being cast to `int` is already an integer",
+    "name": "unnecessary-cast-to-int",
+    "noqa_row": 214,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unnecessary-cast-to-int"
+  },
+  {
+    "cell": null,
+    "code": "RUF046",
+    "end_location": {
+      "column": 43,
+      "row": 349
+    },
+    "filename": "/Users/jaisel/Documents/mppi-gps/scripts/training/train_walker_mdgps.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "len(labels)",
+          "end_location": {
+            "column": 43,
+            "row": 349
+          },
+          "location": {
+            "column": 27,
+            "row": 349
+          }
+        }
+      ],
+      "message": "Remove unnecessary `int` call"
+    },
+    "location": {
+      "column": 27,
+      "row": 349
+    },
+    "message": "Value being cast to `int` is already an integer",
+    "name": "unnecessary-cast-to-int",
+    "noqa_row": 349,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unnecessary-cast-to-int"
+  },
+  {
+    "cell": null,
+    "code": "I001",
+    "end_location": {
+      "column": 97,
+      "row": 23
+    },
+    "filename": "/Users/jaisel/Documents/mppi-gps/src/gps/gpu_estep.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from dataclasses import dataclass\n\nimport mujoco_warp as mjw\nimport numpy as np\nimport torch\nimport warp as wp\n\nfrom src.envs.walker2d import Walker2d\nfrom src.mppi.mppi import MPPI\nfrom src.utils.config import MPPIConfig\nfrom src.utils.math import (\n    effective_sample_size,\n    softmin_weights,\n    temperature_for_neff_fraction,\n)\n\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 26
+          },
+          "location": {
+            "column": 1,
+            "row": 13
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 13
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 13,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": null,
+    "code": "I001",
+    "end_location": {
+      "column": 80,
+      "row": 17
+    },
+    "filename": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import copy\n\nimport numpy as np\nfrom scipy.linalg import solve_discrete_lyapunov, toeplitz\nfrom scipy.signal import butter, tf2ss\n\nfrom src.envs.base import BaseEnv\nfrom src.utils.config import MPPIConfig\nfrom src.utils.math import effective_sample_size, temperature_for_neff_fraction\n\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 19
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 9
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 9,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": null,
+    "code": "SIM102",
+    "end_location": {
+      "column": 81,
+      "row": 53
+    },
+    "filename": "/Users/jaisel/Documents/mppi-gps/src/mppi/mppi.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 52
+    },
+    "message": "Use a single `if` statement instead of nested `if` statements",
+    "name": "collapsible-if",
+    "noqa_row": 52,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/collapsible-if"
+  }
+]
