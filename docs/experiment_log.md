@@ -3929,3 +3929,22 @@ mean synthesis from best sampled/nominal plans, and compare short versus
 is a diagnostic of the user's proposed mechanism, not a sample-efficiency
 benchmark or evidence that a critic transfers correctly. The proposed larger
 reward-learning study remains a draft until the diagnostic is recorded.
+
+
+### Independent teacher and frozen-critic diagnostics (2026-10-24 EDT)
+
+- Complete bounded diagnostics, no learning: raw preregistration `e63f9e1`,
+  frozen-critic runner `f2215d4`; the original 75-iteration study is unchanged.
+- Raw K32/H48 MPPI: 11 correlated anchors from three teacher episodes, one
+  missing after a fall; all independence checks exact. Mean-plan cost exceeds
+  nominal at 3/11 and best sample at 3/11. All three short/long reversals favor
+  teacher actions worse short-term but better long-term, not short-gain/long-harm.
+- Initial continuations survive 0/11 for either action; final Selective survives
+  6/11 after its own action, 5/11 after the raw action; not reset reliability.
+- Historical frozen critic: 8 states ×8 paired continuations/action; ranking
+  signs agree 7/8, but all 95% normal MC ranking intervals include zero.
+  Healthy truncations remain; residual discount weight is not a tail bound.
+- Verified provenance/replicates; 173349 critic continuation controls, no new
+  teacher searches. [Full factual record and hashes](experiment_evidence/2026-10-25_independent_teacher_diagnostics/README.md).
+  All26 focused diagnostic tests passed. The learner design remains undecided;
+  no subsequent training study was launched.
