@@ -9,8 +9,11 @@ action-cloning loss, SAC actor gradient, entropy objective or teacher rescue.
 Entry point: [`train_mppi_experience.py`](../scripts/training/train_mppi_experience.py).
 Study: `runs/2026-10-25_option1_mppi_experience_walking_seed0_001/`.
 Server checkout: `/home/jaisel/mppi-gps-option1-walking-20261025-seed0-001`.
-The launch record and generated `protocol.json` identify the executed commit,
-configuration and source hashes; launch PID/commit will be recorded separately.
+Status: launched2026-10-25 16:21:34 America/New_York, driver PID74540,
+immutable commit `fed056ae45440d119e4104154b993626512d9ca3`.
+The launch record and generated `protocol.json` identify the exact executed
+configuration and source hashes. Completion check `finish-option-1-walking-trial`
+tracks the existing job and its results.
 
 ## Experience and finite learner value
 

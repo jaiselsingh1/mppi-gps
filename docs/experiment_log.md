@@ -4191,7 +4191,8 @@ reward-learning study remains a draft until the diagnostic is recorded.
 - Standalone evaluation initially/every20/finally on100development resets
   12900000–12900099 for1000controls. Joint gate≥90/100survival AND≤0.30m/sMAE.
   No matched control, novelty, training-seed robustness or efficiency claim.
-- Status: prelaunch validation; isolated checkout
+- Status: launched16:21:34 America/New_York, immutable`fed056a`, driver74540;
+  verified alive collecting independent teacher episodes. Isolated checkout
   `/home/jaisel/mppi-gps-option1-walking-20261025-seed0-001`, planned study
   `runs/2026-10-25_option1_mppi_experience_walking_seed0_001`.
 - Validation: full regression894passed,6skipped,3expected failures. New
@@ -4199,4 +4200,12 @@ reward-learning study remains a draft until the diagnostic is recorded.
   versus learner-bootstrap ownership, finite falls, independent teacher
   execution, bytes-only worker payloads, actual-return acceptance and exact
   control accounting. Real tiny CPU integration and completed/interrupted
-  resume paths pass. Server process-pool smoke is the remaining launch check.
+  resume paths pass. Server process-pool smoke also passed: four mixed/root
+  updates with two real worker processes, unchanged source and completed
+  resume with identical controls. Its N32 horizon does not qualify walking.
+  Raw server smoke`runs/2026-10-25_option1_server_validation_001`.
+- Completion check`finish-option-1-walking-trial` is active every10minutes;
+  routine progress remains quiet. It verifies source/config, preserves
+  interruptions, can resume the existing job after infrastructure failure,
+  and delivers final policy-only results before disabling itself. No new
+  experiment, retuning or automatic extra training budget is authorized.
