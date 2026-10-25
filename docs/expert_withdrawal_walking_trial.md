@@ -1,6 +1,6 @@
 # Independent-expert withdrawal: bounded walking trial preregistration
 
-Status: authorized single-training-seed walking attempt; configuration fixed below, immutable launch revision/path to be recorded after the prelaunch fallback fix. This is a substantive capability trial of the current formulation, not a comparison, tuning sweep, novelty claim or sample-efficiency experiment. The earlier completed studies and implementation validations remain unchanged.
+Status: running a single-training-seed walking attempt at immutable revision `47217b4a6f819a4aee7fa8af7cddfd69d712dbbb`, driver PID353962, started2026-10-25T15:18:33UTC. Configuration is fixed below. This is a substantive capability trial of the current formulation, not a comparison, tuning sweep, novelty claim or sample-efficiency experiment. The earlier completed studies and implementation validations remain unchanged.
 
 ## Working question and fixed success criterion
 
@@ -12,7 +12,7 @@ The random initial policy is evaluated on the same panel once. Report the config
 
 ## Formulation retained for the trial
 
-Starting implementation revision: `79a8a80`; record the complete immutable launch revision and source hashes after configuration freeze. For finite N=1,000 and each prefix L, every perturbed policy controls its **entire closed-loop prefix**, scored as
+Starting implementation revision: `79a8a80`; the fallback correction and frozen protocol are committed in launch revision `47217b4`. Source hashes are retained in `protocol.json`. For finite N=1,000 and each prefix L, every perturbed policy controls its **entire closed-loop prefix**, scored as
 
 `J_L(theta) = E[sum(t=0..L−1) gamma^t cost(s_t,pi_theta(s_t)) + gamma^L V_MPPI(s_L,N−L)]`.
 

@@ -4070,10 +4070,24 @@ reward-learning study remains a draft until the diagnostic is recorded.
   produced868passed,6skipped,3expected failures plus6 sandbox-only shared
   memory errors. All21 tests in the affected integration files passed with
   normal subprocess access, resolving all6 errors (874 distinct passes).
-- Status: prepared for isolated launch at
+- Status: running immutable`47217b4a6f819a4aee7fa8af7cddfd69d712dbbb` at
   `/home/jaisel/mppi-gps-withdrawal-walking-20261025-seed0-001`, study
-  `runs/2026-10-25_expert_withdrawal_walking_seed0_001`. The launch record and
-  protocol retain executed revision, source hashes and exact command.
+  `runs/2026-10-25_expert_withdrawal_walking_seed0_001`. Driver PID353962,
+  started15:18:33UTC. The [launch record](../runs/2026-10-25_expert_withdrawal_walking_seed0_001.launch.json)
+  and [protocol](../runs/2026-10-25_expert_withdrawal_walking_seed0_001/protocol.json)
+  retain executed revision, source hashes and exact command. All18 archived
+  source hashes independently verified locally. First update completed and
+  prefix advanced1→8, but its proposal was rejected: actual training cost
+  improved952.78→834.47 while verification worsened629.77→2121.06. Short-prefix
+  advancement therefore does not yet imply any accepted learner improvement.
+- Initial100-episode standalone panel:0/100,0.51792s mean duration,
+  velocity MAE1.731022m/s, finite discounted cost3099.8485. Final result pending.
+- Startup infrastructure failure preserved separately as
+  `runs/2026-10-25_expert_withdrawal_walking_seed0_001.startup_failed_1455Z`
+  with original driver log/launch metadata: process-pool tensor sharing hit
+  inherited RLIMIT_NOFILE1024 before any update. Restarted only after original
+  processes exited, with the same learning source/configuration and inherited
+  soft limit131072. No failed artifact was overwritten or reported as learning.
 - Fixed final gate:≥90/100 eight-second completions AND mean speed MAE≤0.30m/s,
   policy alone. Evaluate the actual final policy even if curriculum stalls.
   Reset panel11060000–11060099 is development evidence (first16 previously
