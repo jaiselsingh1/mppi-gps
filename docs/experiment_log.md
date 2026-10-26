@@ -4248,3 +4248,97 @@ reward-learning study remains a draft until the diagnostic is recorded.
   planner-memory/label/continuation diagnostics. Source metrics were reviewed
   against the log and available raw reports; no training was launched for
   this documentation request.
+
+### Step 31 — why the replanning-value Walker controller does not walk, and whether it still tests the MPPI-GPS idea (diagnostic; predictions written before running)
+
+- Question: the replanning-value study ended at 40/64 eight-second survivors,
+  MAE .486, with learned guidance never deployed. Which link fails: (1) the
+  objective or control semantics, (2) the K32 planner's proposals lack gait or
+  recovery maneuvers, (3) memory retrieval/refresh, (4) a scorer misranks
+  better available actions, or (5) good isolated interventions fail when the
+  controller repeatedly guides itself? Requested by a parent session; the user
+  added (2026-10-26) that staying loyal to the ideas in `MPPI GPS/general.md`
+  is a main priority, and that if the implementation defeats that argument the
+  learning must be restructured. That check is part of this step.
+- Facts from saved evidence, no new simulation
+  (`runs/2026-10-26_replanning_value_walker_seed0_001`):
+  - Every development and final panel ran at alpha 0 (learned scoring 0%), so
+    the walking failure belongs to the alpha-0 memory controller C_23. Links 4–5
+    can only explain why learning did not repair it.
+  - The alpha-0 rule executes the first action of the H-step-cheapest of 32
+    noisy samples, 8 resimulated memory fragments and MPPI's weighted mean, while
+    MPPI keeps its own mean as the carried plan. Final panel: memory 34.1%,
+    sample 24.8%, raw mean 41.1% of executed controls (`evaluations/final.json`).
+  - K32 with the temperature tuned at K256 (lambda 3): median n_eff 1.6–2.1 of 32
+    per cycle, so MPPI's mean is nearly one noisy sample.
+  - Collection (192 alpha-0 episodes): 108/192 survive. Survivors' MAE .420, none
+    at or below .30: .612 in the first 2 s, .356 afterwards at mean speed 1.635
+    m/s. 82/84 falls are height collapses after forward pitch and speed-up; 15 of
+    the 24 final falls come before 250 controls.
+  - Pair noise: training pairs (192) improve in both repeats 42 times, worsen in
+    both 49, disagree 101. Across 88 fresh calibration pairs the scorer's
+    predicted sign matched the measured mean 48 times (54.5%), correlation .29;
+    the two measured repeats correlate .30.
+  - The two candidates that passed calibration (cycles 6, 20) changed 35% and 64%
+    of actions in closed loop and lost (0/6 vs 2/6; 2/6 vs 3/6).
+  - Historical same-task controls, standard resets only: raw K32/H48 39/50, MAE
+    .387 (falls at 163–900 controls, six before 250); raw K256/H48 44/50, .162;
+    SAC 800k 50/50, .198; frozen K256 teacher qualification 19/20, .148. The
+    study's resets perturb odd resets (angle .03, velocity .1).
+  - Not saved: per-control traces for 63/64 final episodes and for all
+    development and qualification episodes (public summaries only); MPPI's mean
+    first action and the full bank except at every 64th collection decision. The
+    original server reproduces recorded episodes bitwise (collection reset
+    47000184: 1000/1000 actions), while this Mac diverges after 24 controls. So
+    missing traces are regenerated on robopil5090 and every arm runs there.
+- Setup: isolated copy of the 147 frozen, hash-checked files at
+  `robopil5090:~/mppi-gps-walking-diagnosis-20261026`, CUDA venv on CPU,
+  frozen controller `controllers/target_0023.pkl` (C_23, archive `ef6b2b74…`).
+  SAC 800k is a diagnostic positive control only: nothing from it enters any
+  MPPI arm. No fitting, training, archive refresh or retuning.
+- D0, integrity: regenerate C_23 on final resets 53000000–53000063 with planner
+  seeds 303000000+i. Pass only if all 64 public records match exactly (steps,
+  survival, cost, MAE, source counts); otherwise stop and report.
+- D1, matched closed loop on the same 64 resets and planner seeds:
+  - V1, memory removed (32 samples + mean, same argmin rule). Hypothesis:
+    memory fragments, executed without their tails, cause falls. Predict V1
+    45/64, MAE .45. Competing: memory is neutral. Falsified if the paired
+    survival difference V1−V0 is ≤ 0.
+  - V2, raw MPPI K32/H48 executing its own mean. Hypothesis: the argmin rule's
+    mismatch between executed action and carried plan hurts. Predict 48/64, MAE
+    .41. Falsified if V2−V1 ≤ 0.
+  - P1, raw MPPI K256/H48, `walker2d_best.json` unchanged. Hypothesis: K32
+    proposals lack the maneuvers; the same objective walks with more search.
+    Predict 57/64, MAE .18. Competing: the perturbed resets or the objective
+    defeat any planner. Falsified if P1 MAE > .30 or P1−V2 ≤ 0.
+  - P2, SAC 800k alone. Hypothesis: the task is feasible on this reset
+    distribution. Predict 63/64, MAE .21. Falsified if below 58/64 or MAE > .30.
+  - A link is supported only if its paired reset-bootstrap 95% interval
+    excludes zero in the predicted direction.
+- D2, exact contexts. Selected from D0 traces before any counterfactual runs:
+  the first five falls before 250 controls and the first three later falls, in
+  reset order; context = the decision 96 controls (0.77 s, two horizons)
+  before the fall. Matched healthy control: the same decision index in the
+  same-profile survivor whose state is nearest in the archive's standardized
+  feature metric. At each context the bank is recomputed from the recorded
+  snapshot (planner RNG included); its baseline must equal the recorded action
+  bitwise. Then, with fresh streams from seed block 880000000:
+  - every distinct bank first action, then actual C_23 to the episode end, two
+    discovery streams; the best nonbaseline action against the baseline on six
+    further confirmation streams (the baseline thus gets eight);
+  - raw K256 and raw K32 continuations from the same state and carried plan,
+    four streams each; SAC from the same state, one run.
+  - Predict: failure contexts fall in ≥ 6/8 baseline streams, healthy ones in
+    ≤ 2/8. A confirmed improvement (six-stream paired 95% interval below zero
+    and fewer falls) at ≤ 2/8 failure contexts, so the bank rarely holds a
+    one-step repair. K256 avoids the fall in ≥ 3/4 streams at ≥ 5/8 failure
+    contexts. Competing: confirmed improvements at ≥ 4/8 failure contexts
+    implicate the scorer (link 4); no recovery by K256 or SAC means the fall
+    is decided earlier than 0.77 s.
+- D3, no simulation: decision-level prediction error and regret of each
+  cycle's scorer on its 88 fresh calibration pairs, and of the cycle-23 shadow
+  fit on D2's banks against the measured oracle.
+- Alignment check, no simulation: compare the pipeline with the quoted ideas in
+  `general.md` and Kendall's literal constraints.
+- Budget: about 2 h on 30 CPU workers. Every executed and simulated control is
+  counted. A repair, if any, is preregistered separately before validation.
