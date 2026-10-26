@@ -56,6 +56,13 @@ The [expert-withdrawal formulation](docs/expert_withdrawal.md) learns an
 independent MPPI continuation value and searches complete learner-policy
 prefixes, increasing responsibility toward a fully standalone policy.
 
+The [credit test stack](docs/credit_testbed.md) asks whether a learner can
+supply the ending beyond MPPI's horizon while MPPI stays unchanged: a delayed
+fork with exact values and MountainCar, recorded-randomness branching from
+MPPI's own options, and four credit estimators. Run
+`scripts.credit.run_credit_stack {setup,sweep}`; results and verdicts are in
+[the findings](docs/credit_testbed_findings.md).
+
 [What MPPI-GPS optimizes](docs/objective.md) defines the method under test:
 MPPI samples around the policy's own rollout, takes one weighted update
 (optional temperature selection targets empirical sample ESS) and the policy

@@ -4389,3 +4389,48 @@ reward-learning study remains a draft until the diagnostic is recorded.
 - Falsified if C has fewer than 58 survivors or MAE above .30. No training
   seed is involved because nothing is learned; one planner configuration, 64
   resets, one machine.
+
+### Credit test stack: can a learner supply the ending beyond MPPI's horizon? (2026-10-26)
+
+- Question (user, 2026-10-26): turn "train the global policy to learn the
+  ending beyond MPPI's horizon, with MPPI independent and no action copying"
+  into a test stack with ground truth. Measure (a) whether MPPI's own options
+  lead to different complete outcomes, (b) each credit estimator's decision
+  regret against exact or counterfactual ground truth, (c) the closed-loop share
+  of the gap to MPPI with the exact value, and complete outcomes needed per
+  delay. Walker only after the small tasks pass.
+- Starting commit `dc589d7`; code, tests and preregistration `00ba718`
+  ([protocol](credit_testbed.md)). MPPI is the unchanged `src/mppi/mppi.py`;
+  learners only rank MPPI's own options or add a terminal value. Run
+  `runs/2026-10-26_credit_testbed_001`, local Mac, 15 workers, about 20 min.
+- Tasks: a lattice delayed fork with exact DP values (delay past the horizon
+  -10/1/20/60/140, cost noise 0/2) and Gymnasium-dynamics MountainCar with
+  grid-converged values (power .004/.0015/.001/.0007). Estimators: MC,
+  LSTD(.9), LSTD(0), paired option scorer (shared-randomness differences only),
+  return decomposition (episode totals only); shared tile features.
+- Testbed: fork valid at every delay (MPPI alone trap lane 40/40, exact-value
+  MPPI safe lane 40/40, gap 14.2). MountainCar .001/.0007 valid; .0015 failed its
+  preregistered rule (MPPI alone escaped 55% > 50%) and was excluded.
+- Result: TD(λ)/MC terminal values close .87–.98 of the fork gap from 4–32
+  complete outcomes at every delay. The budget is set by when MPPI's own branched
+  options first end in the other lane, which longer delays make rarer: discovery,
+  not estimation precision. MountainCar TD(.9) closes 1.04–1.15 in one round
+  (beats exact-value MPPI, itself 1.8–2× slower than optimal); MC fails there
+  because the 500-step cap cuts its returns.
+- Selecting among MPPI's own options plateaus at .43–.78 of the fork gap (exact
+  value .43); the terminal-value route reaches .87–.98. The paired scorer and
+  return decomposition fail in closed loop at the preregistered settings.
+- Ground truth: fork counterfactual differences equal exact ones (Pearson
+  1.000, noise-invariant to 1e-14). MountainCar counterfactuals under
+  exact-value MPPI's continuation barely track exact values (.08–.60).
+  Predictions held for V0 fork, R0, a1, b1, b4, c1 (-.66), c2. They failed or
+  partly failed for a2 at t = 5, a3 on MountainCar, b3, b5, c3 at d = 1/20,
+  and c4 (one round sufficed).
+- Walker gate failed by its letter on MountainCar (criteria 1 and 4). The user
+  delegated the next step ("it has to work on walker as we scale up").
+  Decision: stop MountainCar (policy-iteration phase not run) and move to
+  Walker through Hopper, carrying forward terminal-value deployment, TD(λ)
+  bootstrapping through the time cap, closed-loop on reserved starts as the
+  primary endpoint, and coverage of differing endings.
+- [Findings and verdicts](credit_testbed_findings.md),
+  [evidence](experiment_evidence/2026-10-26_credit_testbed/README.md).
