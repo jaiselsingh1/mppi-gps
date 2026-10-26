@@ -4342,6 +4342,82 @@ reward-learning study remains a draft until the diagnostic is recorded.
   `general.md` and Kendall's literal constraints.
 - Budget: about 2 h on 30 CPU workers. Every executed and simulated control is
   counted. A repair, if any, is preregistered separately before validation.
+- Status: **complete**, 2026-10-26 on robopil5090, runner `diag/step31.py`
+  (sha256 `a36fc505…`) in `~/mppi-gps-walking-diagnosis-20261026`; workbench
+  mirror `/Users/jaisel/Documents/workbench/walker_walking_diagnosis_20261026`.
+  An unplanned server reboot at 19:26 EDT (no shutdown record) cut the
+  confirmation stage at 49/192. The zero-filled tail was preserved as
+  `d2_confirm.pkl.interrupted_20261026T1926EDT`, the file was truncated to its 49
+  valid records, and the remaining 143 deterministic runs were resumed. Work
+  totals are therefore lower bounds.
+- D0: **exact**. All 64 regenerated public records equal the recorded ones;
+  40 survivors, 24 falls, 15 of them before 250 controls.
+- D1 (paired reset-bootstrap 95% intervals, same 64 resets and seeds):
+
+  | Arm | Survived | Alive | MAE | Cost | Falls < 250 |
+  |---|---:|---:|---:|---:|---:|
+  | Deployed C_23 | 40/64 | 5.959 s | .486 | 1286.4 | 15 |
+  | V1, memory removed | 52/64 | 7.138 s | .387 | 870.2 | 6 |
+  | V2, raw K32 | 47/64 | 6.873 s | .387 | 923.5 | 7 |
+  | P1, raw K256 | 61/64 | 7.793 s | .151 | 338.3 | 1 |
+  | P2, SAC 800k | 64/64 | 8.000 s | .197 | 358.8 | 0 |
+
+  - V1−V0 survival +.188 [.047, .328], MAE −.099 [−.125, −.074]: **memory
+    hypothesis held**, stronger than predicted (45/64, .45).
+  - V2−V1 −.078 [−.203, .047]: **executed-action-rule hypothesis falsified**.
+  - P1−V2 +.219 [.094, .344], MAE −.236: **capacity hypothesis held**; P1
+    passes the gate.
+  - P2 passes: **the task is feasible on this reset distribution**.
+  - Per executed control: deployed 1,971 simulated control slots, P1 12,302.
+- D2: selection sha256 `f5ac3181…`. Failure contexts at steps 85, 116, 103, 92,
+  93 (falls at 182–213) and 305, 224, 752 (falls at 402, 321, 849). All 16
+  recomputed decisions matched the recorded action bitwise.
+  - Baseline first action, then C_23, eight fresh streams. Failure contexts
+    fell 2, 6, 4, 3, 3 (early) and 8, 7, 1 (late) times out of 8; healthy
+    matches 3, 3, 5, 4, 4 and 2, 2, 1. **Prediction wrong**: from early states
+    the deployed controller falls about half the time, whichever way the
+    recorded episode ended. Early falls are a start-up hazard, not settled 0.77 s
+    ahead.
+  - Bank oracle: **0/8 failure and 0/8 healthy contexts** show a confirmed
+    improvement. All six-stream 95% intervals include zero, and discovery
+    winners reversed at three failure contexts. Prediction (at most 2/8) held.
+    At this noise level the bank holds no confirmable one-step repair.
+  - Same-state continuations:
+
+    | Contexts | C_23 | Raw K32 | Raw K256 | SAC |
+    |---|---:|---:|---:|---:|
+    | Early, failure | 22/40 | 15/20 | 15/20 | 5/5 |
+    | Early, healthy | 21/40 | 17/20 | 19/20 | 5/5 |
+    | Late, failure | 8/24 | 5/12 | 4/12 | 1/3 |
+    | Late, healthy | 19/24 | 11/12 | 11/12 | 2/3 |
+
+    K256 survived at least 3 of 4 streams at 5/8 failure contexts (prediction
+    held). Two of the three late failures were beyond both K256 and SAC.
+  - Cycle-23 shadow value against measured discovery differences: Spearman
+    −.32 to +.12 across the 16 banks, mean about −.03.
+- D3: on 88 fresh calibration pairs, the 44 noise-resolved ones agree in sign
+  20 times (45%); Spearman .13 (p = .25); predicted differences SD 109
+  against measured SD 644.
+- Work: 1,195,444 executed controls, 3,213,919,763 control slots, 80.8
+  CPU-hours (job times on an oversubscribed 32-core server); lower bounds.
+- Diagnosis:
+  - (1) Objective and control semantics: **refuted**. SAC and K256 walk on the
+    same starts.
+  - (2) Planner proposals: **supported**. K32 search cannot track speed even
+    without memory; K256 can.
+  - (3) Memory: **supported**. Removing it adds 12 survivors in closed loop,
+    and from identical early states memory-free K32 survives 80% against
+    C_23's 54%.
+  - (4) Scorer misranking available better actions: **not a cause**. No
+    better first action can be confirmed, and the value ranks at chance.
+  - (5) Self-guidance: explains only why learning could not have repaired
+    walking (qualification evidence above).
+- Alignment with `general.md`: the pipeline trains no policy, deploys MPPI as
+  the product and uses a teacher that does not do the task. It is a
+  value-guided MPC mechanism test, not the MPPI-GPS idea. See
+  [walking_failure_diagnosis.md](walking_failure_diagnosis.md).
+- Decision: repair the teacher (Step 32). A policy-centered restructure is
+  proposed in the findings page for the user's decision; nothing of it has run.
 
 ### Step 32 — teacher-capacity repair on fresh resets (predictions written before running)
 
