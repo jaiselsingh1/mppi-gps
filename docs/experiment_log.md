@@ -4342,3 +4342,50 @@ reward-learning study remains a draft until the diagnostic is recorded.
   `general.md` and Kendall's literal constraints.
 - Budget: about 2 h on 30 CPU workers. Every executed and simulated control is
   counted. A repair, if any, is preregistered separately before validation.
+
+### Step 32 — teacher-capacity repair on fresh resets (predictions written before running)
+
+- Question: does the smallest repair Step 31 supports make the training-time
+  teacher do the task on fresh resets, and at what compute? The repair is
+  unmodified independent MPPI at its own tuned configuration
+  (`configs/walker2d_best.json`: K256, H48, lambda 3, sigma .3, low-pass
+  noise), executing its own weighted mean. It uses no memory fragments, no
+  learned scorer and nothing from any policy. The study had overridden K to 32
+  and added the memory archive.
+- Basis, Step 31 D1 (same 64 final resets and planner seeds; the context
+  replays were still running when this was written):
+
+  | Arm | Survived | MAE | Cost |
+  |---|---:|---:|---:|
+  | Deployed C_23 (K32 + memory) | 40/64 | .486 | 1286.4 |
+  | Memory removed | 52/64 | .387 | 870.2 |
+  | Raw K32 | 47/64 | .387 | 923.5 |
+  | Raw K256 | 61/64 | .151 | 338.3 |
+  | SAC 800k | 64/64 | .197 | 358.8 |
+
+  Memory removed minus deployed: survival +.188 [.047, .328], MAE −.099;
+  raw K256 minus raw K32: +.219 [.094, .344], MAE −.236; raw K32 minus memory
+  removed: −.078 [−.203, .047]. Memory fragments and K32 capacity are
+  supported causes; the objective and dynamics are not, since SAC and K256
+  walk on the same starts; the executed-action rule made no clear difference.
+- Relation to `general.md`: this repairs the teacher that the notes assume "can
+  do the task". It is not a learning result. Under the notes MPPI stays a
+  training-time tool, so the policy that should be the product is still
+  untrained.
+- Arms on fresh resets 55000000–55000063 (odd resets perturbed as in the
+  study), planner seeds 885000000+i, robopil5090, the same isolated frozen
+  copy, 1000 controls:
+  - A, deployed C_23 (control): K32 + final archive + bank argmin, alpha 0.
+  - B1, C_23's rule with the archive removed.
+  - B2, raw K32/H48 executing its own mean.
+  - C, raw K256/H48 executing its own mean (the repair).
+- Predictions: A 40/64 (35–45), MAE .48; B1 50/64, .39; B2 47/64, .39; C at
+  least 58/64 with MAE at most .20.
+- Decision rule: the repair passes if C survives at least 58/64 AND MAE is at
+  most .30. Attribution uses paired reset-bootstrap 95% intervals: B1−A for
+  memory, C−B2 for capacity, B1−B2 for the executed-action rule. Report
+  simulated control slots per executed control and seconds per decision for
+  every arm; C should cost about six times A per executed control.
+- Falsified if C has fewer than 58 survivors or MAE above .30. No training
+  seed is involved because nothing is learned; one planner configuration, 64
+  resets, one machine.
