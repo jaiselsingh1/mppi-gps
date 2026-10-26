@@ -1,0 +1,44 @@
+{
+  "fork": {
+    "env": {"gate": 30, "cell": 0.05, "max_move": 0.25, "effort": 0.1, "greed": 0.2, "detour": 0.5, "detour_steps": 10, "penalty": 20.0},
+    "mppi": {"K": 64, "H": 20, "lam": 0.3, "noise_sigma": 1.0},
+    "delays_past_horizon": [-10, 1, 20, 60, 140],
+    "noise_std": [0.0, 2.0],
+    "train_starts_y": [0.1, 0.2, 0.3, 0.4, 0.5],
+    "reserved_starts_y": [0.15, 0.25, 0.35, 0.45],
+    "features": {"t_width": 5, "y_bins": 8, "tilings": 8},
+    "units": [1, 2, 4, 8, 16, 32, 64, 128, 256],
+    "bank_episodes": 40,
+    "bank_stride": 1,
+    "branch_times": [5, 11, 15, 19, 23, 27, 35],
+    "counterfactual_episodes": 20,
+    "min_gap": 5.0
+  },
+  "car": {
+    "env": {"effort": 0.1, "max_steps": 500},
+    "mppi": {"K": 64, "H": 30, "lam": 0.3, "noise_sigma": 1.0},
+    "powers": [0.004, 0.0015, 0.001, 0.0007],
+    "dp": {"n_position": 301, "n_velocity": 301, "n_action": 21},
+    "features": {"bins": [16, 16], "tilings": 8},
+    "reserved_position": [-0.6, -0.4],
+    "reserved_seed": 920000000,
+    "units": [4, 8, 16, 32, 64, 128],
+    "api_rounds": 4,
+    "api_units": 64,
+    "bank_episodes": 20,
+    "bank_stride": 5,
+    "branch_times": [0, 25, 50, 100, 200],
+    "counterfactual_episodes": 10,
+    "min_gap": 50.0
+  },
+  "common": {
+    "branches_per_episode": 3,
+    "ridge": 1.0,
+    "eval_episodes": 40,
+    "data_seeds_fork": 5,
+    "data_seeds_car": 3,
+    "seeds": {"reserved_planner": 900000000, "reserved_noise": 910000000, "train": 100000000},
+    "gap_threshold": 0.8,
+    "regret_threshold": 0.2
+  }
+}
