@@ -4600,3 +4600,56 @@ reward-learning study remains a draft until the diagnostic is recorded.
   could do more, so a negative selection result does not rule out the loop.
   No predictor is executed, deployed or fed back into MPPI.
 - Budget: about 1 h on 30 workers; every control counted.
+- Status: **complete**, 2026-10-27 00:41–01:33Z (20:41–21:33 EDT) on
+  robopil5090. Runner `diag/step33.py` (sha256 `827b735f…`), analysis
+  `diag/analyze33.py` (`2325f12a…`), Step 24's `knn_errors` from the frozen
+  copy. Results are mirrored to the workbench with SHA-256 sums. A local
+  three-episode smoke run checked the pipeline before launch; its numbers were
+  not used.
+
+  | Measure | K32 | K256 |
+  |---|---:|---:|
+  | Teacher episodes survived | 14/24 | 22/24 |
+  | Episode speed MAE | .412 | .154 |
+  | Natural states | 17,563 | 23,398 |
+  | Label variance per action dimension | .349 | .220 |
+  | Natural R², all states (best k = 100) | .048 | .167 |
+  | Natural R², t ≥ 96 | .044 | .158 |
+  | Sampling jitter (share of label variance) | .040 (.116) | .013 (.057) |
+  | Picked-segment R², selected | .046 | .134 |
+  | Picked-segment R², random | .036 | .117 |
+  | Mean task cost per control, selected vs random | .821 vs .831 | .316 vs .327 |
+  | Distance to the predictor, selected vs random | .299 vs .338 | .167 vs .190 |
+
+- Decision rule: selected K256 R² .134 ≤ random K32 R² + .10 = .136, so **the
+  learnability premise fails at this level**, by .002. Natural K256 R² .167 <
+  .30, so capacity alone does not make the labels learnable. Selection adds
+  +.017 (needed ≥ .10), so one-step selection does not work.
+- Predictions: K32 natural R² .048 held (0–.15); K256 .167 held (.10–.45).
+  Jitter shares .116 and .057 against .13 and .03 predicted. Selected R² .046
+  and .134 against .15 and .35 predicted: wrong. Selected cost was 1–3% below
+  random (held, within 5%).
+- Reading:
+  - K256 labels are about 3.5 times more predictable from the state than K32's
+    on equal data, and their variance is lower. About 83% is still
+    unexplained.
+  - Sampling noise is only 6% of K256 label variance. Most of the remainder is
+    MPPI's carried plan, the hidden history Steps 22–24 found for K32, plus
+    estimator shortfall from only 16 training episodes. Step 24 needed 400 K32
+    episodes to reach .08 against .05 here, so these R² values are lower
+    bounds; extrapolating that gap does not put K256 near .30.
+  - Selection among continuations that share the carried plan can remove only
+    that small jitter, so it cannot fix the labels. This does not test closed
+    loop selection, where the executed choice would shape later carried plans.
+- Implication: what keeps MPPI's labels from being state-determined is the
+  carried plan, not search quality or sampling. Anchor/Selective walked because
+  seeding replaced that hidden plan with the policy's own rollout, a function of
+  the state. A policy that learns from untouched MPPI therefore needs some other
+  way to make the carried plan follow the state or the policy. Untested
+  candidates: closed-loop selection with a fixed selector, a policy term in
+  MPPI's cost (Kendall's quoted words do not exclude it; the user's stricter
+  "MPPI unchanged" reading does), or memoryless K256 re-solving (Step 25 found
+  memoryless K32 could not walk). The choice is the user's.
+- Work: 115,266 executed controls and 887,794,242 control slots
+  (K32 49,204 / 75,663,412; K256 66,062 / 812,130,830). No predictor was
+  executed or fed back into MPPI; nothing was trained.

@@ -1,6 +1,6 @@
 # Why the replanning-value Walker controller does not walk (Step 31)
 
-Status: Step 31 diagnosis and Step 32 validation complete. Preregistered in
+Status: Steps 31–33 complete. The §4 proposal failed its own learnability test (§5). Preregistered in
 [experiment_log.md, Steps 31–32](experiment_log.md). This page collects the evidence,
 the alignment check the user asked for on 2026-10-26, and the repair decision.
 
@@ -265,3 +265,52 @@ Decisions this needs from the user:
   constraint? It never touches MPPI's search, but the policy chooses which of
   MPPI's own solutions runs.
 - Training-time compute: K256 costs about 6.2 times K32 per executed control.
+
+## 5. Learnability test of the §4 loop (Step 33): failed at this level
+
+24 natural episodes per teacher on fresh resets (56000000+), plus four
+24-control branches from exact anchors every 50 decisions. The predictor is
+Step 24's nearest-neighbour estimator, held out by whole episodes.
+
+| Measure | K32 | K256 |
+|---|---:|---:|
+| Episodes survived | 14/24 | 22/24 |
+| Action variance the state explains | .048 | .167 |
+| Sampling-noise share of action variance | .116 | .057 |
+| Selected branch (closest to the predictor) | .046 | .134 |
+| Random surviving branch | .036 | .117 |
+
+- The preregistered rule failed: selected K256 .134 ≤ random K32 .036 + .10.
+  The margin is only .002, but no reading rescues the loop. K256 alone reaches
+  .167 against the .30 bar, and selection adds .017 against the .10 needed.
+- **The hidden carried plan, not search quality, blocks learning.** The
+  capable teacher is about 3.5 times more predictable than K32, yet roughly 83%
+  of its action is still unexplained, and sampling noise is only 6% of it. The
+  rest follows the plan MPPI carries in from its own history. The policy cannot
+  see that plan.
+- **One-step selection cannot fix it.** Branches from one state share that
+  plan, so choosing among them removes only the small noise part. Selected
+  segments were 1–3% cheaper than random ones, so closeness to the predictor
+  did not cost task performance.
+- **Why Anchor/Selective could learn.** Seeding replaced the hidden plan with
+  the policy's own rollout, which is a function of the state. That made the
+  labels learnable. Kendall's no-seeding rule removes exactly that mechanism.
+
+What remains, for the user's decision (none is tested):
+
+1. **Closed-loop selection with a fixed selector.** The policy chooses which
+   independent MPPI segment is executed, so the carried plans along the
+   collected trajectories follow the policy. It needs no training: a fixed
+   predictor fit on K256 data selects, and the collected data's learnability is
+   measured. MPPI's search stays untouched.
+2. **A policy term in MPPI's cost**, Mordatch et al. 2015 style, with weight
+   tied to the policy's competence ("the policy term weight ... proportional to
+   the policies ability to do the task"). Kendall's quoted words do not exclude
+   it; the user's stricter "MPPI unchanged" reading does. Steps 26–29 found a
+   matching term moved K32 MPPI only a fifth of the way.
+3. **Memoryless K256 re-solving each control**, the user's note that the
+   teacher "should re-solve from the current state at every decision." This
+   would make labels state-determined by construction. Step 25 found memoryless
+   K32 could not walk (0/50); K256 is untested and costs more per control.
+4. **Seeding (Anchor/Selective).** Shown to walk (96/100 and 95/100), but it
+   conflicts with Kendall's constraint.
