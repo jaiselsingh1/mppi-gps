@@ -4549,3 +4549,54 @@ reward-learning study remains a draft until the diagnostic is recorded.
   primary endpoint, and coverage of differing endings.
 - [Findings and verdicts](credit_testbed_findings.md),
   [evidence](experiment_evidence/2026-10-26_credit_testbed/README.md).
+
+### Step 33 — can a state-only policy learn the K256 teacher's actions? (no training; predictions written before running)
+
+- Question: the restructure proposed in
+  [walking_failure_diagnosis.md](walking_failure_diagnosis.md) §4 needs a
+  policy that sees only the state to learn from a teacher that does the task.
+  Steps 22–24 found the K32 teacher's actions are set mostly by its hidden
+  carried plan and samples: on natural states the best state-only predictor
+  explained about 8% of label variance (Step 24: held-out error .316 against
+  variance .345). Step 32 showed unmodified K256 MPPI walks. Are its actions
+  more state-determined, and does the proposed selection (drop continuations
+  that fall, keep the one closest to a state-only predictor) make them more
+  learnable? The user approved this test on 2026-10-26, with no training run.
+- Teachers: raw MPPI at K32 and at K256 (`configs/walker2d_best.json`, H48),
+  each executing its own weighted mean, with no execution noise (Step 24
+  added N(0, .1²)), no memory and nothing from any policy. Isolated frozen
+  copy on robopil5090, as in Steps 31–32.
+- Data:
+  - 24 episodes per teacher, fresh resets 56000000–56000023 (odd resets
+    perturbed as in the study), planner seeds 886000000+i, the same for both
+    teachers.
+  - Anchors at every 50th decision from t = 50 while healthy. At each anchor,
+    four continuations of 24 controls from the exact state, warmstart and
+    carried plan, with fresh streams 887000000+ (same seeds for both teachers).
+- Measurements (k-NN on standardized 17-dimensional observations, Step 24's
+  estimator, k in {5, 10, 20, 50, 100}; held-out by whole episodes, three
+  folds of eight, rotated):
+  1. **Natural learnability:** held-out R² = 1 − error/variance on each
+     teacher's episode labels. Reported for all states and for t ≥ 96.
+  2. **Sampling jitter:** variance of the four continuations' first actions
+     at the same state and plan, as a share of label variance.
+  3. **Selection:** a predictor fit on one fold's natural labels picks, at
+     each anchor of the other folds, the surviving continuation closest to it
+     along the segment. Compared with a random surviving continuation at the
+     same anchors: held-out R² of a fresh predictor fit on one fold's picked
+     segments and tested on another's, and the picked segments' mean task cost.
+- Predictions: natural R² K32 .05 (0–.15), K256 .25 (.10–.45). Jitter share
+  K32 about .13, K256 about .03. Picked-segment R²: random K32 .05, K256 .25;
+  selected K32 .15, K256 .35. Selected and random task cost within 5%.
+- Decision rule:
+  - The learnability premise fails at this level if selected K256 R² ≤ random
+    K32 R² + .10. Then the §4 loop would fail at the learning step.
+  - If natural K256 R² ≥ .30, capacity alone makes the labels learnable.
+  - If K256 ≈ K32 but selection adds ≥ .10, selection is needed and works open loop.
+- Limits: 24 episodes per teacher is far fewer than Step 24's 400, so R²
+  values are lower bounds; compare teachers on equal data. Selection here
+  picks among continuations that share the anchor's carried plan, so it can
+  remove sampling jitter but not switch plan-chosen clusters. A closed loop
+  could do more, so a negative selection result does not rule out the loop.
+  No predictor is executed, deployed or fed back into MPPI.
+- Budget: about 1 h on 30 workers; every control counted.
