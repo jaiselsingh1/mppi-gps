@@ -4653,3 +4653,73 @@ reward-learning study remains a draft until the diagnostic is recorded.
 - Work: 115,266 executed controls and 887,794,242 control slots
   (K32 49,204 / 75,663,412; K256 66,062 / 812,130,830). No predictor was
   executed or fed back into MPPI; nothing was trained.
+
+### Step 34 — trust map and earned-channel test (Stage 1 of trust-priced consensus; no training; predictions written before running)
+
+- **Question** (user, 2026-10-26). This is Stage 1 of [trust_priced_consensus.md](trust_priced_consensus.md).
+  - 1a: does a trust field, measured from the policy's own deterministic probes, predict where the policy succeeds alone? How much of MPPI's walking does it cover, before and after take-off?
+  - 1b: can earned influence toward a learner, priced by trust, make independent K256 MPPI's own executed actions learnable from the state while it still walks? Step 33 measured R² .167 without influence. Does that influence steer MPPI into states where the learner is trusted?
+- **Code.** `src/gps/trust.py`, `src/gps/handover.py` and `scripts/diagnostics/trust_channels.py`, with tests in `tests/test_trust_field.py` and `tests/test_handover.py`.
+  - MPPI is the unchanged `src/mppi/mppi.py`, with `configs/walker2d_best.json` (K256, H48, λ 3, low-pass noise). K and H are asserted at run time.
+  - The channels change only scores: c1 through `prior_cost`, c3 through `coupling`. With τ̂ = 0, MPPI's actions and plan are bitwise unchanged (tested).
+- **Policies.** Selective seed 0, `runs/2026-10-24_policy_selective_75_seed0_001/selective/policy_NNN.pt`:
+
+  | Iteration | Stage | Dev mean steps | Dev survival | Dev MAE |
+  |---:|---|---:|---:|---:|
+  | 9 | before take-off | 173 | 0 | |
+  | 19 | before take-off | 289 | 0 | |
+  | 29 | before take-off | 476 | 0 | |
+  | 74 | final | | 10/10 | .204 |
+
+- **Episodes.**
+  - 24 fresh resets: Walker2d's standard reset noise, seeded with 58,000,000 + i. This is not Step 32/33's perturbed-odd protocol.
+  - Planner seeds 889,000,000 + i, shared by every arm, so arms are paired.
+  - 1,000 controls, no execution noise.
+- **Phase A.** Plain K256 MPPI on the 24 resets. It records states and warm starts at t = 25, 75, …, 975.
+- **Trust labels.**
+  - From each recorded state, the policy runs alone and deterministically for W = 250 controls, starting from the exact state and warm start.
+  - Under the MAE definition, τ* = 1 if it survives with mean speed error ≤ .30. Under the survival-only definition, τ* = 1 if it survives.
+  - The states come from two sources: MPPI's states from Phase A, and the policy's own states at the same times along its own deterministic episodes from the same resets.
+- **Trust field.**
+  - τ̂ is the Wilson lower bound (z = 1) of τ* among the 20 nearest probes, with observations standardized by the probes.
+  - τ̂ = 0 beyond the probes' 95th-percentile nearest-neighbour distance.
+  - τ̂ ≥ .8 counts as trusted.
+- **1a measures**, per checkpoint, cross-fitted by reset parity:
+  - held-out AUC and Brier score of τ̂ against τ*;
+  - τ* rate on MPPI's states and on the policy's own states;
+  - trusted share of MPPI's states.
+- **1b arms.** 24 episodes each, on the same resets and planner seeds. For learners 29 and 74:
+  - **c1:** α₀ ∈ {0.3, 3}, with α = α₀·τ̂(s) at the decision state.
+  - **c3:** among the top 16 healthy samples by score, each one ending at τ̂(s_H) > 0 is charged τ̂(s_H)·(V − median V). V is the learner's exact 250-control cost from s_H.
+  - **c1 (α₀ = 3) + c3.**
+
+  Phase A is the shared baseline. Each learner's trust field is fit on all of that learner's probes.
+- **1b measures:**
+  - held-out state-only R² of the executed actions, by Step 33's estimator (contiguous thirds by episode, k ∈ {5, 10, 20, 50, 100}, best k), and again for t ≥ 96;
+  - survivals and episode speed MAE;
+  - |δ| = mean ‖a − π(s)‖;
+  - trusted share along MPPI's path (τ̂ ≥ .8), against the plain arm's under the same learner's field;
+  - simulated controls per control, for the planner and for c3's tails;
+  - worker time.
+- **Predictions.**
+  - 1a: held-out AUC ≥ .80 at every checkpoint where both outcomes occur. Trusted share of MPPI's states: iteration 9 ≤ .10; 19 in .10–.30; 29 in .30–.60; 74 ≥ .90.
+  - 1b, plain: R² .12–.22 (Step 33 had .167 on other resets), 21–24/24 walking, MAE .14–.18.
+  - 1b, learner 74:
+    - c1 with α₀ = 3 raises R² to .25–.40 and cuts |δ| by at least 30%, walking ≥ 21/24.
+    - α₀ = .3 changes R² by less than .05.
+    - c3 raises path trust by .02–.08 and R² by less than .05.
+  - 1b, learner 29: every arm within .05 of plain's R², because trust is too sparse to act.
+  - Overall I expect no arm to meet the learnability rule and no channel to meet the Stage 2 rule.
+- **Decision rules.**
+  - If fewer than 5% of MPPI's states are trusted at iteration 29 under the MAE definition, 1b and Stage 2 use the survival-only definition.
+  - If held-out AUC at iteration 29 is below .70, the trust definition is redesigned before Stage 2.
+  - MPPI's own actions become a Stage 2 arm (labels with no seeding) if any learner-29 arm reaches R² ≥ .30 with ≥ 20/24 walking and speed MAE ≤ .25.
+  - A channel joins Stage 2's TPC arm only if both hold:
+    - for at least one learner, it raises the trusted share along MPPI's path by at least .10 over plain;
+    - for both learners, it has at most 2 more falls than plain.
+- **Limits.**
+  - One Selective seed.
+  - 24 episodes per arm, so R² is a lower bound, as in Step 33.
+  - The trust field generalizes from at most about 1,000 probes per checkpoint.
+  - c3's tail rollouts omit the solver warm start (existing `WalkerPolicyTail` code); the probes include it.
+- **Budget.** robopil5090, 28 workers, about 1.5 h. Every simulated and executed control is counted.
