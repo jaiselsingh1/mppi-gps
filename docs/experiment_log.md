@@ -4465,6 +4465,45 @@ reward-learning study remains a draft until the diagnostic is recorded.
 - Falsified if C has fewer than 58 survivors or MAE above .30. No training
   seed is involved because nothing is learned; one planner configuration, 64
   resets, one machine.
+- Status: **complete**, 2026-10-26 23:34:55Z–00:32:15Z (19:34–20:32 EDT) on
+  robopil5090. Runner `diag/step32.py` (sha256 `a31997fd…`) calls
+  `diag/step31.py` (`a36fc505…`). The five regression checks in
+  `diag/test_teacher_repair.py` passed on the Mac and on the server before
+  launch. All 23 result files are mirrored to the workbench with matching
+  SHA-256 sums.
+
+  | Arm | Survived | Alive | MAE | Cost | Falls < 250 | Slots per control | s per decision |
+  |---|---:|---:|---:|---:|---:|---:|---:|
+  | A, deployed C_23 | 37/64 | 6.196 s | .500 | 1216.9 | 12 | 1,971 | .165 |
+  | B1, memory removed | 43/64 | 6.139 s | .405 | 1162.7 | 15 | 1,587 | .131 |
+  | B2, raw K32 | 51/64 | 6.852 s | .394 | 946.3 | 9 | 1,539 | .126 |
+  | C, raw K256 | **59/64** | 7.683 s | **.160** | 377.7 | 3 | 12,302 | 1.265 |
+
+- Decision rule: C survives 59/64 (92.2%, Wilson 95% 83.0–96.6%) with MAE
+  .160, so **the repair passes**. Prediction (at least 58/64, MAE at most .20)
+  held. Learned scoring and action changes are 0 in every arm; nothing is
+  learned, so no training seed is involved.
+- Attribution (paired reset-bootstrap 95% intervals):
+  - C−A: survival +.344 [.203, .484], 26 vs 4 discordant; MAE −.339
+    [−.374, −.305].
+  - C−B2 (capacity): survival +.125 [.000, .250], 13 vs 5. The lower bound
+    touches zero, so survival does not strictly meet the preregistered
+    "excludes zero" rule; MAE −.234 [−.263, −.203] does. Over both panels,
+    raw K256 survived 120/128 and raw K32 98/128.
+  - B1−A (memory): survival +.094 [−.078, .266], **not replicated** on fresh
+    resets; MAE −.095 [−.130, −.061], replicated.
+  - B1−B2 (executed-action rule): −.125 [−.297, .047]; Step 31 had the opposite
+    sign. No consistent effect.
+- Other predictions: A 37/64, MAE .500, held (35–45, .48). B1 43/64 against
+  the predicted 50. B2 51/64 against the predicted 47.
+- Work: 214,964 executed controls and 1,016,144,468 control slots. The repair
+  costs 6.2 times the deployed controller per executed control, and 7.7 times
+  the wall time per decision on the loaded server.
+- Interpretation: unmodified tuned MPPI does the task on fresh resets, so the
+  teacher premise of `general.md` can be met without any policy input. It is a
+  training-time teacher, not a learning result or the product. Speed tracking
+  needs K256; memory consistently worsens tracking, and its survival harm
+  replicated on one panel of two.
 
 ### Credit test stack: can a learner supply the ending beyond MPPI's horizon? (2026-10-26)
 

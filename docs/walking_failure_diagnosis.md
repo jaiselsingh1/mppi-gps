@@ -1,6 +1,6 @@
 # Why the replanning-value Walker controller does not walk (Step 31)
 
-Status: Step 31 diagnosis complete; Step 32 validation running. Preregistered in
+Status: Step 31 diagnosis and Step 32 validation complete. Preregistered in
 [experiment_log.md, Steps 31–32](experiment_log.md). This page collects the evidence,
 the alignment check the user asked for on 2026-10-26, and the repair decision.
 
@@ -142,9 +142,71 @@ Verdict on the five links:
 |---|---|---|
 | 1. Objective or control semantics | Refuted | SAC 64/64 and K256 61/64 on the same starts; SAC recovers from every early context. |
 | 2. Planner proposals lack gait or recovery | **Supported** | K32 misses the speed target even without memory (MAE .387); K256 meets it (.151). |
-| 3. Memory retrieval or refresh | **Supported** | Removing memory adds 12 survivors; same-state survival 54% with memory against 80% without. |
+| 3. Memory retrieval or refresh | **Supported for speed, mixed for falls** | Removing memory cut MAE by about .10 on both panels. It added 12 survivors on the final resets, but only 6 (interval includes zero) on Step 32's fresh resets. Same-state survival was 54% with memory against 80% without. |
 | 4. Scorer misranks better available actions | Not a cause | No confirmable better first action; the value ranks at chance on fresh decisions and at these contexts. |
 | 5. Self-guidance undoes isolated wins | Explains why learning could not repair walking | Calibrated candidates lost in closed loop while changing 35–64% of actions. |
+
+## 3c. Repair and fresh-reset validation (Step 32)
+
+The repair is the training-time teacher as the repository already defines it:
+unmodified MPPI at `configs/walker2d_best.json` (K256, H48, lambda 3, sigma .3,
+low-pass noise), executing its own weighted mean, with no memory fragments, no
+learned scorer and nothing from any policy. The study had overridden K to 32
+(`_mppi(cfg)` in `scripts/training/train_coupled_value.py`) and added the
+memory archive. No `src/` file changes.
+
+Why it should improve executed walking: the K32 search cannot hold the speed
+target even without memory (MAE .39). K256 finds the tracking gait (.15–.16)
+and avoids most start-up falls from the same states. Removing memory removes a
+source of speed error and, on one of two panels, of falls.
+
+Regression checks (`diag/test_teacher_repair.py`, five, passing on the Mac and
+on robopil5090) pin the meaning of the repaired arm:
+
+1. The planner configuration equals the tuned file exactly.
+2. Only the robot state and solver warmstart enter MPPI (no nominal, prior cost
+   or coupling).
+3. The executed action is MPPI's own weighted-mean first action.
+4. Seeded runs repeat bitwise.
+5. Resets come from the study's own generator, including the perturbed odd
+   resets.
+
+Fresh resets 55000000–55000063 (planner seeds 885000000+i), robopil5090:
+
+| Arm | Survived | MAE | Falls < 2 s | Slots per executed control |
+|---|---:|---:|---:|---:|
+| Deployed C_23 | 37/64 | .500 | 12 | 1,971 |
+| Memory removed | 43/64 | .405 | 15 | 1,587 |
+| Raw K32 | 51/64 | .394 | 9 | 1,539 |
+| **Repaired teacher, raw K256** | **59/64** | **.160** | 3 | 12,302 |
+
+- The repaired teacher passes the gate: 92.2% survival (Wilson 95% interval
+  83.0–96.6%) and MAE .160. Against the deployed controller: survival +.344
+  [.203, .484], MAE −.339.
+- Capacity, K256 against raw K32: survival +.125 [.000, .250], so the lower
+  bound only touches zero; MAE −.234 [−.263, −.203].
+- Memory removed against deployed: survival +.094 [−.078, .266], not
+  replicated; MAE −.095, replicated.
+- Cost: 6.2 times the deployed controller's simulation per executed control.
+
+What this is not: not evidence for the learning thesis, not a policy and not a
+product under `general.md`. It is one planner configuration on 64 resets on one
+machine. Nothing is learned, so training-seed robustness does not apply.
+
+To rerun the validation independently:
+
+1. On a machine with the study's Python environment, copy the 147 frozen files
+   from the study's `source/` snapshot into a fresh directory. Check them
+   against `protocol.json` with SHA-256.
+2. Add `diag/step31.py`, `diag/step32.py`, `diag/analyze32.py` and
+   `diag/test_teacher_repair.py` from
+   `/Users/jaisel/Documents/workbench/walker_walking_diagnosis_20261026/diag`.
+3. Set `STUDY_DIR` to the study run directory and run
+   `python -m pytest diag/test_teacher_repair.py`.
+4. Run `python diag/step32.py <out> <workers>`, then
+   `python diag/analyze32.py <out>`.
+5. Results are bitwise only on the machine that produced them (robopil5090).
+   Elsewhere, compare arms on one machine.
 
 ## 4. Proposed restructure of the learning (for the user's decision)
 
