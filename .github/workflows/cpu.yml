@@ -15,7 +15,8 @@ jobs:
     timeout-minutes: 20
     env:
       CUDA_VISIBLE_DEVICES: ""
-      MUJOCO_GL: egl
+      # Physics tests and Matplotlib reports do not require a GL context.
+      MUJOCO_GL: disable
       MPLBACKEND: Agg
       OMP_NUM_THREADS: "1"
       OPENBLAS_NUM_THREADS: "1"

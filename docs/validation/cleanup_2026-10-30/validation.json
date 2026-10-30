@@ -171,5 +171,18 @@
       }
     },
     "new_research_experiments": 0
+  },
+  "linux_ci_followup": {
+    "first_run": "https://github.com/jaiselsingh1/mppi-gps/actions/runs/41138270318",
+    "first_run_commit": "3543186f222ae049957f440691d94c288f144c99",
+    "first_run_passed": false,
+    "cause": "MUJOCO_GL=egl attempted to initialize an unavailable EGL backend during test collection. CPU torch and Ruff checks passed.",
+    "fix": "MUJOCO_GL=disable only in CPU CI. No test requires a MuJoCo Renderer; physics and replay tests remain enabled. Matplotlib saved plots use Agg.",
+    "local_headless_log": "headless_pytest.txt",
+    "local_headless_tests": {
+      "passed": 234,
+      "skipped": 1,
+      "xfailed": 1
+    }
   }
 }
