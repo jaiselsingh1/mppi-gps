@@ -159,3 +159,10 @@ def test_capsule_binding_rejects_tampering_and_escape(tmp_path):
     errors = []
     check_binding(tmp_path, "../escaped", binding, errors)
     assert errors == ["Path escapes evidence root: ../escaped"]
+    # Listed capsule copies must fail verification when omitted from an export;
+    # intentionally external bulk evidence is reported separately.
+    (tmp_path / "capsule.json").write_text(json.dumps({"files": {"missing.json": binding}}))
+    report = inspect_run(tmp_path, verify=True)
+    assert report["files"][0]["verified"] is False
+    assert report["errors"] == [f"Missing bound evidence: {tmp_path / 'missing.json'}"]
+    assert train_mppi_gps.main(["inspect", "--run", str(tmp_path), "--verify"]) == 1

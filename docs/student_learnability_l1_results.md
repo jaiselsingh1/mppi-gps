@@ -16,7 +16,7 @@ The full-input child averaged 18.5625 fewer controls and 213.903570 higher
 complete cost than its fresh clipped control. Neither arm qualified for
 confirmation. No checkpoint or normalization was selected after outcomes.
 
-![Fresh learning curves and outcomes](../artifacts/2026-10-30_student_learnability_l1_report_001/learning_and_outcomes.png)
+![Fresh learning curves and outcomes](../results/student_learnability_l1/figures/learning_and_outcomes.png)
 
 The [frozen protocol](student_learnability_protocol_l1_001.md) used exactly the
 same 6,096 underlying physical states and torques in both arms, including the
@@ -57,14 +57,14 @@ These are measured outcomes, not an isolated neural explanation. Velocity MAE
 uses executed controls and therefore does not replace full-horizon success or
 the complete cost's terminal and absorbing-tail accounting.
 
-The [independent saved-only audit](../artifacts/2026-10-30_experiments_execution_audit_001/l1_receipt_001/receipt.json)
+The [independent saved-only audit](../results/student_learnability_l1/audit/receipt.json)
 passed **724,743 checks**, binding 180 files and 989 array fingerprints in
 2.364469 seconds. It checked physical provenance, both feature maps and norms,
 fresh initialization, checkpoint/Adam/RNG/anchor packaging, all 20,000 curve
 points, actual declared deployment features, complete native costs/flags,
 paired full resets and all metered work. No dynamics, neural inference or Adam
 arithmetic was replayed. Reported MSE remains bound saved evidence, not new
-inference. [Native details](../artifacts/2026-10-30_experiments_execution_audit_001/l1_receipt_001/native_detail.json)
+inference. [Native details](../results/student_learnability_l1/audit/native_detail.json)
 preserve the survival and termination distinctions.
 
 | New paid work | Requested = completed |
@@ -84,18 +84,18 @@ All failed/rejected/unknown counters were zero. Runtime was 328.194760 internal
 seconds and 329.316896 external launch seconds. The unused conditional
 confirmation was budgeted but not spent. Export, transfer, audits, tests,
 plotting and engineering are separate overhead; no efficiency claim is made.
-The [stage accounting](../artifacts/2026-10-30_student_learnability_l1_report_001/cost_accounting.json)
+The [stage accounting](../results/student_learnability_l1/report/cost_accounting.json)
 charges no inherited acquisition a second time.
 
-The complete [run result](../runs/2026-10-30_student_learnability_l1_001/result.json),
-[configuration](../runs/2026-10-30_student_learnability_l1_001/config.json),
-[input seal](../runs/2026-10-30_student_learnability_l1_001/input_manifest.json),
-[per-update curves](../runs/2026-10-30_student_learnability_l1_001/learning_curves.csv),
-[full raw arrays](../runs/2026-10-30_student_learnability_l1_001/evidence/raw.h5),
-[ledger](../runs/2026-10-30_student_learnability_l1_001/evidence/ledger.jsonl),
-[plotted data](../artifacts/2026-10-30_student_learnability_l1_report_001/plotted_data.json)
-and [PDF figure](../artifacts/2026-10-30_student_learnability_l1_report_001/learning_and_outcomes.pdf)
-are preserved. The [mirror receipt](../artifacts/2026-10-30_student_learnability_l1_001/mirror_receipt.json)
+The complete [run result](../results/student_learnability_l1/run/result.json),
+[configuration](../results/student_learnability_l1/run/config.json),
+[input seal](../results/student_learnability_l1/run/input_manifest.json),
+[per-update curves](../results/student_learnability_l1/run/learning_curves.csv),
+[full raw arrays (external evidence)](evidence_availability.md#external-bf2922342a3a),
+[ledger (external evidence)](evidence_availability.md#external-9c0595a52141),
+[plotted data](../results/student_learnability_l1/report/plotted_data.json)
+and [PDF figure](../results/student_learnability_l1/figures/learning_and_outcomes.pdf)
+are preserved. The [mirror receipt](../results/student_learnability_l1/external/mirror_receipt.json)
 verifies all 178 files totaling 692,793,577 bytes by individual SHA-256.
 
 Configuration SHA-256:
@@ -113,4 +113,4 @@ configuration and manifests into a fresh directory, then run its frozen worker
 once. Reusing these seeds is an exact replay, not new held evidence. Calling
 `prepare` after this closed study intentionally refuses its already-used seeds;
 a new scientific replication needs a separately versioned seed/configuration
-freeze. See the [artifact reproduction guide](../artifacts/2026-10-30_student_learnability_l1_001/README.md).
+freeze. See the [artifact reproduction guide (external evidence)](evidence_availability.md#external-6120d21270bd).

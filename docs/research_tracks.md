@@ -40,6 +40,6 @@ utility](../src/gps/mppi_gps/coupling_backoff.py) only computes a proposed weigh
 unit tests are not an empirical test of teacher or student performance. The
 subsequent actual experiments are documented in the closed results. H3.2's
 inherited-state intervention remains unlaunched; the executed L1 fresh-training
-variant is a separate student diagnostic. The [previous scope version](../artifacts/2026-10-30_experiments_execution_001/previous_docs_before_results/docs/research_tracks.md)
+variant is a separate student diagnostic. The [previous scope version (external evidence)](evidence_availability.md#external-425f89902caf)
 and previous reports remain preserved with their original
-hashes in the [scope-correction archive](../artifacts/2026-10-30_research_scope_correction_001/preservation.json).
+hashes in the [scope-correction archive (external evidence)](evidence_availability.md#external-ab1aecb6df5f).

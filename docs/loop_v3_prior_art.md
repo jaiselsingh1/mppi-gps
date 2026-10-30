@@ -7,7 +7,7 @@ experiment. [H4.1](adaptive_coupling_h4_1.md) now specifies an explicit weight
 update; [the mechanism review](adaptive_coupling_review_v1.md) distinguishes its
 prior art and the controls needed to attribute a benefit to changing the weight.
 
-This note was written on 2026-10-30 before the missing guided-data child comparison was available. It is research context and a proposed interpretation of that experiment, not its result or an experiment launch authorization. Historical v1/v2 runs and criteria are unchanged. The [source-read ledger](../artifacts/2026-10-30_loop_v3_literature_001/source_read_ledger.json) records the primary sources and read scope. This is a focused search, not an exhaustive novelty review.
+This note was written on 2026-10-30 before the missing guided-data child comparison was available. It is research context and a proposed interpretation of that experiment, not its result or an experiment launch authorization. Historical v1/v2 runs and criteria are unchanged. The [source-read ledger (external evidence)](evidence_availability.md#external-9a2b8bcc82ad) records the primary sources and read scope. This is a focused search, not an exhaustive novelty review.
 
 ## What the closest primary sources establish
 

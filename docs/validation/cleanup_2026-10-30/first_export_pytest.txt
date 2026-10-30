@@ -1,0 +1,30 @@
+........................................................................ [ 30%]
+........................................................................ [ 61%]
+.......F................................................................ [ 91%]
+................x..                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_capsule_inspection_exposes_bulk_storage_and_all_original_hashes _____
+
+    def test_capsule_inspection_exposes_bulk_storage_and_all_original_hashes():
+        report = inspect_run(ROOT / "results/adaptive_coupling_h4_1", verify=True)
+        assert report["kind"] == "result_capsule"
+        assert report["outcomes"]["status"] == "primary_negative"
+        assert report["bulk_evidence"]["remote_copy_verified"] is False
+        assert report["omitted_bulk_evidence"]
+        assert report["hash_mismatches"] == report["errors"] == []
+>       assert all(item["verified"] for item in report["files"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_cli.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+.0 = <list_iterator object at 0x10fd4b1f0>
+
+>   assert all(item["verified"] for item in report["files"])
+               ^^^^^^^^^^^^^^^^
+E   KeyError: 'verified'
+
+tests/test_research_cli.py:146: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_research_cli.py::test_capsule_inspection_exposes_bulk_storage_and_all_original_hashes
+1 failed, 233 passed, 1 skipped, 1 xfailed in 9.48s

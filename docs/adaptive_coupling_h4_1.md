@@ -5,7 +5,7 @@ change influenced trajectories with an updated actor, all six teachers walked,
 and all three fixed-update children regressed against the incoming policy.
 [Complete results, raw evidence and accounting](walker_experiments_l1_h4_results.md).
 No confirmation or second round ran. The following is the preserved
-pre-execution formulation; [its previous active version](../artifacts/2026-10-30_experiments_execution_001/previous_docs_before_results/docs/adaptive_coupling_h4_1.md)
+pre-execution formulation; [its previous active version (external evidence)](evidence_availability.md#external-ff792f76dda0)
 and the frozen run source retain the original status and hypotheses.
 
 **Historical pre-execution status: formulation specified; decision rule implemented separately; no new

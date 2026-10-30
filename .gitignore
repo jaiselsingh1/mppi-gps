@@ -227,6 +227,11 @@ logs/
 # Generated experiment evidence is retained locally and on the experiment host.
 /artifacts/
 
+# These reviewed capsule report files are portable evidence, including on hosts
+# whose local Git exclusions ignore directories named report/.
+!/results/*/report/
+!/results/*/report/**
+
 # Local archive bridges and captured interpreter caches are not portable source.
 /archive/**/runs
 /archive/**/artifacts

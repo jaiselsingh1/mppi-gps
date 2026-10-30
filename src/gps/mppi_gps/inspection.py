@@ -64,6 +64,9 @@ def _files(
                 record["verified"] = (expected is None or record["sha256"] == expected) and (
                     size is None or record["bytes"] == size
                 )
+            elif verify:
+                record["verified"] = False
+                errors.append(f"Missing bound evidence: {path}")
             records.append(record)
         except (OSError, ValueError) as error:
             errors.append(str(error))
@@ -116,7 +119,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     required = ("config.json", "result.json", "manifest.json", "input_manifest.json")
     missing = [name for name in required if not (run / name).is_file()]
     missing += [item["file"] for item in files if not item["available"]]
-    failed = [item["file"] for item in files + source_files if item.get("verified") is False]
+    failed = [
+        item["file"]
+        for item in files + source_files
+        if item["available"] and item.get("verified") is False
+    ]
     omitted = capsule.get("bulk_evidence", {}).get("omitted", [])
     if not capsule:
         missing += [f"source/{item['file']}" for item in source_files if not item["available"]]

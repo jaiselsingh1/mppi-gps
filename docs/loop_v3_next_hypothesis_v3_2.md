@@ -5,10 +5,11 @@ the [student learnability track](student_learnability_track_v1.md), not a new
 MPPI–GPS coupling formulation. Its inherited-state design below changes the
 functional input distribution, including magnitudes, while retaining old
 normalization and Adam. It cannot isolate information content alone. The
-learnability note describes a separately versioned fresh-training alternative;
-neither design has launched. [H4.1](adaptive_coupling_h4_1.md) is the separate
-weight-adaptation hypothesis. The original H3.2 draft is preserved in the
-[scope-correction archive](../artifacts/2026-10-30_research_scope_correction_001/previous_docs/docs/loop_v3_next_hypothesis_v3_2.md).
+learnability note describes a separately versioned fresh-training alternative.
+That alternative subsequently ran as [L1](student_learnability_l1_results.md) and
+closed negative; inherited-state H3.2 remains unlaunched.
+[H4.1](adaptive_coupling_h4_1.md) is the separate executed weight-adaptation study. The original H3.2 draft is preserved in the
+[scope-correction archive (external evidence)](evidence_availability.md#external-fbb14586cdf7).
 
 This is a conditional next hypothesis for use **only if H3.1 fails**. Writing this document does not launch or implement H3.2. It remains unlaunched because H3.1's predeclared stopping rule closes that finite experiment, and the next test must be separately frozen. No new fitting, inference, simulator query, acquisition or evaluation was performed to prepare it. H3.1's source, inputs, thresholds and result remain unchanged. A fresh create-only protocol, source snapshot, input manifest and their hashes must be frozen and verified before any H3.2 launch. Failure to validate the required saved-state provenance stops preparation; no new data or simulator reconstruction replaces missing provenance within this hypothesis.
 

@@ -1,0 +1,891 @@
+{
+  "primary": {
+    "parent": {
+      "episodes": 16,
+      "tags": [
+        "primary_parent_00",
+        "primary_parent_01",
+        "primary_parent_02",
+        "primary_parent_03",
+        "primary_parent_04",
+        "primary_parent_05",
+        "primary_parent_06",
+        "primary_parent_07",
+        "primary_parent_08",
+        "primary_parent_09",
+        "primary_parent_10",
+        "primary_parent_11",
+        "primary_parent_12",
+        "primary_parent_13",
+        "primary_parent_14",
+        "primary_parent_15"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4337.033657184795,
+      "costs": [
+        4325.34717139236,
+        4414.482572120947,
+        4293.611896022206,
+        4400.099949883151,
+        4358.309614043501,
+        4124.838767624863,
+        4345.815805313117,
+        4315.191275605108,
+        4355.947179064029,
+        4350.236051193451,
+        4378.3378698068655,
+        4344.132496757553,
+        4333.151478736254,
+        4321.5697776102015,
+        4296.101991908273,
+        4435.36461787484
+      ],
+      "mean_steps": 221.8125,
+      "steps": [
+        229,
+        193,
+        245,
+        199,
+        213,
+        261,
+        218,
+        229,
+        214,
+        223,
+        214,
+        220,
+        226,
+        236,
+        240,
+        189
+      ],
+      "mean_velocity_mae": 0.8061226293567281
+    },
+    "independent": {
+      "episodes": 16,
+      "tags": [
+        "primary_independent_2000_00",
+        "primary_independent_2000_01",
+        "primary_independent_2000_02",
+        "primary_independent_2000_03",
+        "primary_independent_2000_04",
+        "primary_independent_2000_05",
+        "primary_independent_2000_06",
+        "primary_independent_2000_07",
+        "primary_independent_2000_08",
+        "primary_independent_2000_09",
+        "primary_independent_2000_10",
+        "primary_independent_2000_11",
+        "primary_independent_2000_12",
+        "primary_independent_2000_13",
+        "primary_independent_2000_14",
+        "primary_independent_2000_15"
+      ],
+      "successes": 0,
+      "survived": 3,
+      "mean_cost": 4426.789797121657,
+      "costs": [
+        4823.283160966512,
+        3036.2800327510367,
+        4854.758889734174,
+        4755.340372983723,
+        4774.002271028427,
+        4696.344114112227,
+        4774.193954764371,
+        4256.138147549593,
+        5058.539179406631,
+        3026.4115207225022,
+        4845.9561962533435,
+        4834.482314606435,
+        3035.5819697729203,
+        4718.169973305526,
+        4770.202787542394,
+        4568.951868446703
+      ],
+      "mean_steps": 385.0,
+      "steps": [
+        249,
+        1000,
+        240,
+        265,
+        256,
+        249,
+        204,
+        257,
+        135,
+        1000,
+        233,
+        226,
+        1000,
+        231,
+        260,
+        355
+      ],
+      "mean_velocity_mae": 1.802361485552619
+    },
+    "guided": {
+      "episodes": 16,
+      "tags": [
+        "primary_guided_2000_00",
+        "primary_guided_2000_01",
+        "primary_guided_2000_02",
+        "primary_guided_2000_03",
+        "primary_guided_2000_04",
+        "primary_guided_2000_05",
+        "primary_guided_2000_06",
+        "primary_guided_2000_07",
+        "primary_guided_2000_08",
+        "primary_guided_2000_09",
+        "primary_guided_2000_10",
+        "primary_guided_2000_11",
+        "primary_guided_2000_12",
+        "primary_guided_2000_13",
+        "primary_guided_2000_14",
+        "primary_guided_2000_15"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4297.4104099868255,
+      "costs": [
+        4312.7119871910945,
+        4312.87960505022,
+        4298.389360687194,
+        4263.140800770132,
+        4296.851236520604,
+        4276.600415795946,
+        4299.300927791145,
+        4325.616833701843,
+        4282.827692818914,
+        4303.06970051661,
+        4293.786256961664,
+        4286.311555617558,
+        4321.681675204439,
+        4292.321388918222,
+        4245.19081999931,
+        4347.886302244305
+      ],
+      "mean_steps": 230.875,
+      "steps": [
+        223,
+        222,
+        230,
+        243,
+        229,
+        240,
+        226,
+        217,
+        236,
+        230,
+        237,
+        240,
+        222,
+        234,
+        258,
+        207
+      ],
+      "mean_velocity_mae": 0.8190450010091076
+    }
+  },
+  "teachers": {
+    "independent": {
+      "episodes": 2,
+      "successes": 2,
+      "survived": 2,
+      "mean_cost": 379.8591683199088,
+      "mean_steps": 1000.0,
+      "costs": [
+        338.55120227246425,
+        421.16713436735336
+      ],
+      "mean_velocity_mae": 0.14444456774750697,
+      "events": [
+        {
+          "absorbing_cost": 0.0,
+          "complete": true,
+          "cost": 338.55120227246425,
+          "event": "episode_complete",
+          "id": "event-000130630",
+          "kind": "episode_complete",
+          "mae": 0.12797575782985363,
+          "raw": {
+            "arrays": {
+              "absorbing_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "actions": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "05beeef3369aa39d08ac5f4e9d1e2baf59eaf9e23ef420df872be497385ce117",
+                "shape": [
+                  1000,
+                  6
+                ]
+              },
+              "costs": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "86bc0a11adbc7470806586df876e50cce6a7c34b5b81124ef51907ebab3b32a6",
+                "shape": [
+                  1000
+                ]
+              },
+              "infos": {
+                "dtype": "<U5318164",
+                "encoding": "json",
+                "sha256": "66981df107b01e504ac910009e9996424796fe7028efc7a00963fed8da5b4f91",
+                "shape": []
+              },
+              "integrations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "3e81f9457498e3e96ac62c5198175fc99bbfb27404c6bbed426a0ddd1c320196",
+                "shape": [
+                  1001,
+                  91
+                ]
+              },
+              "observations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "aa86c47c35dbf163a41de5906ed27ed436ecf1a72c589fb23406258d8f1b8ef6",
+                "shape": [
+                  1000,
+                  17
+                ]
+              },
+              "states": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "cdeeb4a5a11f8639ae3f4aa3ad4c508cd4b1dc84eed515d8d280583b03e05e65",
+                "shape": [
+                  1001,
+                  19
+                ]
+              },
+              "terminal_adjustment": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "terminal_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "velocities": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "b34d3a53da7a483c39042d744caf2d6da89a4716cf222db4e925e1dc360f1f7a",
+                "shape": [
+                  1000
+                ]
+              },
+              "warmstarts": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "a151673dbb9a531e3e9ac2b632c05d20f667e68b624e4e7d30e532721b04ec97",
+                "shape": [
+                  1001,
+                  9
+                ]
+              }
+            },
+            "file": "raw.h5",
+            "group": "arrays/a000072040_episode_v2_r0_trial_raw_0",
+            "tag": "episode_v2_r0_trial_raw_0"
+          },
+          "seed": 943000000,
+          "steps": 1000,
+          "success": true,
+          "survived": true,
+          "tag": "v2_r0_trial_raw_0",
+          "terminal_adjustment": 0.0,
+          "terminal_cost": 0.0,
+          "wall_seconds": 850.3280338269997
+        },
+        {
+          "absorbing_cost": 0.0,
+          "complete": true,
+          "cost": 421.16713436735336,
+          "event": "episode_complete",
+          "id": "event-000143648",
+          "kind": "episode_complete",
+          "mae": 0.1609133776651603,
+          "raw": {
+            "arrays": {
+              "absorbing_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "actions": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "4944b577c7aa0042c1af2cb8a746490dcaa2c3dac5cf1d850cdf5e9c49efafcf",
+                "shape": [
+                  1000,
+                  6
+                ]
+              },
+              "costs": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "0372485b6aece79155505152518783ff1d73c9f900d4342b3d3be2753af114ac",
+                "shape": [
+                  1000
+                ]
+              },
+              "infos": {
+                "dtype": "<U5313032",
+                "encoding": "json",
+                "sha256": "0e8acaa91e9913898e5d56f80d3cfd773e31c8f6dd42a0f4e6c9f2833bc9ace7",
+                "shape": []
+              },
+              "integrations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "07af1ceb50ba755ee859a677b305eb4641867b2794dd299a46378d54a59bf1df",
+                "shape": [
+                  1001,
+                  91
+                ]
+              },
+              "observations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "6c160f5bd4853d8cc8af2ee3497bf05c9907ff3c5710f22b2f7412cdaebde3ca",
+                "shape": [
+                  1000,
+                  17
+                ]
+              },
+              "states": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "8d398b47eddb55760c6dd8179a2c117c485cfa1cdb2187e3fd2f102b2729f0a2",
+                "shape": [
+                  1001,
+                  19
+                ]
+              },
+              "terminal_adjustment": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "terminal_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "velocities": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "79c7852633d5a440cec30686818fe75beb03ac4da5e16ecbb5ae92631b4e3696",
+                "shape": [
+                  1000
+                ]
+              },
+              "warmstarts": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "167385a99dc60206e710aeb110b2b2cba646f5b447a7d34f686eaf4784ac3553",
+                "shape": [
+                  1001,
+                  9
+                ]
+              }
+            },
+            "file": "raw.h5",
+            "group": "arrays/a000081044_episode_v2_r0_trial_raw_1",
+            "tag": "episode_v2_r0_trial_raw_1"
+          },
+          "seed": 943000001,
+          "steps": 1000,
+          "success": true,
+          "survived": true,
+          "tag": "v2_r0_trial_raw_1",
+          "terminal_adjustment": 0.0,
+          "terminal_cost": 0.0,
+          "wall_seconds": 1107.7044960679996
+        }
+      ]
+    },
+    "guided": {
+      "episodes": 2,
+      "successes": 2,
+      "survived": 2,
+      "mean_cost": 386.5297840328346,
+      "mean_steps": 1000.0,
+      "costs": [
+        389.26737269684213,
+        383.79219536882704
+      ],
+      "mean_velocity_mae": 0.15018581710411977,
+      "events": [
+        {
+          "absorbing_cost": 0.0,
+          "complete": true,
+          "cost": 389.26737269684213,
+          "event": "episode_complete",
+          "id": "event-000185781",
+          "kind": "episode_complete",
+          "mae": 0.1486980754146884,
+          "raw": {
+            "arrays": {
+              "absorbing_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "actions": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "4a49ef8e3da29e6d8aa03476a9cadf3eaff05b6081f54a7422a6cf9e9d32f826",
+                "shape": [
+                  1000,
+                  6
+                ]
+              },
+              "costs": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "9234c77aca255f6006f984b4532aecbd93a60acf1bddd4821eddb275e0449e61",
+                "shape": [
+                  1000
+                ]
+              },
+              "infos": {
+                "dtype": "<U5934650",
+                "encoding": "json",
+                "sha256": "588b299f0e2febee9c084b4f6978003f3e8d920f3b12be1228c1b6601199adeb",
+                "shape": []
+              },
+              "integrations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "7c04e6df5658919f91433259f37be820a540b910098e08605c5831a96a6ece0b",
+                "shape": [
+                  1001,
+                  91
+                ]
+              },
+              "observations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "ce2cd73f763008fd1de46cb8ed2bac745f1bbf14bd0b73e812786a1dcdba62c6",
+                "shape": [
+                  1000,
+                  17
+                ]
+              },
+              "states": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "0ed7a936971872b554752aa8e006b0cab22f5324f536b1fb7292684c37905f0a",
+                "shape": [
+                  1001,
+                  19
+                ]
+              },
+              "terminal_adjustment": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "terminal_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "velocities": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "7f8f42adf2d25009467625b7e65c8897a052bc06698b24c7ae13998ba660889c",
+                "shape": [
+                  1000
+                ]
+              },
+              "warmstarts": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "eaaf98015223745d70da2c58ef40c96d8f381c556eda0c08c64721de4cdba738",
+                "shape": [
+                  1001,
+                  9
+                ]
+              }
+            },
+            "file": "raw.h5",
+            "group": "arrays/a000105421_episode_v2_r0_trial_guided1_0",
+            "tag": "episode_v2_r0_trial_guided1_0"
+          },
+          "seed": 943000000,
+          "steps": 1000,
+          "success": true,
+          "survived": true,
+          "tag": "v2_r0_trial_guided1_0",
+          "terminal_adjustment": 0.0,
+          "terminal_cost": 0.0,
+          "wall_seconds": 1813.5399486330007
+        },
+        {
+          "absorbing_cost": 0.0,
+          "complete": true,
+          "cost": 383.79219536882704,
+          "event": "episode_complete",
+          "id": "event-000204799",
+          "kind": "episode_complete",
+          "mae": 0.15167355879355113,
+          "raw": {
+            "arrays": {
+              "absorbing_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "actions": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "0ad1fc3032cab94cd7af3041d1dd8ee5e1bc336d65128b2d6f89eb4d543e52b5",
+                "shape": [
+                  1000,
+                  6
+                ]
+              },
+              "costs": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "1309967503884af9010b51c00f5c597eb5d747741dc04d9b8a52ae01cb131f2c",
+                "shape": [
+                  1000
+                ]
+              },
+              "infos": {
+                "dtype": "<U5935769",
+                "encoding": "json",
+                "sha256": "da0856d9fb69ba7f1ac9b3264548444f932aaf50389046613f971fbaf9142c70",
+                "shape": []
+              },
+              "integrations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "fa737069d69890e366d2ccc08c0352e25c2efab986ffc09d527ab1d948cb0458",
+                "shape": [
+                  1001,
+                  91
+                ]
+              },
+              "observations": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "40ce63314c5e79c5d0ee92fa09571b9f272dee8b3d8c9145b631ceae7cc8df30",
+                "shape": [
+                  1000,
+                  17
+                ]
+              },
+              "states": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "01839e77b565d9e41d6a7d01fe5b3acfd5703e7aca338bc68a04c2bfe8250bc9",
+                "shape": [
+                  1001,
+                  19
+                ]
+              },
+              "terminal_adjustment": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "terminal_cost": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+                "shape": []
+              },
+              "velocities": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "53682f3bae7371c5563dab51ed65f9c393ab7c7badc6b0cd23b3785378cf6db5",
+                "shape": [
+                  1000
+                ]
+              },
+              "warmstarts": {
+                "dtype": "<f8",
+                "encoding": "array",
+                "sha256": "ac91628180b1b4e5ffa28d83a3e8573ad0aba28c1387d3560ffedb705c9b7fcb",
+                "shape": [
+                  1001,
+                  9
+                ]
+              }
+            },
+            "file": "raw.h5",
+            "group": "arrays/a000116425_episode_v2_r0_trial_guided1_1",
+            "tag": "episode_v2_r0_trial_guided1_1"
+          },
+          "seed": 943000001,
+          "steps": 1000,
+          "success": true,
+          "survived": true,
+          "tag": "v2_r0_trial_guided1_1",
+          "terminal_adjustment": 0.0,
+          "terminal_cost": 0.0,
+          "wall_seconds": 2116.693373191998
+        }
+      ]
+    }
+  },
+  "standalone_curves": {
+    "parent": {
+      "episodes": 4,
+      "tags": [
+        "curve_parent_00",
+        "curve_parent_01",
+        "curve_parent_02",
+        "curve_parent_03"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4350.370325914276,
+      "costs": [
+        4408.302608722452,
+        4296.349538424113,
+        4317.372389959208,
+        4379.4567665513305
+      ],
+      "mean_steps": 218.25,
+      "steps": [
+        191,
+        246,
+        222,
+        214
+      ],
+      "mean_velocity_mae": 0.8094615442199753
+    },
+    "independent_500": {
+      "episodes": 4,
+      "tags": [
+        "curve_independent_500_00",
+        "curve_independent_500_01",
+        "curve_independent_500_02",
+        "curve_independent_500_03"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4400.627133410828,
+      "costs": [
+        4415.616030226125,
+        4402.493386939215,
+        4386.099993060441,
+        4398.2991234175315
+      ],
+      "mean_steps": 202.75,
+      "steps": [
+        195,
+        203,
+        207,
+        206
+      ],
+      "mean_velocity_mae": 0.7915228630989716
+    },
+    "independent_1000": {
+      "episodes": 4,
+      "tags": [
+        "curve_independent_1000_00",
+        "curve_independent_1000_01",
+        "curve_independent_1000_02",
+        "curve_independent_1000_03"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4344.734437566149,
+      "costs": [
+        4410.434039175254,
+        4317.377968877599,
+        4323.8367052538,
+        4327.289036957942
+      ],
+      "mean_steps": 220.0,
+      "steps": [
+        196,
+        235,
+        225,
+        224
+      ],
+      "mean_velocity_mae": 0.7882507620898183
+    },
+    "independent_2000": {
+      "episodes": 4,
+      "tags": [
+        "curve_independent_2000_00",
+        "curve_independent_2000_01",
+        "curve_independent_2000_02",
+        "curve_independent_2000_03"
+      ],
+      "successes": 0,
+      "survived": 1,
+      "mean_cost": 4389.159992027172,
+      "costs": [
+        3018.5842306037885,
+        4869.644871868493,
+        4708.622445219301,
+        4959.788420417105
+      ],
+      "mean_steps": 394.25,
+      "steps": [
+        1000,
+        239,
+        233,
+        105
+      ],
+      "mean_velocity_mae": 1.8806578206405393
+    },
+    "guided_500": {
+      "episodes": 4,
+      "tags": [
+        "curve_guided_500_00",
+        "curve_guided_500_01",
+        "curve_guided_500_02",
+        "curve_guided_500_03"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4457.6768694498915,
+      "costs": [
+        4988.217176973713,
+        4307.146213794778,
+        4235.26906537114,
+        4300.075021659934
+      ],
+      "mean_steps": 202.25,
+      "steps": [
+        89,
+        228,
+        262,
+        230
+      ],
+      "mean_velocity_mae": 1.166544660792634
+    },
+    "guided_1000": {
+      "episodes": 4,
+      "tags": [
+        "curve_guided_1000_00",
+        "curve_guided_1000_01",
+        "curve_guided_1000_02",
+        "curve_guided_1000_03"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4378.713121760699,
+      "costs": [
+        4425.1943885112005,
+        4405.675714369123,
+        4350.693816586158,
+        4333.288567576317
+      ],
+      "mean_steps": 192.5,
+      "steps": [
+        173,
+        181,
+        204,
+        212
+      ],
+      "mean_velocity_mae": 0.7031789459887111
+    },
+    "guided_2000": {
+      "episodes": 4,
+      "tags": [
+        "curve_guided_2000_00",
+        "curve_guided_2000_01",
+        "curve_guided_2000_02",
+        "curve_guided_2000_03"
+      ],
+      "successes": 0,
+      "survived": 0,
+      "mean_cost": 4306.865210947787,
+      "costs": [
+        4365.769350289503,
+        4293.905858560342,
+        4315.520773456699,
+        4252.264861484605
+      ],
+      "mean_steps": 226.5,
+      "steps": [
+        199,
+        233,
+        223,
+        251
+      ],
+      "mean_velocity_mae": 0.8039989617358271
+    }
+  },
+  "full_data_mse": {
+    "parent": {
+      "independent": 0.15763894304358717,
+      "guided": 0.15758171938673557
+    },
+    "independent_500": {
+      "independent": 0.13647351650103084,
+      "guided": 0.15633060419664088
+    },
+    "independent_1000": {
+      "independent": 0.13102339331766993,
+      "guided": 0.15616173919844592
+    },
+    "independent_2000": {
+      "independent": 0.12467987432014455,
+      "guided": 0.15503026797758093
+    },
+    "guided_500": {
+      "independent": 0.15557943721263948,
+      "guided": 0.13707189339900197
+    },
+    "guided_1000": {
+      "independent": 0.15562119318799938,
+      "guided": 0.13254114122336905
+    },
+    "guided_2000": {
+      "independent": 0.15466380079321054,
+      "guided": 0.12605652703294618
+    }
+  },
+  "checkpoints": [
+    500,
+    1000,
+    2000
+  ],
+  "teacher_student_gap": {
+    "independent": {
+      "teacher_mean_cost": 379.8591683199088,
+      "student_mean_cost": 4426.789797121657,
+      "gap": 4046.9306288017483,
+      "scope": "Descriptive: saved teacher acquisition starts differ from fresh paired student evaluation starts."
+    },
+    "guided": {
+      "teacher_mean_cost": 386.5297840328346,
+      "student_mean_cost": 4297.4104099868255,
+      "gap": 3910.880625953991,
+      "scope": "Descriptive: saved teacher acquisition starts differ from fresh paired student evaluation starts."
+    }
+  },
+  "fit_curve_scope": "Every optimizer minibatch; plotted 100-update means",
+  "standalone_curve_scope": "Same four descriptive reset seeds at all checkpoints; final selection uses disjoint sixteen starts"
+}

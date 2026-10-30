@@ -7,7 +7,7 @@ adaptive trajectory-optimization experiment. The separate next questions are
 [student learnability](student_learnability_track_v1.md) and
 [H4.1 weight backoff](adaptive_coupling_h4_1.md). H3.2 below belongs to the first
 track. All numerical outcomes and frozen evidence remain unchanged; the
-[previous text](../artifacts/2026-10-30_research_scope_correction_001/previous_docs/docs/loop_v3_results.md)
+[previous text (external evidence)](evidence_availability.md#external-873ca93ddf37)
 is preserved.
 
 **The successful guided experience has now trained a matched child. It did not
@@ -26,7 +26,7 @@ criterion. It is incorrect to say all three policies fell on all starts, or
 that the independent child learned the walking task. Velocity MAE is measured
 on executed controls; early falls shorten that measurement, so it cannot
 replace the complete task outcomes.
-The [saved native details](../artifacts/2026-10-30_loop_v3_comparison_audit_001/receipt_001/survival_detail.json)
+The [saved native details](../results/guided_data_v3_1/audit/survival_detail.json)
 show mean forward velocities of −0.01646, −0.01168 and −0.01574 m/s in those
 three survivals, against the +1.5 m/s target: remaining upright did not transfer
 the teacher's forward locomotion. Primary terminations were 15 height/one angle
@@ -44,7 +44,7 @@ mean establishes dominance across these outcomes. The recorded gate failed;
 confirmation and second acquisition did not run. The unchanged parent remains
 the incumbent. No checkpoint was selected from the descriptive learning curves.
 
-![Learning curves and complete outcomes](../artifacts/2026-10-30_loop_v3_report_001/learning_and_outcomes.png)
+![Learning curves and complete outcomes](../results/guided_data_v3_1/figures/learning_and_outcomes.png)
 
 ## What was tested
 
@@ -74,9 +74,9 @@ once and 5 per unexecuted control following a fall. Alternative successful
 trajectories were allowed; no reference-distance criterion was used.
 
 The [pre-launch protocol](loop_v3_saved_comparison_protocol.md), [frozen
-configuration](../runs/2026-10-30_guided_data_comparison_v3_001/config.json),
-[source seal](../runs/2026-10-30_guided_data_comparison_v3_001/manifest.json) and
-[input seal](../runs/2026-10-30_guided_data_comparison_v3_001/input_manifest.json)
+configuration](../results/guided_data_v3_1/run/config.json),
+[source seal](../results/guided_data_v3_1/run/manifest.json) and
+[input seal](../results/guided_data_v3_1/run/input_manifest.json)
 preserve the criterion and finite budget. The configuration SHA-256 is
 `d7ec5ee6a57c42e5bd5d3d05b67af1fc7eb1b622dc7a614e8f8a9875e34f90a4`.
 The input-seal SHA-256 is
@@ -118,11 +118,11 @@ respectively. Every curve cohort scored 0/4 task successes; the independent
 execution, and longer survival did not establish target-velocity walking.
 The four-start curve cohort is descriptive, not a checkpoint-selection set.
 
-[Every minibatch learning record](../runs/2026-10-30_guided_data_comparison_v3_001/learning_curves.csv),
-[all cohort summaries and cross-data MSE](../runs/2026-10-30_guided_data_comparison_v3_001/result.json),
-[plotted data](../artifacts/2026-10-30_loop_v3_report_001/plotted_data.json),
-[primary per-start costs and controls](../artifacts/2026-10-30_loop_v3_report_001/primary_episodes.csv)
-and an [exportable PDF figure](../artifacts/2026-10-30_loop_v3_report_001/learning_and_outcomes.pdf)
+[Every minibatch learning record](../results/guided_data_v3_1/run/learning_curves.csv),
+[all cohort summaries and cross-data MSE](../results/guided_data_v3_1/run/result.json),
+[plotted data](../results/guided_data_v3_1/report/plotted_data.json),
+[primary per-start costs and controls](../results/guided_data_v3_1/report/primary_episodes.csv)
+and an [exportable PDF figure](../results/guided_data_v3_1/figures/learning_and_outcomes.pdf)
 are available.
 
 ## Formulation and prior art
@@ -177,7 +177,7 @@ configurations remain unchanged. The original 41 GB model corpus remains on
 the canonical host with its preserved locator; compact exports do not replace
 it.
 
-The new comparison's [independent saved-evidence audit](../artifacts/2026-10-30_loop_v3_comparison_audit_001/receipt_001/receipt.json)
+The new comparison's [independent saved-evidence audit](../results/guided_data_v3_1/audit/receipt.json)
 passed **513,430 checks**, binding 172 files and 837 array fingerprints. It
 reconciles the exact datasets, all six child checkpoint/Adam/RNG packages,
 sampled indices, complete episodes and native costs/flags, paired starts,
@@ -204,14 +204,14 @@ The worker took **243.020944 internal seconds**, with **243.838590 external
 launch seconds**. The frozen caps were 124,000 controls, 1.4 million forward
 rows, 1.024 million backward rows and 4,000 Adam steps; conditional confirmation
 was budgeted but not spent. Teacher experience was imported without charging
-its acquisition again. The [cost receipt](../artifacts/2026-10-30_loop_v3_report_001/cost_accounting.json)
+its acquisition again. The [cost receipt](../results/guided_data_v3_1/report/cost_accounting.json)
 keeps inherited v1/v2 and the separate corrective study disaggregated and
 counts their work once. Relevant cumulative experimental work is 154,582,044
 requested controls (154,582,043 completed), 53,409,942 forward rows, 17,920,000
 backward rows and 70,000 Adam steps. The one inherited reserved-but-unexecuted
 control belongs to the preserved failed diagnostic harness, not this run.
 
-The [local full-suite receipt](../artifacts/2026-10-30_loop_v3_report_001/validation.json)
+The [local full-suite receipt](../results/guided_data_v3_1/report/validation.json)
 records **157 passed, two skipped and one expected failure** in 3.76 seconds.
 The worker preparation also retained its 30-test receipt and earlier mistyped
 no-test invocation. Original-evidence audits cost 12.788 measured internal
@@ -219,13 +219,13 @@ seconds; plotting, new auditing, validation, preparation, transfers, source
 review and research are separate overhead. Not all engineering/reasoning time
 is instrumented. No efficiency claim is made.
 
-Full new [raw arrays](../runs/2026-10-30_guided_data_comparison_v3_001/evidence/raw.h5),
-[append-only ledger](../runs/2026-10-30_guided_data_comparison_v3_001/evidence/ledger.jsonl),
-[supplied teacher snapshots](../runs/2026-10-30_guided_data_comparison_v3_001/inputs/teachers.h5),
-[independent final child](../runs/2026-10-30_guided_data_comparison_v3_001/checkpoints/independent_2000.pt)
-and [guided final child](../runs/2026-10-30_guided_data_comparison_v3_001/checkpoints/guided_2000.pt)
+Full new [raw arrays (external evidence)](evidence_availability.md#external-7c195ccdaab2),
+[append-only ledger (external evidence)](evidence_availability.md#external-b1cbc1410e4e),
+[supplied teacher snapshots (external evidence)](evidence_availability.md#external-dc66e5fb3cfa),
+[independent final child (external evidence)](evidence_availability.md#external-a1e3b04f4b3f)
+and [guided final child (external evidence)](evidence_availability.md#external-90badedcc712)
 are retained alongside intermediate checkpoints and the entering parent.
-The [mirror receipt](../artifacts/2026-10-30_guided_data_comparison_v3_001/mirror_receipt.json)
+The [mirror receipt](../results/guided_data_v3_1/external/mirror_receipt.json)
 verifies all 173 transferred files, totaling 756,044,512 bytes, individually by
 SHA-256. New full raw evidence is mirrored locally as well as preserved on
 `robopil5090`; the historical large model corpus remains at its existing remote

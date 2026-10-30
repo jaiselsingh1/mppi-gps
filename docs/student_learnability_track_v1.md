@@ -5,7 +5,7 @@ now run and closed negative: both final arms scored 0/16 walking success and
 full survival. [Complete results](student_learnability_l1_results.md).
 The inherited-state H3.2 intervention below remains unlaunched. This note's
 proposal text is retained as historical design context; source snapshots and
-the [previous active version](../artifacts/2026-10-30_experiments_execution_001/previous_docs_before_results/docs/student_learnability_track_v1.md)
+the [previous active version (external evidence)](evidence_availability.md#external-9223f5feb3fc)
 preserve its pre-execution wording.
 
 This track asks whether the existing torque student can learn competent Walker

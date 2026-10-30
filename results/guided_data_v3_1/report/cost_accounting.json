@@ -1,0 +1,278 @@
+{
+  "schema": "walker-loop-v3-accounting-v1",
+  "experiment": {
+    "result_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/result.json",
+    "result_sha256": "8b817667969ad3dcb87e3256635cac0aa291b3ce4ba79d82c8075d47cf2193ec",
+    "work": {
+      "requested_controls": 20029,
+      "completed_controls": 20029,
+      "requested_model_controls": 0,
+      "completed_model_controls": 0,
+      "requested_live_controls": 20029,
+      "completed_live_controls": 20029,
+      "requested_physics_substeps": 80116,
+      "completed_physics_substeps": 80116,
+      "unknown_partial_controls": 0,
+      "unknown_partial_physics_substeps": 0,
+      "model_queries": 0,
+      "live_queries": 20029,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "measurement_requests": 32114,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "requested_neural_rows": 1129373,
+      "completed_neural_rows": 1129373,
+      "unknown_partial_neural_rows": 0,
+      "requested_backward_rows": 1024000,
+      "completed_backward_rows": 1024000,
+      "unknown_partial_backward_rows": 0,
+      "requested_optimizer_steps": 4000,
+      "completed_optimizer_steps": 4000,
+      "unknown_partial_optimizer_steps": 0,
+      "resets": 76,
+      "reset_errors": 0,
+      "restores": 0,
+      "snapshots": 100221,
+      "episodes": 76,
+      "requested_checkpoint_loads": 1,
+      "completed_checkpoint_loads": 1,
+      "unknown_partial_checkpoint_loads": 0,
+      "neural_rows": 1129373,
+      "backward_rows": 1024000,
+      "optimizer_steps": 4000,
+      "queries": 20029,
+      "physics_frames": 80116,
+      "wall_seconds": 242.9990288590052
+    },
+    "internal_seconds": 243.02094417999615,
+    "neural_breakdown": {
+      "training_forward_rows": 1024000,
+      "full_dataset_diagnostic_rows": 85344,
+      "standalone_action_rows": 20029
+    },
+    "experimental_model_controls": 0,
+    "launch_receipt": {
+      "command": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-10-30_guided_data_comparison_v3_001/source/scripts/diagnostics/guided_data_comparison.py",
+        "worker",
+        "--out",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-10-30_guided_data_comparison_v3_001"
+      ],
+      "started_utc": "2026-10-30T18:57:22.465804+00:00",
+      "ended_utc": "2026-10-30T19:01:26.304375+00:00",
+      "external_wall_seconds": 243.8385900189969,
+      "returncode": 0,
+      "hardware": {
+        "python": "3.11.16 (main, Sep  1 2026, 14:18:37) [Clang 22.1.3 ]",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_count": 32,
+        "dependencies": {
+          "numpy": "2.4.3",
+          "torch": "2.10.0+cpu",
+          "mujoco": "3.6.0",
+          "h5py": "3.16.0"
+        }
+      }
+    }
+  },
+  "inherited_once": {
+    "file": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-29_policy_instability_diagnosis_001/cost_accounting.json",
+    "sha256": "68002c61d6ee2377b6bc7ac07a24101a988e15f7e783d8e797b538ed1c12d13e",
+    "v1_v2": {
+      "file": "artifacts/2026-10-29_v2_report_001/cost_accounting.json",
+      "sha256": "924f7eb95eb750e1b15565d9c01f51bdbfac8dd000126746c31eecd4c22af875",
+      "work": {
+        "requested_controls": 129991990,
+        "completed_controls": 129991990,
+        "requested_model_controls": 129943152,
+        "requested_live_controls": 48838,
+        "requested_physics_substeps": 519967960,
+        "requested_neural_rows": 51214813,
+        "requested_backward_rows": 15872000,
+        "requested_optimizer_steps": 62000,
+        "failed_queries": 0,
+        "failed_measurements": 0,
+        "rejected_queries": 0,
+        "rejected_measurements": 0,
+        "unknown_partial_controls": 0,
+        "unknown_partial_neural_rows": 0
+      },
+      "internal_stage_seconds": 4014.944984241999
+    },
+    "separate_corrective_diagnosis": {
+      "requested_controls": 24570025,
+      "completed_controls": 24570024,
+      "requested_model_controls": 24557280,
+      "completed_model_controls": 24557280,
+      "requested_live_controls": 12745,
+      "completed_live_controls": 12744,
+      "requested_physics_substeps": 98280100,
+      "completed_physics_substeps": 98280096,
+      "requested_neural_rows": 1065756,
+      "completed_neural_rows": 1065756,
+      "requested_backward_rows": 1024000,
+      "requested_optimizer_steps": 4000,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "unknown_partial_controls": 0,
+      "unknown_partial_neural_rows": 0
+    }
+  },
+  "cumulative_relevant_lineage_requested_work": {
+    "requested_controls": 154582044,
+    "completed_controls": 154582043,
+    "requested_model_controls": 154500432,
+    "requested_live_controls": 81612,
+    "requested_physics_substeps": 618328176,
+    "requested_neural_rows": 53409942,
+    "requested_backward_rows": 17920000,
+    "requested_optimizer_steps": 70000,
+    "failed_queries": 0,
+    "rejected_queries": 0,
+    "failed_measurements": 0,
+    "rejected_measurements": 0,
+    "unknown_partial_controls": 0,
+    "unknown_partial_neural_rows": 0
+  },
+  "limits": {
+    "requested_controls": 124000,
+    "neural_rows": 1400000,
+    "optimizer_steps": 4000,
+    "backward_rows": 1024000
+  },
+  "overhead": {
+    "plots_saved_arrays_only": true,
+    "new_controls": 0,
+    "new_neural_rows": 0,
+    "validation_receipt": "validation.json",
+    "original_evidence_audit_manifest": "../2026-10-30_loop_v3_evidence_audit_001/manifest.json",
+    "scope": "Tests, audits, preparation, transfers and research are separate overhead; engineering/reasoning time is not fully instrumented. No efficiency claim.",
+    "bound_receipts": {
+      "artifacts/2026-10-30_loop_v3_evidence_audit_001/manifest.json": {
+        "sha256": "91d620d47e5d10286e6ac16494e9c0c17de524a7907377c919c3b2b70c81e992",
+        "receipt": {
+          "schema": "walker-loop-v3-saved-evidence-audit-manifest-v1",
+          "files": {
+            "audit_v2.py": {
+              "bytes": 11102,
+              "sha256": "d769b8104f2f40889e48d315e1663e6bfebfd82709c1ab153db9c9e3667bbe97"
+            },
+            "checkpoint_receipt.json": {
+              "bytes": 26913,
+              "sha256": "8a1e008e1b464af8ddc86c37aea7ca9b72c30caec28ba4c09ed1ca4ed3e237d9"
+            },
+            "audit.py": {
+              "bytes": 11001,
+              "sha256": "f76a2f5835ea0ab309dd2e5e812c3e8a2db20f7f7415377e273c618e881bba82"
+            },
+            "checkpoint_audit.py": {
+              "bytes": 3212,
+              "sha256": "592bdaf37b356e09a96fca9ee0e22b8510f991bc1195f47a73c49415bef8eaaf"
+            },
+            "local_receipt.json": {
+              "bytes": 19215,
+              "sha256": "6267dcf2b0576d967185418ce57e676b2355b69dc0b5c44c547bb82a640e9180"
+            },
+            "remote_receipt_v2.json": {
+              "bytes": 725840,
+              "sha256": "a6d5ac8877c68dd48e819d1589640bb5afc3f988757bf78912ee071100e731ca"
+            },
+            "remote_receipt.json": {
+              "bytes": 725836,
+              "sha256": "255bbd53c81063ad8f864f7ae89d0635291b4c910cd3c670874708d153188a06"
+            },
+            "local_receipt_v2.json": {
+              "bytes": 20265,
+              "sha256": "6fe43782f87b57951c0fc64c01b120970a2793486ae22baf982745e832f45a2b"
+            }
+          },
+          "receipt_internal_seconds": {
+            "local_receipt.json": 0.6278322090001893,
+            "remote_receipt.json": 4.849328762997175,
+            "local_receipt_v2.json": 0.9157538750005187,
+            "remote_receipt_v2.json": 4.544882048998261,
+            "checkpoint_receipt.json": 1.8502056770012132
+          },
+          "sum_receipt_internal_seconds": 12.788002572997357,
+          "new_controls": 0,
+          "new_neural_rows": 0,
+          "new_backward_rows": 0,
+          "new_optimizer_steps": 0,
+          "correction": "v2 fixes descriptive target-velocity MAE and normalization-name summary; all original receipts preserved",
+          "overhead_scope": "Saved receipt internal times only; exploratory reading, transfers, tool and shell overhead not fully measured. No efficiency claim."
+        }
+      },
+      "artifacts/2026-10-30_loop_v3_comparison_audit_001/receipt_001/receipt.json": {
+        "sha256": "b40b300f87ca29a761b3f3ec5c3a3a8dd502e318d98f0a9814c3b82f1bf04ef9",
+        "receipt": {
+          "schema": "walker-guided-data-independent-audit-v1",
+          "passed": true,
+          "error": null,
+          "checks": 513430,
+          "bound_files": 172,
+          "hashed_arrays": 837,
+          "new_controls": 0,
+          "new_neural_rows": 0,
+          "new_backward_rows": 0,
+          "new_optimizer_steps": 0,
+          "wall_seconds": 2.5271280639935867,
+          "scope": "Actual supplied and executed arrays, native complete-cost arithmetic, full state/warmstart/integration snapshots, native flags, paired starts, source/input seals, exact saved checkpoint/Adam/RNG/anchor packaging, common minibatch reconstruction, complete curves and ledger work. No inference, physics or optimizer arithmetic replay. Full-data MSE is retained and bound, not recomputed."
+        }
+      },
+      "artifacts/2026-10-30_loop_v3_report_001/validation.json": {
+        "sha256": "4dc631a4e7e58a46368fa91e7c56155e7807497e95d2d59e3ee6cfdc84c09f65",
+        "receipt": {
+          "command": ".venv/bin/python -m pytest -q",
+          "passed": 157,
+          "skipped": 2,
+          "xfailed": 1,
+          "failed": 0,
+          "pytest_reported_seconds": 3.76,
+          "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+          "platform": "macOS-27.0.1-arm64-arm-64bit",
+          "files": {
+            "src/gps/mppi_gps/post_update.py": "23c0d69ab158ec8d5b28a44c05f77128bc67488d6119483fe0439ea550e4d58f",
+            "scripts/diagnostics/guided_data_comparison.py": "4a86cc70e057fdd52ddde6f642cfad0caf301dc80fbb4abd9408e6facdfffbf6",
+            "tests/test_post_update_feedback.py": "945f3edd6ba3a16f16e4c26b75df7ecfaa0eb578f69d64737c71ce9587b939e7",
+            "tests/test_guided_data_comparison.py": "1a7c3dab4a1793194fa2eb8740a06264fd39916a7e895df8e9d9728c43bd57a1"
+          },
+          "scope": "Local full test suite. Validation overhead, not experimental optimization work; no project efficiency claim. Test fixture physics is not part of experiment Meter totals."
+        }
+      },
+      "artifacts/2026-10-30_guided_data_comparison_v3_001/validation_receipt.json": {
+        "sha256": "46a750b97414e4f35e8d100067656985a6cbf9e75c3d3a5e4a0e775885237823",
+        "receipt": {
+          "schema": "guided-data-comparison-validation-v1",
+          "commands": [
+            {
+              "command": ".venv/bin/python -m pytest -q tests/test_guided_data_comparison.py tests/test_gps_policy.py",
+              "result": "25 passed in 1.27s"
+            },
+            {
+              "command": ".venv/bin/python -m pytest -q tests/test_guided_data_comparison.py tests/test_gps_policy.py tests/test_gps_post_update.py",
+              "result": "file not found; no tests ran"
+            },
+            {
+              "command": ".venv/bin/python -m pytest -q tests/test_guided_data_comparison.py tests/test_gps_policy.py tests/test_post_update_feedback.py",
+              "result": "30 passed in 1.00s"
+            }
+          ],
+          "files": {
+            "scripts/diagnostics/guided_data_comparison.py": "4a86cc70e057fdd52ddde6f642cfad0caf301dc80fbb4abd9408e6facdfffbf6",
+            "tests/test_guided_data_comparison.py": "1a7c3dab4a1793194fa2eb8740a06264fd39916a7e895df8e9d9728c43bd57a1",
+            "docs/loop_v3_saved_comparison_protocol.md": "55d248733fbb1c97cc6be863166005aefaf1a2d4d39192be5f9a66b20cb08d90",
+            "src/gps/mppi_gps/post_update.py": "23c0d69ab158ec8d5b28a44c05f77128bc67488d6119483fe0439ea550e4d58f"
+          },
+          "scope": "Pure admission/gate/budget tests plus existing synthetic policy continuation/resume tests. This validation is separate development overhead; synthetic neural work is not instrumented or counted as experimental learning.",
+          "experimental_controls": 0
+        }
+      }
+    }
+  }
+}

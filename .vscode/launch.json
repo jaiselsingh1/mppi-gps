@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Inspect tracked H4 capsule (read only)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/train_mppi_gps.py",
+      "args": ["inspect", "--run", "${workspaceFolder}/results/adaptive_coupling_h4_1", "--verify"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true
+    },
+    {
+      "name": "Synthetic lifecycle and CLI tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-q", "tests/test_research_cli.py", "tests/test_research_layout.py", "-x", "--pdb"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true
+    },
+    {
+      "name": "Prepared fresh frozen worker (explicit path)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${input:workerProgram}",
+      "args": ["worker", "--out", "${input:freshRun}"],
+      "cwd": "${input:freshRun}/source",
+      "env": {"PYTHONDONTWRITEBYTECODE": "1", "OMP_NUM_THREADS": "4", "OPENBLAS_NUM_THREADS": "4"},
+      "justMyCode": true
+    }
+  ],
+  "inputs": [
+    {"id": "freshRun", "type": "promptString", "description": "Absolute NEW prepared run path; never a closed evidence run"},
+    {"id": "workerProgram", "type": "promptString", "description": "Absolute script path inside that fresh run/source/scripts/diagnostics/"}
+  ]
+}

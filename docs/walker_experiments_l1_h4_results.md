@@ -7,7 +7,7 @@ trained all three matched children, and found no standalone benefit. The
 teacher–student gaps widened. No confirmation, second round, retuning or
 additional mechanism was launched after the frozen stopping rules triggered.
 
-The [full local validation](../artifacts/2026-10-30_experiments_execution_001/full_validation_local_platform.json)
+The [full local validation](../results/adaptive_coupling_h4_1/audit/full_validation.json)
 passed **187 tests**, with two skips and one expected failure. Both independent
 saved-evidence audits passed. Existing runs, frozen configurations, checkpoints
 and ledgers remain preserved.
@@ -98,7 +98,7 @@ All three fits regressed against the parent. This is substantive negative
 transfer, not merely a narrow miss of a cost threshold. No child learned the
 walking task.
 
-![Changed-weight teachers, child outcomes and learning curves](../artifacts/2026-10-30_adaptive_coupling_h4_1_report_002/learning_and_outcomes.png)
+![Changed-weight teachers, child outcomes and learning curves](../results/adaptive_coupling_h4_1/figures/learning_and_outcomes.png)
 
 | Own supplied-data MSE | Before fitting | 500 updates | 1,000 updates | 2,000 updates |
 |---|---:|---:|---:|---:|
@@ -142,14 +142,14 @@ preceded launch. Historical feedback and the input checkpoint came from
 Linux/Python 3.11.16/Torch CPU. No cross-host bitwise reproduction or efficiency
 comparison is claimed. No private-code upload workaround was used.
 
-The [independent H4 audit](../artifacts/2026-10-30_experiments_execution_audit_001/h4_receipt_001/report_v2.md)
+The [independent H4 audit](../results/adaptive_coupling_h4_1/audit/report_v2.md)
 passed **772,685 checks**, binding 128 files and 1,457 array fingerprints.
 It inspected all 12,000 private before/after planner snapshots, 24 selected
 full banks, actual teacher and policy episodes, exact datasets, nine child
 checkpoint/Adam/RNG packages, sampled indices, curves, paired resets, native
 costs and all ledger work. The full original local HDF and ledger hashes match
-the [explicit local locator](../runs/2026-10-30_adaptive_coupling_h4_1_r1_001/exports/full_local_evidence_locator.json).
-The [supplemental proofs](../artifacts/2026-10-30_experiments_execution_audit_001/h4_receipt_001/supplemental_native_detail.json)
+the [explicit local locator](../results/adaptive_coupling_h4_1/external/full_local_evidence_locator.json).
+The [supplemental proofs](../results/adaptive_coupling_h4_1/audit/supplemental_native_detail.json)
 verify same-bank weight causality and paired gap widening. Audit time was
 41.845734 seconds plus 0.618001 supplementary seconds, with zero experimental
 work. Neural/Adam arithmetic and native dynamics were not replayed; not every
@@ -192,7 +192,7 @@ preparation, tests, failed staging reviews, saved-data audits, two retained
 figure revisions, exports, transfer and engineering are separate overhead.
 Not all reasoning/tool overhead is timed; no efficiency claim is made.
 
-The [complete cost receipt](../artifacts/2026-10-30_experiments_execution_001/cost_accounting.json)
+The [complete cost receipt](../results/adaptive_coupling_h4_1/accounting/combined_lineage.json)
 charges inherited v1/v2, corrective diagnosis and v3.1 work once. Relevant
 cumulative work is 229,187,422 requested controls (229,187,421 completed),
 104,337,452 forward rows, 24,576,000 backward rows and 96,000 Adam steps. The
@@ -227,9 +227,9 @@ coupling formulation, and no further experimental work followed these negatives.
 
 ## Runnable implementation and raw evidence
 
-- [L1 worker](../scripts/diagnostics/student_learnability.py), [protocol](student_learnability_protocol_l1_001.md), [closed result](../runs/2026-10-30_student_learnability_l1_001/result.json), [all fitting curves](../runs/2026-10-30_student_learnability_l1_001/learning_curves.csv), [full raw](../runs/2026-10-30_student_learnability_l1_001/evidence/raw.h5).
-- [H4 worker](../scripts/diagnostics/adaptive_coupling.py), [protocol](adaptive_coupling_protocol_h4_1_001.md), [closed result](../runs/2026-10-30_adaptive_coupling_h4_1_r1_001/result.json), [all fitting curves](../runs/2026-10-30_adaptive_coupling_h4_1_r1_001/learning_curves.csv), [full raw](../runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/raw.h5), [ledger](../runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/ledger.jsonl).
-- [H4 plotted data](../artifacts/2026-10-30_adaptive_coupling_h4_1_report_002/plotted_data.json), [per-start data](../artifacts/2026-10-30_adaptive_coupling_h4_1_report_002/standalone_episodes.csv), [PDF figure](../artifacts/2026-10-30_adaptive_coupling_h4_1_report_002/learning_and_outcomes.pdf), [artifact reproduction guide](../artifacts/2026-10-30_adaptive_coupling_h4_1_001/README.md).
+- [L1 worker](../scripts/diagnostics/student_learnability.py), [protocol](student_learnability_protocol_l1_001.md), [closed result](../results/student_learnability_l1/run/result.json), [all fitting curves](../results/student_learnability_l1/run/learning_curves.csv), [full raw (external evidence)](evidence_availability.md#external-bf2922342a3a).
+- [H4 worker](../scripts/diagnostics/adaptive_coupling.py), [protocol](adaptive_coupling_protocol_h4_1_001.md), [closed result](../results/adaptive_coupling_h4_1/run/result.json), [all fitting curves](../results/adaptive_coupling_h4_1/run/learning_curves.csv), [full raw (external evidence)](evidence_availability.md#external-0e557b73fdc3), [ledger (external evidence)](evidence_availability.md#external-2392baa27d92).
+- [H4 plotted data](../results/adaptive_coupling_h4_1/report/plotted_data.json), [per-start data](../results/adaptive_coupling_h4_1/report/standalone_episodes.csv), [PDF figure](../results/adaptive_coupling_h4_1/figures/learning_and_outcomes.pdf), [artifact reproduction guide (external evidence)](evidence_availability.md#external-2712e9d3293f).
 
 Workers refuse existing evidence directories. Exact replays require copying
 only sealed source/configuration/input files into a fresh directory and using

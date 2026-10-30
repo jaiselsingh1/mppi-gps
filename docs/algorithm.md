@@ -44,4 +44,4 @@ Recovery means restoring successful task performance after a disturbance. A diff
 
 Separate teacher task qualification from teaching usefulness. Complete teacher outcomes establish whether the continuation solves the task. Matched child-policy executions establish whether its experience improves the standalone policy. Action agreement and trajectory distance are diagnostic measurements; neither proves learnability. In particular, failure of v2's 5% action-agreement requirement did not test whether the higher-weight teacher's data could improve a child.
 
-These requirements have not been retroactively applied to v2. No new physical study using them has run yet.
+These requirements were not retroactively applied to v2. At the time of this v2 note, no new physical study using them had run. The later [v3.1 comparison](loop_v3_results.md) and [L1/H4.1 studies](walker_experiments_l1_h4_results.md) have separate frozen protocols and outcomes.

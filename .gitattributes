@@ -1,0 +1,6 @@
+# Immutable evidence must retain its exact bytes on every checkout. Its original
+# CSV line endings and whitespace are part of the recorded hash contracts.
+/results/** -text -whitespace
+/archive/** -text -whitespace
+# Raw validation logs retain their captured output, including traceback spacing.
+/docs/validation/**/*.txt -text -whitespace

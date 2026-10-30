@@ -1,0 +1,175 @@
+{
+  "schema": "walker-repository-cleanup-validation-v1",
+  "preservation_commit": "d630fb4eadbad3e4b8b59f8917b2cc0b6cbc567b",
+  "refactor_commit": "e9408d03773754125b3fb600162ae517eca250ee",
+  "new_research_experiments": 0,
+  "scope": "Repository engineering validation. Unit tests include small synthetic fitting/simulator checks; saved-only audits execute no physics, inference or optimizer arithmetic. No completed scientific run was resumed or rewritten.",
+  "baseline_tests": {
+    "passed": 187,
+    "skipped": 2,
+    "xfailed": 1
+  },
+  "refactor_tests": {
+    "passed": 234,
+    "skipped": 1,
+    "xfailed": 1,
+    "new_regression_cases": 42,
+    "newly_enabled_hypothesis_cases": 5,
+    "log": "pytest.txt"
+  },
+  "capsules": {
+    "exact_original_copies": 91,
+    "original_bytes": 14902757,
+    "unchanged_since_preservation": true
+  },
+  "historical_validation": {
+    "all_initial_tracked_archive_files_unchanged": 1149,
+    "sealed_archive_source_files": 162,
+    "completed_study_source_and_input_bindings": 399
+  },
+  "saved_only_audits": {
+    "v3": {
+      "receipt": "v3_audit_receipt.json",
+      "receipt_sha256": "a82f9818b89cce41d874ad7dd25d71c06236b18396395155e18c6881dbed3e68",
+      "frozen_findings": "results/guided_data_v3_1/audit/findings.json",
+      "findings_sha256": "3848f51964fc8bdd31dbea11a3904f072993f5013b1a2001026ce7c124c60f0b",
+      "exact_findings_match": true,
+      "checks": 513433,
+      "hashed_arrays": 837,
+      "wall_seconds": 2.63284995900176
+    },
+    "l1": {
+      "receipt": "l1_audit_receipt.json",
+      "receipt_sha256": "1aa943998a16aa950382aca9c69e200c51f0c91891025651f6231bdbbf6d2439",
+      "frozen_findings": "results/student_learnability_l1/audit/findings.json",
+      "findings_sha256": "94ce13917481b6f61baecb9f8747f54024e283bc793ffd2fb717fd5aca987b0c",
+      "exact_findings_match": true,
+      "checks": 724746,
+      "hashed_arrays": 989,
+      "wall_seconds": 3.1960787909993087
+    },
+    "h4": {
+      "receipt": "h4_audit_receipt.json",
+      "receipt_sha256": "0a22f458e869c208e00554649e6e83aad11ea0af084df837e8000e1c31f2169e",
+      "frozen_findings": "results/adaptive_coupling_h4_1/audit/findings.json",
+      "findings_sha256": "4924fcec12ebe05ec6a73654591918e7fe4ecf6f936e4ef9e1d95c74626be263",
+      "exact_findings_match": true,
+      "checks": 772688,
+      "hashed_arrays": 1457,
+      "wall_seconds": 35.642074165996746
+    }
+  },
+  "scientific_dependencies": {
+    "h5py": "3.16.0",
+    "mujoco": "3.6.0",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "torch": "2.10.0 (Linux CPU wheel 2.10.0+cpu)"
+  },
+  "accounting_scope": "Audit wall seconds are retained in receipts; pytest wall seconds are in its raw log. These are validation overhead, not additions to frozen scientific work counters. No total engineering efficiency claim is made.",
+  "first_clean_export": {
+    "passed": false,
+    "log": "first_export_pytest.txt",
+    "cause": "A local .git/info/exclude rule for report/ hid 16 exact capsule files from the preservation push. Explicit results report inclusion fixes Git tracking; inspector now fails verification for absent bound copies."
+  },
+  "clean_export": {
+    "passed": true,
+    "git_tree": "a33dbcdd74259177bba162d381dae67e56e7c8df",
+    "log": "clean_export.txt",
+    "commands": 8,
+    "tests": {
+      "passed": 234,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "ignored_directories_absent": [
+      ".git",
+      "runs",
+      "artifacts",
+      ".venv"
+    ],
+    "capsule_copies_verified": 91,
+    "sealed_historical_files_verified": 162,
+    "rendered_outputs": {
+      "guided": {
+        "cost_accounting.json": {
+          "sha256": "7d3d5c8a05784f82e39b826710ed031d09cce008932b2a0467f6bfb57ae0fe72",
+          "bytes": 3443
+        },
+        "learning_and_outcomes.pdf": {
+          "sha256": "e94018f9b2269780a88c67aaed998c839cdf17f2f6a53cb23ecc2660d9a333b8",
+          "bytes": 35366
+        },
+        "learning_and_outcomes.png": {
+          "sha256": "78d9d37526f1f4556e34443f5c737c43d777f07f65cc0d5e548c3c50d37fecde",
+          "bytes": 293887
+        },
+        "plotted_data.json": {
+          "sha256": "dac47ff8f8039d7de18ea1ec62ac112c4d5d7c2779876b619ab02830be616354",
+          "bytes": 25735
+        },
+        "primary_episodes.csv": {
+          "sha256": "1e087efc0999304a6e79f1ade146199bc65846866bf16bf081f3169664c32f82",
+          "bytes": 3161
+        },
+        "receipt.json": {
+          "sha256": "aa15d84cf45c665b82137ace001d991a5bbf07b2d77722f083502ebe2b7cd0d7",
+          "bytes": 1098
+        }
+      },
+      "student": {
+        "cost_accounting.json": {
+          "sha256": "df7526f978b2be2009ca2327f1dadfb972f399800f3ede05c7c88ce9907203b5",
+          "bytes": 2942
+        },
+        "learning_and_outcomes.pdf": {
+          "sha256": "0343ec7937356b326e7b83ef8386bf89ceababf6b8ebf26721b24cc77d1f6db0",
+          "bytes": 31654
+        },
+        "learning_and_outcomes.png": {
+          "sha256": "455aeeba8a5cb6e449ca1d231590449075ab6beb35503ed9d1aced04be4b776a",
+          "bytes": 229256
+        },
+        "plotted_data.json": {
+          "sha256": "c967a29cb39d8db55fdfb0c9772de337ad11990cc745eb995986e0d073173595",
+          "bytes": 8981
+        },
+        "receipt.json": {
+          "sha256": "c0d78c850912aeaf02b683a3a6e775ab339eda0eb0aec33f1d0f326527722d89",
+          "bytes": 856
+        },
+        "standalone_episodes.csv": {
+          "sha256": "706b01b3c45dfbc7bb1f8fd54fd9ff680628c2b1d19f0b8c1ae3265aee0f63f8",
+          "bytes": 2896
+        }
+      },
+      "coupling": {
+        "cost_accounting.json": {
+          "sha256": "00c1ae64d85045bce0ca12b35dde17521c43c62f3fb9deee9235a5062aa1d750",
+          "bytes": 3235
+        },
+        "learning_and_outcomes.pdf": {
+          "sha256": "8e63d8179c9848986696b554e7b23a046d86c6c216061be3a56d7848cad73515",
+          "bytes": 32953
+        },
+        "learning_and_outcomes.png": {
+          "sha256": "b305b88d861a144774b006eedc7ca81e79f19f4014057e76d41aeb4d91dd3828",
+          "bytes": 267483
+        },
+        "plotted_data.json": {
+          "sha256": "fbe0f67304681fd184827d5074229d1ba9d378dfe23ff15f6a8c949c7bbe4b21",
+          "bytes": 9508
+        },
+        "receipt.json": {
+          "sha256": "ed8011fec563bc3a85c159eec12cf729d2e66b5a05d201693a52455f20c4de17",
+          "bytes": 857
+        },
+        "standalone_episodes.csv": {
+          "sha256": "b3a67c5747a32591ce7d34da4ed13b558ba84563e6cf928f2d63a10e8d7aa651",
+          "bytes": 4821
+        }
+      }
+    },
+    "new_research_experiments": 0
+  }
+}

@@ -6,7 +6,7 @@ agreement weight stayed fixed and the proposed continuation below never ran.
 The survival regression is material independently of the cost margin. Current
 work separates [student learnability](student_learnability_track_v1.md) from
 [H4.1 changing-weight backoff](adaptive_coupling_h4_1.md). The previous document
-version is preserved in the [scope-correction receipt](../artifacts/2026-10-30_research_scope_correction_001/preservation.json).
+version is preserved in the [scope-correction receipt (external evidence)](evidence_availability.md#external-ab1aecb6df5f).
 
 This document specifies the formulation before a new acquisition or feedback
 mechanism is implemented. The first experiment closes the historical missing

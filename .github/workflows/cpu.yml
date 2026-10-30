@@ -1,0 +1,42 @@
+name: CPU validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  clean-export:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CUDA_VISIBLE_DEVICES: ""
+      MUJOCO_GL: egl
+      MPLBACKEND: Agg
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
+        with:
+          version: "0.11.3"
+          python-version: "3.11.15"
+          enable-cache: true
+      - name: Install locked CPU environment
+        run: uv sync --locked --extra test
+      - name: Confirm CPU PyTorch
+        run: uv run --locked python -c 'import torch; assert torch.version.cuda is None; print(torch.__version__)'
+      - name: Check active source
+        run: |
+          uv run --locked ruff check .
+          uv run --locked ruff format --check .
+      - name: Validate clean Git export without ignored evidence
+        shell: bash
+        run: |
+          export_dir="$(mktemp -d)"
+          git archive --format=tar HEAD | tar -x -C "$export_dir"
+          "$PWD/.venv/bin/python" scripts/validate_export.py --export "$export_dir"
