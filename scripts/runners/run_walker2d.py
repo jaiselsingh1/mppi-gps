@@ -359,9 +359,9 @@ def main(
             print(f"traces={traces_output.resolve()}")
 
         if renderer is not None:
-            import mediapy
+            import imageio.v2 as imageio
             output.parent.mkdir(parents=True, exist_ok=True)
-            mediapy.write_video(output, frames, fps=1.0 / (env._dt * 4))
+            imageio.mimwrite(output, frames, fps=1.0 / (env._dt * 4))
             print(f"video={output.resolve()}")
     finally:
         if renderer is not None:

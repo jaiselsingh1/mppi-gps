@@ -1,0 +1,266 @@
+{
+  "schema": "cio-v1-before-development-v2",
+  "reason": "Preserve the fixed v1 negative and current source before fitting/coverage/early-coupling changes. Existing runs remain unchanged.",
+  "files": [
+    {
+      "file": "src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "src/envs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "src/envs/base.py",
+      "sha256": "8dd51240137b3ef6810555b8b975d410b67eaefc2684ee92419034b62f237766",
+      "bytes": 2106
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "sha256": "93cb45af567831d501c7afb437f9f9e5da95acfac710fb7a6c62c02347f00044",
+      "bytes": 10331
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "sha256": "477c3d2d8735171825392c9fe011941bc26e386f2113b4dd54df8a8c1e03ebca",
+      "bytes": 9171
+    },
+    {
+      "file": "src/gps/__init__.py",
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8",
+      "bytes": 79
+    },
+    {
+      "file": "src/gps/mppi_gps/__init__.py",
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e",
+      "bytes": 73
+    },
+    {
+      "file": "src/gps/mppi_gps/loop.py",
+      "sha256": "7be2a6c8febc95c0cae6f0a8e3486e71ab789bb9eab67c3ce05c6990ed986416",
+      "bytes": 28572
+    },
+    {
+      "file": "src/gps/mppi_gps/policy.py",
+      "sha256": "3ee48d558abb241a422c8217e444cb727bb31796f10dcc301ee8d7a3d3809188",
+      "bytes": 16996
+    },
+    {
+      "file": "src/gps/mppi_gps/runtime.py",
+      "sha256": "0f4bef90167e8f4d312f48d2d2d198c0c79af3440a08770f63085a25837f65ab",
+      "bytes": 23567
+    },
+    {
+      "file": "src/gps/mppi_gps/search.py",
+      "sha256": "0657caf98a7bb7b047be864a85fe54b159f180ba37b0f71c970916ae4d90a926",
+      "bytes": 18936
+    },
+    {
+      "file": "src/mppi/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "src/mppi/mppi.py",
+      "sha256": "bf083a6bdfa1057631cb58ea1897feadedc00c0b525905ce8ff57822c371eabf",
+      "bytes": 19785
+    },
+    {
+      "file": "src/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "src/utils/config.py",
+      "sha256": "ef85a9a42bb4262f4cb2cecfcd4fe05f42781054cb26ca9e2fe30a1fdc531b4f",
+      "bytes": 1557
+    },
+    {
+      "file": "src/utils/gait.py",
+      "sha256": "6330ecb4340e308030feffdedfcb0cfb161e4b2178d6910b68781a6ccbfe8f2d",
+      "bytes": 4627
+    },
+    {
+      "file": "src/utils/math.py",
+      "sha256": "a593998ee603a4e24e964723807d3d9010a30641ff01e3f79aaab234ef2d8a36",
+      "bytes": 3736
+    },
+    {
+      "file": "src/utils/rollout_data.py",
+      "sha256": "c6f698644a33a1177aaff87436b412803cd3434b12f1c6f04558ca6459ae03f5",
+      "bytes": 2671
+    },
+    {
+      "file": "src/utils/stats.py",
+      "sha256": "b7f98f63f2964efe0f4765077e6fd29a8a063faddde555903900ba507abba431",
+      "bytes": 5835
+    },
+    {
+      "file": "src/utils/trace_replay.py",
+      "sha256": "469594a7255e5df789614949efcbe14b16bfc40030fbb77d2253a94f952c819d",
+      "bytes": 3644
+    },
+    {
+      "file": "scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "scripts/diagnostics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "scripts/diagnostics/replay_walker.py",
+      "sha256": "d065b6d91bfea147ebccd31a011ba8c0ec5c45fca4a9e041dc4ea9e786bc48b0",
+      "bytes": 5030
+    },
+    {
+      "file": "scripts/runners/__init__.py",
+      "sha256": "af7aa3fff74e0de760dcc3ccefae1cf8603bb7116d35b0a593ebfc1fb1d6cf76",
+      "bytes": 39
+    },
+    {
+      "file": "scripts/runners/run_walker2d.py",
+      "sha256": "ef5a64578b8d530b4a843cd63287ac7a8715c13f191f08b1a0fa5b62f8645fa1",
+      "bytes": 18008
+    },
+    {
+      "file": "scripts/train_mppi_gps.py",
+      "sha256": "917709c9cabf11e01ec2070208ba8d3c9c2b7298d83b09007bb0d38be0f6d054",
+      "bytes": 2596
+    },
+    {
+      "file": "tests/test_gait.py",
+      "sha256": "29232b38b2bd94890558b19379da142511cd3c5ba86f69c111b2ce5bed817032",
+      "bytes": 2523
+    },
+    {
+      "file": "tests/test_gps_policy.py",
+      "sha256": "22dbc3926f6f7a74232b329f83d04b8b6a3636e0d2693c889fa5769ce41c0704",
+      "bytes": 6688
+    },
+    {
+      "file": "tests/test_gps_runtime.py",
+      "sha256": "0ffa70bfdd43c37d4690ec611e7392410da9aaf4d6bed5e12b12bb6bdfa23c27",
+      "bytes": 6089
+    },
+    {
+      "file": "tests/test_gps_search.py",
+      "sha256": "97baef8bf76c3c221ee287fe9800b2383533823b0f18d4cc9b705fc4a3d2c8f2",
+      "bytes": 10471
+    },
+    {
+      "file": "tests/test_gps_workflow.py",
+      "sha256": "774c6981a466a0456febac6ab1c2833eeaad9277704112e5531bed08c3d654a4",
+      "bytes": 3203
+    },
+    {
+      "file": "tests/test_math_hypothesis.py",
+      "sha256": "3ac3502338960c30d08bb61cdeb799c676a99b2b2fb28e07ca137cdf7ef5fb95",
+      "bytes": 3239
+    },
+    {
+      "file": "tests/test_math_properties.py",
+      "sha256": "326df7f7759ebb291706bfdd5512ad9e589f13a5ddd3e7f12c1786c2a537eb8d",
+      "bytes": 1090
+    },
+    {
+      "file": "tests/test_rollout_data.py",
+      "sha256": "b37dfdea123d1237875be75f2301948f142fb9bd7b10f91c8a74212235dd88c7",
+      "bytes": 3916
+    },
+    {
+      "file": "tests/test_stats.py",
+      "sha256": "7eef7d110ba2354f29364f1dfa83df41119cb76c751a6aa6a13304959d34c92a",
+      "bytes": 4253
+    },
+    {
+      "file": "tests/test_walker2d_cli.py",
+      "sha256": "edc07e61f097963e784b283a6332649bfb1eb2b6fbac54b568ce4801911fdcd9",
+      "bytes": 4179
+    },
+    {
+      "file": "tests/test_walker2d_replay.py",
+      "sha256": "391da8ddf56e3ed7596ca13f844b7c18cad7779263288ca0a4d93f04147dae7c",
+      "bytes": 4309
+    },
+    {
+      "file": "tests/test_walker2d_rollout.py",
+      "sha256": "6563b29e623c667c5ee8968db06dfea2789b3f595402acf796406475895976aa",
+      "bytes": 4642
+    },
+    {
+      "file": "tests/test_walker_gymnasium_differential.py",
+      "sha256": "5cefd478c7e071b5d964a3b45839063e9818dcfe33b68aeb6ebdeac20a0b70df",
+      "bytes": 4021
+    },
+    {
+      "file": "tests/test_warp_rollout.py",
+      "sha256": "db71b1cd2bed833cc85fc29346b52e530562fa011b2ddc6910b258774528c4bb",
+      "bytes": 1320
+    },
+    {
+      "file": "configs/mppi_gps_walker.json",
+      "sha256": "9bb33a1b4a668b69b7c1a25debc46aad98f9c6eae3392d1d62b76fd0c15c80c9",
+      "bytes": 1859
+    },
+    {
+      "file": "configs/walker2d_best.json",
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6",
+      "bytes": 226
+    },
+    {
+      "file": "configs/walker2d_task.json",
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a",
+      "bytes": 314
+    },
+    {
+      "file": "assets/walker2d.xml",
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590",
+      "bytes": 4950
+    },
+    {
+      "file": "docs/algorithm.md",
+      "sha256": "9d4939be6aab4ecfed70561ca6a82eb606e449dd214b3272a9fad239cdf131e2",
+      "bytes": 3837
+    },
+    {
+      "file": "docs/code_map.md",
+      "sha256": "08f55142b52837414f6159ae4b7a110cba414f2d9b50f345f56c3fe68055fd43",
+      "bytes": 820
+    },
+    {
+      "file": "docs/history.md",
+      "sha256": "bc23edf5daab037c6a556da06bfdf5ef3dde274511b4b1c0fbc9e8bf86a83afa",
+      "bytes": 898
+    },
+    {
+      "file": "docs/paper_mapping.md",
+      "sha256": "edd6d2b5d9b41a9a745001878769613029df0133f65dbc0538400b0266c63c38",
+      "bytes": 1858
+    },
+    {
+      "file": "docs/results.md",
+      "sha256": "2f1404433f0b3f2c794d8cce982549e9fe54f28f53b173fd01dacea42e32e400",
+      "bytes": 4578
+    },
+    {
+      "file": "README.md",
+      "sha256": "a103334aba0c163b2ff4f0e6a774e2d4277b5713e24a378a4720e2b4225e9bc2",
+      "bytes": 1895
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "dfe9d9b66e457f2d3e1050f511ed83e6004dec9a0017fead3d822942d8139612",
+      "bytes": 676
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "b4f0489bea00b6f59f1d684c4344188e8af0c8ea773a4f86f442fc00f2437fdb",
+      "bytes": 282976
+    }
+  ]
+}

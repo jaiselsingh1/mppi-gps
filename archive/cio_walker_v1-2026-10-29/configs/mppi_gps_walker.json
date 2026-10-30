@@ -1,0 +1,79 @@
+{
+  "schema": "walker-cio-mppi-v1",
+  "episode_steps": 1000,
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true,
+    "nthread": 16
+  },
+  "mppi": {
+    "K": 256,
+    "H": 48,
+    "lam": 3.0,
+    "noise_sigma": 0.3,
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2,
+    "use_is_correction": false,
+    "initial_iterations": 2
+  },
+  "policy": {
+    "hidden": 128,
+    "device": "cpu",
+    "seed": 20261029
+  },
+  "learning": {
+    "updates": 2000,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "eta_theta": 0.01,
+    "seed": 910000000
+  },
+  "coupling": {
+    "alpha": 1.0,
+    "eta_u": 0.01,
+    "support_radius": 1.0
+  },
+  "discovery_episodes": 4,
+  "feedback_rounds": 2,
+  "qualification_episodes": 16,
+  "held_episodes": 16,
+  "trial_pairs": 2,
+  "confirmation_pairs": 2,
+  "feedback_supervision": {
+    "snapshots_per_episode": 8,
+    "perturbations_per_snapshot": 2,
+    "height_std": 0.002,
+    "angle_std": 0.005,
+    "velocity_std": 0.02
+  },
+  "gates": {
+    "minimum_successes": 15,
+    "velocity_mae": 0.3,
+    "relative_cost_gain": 0.001,
+    "action_change_atol": 1e-06
+  },
+  "roots": {
+    "discovery": 811000000,
+    "planner": 821000000,
+    "qualification": 831000000,
+    "trial": 841000000,
+    "confirmation": 851000000,
+    "children": 861000000,
+    "held": 871000000,
+    "perturbation": 881000000
+  },
+  "budgets": {
+    "requested_controls": 350000000,
+    "neural_rows": 150000000
+  },
+  "claim": "One development seed; walking coupling pilot. No ending or efficiency claim."
+}

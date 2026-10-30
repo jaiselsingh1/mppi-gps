@@ -1,0 +1,124 @@
+{
+  "acquired_replicates": 4,
+  "acquired_times": [
+    4,
+    8
+  ],
+  "acquisition_roots": 4,
+  "acquisition_strategy": "qualified_trial_pairs",
+  "agreement": 1.0,
+  "agreement_ladder": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "capture_min": 0.9,
+  "child_updates": 0,
+  "commitment_state_atol": 1e-05,
+  "compare_previous_actor": true,
+  "control_confirmation_roots": 8,
+  "control_evaluation_roots": 16,
+  "control_trial_roots": 8,
+  "execution_mode": "commit_prefix_then_actor",
+  "feedback_parent_schema": "outcome-coupled-joint-feedback-learning-v28",
+  "fresh_search_only": true,
+  "full_memory_candidates": 16,
+  "handoff_perturbations": [
+    -0.01,
+    0.0,
+    0.01
+  ],
+  "handoff_times": [
+    0,
+    4,
+    8
+  ],
+  "initial_updates": 0,
+  "learning": {
+    "beta": 1.0,
+    "epochs": 4,
+    "gradient_clip": 0.5,
+    "hidden": 128,
+    "initial_std": 0.8,
+    "learning_rate": 0.0003,
+    "ratio_clip": 0.2,
+    "return_scale": 25.0,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      20.0
+    ]
+  },
+  "long_search": {
+    "H": 25,
+    "K": 32,
+    "independent_block_lengths": [],
+    "initial_iterations": 1,
+    "knot_spacing": 4,
+    "memory_candidates": 8,
+    "sigma": 0.8,
+    "smooth_candidates": 8,
+    "temperature": 0.2
+  },
+  "max_backward_calls": 0,
+  "max_controls": 6000000,
+  "max_neural_rows": 2000000,
+  "max_optimizer_calls": 0,
+  "max_verification_backward_calls": 0,
+  "max_verification_controls": 6000000,
+  "max_verification_neural_rows": 2000000,
+  "max_verification_optimizer_calls": 0,
+  "minimum_child_gain": 0.001,
+  "minimum_control_gain": 0.001,
+  "mode": "continuation",
+  "neural_atol": 1e-06,
+  "optimizer_atol": 0.0,
+  "ordinary_qualification_roots": 16,
+  "ordinary_replicates": 8,
+  "planner_seed": 910000,
+  "qualification_every": 8,
+  "root_offset": 80000000,
+  "rounds": 1,
+  "schema": "outcome-coupled-joint-child-search-v29",
+  "scope": "Fresh zero-trust search by a changed qualification-selected joint-feedback child versus independent RAW memory and its exact incoming policy",
+  "seed": 0,
+  "seed_offset": 80000000,
+  "short_search": {
+    "H": 4,
+    "K": 32,
+    "independent_block_lengths": [],
+    "initial_iterations": 1,
+    "knot_spacing": 4,
+    "memory_candidates": 16,
+    "sigma": 0.8,
+    "smooth_candidates": 8,
+    "temperature": 0.2
+  },
+  "standalone_roots": 64,
+  "support_radius": 0.15,
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "teacher_roots": [
+    1000,
+    1001,
+    1002,
+    1003
+  ],
+  "teacher_streams": [
+    0,
+    1
+  ],
+  "teaching_minimum_gain": 1e-06,
+  "teaching_state_atol": 1e-08,
+  "transition_atol": 0.0
+}

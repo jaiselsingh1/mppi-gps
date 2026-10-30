@@ -1,0 +1,94 @@
+{
+  "acquired_repeats": 4,
+  "acquired_times": [
+    4,
+    8
+  ],
+  "batched_deterministic_panels": "Numerical diagnostics only; never deployment qualification",
+  "capture_min": 0.9,
+  "deployment_controller": "native_batch1",
+  "evaluation_root": 84000000,
+  "evaluation_roots": 64,
+  "expected_work": {
+    "incomplete_admission": "Partial actual ledger only; completed roster is not asserted",
+    "per_qualified_child_reuse_delta": {
+      "backward_calls": 0,
+      "completed_scalar_controls": -3200,
+      "neural_forward_completed_rows": -3200,
+      "optimizer_steps": 0,
+      "queries": -65
+    },
+    "producer_no_qualified_children": {
+      "backward_calls": 24,
+      "completed_scalar_controls": 29664,
+      "neural_forward_completed_rows": 46560,
+      "optimizer_steps": 4,
+      "queries": 400
+    },
+    "verification_history_delta": {
+      "backward_calls": 0,
+      "completed_scalar_controls": 200,
+      "neural_forward_completed_rows": 0,
+      "optimizer_steps": 0,
+      "queries": 8
+    }
+  },
+  "incoming_checkpoint_sha256": "42155d0ece01171059ebaa32f06d9472040bae33f866f84c51a7a93613058b9a",
+  "incoming_policy_hash": "50a0a436164f9155603e6888a8c76d11adf97251093bc0770ccbe98d5a5413ad",
+  "initial_credit_gate": {
+    "epsilon": 0.001,
+    "minimum_envelope_contrast": 1e-08,
+    "path_atol": 0.0001,
+    "required": true,
+    "rtol": 0.02,
+    "score_atol": 0.001
+  },
+  "learning": {
+    "beta": 1.0,
+    "epochs": 1,
+    "gradient_clip": 0.5,
+    "hidden": 128,
+    "initial_std": 0.8,
+    "learning_rate": 0.0003,
+    "ratio_clip": 0.2,
+    "return_scale": 25.0,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      20.0
+    ]
+  },
+  "max_backward_calls": 32,
+  "max_controls": 30000,
+  "max_neural_rows": 100000,
+  "max_optimizer_calls": 8,
+  "max_verification_backward_calls": 32,
+  "max_verification_controls": 30000,
+  "max_verification_neural_rows": 100000,
+  "max_verification_optimizer_calls": 8,
+  "minimum_child_gain": 0.001,
+  "mode": "hybrid_outcome_admission",
+  "optimizer_initialization": "fresh Adam; supplied optimizer/history retained as evidence only",
+  "ordinary_contexts": 4,
+  "ordinary_repeats": 8,
+  "qualification_root": 83000000,
+  "qualification_roots": 16,
+  "schema": "stochastic-outcome-feedback-admission-v30",
+  "scope": "Two fresh hybrid updates per arm; deterministic qualification required; no search authority or complete-loop claim",
+  "source_schema": "outcome-coupled-joint-feedback-learning-v28",
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "training_controller": "native_batched_stochastic",
+  "training_root": 82000000,
+  "updates": 2
+}

@@ -1,0 +1,36 @@
+{
+  "alphas": [
+    0.0625,
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "ancestor_schema": "bidirectional-ending-precision-assay-v0",
+  "capture_min": 0.9,
+  "evaluation_noise_seed": 154000,
+  "evaluation_roots": 64,
+  "evaluation_seed": 152000,
+  "interpolation": "all_trainable_float_parameters_including_log_std;unchanged_buffers;parent_private_rng",
+  "max_actor_rows": 21600,
+  "max_adam_steps": 0,
+  "max_controls": 21600,
+  "max_model_controls": 0,
+  "minimum_complete_gain": 0.001,
+  "qualification_noise_seed": 153000,
+  "qualification_roots": 16,
+  "qualification_seed": 151000,
+  "schema": "bidirectional-ending-interpolation-assay-v0",
+  "source_arm": "precision",
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  }
+}

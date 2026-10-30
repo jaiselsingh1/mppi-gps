@@ -1,0 +1,93 @@
+{
+  "MC_updates_per_phase": 8,
+  "acquired_contexts": 4,
+  "acquisition_roots": 8,
+  "action_metric": {
+    "cycles": 64,
+    "margin": 0.001,
+    "restoration": 0.01,
+    "ridge": 1e-05,
+    "rms": 0.05,
+    "trainable": "mean_head_only"
+  },
+  "actor_initializer": "exact_audited_pure_MC_parent;common_Adam_reset",
+  "adjoint": {
+    "acquired_weight": 0.25,
+    "barrier_mu": 0.001,
+    "fractions": [
+      1.0,
+      0.5,
+      0.25,
+      0.125
+    ],
+    "gradient_clip": 0.5,
+    "lr": 0.0003,
+    "margin": 0.001,
+    "relaxation": 0.01
+  },
+  "capture_min": 0.9,
+  "child_adjoint_steps": 32,
+  "feature_forward_layout": "same_single_observation_layout_as_actual_execution",
+  "feedback_rounds": 2,
+  "final_roots": 64,
+  "initial_adjoint_steps": 64,
+  "learning": {
+    "aux_weight": 0.0,
+    "batch_size": 1024,
+    "bootstrap_updates": 0,
+    "clip_ratio": 0.2,
+    "epochs": 4,
+    "lr": 0.0003,
+    "max_grad_norm": 0.5,
+    "minimum_replicates": 4,
+    "return_scale": 25.0
+  },
+  "learning_form": "action_metric_measured_constraints",
+  "max_actor_rows": 464960,
+  "max_adam_steps": 128,
+  "max_backward_calls": 128,
+  "max_controls": 3222784,
+  "max_diagnostic_backward_passes": 32,
+  "max_executed_controls": 221968,
+  "max_model_controls": 3000816,
+  "minimum_gain": 0.001,
+  "ordinary_contexts": 4,
+  "parent_actor_hash": "04d2ad6173f5ec8e360b8262b8c3af2faa5678d228249625efd6259c0b9b5cd9",
+  "parent_audit_sha256": "750f17769742d1881dad143cf60efeea4ffd35aa9a45b0c32e90cbfebb907e11",
+  "parent_checkpoint_sha256": "7e4915db2a0f03ed36ce46d9d89a6f06dadc5a41d33007e5bd9df217e22dee26",
+  "projection": {
+    "cycles": 64,
+    "margin": 0.001,
+    "restoration": 0.01,
+    "step_norm": 0.03
+  },
+  "qualification_roots": 16,
+  "root_base": 7100000,
+  "schema": "bidirectional-deployment-action-metric-dev3-scalar-layout",
+  "search": {
+    "H": 4,
+    "K": 32,
+    "independent_block_lengths": [],
+    "initial_iterations": 1,
+    "knot_spacing": 4,
+    "memory_candidates": 8,
+    "sigma": 0.8,
+    "smooth_candidates": 8,
+    "temperature": 0.2
+  },
+  "seed": 1001,
+  "source_elapsed": 4,
+  "source_perturbation": 0.025,
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "teacher_action_labels": false
+}

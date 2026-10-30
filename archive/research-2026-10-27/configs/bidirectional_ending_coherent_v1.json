@@ -1,0 +1,62 @@
+{
+  "acquired_elapsed": 6,
+  "all_paid_roles": [
+    "ordinary",
+    "raw",
+    "long"
+  ],
+  "basis_seed": 1701,
+  "candidates_per_step": 13,
+  "capture_min": 0.9,
+  "chains": [
+    "ordinary",
+    "raw025",
+    "raw1",
+    "long025",
+    "long1"
+  ],
+  "coefficient_l1_bound": 3.0,
+  "controller_mode_weights": {
+    "mean": 0.5,
+    "stochastic": 0.5
+  },
+  "data_weights": [
+    0.0,
+    0.25,
+    1.0
+  ],
+  "evaluation_noise_seed": 614000,
+  "evaluation_roots": 64,
+  "evaluation_seed": 612000,
+  "head_step": 0.1,
+  "head_weight_directions": 4,
+  "log_std_step": 0.5,
+  "max_actor_rows": 210960,
+  "max_adam_steps": 0,
+  "max_controls": 210960,
+  "max_diagnostic_backward_passes": 0,
+  "max_executed_controls": 210960,
+  "max_model_controls": 0,
+  "minimum_complete_gain": 0.001,
+  "ordinary_step_constraint": "complete_mean_and_stochastic_cost_and_capture_nonregression_vs_current_center",
+  "ordinary_training_roots": 8,
+  "ordinary_training_seed": 601000,
+  "qualification_noise_seed": 613000,
+  "qualification_roots": 16,
+  "qualification_seed": 611000,
+  "schema": "bidirectional-ending-coherent-head-assay-v1",
+  "search_steps": 3,
+  "source_contexts_per_role": 8,
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "training_noise_seed": 603000
+}

@@ -7,8 +7,6 @@ from jaxtyping import Array, Float
 from mujoco import rollout 
 
 from src.envs.base import BaseEnv
-import warp as wp 
-import mujoco_warp as mjw 
 
 
 class MuJoCoEnv(BaseEnv):
@@ -35,6 +33,10 @@ class MuJoCoEnv(BaseEnv):
 
         self._use_warp = use_warp
         if use_warp:
+            # GPU support is optional; CPU physics must not import that stack.
+            global wp, mjw
+            import warp as wp
+            import mujoco_warp as mjw
             assert self.model.na == 0, "warp path assumes na == 0"
             assert self.model.nmocap == 0, "warp path assumes no mocap bodies"
             self._wm = mjw.put_model(self.model)

@@ -1,0 +1,99 @@
+{
+  "acquired_repeats": 4,
+  "acquired_times": [
+    4,
+    8
+  ],
+  "batched_deterministic_panels": "Numerical diagnostics only; never deployment qualification",
+  "capture_min": 0.9,
+  "deployment_controller": "native_batch1",
+  "evaluation_root": 88000000,
+  "evaluation_roots": 64,
+  "expected_work": {
+    "backwards": "5*A+6*B",
+    "controls": "1508*(A+C)+1408*H+100*D+18400-3200*Q+200*verification",
+    "formula": "A=actual attempts,C=paid candidates,B=initial gates,H=hybrid FD actors,D=deployment FD actors,Q=qualified children",
+    "incomplete_admission": "Partial actual ledger only; no completed roster assertion",
+    "maximum_attempts": 4,
+    "maximum_candidates": 16,
+    "maximum_deployment_fd_actors": 4,
+    "maximum_hybrid_fd_actors": 4,
+    "neural_rows": "1508*(2*A+C)+2816*B+2816*H+100*D+18400-3200*Q",
+    "optimizer_steps": 0,
+    "queries": "7*(A+C)+3*H+4*D+376-65*Q+8*verification"
+  },
+  "frozen_parameter_names": [
+    "log_std"
+  ],
+  "incoming_checkpoint_sha256": "42155d0ece01171059ebaa32f06d9472040bae33f866f84c51a7a93613058b9a",
+  "incoming_policy_hash": "50a0a436164f9155603e6888a8c76d11adf97251093bc0770ccbe98d5a5413ad",
+  "initial_credit_gate": {
+    "epsilon": 0.001,
+    "minimum_envelope_contrast": 1e-08,
+    "path_atol": 0.0001,
+    "required": true,
+    "rtol": 0.02,
+    "score_atol": 0.001
+  },
+  "learning": {
+    "beta": 1.0,
+    "epochs": 1,
+    "gradient_clip": 0.5,
+    "hidden": 128,
+    "initial_std": 0.8,
+    "learning_rate": 0.0003,
+    "ratio_clip": 0.2,
+    "return_scale": 25.0,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      20.0
+    ]
+  },
+  "max_backward_calls": 128,
+  "max_controls": 100000,
+  "max_neural_rows": 200000,
+  "max_optimizer_calls": 0,
+  "max_verification_backward_calls": 128,
+  "max_verification_controls": 100000,
+  "max_verification_neural_rows": 200000,
+  "max_verification_optimizer_calls": 0,
+  "minimum_child_gain": 0.001,
+  "mode": "hybrid_outcome_admission",
+  "optimizer_initialization": "No optimizer; original full optimizer/history preserved unchanged",
+  "ordinary_contexts": 4,
+  "ordinary_repeats": 8,
+  "qualification_root": 87000000,
+  "qualification_roots": 16,
+  "risk_constrained_update": true,
+  "risk_step": {
+    "actual_atol": 1e-08,
+    "alphas": [
+      0.01,
+      0.003,
+      0.001,
+      0.0003
+    ],
+    "minimum_cost_gain": 1e-08,
+    "radius": 0.01,
+    "risk_atol": 1e-12
+  },
+  "schema": "deployment-cost-risk-constraint-v31",
+  "scope": "Native batch1 original-cost descent constrained by measured stochastic discrete teacher-state risk; no continuous teacher-quality or full-loop claim",
+  "source_schema": "outcome-coupled-joint-feedback-learning-v28",
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "training_controller": "native_batched_stochastic",
+  "training_root": 86000000,
+  "updates": 2
+}

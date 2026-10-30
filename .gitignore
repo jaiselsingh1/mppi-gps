@@ -223,3 +223,12 @@ logs/
 *.pt
 *.pth
 *.ckpt
+
+# Generated experiment evidence is retained locally and on the experiment host.
+/artifacts/
+
+# Local archive bridges and captured interpreter caches are not portable source.
+/archive/**/runs
+/archive/**/artifacts
+/archive/**/archive
+/archive/**/generated_caches/

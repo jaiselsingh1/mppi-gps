@@ -1,0 +1,91 @@
+{
+  "schema": "bidirectional-acrobot-v0",
+  "task": {
+    "T": 800,
+    "dt": 0.01,
+    "capture_steps": 100,
+    "capture_distance": 0.2,
+    "capture_qvel_norm": 0.5,
+    "local_distance": 0.5,
+    "local_by": 600,
+    "failure_penalty": 1000.0,
+    "reset_angle_radius": 0.1,
+    "reset_velocity_radius": 0.05
+  },
+  "search": {
+    "K": 512,
+    "H": 144,
+    "temperature": 0.01437687465331295,
+    "sigma": 0.18553280373949055,
+    "smooth_candidates": 32,
+    "memory_candidates": 16,
+    "knot_spacing": 10,
+    "initial_iterations": 1
+  },
+  "learning": {
+    "lr": 0.0003,
+    "max_grad_norm": 0.5,
+    "epochs": 4,
+    "clip_ratio": 0.2,
+    "aux_weight": 0.1,
+    "batch_size": 256,
+    "bootstrap_updates": 2000,
+    "minimum_replicates": 2,
+    "return_scale": 800.0
+  },
+  "backend": "cpu",
+  "device": "cpu",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "qualification": {
+    "horizons": [
+      48,
+      96,
+      144,
+      288
+    ],
+    "development_roots": 8,
+    "confirmation_roots": 32,
+    "local_min": 0.9,
+    "short_capture_max": 0.5,
+    "long_capture_min": 0.9
+  },
+  "acquisition": {
+    "episodes": 16,
+    "minimum_successes": 4
+  },
+  "development": {
+    "rounds": 2,
+    "updates_per_round": 4,
+    "behavior_contexts": 16,
+    "replicates": 4,
+    "validation_roots": 16,
+    "teacher_episodes": 4,
+    "handoff_anchors": 8,
+    "qualification_roots": 8,
+    "support_radius": 0.15,
+    "agreement_ladder": [
+      0.1,
+      1.0,
+      10.0
+    ]
+  },
+  "evaluation": {
+    "roots": 64,
+    "capture_min": 0.9
+  },
+  "roots": {
+    "qualification_dev": 110000,
+    "qualification_confirm": 120000,
+    "acquisition": 210000,
+    "actor_training": 310000,
+    "actor_validation": 410000,
+    "handoff": 510000,
+    "controller_qualification": 610000,
+    "feedback_acquisition": 710000,
+    "evaluation": 910000
+  }
+}

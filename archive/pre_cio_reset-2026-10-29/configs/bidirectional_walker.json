@@ -1,0 +1,116 @@
+{
+  "schema": "bidirectional-walker-return-v1",
+  "task": {
+    "T": 600,
+    "walk_steps": 400,
+    "burnin": 125,
+    "settle_steps": 125,
+    "target_velocity": 1.5,
+    "walk_distance": 1.0,
+    "minimum_walk_mean_velocity": 0.75,
+    "settle_speed": 0.2,
+    "settle_joint_speed": 1.0,
+    "failure_penalty": 1000.0,
+    "frame_skip": 4,
+    "nthread": 4,
+    "velocity_weight": 2.0,
+    "vertical_velocity_weight": 0.5,
+    "angle_weight": 0.1,
+    "unhealthy_weight": 5.0,
+    "control_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0
+  },
+  "search": {
+    "K": 256,
+    "H": 48,
+    "temperature": 3.0,
+    "sigma": 0.3,
+    "smooth_candidates": 32,
+    "memory_candidates": 16,
+    "knot_spacing": 10,
+    "initial_iterations": 2
+  },
+  "native_noise": {
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2
+  },
+  "memory_scale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    5.0,
+    5.0,
+    5.0,
+    5.0,
+    5.0,
+    5.0,
+    5.0,
+    5.0,
+    5.0,
+    1.5,
+    1.0,
+    1.0,
+    5.0,
+    2.0,
+    1.0
+  ],
+  "actor_device": "cpu",
+  "actor_seed": 6000000,
+  "learning": {
+    "directions": 4,
+    "sigma": 0.02,
+    "cost_scale": 2800.0,
+    "beta": 1.0,
+    "learning_rate": 0.0003,
+    "gradient_clip": 0.5,
+    "seed": 6100000,
+    "frozen_parameter_names": [
+      "log_std"
+    ]
+  },
+  "updates": 6,
+  "feedback_rounds": 2,
+  "acquisition_fractions": [
+    0.5,
+    0.8
+  ],
+  "roots": {
+    "discovery": 720000000,
+    "planner": 730000000,
+    "training": 740000000,
+    "qualification": 750000000,
+    "held": 760000000,
+    "trial": 770000000,
+    "confirmation": 780000000
+  },
+  "gates": {
+    "training_gain": 1e-08,
+    "child_gain": 0.001,
+    "controller_gain": 0.001,
+    "capture_floor": 0.9,
+    "support_radius": 1.0
+  },
+  "validation": {
+    "root": 710000000,
+    "planner_seed": 710100000,
+    "tape_seed": 710200000,
+    "parity_atol": 1e-09,
+    "actor_probe": true
+  },
+  "budgets": {
+    "requested_controls": 350000000,
+    "neural_rows": 250000000,
+    "validation_controls": 876,
+    "validation_neural_rows": 600
+  },
+  "qualification_episodes": 8,
+  "held_episodes": 16,
+  "paid_full_protocol_repeat": false,
+  "novelty_claim": false
+}

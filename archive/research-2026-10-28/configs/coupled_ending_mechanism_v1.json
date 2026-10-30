@@ -1,0 +1,93 @@
+{
+  "schema": "outcome-coupled-ending-mechanism-v1",
+  "task": {
+    "gate": 12,
+    "delay": 12,
+    "move": 0.2,
+    "effort": 0.02,
+    "greed": 0.2,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "penalty": 20.0,
+    "ending_y": -0.1
+  },
+  "teacher_roots": [
+    1000,
+    1001,
+    1002,
+    1003
+  ],
+  "teacher_streams": [
+    0,
+    1
+  ],
+  "long_search": {
+    "K": 32,
+    "H": 25,
+    "temperature": 0.2,
+    "sigma": 0.8,
+    "smooth_candidates": 8,
+    "memory_candidates": 8,
+    "knot_spacing": 4,
+    "initial_iterations": 1,
+    "independent_block_lengths": []
+  },
+  "short_search": {
+    "K": 16,
+    "H": 4,
+    "temperature": 0.2,
+    "sigma": 0.8,
+    "smooth_candidates": 4,
+    "memory_candidates": 4,
+    "knot_spacing": 4,
+    "initial_iterations": 1,
+    "independent_block_lengths": []
+  },
+  "behavior_replicates": 64,
+  "behavior_seed": 41000,
+  "initial_std": 0.8,
+  "beta": 1.0,
+  "agreement": 1.0,
+  "scales": [
+    1.0,
+    1.0,
+    1.0,
+    20.0
+  ],
+  "return_scale": 1.0,
+  "diagnostic_learning_rate": 1.0,
+  "gradient_clip": 0.5,
+  "evaluation_roots": [
+    12000,
+    12001,
+    12002,
+    12003,
+    12004,
+    12005,
+    12006,
+    12007,
+    12008,
+    12009,
+    12010,
+    12011,
+    12012,
+    12013,
+    12014,
+    12015
+  ],
+  "max_producer_controls": 150000,
+  "max_verification_controls": 150000,
+  "criteria": {
+    "min_same_context_successes": 2,
+    "min_gradient_difference": 1e-10,
+    "min_teacher_score_difference": 1e-10,
+    "exact_proposal_replay": true,
+    "require_teacher_choice_change": true,
+    "exact_coupling_off": true,
+    "exact_states_and_components": true,
+    "cost_replay_atol": 1e-13,
+    "min_teacher_budget_difference": 1e-08
+  },
+  "scope": "Structural mechanism test plus one-step fixture outcomes; no learning-efficiency or physical-policy claim",
+  "contrast_selection": "first_declared_context_with_distinct_successful_budgets"
+}

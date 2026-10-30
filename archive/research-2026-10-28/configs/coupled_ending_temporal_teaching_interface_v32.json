@@ -1,0 +1,57 @@
+{
+  "actual_norm_atol": 1e-08,
+  "alphas": [
+    0.1,
+    0.03,
+    0.01,
+    0.003
+  ],
+  "beta": 1.0,
+  "capture_min": 0.9,
+  "derivative": {
+    "atol": 0.0001,
+    "epsilon": 0.001,
+    "rtol": 0.02
+  },
+  "evaluation_root": 91000000,
+  "evaluation_roots": 64,
+  "fractions": [
+    1.0,
+    0.5
+  ],
+  "inference_contract": "native_batch1_rows",
+  "max_backward_calls": 128,
+  "max_controls": 100000,
+  "max_neural_rows": 200000,
+  "max_optimizer_calls": 0,
+  "max_verification_backward_calls": 128,
+  "max_verification_controls": 100000,
+  "max_verification_neural_rows": 200000,
+  "max_verification_optimizer_calls": 0,
+  "minimum_child_gain": 0.001,
+  "minimum_training_gain": 1e-10,
+  "qualification_root": 90000000,
+  "qualification_roots": 16,
+  "radius": 0.01,
+  "schema": "temporal-outcome-teaching-interface-v32",
+  "scope": "Same-context temporal teaching interface; no acquired-state learning, new search authority, or completed-loop claim",
+  "solver": {
+    "certificate_atol": 1e-08,
+    "certificate_rtol": 1e-08,
+    "feasibility_atol": 1e-08,
+    "max_iterations": 256,
+    "solver_ftol": 1e-12
+  },
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "updates": 2
+}

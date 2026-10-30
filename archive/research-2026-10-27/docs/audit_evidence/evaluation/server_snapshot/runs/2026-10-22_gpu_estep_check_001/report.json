@@ -1,0 +1,40 @@
+{
+  "policy": "runs/2026-10-22_step9_adaptive_seed1/policy_014.pt",
+  "states": 1190,
+  "K": 256,
+  "H": 32,
+  "tail_steps": 100,
+  "gpu": {
+    "batch_64": {
+      "worlds": 16384,
+      "seconds": 58.228940750999755,
+      "seconds_per_label": 0.048931882984033406
+    },
+    "batch_128": {
+      "worlds": 32768,
+      "seconds": 48.067032388998996,
+      "seconds_per_label": 0.04039246419243613
+    }
+  },
+  "cpu": {
+    "states": 48,
+    "median_seconds_per_label": 1.979594251499293
+  },
+  "agreement": {
+    "label_diff_gpu_vs_cpu": {
+      "median": 0.07234414034427064,
+      "p95": 0.12355139800747131,
+      "max": 0.1338907741552443
+    },
+    "label_noise_two_seeds_gpu": {
+      "median": 0.134791287163682,
+      "p95": 0.2040544983884496
+    },
+    "lam_rel_diff_median": 0.06898395044877668,
+    "nominal_cost_rel_diff_median": 0.07893212422444391,
+    "expected_cost_rel_diff_median": 0.009570824032513262,
+    "plan_cost_rel_diff_median": 0.06392181598194527,
+    "gpu_batch_sizes_label_diff_max": 0.17812594338642443
+  },
+  "speedup_per_label_vs_one_cpu_thread": 49.00899935364653
+}

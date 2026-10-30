@@ -1,0 +1,55 @@
+{
+  "acquired_contexts": 8,
+  "acquired_steps": [
+    6,
+    12,
+    18,
+    21
+  ],
+  "arms": [
+    "original",
+    "precision"
+  ],
+  "capture_min": 0.9,
+  "child_auxiliary_rows": 200,
+  "evaluation_noise_seed": 112000,
+  "evaluation_roots": 64,
+  "evaluation_seed": 111000,
+  "learning": {
+    "aux_weight": 0.1,
+    "batch_size": 256,
+    "bootstrap_updates": 2000,
+    "clip_ratio": 0.2,
+    "epochs": 4,
+    "lr": 0.0003,
+    "max_grad_norm": 0.5,
+    "minimum_replicates": 2,
+    "return_scale": 25.0
+  },
+  "max_actor_rows": 77200,
+  "max_adam_steps": 112,
+  "max_controls": 22800,
+  "max_diagnostic_backward_passes": 4,
+  "minimum_complete_gain": 0.001,
+  "ordinary_contexts": 8,
+  "ordinary_seed": 110000,
+  "parent_label": "completion_r0_parent",
+  "precision_initial_std": 0.01,
+  "qualification_capture_min": 1.0,
+  "qualification_roots": 16,
+  "qualification_seed": 109000,
+  "replicates": 4,
+  "schema": "bidirectional-ending-precision-assay-v0",
+  "task": {
+    "delay": 12,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "effort": 0.02,
+    "ending_y": -0.1,
+    "gate": 12,
+    "greed": 0.2,
+    "move": 0.2,
+    "penalty": 20.0
+  },
+  "variance_intervention": "initial_log_std_only_once_then_trainable"
+}

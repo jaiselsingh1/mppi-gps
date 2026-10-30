@@ -1,0 +1,571 @@
+{
+  "held_out_reset_seeds": [
+    70000,
+    70049
+  ],
+  "raw_mppi_cell": {
+    "K": 32,
+    "H": 32
+  },
+  "raw_mppi": {
+    "episodes": 50,
+    "completed": 15,
+    "completion_rate": 0.3,
+    "completion_wilson95": [
+      0.19103553500880951,
+      0.437503504644534
+    ],
+    "velocity_mae": 0.39196646187446077,
+    "mean_seconds_alive": 3.3024
+  },
+  "arms": {
+    "step9_adaptive": {
+      "pooled": {
+        "episodes": 150,
+        "completed": 1,
+        "completion_rate": 0.006666666666666667,
+        "completion_wilson95": [
+          0.001177801335017433,
+          0.03679283977481815
+        ],
+        "velocity_mae": 0.9030024601515587,
+        "mean_seconds_alive": 1.85392
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-22_step9_adaptive_seed0/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.66006732604555,
+          "mean_seconds_alive": 1.60656
+        },
+        {
+          "source": "runs/2026-10-22_step9_adaptive_seed1/policy_024.pt",
+          "episodes": 50,
+          "completed": 1,
+          "completion_rate": 0.02,
+          "completion_wilson95": [
+            0.003539259271646236,
+            0.10495443589637815
+          ],
+          "velocity_mae": 0.5959479255236385,
+          "mean_seconds_alive": 2.57904
+        },
+        {
+          "source": "runs/2026-10-22_step9_adaptive_seed2/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 1.452992128885488,
+          "mean_seconds_alive": 1.37616
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-22_step9_adaptive_seed0/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.2681008641710892,
+              "lower": 0.224520631241085,
+              "upper": 0.31068594913354397,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step9_adaptive_seed1/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.27999999999999997,
+              "lower": -0.4200054525215181,
+              "upper": -0.13570177067029623,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 1,
+              "reference_only": 15,
+              "neither": 34,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.20398146364917769,
+              "lower": 0.1597337143387962,
+              "upper": 0.24727110115893372,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step9_adaptive_seed2/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 1.0610256670110272,
+              "lower": 0.9485465362666639,
+              "upper": 1.1737233504403555,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ],
+        "sac_800k": [
+          {
+            "source": "runs/2026-10-22_step9_adaptive_seed0/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.46222122170395025,
+              "lower": 0.448655011688816,
+              "upper": 0.47520821734283225,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step9_adaptive_seed1/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.98,
+              "lower": -0.9964607407283538,
+              "upper": -0.8690597634734527,
+              "n": 50,
+              "both": 1,
+              "candidate_only": 0,
+              "reference_only": 49,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.39810182118203874,
+              "lower": 0.3758688027972412,
+              "upper": 0.4210517644021072,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step9_adaptive_seed2/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 1.2551460245438881,
+              "lower": 1.1530170352681657,
+              "upper": 1.359498824065912,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    },
+    "step8r_fixed": {
+      "pooled": {
+        "episodes": 150,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "completion_wilson95": [
+          1.734723475976807e-18,
+          0.0249702443680766
+        ],
+        "velocity_mae": 0.8211449684099164,
+        "mean_seconds_alive": 1.5146133333333334
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-22_step8r_fixed_seed0/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.5673856075016013,
+          "mean_seconds_alive": 1.7676800000000001
+        },
+        {
+          "source": "runs/2026-10-22_step8r_fixed_seed1/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.7083578102430979,
+          "mean_seconds_alive": 1.74624
+        },
+        {
+          "source": "runs/2026-10-22_step8r_fixed_seed2/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 1.18769148748505,
+          "mean_seconds_alive": 1.0299200000000002
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-22_step8r_fixed_seed0/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.1754191456271405,
+              "lower": 0.13102871339717348,
+              "upper": 0.22142095468106446,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step8r_fixed_seed1/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.31639134836863714,
+              "lower": 0.2740411424324631,
+              "upper": 0.35869004691595313,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step8r_fixed_seed2/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.795725025610589,
+              "lower": 0.700940309070291,
+              "upper": 0.8959879911089219,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ],
+        "sac_800k": [
+          {
+            "source": "runs/2026-10-22_step8r_fixed_seed0/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.3695395031600016,
+              "lower": 0.3539613952356815,
+              "upper": 0.38709180883702643,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step8r_fixed_seed1/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.5105117059014982,
+              "lower": 0.4958177916174059,
+              "upper": 0.5255426206895413,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step8r_fixed_seed2/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.98984538314345,
+              "lower": 0.8988599532599287,
+              "upper": 1.0873990205475879,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    },
+    "sac_800k": {
+      "pooled": {
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "completion_wilson95": [
+          0.9286524008666414,
+          1.0
+        ],
+        "velocity_mae": 0.19784610434159977,
+        "mean_seconds_alive": 8.0
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+          "episodes": 50,
+          "completed": 50,
+          "completion_rate": 1.0,
+          "completion_wilson95": [
+            0.9286524008666414,
+            1.0
+          ],
+          "velocity_mae": 0.19784610434159977,
+          "mean_seconds_alive": 8.0
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+            "completion_difference": {
+              "difference": 0.7,
+              "lower": 0.5450881099088135,
+              "upper": 0.8089644649911905,
+              "n": 50,
+              "both": 15,
+              "candidate_only": 35,
+              "reference_only": 0,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": -0.19412035753286105,
+              "lower": -0.23482054783105125,
+              "upper": -0.155093749667683,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "arm_pairs": {
+    "step9_adaptive:step8r_fixed": [
+      {
+        "candidate": "runs/2026-10-22_step9_adaptive_seed0/policy_024.pt",
+        "reference": "runs/2026-10-22_step8r_fixed_seed0/policy_024.pt",
+        "completion_difference": {
+          "difference": 0.0,
+          "lower": -0.07134759913335872,
+          "upper": 0.07134759913335872,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 0,
+          "reference_only": 0,
+          "neither": 50,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": 0.09268171854394869,
+          "lower": 0.06943449294114243,
+          "upper": 0.11450162619964595,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": -0.16112,
+          "lower": -0.21472000000000002,
+          "upper": -0.10847600000000009,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      },
+      {
+        "candidate": "runs/2026-10-22_step9_adaptive_seed1/policy_024.pt",
+        "reference": "runs/2026-10-22_step8r_fixed_seed1/policy_024.pt",
+        "completion_difference": {
+          "difference": 0.02,
+          "lower": -0.05322182657801247,
+          "upper": 0.10495443589637815,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 1,
+          "reference_only": 0,
+          "neither": 49,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.11240988471945944,
+          "lower": -0.1361643674447732,
+          "upper": -0.08772574863183404,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": 0.8328,
+          "lower": 0.50288,
+          "upper": 1.213612,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      },
+      {
+        "candidate": "runs/2026-10-22_step9_adaptive_seed2/policy_024.pt",
+        "reference": "runs/2026-10-22_step8r_fixed_seed2/policy_024.pt",
+        "completion_difference": {
+          "difference": 0.0,
+          "lower": -0.07134759913335872,
+          "upper": 0.07134759913335872,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 0,
+          "reference_only": 0,
+          "neither": 50,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": 0.26530064140043813,
+          "lower": 0.11593294397254653,
+          "upper": 0.41280254139671246,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": 0.34624000000000005,
+          "lower": 0.23488000000000003,
+          "upper": 0.4547279999999999,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      }
+    ]
+  },
+  "wall_time_s": 105.68249464035034
+}

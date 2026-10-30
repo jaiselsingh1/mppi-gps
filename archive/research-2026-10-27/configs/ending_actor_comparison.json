@@ -1,0 +1,19 @@
+{
+  "schema": "ending-actor-comparison-v1",
+  "task": {"gate": 12, "delay": 12, "move": 0.2, "effort": 0.02, "greed": 0.2, "detour": 0.2, "detour_steps": 5, "penalty": 20.0, "ending_y": -0.1},
+  "seeds": [0, 1, 2],
+  "arms": ["full_return", "critic_prefix"],
+  "planner": {"K": 32, "H": 4, "temp": 0.2, "sigma": 0.8},
+  "qualification": {"roots": 12, "local_y": 0.8, "local_rate": 0.9, "max_gap_per_control": 0.04, "short_success_max": 0.1, "reference_success_min": 0.9, "capacity_success_min": 0.9, "cost_margin": 5.0},
+  "acquisition": {"episodes_per_horizon": 4, "train_per_horizon": 3},
+  "actor": {"initial_parameters": [0.0, 0.0, 0.0], "parameters": 3},
+  "search": {"updates": 24, "pairs": 8, "sigma": 0.3, "lr": 0.4, "maxnorm": 0.6, "cost_scale": 20.0},
+  "curriculum": {"guide_times": [6, 3, 0], "updates_per_stage": 8, "training_starts": 4, "validation_starts": 4},
+  "critic": {"prefix": 3, "centers": 48, "width": 0.25, "ridge": 0.01, "support_radius": 0.35, "extra_training_contexts": 4, "heldout_contexts": 4, "unsupported": "exact_frozen_base_tail"},
+  "acceptance": {"cost_margin": 0.000001, "training_and_validation_success_must_not_decrease": true, "proposals": ["bounded_ES", "best_eligible_perturbation"]},
+  "evaluation": {"every": 4, "development_roots": 16, "final_roots": 32, "success_rate": 0.9, "cost_margin_over_short": 5.0},
+  "diagnostic": {"every": 4, "pairs": 2, "roots": 2, "pair_rule": "pair_zero_and_largest_predicted_pair_difference"},
+  "budget": {"controls_per_seed_arm": 1000000, "audit_reserve_multiplier": 2, "stop_on_qualification_failure": true, "stop_on_budget": true},
+  "inference": {"paired_seed_bootstrap_replicates": 2000, "confidence": 0.95, "exploratory_seed_count": 3, "critic_help_success_margin": 0.1, "critic_help_cost_margin": 1.0},
+  "development_controls": 218
+}

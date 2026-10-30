@@ -1,0 +1,58 @@
+{
+  "schema": "bidirectional-ending-own-occupancy-assay-v0",
+  "task": {
+    "gate": 12,
+    "delay": 12,
+    "move": 0.2,
+    "ending_y": -0.1,
+    "effort": 0.02,
+    "greed": 0.2,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "penalty": 20.0
+  },
+  "learning": {
+    "lr": 0.0003,
+    "max_grad_norm": 0.5,
+    "epochs": 4,
+    "clip_ratio": 0.2,
+    "aux_weight": 0.1,
+    "batch_size": 256,
+    "bootstrap_updates": 2000,
+    "minimum_replicates": 2,
+    "return_scale": 25.0
+  },
+  "occupancy_roots": 16,
+  "occupancy_seed": 181000,
+  "probe_delta": 0.05,
+  "local_horizon": 4,
+  "gradient_rows": 200,
+  "gradient_sampling": "linspace_all_400_rows_including_postgate_zero",
+  "gradient_loss": "mean((bounded_mean-saved_actual_parent_mean)*detached_measured_slope/25)",
+  "arms": [
+    "full",
+    "local",
+    "null"
+  ],
+  "alphas": [
+    0.0625,
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "qualification_roots": 16,
+  "qualification_seed": 182000,
+  "qualification_noise_seed": 184000,
+  "evaluation_roots": 64,
+  "evaluation_seed": 183000,
+  "evaluation_noise_seed": 185000,
+  "minimum_complete_gain": 0.001,
+  "capture_min": 0.9,
+  "max_controls": 39600,
+  "max_model_controls": 10400,
+  "max_executed_controls": 29200,
+  "max_actor_rows": 80000,
+  "max_adam_steps": 84,
+  "max_diagnostic_backward_passes": 3
+}

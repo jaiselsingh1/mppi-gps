@@ -1,0 +1,37 @@
+{
+  "schema": "mujoco-point-mass-workflow-v1",
+  "environment": {
+    "frame_skip": 1,
+    "nthread": 1,
+    "use_warp": false,
+    "ctrl_cost_weight": 0.01,
+    "random_goal": true
+  },
+  "mppi": {
+    "K": 256,
+    "H": 64,
+    "noise_sigma": 0.5,
+    "lam": 0.01,
+    "use_is_correction": false,
+    "initial_iterations": 1
+  },
+  "validate": {
+    "reset_seed": 310000000,
+    "planner_seed": 410000000,
+    "tape_seed": 510000000,
+    "tape_steps": 8,
+    "K": 4,
+    "H": 8,
+    "parity_atol": 1e-12,
+    "max_physics_controls": 80,
+    "max_queries": 11
+  },
+  "qualify": {
+    "reset_seeds": [310000001, 310000002],
+    "planner_seeds": [410000001, 410000002],
+    "steps": 300,
+    "max_physics_controls_per_phase": 9831000,
+    "max_queries_per_phase": 1200,
+    "paid_phases": 2
+  }
+}

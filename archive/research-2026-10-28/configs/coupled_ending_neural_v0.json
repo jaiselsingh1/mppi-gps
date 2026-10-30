@@ -1,0 +1,114 @@
+{
+  "schema": "outcome-coupled-neural-ending-v0",
+  "mode": "develop",
+  "seed": 0,
+  "task": {
+    "gate": 12,
+    "delay": 12,
+    "move": 0.2,
+    "effort": 0.02,
+    "greed": 0.2,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "penalty": 20.0,
+    "ending_y": -0.1
+  },
+  "learning": {
+    "learning_rate": 0.0003,
+    "gradient_clip": 0.5,
+    "epochs": 4,
+    "ratio_clip": 0.2,
+    "beta": 1.0,
+    "return_scale": 25.0,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      20.0
+    ],
+    "hidden": 128,
+    "initial_std": 0.8
+  },
+  "teacher_roots": [
+    1000,
+    1001,
+    1002,
+    1003
+  ],
+  "teacher_streams": [
+    0,
+    1
+  ],
+  "long_search": {
+    "K": 32,
+    "H": 25,
+    "temperature": 0.2,
+    "sigma": 0.8,
+    "smooth_candidates": 8,
+    "memory_candidates": 8,
+    "knot_spacing": 4,
+    "initial_iterations": 1,
+    "independent_block_lengths": []
+  },
+  "short_search": {
+    "K": 32,
+    "H": 4,
+    "temperature": 0.2,
+    "sigma": 0.8,
+    "smooth_candidates": 8,
+    "memory_candidates": 16,
+    "knot_spacing": 4,
+    "initial_iterations": 1,
+    "independent_block_lengths": []
+  },
+  "full_memory_candidates": 16,
+  "planner_seed": 910000,
+  "agreement": 1.0,
+  "initial_updates": 96,
+  "child_updates": 24,
+  "rounds": 2,
+  "qualification_every": 8,
+  "ordinary_replicates": 8,
+  "acquired_replicates": 4,
+  "acquired_times": [
+    4,
+    8
+  ],
+  "ordinary_qualification_roots": 16,
+  "standalone_roots": 64,
+  "handoff_times": [
+    0,
+    4,
+    8
+  ],
+  "handoff_perturbations": [
+    -0.01,
+    0.0,
+    0.01
+  ],
+  "support_radius": 0.15,
+  "control_trial_roots": 8,
+  "control_confirmation_roots": 8,
+  "control_evaluation_roots": 16,
+  "acquisition_roots": 4,
+  "agreement_ladder": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "capture_min": 0.9,
+  "minimum_control_gain": 0.001,
+  "minimum_child_gain": 0.001,
+  "max_controls": 10000000,
+  "max_neural_rows": 5000000,
+  "max_optimizer_calls": 800,
+  "max_backward_calls": 810,
+  "max_verification_controls": 10000000,
+  "max_verification_neural_rows": 5000000,
+  "max_verification_optimizer_calls": 800,
+  "max_verification_backward_calls": 810,
+  "transition_atol": 0.0,
+  "neural_atol": 1e-06,
+  "optimizer_atol": 0.0,
+  "scope": "One-seed finite open development; no physical-task or all-cost efficiency claim"
+}

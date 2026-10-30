@@ -1,0 +1,147 @@
+{
+  "schema": "walker-cio-mppi-v2",
+  "episode_steps": 1000,
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true,
+    "nthread": 16
+  },
+  "mppi": {
+    "K": 256,
+    "H": 48,
+    "lam": 3.0,
+    "noise_sigma": 0.3,
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2,
+    "use_is_correction": false,
+    "initial_iterations": 2
+  },
+  "policy": {
+    "hidden": 128,
+    "device": "cpu",
+    "seed": 20261029
+  },
+  "learning": {
+    "updates": 2000,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "eta_theta": 0.01,
+    "seed": 910000000,
+    "prox_reduction": "mean",
+    "anchor_refresh": 250
+  },
+  "coupling": {
+    "eta_u": 0.01,
+    "rho_fractions": [
+      0.05,
+      0.2
+    ],
+    "calibration_per_episode": 16,
+    "teacher_cost_tolerance": 0.05,
+    "minimum_agreement_gain": 0.05,
+    "provisional_support_radius": null,
+    "repeat_grid_after_policy_change": false
+  },
+  "discovery_episodes": 4,
+  "feedback_rounds": 2,
+  "qualification_episodes": 16,
+  "held_episodes": 16,
+  "trial_pairs": 2,
+  "confirmation_pairs": 2,
+  "feedback_supervision": {
+    "snapshots_per_episode": 8,
+    "perturbations_per_snapshot": 2,
+    "height_std": 0.002,
+    "angle_std": 0.005,
+    "velocity_std": 0.02
+  },
+  "gates": {
+    "minimum_successes": 15,
+    "velocity_mae": 0.3,
+    "relative_cost_gain": 0.001,
+    "action_change_atol": 1e-06,
+    "child_cost_gain": 0.001,
+    "child_survival_gain": 0.0,
+    "standalone_required_for_provisional_teacher": false
+  },
+  "roots": {
+    "diagnostic_evaluation": 941000000,
+    "recovery": 942000000,
+    "trial": 943000000,
+    "confirmation": 944000000,
+    "children": 945000000,
+    "held": 946000000,
+    "planner": 947000000,
+    "posthoc": 948000000
+  },
+  "budgets": {
+    "requested_controls": 350000000,
+    "neural_rows": 150000000
+  },
+  "claim": "Versioned development: test fitting, local recovery coverage and early co-adaptation. Continuous child progress is separate from standalone deployment; no efficiency claim.",
+  "stage": "fit",
+  "experience_run": "runs/2026-10-29_walker_cio_mppi_001",
+  "fit_run": "runs/2026-10-29_cio_fit_v2_001",
+  "diagnostics": {
+    "arms": [
+      "Alegacy",
+      "Bfree",
+      "Cmean100",
+      "Cmean250",
+      "Dpadded",
+      "Ehistory"
+    ],
+    "checkpoints": [
+      2000,
+      10000
+    ],
+    "primary_parent": "Bfree",
+    "primary_updates": 10000,
+    "evaluate_at_10000": [
+      "Alegacy",
+      "Bfree",
+      "Cmean100",
+      "Cmean250",
+      "Dpadded",
+      "Ehistory"
+    ],
+    "evaluate_at_2000": [
+      "Alegacy",
+      "Bfree"
+    ],
+    "normalization_floor": 0.05
+  },
+  "recovery": {
+    "anchors": [
+      125,
+      375,
+      625,
+      875
+    ],
+    "repeats": 2,
+    "impulse_steps": 2,
+    "recovery_steps": 32,
+    "noise_std": 0.15,
+    "endpoint_floor": 0.1,
+    "endpoint_ratio": 0.9,
+    "last_cost_slack": 0.2
+  },
+  "posthoc": {
+    "actor_episodes": 2,
+    "points_per_episode": 4,
+    "teacher_contexts": [
+      0,
+      1
+    ],
+    "rng_repeats": 2
+  }
+}

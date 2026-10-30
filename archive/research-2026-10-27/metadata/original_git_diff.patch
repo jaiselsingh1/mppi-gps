@@ -1,0 +1,613 @@
+diff --git a/docs/experiment_log.md b/docs/experiment_log.md
+index f04860b..e71f04a 100644
+--- a/docs/experiment_log.md
++++ b/docs/experiment_log.md
+@@ -4249,6 +4249,608 @@ reward-learning study remains a draft until the diagnostic is recorded.
+   against the log and available raw reports; no training was launched for
+   this documentation request.
+ 
++### Coupled planner/value pilot: stopped by action-bounds error (2026-10-25)
++
++- User authorized redesign, implementation and a training run, then explicitly
++  selected the coupled planner/value controller first, without a standalone
++  neural actor. [Design](coupled_planner_value.md).
++- Reciprocal loop: execute the deployed controller, acquire fresh reachable
++  continuation starts, measure complete fixed-reference restart returns, fit
++  a direct Monte Carlo value, independently qualify a proposed guided planner,
++  and collect later experience under the accepted version. No Bellman target
++  network, action cloning or policy-centered MPPI proposal is used.
++- The continuation oracle is frozen raw MPPI plus the initial memory archive,
++  freshly initialized once per query. Only each query's root return labels that
++  restart value; retained-plan interior suffixes are not mislabeled. It is not
++  the changing guided controller's value or an actor-only value.
++- Strong control: independent MPPI with an evolving archive. Retrieved nearby
++  and known low-cost action fragments are resimulated from the current state.
++  Both arms receive the same acquisition schedule and can reuse full measured
++  query traces. Additional guided verification/qualification work is charged,
++  rather than padding the control with useless simulation.
++- Frozen pilot:24cycles,seed0,N1000/gamma.999,K32/H48,4bootstrap episodes,
++  2collection episodes and16continuation starts per arm/cycle,8workers.
++  Guidance starts0, proposes increments.1 up to.5, and needs direct fresh
++  selected-endpoint checks plus six paired full-episode development tests
++  against same-archive memory and prior incumbent. Gates are empirical.
++- Initial/every4cycle development panels use16common resets23000000–23000015.
++  Final64fresh paired resets24000000–24000063 stay outside fitting and
++  qualification. Starts alternate ordinary and declared modest angle/velocity
++  perturbations. Gate>=90%8second survival AND<=.30m/s speedMAE; this is one
++  paired training seed, not robustness or sample-efficiency evidence.
++- Validation:95focused tests passed; two additional development/final plot
++  separation checks passed. Two-cycle real-MuJoCo integration completed locally
++  and on the server with source unchanged. N64 smoke is not walking evidence.
++  The initial smoke exposed a strict-JSON unsupported-distance edge case,
++  which was fixed before the successful source freeze.
++- Launched2026-10-25T22:05:18Z (18:05:18 America/New_York),driver462067,
++  isolated checkout `/home/jaisel/mppi-gps-coupled-value-20261025-u8n7a154`.
++  Study `runs/2026-10-25_coupled_value_walker_seed0_001`. All15training source
++  files are archived and hashed; previous studies remain unchanged.
++- Status: **failed during cycle3 qualification after2/24completed cycles**.
++  Driver exited with the strict Walker action-bound check. All15remote source
++  hashes still match the frozen protocol; full study/logs/checkpoint were
++  mirrored locally. No final64-reset panel ran and no learned guidance was
++  accepted in the two committed cycles. The first fitted value's normalized
++  held-out RMSE.402774 exceeded the.35gate; incumbent was retained.
++- Read-only diagnosis reproduced a numerical bounds failure: a convex mean
++  of40bounded plans can equal1.0000000000000002 despite normalized weights.
++  The actual failing action was not recorded, so its exact cause/value remains
++  unconfirmed. The local proposed correction clips the guided mean BEFORE
++  physical verification and executes that same verified sequence, retaining
++  strict simulator validation. Both+/-boundary regressions fail before the
++  correction;82focused checks pass afterward. Remote frozen source unmodified.
++- [Failure record](../runs/2026-10-25_coupled_value_walker_seed0_001/failure_record.json)
++  and [proposed correction](../runs/2026-10-25_coupled_value_walker_seed0_001/proposed_bounds_fix.patch)
++  preserve the diagnosis. Recorded work is a lower bound because the failed
++  candidate qualification panel did not return its partial worker ledgers.
++  The saved monitor instruction requires a new user-reviewed study after a
++  source-changing repair. The user approved the correction and fresh `_002`
++  trial below. The failed-run completion monitor was deleted rather than
++  polling a stopped process.
++
++### Corrected coupled planner/value pilot: completed, no learned-guidance gain (2026-10-25–26)
++
++- User explicitly approved a fresh corrected24-cycle trial. The original
++  failed `_001` study, frozen source and results remain preserved unchanged.
++- Only production change: clip the guided weighted mean to native actuator
++  bounds BEFORE physical verification, then store/execute that verified plan.
++  Strict Walker action validation remains intact. Both +/-boundary regressions
++  fail before the correction;82focused local tests and16server planner tests
++  pass afterward. No training configuration or objective was changed.
++- Independent audit compared every15manifest inputs: only
++  `src/gps/coupled_planner.py` differs, and the full configuration matches `_001`.
++  This is a fresh run from bootstrap, not a checkpoint resume. Its24cycles and
++  work counters are separate from the failed study.
++- Launched2026-10-25T23:08:05Z (19:08:05 America/New_York),driver494098,
++  checkout `/home/jaisel/mppi-gps-coupled-value-corrected-20261025-ia7kl_2h`,
++  study `runs/2026-10-25_coupled_value_walker_seed0_002`.
++- Verified driver alive inbootstrap phase, all15source hashes matching, no
++  prior coupled training driver alive. Source/configuration and lineage are
++  recorded separately in the new checkout and local launch record.
++- Status: **complete,24/24 ordered cycles, source unchanged**. Both runtime
++  and archived copies match all15 frozen source hashes. Final64 common fresh
++  resets24000000–24000063 were evaluated for1000controls outside fitting and
++  qualification. Entire study and sibling launch/log were copied locally.
++  No standalone actor was trained or evaluated; no retuning or extra seed ran.
++- Final designated value-arm incumbent: **41/64 survival**,5.913375s mean
++  alive, speed MAE.467289508m/s, finite discounted cost1273.14976049.
++  Memory baseline: **35/64**,5.533625s,.459991959m/s,cost1369.50671091.
++  **Both fail** the joint>=90% survival and<=.30m/s speed-MAE walking gate.
++- Learned guidance was deployed on **zero controls**, with0/24 promotions.
++  Four alpha.1 candidates (cycles3,4,14,15) all failed the selected-endpoint
++  error gate; normalized RMSEs.3324,.5794,.5758,.4082 exceeded.20. Other
++  cycles lacked a model or holdout eligibility. The final value remained
++  ineligible:234 training/89 held labels, normalized holdout RMSE.40582
++  (raw788.77). Archive refresh/retention differed between arms (14 refreshes,
++  10 retains in the designated value arm), so its numerical final advantage
++  **cannot be attributed to learned value**.
++- Paired reset bootstrap95% intervals also include zero: survival difference
++  +.09375[-.0625,.23438], cost difference-96.357[-363.3,171.01], MAE difference
++  +.00730[-.02908,.04396]. These condition on one paired training seed.
++- Actual work:851,178 executed/prefix controls plus1,642,602,480 modeled
++  candidate/archive/verification control slots; these categories are separate.
++  Excluding evaluation:591,454 executed/prefix and1,130,924,976 modeled slots.
++  Qualification consumed229,398 executed/prefix and451,336,080 modeled slots,
++  about39.9% of nonevaluation modeled work. There is no sample-efficiency win.
++  Elapsed20,435.78s (5h40m36s). Failed `_001` work is not included here.
++- [Final report](../runs/2026-10-25_coupled_value_walker_seed0_002/comparison.md),
++  [raw comparison and provenance](../runs/2026-10-25_coupled_value_walker_seed0_002/comparison.json),
++  [development curves](../runs/2026-10-25_coupled_value_walker_seed0_002/training_curves.png)
++  and [fresh final panel](../runs/2026-10-25_coupled_value_walker_seed0_002/final_metrics.png).
++  Final evidence was delivered and completion monitor
++  `track-corrected-coupled-value-trial` was deleted. The separate paired-endpoint
++  study and its monitor continue. The following interim records are historical,
++  not final results.
++- Interim qualification audit through **14/24 completed cycles** (2026-10-26
++  UTC): deployed alpha has remained zero. Cycle1 had no fitted value;
++  ten cycles failed the holdout RMSE threshold, and cycles3,4,14 passed
++  holdout eligibility but all failed the independent selected-endpoint audit.
++  Their normalized endpoint RMSEs were .332,.579,.576 against the .20 limit.
++  In cycle14 the alpha.1 candidate passed the empirical full-episode gate:
++  mean cost1474.78 versus1621.76 for the SAME archive without value and1904.56
++  for the incumbent; survival3/6 versus3/6 and2/6, respectively. It was still
++  rejected on endpoint accuracy. This is a small development-panel signal,
++  not a demonstrated dependable value benefit or a final walking result.
++- Latest cycle14 fit used184 measured labels from28 collection-episode
++  groups, with137 training and47 held-out labels. Holdout normalized RMSE
++  was .317 (raw RMSE761.73), supported fraction93.6%. The model is refitted
++  from fresh weights each cycle and the newest-group holdout changes;
++  cross-cycle errors are not a fixed-test learning curve. Constant/nearest-
++  neighbor prediction baselines and endpoint ranking accuracy were not
++  logged, so these records do not establish predictive improvement over
++  simpler estimators. All15 frozen source hashes still match. The
++  [retrospective gate report](../runs/2026-10-25_coupled_value_walker_seed0_002/supervision/qualification_review_20261026T0222Z/report.md)
++  and its plot use existing JSON only; training remains unchanged.
++- Follow-up failure diagnosis reproduced four frozen models' held/audit errors
++  within1e-5. On the fixed cycle14 split, neural train/held RMSE=.1000/.3173;
++  fixed linear ridge=.2538 held and5NN=.2953. Pooled train-only ridge=.2466.
++  Every tested alternative still failed selected-endpoint RMSE<=.20; the best
++  tested pooled5NN was.2829. Nine of ten valid supported audit predictions
++  underestimated measured return; this sparse single-seed evidence does not
++  establish expected bias. One endpoint predicted395 versus2837 measured.
++- A real-MPPI deterministic-noise proof exposed a separate control defect:
++  positive alpha could discard an unsupported local winner even with80%
++  healthy endpoint support and constant values. Local future-use code now
++  abstains for the whole decision when that winner lacks support. Added
++  train-error/train-only-mean diagnostics;63 focused tests pass. These changes
++  were NOT copied into the active checkout. The broader paired-endpoint
++  acquisition/ranking/noise repair is specified, not launched; see
++  [failure analysis and repair](coupled_value_failure_analysis.md).
++- At16/24 completed cycles, fresh periodic development evaluation: value-arm
++  incumbent11/16 survivors,6.348s,MAE.45575,cost1146.08; memory12/16,6.639s,
++  MAE.50883,cost1113.75. Both deployed alphas remain0; neither passes the joint
++  walking gate and differences cannot be credited to learned value. Cycle17
++  collection is active; all15 remote runtime/archive source hashes still match.
++
++### Paired-endpoint acquisition repair: fresh Walker pilot (2026-10-25)
++
++- User explicitly authorized implementation, tests and a fresh training run
++  against memory, preserving the existing corrected `_002` walking study.
++- Implemented independent-MPPI fixed-bank reranking, bounded baseline-relative
++  value corrections, whole-decision unsupported-baseline fallback and full
++  known finite fall costs. The same physically verified sample/memory/raw-mean
++  bank is used by both controllers; there is no learned weighted mean or actor.
++- Training now measures8 root-balanced candidate/baseline decision pairs per
++  cycle, with2 matched reference suffix seeds per side (at most32 suffix
++  queries). A rejected shadow model still selects future TRAIN endpoints.
++  Guided training uses deployment's same bounded relative score, ignoring
++  support for acquisition only; uniform queries and equal pairs remain.
++- A19-parameter ridge value fits actual suffix returns and paired differences.
++  Whole root groups define held data. Calibration separately measures ACTUAL
++  deployed candidate versus baseline with cached original predictions and
++  replayed endpoint discrepancy. Fresh pair and full-controller gates must
++  both pass. Calibration/qualification never enter fitting or the archive.
++- Both arms receive the exact same unconditional TRAIN-only archive; hashes
++  verify equality. The bootstrap reference archive remains fixed. Pair repeats,
++  prefix replays, rejected work, qualification and all evaluations are charged.
++- Validation:132 focused local tests,69 server tests, three-cycle local and
++  server Walker smokes, source/archive/ledger report validation, and interrupted
++  evaluation/checkpoint recovery checks passed. Smokes use disjoint validation
++  seed offsets8/9 and are not walking evidence. The final server smoke includes
++  production K32/H48 with a shorter64-control episode; the new full study uses
++  1000 controls. Validation artifacts are under
++  `runs/paired_endpoint_validation/{smoke_002,server_smoke_002}/`.
++- Launched2026-10-26T03:22:05Z (**Oct25 23:22 EDT**), PID625471, isolated checkout
++  `/home/jaisel/mppi-gps-paired-endpoint-20261025-bc557cqb`, study
++  `runs/2026-10-25_paired_endpoint_walker_seed0_001`. Frozen20-file manifest,
++  24cycles, seed0,6workers. Final panel64 fresh common resets36000000–36000063;
++  reserved5000000–5000199 and original study sources/panels remain untouched.
++- Final status: **complete,24/24 cycles**. Both final arms are exactly identical
++  at alpha0:43/64 eight-second survivors,6.214125s alive,.440649467m/s speed MAE,
++  finite discounted cost1185.201680, learned scoring/action changes0. Both fail
++  the joint walking gate. One guidance promotion after cycle10 was revoked
++  after cycle11; no retained guidance benefit. All20 frozen runtime/archive
++  hashes and common arm archive digests match. See the final evidence entry
++  below and [full completion audit](../runs/2026-10-25_paired_endpoint_walker_seed0_001/supervision/completion_evidence.md).
++- Interpretation clarified with user: original aim is long-term global
++  guidance improving independent MPPI exploration/sample efficiency. This is
++  a bounded diagnostic of fitting/ranking reachable decisions, not a supplied
++  solution to acquiring never-observed successful behavior. No standalone
++  neural policy, seed robustness or efficiency claim follows from this pilot.
++- [Design](paired_endpoint_study.md),
++  [launch record](../runs/2026-10-25_paired_endpoint_walker_seed0_001/launch.json),
++  [server validation](../runs/paired_endpoint_validation/server_smoke_002/comparison.md).
++
++### Learned acquisition of independent MPPI searches: bounded local assay (2026-10-25)
++
++- User requested a concrete learned acquisition mechanism and a comparison
++  against search plus memory, explicitly leaving the active walking trial
++  unchanged. Implemented and ran locally in the separate workbench directory
++  `/Users/jaisel/Documents/workbench/mppi_learning_mechanism/learned_acquisition_20261025`.
++  No remote source, configuration, process or training budget was changed.
++- Mechanism: online ridge regression predicts the measured binary yield of a
++  complete fixed-budget MPPI request from its visible six-dimensional gate
++  descriptor. Predictions plus heuristic optimism allocate new searches;
++  20% uniform exploration remains. MPPI's nominal, noise, stage cost and
++  actual continuous weighted-mean actions remain independent. Only executed
++  crossings unlock successor contexts; candidate simulations cannot do so.
++- Deliberately narrow toy:24serial rooms with12gates each, six continuous
++  double-integrator controls per gate. A shared dense descriptor-to-actuator
++  relation provides the explicit transfer assumption. The negative control
++  replaces descriptors with independent vectors while preserving physical
++  dynamics and request randomness exactly. All infeasible worlds were kept;
++  none of the fixed16world seeds was regenerated. Composition is trivial in
++  this serial topology; this is not walking or delayed-credit evidence.
++- Fixed protocol before outcome inspection:16paired world seeds, two feature
++  conditions, four methods,76,000control cap per method/world and no retuning.
++  All128runs finished; all16worlds completed in every arm/condition.17focused
++  integrity tests passed; source/configuration hashes stayed unchanged.
++- Structured-condition median simulated controls to independently certified
++  ordinary-root completion: search+memory15,663; feature-kNN memory9,244;
++  ridge acquisition8,589; direct constant-action search+memory672. Productive
++  MPPI request rates were42.38%,69.44%,75.89%, respectively. Certification,
++  replay and failed searches are included. MPPI requests cost262controls
++  (240candidate+15mean verification+6executed+1entry); direct requests cost7.
++- Ridge beat ordinary MPPI search+memory in16/16paired worlds, median paired
++  ratio.556989. It beat the stronger kNN memory in12/16, ratio.905585: **the
++  predeclared joint criterion failed**, because it required ratio<=.8 against
++  both controls. No budget/representation/hyperparameter extension followed.
++- With uninformative descriptors the ridge median returned to15,663controls;
++  wins7/16against both MPPI controls, median ratios1.023851/1.0. Common-data
++  frozen-prefix held-out AUC was.93483ridge/.86254kNN with structure, versus
++  .48423/.48978without it. Predictive transfer and conditional query-allocation
++  benefit are supported in this declared family; a general exploration
++  mechanism is not established.
++- Direct search defeated ridge on every seed, using a median paired12.517x
++  fewer controls. The monotone toy does not justify MPPI's computation, so
++  there is **no overall sample-efficiency win** over the cheapest control.
++  All arms/conditions together used1,289,440actual simulated controls.
++- [Full report](/Users/jaisel/Documents/workbench/mppi_learning_mechanism/learned_acquisition_20261025/results/report.md),
++  [frozen specification](/Users/jaisel/Documents/workbench/mppi_learning_mechanism/learned_acquisition_20261025/specification.json),
++  [complete results](/Users/jaisel/Documents/workbench/mppi_learning_mechanism/learned_acquisition_20261025/results/results.json)
++  and raw per-query compressed ledgers are preserved separately from Walker.
++
++### Continuous acquisition follow-up: development checks and Walker pilot (2026-10-25)
++
++- User requested a continuous-control task where planning matters, comparing
++  learned acquisition with nearest-neighbor memory while retaining the active
++  remote walking run unchanged. All new work runs locally under the separate
++  workbench; no active training source/configuration/process was changed.
++- Two inertial slalom/docking development checks failed their fixed suitability
++  gates. V1: MPPI4/8, equal-query shooting2/8, straightPD0/8, waypointPD4/8.
++  The single disclosed V2 revision raised shared terminal-speed cost.8 to8
++  and used fresh development scenes: MPPI2/8, shooting0/8, straightPD0/8,
++  waypointPD7/8. Different scenes prevent a causal V1/V2 coefficient claim.
++  Cheap waypoint feedback defeats the premise that MPPI is needed here;
++  no primary acquisition experiment ran in either slalom version.13tests
++  passed in each. All64requests and2,425,024control slots are preserved in
++  `workbench/mppi_learning_mechanism/continuous_acquisition[_v2]_20261025`.
++- Actual Walker2D planning qualification passed on eight fresh26m resets,
++ 250controls(2seconds), raw independentK32/H48 MPPI without actor/value/archive:
++ 8/8survival,2.656m meanforwardprogress,.492m/s MAE. Zero0/8, constant+.25
++ 1/8, uniformrandom0/8. All32traces/counts audited;3,088,827totalcontrol
++ intervals. This shows usefulness against these cheap controls, not unique
++ MPPI necessity or reliable8-second walking. Qualification source unchanged.
++- A prospective eight-reset-bank acquisition pilot is running locally under
++  `/Users/jaisel/Documents/workbench/mppi_learning_mechanism/walker_acquisition_20261025`.
++  Each bank collects6ordinary-root80-control rawMPPI prefixes and healthy
++  physical/solver snapshots at0/16/32/48/64/80. First2roots supply shared
++  measured training targets; remaining4roots supply candidate query starts.
++  Each selector funds8new250-control rawMPPI continuations, reexecuted in
++  actual MuJoCo even when another selector queried the same start. No actor
++  or learned value changes local MPPI actions, nominal, noise or task costs.
++- Primary: ridge versus kNN on mean finite250-control cost, requiring>=6/8
++  strictpairedwins, median costratio<=.8 and no fewer productive queries.
++  Both rank predicted means with identical20%uniform exploration and zero
++  optimism bonus. Uniform outcome-memory control and shuffled-feature
++  condition are retained. Sources/common targets are executed once globally
++  and attributed once per standalone arm; all online work is actually
++  reexecuted and charged. No equal-actual-control-cost claim is made because
++  early falls have different physical query lengths.
++- 11focused integrity tests and independent pre-run audit passed. The audit
++  caught and corrected a residual kNN distance bonus before any primary
++  outcomes; regression now verifies both zero-bonus paths. Sources/config
++  were frozen at launch. This tests selecting useful continuations from a
++  fixed already-reached bank; recursive frontier growth, first discovery,
++  standalone policy improvement and8-second walking remain untested.
++- Status: **complete, negative primary result**. All8banks/48method-condition
++  runs/384onlinequeries and96common targets completed without retuning;
++  288healthy source snapshots were recorded. Declared source/configuration
++  hashes remained unchanged. Independent audit reconciled all raw traces,
++  costs/labels, decisions and ledgers, including239exact repeated physical
++  requests across independently executed methods/conditions.
++- Physical-state mean finite costs: uniform322.631, kNN293.736, ridge322.842.
++  Productive requests48/64,52/64,47/64, respectively. Ridge won only2/8
++  paired banks against kNN; median cost ratio1.145348 (14.5%higher), soall
++  three predeclared gates failed. Against uniform it won3/8,ratio1.0057.
++  No improvement over nearest-neighbor outcome memory was demonstrated.
++- Shuffled correspondence also failed: ridge4/8wins versus kNN, ratio1.0082,
++  productive52/64 versus54/64. This single permutation breaks correspondence
++  within a correlated snapshot bank; it is not an independent feature family.
++- Physical acquisition work:5,975,808source controls,33,972,215common-target
++  controls,135,552,257independently reexecuted online controls, totaling
++  **175,500,280**. Per-arm attribution repeats the shared dataset and must
++  not be summed as experimental actual work. Source/target collection is a
++  large part of the cost. No exploration or sample-efficiency win follows.
++- Elapsed1052.807seconds locally with8workers. The11focused tests passed;
++  the completion audit required0new simulation queries. Qualification and
++  two failed slalom panels remain disclosed separately; unit/smoke validation
++  is not part of the primary comparison's control ledger.
++- [Full report](/Users/jaisel/Documents/workbench/mppi_learning_mechanism/walker_acquisition_20261025/acquisition_results/report.md),
++  [comparison](/Users/jaisel/Documents/workbench/mppi_learning_mechanism/walker_acquisition_20261025/acquisition_results/comparison.json),
++  [complete physical audit](/Users/jaisel/Documents/workbench/mppi_learning_mechanism/walker_acquisition_20261025/acquisition_results/audit_completed.json)
++  and numeric query traces are preserved. At this acquisition experiment's
++  completion the remote corrected walking study continued independently,
++  unchanged; its later final outcome is recorded above.
++
++### Frozen planner mechanism diagnostic: completed (2026-10-26)
++
++- User authorized three diagnostics and a concrete repair recommendation,
++  retaining both walking studies unchanged. Separate frozen checkout
++  `/home/jaisel/mppi-gps-mechanism-diagnostic-20261026-qx6enam1` completed
++  all phases in2909.52s. No fitting, new training, promotion or retuning ran.
++- Frozen MLP after22 coupled cycles and ridge after2 paired-endpoint cycles
++  each used four fresh roots (42000000–3 and42000100–3), their OWN fixed
++  reference/incumbent archive and a common paired-bank implementation.
++  Different data, ages, roots and references prevent an architecture comparison;
++  the MLP probe does not reproduce its original extra learned-mean controller.
++- At decision128, preselected three distinct plans/root before return queries.
++  Two discovery repeats selected an endpoint oracle; four disjoint confirmation
++  repeats assessed it. Four separate matched repeats measured each first
++  action plus actual retained-state replanning. Oracle/baseline nominal handoff
++  and repeated unqualified alpha.1 guidance were also predeclared.
++- Diagnostic1: all8 discovery oracles selected baseline. Primary endpoint,
++  first-action and oracle-handoff contrasts therefore equal zero by identity.
++  No confirmed nonbaseline endpoint improvement was established; the small
++  bank and noisy two-seed selector do not rule out useful alternatives.
++- Diagnostic2: healthy-pair normalized difference RMSE.3993 MLP/.5653 early
++  ridge; point-sign counts3/4 and1/6. A supported MLP nominee predicted342.57
++  cost benefit yet measured1820.17 worse (paired SE379.62). All15 healthy
++  H-prefix replays match batch states exactly; nine stopped-fall states are
++  incomparable with padded H-step states, not replay errors.
++- Common bounded scoring changed0/8 captured actions: three banks had no
++  healthy H-plan; three baselines lacked support; the remaining two eligible
++  local gaps20.1396/3.46468 exceeded even maximumalpha.5 correction3. A larger
++  cap alone would expose current ranking errors. This is local capture evidence,
++  not a claim that value can never influence later decisions.
++- Diagnostic3: H-commitment/reference and one-action/retained-MPC rankings
++  differed, with large errors and noisy counterfactual differences. At42000003
++  all H-plans fell but baseline-first-action replanning survived4/4 suffixes.
++  Different commitments, reset/nominal and archives mean this does not isolate
++  a single causal mismatch. All-baseline oracles also prevent a nonbaseline
++  benefit-transfer or handoff-repair claim.
++- Repeated UNQUALIFIED alpha.1 common-bank guidance: MLP mean cost delta-197.52,
++  root means[-350.26,0,-449.94,+10.10], descriptive root-bootstrap95%
++  [-400.10,+5.05],691/10,393 changed actions. Tentative positive signal only;
++  no qualification or reliability claim. Early ridge delta-1.39, with one
++  changed action in11,064; practically inactive. These were diagnostic forks,
++  never deployed in either training study.
++- Exact ledger:118,356 executed controls;180,182,016 candidate,45,007,872 memory
++  and5,625,984 verification control slots;117,208 planner calls. Independent
++  audit reproduced72 result files/282 traces,80 distinct root/role seed values,
++  all141 archived source hashes,10 input hashes and every cost/work total.
++  All24 diagnostic integrity tests pass, including a physical equal-first-action
++  test: differing unexecuted tails yield bitwise-identical production credit
++  when future nominal/RNG are identical. No performance benefit is assumed.
++- Recommend controller-consistent frozen-epoch value iteration: evaluate the
++  ACTUAL deployed controller with its retained planner state, use complete
++  episodes' correctly grouped interior MC suffixes plus paired candidate-FIRST-
++  action forks, and train/qualify the next independent-MPPI reranker against
++  the same archive. Then re-evaluate the accepted controller, rather than
++  permanently predicting a canonical-restart initial reference. This is an
++  approximate policy-iteration repair, not a new exploration principle.
++  Dense labels are correlated and cannot invent undiscovered behavior.
++- [Numerical report](../runs/2026-10-26_planner_mechanism_diagnostic_001/comparison.md),
++  [complete comparison](../runs/2026-10-26_planner_mechanism_diagnostic_001/comparison.json),
++  [figure](../runs/2026-10-26_planner_mechanism_diagnostic_001/mechanism_diagnostics.png),
++  [independent audit](../runs/2026-10-26_planner_mechanism_diagnostic_001/independent_integrity_audit.json),
++  [protocol](planner_mechanism_diagnostic.md) and
++  [findings and concrete repair](planner_mechanism_findings.md).
++
++### Actual-replanning value repair: implemented, validated and launched (2026-10-26)
++
++- User authorized implementing/testing the controller-consistent repair and a
++  fresh memory comparison, explicitly keeping the existing paired-endpoint
++  run unchanged. New modules `replanning_planner`, `replanning_rollout` and
++  `replanning_value`, new driver/report and tests were added separately; none
++  of the older production files was edited for this repair. The protected
++  active checkout still matches all20 runtime AND archived hashes.
++- V now predicts the complete measured return of the ACTUAL frozen C_k with
++  physical state, solver warmstart, retained full nominal, initial flag and
++  remaining time. Eight fresh ordinary roots/cycle plus eight root-balanced
++  candidate-FIRST-action pairs (two matched future streams/side) supply direct
++  MC labels. Dense interior suffixes retain root/episode ancestry; the forced
++  action's predecision state is never assigned an on-controller value label.
++  Every fit uses its current target-controller version ONLY. Three64x64
++  networks/300updates,316features, uncapped nonnegative outputs; train-only
++  scaling/support, whole-root holdout and episode/root-balanced loss.
++- Independent MPPI proposals and raw retained-nominal updates remain unchanged.
++  Exact one-control successors include the resulting solver warmstart.
++  Q=c+gammaV(nextcontext); S=(1-alpha)baseline-relative H-cost+alpha
++  baseline-relative Q. Alpha increases by.25 to1 only after fresh qualification.
++  This blend is empirical foralpha<1, not an exact policy value/improvement
++  theorem; the earlier MPPI-temperature-based correction cap is removed.
++- Both arms share one identical unconditional TRAIN-only archive, frozen during
++  collection/fitting/calibration/qualification/evaluation. Refresh applies at
++  next epoch start, with fresh incumbent retention/revocation testing before
++  C_k targets are measured. Final uses the last qualified epoch's archive.
++  Candidate calibration executes ONE action then actual C_k replanning, not
++  an H-step commitment or canonical restart. Further full-controller testing
++  compares candidate, incumbent and memory on the exact same archive.
++-119 focused checks passed locally (14.08s) and onserver (5.67s), including
++  old-planner regressions, context/tail credit, version/root/source ownership,
++  promotion/retention evidence, all shadow work, and durable-final recovery
++  without duplicate execution. Independent audit caught a final-resume
++  duplication bug before launch; the corrected regression passes. A complete
++  three-cycle local smoke (10.33s) and server smoke (13.82s) finished with all
++ 147source hashes unchanged; their matching work totals include all168shadow
++  prediction rows. Both remained unpromoted, not a walking result.
++- Full-size OPERATIONAL validation atN1000/K32/H48 passed in257.74s with
++  all147hashes unchanged: eight fresh C0 episodes,6934executed controls,
++ 867MC labels,3x64/300fit1.04s. One separately declared unqualified positive
++  path executed1000controls and changed176actions, verifying actual influence
++  is operational. Positive runtime101.64s versusmemory97.91s;33,000 scratch
++  one-step controls and32,967 predicted rows were charged. Single-episode
++  costs520.70/635.65 are NOT performance evidence. Held-root normalized
++  RMSE.3965 versus train.0202 explicitly prevents treating this operational
++  test as model qualification. Validation data never enter the main study.
++- Fresh24-cycle seed0 study launched **2026-10-26T05:52:28Z /01:52:28EDT**,
++  PID710354, checkout
++  `/home/jaisel/mppi-gps-replanning-value-20261026-K5qzgmhV`, study
++  `runs/2026-10-26_replanning_value_walker_seed0_001`. Main defaults:N1000,
++  K32/H48,6CPUworkers,16reset periodic development panels,64fresh common final
++  resets53000000–53000063. Reserved5m final resets are not used. All147runtime
++  and archived hashes match; driver/bootstrap workers verified alive. Full
++  source manifest/configuration/guarded launch receipt are saved locally.
++- Final status: **complete,24/24 cycles**, unchanged147-file source/configuration.
++  Both fresh final arms are exactly identical atalpha0:40/64 eight-second
++  survivors,5.958625s alive,.485557247m/s speed MAE,finite discounted
++  cost1286.413586; learned scoring/action changes0. No guidance was promoted
++  or revoked. Both fail the joint walking gate. See the final evidence entry
++  below and [full completion audit](../runs/2026-10-26_replanning_value_walker_seed0_001/supervision/completion_evidence.md).
++  This remains actor-free approximate value-guided policy iteration, not a
++  completed GPS system, standalone policy result, discovery mechanism or
++  sample-efficiency claim. The negative outcome is retained without retuning.
++- [Design](replanning_value_study.md),
++  [launch receipt](../runs/2026-10-26_replanning_value_walker_seed0_001/launch.json),
++  [local integration report](../runs/replanning_validation/smoke_002/comparison.md),
++  [server integration report](../runs/replanning_validation/server_smoke_001/comparison.md),
++  [full-size operational validation](../runs/replanning_value_validation/full_size_001/report.json)
++  and [broader thesis goal-based prompt](mppi_gps_goal_prompt.md).
++
++
++### Paired-endpoint milestone: first guidance promotion after10cycles (2026-10-26)
++
++- Original paired-endpoint study `_001` reached10/24 committed cycles and
++  first promotedalpha.1. All20 runtime/archive source hashes still match;
++  both deployed arms use the identical common archive. The separate new
++  actual-replanning-value run is not part of this result.
++- Four fresh calibration pairs across two roots passed: normalized difference
++  RMSE.189822<=.20, resolved sign accuracy.5, mean measured difference-150.621.
++  The six further fresh full-controller qualification resets gave candidate
++  5/6survivors,6.86267s,.435681m/sMAE,cost1015.35744 versus memory/incumbent
++  4/6,5.88s,.510352MAE,cost1287.66133. Scoring exposure85.7346%, actual
++  action changes6.85045%. This is an empirical qualification signal, not
++  a fresh periodic/final result, reliable walking or exploration/efficiency proof.
++- Cycle11 qualification work continues unchanged. Last repeated periodic
++  panel remains the after8cycle alpha0 panel; final64reset comparison is pending.
++  [First-promotion evidence](../runs/2026-10-25_paired_endpoint_walker_seed0_001/supervision/first_guidance_promotion.json).
++
++### Paired-endpoint Walker final: no retained guidance advantage (2026-10-26)
++
++- Completed all24 ordered cycles without changing the frozen20-file source or
++  configuration. The entire study plus sibling driver log/launch record is
++  mirrored locally;302 remote study files and both siblings passed SHA256
++  verification. Per-cycle shared/guided/memory archive digests agree, as do the
++  final archive and status. The requested comparison completed successfully;
++  both generated plots were inspected.
++- Fresh final resets36000000–36000063,1000 controls/8s: **both arms exactly
++  identical**,43/64 survivors (67.1875%),6.214125s mean time alive,
++  speed MAE.440649467m/s and finite discounted cost1185.201680. Deployedalpha0,
++  learned scoring exposure0, actual action changes0. All21falls remain in the
++  means. Both fail the joint >=90%survival AND <=.30m/s walking gate. Repeated
++  development panels remain separate; the final repeated16-reset panel was
++  11/16,6.1055s,.461814m/s,cost1231.489, also identical atalpha0.
++- There was one promotion after cycle10 toalpha.1, followed by one revocation
++  after cycle11. The incumbent's fresh panel had6/6survivors and lower mean
++  cost than memory, but only2/6strict paired cost wins, below the required3.
++  Cycle11's deployed two-episode training collection scored87.7% of controls
++  and changed146/2000actions (7.3%); no periodic/final evaluation retained
++  learned influence. Rejected proposals' action changes are not deployment
++  improvements.
++-182 measured training pairs (92equal) yielded728 TRAIN-only suffix records
++  across48root ancestries. Final shadow ridge split:36train/12held roots,
++  548/180records. Normalized return RMSEtrain.264964,held.333599; held mean
++  baseline.390614,KNN.331655. Held pair difference RMSE.197229,32/40ranked
++  correctly. This rejected shadow model is not the final deployed controller.
++  Final fresh calibration failed:2supportedpairs/2roots but only1noise-resolved
++  comparison from1root,RMSE.227504>.20,mean delta−564.774,repeat meanSE499.295.
++  There were34measured calibration pairs total; all replay discrepancies were0.
++- Independent provenance audit verified every fitted label against its measured
++  branch, all23whole-root train/holdout splits and train-only scaling/support,
++  and all828archive histories against bootstrap/TRAIN data. No calibration,
++  qualification or evaluation leakage; fixed bootstrap reference unchanged.
++- Known work is a **lower bound** after the08:50Zserver reboot and09:06Zresume:
++  841,709executed controls plus20,736endpoint-prefix controls and
++  1,658,020,224modeled candidate/memory/mean-verification slots; total
++  1,658,882,669slots. Training-pair work395,467,310, calibration work130,884,617,
++  qualification work431,491,910, evaluation work556,491,760; all remaining
++  bootstrap/collection phases are itemized in the completion report. Rejected
++  work and scratch verification are included. Prediction/support/fitting and
++  archive compute were not instrumented; this is not a complete compute ledger.
++  Recorded driver elapsed time7h47m31.6s is not full launch-to-finish wall time.
++- Preselected reset36000000 traces are identical and fall after663controls /
++  5.304s, with664recorded states at.008s. No padded survival or substitute reset.
++  These are MPPI controllers, no standalone learned actor, with one paired
++  training seed. The result establishes no retained learned improvement,
++  exploration advantage, local-minimum escape, or sample-efficiency gain.
++  The negative outcome is retained without retuning or extension.
++- [Complete evidence and work accounting](../runs/2026-10-25_paired_endpoint_walker_seed0_001/supervision/completion_evidence.md),
++  [validated comparison](../runs/2026-10-25_paired_endpoint_walker_seed0_001/comparison.md),
++  [development curves](../runs/2026-10-25_paired_endpoint_walker_seed0_001/training_curves.png),
++  [initial/fresh-final plot](../runs/2026-10-25_paired_endpoint_walker_seed0_001/final_metrics.png),
++  [raw final panel](../runs/2026-10-25_paired_endpoint_walker_seed0_001/evaluations/final.json).
++- Final evidence was delivered and completion monitor
++  `track-paired-endpoint-walker-trial` was deleted. The separately authorized
++  replanning-value study and its monitor were left unchanged by this completion.
++
++### Actual-replanning value Walker final: no qualified guidance (2026-10-26)
++
++- Completed24/24 ordered cycles and64fresh paired final resets53000000–53000063,
++  N1000/8s. Both final arms have **exactly identical public episode records**:
++  40/64survivors (62.5%),24falls,5.958625s mean time alive,
++  speed MAE.485557247m/s,finite discounted cost1286.413586. Learned scoring
++  exposure/action changes0;deployedalpha0 throughout. Both fail the joint
++  >=90%eight-second survival AND <=.30m/s walking gate. The repeated16-reset
++  development panel remains separate: after24cycles7/16,5.2565s,.511622m/s,
++  cost1485.020,bothidenticalalpha0.
++- No promotions or revocations occurred. Only cycle6 and cycle20 candidates
++  passed pair calibration; both failed further full-controller qualification.
++  Cycle6 candidate0/6survive,cost2489.489 versus memory2/6,cost1457.961,
++  learnedscoring99.5603%,actualactions34.8411%. Cycle20 candidate2/6,cost1999.636
++  versusmemory3/6,cost1367.654,learnedscoring99.6007%,actualactions64.1443%.
++  These rejected probes could change actions, but never earned deployment.
++  No retention check ran because no scorer was accepted.
++- Training measured192ordinary root episodes and192first-action pairs,
++  producing768forced continuations,960TRAINtraces and65,909dense complete-MC
++  labels. Dense labels remain correlated within192root ancestries. Each fit
++  uses only its current frozen C_k version. Final shadow fit3075labels,
++  sixtrain/twoheldroots:normalizedRMSE.026340train versus.307429held,
++  held meanbaseline.349128;heldpairRMSE.047068,rank2/4. This rejected fit is
++  not the final deployed scorer. Final freshcalibration failed:two pairs from
++  one root,tworesolved comparisons,both signs wrong,mean measured cost
++  worsening+276.161,despiteRMSE.162713<=.20. Across the study88calibrationpairs
++  used352matched continuations;48source roots,45selected roots.
++- Independent provenance audit passed all24cycles:147frozen source hashes;
++  exact316-feature contexts and complete MC returns;no forced-predecision
++  V-labels;all768forced transitions match cached successorstate,warmstart and
++  cost bitwise;disjointwhole-root fitting/support;964bootstrap/TRAIN-only
++  archive histories. Final uses the last epoch's archive, not the differing
++  pending refresh from final training traces. Calibration/qualification/eval
++  data never entered fitting or memory. All arm archive digests match.
++- The entire434-file,6,651,229,370-byte study plus sibling log/launch record
++  is mirrored locally and SHA256 verified. The requested local comparator
++  passed and both generated plots were inspected. Preselected final reset
++  53000000 trace files are byte-identical,1000controls/8s,1001finite recorded
++  states at.008s. This preselected survivor is not the fullpanel;all24falls
++  remain in aggregate metrics. Full traces exist only for that reset.
++- Known work is **1,966,501,413control slots**, a lower bound after the server
++  reboot and checkpoint resume:999,832executed,1,534,973,952raw-candidate,
++  382,285,440memory,47,938,176mean-verification and304,013one-step scratch.
++  Bootstrap/collection284,111,640;trainingpairs756,468,909;
++  calibration388,385,379;qualification25,507,683;retention0;
++  evaluations512,027,802. Scoring added217,152contextpredictionrows and510
++  calibrationreranks;training-shadow rows0. Rejected work and scratch are
++  charged,aliases once. Fit/diagnostic predictions,neural training,support,
++  archive and per-phase resource computation remain uninstrumented;this is
++  not a complete compute ledger. Recorded elapsed7h45m7.2s is not full walltime.
++- This is a negative result for the frozen MPPI/value protocol, with one
++  paired training seed and no standalone actor. It establishes no learned
++  control advantage, exploration improvement, local-minimum escape, or
++  sample-efficiency gain. Retained without retuning or extension; separate
++  studies' results are not included.
++- [Complete evidence, noise and work accounting](../runs/2026-10-26_replanning_value_walker_seed0_001/supervision/completion_evidence.md),
++  [validated comparison](../runs/2026-10-26_replanning_value_walker_seed0_001/comparison.md),
++  [training provenance](../runs/2026-10-26_replanning_value_walker_seed0_001/supervision/pre_final_integrity_audit.json),
++  [final integrity](../runs/2026-10-26_replanning_value_walker_seed0_001/supervision/final_integrity_audit.json),
++  [work audit](../runs/2026-10-26_replanning_value_walker_seed0_001/supervision/final_work_audit.json),
++  [development curves](../runs/2026-10-26_replanning_value_walker_seed0_001/training_curves.png),
++  [initial/fresh-final plot](../runs/2026-10-26_replanning_value_walker_seed0_001/final_metrics.png).
++- Final evidence was delivered and completion monitor
++  `track-replanning-value-walker-trial` was deleted. No frozen study sources,
++  configuration, reset budget or other study artifacts were changed.
++
+ ### Step 31 — why the replanning-value Walker controller does not walk, and whether it still tests the MPPI-GPS idea (diagnostic; predictions written before running)
+ 
+ - Question: the replanning-value study ended at 40/64 eight-second survivors,

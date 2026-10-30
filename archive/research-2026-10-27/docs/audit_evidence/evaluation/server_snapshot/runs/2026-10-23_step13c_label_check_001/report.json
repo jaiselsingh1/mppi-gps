@@ -1,0 +1,231 @@
+{
+  "K": 256,
+  "H": 32,
+  "tail_steps": 100,
+  "neff_fraction": 0.2,
+  "episodes": 10,
+  "steps": 400,
+  "collect_seed": 123000,
+  "noise_seeds": [
+    10000000,
+    20000000
+  ],
+  "checkpoints": {
+    "seed0_it24": {
+      "path": "runs/2026-10-22_step10_gpu75_seed0/policy_024.pt",
+      "states": 841,
+      "gain_negative_fraction": [
+        0.3769322235434007,
+        0.375743162901308
+      ],
+      "gain_median": [
+        1.6527115983014937,
+        1.7950279544899104
+      ],
+      "nominal_cost_median": 357.21848470102316,
+      "sign_agreement": 0.7015457788347206,
+      "label_distance_median": {
+        "gain_negative": 0.09885322313313284,
+        "gain_positive": 0.11203069148250923
+      }
+    },
+    "seed0_it74": {
+      "path": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+      "states": 1756,
+      "gain_negative_fraction": [
+        0.42425968109339407,
+        0.42482915717539865
+      ],
+      "gain_median": [
+        2.6460573486816372,
+        3.056480810379739
+      ],
+      "nominal_cost_median": 103.96484696232574,
+      "sign_agreement": 0.6543280182232346,
+      "label_distance_median": {
+        "gain_negative": 0.09996238567966247,
+        "gain_positive": 0.10162364187456911
+      }
+    },
+    "seed1_it24": {
+      "path": "runs/2026-10-22_step10_gpu75_seed1/policy_024.pt",
+      "states": 951,
+      "gain_negative_fraction": [
+        0.4437434279705573,
+        0.46898002103049424
+      ],
+      "gain_median": [
+        0.9733105402161186,
+        0.4952046803543908
+      ],
+      "nominal_cost_median": 358.77846063138645,
+      "sign_agreement": 0.6887486855941115,
+      "label_distance_median": {
+        "gain_negative": 0.10691623762960936,
+        "gain_positive": 0.11027739051329812
+      }
+    },
+    "seed1_it74": {
+      "path": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+      "states": 1878,
+      "gain_negative_fraction": [
+        0.4291799787007455,
+        0.45154419595314166
+      ],
+      "gain_median": [
+        1.2665392416671253,
+        1.0587520778480695
+      ],
+      "nominal_cost_median": 80.01370070866733,
+      "sign_agreement": 0.7156549520766773,
+      "label_distance_median": {
+        "gain_negative": 0.10152212265356972,
+        "gain_positive": 0.10235023327552614
+      }
+    },
+    "seed2_it24": {
+      "path": "runs/2026-10-22_step10_gpu75_seed2/policy_024.pt",
+      "states": 751,
+      "gain_negative_fraction": [
+        0.23435419440745672,
+        0.25432756324900135
+      ],
+      "gain_median": [
+        23.40025128280945,
+        19.767905182344634
+      ],
+      "nominal_cost_median": 515.5041924356954,
+      "sign_agreement": 0.7403462050599201,
+      "label_distance_median": {
+        "gain_negative": 0.11424830144080896,
+        "gain_positive": 0.12028818212065773
+      }
+    },
+    "seed2_it74": {
+      "path": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+      "states": 1610,
+      "gain_negative_fraction": [
+        0.3770186335403727,
+        0.3875776397515528
+      ],
+      "gain_median": [
+        5.496764307670972,
+        3.9096870744236867
+      ],
+      "nominal_cost_median": 155.44674846047877,
+      "sign_agreement": 0.6590062111801243,
+      "label_distance_median": {
+        "gain_negative": 0.10399279291591802,
+        "gain_positive": 0.10860033988229226
+      }
+    },
+    "seed3_it24": {
+      "path": "runs/2026-10-22_step10_gpu75_seed3/policy_024.pt",
+      "states": 995,
+      "gain_negative_fraction": [
+        0.38090452261306534,
+        0.35376884422110555
+      ],
+      "gain_median": [
+        1.8680573414828814,
+        2.3401093755570628
+      ],
+      "nominal_cost_median": 307.4401854622431,
+      "sign_agreement": 0.749748743718593,
+      "label_distance_median": {
+        "gain_negative": 0.10511600277780822,
+        "gain_positive": 0.10575772803434932
+      }
+    },
+    "seed3_it74": {
+      "path": "runs/2026-10-22_step10_gpu75_seed3/policy_074.pt",
+      "states": 1648,
+      "gain_negative_fraction": [
+        0.4186893203883495,
+        0.4356796116504854
+      ],
+      "gain_median": [
+        2.327993261088892,
+        1.8297799293177945
+      ],
+      "nominal_cost_median": 98.64604613361251,
+      "sign_agreement": 0.6990291262135923,
+      "label_distance_median": {
+        "gain_negative": 0.09962192788129379,
+        "gain_positive": 0.10380889976672636
+      }
+    },
+    "seed4_it24": {
+      "path": "runs/2026-10-22_step10_gpu75_seed4/policy_024.pt",
+      "states": 1452,
+      "gain_negative_fraction": [
+        0.33746556473829203,
+        0.3546831955922865
+      ],
+      "gain_median": [
+        5.0450425767700295,
+        5.539248765181547
+      ],
+      "nominal_cost_median": 187.47863564645104,
+      "sign_agreement": 0.7610192837465565,
+      "label_distance_median": {
+        "gain_negative": 0.10330708025746647,
+        "gain_positive": 0.10881166978993873
+      }
+    },
+    "seed4_it74": {
+      "path": "runs/2026-10-22_step10_gpu75_seed4/policy_074.pt",
+      "states": 2000,
+      "gain_negative_fraction": [
+        0.4575,
+        0.4715
+      ],
+      "gain_median": [
+        0.45854580210603046,
+        0.354388554962739
+      ],
+      "nominal_cost_median": 83.36978752865141,
+      "sign_agreement": 0.686,
+      "label_distance_median": {
+        "gain_negative": 0.09568985237395494,
+        "gain_positive": 0.09707311952726866
+      }
+    },
+    "seed5_it24": {
+      "path": "runs/2026-10-22_step10_gpu75_seed5/policy_024.pt",
+      "states": 1271,
+      "gain_negative_fraction": [
+        0.33123524783634933,
+        0.32572777340676634
+      ],
+      "gain_median": [
+        5.132021386283441,
+        5.307743525500655
+      ],
+      "nominal_cost_median": 247.11083338890316,
+      "sign_agreement": 0.7143981117230527,
+      "label_distance_median": {
+        "gain_negative": 0.09724724749270283,
+        "gain_positive": 0.11177281505114334
+      }
+    },
+    "seed5_it74": {
+      "path": "runs/2026-10-22_step10_gpu75_seed5/policy_074.pt",
+      "states": 2000,
+      "gain_negative_fraction": [
+        0.5305,
+        0.5225
+      ],
+      "gain_median": [
+        -0.3081833256304627,
+        -0.2632652249205094
+      ],
+      "nominal_cost_median": 61.433895737520444,
+      "sign_agreement": 0.71,
+      "label_distance_median": {
+        "gain_negative": 0.09856637544642885,
+        "gain_positive": 0.09942959793281803
+      }
+    }
+  }
+}

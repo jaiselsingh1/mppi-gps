@@ -1,0 +1,52 @@
+{
+  "schema": "bidirectional-ending-qfilter-assay-v0",
+  "source_arm": "precision",
+  "task": {
+    "gate": 12,
+    "delay": 12,
+    "move": 0.2,
+    "ending_y": -0.1,
+    "effort": 0.02,
+    "greed": 0.2,
+    "detour": 0.2,
+    "detour_steps": 5,
+    "penalty": 20.0
+  },
+  "learning": {
+    "lr": 0.0003,
+    "max_grad_norm": 0.5,
+    "epochs": 4,
+    "clip_ratio": 0.2,
+    "aux_weight": 0.1,
+    "batch_size": 256,
+    "bootstrap_updates": 2000,
+    "minimum_replicates": 2,
+    "return_scale": 25.0
+  },
+  "auxiliary_rows": 200,
+  "positive_resampling": "linspace_indices_over_original_positive_rows_to_200",
+  "q_semantics": "one_actual_teacher_action_then_complete_deterministic_frozen_parent",
+  "weight_rule": "max(Q_parent_mean-Q_actual_teacher,0)",
+  "cache_rule": "exact_float64_state_action_bytes+parent_actor_hash+task_hash+family",
+  "alphas": [
+    0.0625,
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "qualification_roots": 16,
+  "qualification_seed": 171000,
+  "qualification_noise_seed": 173000,
+  "evaluation_roots": 64,
+  "evaluation_seed": 172000,
+  "evaluation_noise_seed": 174000,
+  "minimum_complete_gain": 0.001,
+  "capture_min": 0.9,
+  "max_controls": 34800,
+  "max_model_controls": 10000,
+  "max_executed_controls": 24800,
+  "max_actor_rows": 61800,
+  "max_adam_steps": 56,
+  "max_diagnostic_backward_passes": 2
+}

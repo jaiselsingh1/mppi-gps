@@ -1,0 +1,27 @@
+{
+  "schema": "walker-historical-state-only-catalog-v1",
+  "pairs": [
+    {
+      "npz": "/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_a.npz",
+      "json": "/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_a.json",
+      "runner_source": "runs/2026-10-26_walker_actor_credit_diagnostic_001/reused_evidence/recovered_original_runner.py"
+    },
+    {
+      "npz": "/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_b.npz",
+      "json": "/Users/jaisel/Documents/workbench/mppi-gps-archive-20261004/runs/walker2d_teacher/initial2_qualification_b.json",
+      "runner_source": "runs/2026-10-26_walker_actor_credit_diagnostic_001/reused_evidence/recovered_original_runner.py"
+    }
+  ],
+  "task_path": "configs/walker2d_task.json",
+  "model_path": "assets/walker2d.xml",
+  "times": [0, 500, 900],
+  "train_reset_seeds": [30, 31, 32, 33, 34],
+  "heldout_reset_seeds": [35, 36, 37, 38, 39],
+  "include_all_source_episodes_and_failed_slots": true,
+  "new_physics_control_cap": 0,
+  "new_actor_inference_rows_cap": 0,
+  "new_training_updates_cap": 0,
+  "selection": "Fixed reset ancestry and handover clocks, shared across planner streams; no learner outcome selection",
+  "use": "Historical restart interventions only, pending fresh current-controller qualification and separately frozen physical diagnostic",
+  "targets": "No teacher action or suffix-return labels exported; later targets must be complete current candidate-actor executions"
+}

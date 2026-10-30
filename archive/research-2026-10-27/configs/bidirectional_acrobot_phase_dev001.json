@@ -1,0 +1,44 @@
+{
+  "schema": "independent-phase-proposals-dev001",
+  "backend": "warp",
+  "task": {
+    "T": 800,
+    "dt": 0.01,
+    "capture_steps": 100,
+    "capture_distance": 0.2,
+    "capture_qvel_norm": 0.5,
+    "local_distance": 0.5,
+    "local_by": 600,
+    "failure_penalty": 1000.0,
+    "reset_angle_radius": 0.1,
+    "reset_velocity_radius": 0.05
+  },
+  "search": {
+    "K": 512,
+    "H": 144,
+    "temperature": 0.01437687465331295,
+    "sigma": 0.18553280373949055,
+    "smooth_candidates": 32,
+    "memory_candidates": 16,
+    "knot_spacing": 10,
+    "initial_iterations": 1,
+    "independent_block_lengths": [],
+    "phase_periods": [
+      0.9134159022626218,
+      2.356877965498118
+    ],
+    "phase_count": 8,
+    "phase_shapes": [
+      "sin",
+      "square"
+    ]
+  },
+  "reset_seeds": [
+    110100,
+    110101
+  ],
+  "planner_seeds": [
+    30000,
+    30001
+  ]
+}

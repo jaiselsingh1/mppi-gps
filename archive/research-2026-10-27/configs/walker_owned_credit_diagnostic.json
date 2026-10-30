@@ -1,0 +1,54 @@
+{
+  "schema": "walker-owned-credit-gated-diagnostic-v1",
+  "objective": "Independent competent MPPI acquisition, candidate-owned actor learning, then measured useful global feedback into independent local search",
+  "preserve_existing_runs": true,
+  "remote_host": "robopil5090",
+  "remote_project": "/home/jaisel/mppi-gps-walking-diagnosis-20261026",
+  "existing_qualification": {
+    "script": "diag/step32.py",
+    "results": "results/step32",
+    "reset_first": 55000000,
+    "planner_seed_first": 885000000,
+    "episodes": 64,
+    "survivors_required": 58,
+    "max_episode_mean_speed_mae": 0.3,
+    "required_complete_job_rows": 256,
+    "K": 256,
+    "H": 48,
+    "initial_iterations": 2,
+    "total_steps": 1000,
+    "summary_rows_are_not_raw_acquisition": true
+  },
+  "budget_this_stage": {
+    "new_physics_controls": 0,
+    "new_planner_calls": 0,
+    "new_actor_training_updates": 0,
+    "new_critic_fits": 0,
+    "allowed": "Read existing evidence, verify live handles, implement and test ownership/configuration guards with synthetic evaluators only",
+    "existing_remote_computation": "Reuse and report separately; do not restart or duplicate pending qualification"
+  },
+  "gates": [
+    "Fresh complete K256/H48 qualification passes with all failures and costs retained; raw reproducible acquisition is separately required",
+    "Every score that ranks/proposes/accepts actor changes has explicit complete candidate ownership and finite absorbing fall cost",
+    "Predeclared bounded actual-Walker diagnostic shows repeatable complete-return improvement with meaningful bounded parameter perturbations",
+    "Learning from independently reached states transfers to ordinary starts on root-disjoint panels",
+    "Competent frozen actor continuations improve rankings and executed independent closed-loop search at matched proposals and charged costs"
+  ],
+  "standalone_walking": {
+    "training_seeds": [0, 1, 2],
+    "seconds": 8.0,
+    "controls": 1000,
+    "min_survival_per_training_seed": 0.9,
+    "max_speed_mae_per_training_seed": 0.3,
+    "reset_replications_are_not_training_seeds": true,
+    "final_reset_panels": "Must be frozen and untouched by later learning diagnostics; no new final panel is consumed in this stage"
+  },
+  "stopping": {
+    "pending_qualification": "Verified wait; collect no new simulator experience",
+    "qualification_failure": "Stop before actor learning; preserve negative result",
+    "missing_raw_acquisition": "Do not promote summaries to guide snapshots; predeclare and charge minimal recovery before use",
+    "ownership_or_accounting_failure": "Stop and preserve attempted work; never silently fall back to a base-policy surrogate",
+    "no_repeatable_learning_signal": "Stop without larger campaign or final-result retuning",
+    "follow_on_learning_protocol": "Prepare only after the bounded Walker diagnostic supports it; do not automatically launch a campaign"
+  }
+}

@@ -1,0 +1,867 @@
+{
+  "held_out_reset_seeds": [
+    70000,
+    70049
+  ],
+  "raw_mppi_cell": {
+    "K": 32,
+    "H": 32
+  },
+  "raw_mppi": {
+    "episodes": 50,
+    "completed": 15,
+    "completion_rate": 0.3,
+    "completion_wilson95": [
+      0.19103553500880951,
+      0.437503504644534
+    ],
+    "velocity_mae": 0.39196646187446077,
+    "mean_seconds_alive": 3.3024
+  },
+  "arms": {
+    "step10_it74": {
+      "pooled": {
+        "episodes": 150,
+        "completed": 81,
+        "completion_rate": 0.54,
+        "completion_wilson95": [
+          0.4602382146466695,
+          0.6177641658038844
+        ],
+        "velocity_mae": 0.3928315299962609,
+        "mean_seconds_alive": 5.857066666666666
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+          "episodes": 50,
+          "completed": 34,
+          "completion_rate": 0.68,
+          "completion_wilson95": [
+            0.5418970269185592,
+            0.7924178373934316
+          ],
+          "velocity_mae": 0.36454116835747186,
+          "mean_seconds_alive": 5.97776
+        },
+        {
+          "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+          "episodes": 50,
+          "completed": 35,
+          "completion_rate": 0.7,
+          "completion_wilson95": [
+            0.562496495355466,
+            0.8089644649911906
+          ],
+          "velocity_mae": 0.2816461956338264,
+          "mean_seconds_alive": 6.855840000000001
+        },
+        {
+          "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+          "episodes": 50,
+          "completed": 12,
+          "completion_rate": 0.24,
+          "completion_wilson95": [
+            0.1429739139699173,
+            0.3741268375794292
+          ],
+          "velocity_mae": 0.5323072259974844,
+          "mean_seconds_alive": 4.7376000000000005
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+            "completion_difference": {
+              "difference": 0.38000000000000006,
+              "lower": 0.18787077087951956,
+              "upper": 0.5343482523125904,
+              "n": 50,
+              "both": 11,
+              "candidate_only": 23,
+              "reference_only": 4,
+              "neither": 12,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": -0.027425293516989014,
+              "lower": -0.0786509307092842,
+              "upper": 0.022458746497396598,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+            "completion_difference": {
+              "difference": 0.39999999999999997,
+              "lower": 0.2009645393236848,
+              "upper": 0.5577253797489441,
+              "n": 50,
+              "both": 10,
+              "candidate_only": 25,
+              "reference_only": 5,
+              "neither": 10,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": -0.11032026624063436,
+              "lower": -0.1523251824512831,
+              "upper": -0.06905707864615931,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.06,
+              "lower": -0.22828926038177955,
+              "upper": 0.11280990477942798,
+              "n": 50,
+              "both": 4,
+              "candidate_only": 8,
+              "reference_only": 11,
+              "neither": 27,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.1403407641230235,
+              "lower": 0.0795337145803741,
+              "upper": 0.2059362293017925,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ],
+        "sac_800k": [
+          {
+            "source": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.31999999999999995,
+              "lower": -0.45810297308144077,
+              "upper": -0.18685252512228978,
+              "n": 50,
+              "both": 34,
+              "candidate_only": 0,
+              "reference_only": 16,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.16669506401587206,
+              "lower": 0.13702825996364978,
+              "upper": 0.19811374854500502,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.30000000000000004,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210122,
+              "n": 50,
+              "both": 35,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.08380009129222671,
+              "lower": 0.06276819991819794,
+              "upper": 0.10752989912816462,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.76,
+              "lower": -0.8570260860300827,
+              "upper": -0.6080773602745364,
+              "n": 50,
+              "both": 12,
+              "candidate_only": 0,
+              "reference_only": 38,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.3344611216558846,
+              "lower": 0.29907205028130257,
+              "upper": 0.3785245350740349,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    },
+    "dagger75_it74": {
+      "pooled": {
+        "episodes": 150,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "completion_wilson95": [
+          1.734723475976807e-18,
+          0.0249702443680766
+        ],
+        "velocity_mae": 0.6615399812052726,
+        "mean_seconds_alive": 1.1289066666666667
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.6416208507266445,
+          "mean_seconds_alive": 1.06864
+        },
+        {
+          "source": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.6735151532218486,
+          "mean_seconds_alive": 1.1928
+        },
+        {
+          "source": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.6694839396673247,
+          "mean_seconds_alive": 1.12528
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.24965438885218366,
+              "lower": 0.19221743885868423,
+              "upper": 0.31480311117684584,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.2815486913473877,
+              "lower": 0.23848845521068812,
+              "upper": 0.3239344217366303,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.2775174777928638,
+              "lower": 0.2242675132159612,
+              "upper": 0.3295645794644992,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ],
+        "sac_800k": [
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.4437747463850447,
+              "lower": 0.403401461671926,
+              "upper": 0.5016979028017655,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.4756690488802488,
+              "lower": 0.45705286184937627,
+              "upper": 0.4948203871656031,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.4716378353257249,
+              "lower": 0.44157758482776643,
+              "upper": 0.5036830378914184,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    },
+    "dagger75_it24": {
+      "pooled": {
+        "episodes": 150,
+        "completed": 0,
+        "completion_rate": 0.0,
+        "completion_wilson95": [
+          1.734723475976807e-18,
+          0.0249702443680766
+        ],
+        "velocity_mae": 0.753263137208085,
+        "mean_seconds_alive": 1.2456533333333335
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-22_step11_dagger75_seed0/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.772004921343501,
+          "mean_seconds_alive": 1.356
+        },
+        {
+          "source": "runs/2026-10-22_step11_dagger75_seed1/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.7428346339350881,
+          "mean_seconds_alive": 1.1624
+        },
+        {
+          "source": "runs/2026-10-22_step11_dagger75_seed2/policy_024.pt",
+          "episodes": 50,
+          "completed": 0,
+          "completion_rate": 0.0,
+          "completion_wilson95": [
+            0.0,
+            0.07134759913335872
+          ],
+          "velocity_mae": 0.7449498563456659,
+          "mean_seconds_alive": 1.2185599999999999
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed0/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.38003845946904025,
+              "lower": 0.3307540868156834,
+              "upper": 0.4292262153746535,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed1/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.3508681720606271,
+              "lower": 0.283312488322024,
+              "upper": 0.42814019190376096,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed2/policy_024.pt",
+            "completion_difference": {
+              "difference": -0.3,
+              "lower": -0.437503504644534,
+              "upper": -0.16975509786210125,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 15,
+              "neither": 35,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.352983394471205,
+              "lower": 0.29475322744878263,
+              "upper": 0.4180667013401608,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ],
+        "sac_800k": [
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed0/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.5741588170019013,
+              "lower": 0.5423812396622311,
+              "upper": 0.6072699191296916,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed1/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.5449885295934882,
+              "lower": 0.4985617248724861,
+              "upper": 0.6052555658517522,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          },
+          {
+            "source": "runs/2026-10-22_step11_dagger75_seed2/policy_024.pt",
+            "completion_difference": {
+              "difference": -1.0,
+              "lower": -1.0,
+              "upper": -0.8990992576628453,
+              "n": 50,
+              "both": 0,
+              "candidate_only": 0,
+              "reference_only": 50,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": 0.5471037520040661,
+              "lower": 0.5068449991788039,
+              "upper": 0.594312331202918,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    },
+    "sac_800k": {
+      "pooled": {
+        "episodes": 50,
+        "completed": 50,
+        "completion_rate": 1.0,
+        "completion_wilson95": [
+          0.9286524008666414,
+          1.0
+        ],
+        "velocity_mae": 0.19784610434159977,
+        "mean_seconds_alive": 8.0
+      },
+      "per_seed": [
+        {
+          "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+          "episodes": 50,
+          "completed": 50,
+          "completion_rate": 1.0,
+          "completion_wilson95": [
+            0.9286524008666414,
+            1.0
+          ],
+          "velocity_mae": 0.19784610434159977,
+          "mean_seconds_alive": 8.0
+        }
+      ],
+      "paired": {
+        "raw_mppi": [
+          {
+            "source": "runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_0800000.pt",
+            "completion_difference": {
+              "difference": 0.7,
+              "lower": 0.5450881099088135,
+              "upper": 0.8089644649911905,
+              "n": 50,
+              "both": 15,
+              "candidate_only": 35,
+              "reference_only": 0,
+              "neither": 0,
+              "confidence": 0.95
+            },
+            "velocity_mae_difference": {
+              "difference": -0.19412035753286105,
+              "lower": -0.23482054783105125,
+              "upper": -0.155093749667683,
+              "n": 50,
+              "confidence": 0.95,
+              "n_resamples": 10000,
+              "seed": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "arm_pairs": {
+    "step10_it74:dagger75_it74": [
+      {
+        "candidate": "runs/2026-10-22_step10_gpu75_seed0/policy_074.pt",
+        "reference": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+        "completion_difference": {
+          "difference": 0.68,
+          "lower": 0.5245557621652459,
+          "upper": 0.7924178373934316,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 34,
+          "reference_only": 0,
+          "neither": 16,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.27707968236917263,
+          "lower": -0.34154880861858233,
+          "upper": -0.22077816378435192,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": 4.909120000000001,
+          "lower": 4.041892000000001,
+          "upper": 5.713471999999999,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      },
+      {
+        "candidate": "runs/2026-10-22_step10_gpu75_seed1/policy_074.pt",
+        "reference": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+        "completion_difference": {
+          "difference": 0.7,
+          "lower": 0.5450881099088135,
+          "upper": 0.8089644649911906,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 35,
+          "reference_only": 0,
+          "neither": 15,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.3918689575880221,
+          "lower": -0.41964152535927446,
+          "upper": -0.3634277039515792,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": 5.66304,
+          "lower": 5.098556000000001,
+          "upper": 6.182404,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      },
+      {
+        "candidate": "runs/2026-10-22_step10_gpu75_seed2/policy_074.pt",
+        "reference": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+        "completion_difference": {
+          "difference": 0.24,
+          "lower": 0.11956519908094894,
+          "upper": 0.3741268375794292,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 12,
+          "reference_only": 0,
+          "neither": 38,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.1371767136698403,
+          "lower": -0.1846218396344978,
+          "upper": -0.08796519321457598,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": 3.6123199999999995,
+          "lower": 2.98864,
+          "upper": 4.2640199999999995,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      }
+    ],
+    "dagger75_it74:dagger75_it24": [
+      {
+        "candidate": "runs/2026-10-22_step11_dagger75_seed0/policy_074.pt",
+        "reference": "runs/2026-10-22_step11_dagger75_seed0/policy_024.pt",
+        "completion_difference": {
+          "difference": 0.0,
+          "lower": -0.07134759913335872,
+          "upper": 0.07134759913335872,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 0,
+          "reference_only": 0,
+          "neither": 50,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.13038407061685658,
+          "lower": -0.17788577415586998,
+          "upper": -0.07103905946438313,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": -0.28736000000000006,
+          "lower": -0.38400399999999996,
+          "upper": -0.18944,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      },
+      {
+        "candidate": "runs/2026-10-22_step11_dagger75_seed1/policy_074.pt",
+        "reference": "runs/2026-10-22_step11_dagger75_seed1/policy_024.pt",
+        "completion_difference": {
+          "difference": 0.0,
+          "lower": -0.07134759913335872,
+          "upper": 0.07134759913335872,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 0,
+          "reference_only": 0,
+          "neither": 50,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.0693194807132394,
+          "lower": -0.13102857864472503,
+          "upper": -0.021333624452364485,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": 0.030399999999999986,
+          "lower": -0.10896399999999999,
+          "upper": 0.14208399999999996,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      },
+      {
+        "candidate": "runs/2026-10-22_step11_dagger75_seed2/policy_074.pt",
+        "reference": "runs/2026-10-22_step11_dagger75_seed2/policy_024.pt",
+        "completion_difference": {
+          "difference": 0.0,
+          "lower": -0.07134759913335872,
+          "upper": 0.07134759913335872,
+          "n": 50,
+          "both": 0,
+          "candidate_only": 0,
+          "reference_only": 0,
+          "neither": 50,
+          "confidence": 0.95
+        },
+        "velocity_mae_difference": {
+          "difference": -0.07546591667834125,
+          "lower": -0.13028264546809645,
+          "upper": -0.025012609239823846,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        },
+        "seconds_alive_difference": {
+          "difference": -0.09327999999999999,
+          "lower": -0.2072,
+          "upper": 0.013600000000000008,
+          "n": 50,
+          "confidence": 0.95,
+          "n_resamples": 10000,
+          "seed": 0
+        }
+      }
+    ]
+  },
+  "wall_time_s": 120.24030900001526
+}

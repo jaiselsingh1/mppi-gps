@@ -1,0 +1,46 @@
+{
+  "schema": "walker-owned-signal-v1",
+  "seeds": [0, 1, 2],
+  "rounds": 3,
+  "directions": 8,
+  "hidden_dim": 256,
+  "gamma": 0.999,
+  "total_steps": 1000,
+  "proposal_radius": 0.249975,
+  "max_step_norm": 0.25,
+  "selection_min_improvement": 0.002,
+  "selection_root_regression_tolerance": 0,
+  "action_rms_min": 0.01,
+  "action_rms_max": 0.20,
+  "min_effective_samples": 12,
+  "saturation_threshold": 0.98,
+  "max_saturation_fraction": 0.1,
+  "max_reserved_controls": 1832400,
+  "max_queries": 4044,
+  "max_inference_attempts": 1836144,
+  "catalog_path": "inputs/historical_catalog.json",
+  "qualification_gate_path": "inputs/qualification_gate.json",
+  "task_path": "configs/walker2d_task.json",
+  "expected_train_roots": [30, 31, 32, 33, 34],
+  "expected_held_roots": [35, 36, 37, 38, 39],
+  "runtime": {
+    "backend": "mujoco_cpu",
+    "frame_skip": 4,
+    "control_dt": 0.008,
+    "platform_system": "Linux",
+    "packages": {
+      "mujoco": "3.6.0",
+      "numpy": "2.4.3",
+      "scipy": "1.17.1",
+      "torch": "2.10.0"
+    }
+  },
+  "verification": {
+    "final_mixture_gain": 0.01,
+    "final_root_gain": 0.002,
+    "increment_gain": 0.002,
+    "min_positive_increments": 2,
+    "root_regression_tolerance": 0,
+    "min_improved_root_clusters": 4
+  }
+}
