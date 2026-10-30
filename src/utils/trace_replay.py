@@ -69,10 +69,11 @@ def compare_fields(reference: dict, replay: dict, fields: tuple[str, ...]) -> di
         actual = np.asarray(replay[key])
         length = min(len(expected), len(actual))
         diverging = [
-            index for index in range(length)
-            if not np.array_equal(expected[index], actual[index])
+            index for index in range(length) if not np.array_equal(expected[index], actual[index])
         ]
-        numeric = np.issubdtype(expected.dtype, np.number) and np.issubdtype(actual.dtype, np.number)
+        numeric = np.issubdtype(expected.dtype, np.number) and np.issubdtype(
+            actual.dtype, np.number
+        )
         report[key] = {
             "exact": len(expected) == len(actual) and not diverging,
             "reference_length": len(expected),
@@ -80,7 +81,8 @@ def compare_fields(reference: dict, replay: dict, fields: tuple[str, ...]) -> di
             "first_divergence": diverging[0] if diverging else None,
             "max_abs_error": (
                 float(np.max(np.abs(expected[:length] - actual[:length])))
-                if numeric and length else None
+                if numeric and length
+                else None
             ),
         }
     return report

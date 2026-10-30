@@ -15,11 +15,14 @@ def _paired(both, candidate_only, reference_only, neither):
     return candidate, reference
 
 
-@pytest.mark.parametrize("successes, n, expected", [
-    (4, 5, (0.3755, 0.9638)),
-    (0, 10, (0.0, 0.2775)),
-    (10, 10, (0.7225, 1.0)),
-])
+@pytest.mark.parametrize(
+    "successes, n, expected",
+    [
+        (4, 5, (0.3755, 0.9638)),
+        (0, 10, (0.0, 0.2775)),
+        (10, 10, (0.7225, 1.0)),
+    ],
+)
 def test_wilson_interval_known_values(successes, n, expected):
     np.testing.assert_allclose(wilson_interval(successes, n), expected, atol=1e-4)
 
@@ -28,21 +31,24 @@ def test_wilson_interval_known_values(successes, n, expected):
 # (e, f, g, h): (both, candidate only, reference only, neither). The paper
 # prints 0.8736 for (1, 97, 1, 1); its exact value 0.87367 matches method 8,
 # which coincides with method 10 whenever eh <= fg.
-@pytest.mark.parametrize("cells, expected", [
-    ((36, 12, 2, 0), (0.0569, 0.3404)),
-    ((20, 12, 2, 16), (0.0562, 0.3292)),
-    ((18, 12, 2, 18), (0.0562, 0.3290)),
-    ((36, 14, 0, 0), (0.1528, 0.4167)),
-    ((35, 14, 0, 1), (0.1461, 0.4175)),
-    ((18, 14, 0, 18), (0.1441, 0.3963)),
-    ((2, 97, 1, 0), (0.8721, 0.9854)),
-    ((1, 97, 1, 1), (0.8736, 0.9850)),
-    ((0, 29, 1, 0), (0.6666, 0.9882)),
-    ((2, 98, 0, 0), (0.9178, 0.9945)),
-    ((1, 98, 0, 1), (0.9171, 0.9916)),
-    ((0, 30, 0, 0), (0.8395, 1.0)),
-    ((54, 0, 0, 0), (-0.0664, 0.0664)),
-])
+@pytest.mark.parametrize(
+    "cells, expected",
+    [
+        ((36, 12, 2, 0), (0.0569, 0.3404)),
+        ((20, 12, 2, 16), (0.0562, 0.3292)),
+        ((18, 12, 2, 18), (0.0562, 0.3290)),
+        ((36, 14, 0, 0), (0.1528, 0.4167)),
+        ((35, 14, 0, 1), (0.1461, 0.4175)),
+        ((18, 14, 0, 18), (0.1441, 0.3963)),
+        ((2, 97, 1, 0), (0.8721, 0.9854)),
+        ((1, 97, 1, 1), (0.8736, 0.9850)),
+        ((0, 29, 1, 0), (0.6666, 0.9882)),
+        ((2, 98, 0, 0), (0.9178, 0.9945)),
+        ((1, 98, 0, 1), (0.9171, 0.9916)),
+        ((0, 30, 0, 0), (0.8395, 1.0)),
+        ((54, 0, 0, 0), (-0.0664, 0.0664)),
+    ],
+)
 def test_paired_difference_matches_newcombe_method_10(cells, expected):
     result = paired_proportion_difference(*_paired(*cells))
     np.testing.assert_allclose((result["lower"], result["upper"]), expected, atol=1.5e-4)

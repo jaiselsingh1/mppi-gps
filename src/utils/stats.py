@@ -62,8 +62,10 @@ def paired_proportion_difference(
     l1, u1 = wilson_interval(both + candidate_only, n, confidence)
     l2, u2 = wilson_interval(both + reference_only, n, confidence)
     margins = (
-        (both + candidate_only) * (reference_only + neither)
-        * (both + reference_only) * (candidate_only + neither)
+        (both + candidate_only)
+        * (reference_only + neither)
+        * (both + reference_only)
+        * (candidate_only + neither)
     )
     # Method 10 continuity-corrects only a positive phi numerator.
     numerator = both * neither - candidate_only * reference_only
@@ -71,8 +73,16 @@ def paired_proportion_difference(
         numerator = max(numerator - n / 2.0, 0.0)
     phi = 0.0 if margins == 0 else numerator / math.sqrt(margins)
     difference = p_candidate - p_reference
-    lower_term = (p_candidate - l1) ** 2 - 2.0 * phi * (p_candidate - l1) * (u2 - p_reference) + (u2 - p_reference) ** 2
-    upper_term = (u1 - p_candidate) ** 2 - 2.0 * phi * (u1 - p_candidate) * (p_reference - l2) + (p_reference - l2) ** 2
+    lower_term = (
+        (p_candidate - l1) ** 2
+        - 2.0 * phi * (p_candidate - l1) * (u2 - p_reference)
+        + (u2 - p_reference) ** 2
+    )
+    upper_term = (
+        (u1 - p_candidate) ** 2
+        - 2.0 * phi * (u1 - p_candidate) * (p_reference - l2)
+        + (p_reference - l2) ** 2
+    )
     return {
         "difference": difference,
         "lower": max(-1.0, difference - math.sqrt(max(lower_term, 0.0))),

@@ -1,42 +1,47 @@
 """mujoco env with batched rollouts using mujoco.rollout."""
 
 import os
-import numpy as np 
-import mujoco 
-from jaxtyping import Array, Float
-from mujoco import rollout 
+
+import mujoco
+import numpy as np
+from jaxtyping import Float
+from mujoco import rollout
 
 from src.envs.base import BaseEnv
 
 
 class MuJoCoEnv(BaseEnv):
-    def __init__(self, model_path: str, nthread: int | None = None, frame_skip: int = 1, use_warp: bool = False, nworld: int = 8):
+    def __init__(
+        self,
+        model_path: str,
+        nthread: int | None = None,
+        frame_skip: int = 1,
+        use_warp: bool = False,
+        nworld: int = 8,
+    ):
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
 
-        # adding frame skip 
+        # adding frame skip
         self._frame_skip = frame_skip
         self._dt = self.model.opt.timestep * frame_skip
 
         # state size for full physics state (qpos, qvel, actions, etc)
-        self._nstate = mujoco.mj_stateSize(
-            self.model, mujoco.mjtState.mjSTATE_FULLPHYSICS
-        )
+        self._nstate = mujoco.mj_stateSize(self.model, mujoco.mjtState.mjSTATE_FULLPHYSICS)
 
-        # thread pool for the batched rollouts 
+        # thread pool for the batched rollouts
         self._nthread = nthread or os.cpu_count() or 1
-        self._data_pool = [
-            mujoco.MjData(self.model) for _ in range(self._nthread)
-        ]
+        self._data_pool = [mujoco.MjData(self.model) for _ in range(self._nthread)]
 
-        self._rollout_ctx = rollout.Rollout(nthread = self._nthread)
+        self._rollout_ctx = rollout.Rollout(nthread=self._nthread)
 
         self._use_warp = use_warp
         if use_warp:
             # GPU support is optional; CPU physics must not import that stack.
             global wp, mjw
-            import warp as wp
             import mujoco_warp as mjw
+            import warp as wp
+
             assert self.model.na == 0, "warp path assumes na == 0"
             assert self.model.nmocap == 0, "warp path assumes no mocap bodies"
             self._wm = mjw.put_model(self.model)
@@ -55,7 +60,7 @@ class MuJoCoEnv(BaseEnv):
             self.set_state(state)
         mujoco.mj_forward(self.model, self.data)
         return self._get_obs()
-    
+
     def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, dict]:
         self.data.ctrl[:] = action
         for _ in range(self._frame_skip):
@@ -65,16 +70,16 @@ class MuJoCoEnv(BaseEnv):
         obs = self._get_obs()
         state = self.get_state()
         sensor = self.data.sensordata.copy().reshape(1, 1, -1)
-        c = self.running_cost(
-            state.reshape(1, 1, -1), action.reshape(1, 1, -1), sensor
-        ).item()
+        c = self.running_cost(state.reshape(1, 1, -1), action.reshape(1, 1, -1), sensor).item()
         return obs, c, False, {}
-    
+
     def get_state(self) -> np.ndarray:
         state = np.empty(self._nstate)
         mujoco.mj_getState(
-            self.model, self.data, state, 
-            mujoco.mjtState.mjSTATE_FULLPHYSICS, 
+            self.model,
+            self.data,
+            state,
+            mujoco.mjtState.mjSTATE_FULLPHYSICS,
         )
         return state
 
@@ -94,38 +99,39 @@ class MuJoCoEnv(BaseEnv):
 
     def set_state(self, state: np.ndarray) -> None:
         mujoco.mj_setState(
-            self.model, self.data, state,
+            self.model,
+            self.data,
+            state,
             mujoco.mjtState.mjSTATE_FULLPHYSICS,
         )
 
     def state_qpos(
         self,
-        states: Float[Array, "... nstate"],
-    ) -> Float[Array, "... nq"]:
+        states: Float[np.ndarray, "... nstate"],
+    ) -> Float[np.ndarray, "... nq"]:
         return states[..., 1 : 1 + self.model.nq]
 
     def state_qvel(
         self,
-        states: Float[Array, "... nstate"],
-    ) -> Float[Array, "... nv"]:
+        states: Float[np.ndarray, "... nstate"],
+    ) -> Float[np.ndarray, "... nv"]:
         start = 1 + self.model.nq
         end = start + self.model.nv
         return states[..., start:end]
 
     def batch_rollout(
-            self, 
-            initial_state: np.ndarray, 
-            action_sequences: np.ndarray,
-            initial_warmstart: np.ndarray | None = None,
+        self,
+        initial_state: np.ndarray,
+        action_sequences: np.ndarray,
+        initial_warmstart: np.ndarray | None = None,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        
         if self._use_warp:
             return self._batch_rollout_warp(initial_state, action_sequences, initial_warmstart)
 
-        K, H, _ = action_sequences.shape 
-        
-        # repeat each action for frame_skip physics steps 
-        actions_expanded = np.repeat(action_sequences, self._frame_skip, axis = 1) 
+        K, H, _ = action_sequences.shape
+
+        # repeat each action for frame_skip physics steps
+        actions_expanded = np.repeat(action_sequences, self._frame_skip, axis=1)
         states_full, sensordata_full = self._rollout_ctx.rollout(
             self.model,
             self._data_pool,
@@ -144,35 +150,37 @@ class MuJoCoEnv(BaseEnv):
         return states, costs, sensordata
 
     def rollout_cost(
-            self,
-            states: np.ndarray,
-            actions: np.ndarray,
-            sensordata: np.ndarray,
+        self,
+        states: np.ndarray,
+        actions: np.ndarray,
+        sensordata: np.ndarray,
     ) -> np.ndarray:
         """Score complete rollouts; tasks may override termination semantics."""
         running = self.running_cost(states, actions, sensordata)
         terminal = self.terminal_cost(states[:, -1, :], sensordata[:, -1, :])
         return running.sum(axis=1) + terminal
-    
-    # you need to ensure that you have warp buffers for the h timsteps to live on 
+
+    # you need to ensure that you have warp buffers for the h timsteps to live on
     def _ensure_warp_buffers(self, K: int, H: int) -> None:
         if K != self._warp_nworld:
             raise RuntimeError(
-                    f"nworld fixed at construction ({self._warp_nworld}); got K={K}. "
-                    "Re-instantiate env with nworld=K.")
-        # initial call this is set to None 
+                f"nworld fixed at construction ({self._warp_nworld}); got K={K}. "
+                "Re-instantiate env with nworld=K."
+            )
+        # initial call this is set to None
         if self._warp_H == H:
-            return 
+            return
         # (H, K, *) so buf[h] is a (K, *) leading-axis subview wp.copy can target
-        self._qpos_buf   = wp.zeros((H, K, self.model.nq),          dtype=wp.float32)
-        self._qvel_buf   = wp.zeros((H, K, self.model.nv),          dtype=wp.float32)
+        self._qpos_buf = wp.zeros((H, K, self.model.nq), dtype=wp.float32)
+        self._qvel_buf = wp.zeros((H, K, self.model.nv), dtype=wp.float32)
         # Warp cannot slice a zero-width array, so sensor-free models get none.
         self._sensor_buf = (
             wp.zeros((H, K, self.model.nsensordata), dtype=wp.float32)
-            if self.model.nsensordata else None
+            if self.model.nsensordata
+            else None
         )
-        self._actions_wp = wp.zeros((H, K, self.model.nu),          dtype=wp.float32)
-        self._rollout_graph = None    # buffers changed → prior graph is invalid
+        self._actions_wp = wp.zeros((H, K, self.model.nu), dtype=wp.float32)
+        self._rollout_graph = None  # buffers changed → prior graph is invalid
         self._warp_H = H
 
     def _run_rollout(self, H: int) -> None:
@@ -182,20 +190,22 @@ class MuJoCoEnv(BaseEnv):
         is populated. Safe to capture into a CUDA graph.
         """
         for h in range(H):
-            wp.copy(self._wd.ctrl, self._actions_wp[h])      # (K, nu) → d.ctrl
+            wp.copy(self._wd.ctrl, self._actions_wp[h])  # (K, nu) → d.ctrl
             for _ in range(self._frame_skip):
                 mjw.step(self._wm, self._wd)
-            wp.copy(self._qpos_buf[h],   self._wd.qpos)       # (K, nq)
-            wp.copy(self._qvel_buf[h],   self._wd.qvel)       # (K, nv)
+            wp.copy(self._qpos_buf[h], self._wd.qpos)  # (K, nq)
+            wp.copy(self._qvel_buf[h], self._wd.qvel)  # (K, nv)
             if self._sensor_buf is not None:
-                wp.copy(self._sensor_buf[h], self._wd.sensordata) # (K, ns)
+                wp.copy(self._sensor_buf[h], self._wd.sensordata)  # (K, ns)
 
     def _batch_rollout_warp(self, initial_state, action_sequences, initial_warmstart=None):
         K, H, nu = action_sequences.shape
         self._ensure_warp_buffers(K, H)
 
         mujoco.mj_setState(
-            self.model, self.data, initial_state,
+            self.model,
+            self.data,
+            initial_state,
             mujoco.mjtState.mjSTATE_FULLPHYSICS,
         )
         nq, nv = self.model.nq, self.model.nv
@@ -207,7 +217,9 @@ class MuJoCoEnv(BaseEnv):
         # does (zeros unless one is given); otherwise each call inherits the
         # previous call's final warm start and time.
         warmstart = np.zeros(nv) if initial_warmstart is None else np.asarray(initial_warmstart)
-        self._wd.qacc_warmstart.assign(np.broadcast_to(warmstart.astype(np.float32), (K, nv)).copy())
+        self._wd.qacc_warmstart.assign(
+            np.broadcast_to(warmstart.astype(np.float32), (K, nv)).copy()
+        )
         self._wd.time.zero_()
         self._actions_wp.assign(
             np.ascontiguousarray(action_sequences.transpose(1, 0, 2).astype(np.float32))
@@ -219,8 +231,8 @@ class MuJoCoEnv(BaseEnv):
             self._rollout_graph = capture.graph
         wp.capture_launch(self._rollout_graph)
 
-        qpos       = self._qpos_buf.numpy().transpose(1, 0, 2)
-        qvel       = self._qvel_buf.numpy().transpose(1, 0, 2)
+        qpos = self._qpos_buf.numpy().transpose(1, 0, 2)
+        qvel = self._qvel_buf.numpy().transpose(1, 0, 2)
         sensordata = (
             self._sensor_buf.numpy().transpose(1, 0, 2)
             if self._sensor_buf is not None
@@ -233,17 +245,17 @@ class MuJoCoEnv(BaseEnv):
         return states, costs, sensordata
 
     def _get_obs(self) -> np.ndarray:
-        """ can be overrided in the sub class if you need to change the obs space"""
+        """can be overrided in the sub class if you need to change the obs space"""
         return self.get_state()
-    
-    @property 
+
+    @property
     def state_dim(self) -> int:
         return self._nstate
-    
-    @property 
+
+    @property
     def action_dim(self) -> int:
-        return self.model.nu 
-    
+        return self.model.nu
+
     @property
     def action_bounds(self) -> tuple[np.ndarray, np.ndarray]:
         return (

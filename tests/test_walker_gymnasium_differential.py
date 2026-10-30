@@ -11,8 +11,7 @@ import mujoco
 import numpy as np
 import pytest
 
-from src.envs.walker2d import Walker2d, _XML
-
+from src.envs.walker2d import _XML, Walker2d
 
 XML = Path(_XML)
 
@@ -29,8 +28,12 @@ def align_initial_state(local, reference, seed):
 
 @pytest.mark.parametrize("seed", [914, 915, 916])
 def test_same_xml_physics_observation_termination_and_independent_task_cost(seed):
-    local = Walker2d(cost_style="target_velocity", vel_cost_weight=2.0,
-                     vertical_velocity_cost_weight=0.5, nthread=1)
+    local = Walker2d(
+        cost_style="target_velocity",
+        vel_cost_weight=2.0,
+        vertical_velocity_cost_weight=0.5,
+        nthread=1,
+    )
     reference = gym.make("Walker2d-v5", xml_file=str(XML)).unwrapped
     try:
         align_initial_state(local, reference, seed)
@@ -41,11 +44,13 @@ def test_same_xml_physics_observation_termination_and_independent_task_cost(seed
             np.testing.assert_allclose(local.data.qpos, reference.data.qpos, rtol=0, atol=1e-12)
             np.testing.assert_allclose(local.data.qvel, reference.data.qvel, rtol=0, atol=1e-12)
             assert done == ref_done
-            expected = (2 * abs(1.5 - reference.data.qvel[0])
-                        + 0.5 * reference.data.qvel[1] ** 2
-                        + 0.1 * reference.data.qpos[2] ** 2
-                        + 0.001 * np.sum(action ** 2)
-                        + (25.0 if ref_done else 0.0))
+            expected = (
+                2 * abs(1.5 - reference.data.qvel[0])
+                + 0.5 * reference.data.qvel[1] ** 2
+                + 0.1 * reference.data.qpos[2] ** 2
+                + 0.001 * np.sum(action**2)
+                + (25.0 if ref_done else 0.0)
+            )
             assert cost == pytest.approx(expected, rel=0, abs=1e-12)
             if done:
                 break
@@ -54,7 +59,9 @@ def test_same_xml_physics_observation_termination_and_independent_task_cost(seed
         reference.close()
 
 
-@pytest.mark.xfail(strict=True, reason="Frozen XML right-foot friction 0.9 differs from stock v5 1.9")
+@pytest.mark.xfail(
+    strict=True, reason="Frozen XML right-foot friction 0.9 differs from stock v5 1.9"
+)
 def test_frozen_walker_is_stock_v5_dynamics():
     local = Walker2d(nthread=1)
     reference = gym.make("Walker2d-v5").unwrapped

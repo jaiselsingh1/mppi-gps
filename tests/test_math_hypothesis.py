@@ -39,17 +39,21 @@ def test_gibbs_normalization_order_improvement_and_renyi_bound(scores, lam):
 @settings(max_examples=150, derandomize=True)
 @given(scores_strategy, st.floats(min_value=0.1, max_value=10), st.floats(-100, 100))
 def test_gibbs_shift_scale_equivariance_and_temperature_order(scores, scale, offset):
-    np.testing.assert_allclose(softmin_weights(scores, 2.0),
-                               softmin_weights(scale * scores + offset, 2.0 * scale),
-                               atol=1e-12)
+    np.testing.assert_allclose(
+        softmin_weights(scores, 2.0),
+        softmin_weights(scale * scores + offset, 2.0 * scale),
+        atol=1e-12,
+    )
     assert effective_sample_size(softmin_weights(scores, 1.0)) <= (
         effective_sample_size(softmin_weights(scores, 10.0)) + 1e-12
     )
 
 
 @settings(max_examples=100, derandomize=True)
-@given(st.lists(st.integers(-1000, 1000), min_size=3, max_size=30, unique=True),
-       st.floats(min_value=0.4, max_value=0.95))
+@given(
+    st.lists(st.integers(-1000, 1000), min_size=3, max_size=30, unique=True),
+    st.floats(min_value=0.4, max_value=0.95),
+)
 def test_temperature_root_hits_feasible_ess_target(values, rho):
     scores = np.asarray(values, dtype=float)
     weights = softmin_weights(scores, temperature_for_neff_fraction(scores, rho))
@@ -58,8 +62,10 @@ def test_temperature_root_hits_feasible_ess_target(values, rho):
 
 
 @settings(max_examples=100, derandomize=True)
-@given(st.lists(st.integers(-1000, 1000), min_size=3, max_size=30, unique=True),
-       st.floats(min_value=0.05, max_value=0.95))
+@given(
+    st.lists(st.integers(-1000, 1000), min_size=3, max_size=30, unique=True),
+    st.floats(min_value=0.05, max_value=0.95),
+)
 def test_budget_root_hits_feasible_target(values, fraction):
     scores = np.asarray(values, dtype=float)
     budget = scores.min() + fraction * (scores.mean() - scores.min())

@@ -54,16 +54,21 @@ def test_same_index_pairing_would_score_the_post_action_state(walker):
 
 
 def test_pre_fall_mask_keeps_the_falling_action_and_drops_later_ones():
-    healthy = np.array([
-        [True, True, False, True, False],
-        [True, True, True, True, True],
-        [False, True, True, True, True],
-    ])
-    np.testing.assert_array_equal(pre_fall_action_mask(healthy), [
-        [True, True, True, False, False],
-        [True, True, True, True, True],
-        [True, False, False, False, False],
-    ])
+    healthy = np.array(
+        [
+            [True, True, False, True, False],
+            [True, True, True, True, True],
+            [False, True, True, True, True],
+        ]
+    )
+    np.testing.assert_array_equal(
+        pre_fall_action_mask(healthy),
+        [
+            [True, True, True, False, False],
+            [True, True, True, True, True],
+            [True, False, False, False, False],
+        ],
+    )
 
 
 def test_pre_fall_mask_matches_walker_absorbing_cost_prefix(walker):

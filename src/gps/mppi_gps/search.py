@@ -5,6 +5,7 @@ cost.  Guidance only reweights a copied final-pass bank.  Both selectors use
 the same actor-independent proximity term and verify their synthesized mean
 with the instrumented environment before executing it.
 """
+
 from __future__ import annotations
 
 import copy
@@ -135,8 +136,14 @@ class IndependentMPPI:
             "native": self._planner.snapshot(),
             "caches": {
                 name: copy.deepcopy(getattr(self._planner, name))
-                for name in ("_last_plan", "_last_states", "_last_actions",
-                             "_last_weights", "_last_costs", "_last_sensordata")
+                for name in (
+                    "_last_plan",
+                    "_last_states",
+                    "_last_actions",
+                    "_last_weights",
+                    "_last_costs",
+                    "_last_sensordata",
+                )
             },
         }
 
@@ -147,8 +154,14 @@ class IndependentMPPI:
     def restore(self, snapshot: dict) -> None:
         self._planner.restore(copy.deepcopy(snapshot["native"]))
         for name, value in snapshot.get("caches", {}).items():
-            if name not in ("_last_plan", "_last_states", "_last_actions",
-                            "_last_weights", "_last_costs", "_last_sensordata"):
+            if name not in (
+                "_last_plan",
+                "_last_states",
+                "_last_actions",
+                "_last_weights",
+                "_last_costs",
+                "_last_sensordata",
+            ):
                 raise ValueError(f"Unknown native cache: {name}")
             setattr(self._planner, name, copy.deepcopy(value))
 
@@ -182,13 +195,18 @@ class IndependentMPPI:
             raise FloatingPointError("No verified finite independent plan.")
         best = int(np.argmin(np.where(np.isfinite(costs), costs, np.inf)))
         observations = self.env.rollout_states_to_obs(pre_action_states(state, posts))
-        diagnostics = dict(diagnostics, raw_mean_verification_error=mean_error,
-                           raw_selected_index=best)
+        diagnostics = dict(
+            diagnostics, raw_mean_verification_error=mean_error, raw_selected_index=best
+        )
         return SearchBank(
-            actions=_readonly(actions), observations=_readonly(observations),
-            post_states=_readonly(posts), raw_costs=_readonly(costs),
-            reference_u=_readonly(reference), raw_plan=_readonly(actions[best]),
-            raw_score=float(costs[best]), initial_state=_readonly(state),
+            actions=_readonly(actions),
+            observations=_readonly(observations),
+            post_states=_readonly(posts),
+            raw_costs=_readonly(costs),
+            reference_u=_readonly(reference),
+            raw_plan=_readonly(actions[best]),
+            raw_score=float(costs[best]),
+            initial_state=_readonly(state),
             warmstart=None if warmstart is None else _readonly(warmstart),
             active_mask=_readonly(_active_mask(self.env, posts)),
             temperature=float(diagnostics["lam"]),
@@ -217,11 +235,14 @@ class CoupledSelector:
         self._calls = 0
 
     @staticmethod
-    def _support(observations: np.ndarray, active: np.ndarray,
-                 supported: bool | Callable | None) -> np.ndarray:
+    def _support(
+        observations: np.ndarray, active: np.ndarray, supported: bool | Callable | None
+    ) -> np.ndarray:
         mask = active & np.all(np.isfinite(observations), axis=-1)
-        value = True if supported is None else (
-            supported(observations) if callable(supported) else supported
+        value = (
+            True
+            if supported is None
+            else (supported(observations) if callable(supported) else supported)
         )
         support = np.asarray(value, dtype=bool)
         if support.shape == (len(observations),):
@@ -231,14 +252,16 @@ class CoupledSelector:
         except ValueError as error:
             raise ValueError("supported must return a scalar, (K,), or (K,H) mask.") from error
 
-    def _components(self, actions: np.ndarray, raw: np.ndarray,
-                    reference: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    def _components(
+        self, actions: np.ndarray, raw: np.ndarray, reference: np.ndarray
+    ) -> tuple[np.ndarray, np.ndarray]:
         prox = 0.5 * self.eta_u * np.sum((actions - reference[None]) ** 2, axis=(1, 2))
         return raw + prox, prox
 
     @staticmethod
-    def _agreement(actor: Any, observations: np.ndarray, actions: np.ndarray,
-                   support: np.ndarray, meter: Any) -> np.ndarray:
+    def _agreement(
+        actor: Any, observations: np.ndarray, actions: np.ndarray, support: np.ndarray, meter: Any
+    ) -> np.ndarray:
         values = np.zeros(actions.shape[:2], dtype=float)
         if np.any(support):
             predictions = np.asarray(actor.predict(observations[support], meter=meter))
@@ -257,25 +280,44 @@ class CoupledSelector:
         if not np.isfinite(costs[0]):
             raise FloatingPointError("Selector mean has no finite measured task score.")
         observations = bank._env.rollout_states_to_obs(pre_action_states(bank.initial_state, posts))
-        return {"plan": plan, "posts": posts, "observations": observations,
-                "raw": costs, "active": _active_mask(bank._env, posts)}
+        return {
+            "plan": plan,
+            "posts": posts,
+            "observations": observations,
+            "raw": costs,
+            "active": _active_mask(bank._env, posts),
+        }
 
-    def select(self, bank: SearchBank, actor: Any, meter: Any, enabled: bool = False,
-               supported: bool | Callable | None = None) -> tuple[np.ndarray, dict]:
+    def select(
+        self,
+        bank: SearchBank,
+        actor: Any,
+        meter: Any,
+        enabled: bool = False,
+        supported: bool | Callable | None = None,
+    ) -> tuple[np.ndarray, dict]:
         self._calls += 1
         # A durable meter event distinguishes paired selectors that see the
         # exact same bank, including after checkpoint continuation.
-        request_id = meter.record("selection_requested", bank_digest=bank.bank_digest,
-                                  enabled=bool(enabled), alpha=self.alpha,
-                                  eta_u=self.eta_u) if meter is not None else self._calls
+        request_id = (
+            meter.record(
+                "selection_requested",
+                bank_digest=bank.bank_digest,
+                enabled=bool(enabled),
+                alpha=self.alpha,
+                eta_u=self.eta_u,
+            )
+            if meter is not None
+            else self._calls
+        )
         tag = f"selection_{bank.bank_digest[:16]}_{request_id}"
         raw_scores, prox = self._components(bank.actions, bank.raw_costs, bank.reference_u)
         baseline_index = int(np.argmin(np.where(np.isfinite(raw_scores), raw_scores, np.inf)))
         baseline_plan = bank.actions[baseline_index].copy()
         baseline_score = float(raw_scores[baseline_index])
         baseline_raw = float(bank.raw_costs[baseline_index])
-        baseline_posts = bank.post_states[baseline_index:baseline_index + 1]
-        baseline_obs = bank.observations[baseline_index:baseline_index + 1]
+        baseline_posts = bank.post_states[baseline_index : baseline_index + 1]
+        baseline_obs = bank.observations[baseline_index : baseline_index + 1]
         baseline_origin = f"bank:{baseline_index}"
         baseline_error = None
         baseline_mean = None
@@ -306,67 +348,116 @@ class CoupledSelector:
                 if np.any(support):
                     if actor is None:
                         raise ValueError("Enabled supported guidance requires an actor.")
-                    agreement = self._agreement(actor, bank.observations, bank.actions, support, meter)
+                    agreement = self._agreement(
+                        actor, bank.observations, bank.actions, support, meter
+                    )
                     guided_scores = raw_scores + 0.5 * self.alpha * agreement
-                    index = int(np.argmin(np.where(np.isfinite(guided_scores), guided_scores, np.inf)))
+                    index = int(
+                        np.argmin(np.where(np.isfinite(guided_scores), guided_scores, np.inf))
+                    )
                     candidate_plan = bank.actions[index].copy()
-                    candidate_score, candidate_raw = float(guided_scores[index]), float(bank.raw_costs[index])
-                    candidate_posts = bank.post_states[index:index + 1]
-                    candidate_obs = bank.observations[index:index + 1]
+                    candidate_score, candidate_raw = (
+                        float(guided_scores[index]),
+                        float(bank.raw_costs[index]),
+                    )
+                    candidate_posts = bank.post_states[index : index + 1]
+                    candidate_obs = bank.observations[index : index + 1]
                     candidate_origin = f"bank:{index}"
                     weights = softmin_weights(guided_scores, bank.temperature)
                     mean_plan = np.einsum("k,kha->ha", weights, bank.actions)
                     guided_mean = self._verify(bank, mean_plan)
-                    mean_support = self._support(guided_mean["observations"], guided_mean["active"], supported)
-                    mean_agreement = self._agreement(actor, guided_mean["observations"],
-                                                      mean_plan[None], mean_support, meter)
-                    mean_score, _ = self._components(mean_plan[None], guided_mean["raw"], bank.reference_u)
+                    mean_support = self._support(
+                        guided_mean["observations"], guided_mean["active"], supported
+                    )
+                    mean_agreement = self._agreement(
+                        actor, guided_mean["observations"], mean_plan[None], mean_support, meter
+                    )
+                    mean_score, _ = self._components(
+                        mean_plan[None], guided_mean["raw"], bank.reference_u
+                    )
                     mean_score += 0.5 * self.alpha * mean_agreement
                     if mean_score[0] < candidate_score:
                         candidate_plan, candidate_score = mean_plan, float(mean_score[0])
                         candidate_raw = float(guided_mean["raw"][0])
-                        candidate_posts, candidate_obs = guided_mean["posts"], guided_mean["observations"]
+                        candidate_posts, candidate_obs = (
+                            guided_mean["posts"],
+                            guided_mean["observations"],
+                        )
                         candidate_origin = "verified_guided_mean"
-                    plan, selected_score, selected_raw = candidate_plan, candidate_score, candidate_raw
-                    selected_posts, selected_obs, origin = candidate_posts, candidate_obs, candidate_origin
+                    plan, selected_score, selected_raw = (
+                        candidate_plan,
+                        candidate_score,
+                        candidate_raw,
+                    )
+                    selected_posts, selected_obs, origin = (
+                        candidate_posts,
+                        candidate_obs,
+                        candidate_origin,
+                    )
                     influence = True
             except (FloatingPointError, ValueError) as error:
                 guided_error = f"{type(error).__name__}: {error}"
                 numerical_revocation = True
 
-        arrays = dict(bank_actions=bank.actions, bank_observations=bank.observations,
-                      bank_post_states=bank.post_states, bank_raw_costs=bank.raw_costs,
-                      reference_u=bank.reference_u, initial_state=bank.initial_state,
-                      bank_active_mask=bank.active_mask, raw_plan=bank.raw_plan,
-                      proximity_costs=prox, baseline_scores=raw_scores,
-                      agreement_squared=agreement, guided_scores=guided_scores,
-                      support=support, selected_plan=plan,
-                      selected_post_states=selected_posts,
-                      selected_pre_action_observations=selected_obs,
-                      baseline_plan=baseline_plan)
+        arrays = dict(
+            bank_actions=bank.actions,
+            bank_observations=bank.observations,
+            bank_post_states=bank.post_states,
+            bank_raw_costs=bank.raw_costs,
+            reference_u=bank.reference_u,
+            initial_state=bank.initial_state,
+            bank_active_mask=bank.active_mask,
+            raw_plan=bank.raw_plan,
+            proximity_costs=prox,
+            baseline_scores=raw_scores,
+            agreement_squared=agreement,
+            guided_scores=guided_scores,
+            support=support,
+            selected_plan=plan,
+            selected_post_states=selected_posts,
+            selected_pre_action_observations=selected_obs,
+            baseline_plan=baseline_plan,
+        )
         if bank.warmstart is not None:
             arrays["initial_warmstart"] = bank.warmstart
         for prefix, result in (("baseline_mean", baseline_mean), ("guided_mean", guided_mean)):
             if result is not None:
-                arrays.update({f"{prefix}_plan": result["plan"],
-                               f"{prefix}_post_states": result["posts"],
-                               f"{prefix}_observations": result["observations"],
-                               f"{prefix}_raw_costs": result["raw"]})
+                arrays.update(
+                    {
+                        f"{prefix}_plan": result["plan"],
+                        f"{prefix}_post_states": result["posts"],
+                        f"{prefix}_observations": result["observations"],
+                        f"{prefix}_raw_costs": result["raw"],
+                    }
+                )
         evidence = meter.save_arrays(tag, **arrays) if meter is not None else None
-        info = _json_safe(dict(
-            bank_digest=bank.bank_digest, actor_hash=_actor_hash(actor),
-            enabled=bool(enabled), alpha=self.alpha, eta_u=self.eta_u,
-            influence_used=influence, numerical_revocation=numerical_revocation,
-            changed_action=bool(not np.array_equal(plan[0], baseline_plan[0])),
-            raw_first_action=bank.raw_plan[0], baseline_first_action=baseline_plan[0],
-            guided_first_action=plan[0], raw_score=bank.raw_score,
-            baseline_score=baseline_score, baseline_task_cost=baseline_raw,
-            selected_score=selected_score, selected_task_cost=selected_raw,
-            selected_origin=origin, baseline_origin=baseline_origin,
-            supported_rows=int(np.sum(support)),
-            baseline_verification_error=baseline_error, guided_error=guided_error,
-            raw_diagnostics=bank.diagnostics, evidence=evidence,
-        ))
+        info = _json_safe(
+            dict(
+                bank_digest=bank.bank_digest,
+                actor_hash=_actor_hash(actor),
+                enabled=bool(enabled),
+                alpha=self.alpha,
+                eta_u=self.eta_u,
+                influence_used=influence,
+                numerical_revocation=numerical_revocation,
+                changed_action=bool(not np.array_equal(plan[0], baseline_plan[0])),
+                raw_first_action=bank.raw_plan[0],
+                baseline_first_action=baseline_plan[0],
+                guided_first_action=plan[0],
+                raw_score=bank.raw_score,
+                baseline_score=baseline_score,
+                baseline_task_cost=baseline_raw,
+                selected_score=selected_score,
+                selected_task_cost=selected_raw,
+                selected_origin=origin,
+                baseline_origin=baseline_origin,
+                supported_rows=int(np.sum(support)),
+                baseline_verification_error=baseline_error,
+                guided_error=guided_error,
+                raw_diagnostics=bank.diagnostics,
+                evidence=evidence,
+            )
+        )
         if meter is not None:
             meter.record("coupled_selection", **info)
         return np.array(plan, copy=True), info

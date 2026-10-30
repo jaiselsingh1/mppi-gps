@@ -44,9 +44,7 @@ def test_fallen_rollout_uses_absorbing_failure_cost(walker, vertical_weight):
     walker._w_vertical_velocity = vertical_weight
     np.random.seed(123)
     walker.reset()
-    actions = np.random.default_rng(0).uniform(
-        -1.0, 1.0, (1, 80, walker.action_dim)
-    )
+    actions = np.random.default_rng(0).uniform(-1.0, 1.0, (1, 80, walker.action_dim))
     states, costs, _ = walker.batch_rollout(
         walker.get_state(),
         actions,
@@ -65,7 +63,7 @@ def test_fallen_rollout_uses_absorbing_failure_cost(walker, vertical_weight):
 
     assert done
     np.testing.assert_allclose(
-        states[0, :len(live_states)],
+        states[0, : len(live_states)],
         np.asarray(live_states),
         rtol=0.0,
         atol=1e-12,
@@ -109,9 +107,7 @@ def test_lowpass_noise_is_temporally_correlated_without_changing_sigma(walker):
             rtol=0.08,
             atol=0.015,
         )
-    lag_one_correlation = np.mean(noise[:, :-1] * noise[:, 1:]) / np.mean(
-        noise[:, :-1] ** 2
-    )
+    lag_one_correlation = np.mean(noise[:, :-1] * noise[:, 1:]) / np.mean(noise[:, :-1] ** 2)
     assert lag_one_correlation > 0.65
 
 

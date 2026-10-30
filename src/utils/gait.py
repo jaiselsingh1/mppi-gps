@@ -96,9 +96,7 @@ def support_diagnostics(
         "short_contact_bout_fraction": (
             float(np.mean(np.asarray(bouts) < dwell_samples)) if bouts else None
         ),
-        "median_complete_contact_bout_seconds": (
-            float(np.median(bouts) * dt) if bouts else None
-        ),
+        "median_complete_contact_bout_seconds": (float(np.median(bouts) * dt) if bouts else None),
         "right_normal_impulse_share": (
             float(impulse[0] / total_impulse) if total_impulse > 0 else None
         ),

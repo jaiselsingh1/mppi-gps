@@ -12,8 +12,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import numpy as np
-
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
@@ -42,12 +40,16 @@ def _restore_check(episode: dict, config: Path, task_config: Path, step: int, le
         env.close()
     end = step + len(actions)
     report = compare_fields(
-        {"actions": episode["actions"][step:end], "states": episode["states"][step:end + 1]},
+        {"actions": episode["actions"][step:end], "states": episode["states"][step : end + 1]},
         {"actions": actions, "states": states},
         ("actions", "states"),
     )
-    return {"step": step, "steps_replayed": len(actions),
-            "exact": all(field["exact"] for field in report.values()), "fields": report}
+    return {
+        "step": step,
+        "steps_replayed": len(actions),
+        "exact": all(field["exact"] for field in report.values()),
+        "fields": report,
+    }
 
 
 def main(
@@ -73,36 +75,60 @@ def main(
     out_dir.mkdir(parents=True, exist_ok=True)
     expected = load_episode(reference, reference_episode)
     traces = out_dir / "traces.npz"
-    runner.main(config=config, task_config=task_config, episodes=1, steps=steps,
-                seed=expected["reset_seed"], planner_seed=expected["planner_seed"],
-                traces_output=traces, metrics_output=out_dir / "metrics.json", log_every=0)
+    runner.main(
+        config=config,
+        task_config=task_config,
+        episodes=1,
+        steps=steps,
+        seed=expected["reset_seed"],
+        planner_seed=expected["planner_seed"],
+        traces_output=traces,
+        metrics_output=out_dir / "metrics.json",
+        log_every=0,
+    )
     replay = load_episode(traces, 0)
 
     comparison = compare_fields(expected, replay, _COMPARED)
-    restore_steps = sorted({0, len(replay["actions"]) // 2,
-                            max(0, len(replay["actions"]) - restore_length)})
-    restores = [_restore_check(replay, config, task_config, step, restore_length)
-                for step in restore_steps]
-    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=_REPO_ROOT,
-                            capture_output=True, text=True).stdout.strip()
-    dirty = bool(subprocess.run(["git", "status", "--porcelain"], cwd=_REPO_ROOT,
-                                capture_output=True, text=True).stdout.strip())
+    restore_steps = sorted(
+        {0, len(replay["actions"]) // 2, max(0, len(replay["actions"]) - restore_length)}
+    )
+    restores = [
+        _restore_check(replay, config, task_config, step, restore_length) for step in restore_steps
+    ]
+    commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=_REPO_ROOT, capture_output=True, text=True
+    ).stdout.strip()
+    dirty = bool(
+        subprocess.run(
+            ["git", "status", "--porcelain"], cwd=_REPO_ROOT, capture_output=True, text=True
+        ).stdout.strip()
+    )
     report = {
-        "reference": {"path": str(reference.resolve()), "episode": reference_episode,
-                      "sha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
-                      "reset_seed": expected["reset_seed"], "planner_seed": expected["planner_seed"],
-                      "steps": len(expected["actions"])},
-        "replay": {"trace": str(traces.resolve()), "steps": len(replay["actions"]),
-                   "git_commit": commit, "git_dirty": dirty},
+        "reference": {
+            "path": str(reference.resolve()),
+            "episode": reference_episode,
+            "sha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
+            "reset_seed": expected["reset_seed"],
+            "planner_seed": expected["planner_seed"],
+            "steps": len(expected["actions"]),
+        },
+        "replay": {
+            "trace": str(traces.resolve()),
+            "steps": len(replay["actions"]),
+            "git_commit": commit,
+            "git_dirty": dirty,
+        },
         "reference_trace_exact": all(field["exact"] for field in comparison.values()),
         "fields": comparison,
         "restore_checks": restores,
     }
     (out_dir / "replay_report.json").write_text(json.dumps(report, indent=2) + "\n")
     restore_exact = all(check["exact"] for check in restores)
-    print(f"reference_trace_exact={report['reference_trace_exact']} "
-          f"restore_exact={restore_exact} "
-          f"steps={len(replay['actions'])}/{len(expected['actions'])}")
+    print(
+        f"reference_trace_exact={report['reference_trace_exact']} "
+        f"restore_exact={restore_exact} "
+        f"steps={len(replay['actions'])}/{len(expected['actions'])}"
+    )
     if not (report["reference_trace_exact"] and restore_exact):
         # The report is already saved; a mismatch must still fail the command.
         raise SystemExit(1)

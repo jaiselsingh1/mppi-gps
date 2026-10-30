@@ -6,6 +6,7 @@ Weights are computed directly from
 with S_k = running_cost + terminal_cost + optional Σ_t u_t^T Σ^{-1} ε_{k,t}
          + (optional) policy-tracking cost from GPS.
 """
+
 import copy
 
 import numpy as np
@@ -16,12 +17,12 @@ from src.envs.base import BaseEnv
 from src.utils.config import MPPIConfig
 from src.utils.math import effective_sample_size, temperature_for_neff_fraction
 
+
 class MPPI:
-    
     def __init__(self, env: BaseEnv, cfg: MPPIConfig, seed: int | None = None):
-        self.env = env 
+        self.env = env
         self.cfg = cfg
-        self.K = cfg.K 
+        self.K = cfg.K
         self.H = cfg.H
         self.lam = cfg.lam
         self.sigma = cfg.noise_sigma
@@ -32,7 +33,10 @@ class MPPI:
         self.use_is_correction = cfg.use_is_correction
         self.initial_iterations = cfg.initial_iterations
         self.lam_target_neff_fraction = cfg.lam_target_neff_fraction
-        if self.lam_target_neff_fraction is not None and not 0.0 < self.lam_target_neff_fraction < 1.0:
+        if (
+            self.lam_target_neff_fraction is not None
+            and not 0.0 < self.lam_target_neff_fraction < 1.0
+        ):
             raise ValueError("lam_target_neff_fraction must lie strictly between 0 and 1.")
         if not np.isfinite(self.lam) or self.lam <= 0.0:
             raise ValueError(f"MPPI temperature lam must be positive, got {self.lam}.")
@@ -70,13 +74,13 @@ class MPPI:
         self._initial_plan = True
 
     def plan_step(
-            self,
-            state: np.ndarray,
-            nominal: np.ndarray | None = None,
-            nominal_first: np.ndarray | None = None,
-            prior_cost = None,
-            coupling = None,
-            initial_warmstart: np.ndarray | None = None,
+        self,
+        state: np.ndarray,
+        nominal: np.ndarray | None = None,
+        nominal_first: np.ndarray | None = None,
+        prior_cost=None,
+        coupling=None,
+        initial_warmstart: np.ndarray | None = None,
     ) -> tuple[np.ndarray, dict]:
         """Optimize one control decision, then shift the horizon once.
 
@@ -109,9 +113,7 @@ class MPPI:
 
         iterations = self.initial_iterations if self._initial_plan else 1
         for _ in range(iterations):
-            action, info = self._plan_iteration(
-                state, prior_cost, coupling, initial_warmstart
-            )
+            action, info = self._plan_iteration(state, prior_cost, coupling, initial_warmstart)
 
         # Refinement passes optimize the same horizon; only an executed control
         # decision advances it. The returned action is copied before shifting.
@@ -119,15 +121,15 @@ class MPPI:
         self.U[:-1] = self.U[1:]
         self.U[-1] = self.U[-2].copy()
         self._initial_plan = False
-        info['optimization_iterations'] = iterations
+        info["optimization_iterations"] = iterations
         return action, info
 
     def _plan_iteration(
-            self,
-            state: np.ndarray,
-            prior_cost,
-            coupling,
-            initial_warmstart: np.ndarray | None,
+        self,
+        state: np.ndarray,
+        prior_cost,
+        coupling,
+        initial_warmstart: np.ndarray | None,
     ) -> tuple[np.ndarray, dict]:
         """Refine the current nominal without advancing the control horizon."""
 
@@ -142,9 +144,7 @@ class MPPI:
         rollout_kwargs = {}
         if initial_warmstart is not None:
             rollout_kwargs["initial_warmstart"] = initial_warmstart
-        states, costs, sensordata = self.env.batch_rollout(
-            state, U_sampled, **rollout_kwargs
-        )
+        states, costs, sensordata = self.env.batch_rollout(state, U_sampled, **rollout_kwargs)
 
         # assemble S_k components:
         #    S_k = S_env + optional Σ_t u_t^T Σ^{-1} ε_{k,t}
@@ -178,7 +178,7 @@ class MPPI:
         )
 
         # weighted update on sampled perturbations
-        self.U = self.U + np.einsum('k, kha -> ha', weights, eps)
+        self.U = self.U + np.einsum("k, kha -> ha", weights, eps)
         self.U = np.clip(self.U, self.action_low, self.action_high)
         action = self.U[0].copy()
 
@@ -191,29 +191,29 @@ class MPPI:
 
         # S-component diagnostics (all in the same cost units — directly comparable)
         info = {
-            'cost_mean': float(np.mean(costs)),
-            'cost_min': float(np.min(costs)),
-            'cost_env_mean': float(np.mean(costs)),            # running + terminal
-            'cost_is_mean': float(np.mean(is_corr)),           # IS term (≈0 by symmetry)
-            'cost_is_std': float(np.std(is_corr)),             # IS term magnitude
-            'cost_track_mean': float(np.mean(track)) if track is not None else 0.0,
-            'cost_s_mean': self._finite_mean(S),               # total S = sum of above
-            'n_eff': float(n_eff),
-            'lam': float(lam),
-            'use_is_correction': float(self.use_is_correction),
-            'coupling_active': coupling_diag['active'],
-            'coupling_used_fallback': float(used_coupling_fallback),
-            'coupling_feasible_fraction': coupling_diag['feasible_fraction'],
-            'coupling_policy_cost_mean': coupling_diag['policy_cost_mean'],
-            'coupling_policy_cost_std': coupling_diag['policy_cost_std'],
-            'coupling_score_mean': coupling_diag['score_mean'],
-            'noise_lowpass_active': float(self.noise_lowpass_active),
+            "cost_mean": float(np.mean(costs)),
+            "cost_min": float(np.min(costs)),
+            "cost_env_mean": float(np.mean(costs)),  # running + terminal
+            "cost_is_mean": float(np.mean(is_corr)),  # IS term (≈0 by symmetry)
+            "cost_is_std": float(np.std(is_corr)),  # IS term magnitude
+            "cost_track_mean": float(np.mean(track)) if track is not None else 0.0,
+            "cost_s_mean": self._finite_mean(S),  # total S = sum of above
+            "n_eff": float(n_eff),
+            "lam": float(lam),
+            "use_is_correction": float(self.use_is_correction),
+            "coupling_active": coupling_diag["active"],
+            "coupling_used_fallback": float(used_coupling_fallback),
+            "coupling_feasible_fraction": coupling_diag["feasible_fraction"],
+            "coupling_policy_cost_mean": coupling_diag["policy_cost_mean"],
+            "coupling_policy_cost_std": coupling_diag["policy_cost_std"],
+            "coupling_score_mean": coupling_diag["score_mean"],
+            "noise_lowpass_active": float(self.noise_lowpass_active),
         }
         return action, info
 
     def _is_correction(self, eps: np.ndarray) -> np.ndarray:
         """Σ_t u_t^T Σ^{-1} ε_{k,t} → (K,)."""
-        precision_eps = np.einsum('ij,ktj->kti', self.noise_precision, eps)
+        precision_eps = np.einsum("ij,ktj->kti", self.noise_precision, eps)
         return np.sum(self.U[None, :, :] * precision_eps, axis=(1, 2))
 
     def _sample_noise(self) -> np.ndarray:
@@ -223,16 +223,16 @@ class MPPI:
             standard = self._rng.standard_normal((self.K, self.H, self.nu))
         if self._noise_temporal_chol is not None:
             standard = np.einsum(
-                'ht,kta->kha',
+                "ht,kta->kha",
                 self._noise_temporal_chol,
                 standard,
                 optimize=True,
             )
-        return np.einsum('khi,ji->khj', standard, self.noise_chol)
+        return np.einsum("khi,ji->khj", standard, self.noise_chol)
 
     def _build_temporal_noise_model(
-            self,
-            cfg: MPPIConfig,
+        self,
+        cfg: MPPIConfig,
     ) -> np.ndarray | None:
         """Build a stationary Butterworth covariance over the planning horizon."""
         cutoff = cfg.noise_lowpass_cutoff_hz
@@ -241,14 +241,10 @@ class MPPI:
 
         if cutoff is None:
             if sample_rate is not None:
-                raise ValueError(
-                    "noise_lowpass_sample_rate_hz requires noise_lowpass_cutoff_hz."
-                )
+                raise ValueError("noise_lowpass_sample_rate_hz requires noise_lowpass_cutoff_hz.")
             return None
         if sample_rate is None:
-            raise ValueError(
-                "noise_lowpass_cutoff_hz requires noise_lowpass_sample_rate_hz."
-            )
+            raise ValueError("noise_lowpass_cutoff_hz requires noise_lowpass_sample_rate_hz.")
         if type(order) is not int or order != 2:
             raise ValueError("noise_lowpass_order must be the integer value 2.")
 
@@ -257,9 +253,7 @@ class MPPI:
         if not np.isfinite(sample_rate) or sample_rate <= 0.0:
             raise ValueError("noise_lowpass_sample_rate_hz must be positive and finite.")
         if not np.isfinite(cutoff) or not 0.0 < cutoff < 0.5 * sample_rate:
-            raise ValueError(
-                "noise_lowpass_cutoff_hz must be positive, finite, and below Nyquist."
-            )
+            raise ValueError("noise_lowpass_cutoff_hz must be positive, finite, and below Nyquist.")
 
         numerator, denominator = butter(
             order,
@@ -275,9 +269,7 @@ class MPPI:
         )
 
         autocovariance = np.empty(self.H, dtype=float)
-        autocovariance[0] = (
-            state_c @ state_covariance @ state_c.T + state_d @ state_d.T
-        ).item()
+        autocovariance[0] = (state_c @ state_covariance @ state_c.T + state_d @ state_d.T).item()
         previous_power = np.eye(state_a.shape[0], dtype=float)
         for lag in range(1, self.H):
             current_power = state_a @ previous_power
@@ -295,13 +287,11 @@ class MPPI:
         try:
             return np.linalg.cholesky(correlation)
         except np.linalg.LinAlgError as exc:
-            raise ValueError(
-                "Butterworth temporal correlation is not positive definite."
-            ) from exc
+            raise ValueError("Butterworth temporal correlation is not positive definite.") from exc
 
     def _build_noise_model(
-            self,
-            cfg: MPPIConfig,
+        self,
+        cfg: MPPIConfig,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         if cfg.noise_std is not None and cfg.noise_cov is not None:
             raise ValueError("Set either noise_std or noise_cov, not both.")
@@ -309,16 +299,14 @@ class MPPI:
         if cfg.noise_std is not None:
             std = np.asarray(cfg.noise_std, dtype=float)
             if std.shape != (self.nu,):
-                raise ValueError(
-                    f"MPPI noise_std must have shape {(self.nu,)}, got {std.shape}."
-                )
+                raise ValueError(f"MPPI noise_std must have shape {(self.nu,)}, got {std.shape}.")
             if not np.all(np.isfinite(std)) or np.any(std <= 0.0):
                 raise ValueError("MPPI noise_std entries must be positive.")
-            cov = np.diag(std ** 2)
+            cov = np.diag(std**2)
         elif cfg.noise_cov is None:
             if not np.isfinite(self.sigma) or self.sigma <= 0.0:
                 raise ValueError(f"MPPI noise_sigma must be positive, got {self.sigma}.")
-            cov = (self.sigma ** 2) * np.eye(self.nu)
+            cov = (self.sigma**2) * np.eye(self.nu)
         else:
             cov = np.asarray(cfg.noise_cov, dtype=float)
             if cov.shape != (self.nu, self.nu):
@@ -340,7 +328,9 @@ class MPPI:
         """Paper's weight formula with min-baseline stabilization."""
         finite = np.isfinite(S)
         if not np.any(finite):
-            raise FloatingPointError("MPPI has no finite trajectory scores; refusing an unscored action.")
+            raise FloatingPointError(
+                "MPPI has no finite trajectory scores; refusing an unscored action."
+            )
 
         rho = np.min(S[finite])
         shifted = np.where(finite, S - rho, np.inf)
@@ -361,20 +351,20 @@ class MPPI:
         return float(np.mean(finite))
 
     def _apply_coupling(
-            self,
-            coupling,
-            states: np.ndarray,
-            actions: np.ndarray,
-            costs: np.ndarray,
-            base_score: np.ndarray,
-            lam: float,
+        self,
+        coupling,
+        states: np.ndarray,
+        actions: np.ndarray,
+        costs: np.ndarray,
+        base_score: np.ndarray,
+        lam: float,
     ) -> tuple[np.ndarray, dict[str, float], np.ndarray | None]:
         default_diag = {
-            'active': 0.0,
-            'feasible_fraction': 1.0,
-            'policy_cost_mean': 0.0,
-            'policy_cost_std': 0.0,
-            'score_mean': float(np.mean(base_score)),
+            "active": 0.0,
+            "feasible_fraction": 1.0,
+            "policy_cost_mean": 0.0,
+            "policy_cost_std": 0.0,
+            "score_mean": float(np.mean(base_score)),
         }
         if coupling is None:
             return base_score, default_diag, None
@@ -397,26 +387,26 @@ class MPPI:
         return score, diag, fallback_score
 
     def _maybe_fallback_coupling_weights(
-            self,
-            weights: np.ndarray,
-            n_eff: float,
-            score: np.ndarray,
-            fallback_score: np.ndarray | None,
-            coupling_diag: dict[str, float],
-            lam: float,
+        self,
+        weights: np.ndarray,
+        n_eff: float,
+        score: np.ndarray,
+        fallback_score: np.ndarray | None,
+        coupling_diag: dict[str, float],
+        lam: float,
     ) -> tuple[np.ndarray, float, np.ndarray, bool]:
         if fallback_score is None:
             return weights, n_eff, score, False
 
-        min_n_eff = coupling_diag.get('min_n_eff', 0.0)
-        max_weight = coupling_diag.get('max_weight', 1.0)
+        min_n_eff = coupling_diag.get("min_n_eff", 0.0)
+        max_weight = coupling_diag.get("max_weight", 1.0)
         should_fallback = n_eff < min_n_eff or float(np.max(weights)) > max_weight
         if not should_fallback:
             return weights, n_eff, score, False
 
         fallback_weights, fallback_n_eff = self._softmin_weights(fallback_score, lam)
         return fallback_weights, fallback_n_eff, fallback_score, True
-    
+
     @property
     def last_plan(self) -> np.ndarray | None:
         """Optimized (H, nu) plan of the latest plan_step, before the shift."""
@@ -449,15 +439,9 @@ class MPPI:
 
     def get_rollout_data(self) -> dict:
         return {
-            'states': self._last_states,
-            'actions': self._last_actions,
-            'weights': self._last_weights,
-            'costs': self._last_costs,
-            'sensordata': self._last_sensordata, 
-            }
-    
-
-
-
-                
-                
+            "states": self._last_states,
+            "actions": self._last_actions,
+            "weights": self._last_weights,
+            "costs": self._last_costs,
+            "sensordata": self._last_sensordata,
+        }

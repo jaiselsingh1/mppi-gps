@@ -1,11 +1,11 @@
-import json
 import hashlib
 import inspect
+import json
 import platform
-import time
-from importlib.metadata import version
 import sys
+import time
 from dataclasses import asdict
+from importlib.metadata import version
 from pathlib import Path
 
 import mujoco
@@ -17,9 +17,8 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from src.envs.walker2d import Walker2d
-from src.mppi.mppi import MPPI 
+from src.mppi.mppi import MPPI
 from src.utils.config import MPPIConfig
-
 
 
 def _foot_contacts(model, data, floor_id, right_foot_id, left_foot_id):
@@ -43,12 +42,9 @@ def _gait_metrics(contact_samples):
     contacts = np.asarray(contact_samples, dtype=bool)
     right, left = contacts[:, 0], contacts[:, 1]
     onsets = contacts[1:] & ~contacts[:-1]
-    single_onset_labels = [
-        int(np.argmax(row)) for row in onsets if np.sum(row) == 1
-    ]
+    single_onset_labels = [int(np.argmax(row)) for row in onsets if np.sum(row) == 1]
     alternation = (
-        float(np.mean(np.diff(single_onset_labels) != 0))
-        if len(single_onset_labels) > 1 else 0.0
+        float(np.mean(np.diff(single_onset_labels) != 0)) if len(single_onset_labels) > 1 else 0.0
     )
     return {
         "right_foot_onsets": int(np.sum(onsets[:, 0])),
@@ -60,16 +56,39 @@ def _gait_metrics(contact_samples):
     }
 
 
-
-def _save_report(cfg, task, provenance, results, summary, traces, elapsed, *,
-                 traces_output, metrics_output, steps, episodes, seed, planner_seed):
+def _save_report(
+    cfg,
+    task,
+    provenance,
+    results,
+    summary,
+    traces,
+    elapsed,
+    *,
+    traces_output,
+    metrics_output,
+    steps,
+    episodes,
+    seed,
+    planner_seed,
+):
     if traces_output:
         path = traces_output
         path.parent.mkdir(parents=True, exist_ok=True)
         arrays = {
             key: np.concatenate([episode[key] for episode in traces])
-            for key in ("states", "warmstarts", "actions", "contacts", "contact_normal_forces", "costs",
-                        "pre_plan_nominals", "plans", "planner_rng_states", "initial_plan_flags")
+            for key in (
+                "states",
+                "warmstarts",
+                "actions",
+                "contacts",
+                "contact_normal_forces",
+                "costs",
+                "pre_plan_nominals",
+                "plans",
+                "planner_rng_states",
+                "initial_plan_flags",
+            )
         }
         lengths = [len(episode["actions"]) for episode in traces]
         arrays["episode_step_offsets"] = np.cumsum([0, *lengths])
@@ -82,12 +101,17 @@ def _save_report(cfg, task, provenance, results, summary, traces, elapsed, *,
         temporary.replace(path)
     if metrics_output:
         report = {
-            "task": {**task, "max_steps": steps,
-                     "velocity_cost_weight": task["vel_cost_weight"]},
-            "mppi_config": asdict(cfg), "episodes": results, "summary": summary,
-            "run": {"requested_episodes": episodes, "complete": len(results) == episodes,
-                    "elapsed_seconds": elapsed, "reset_seed_base": seed,
-                    "planner_seed_base": planner_seed},
+            "task": {**task, "max_steps": steps, "velocity_cost_weight": task["vel_cost_weight"]},
+            "mppi_config": asdict(cfg),
+            "episodes": results,
+            "summary": summary,
+            "run": {
+                "requested_episodes": episodes,
+                "complete": len(results) == episodes,
+                "elapsed_seconds": elapsed,
+                "reset_seed_base": seed,
+                "planner_seed_base": planner_seed,
+            },
             "cost_semantics": {
                 "total_cost": "Executed step costs through first fall, including fall cost once. Failed episodes are shorter, so total costs alone cannot rank controllers.",
                 "planning_cost": "Running cost through first predicted fall, one terminal fall cost, and an absorbing failure cost for each remaining horizon step.",
@@ -112,6 +136,7 @@ def _save_report(cfg, task, provenance, results, summary, traces, elapsed, *,
         temporary = path.with_name(path.name + ".tmp")
         temporary.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
         temporary.replace(path)
+
 
 def _argument_error(message: str) -> None:
     print(f"run_walker2d: error: {message}", file=sys.stderr)
@@ -143,17 +168,31 @@ def main(
         _argument_error("--log-every must be nonnegative (0 disables step logs).")
     if any(value < 0 or value + episodes > 2**32 for value in (seed, planner_seed)):
         _argument_error("Reset and planner seeds must remain in [0, 2**32).")
-    outputs = [p.resolve() for p in (metrics_output, traces_output,
-               output if render else None) if p is not None]
-    if len(set(outputs)) != len(outputs) or set(outputs) & {config.resolve(), task_config.resolve()}:
+    outputs = [
+        p.resolve()
+        for p in (metrics_output, traces_output, output if render else None)
+        if p is not None
+    ]
+    if len(set(outputs)) != len(outputs) or set(outputs) & {
+        config.resolve(),
+        task_config.resolve(),
+    }:
         _argument_error("Output paths must be distinct and must not overwrite configs.")
-    task = {name: p.default for name, p in inspect.signature(Walker2d).parameters.items()
-            if p.default is not inspect.Parameter.empty}
+    task = {
+        name: p.default
+        for name, p in inspect.signature(Walker2d).parameters.items()
+        if p.default is not inspect.Parameter.empty
+    }
     task.update(json.loads(task_config.read_text()))
     cfg = MPPIConfig(**json.loads(config.read_text()))
-    source_paths = ("scripts/runners/run_walker2d.py", "src/envs/walker2d.py",
-                    "src/envs/mujoco_env.py", "src/mppi/mppi.py", "src/utils/config.py",
-                    "assets/walker2d.xml")
+    source_paths = (
+        "scripts/runners/run_walker2d.py",
+        "src/envs/walker2d.py",
+        "src/envs/mujoco_env.py",
+        "src/mppi/mppi.py",
+        "src/utils/config.py",
+        "assets/walker2d.xml",
+    )
     provenance = {
         "python": platform.python_version(),
         "packages": {name: version(name) for name in ("mujoco", "numpy", "scipy")},
@@ -161,33 +200,32 @@ def main(
         "task_config_path": str(task_config.resolve()),
         "config_sha256": hashlib.sha256(config.read_bytes()).hexdigest(),
         "task_config_sha256": hashlib.sha256(task_config.read_bytes()).hexdigest(),
-        "source_sha256": {p: hashlib.sha256((_REPO_ROOT / p).read_bytes()).hexdigest()
-                          for p in source_paths},
+        "source_sha256": {
+            p: hashlib.sha256((_REPO_ROOT / p).read_bytes()).hexdigest() for p in source_paths
+        },
     }
     env = Walker2d(**task)
     renderer = None
     try:
         controller = MPPI(env, cfg)
 
-        renderer = (
-            mujoco.Renderer(env.model, height=480, width=640)
-            if render else None
-        )
+        renderer = mujoco.Renderer(env.model, height=480, width=640) if render else None
         frames = []
         traces = []
         started = time.perf_counter()
-        provenance.update(control_dt=env._dt, physics_dt=float(env.model.opt.timestep),
-                          frame_skip=env._frame_skip, nthread=env._nthread,
-                          backend="warp" if env._use_warp else "mujoco_cpu",
-                          video_fps=1.0 / (env._dt * 4), video_frame_stride=4)
+        provenance.update(
+            control_dt=env._dt,
+            physics_dt=float(env.model.opt.timestep),
+            frame_skip=env._frame_skip,
+            nthread=env._nthread,
+            backend="warp" if env._use_warp else "mujoco_cpu",
+            video_fps=1.0 / (env._dt * 4),
+            video_frame_stride=4,
+        )
         episode_results = []
         floor_id = mujoco.mj_name2id(env.model, mujoco.mjtObj.mjOBJ_GEOM, "floor")
-        right_foot_id = mujoco.mj_name2id(
-            env.model, mujoco.mjtObj.mjOBJ_GEOM, "foot_geom"
-        )
-        left_foot_id = mujoco.mj_name2id(
-            env.model, mujoco.mjtObj.mjOBJ_GEOM, "foot_left_geom"
-        )
+        right_foot_id = mujoco.mj_name2id(env.model, mujoco.mjtObj.mjOBJ_GEOM, "foot_geom")
+        left_foot_id = mujoco.mj_name2id(env.model, mujoco.mjtObj.mjOBJ_GEOM, "foot_left_geom")
 
         print(f"task={task} config={cfg}", flush=True)
 
@@ -229,7 +267,9 @@ def main(
                 state = env.get_state()
                 velocities.append(step_info["x_velocity"])
                 actions.append(action.copy())
-                contacts, forces = _foot_contacts(env.model, env.data, floor_id, right_foot_id, left_foot_id)
+                contacts, forces = _foot_contacts(
+                    env.model, env.data, floor_id, right_foot_id, left_foot_id
+                )
                 contact_samples.append(contacts)
                 if traces_output:
                     states.append(state.copy())
@@ -261,7 +301,8 @@ def main(
             actions_array = np.asarray(actions)
             action_delta_rms = (
                 float(np.sqrt(np.mean(np.sum(np.diff(actions_array, axis=0) ** 2, axis=1))))
-                if len(actions_array) > 1 else 0.0
+                if len(actions_array) > 1
+                else 0.0
             )
             gait = _gait_metrics(contact_samples)
             saturated = np.isclose(actions_array, controller.action_low) | np.isclose(
@@ -274,9 +315,7 @@ def main(
                 "survived": not done,
                 "distance": float(env.data.qpos[0] - start_x),
                 "mean_vx": float(np.mean(velocities_array)),
-                "velocity_mae": float(
-                    np.mean(np.abs(env._v_target - velocities_array))
-                ),
+                "velocity_mae": float(np.mean(np.abs(env._v_target - velocities_array))),
                 "total_cost": float(total_cost),
                 "fall_cost": float(total_fall_cost),
                 "mean_running_cost": float((total_cost - total_fall_cost) / len(velocities)),
@@ -289,12 +328,20 @@ def main(
             }
             episode_results.append(result)
             if traces_output:
-                traces.append({"states": np.asarray(states), "warmstarts": np.asarray(warmstarts),
-                               "actions": actions_array, "contacts": np.asarray(contact_samples, dtype=bool),
-                               "contact_normal_forces": np.asarray(normal_forces), "costs": np.asarray(costs),
-                               "pre_plan_nominals": np.asarray(pre_plan_nominals), "plans": np.asarray(plans),
-                               "planner_rng_states": np.asarray(planner_rng_states, dtype=str),
-                               "initial_plan_flags": np.asarray(initial_plan_flags, dtype=bool)})
+                traces.append(
+                    {
+                        "states": np.asarray(states),
+                        "warmstarts": np.asarray(warmstarts),
+                        "actions": actions_array,
+                        "contacts": np.asarray(contact_samples, dtype=bool),
+                        "contact_normal_forces": np.asarray(normal_forces),
+                        "costs": np.asarray(costs),
+                        "pre_plan_nominals": np.asarray(pre_plan_nominals),
+                        "plans": np.asarray(plans),
+                        "planner_rng_states": np.asarray(planner_rng_states, dtype=str),
+                        "initial_plan_flags": np.asarray(initial_plan_flags, dtype=bool),
+                    }
+                )
             print(
                 f"episode={episode:2d}  reset_seed={reset_seed}  "
                 f"planner_seed={episode_planner_seed}  steps={result['steps']}/{steps}  "
@@ -320,7 +367,9 @@ def main(
                 "action_saturation_fraction": float(
                     np.mean([r["action_saturation_fraction"] for r in episode_results])
                 ),
-                "mean_plan_seconds": float(np.mean([r["mean_plan_seconds"] for r in episode_results])),
+                "mean_plan_seconds": float(
+                    np.mean([r["mean_plan_seconds"] for r in episode_results])
+                ),
                 "mean_n_eff": float(np.mean([r["mean_n_eff"] for r in episode_results])),
                 "single_support_fraction": float(
                     np.mean([r["single_support_fraction"] for r in episode_results])
@@ -328,17 +377,26 @@ def main(
                 "double_support_fraction": float(
                     np.mean([r["double_support_fraction"] for r in episode_results])
                 ),
-                "flight_fraction": float(
-                    np.mean([r["flight_fraction"] for r in episode_results])
-                ),
+                "flight_fraction": float(np.mean([r["flight_fraction"] for r in episode_results])),
                 "onset_alternation": float(
                     np.mean([r["onset_alternation"] for r in episode_results])
                 ),
             }
-            _save_report(cfg, task, provenance, episode_results, summary, traces,
-                         time.perf_counter() - started, traces_output=traces_output,
-                         metrics_output=metrics_output, steps=steps, episodes=episodes,
-                         seed=seed, planner_seed=planner_seed)
+            _save_report(
+                cfg,
+                task,
+                provenance,
+                episode_results,
+                summary,
+                traces,
+                time.perf_counter() - started,
+                traces_output=traces_output,
+                metrics_output=metrics_output,
+                steps=steps,
+                episodes=episodes,
+                seed=seed,
+                planner_seed=planner_seed,
+            )
 
         print(
             f"summary episodes={episodes}  "
@@ -360,6 +418,7 @@ def main(
 
         if renderer is not None:
             import imageio.v2 as imageio
+
             output.parent.mkdir(parents=True, exist_ok=True)
             imageio.mimwrite(output, frames, fps=1.0 / (env._dt * 4))
             print(f"video={output.resolve()}")
@@ -373,4 +432,3 @@ if __name__ == "__main__":
     import tyro
 
     tyro.cli(main)
-        

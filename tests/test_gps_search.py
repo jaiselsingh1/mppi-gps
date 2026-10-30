@@ -1,4 +1,5 @@
 """Pure contract tests: batch doubles only; no simulator or physics queries."""
+
 import copy
 import json
 
@@ -65,8 +66,14 @@ class ActorDouble:
 
 def setup_search(*, reject_means=False, iterations=2):
     env = BatchDouble(reject_means)
-    cfg = MPPIConfig(K=5, H=4, noise_sigma=0.5, initial_iterations=iterations,
-                     noise_lowpass_cutoff_hz=10.0, noise_lowpass_sample_rate_hz=125.0)
+    cfg = MPPIConfig(
+        K=5,
+        H=4,
+        noise_sigma=0.5,
+        initial_iterations=iterations,
+        noise_lowpass_cutoff_hz=10.0,
+        noise_lowpass_sample_rate_hz=125.0,
+    )
     state, warm = np.arange(19, dtype=float), np.linspace(-1, 1, 9)
     return env, cfg, IndependentMPPI(env, cfg, seed=17), state, warm
 
@@ -139,7 +146,8 @@ def test_disabled_zero_alpha_and_unsupported_are_exact_baseline_without_actor_ca
     off, off_info = CoupledSelector().select(bank, actor, meter, enabled=False)
     zero, zero_info = CoupledSelector(alpha=0).select(bank, actor, meter, enabled=True)
     unsupported, unsupported_info = CoupledSelector().select(
-        bank, actor, meter, enabled=True, supported=False)
+        bank, actor, meter, enabled=True, supported=False
+    )
     np.testing.assert_array_equal(off, zero)
     np.testing.assert_array_equal(off, unsupported)
     assert not actor.calls
@@ -195,10 +203,12 @@ def test_partial_support_only_queries_supported_pre_action_rows():
     _, _, independent, state, warm = setup_search()
     bank = independent.propose(state, warm)
     actor = ActorDouble()
+
     def support(obs):
         mask = np.zeros(obs.shape[:2], dtype=bool)
         mask[:, 0] = True
         return mask
+
     _, info = CoupledSelector().select(bank, actor, MeterDouble(), enabled=True, supported=support)
     assert actor.calls[0].shape == (6, 17)
     np.testing.assert_array_equal(actor.calls[0], bank.observations[:, 0])
@@ -230,8 +240,10 @@ def test_private_state_is_small_complete_for_next_proposals_and_not_an_alias():
 def test_budget_or_evidence_runtime_errors_stop_instead_of_becoming_fallbacks():
     env, _, independent, state, warm = setup_search()
     bank = independent.propose(state, warm)
+
     def exhausted(*args, **kwargs):
         raise RuntimeError("query budget exhausted")
+
     env.batch_rollout = exhausted
     with pytest.raises(RuntimeError, match="budget exhausted"):
         CoupledSelector().select(bank, None, MeterDouble())

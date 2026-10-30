@@ -1,17 +1,19 @@
 """dataclass configurations for mppi-gps"""
+
 import json
 from dataclasses import dataclass
 from pathlib import Path
 
 _CONFIGS_DIR = Path(__file__).resolve().parents[2] / "configs"
 
-@dataclass 
+
+@dataclass
 class MPPIConfig:
-    K: int = 256 # number of samples 
-    H: int = 256 # planning horizon 
-    lam: float = 1.0 # temperature parameter 
-    # this parameter essentially helps you know how much you want to focus on specific samples vs others 
-    noise_sigma: float = 0.5 # exploration noise std 
+    K: int = 256  # number of samples
+    H: int = 256  # planning horizon
+    lam: float = 1.0  # temperature parameter
+    # this parameter essentially helps you know how much you want to focus on specific samples vs others
+    noise_sigma: float = 0.5  # exploration noise std
     use_is_correction: bool = False
     # Optional per-action exploration std. Builds diag(noise_std^2) internally.
     noise_std: list[float] | None = None
