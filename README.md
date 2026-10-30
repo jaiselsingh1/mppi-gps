@@ -2,6 +2,12 @@
 
 The v2 workflow tests fitting, corrective experience and early teacher–student co-adaptation on native MuJoCo Walker. The protected MPPI bank remains policy-independent.
 
+The [executed L1 and H4.1 studies](docs/walker_experiments_l1_h4_results.md) are now closed. Fresh clipped/full-velocity students both failed walking. The actual feedback-selected weight reduction changed updated-policy teacher trajectories; all six teachers walked, but all three matched children regressed against the incoming policy. No confirmation or second round ran. Full raw evidence, curves, independent audits and complete cost accounting are retained.
+
+The [v3.1 investigation](docs/loop_v3_results.md) completed the missing matched child comparison using the recorded successful high-weight guided data. All three policies scored 0/16 task successes; the independent-data child survived 3/16 episodes without meeting the velocity target. The guided child had a small cost advantage but failed the frozen improvement and survival criteria, so no second round ran. The [formulation](docs/loop_v3_formulation.md), [primary-source review](docs/loop_v3_prior_art.md), runnable workers, full new raw evidence, curves and accounting are preserved; H3.2 remains explicitly untested.
+
+V3.1 tested fixed demonstrations and fitting, **not adaptive coupling**. Research separates [student learnability](docs/student_learnability_track_v1.md) from [H4.1 agreement-weight backoff](docs/adaptive_coupling_h4_1.md). H3.2 belongs to the student-input diagnostic track; the separately frozen fresh-training L1 variant has now run. H4.1's actual changed-weight acquisition and learning test is negative. See the [current research scope](docs/research_tracks.md); H4.2 remains untested.
+
 **V2 is closed and negative for standalone walking:** the retained policy scored **0/16 held successes**, averaging **230.8125 of 1,000 controls**. Better reconstruction did not produce a qualified walking policy.
 
 Both higher-weight guided teachers walked successfully; their +1.76% mean cost passed the frozen 5% cost guard. They were rejected solely because policy disagreement improved only 0.0655%, below the required 5%. The lower weight produced 1/2 successes. Consequently there was no confirmation, feedback child fit or child comparison; training-data usefulness was not tested.

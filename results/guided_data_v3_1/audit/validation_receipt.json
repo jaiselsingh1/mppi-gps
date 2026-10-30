@@ -1,0 +1,25 @@
+{
+  "schema": "guided-data-comparison-validation-v1",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_guided_data_comparison.py tests/test_gps_policy.py",
+      "result": "25 passed in 1.27s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_guided_data_comparison.py tests/test_gps_policy.py tests/test_gps_post_update.py",
+      "result": "file not found; no tests ran"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_guided_data_comparison.py tests/test_gps_policy.py tests/test_post_update_feedback.py",
+      "result": "30 passed in 1.00s"
+    }
+  ],
+  "files": {
+    "scripts/diagnostics/guided_data_comparison.py": "4a86cc70e057fdd52ddde6f642cfad0caf301dc80fbb4abd9408e6facdfffbf6",
+    "tests/test_guided_data_comparison.py": "1a7c3dab4a1793194fa2eb8740a06264fd39916a7e895df8e9d9728c43bd57a1",
+    "docs/loop_v3_saved_comparison_protocol.md": "55d248733fbb1c97cc6be863166005aefaf1a2d4d39192be5f9a66b20cb08d90",
+    "src/gps/mppi_gps/post_update.py": "23c0d69ab158ec8d5b28a44c05f77128bc67488d6119483fe0439ea550e4d58f"
+  },
+  "scope": "Pure admission/gate/budget tests plus existing synthetic policy continuation/resume tests. This validation is separate development overhead; synthetic neural work is not instrumented or counted as experimental learning.",
+  "experimental_controls": 0
+}

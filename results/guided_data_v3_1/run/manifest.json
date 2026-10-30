@@ -1,0 +1,597 @@
+{
+  "schema": "walker-cio-source-v1",
+  "command": "saved-guided-data-comparison",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "52dc334800f3162a9eb98384f4461b3593c517b665468a63a8d945cc3092a9f0"
+    },
+    {
+      "file": "assets/._walker2d.xml",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "assets/walker2d.xml",
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    {
+      "file": "configs/._mppi_gps_walker.json",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "configs/._walker2d_best.json",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "configs/._walker2d_task.json",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "configs/mppi_gps_walker.json",
+      "sha256": "8dbd655e8d28b675f58b980f5f3ac31418390a37b6b781e5a7cd32888062b7d1"
+    },
+    {
+      "file": "configs/walker2d_best.json",
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6"
+    },
+    {
+      "file": "configs/walker2d_task.json",
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a"
+    },
+    {
+      "file": "docs/._algorithm.md",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._code_map.md",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._evidence_availability.md",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._evidence_index.json",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._figures",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._history.md",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._loop_v3_evidence_audit.md",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "docs/._loop_v3_formulation.md",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "docs/._loop_v3_prior_art.md",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "docs/._loop_v3_saved_comparison_protocol.md",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "docs/._paper_mapping.md",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/._results.md",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "docs/algorithm.md",
+      "sha256": "e599be262fa53e06ea1b71f145db951536dd0718cabf285ea11b3a1d67ff2f81"
+    },
+    {
+      "file": "docs/code_map.md",
+      "sha256": "2cf68782fa3f862b48107e6a39b9147bb5b607696c8cf673d10fc4e262257200"
+    },
+    {
+      "file": "docs/evidence_availability.md",
+      "sha256": "3ce5e6757edf84c1d113637b70466ecb7b9e039b4b130e78fad4f7402784ffd7"
+    },
+    {
+      "file": "docs/evidence_index.json",
+      "sha256": "fe17cef32a5899bdce9c2899d06c082af30e5556b8ee597b8947de5de4c2e1e9"
+    },
+    {
+      "file": "docs/figures/._policy_diagnosis.png",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/figures/._policy_learning_curves.png",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/figures/._walker_v2_summary.png",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "docs/figures/policy_diagnosis.png",
+      "sha256": "6eab30e4af8e89585867962fe3470994d0100da093d5a66ddc28d70809a6a2c9"
+    },
+    {
+      "file": "docs/figures/policy_learning_curves.png",
+      "sha256": "c6d4653d91250a98f4703c35e1c53dbaa06060cbec7be1f672ae7f050c191fc0"
+    },
+    {
+      "file": "docs/figures/walker_v2_summary.png",
+      "sha256": "d70fd35dd2ebb88b237e82ae81f2cb9dad6f02e83b0392c64413e5743cdc0d7b"
+    },
+    {
+      "file": "docs/history.md",
+      "sha256": "e562e1b782bad8ed14ef917c5a51b17a2b7fb35f43584904a4e0bdc7f4663ad3"
+    },
+    {
+      "file": "docs/loop_v3_evidence_audit.md",
+      "sha256": "87433ea91b6dc3712e0fb1f3c0aa039321ec59af43fdf23a75700399d1313264"
+    },
+    {
+      "file": "docs/loop_v3_formulation.md",
+      "sha256": "0dbd3c1b4b496e6e334e50df7ac31601a629be43c4d8c67295f7ffe28b11ad66"
+    },
+    {
+      "file": "docs/loop_v3_prior_art.md",
+      "sha256": "9318c43e108e78fba77a1e1973dbb9944a5659c82f5a9b0c8730732e0ea91da5"
+    },
+    {
+      "file": "docs/loop_v3_saved_comparison_protocol.md",
+      "sha256": "55d248733fbb1c97cc6be863166005aefaf1a2d4d39192be5f9a66b20cb08d90"
+    },
+    {
+      "file": "docs/paper_mapping.md",
+      "sha256": "43c03278301445e8e01ad9306089822fc328f1ec0ff457d0a551b885a0b39ed5"
+    },
+    {
+      "file": "docs/results.md",
+      "sha256": "f0c36c58b165030baf0028656f9de894c18970436d8dd7c043239c91f563e270"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "dfe9d9b66e457f2d3e1050f511ed83e6004dec9a0017fead3d822942d8139612"
+    },
+    {
+      "file": "scripts/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/._diagnostics",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/._runners",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/._train_mppi_gps.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "scripts/._training",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/diagnostics/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/diagnostics/._guided_data_comparison.py",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "scripts/diagnostics/._replay_walker.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/diagnostics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/diagnostics/guided_data_comparison.py",
+      "sha256": "4a86cc70e057fdd52ddde6f642cfad0caf301dc80fbb4abd9408e6facdfffbf6"
+    },
+    {
+      "file": "scripts/diagnostics/replay_walker.py",
+      "sha256": "d065b6d91bfea147ebccd31a011ba8c0ec5c45fca4a9e041dc4ea9e786bc48b0"
+    },
+    {
+      "file": "scripts/runners/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "scripts/runners/._run_walker2d.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "scripts/runners/__init__.py",
+      "sha256": "af7aa3fff74e0de760dcc3ccefae1cf8603bb7116d35b0a593ebfc1fb1d6cf76"
+    },
+    {
+      "file": "scripts/runners/run_walker2d.py",
+      "sha256": "ef5a64578b8d530b4a843cd63287ac7a8715c13f191f08b1a0fa5b62f8645fa1"
+    },
+    {
+      "file": "scripts/train_mppi_gps.py",
+      "sha256": "c355d539175cc42e1ffee04eabb9ac3235ec0ff25838f172dc2cf9111fb326ba"
+    },
+    {
+      "file": "src/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/._envs",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/._gps",
+      "sha256": "13afee77a0c2dfa59780201de64ec0e5d4642b0b054f43cf19b660ebd442d63c"
+    },
+    {
+      "file": "src/._mppi",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/._utils",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/envs/._base.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/envs/._mujoco_env.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/envs/._walker2d.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/envs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/base.py",
+      "sha256": "8dd51240137b3ef6810555b8b975d410b67eaefc2684ee92419034b62f237766"
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "sha256": "93cb45af567831d501c7afb437f9f9e5da95acfac710fb7a6c62c02347f00044"
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "sha256": "477c3d2d8735171825392c9fe011941bc26e386f2113b4dd54df8a8c1e03ebca"
+    },
+    {
+      "file": "src/gps/.___init__.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/._mppi_gps",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/__init__.py",
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8"
+    },
+    {
+      "file": "src/gps/mppi_gps/.___init__.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/._diagnostics.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/._experience.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/._loop.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/._policy.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/._post_update.py",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "src/gps/mppi_gps/._runtime.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/._search.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/gps/mppi_gps/__init__.py",
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e"
+    },
+    {
+      "file": "src/gps/mppi_gps/diagnostics.py",
+      "sha256": "f5de7b2fef5108b3340ea7a0be900eccae46f1790eca9d71a70399722746968a"
+    },
+    {
+      "file": "src/gps/mppi_gps/experience.py",
+      "sha256": "1a2d364c260cd3df0c63de4ada3d32447c672cba2a70946469e0b6afeec6f7e7"
+    },
+    {
+      "file": "src/gps/mppi_gps/loop.py",
+      "sha256": "b1f8af7c456d0f59364454f9b347d28d6e23b7ee281132655d2d266617a264bf"
+    },
+    {
+      "file": "src/gps/mppi_gps/policy.py",
+      "sha256": "508e2a12a3a1a728a30810a4a35bdb40f7b4d904f0f3eccdc16d40a0b9fb8aa2"
+    },
+    {
+      "file": "src/gps/mppi_gps/post_update.py",
+      "sha256": "23c0d69ab158ec8d5b28a44c05f77128bc67488d6119483fe0439ea550e4d58f"
+    },
+    {
+      "file": "src/gps/mppi_gps/runtime.py",
+      "sha256": "0f4bef90167e8f4d312f48d2d2d198c0c79af3440a08770f63085a25837f65ab"
+    },
+    {
+      "file": "src/gps/mppi_gps/search.py",
+      "sha256": "0657caf98a7bb7b047be864a85fe54b159f180ba37b0f71c970916ae4d90a926"
+    },
+    {
+      "file": "src/mppi/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/mppi/._mppi.py",
+      "sha256": "13afee77a0c2dfa59780201de64ec0e5d4642b0b054f43cf19b660ebd442d63c"
+    },
+    {
+      "file": "src/mppi/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/mppi/mppi.py",
+      "sha256": "bf083a6bdfa1057631cb58ea1897feadedc00c0b525905ce8ff57822c371eabf"
+    },
+    {
+      "file": "src/utils/.___init__.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/utils/._config.py",
+      "sha256": "13afee77a0c2dfa59780201de64ec0e5d4642b0b054f43cf19b660ebd442d63c"
+    },
+    {
+      "file": "src/utils/._gait.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/utils/._math.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "src/utils/._rollout_data.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/utils/._stats.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/utils/._trace_replay.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "src/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/utils/config.py",
+      "sha256": "ef85a9a42bb4262f4cb2cecfcd4fe05f42781054cb26ca9e2fe30a1fdc531b4f"
+    },
+    {
+      "file": "src/utils/gait.py",
+      "sha256": "6330ecb4340e308030feffdedfcb0cfb161e4b2178d6910b68781a6ccbfe8f2d"
+    },
+    {
+      "file": "src/utils/math.py",
+      "sha256": "a593998ee603a4e24e964723807d3d9010a30641ff01e3f79aaab234ef2d8a36"
+    },
+    {
+      "file": "src/utils/rollout_data.py",
+      "sha256": "c6f698644a33a1177aaff87436b412803cd3434b12f1c6f04558ca6459ae03f5"
+    },
+    {
+      "file": "src/utils/stats.py",
+      "sha256": "b7f98f63f2964efe0f4765077e6fd29a8a063faddde555903900ba507abba431"
+    },
+    {
+      "file": "src/utils/trace_replay.py",
+      "sha256": "469594a7255e5df789614949efcbe14b16bfc40030fbb77d2253a94f952c819d"
+    },
+    {
+      "file": "tests/._test_gait.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_diagnostics.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_experience.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_policy.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_runtime.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_search.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_v2.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_gps_workflow.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_guided_data_comparison.py",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "tests/._test_math_hypothesis.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_math_properties.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_post_update_feedback.py",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "tests/._test_rollout_data.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "tests/._test_stats.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "tests/._test_walker2d_cli.py",
+      "sha256": "2e620e81ba475f21ddc2169201d7d05ad4b7b7ea9f6779e69a5fbbc292a48f61"
+    },
+    {
+      "file": "tests/._test_walker2d_replay.py",
+      "sha256": "b9ef4928186d11a52f38be806a8d6604a02586eb485d9da22c2bf6f71d717d3f"
+    },
+    {
+      "file": "tests/._test_walker2d_rollout.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_walker_gymnasium_differential.py",
+      "sha256": "a94d7e70ae57ed85d9b3614a6873f37086bc173efb8a9f4b84e3560b60b4aa4b"
+    },
+    {
+      "file": "tests/._test_warp_rollout.py",
+      "sha256": "13afee77a0c2dfa59780201de64ec0e5d4642b0b054f43cf19b660ebd442d63c"
+    },
+    {
+      "file": "tests/test_gait.py",
+      "sha256": "29232b38b2bd94890558b19379da142511cd3c5ba86f69c111b2ce5bed817032"
+    },
+    {
+      "file": "tests/test_gps_diagnostics.py",
+      "sha256": "3bac0a291f726f753837e0c204744e5f8943f271b64464dc4218c2d0dec1bd72"
+    },
+    {
+      "file": "tests/test_gps_experience.py",
+      "sha256": "35478eda59317f8a80b20318c1238684d4385c5fb0edcb1e35caca7df662d3a7"
+    },
+    {
+      "file": "tests/test_gps_policy.py",
+      "sha256": "8b806ea814bd06ab08d094867cdab1448e33cd0230e7ddd1c5e5d3f814eac7fd"
+    },
+    {
+      "file": "tests/test_gps_runtime.py",
+      "sha256": "0ffa70bfdd43c37d4690ec611e7392410da9aaf4d6bed5e12b12bb6bdfa23c27"
+    },
+    {
+      "file": "tests/test_gps_search.py",
+      "sha256": "97baef8bf76c3c221ee287fe9800b2383533823b0f18d4cc9b705fc4a3d2c8f2"
+    },
+    {
+      "file": "tests/test_gps_v2.py",
+      "sha256": "288d21fd69b0eaa3ed97db56cb28cec205ac854eb337f35e6ce19d4c3f11fb7a"
+    },
+    {
+      "file": "tests/test_gps_workflow.py",
+      "sha256": "774c6981a466a0456febac6ab1c2833eeaad9277704112e5531bed08c3d654a4"
+    },
+    {
+      "file": "tests/test_guided_data_comparison.py",
+      "sha256": "1a7c3dab4a1793194fa2eb8740a06264fd39916a7e895df8e9d9728c43bd57a1"
+    },
+    {
+      "file": "tests/test_math_hypothesis.py",
+      "sha256": "3ac3502338960c30d08bb61cdeb799c676a99b2b2fb28e07ca137cdf7ef5fb95"
+    },
+    {
+      "file": "tests/test_math_properties.py",
+      "sha256": "326df7f7759ebb291706bfdd5512ad9e589f13a5ddd3e7f12c1786c2a537eb8d"
+    },
+    {
+      "file": "tests/test_post_update_feedback.py",
+      "sha256": "945f3edd6ba3a16f16e4c26b75df7ecfaa0eb578f69d64737c71ce9587b939e7"
+    },
+    {
+      "file": "tests/test_rollout_data.py",
+      "sha256": "b37dfdea123d1237875be75f2301948f142fb9bd7b10f91c8a74212235dd88c7"
+    },
+    {
+      "file": "tests/test_stats.py",
+      "sha256": "7eef7d110ba2354f29364f1dfa83df41119cb76c751a6aa6a13304959d34c92a"
+    },
+    {
+      "file": "tests/test_walker2d_cli.py",
+      "sha256": "edc07e61f097963e784b283a6332649bfb1eb2b6fbac54b568ce4801911fdcd9"
+    },
+    {
+      "file": "tests/test_walker2d_replay.py",
+      "sha256": "391da8ddf56e3ed7596ca13f844b7c18cad7779263288ca0a4d93f04147dae7c"
+    },
+    {
+      "file": "tests/test_walker2d_rollout.py",
+      "sha256": "6563b29e623c667c5ee8968db06dfea2789b3f595402acf796406475895976aa"
+    },
+    {
+      "file": "tests/test_walker_gymnasium_differential.py",
+      "sha256": "5cefd478c7e071b5d964a3b45839063e9818dcfe33b68aeb6ebdeac20a0b70df"
+    },
+    {
+      "file": "tests/test_warp_rollout.py",
+      "sha256": "db71b1cd2bed833cc85fc29346b52e530562fa011b2ddc6910b258774528c4bb"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "b4f0489bea00b6f59f1d684c4344188e8af0c8ea773a4f86f442fc00f2437fdb"
+    }
+  ],
+  "config_sha256": "d7ec5ee6a57c42e5bd5d3d05b67af1fc7eb1b622dc7a614e8f8a9875e34f90a4",
+  "input_sha256": "4982d079930bba60448c900c63f90b45accf4f1cdc1da5318e3990d0af0ff123",
+  "python": "3.11.16 (main, Sep  1 2026, 14:18:37) [Clang 22.1.3 ]",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+  "source_root": "/home/jaisel/mppi-gps-workspace/history/artifacts/2026-10-30_guided_data_comparison_v3_001/staging",
+  "policy_action_fitting": true,
+  "raw_search_protected": true
+}

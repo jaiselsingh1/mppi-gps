@@ -1,0 +1,46 @@
+{
+  "schema": "walker-h4-read-only-canonical-seed-check-v1",
+  "passed": true,
+  "host": "robopil5090",
+  "root": "/home/jaisel/mppi-gps-workspace/runs",
+  "files": "All recursively readable config.json and ledger.jsonl files under canonical runs root; grep recursion does not follow internal directory symlinks.",
+  "roots": [
+    952000000,
+    952100000,
+    952200000,
+    952300000,
+    954000000,
+    954100000,
+    954200000,
+    954300000
+  ],
+  "counts_per_root": [
+    2,
+    2,
+    16,
+    16,
+    2,
+    2,
+    16,
+    16
+  ],
+  "method": "Standard grep -rHnE with --include=config.json and --include=ledger.jsonl, numeric word boundaries, exact reserved integer seed ranges. Exit 1 with no stderr/output means no matches.",
+  "matches": [],
+  "rg_attempt": {
+    "chunk_id": "63d5f7",
+    "wall_time_seconds": 0.029738542,
+    "exit_code": 127,
+    "original_token_count": 9,
+    "output": "bash: line 1: rg: command not found\n"
+  },
+  "grep_result": {
+    "chunk_id": "745a25",
+    "wall_time_seconds": 0.404706542,
+    "exit_code": 1,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "new_controls": 0,
+  "new_neural_rows": 0,
+  "private_code_uploaded": false
+}

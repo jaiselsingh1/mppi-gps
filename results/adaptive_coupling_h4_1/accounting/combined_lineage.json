@@ -1,0 +1,698 @@
+{
+  "schema": "walker-l1-h4-complete-accounting-v1",
+  "studies": {
+    "student_l1": {
+      "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_student_learnability_l1_001",
+      "result_sha256": "8a96cf9d3d11c215a343920e848094563739f4f6dc50622450791219b55ae3f7",
+      "config_sha256": "f7690040384185d2395b0565bb7053c4277ca7b9b45b8c711cfe76189ccb9e4d",
+      "input_manifest_sha256": "3c5e9ae72f8e2a1e8cb87f0afbc1d79cd560539d34da3dc4c2611e20d0e71710",
+      "status": "no_competent_student_at_fixed_budget",
+      "work": {
+        "requested_controls": 17245,
+        "completed_controls": 17245,
+        "requested_model_controls": 0,
+        "completed_model_controls": 0,
+        "requested_live_controls": 17245,
+        "completed_live_controls": 17245,
+        "requested_physics_substeps": 68980,
+        "completed_physics_substeps": 68980,
+        "unknown_partial_controls": 0,
+        "unknown_partial_physics_substeps": 0,
+        "model_queries": 0,
+        "live_queries": 17245,
+        "failed_queries": 0,
+        "rejected_queries": 0,
+        "measurement_requests": 77300,
+        "failed_measurements": 0,
+        "rejected_measurements": 0,
+        "requested_neural_rows": 5192109,
+        "completed_neural_rows": 5192109,
+        "unknown_partial_neural_rows": 0,
+        "requested_backward_rows": 5120000,
+        "completed_backward_rows": 5120000,
+        "unknown_partial_backward_rows": 0,
+        "requested_optimizer_steps": 20000,
+        "completed_optimizer_steps": 20000,
+        "unknown_partial_optimizer_steps": 0,
+        "resets": 76,
+        "reset_errors": 0,
+        "restores": 0,
+        "snapshots": 86301,
+        "episodes": 76,
+        "requested_checkpoint_loads": 1,
+        "completed_checkpoint_loads": 1,
+        "unknown_partial_checkpoint_loads": 0,
+        "neural_rows": 5192109,
+        "backward_rows": 5120000,
+        "optimizer_steps": 20000,
+        "queries": 17245,
+        "physics_frames": 68980,
+        "wall_seconds": 328.17563891199984
+      },
+      "caps": {
+        "requested_controls": 250000,
+        "neural_rows": 6000000,
+        "backward_rows": 5120000,
+        "optimizer_steps": 20000
+      },
+      "internal_seconds": 328.19475964899993,
+      "launch": {
+        "command": [
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "/home/jaisel/mppi-gps-workspace/runs/2026-10-30_student_learnability_l1_001/source/scripts/diagnostics/student_learnability.py",
+          "worker",
+          "--out",
+          "/home/jaisel/mppi-gps-workspace/runs/2026-10-30_student_learnability_l1_001"
+        ],
+        "started_utc": "2026-10-30T21:28:23.765076+00:00",
+        "ended_utc": "2026-10-30T21:33:53.081963+00:00",
+        "external_wall_seconds": 329.3168958639999,
+        "returncode": 0,
+        "hardware": {
+          "python": "3.11.16 (main, Sep  1 2026, 14:18:37) [Clang 22.1.3 ]",
+          "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+          "processor": "x86_64",
+          "cpu_count": 32,
+          "dependencies": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "torch": "2.10.0+cpu",
+            "mujoco": "3.6.0",
+            "h5py": "3.16.0"
+          }
+        }
+      }
+    },
+    "coupling_h4_1": {
+      "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001",
+      "result_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+      "config_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+      "input_manifest_sha256": "0833f5291bdfccbeb55c6be85478aab095c583e29634d3b33823a1f6603c1c2b",
+      "status": "primary_negative",
+      "work": {
+        "requested_controls": 74588133,
+        "completed_controls": 74588133,
+        "requested_model_controls": 74569728,
+        "completed_model_controls": 74569728,
+        "requested_live_controls": 18405,
+        "completed_live_controls": 18405,
+        "requested_physics_substeps": 298352532,
+        "completed_physics_substeps": 298352532,
+        "unknown_partial_controls": 0,
+        "unknown_partial_physics_substeps": 0,
+        "model_queries": 22006,
+        "live_queries": 18405,
+        "failed_queries": 0,
+        "rejected_queries": 0,
+        "measurement_requests": 38508,
+        "failed_measurements": 0,
+        "rejected_measurements": 0,
+        "requested_neural_rows": 45735401,
+        "completed_neural_rows": 45735401,
+        "unknown_partial_neural_rows": 0,
+        "requested_backward_rows": 1536000,
+        "completed_backward_rows": 1536000,
+        "unknown_partial_backward_rows": 0,
+        "requested_optimizer_steps": 6000,
+        "completed_optimizer_steps": 6000,
+        "unknown_partial_optimizer_steps": 0,
+        "resets": 78,
+        "reset_errors": 0,
+        "restores": 0,
+        "snapshots": 136115,
+        "episodes": 78,
+        "requested_checkpoint_loads": 1,
+        "completed_checkpoint_loads": 1,
+        "unknown_partial_checkpoint_loads": 0,
+        "neural_rows": 45735401,
+        "backward_rows": 1536000,
+        "optimizer_steps": 6000,
+        "queries": 40411,
+        "physics_frames": 298352532,
+        "wall_seconds": 908.4950794169999
+      },
+      "caps": {
+        "requested_controls": 80000000,
+        "neural_rows": 60000000,
+        "backward_rows": 1536000,
+        "optimizer_steps": 6000
+      },
+      "internal_seconds": 908.5268987910022,
+      "launch": {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/scripts/diagnostics/adaptive_coupling.py",
+          "worker",
+          "--out",
+          "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001"
+        ],
+        "returncode": 0,
+        "started_utc": "2026-10-30T21:38:13.621804+00:00",
+        "ended_utc": "2026-10-30T21:53:23.021840+00:00",
+        "external_wall_seconds": 909.402364249996,
+        "hardware": {
+          "platform": "macOS-27.0.1-arm64-arm-64bit",
+          "machine": "arm64",
+          "processor": "arm",
+          "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+          "cpu_count": 18,
+          "dependency_versions": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "mujoco": "3.6.0",
+            "torch": "2.10.0",
+            "h5py": "3.16.0"
+          }
+        },
+        "platform_scope": "Local native MuJoCo3.6 on macOSarm64; all new arms share this platform. Historical trigger/checkpoint were produced on Linuxx86; no cross-host bitwise inference/physics or causal-effect comparison is claimed."
+      }
+    }
+  },
+  "new_work": {
+    "requested_controls": 74605378,
+    "completed_controls": 74605378,
+    "requested_model_controls": 74569728,
+    "completed_model_controls": 74569728,
+    "requested_live_controls": 35650,
+    "completed_live_controls": 35650,
+    "requested_physics_substeps": 298421512,
+    "completed_physics_substeps": 298421512,
+    "unknown_partial_controls": 0,
+    "unknown_partial_physics_substeps": 0,
+    "model_queries": 22006,
+    "live_queries": 35650,
+    "failed_queries": 0,
+    "rejected_queries": 0,
+    "measurement_requests": 115808,
+    "failed_measurements": 0,
+    "rejected_measurements": 0,
+    "requested_neural_rows": 50927510,
+    "completed_neural_rows": 50927510,
+    "unknown_partial_neural_rows": 0,
+    "requested_backward_rows": 6656000,
+    "completed_backward_rows": 6656000,
+    "unknown_partial_backward_rows": 0,
+    "requested_optimizer_steps": 26000,
+    "completed_optimizer_steps": 26000,
+    "unknown_partial_optimizer_steps": 0,
+    "resets": 154,
+    "reset_errors": 0,
+    "restores": 0,
+    "snapshots": 222416,
+    "episodes": 154,
+    "requested_checkpoint_loads": 2,
+    "completed_checkpoint_loads": 2,
+    "unknown_partial_checkpoint_loads": 0,
+    "neural_rows": 50927510,
+    "backward_rows": 6656000,
+    "optimizer_steps": 26000,
+    "queries": 57656,
+    "physics_frames": 298421512
+  },
+  "new_internal_seconds": 1236.721658440002,
+  "new_external_launch_seconds": 1238.719260113996,
+  "inherited_once": {
+    "file": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-30_loop_v3_report_001/cost_accounting.json",
+    "sha256": "243a38965f7c37e390b2f67f69606c58f6fc942f3f4f7cef8b280ff1a7182da5",
+    "work": {
+      "requested_controls": 154582044,
+      "completed_controls": 154582043,
+      "requested_model_controls": 154500432,
+      "requested_live_controls": 81612,
+      "requested_physics_substeps": 618328176,
+      "requested_neural_rows": 53409942,
+      "requested_backward_rows": 17920000,
+      "requested_optimizer_steps": 70000,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "unknown_partial_controls": 0,
+      "unknown_partial_neural_rows": 0
+    },
+    "scope": "Prior v1/v2, separate corrective diagnosis, v3.1 fixed-data comparison, each counted once in the preserved prior accounting. Imported data/checkpoints are not charged anew."
+  },
+  "relevant_lineage_requested_work": {
+    "requested_controls": 229187422,
+    "completed_controls": 229187421,
+    "requested_model_controls": 229070160,
+    "requested_live_controls": 117262,
+    "requested_physics_substeps": 916749688,
+    "requested_neural_rows": 104337452,
+    "requested_backward_rows": 24576000,
+    "requested_optimizer_steps": 96000,
+    "failed_queries": 0,
+    "rejected_queries": 0,
+    "failed_measurements": 0,
+    "rejected_measurements": 0,
+    "unknown_partial_controls": 0,
+    "unknown_partial_neural_rows": 0
+  },
+  "forward_breakdown": {
+    "student": {
+      "training": 5120000,
+      "full_data_diagnostic": 54864,
+      "standalone": 17245,
+      "total": 5192109
+    },
+    "coupling": {
+      "guided_bank": 44083844,
+      "teacher_posthoc": 6000,
+      "training": 1536000,
+      "full_data_diagnostic": 97152,
+      "standalone": 12405,
+      "total": 45735401
+    }
+  },
+  "measured_overhead_receipts": {
+    "artifacts/2026-10-30_experiments_execution_001/initial_validation.json": {
+      "sha256": "94be20407f010f907f5ef668b802040f6f214151553261d427b01e417a4864ac",
+      "receipt": {
+        "command": ".venv/bin/python -m pytest -q",
+        "passed": 165,
+        "skipped": 2,
+        "xfailed": 1,
+        "failed": 0,
+        "pytest_reported_seconds": 4.49,
+        "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+        "files": {
+          "src/gps/mppi_gps/coupling_backoff.py": "309adb2f0fa025ff4ef81212afb1055a68e51f4825c07e2a5ce9bf4b029f46aa",
+          "tests/test_coupling_backoff.py": "0f2b9a7334564e06f9981e3e7e08b92010776b423ff18376c50bb6515d92e860",
+          "src/gps/mppi_gps/policy.py": "508e2a12a3a1a728a30810a4a35bdb40f7b4d904f0f3eccdc16d40a0b9fb8aa2",
+          "src/gps/mppi_gps/runtime.py": "0f4bef90167e8f4d312f48d2d2d198c0c79af3440a08770f63085a25837f65ab",
+          "src/gps/mppi_gps/search.py": "0657caf98a7bb7b047be864a85fe54b159f180ba37b0f71c970916ae4d90a926"
+        },
+        "scope": "Existing full suite before new execution workers were added. Separate validation overhead; not an empirical mechanism test."
+      }
+    },
+    "artifacts/2026-10-30_experiments_execution_001/full_validation.json": {
+      "sha256": "82ef5ea263417bf43b73f5141441f032042b5ded6a4a5cccc17668259a48e969",
+      "receipt": {
+        "command": ".venv/bin/python -m pytest -q",
+        "passed": 186,
+        "skipped": 2,
+        "xfailed": 1,
+        "failed": 0,
+        "pytest_reported_seconds": 3.55,
+        "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+        "files": {
+          "scripts/diagnostics/student_learnability.py": "5768132a81fc6d7942a679d37225b7e3313e07959f5ce27c72e9fb280e445d70",
+          "scripts/diagnostics/adaptive_coupling.py": "6dc343961597044ed8421484cc4d8879d240010724e7f6ae61758ca45318a6a7",
+          "src/gps/mppi_gps/coupling_backoff.py": "309adb2f0fa025ff4ef81212afb1055a68e51f4825c07e2a5ce9bf4b029f46aa",
+          "tests/test_student_learnability.py": "a4ccb454be7ba6217a66af9a2a3e00046ce9f1eee9e4a1f8af9c73eee7a30939",
+          "tests/test_adaptive_coupling.py": "abdbc621b3b56512cfcf1da21c9ee2ff768c4ab3a3c379bd660d0d785dd00704"
+        },
+        "scope": "Full local suite including both new experiment workers and mechanism tests. Separate validation overhead, not empirical evidence of walking or coupling benefit."
+      }
+    },
+    "artifacts/2026-10-30_experiments_execution_001/full_validation_local_platform.json": {
+      "sha256": "144ab739fcc091d14e90d9e5c60e14ea6157f10a378e2d2a31a42a8467ed6783",
+      "receipt": {
+        "command": ".venv/bin/python -m pytest -q",
+        "passed": 187,
+        "skipped": 2,
+        "xfailed": 1,
+        "failed": 0,
+        "pytest_reported_seconds": 3.69,
+        "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+        "files": {
+          "scripts/diagnostics/student_learnability.py": "5768132a81fc6d7942a679d37225b7e3313e07959f5ce27c72e9fb280e445d70",
+          "scripts/diagnostics/adaptive_coupling.py": "a2b8e26dc04859994da6efa2a21f84fe6e2f89d13bf10c48d605333ae42a7619",
+          "src/gps/mppi_gps/coupling_backoff.py": "309adb2f0fa025ff4ef81212afb1055a68e51f4825c07e2a5ce9bf4b029f46aa",
+          "tests/test_student_learnability.py": "a4ccb454be7ba6217a66af9a2a3e00046ce9f1eee9e4a1f8af9c73eee7a30939",
+          "tests/test_adaptive_coupling.py": "ac89a30fdfcb885e00c107c9cfcbd1de9bc09ad39271f65e841d7ccc8d5d0890"
+        },
+        "scope": "Full local suite after H4 prelaunch environment guard/platform revision. Validation overhead separate from experimental ledger."
+      }
+    },
+    "artifacts/2026-10-30_experiments_execution_audit_001/l1_receipt_001/receipt.json": {
+      "sha256": "88cdfa674d1d703d60e68f30d1fc600847a1ce76a92336d25192a9654dc292b4",
+      "receipt": {
+        "schema": "walker-new-experiments-independent-audit-v1",
+        "mode": "l1",
+        "passed": true,
+        "error": null,
+        "checks": 724743,
+        "bound_files": 180,
+        "hashed_arrays": 989,
+        "new_controls": 0,
+        "new_neural_rows": 0,
+        "new_backward_rows": 0,
+        "new_optimizer_steps": 0,
+        "wall_seconds": 2.3644690410001203,
+        "scope": "Saved source/input seals, actual features/targets and full snapshots, native task arithmetic, paired resets, checkpoint/Adam/RNG/anchor packages, exact sampled indices, learning records and ledger counts. No inference, physics or optimizer arithmetic replay."
+      }
+    },
+    "artifacts/2026-10-30_experiments_execution_audit_001/h4_receipt_001/receipt.json": {
+      "sha256": "568d93f34a97e94fd3c6c7b29ff239a9d99dcb38f5d2c58af3b803f29aa07688",
+      "receipt": {
+        "schema": "walker-new-experiments-independent-audit-v1",
+        "mode": "h4",
+        "passed": true,
+        "error": null,
+        "checks": 772685,
+        "bound_files": 128,
+        "hashed_arrays": 1457,
+        "new_controls": 0,
+        "new_neural_rows": 0,
+        "new_backward_rows": 0,
+        "new_optimizer_steps": 0,
+        "wall_seconds": 41.84573375000036,
+        "scope": "Saved source/input seals, actual features/targets and full snapshots, native task arithmetic, paired resets, checkpoint/Adam/RNG/anchor packages, exact sampled indices, learning records and ledger counts. No inference, physics or optimizer arithmetic replay."
+      }
+    },
+    "artifacts/2026-10-30_student_learnability_l1_report_001/receipt.json": {
+      "sha256": "cd9069be0442c50d1722dcd56388daa2778e41a3cec8031399818229a7602a25",
+      "receipt": {
+        "schema": "walker-saved-experiment-report-v1",
+        "source_sha256": "c189eb36a2ac83ba5ca2a55b9513627ed44d624f1871da34fef5be2313854395",
+        "outputs": {
+          "learning_and_outcomes.png": "99b9df652fc6236b2baf224963755f7492e35e0a806b4026444ff110f504afa5",
+          "learning_and_outcomes.pdf": "40c87c5afe07e2f2a87e1c7093c1ea9d9679240b30b10e0c6cdf938358eb8a5d",
+          "plotted_data.json": "eca4709f7ccd9c4fad2701b93ca760a499feb06e143af894da32ea7a364e308a",
+          "standalone_episodes.csv": "706b01b3c45dfbc7bb1f8fd54fd9ff680628c2b1d19f0b8c1ae3265aee0f63f8",
+          "cost_accounting.json": "bcc4ef199db04af64d3d3ef6c1b81d729b2f385a10c9acd441acc6c3034acb3a"
+        },
+        "result_sha256": "8a96cf9d3d11c215a343920e848094563739f4f6dc50622450791219b55ae3f7",
+        "controls": 0,
+        "neural_rows": 0,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "wall_seconds": 9.418259917001706
+      }
+    },
+    "artifacts/2026-10-30_adaptive_coupling_h4_1_report_001/receipt.json": {
+      "sha256": "ebdb32564e86de2bd99cc46e0bbf3788e2104d1d7d29f4d34d3c66a7ae174f08",
+      "receipt": {
+        "schema": "walker-saved-experiment-report-v1",
+        "source_sha256": "c189eb36a2ac83ba5ca2a55b9513627ed44d624f1871da34fef5be2313854395",
+        "outputs": {
+          "learning_and_outcomes.png": "8cdc64748f782c65f8eca5bf02682502e17fbb289c504b49da065984dff15bcf",
+          "learning_and_outcomes.pdf": "440cefac96f2899d6761ef211f9c8e11f3659879f4db09d5b7ac0758ef99d33d",
+          "plotted_data.json": "8a03daeec9d724849a391f83ec45a14e006cb09439e6be2da99afbf2735eac4f",
+          "standalone_episodes.csv": "b3a67c5747a32591ce7d34da4ed13b558ba84563e6cf928f2d63a10e8d7aa651",
+          "cost_accounting.json": "d91417aea3b60f55be2a72783a56aab973eca29d09eb8d3823fd4472e74cad0f"
+        },
+        "result_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+        "controls": 0,
+        "neural_rows": 0,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "wall_seconds": 9.67430699999386
+      }
+    },
+    "artifacts/2026-10-30_adaptive_coupling_h4_1_report_002/receipt.json": {
+      "sha256": "2b770c095f3cfa73f2699c6158fafba660e5d06772860fb08228027984688d03",
+      "receipt": {
+        "schema": "walker-saved-experiment-report-v1",
+        "source_sha256": "1a39dec9f514e0ef2095437356baa7ff950c64e8278437972d334b1e69ab7129",
+        "outputs": {
+          "learning_and_outcomes.png": "b305b88d861a144774b006eedc7ca81e79f19f4014057e76d41aeb4d91dd3828",
+          "learning_and_outcomes.pdf": "858b078d4f3fe99aec59519cb4185efa7347bd78174dfd4043a1dd0b78fa639e",
+          "plotted_data.json": "8a03daeec9d724849a391f83ec45a14e006cb09439e6be2da99afbf2735eac4f",
+          "standalone_episodes.csv": "b3a67c5747a32591ce7d34da4ed13b558ba84563e6cf928f2d63a10e8d7aa651",
+          "cost_accounting.json": "d91417aea3b60f55be2a72783a56aab973eca29d09eb8d3823fd4472e74cad0f"
+        },
+        "result_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+        "controls": 0,
+        "neural_rows": 0,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "wall_seconds": 9.010666666996258
+      }
+    },
+    "artifacts/2026-10-30_student_learnability_l1_001/export_receipt.json": {
+      "sha256": "3de43c4e4725c8e824273bc9d6b3a0db6d7753913cbb8bcd6385872c9b4c2290",
+      "receipt": {
+        "file": "/home/jaisel/mppi-gps-workspace/history/artifacts/2026-10-30_student_learnability_l1_001/closed_run.tar.gz",
+        "sha256": "5bb888a3b67b04f06046473dc70c58ed159bcb0ac2f0f22be98ae95b28f27255",
+        "bytes": 79907543,
+        "manifest_sha256": "ea5e616ce7edd5c9288643c0836212bdfdedc5beddb22dfe74118fac3c42799e",
+        "original_new_run_bytes": 692793577,
+        "files": 178,
+        "export_wall_seconds": 19.225137694000068,
+        "new_controls": 0,
+        "new_neural_rows": 0
+      }
+    },
+    "artifacts/2026-10-30_adaptive_coupling_h4_1_001/execution_receipt.json": {
+      "sha256": "413ec4578f576afcdee8b41c98af3ebb1fc690f96c64f0afda7b972e263f8f34",
+      "receipt": {
+        "schema": "walker-h4.1-execution-receipt-v1",
+        "status": "primary_negative",
+        "scientific_gate_passed": false,
+        "instrumented_worker_passed": true,
+        "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001",
+        "config_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+        "input_manifest_sha256": "0833f5291bdfccbeb55c6be85478aab095c583e29634d3b33823a1f6603c1c2b",
+        "result_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+        "local_locator_sha256": "2e204cb68d67469285184ceb58eb72924c49b7a7b0dfb9428f421cc8af1d9436",
+        "full_raw": {
+          "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/raw.h5",
+          "bytes": 38618575691,
+          "sha256": "5805a0ea194b0cf2228c4a98830f6156887856f6eb46d1790e76942712c7a48c"
+        },
+        "full_ledger": {
+          "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/ledger.jsonl",
+          "bytes": 278187145,
+          "sha256": "c229397f0e3118da76a3db3ba1e287f8e1353fe26c975ae1e1e7b443e04b5f2d"
+        },
+        "work": {
+          "requested_controls": 74588133,
+          "completed_controls": 74588133,
+          "requested_model_controls": 74569728,
+          "completed_model_controls": 74569728,
+          "requested_live_controls": 18405,
+          "completed_live_controls": 18405,
+          "requested_physics_substeps": 298352532,
+          "completed_physics_substeps": 298352532,
+          "unknown_partial_controls": 0,
+          "unknown_partial_physics_substeps": 0,
+          "model_queries": 22006,
+          "live_queries": 18405,
+          "failed_queries": 0,
+          "rejected_queries": 0,
+          "measurement_requests": 38508,
+          "failed_measurements": 0,
+          "rejected_measurements": 0,
+          "requested_neural_rows": 45735401,
+          "completed_neural_rows": 45735401,
+          "unknown_partial_neural_rows": 0,
+          "requested_backward_rows": 1536000,
+          "completed_backward_rows": 1536000,
+          "unknown_partial_backward_rows": 0,
+          "requested_optimizer_steps": 6000,
+          "completed_optimizer_steps": 6000,
+          "unknown_partial_optimizer_steps": 0,
+          "resets": 78,
+          "reset_errors": 0,
+          "restores": 0,
+          "snapshots": 136115,
+          "episodes": 78,
+          "requested_checkpoint_loads": 1,
+          "completed_checkpoint_loads": 1,
+          "unknown_partial_checkpoint_loads": 0,
+          "neural_rows": 45735401,
+          "backward_rows": 1536000,
+          "optimizer_steps": 6000,
+          "queries": 40411,
+          "physics_frames": 298352532,
+          "wall_seconds": 908.4950794169999
+        },
+        "internal_seconds": 908.5268987910022,
+        "external_seconds": 909.402364249996,
+        "platform": {
+          "platform": "macOS-27.0.1-arm64-arm-64bit",
+          "machine": "arm64",
+          "processor": "arm",
+          "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+          "cpu_count": 18,
+          "dependency_versions": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "mujoco": "3.6.0",
+            "torch": "2.10.0",
+            "h5py": "3.16.0"
+          }
+        },
+        "teacher_admission": {
+          "passed": true,
+          "checks": {
+            "independent_task_success": true,
+            "fixed_high_task_success": true,
+            "backoff_task_success": true,
+            "fixed_high_cost_guard": true,
+            "backoff_cost_guard": true
+          },
+          "agreement_used": false,
+          "per_slot_substitution": false
+        },
+        "primary_gate": {
+          "passed": false,
+          "checks": {
+            "minimum_walking_successes": false,
+            "more_walking_than_fixed": false
+          },
+          "comparisons": {
+            "parent": {
+              "checks": {
+                "success_nonregression": true,
+                "survival_nonregression": true,
+                "mean_controls_nonregression": false,
+                "complete_cost": false
+              },
+              "relative_cost_gain": -0.12907810094871822,
+              "passed": false,
+              "paired_cost_deltas": [
+                701.4642611045092,
+                72.57396520416114,
+                619.7371979722684,
+                586.4148367965054,
+                771.4398629261195,
+                547.4914862316182,
+                635.9175240555805,
+                577.9443391153645,
+                687.906833209995,
+                278.9530336401067,
+                582.2454059123302,
+                572.2336406955592,
+                608.1564398689707,
+                612.556479468878,
+                415.42555851324414,
+                588.5217287652549
+              ],
+              "paired_control_deltas": [
+                -96,
+                -23,
+                -98,
+                -88,
+                -124,
+                -78,
+                -62,
+                -69,
+                -129,
+                -31,
+                -90,
+                -82,
+                -81,
+                -85,
+                -58,
+                -79
+              ]
+            },
+            "independent": {
+              "checks": {
+                "success_nonregression": true,
+                "survival_nonregression": true,
+                "mean_controls_nonregression": true,
+                "complete_cost": false
+              },
+              "relative_cost_gain": 0.0014880428922342684,
+              "passed": false,
+              "paired_cost_deltas": [
+                -14.955697846492512,
+                -530.769866291681,
+                -32.081919992783696,
+                -5.130589320148829,
+                -24.266287803874548,
+                -48.35869599858688,
+                83.59620510379682,
+                551.235702159488,
+                -31.605229882529784,
+                -59.65102639658198,
+                -40.037974960782776,
+                -37.89656942270176,
+                -59.276430553736645,
+                -26.791635072631834,
+                165.34529762295097,
+                -4.838118529342864
+              ],
+              "paired_control_deltas": [
+                95,
+                117,
+                62,
+                -25,
+                99,
+                58,
+                43,
+                -128,
+                57,
+                -36,
+                51,
+                55,
+                84,
+                65,
+                -105,
+                -13
+              ]
+            },
+            "fixed_high": {
+              "checks": {
+                "success_nonregression": true,
+                "survival_nonregression": true,
+                "mean_controls_nonregression": false,
+                "complete_cost": false
+              },
+              "relative_cost_gain": 0.023070370062003714,
+              "passed": false,
+              "paired_cost_deltas": [
+                -91.11788379709469,
+                -469.8451050583162,
+                -75.10519934542572,
+                -120.70676173668744,
+                -68.55324207617832,
+                46.73139912809529,
+                50.47899111284187,
+                -87.1735783233189,
+                -3.720113839145597,
+                -365.29861192133467,
+                -94.05637461887727,
+                -90.29444849736956,
+                -70.9568545962311,
+                -74.96059406404675,
+                -226.92020687903278,
+                -88.4822625126535
+              ],
+              "paired_control_deltas": [
+                32,
+                -7,
+                -12,
+                -11,
+                24,
+                -6,
+                -42,
+                0,
+                -30,
+                15,
+                -20,
+                -122,
+                -16,
+                -11,
+                -5,
+                -5
+              ]
+            }
+          }
+        },
+        "next_round_launched": false,
+        "conditional_confirmation_launched": false,
+        "read_only_postprocessing": {
+          "new_controls": 0,
+          "new_neural_rows": 0,
+          "new_backward_rows": 0,
+          "new_optimizer_steps": 0
+        },
+        "staging_rejection_resolution": "NoH4privatecodeegress. SameWalkertaskrunlocallyonfrozenmacOSarm64withmatchedarms; priorLinuxtriggernotacross-hostbitwisecomparison."
+      }
+    }
+  },
+  "conditional_work": {
+    "l1_confirmation_executed": false,
+    "h4_confirmation_executed": false,
+    "h4_round2_executed": false,
+    "h4_2_executed": false
+  },
+  "limits": "All new expensive simulator, inference and optimizer work is metered and all requested experimental work completed. Tests, source preparation, data reconstruction, audits, plotting, staging-review failures, exports and transfer are separate overhead. Engineering/reasoning and all tool overhead are not fully timed; no efficiency claim. L1 Linux and H4macOS timing is not a cross-host efficiency comparison. One inherited reserved-but-unexecuted control remains charged from an old failed diagnostic harness."
+}

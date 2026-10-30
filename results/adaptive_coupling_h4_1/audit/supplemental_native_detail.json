@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "local_full_raw_locator_matches_independent_audit_hash": true,
+  "full_raw": {
+    "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/raw.h5",
+    "bytes": 38618575691,
+    "sha256": "5805a0ea194b0cf2228c4a98830f6156887856f6eb46d1790e76942712c7a48c"
+  },
+  "full_ledger": {
+    "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/ledger.jsonl",
+    "bytes": 278187145,
+    "sha256": "c229397f0e3118da76a3db3ba1e287f8e1353fe26c975ae1e1e7b443e04b5f2d"
+  },
+  "paired_gap_before_after": {
+    "independent": {
+      "full_initial_snapshots_equal": true,
+      "before_parent_minus_teacher_costs": [
+        3948.5139197843105,
+        3898.932299577484
+      ],
+      "after_child_minus_teacher_costs": [
+        4540.734534234363,
+        4520.391534902071
+      ],
+      "gap_increases": [
+        592.2206144500528,
+        621.4592353245866
+      ],
+      "mean_before_gap": 3923.7231096808973,
+      "mean_after_gap": 4530.563034568217,
+      "mean_gap_increase": 606.8399248873197,
+      "scope": "Identical full acquisition reset states, warmstarts and integration snapshots; diagnostic training starts, not fresh held generalization."
+    },
+    "fixed_high": {
+      "full_initial_snapshots_equal": true,
+      "before_parent_minus_teacher_costs": [
+        3933.701432126849,
+        3935.5793157811104
+      ],
+      "after_child_minus_teacher_costs": [
+        4532.130739087251,
+        4628.843505007882
+      ],
+      "gap_increases": [
+        598.4293069604018,
+        693.264189226772
+      ],
+      "mean_before_gap": 3934.6403739539796,
+      "mean_after_gap": 4580.487122047567,
+      "mean_gap_increase": 645.8467480935869,
+      "scope": "Identical full acquisition reset states, warmstarts and integration snapshots; diagnostic training starts, not fresh held generalization."
+    },
+    "backoff": {
+      "full_initial_snapshots_equal": true,
+      "before_parent_minus_teacher_costs": [
+        3974.3378982575855,
+        3879.1335671934585
+      ],
+      "after_child_minus_teacher_costs": [
+        4070.110125217741,
+        4530.549989002962
+      ],
+      "gap_increases": [
+        95.77222696015542,
+        651.4164218095038
+      ],
+      "mean_before_gap": 3926.735732725522,
+      "mean_after_gap": 4300.330057110352,
+      "mean_gap_increase": 373.59432438482963,
+      "scope": "Identical full acquisition reset states, warmstarts and integration snapshots; diagnostic training starts, not fresh held generalization."
+    }
+  },
+  "first_divergence_causal_proofs": [
+    {
+      "pair": 0,
+      "control": 1,
+      "bank_digest": "f9839c8970ff375620295e5f2fbe1e80dcb25babfd7869a036714e212ac0ddea",
+      "full_simulator_snapshots_equal": true,
+      "private_nominal_and_rng_equal": true,
+      "actual_bank_arrays_equal": [
+        "initial_state",
+        "initial_warmstart",
+        "bank_actions",
+        "bank_post_states",
+        "bank_raw_costs",
+        "reference_u",
+        "baseline_scores",
+        "agreement_squared",
+        "support",
+        "bank_observations"
+      ],
+      "same_actor_hash": "7bf162f6e8c9bb63718e44f8392838503528a6669e7553088a07f13be6036916",
+      "high_weight": 0.1199341983507337,
+      "backoff_weight": 0.05996709917536685,
+      "objective_influence_ratio_high_to_backoff": 2.0,
+      "selected_first_action_difference_norm": 0.06043357301629826,
+      "interpretation": "Same updated actor, physical state, warmstart, private planner state and candidate bank; only the agreement coefficient differs before the first changed executed control."
+    },
+    {
+      "pair": 1,
+      "control": 1,
+      "bank_digest": "e91114317bd798ee73315747f7b7679a2978355614ae3e7aa33ce88dba9b6750",
+      "full_simulator_snapshots_equal": true,
+      "private_nominal_and_rng_equal": true,
+      "actual_bank_arrays_equal": [
+        "initial_state",
+        "initial_warmstart",
+        "bank_actions",
+        "bank_post_states",
+        "bank_raw_costs",
+        "reference_u",
+        "baseline_scores",
+        "agreement_squared",
+        "support",
+        "bank_observations"
+      ],
+      "same_actor_hash": "7bf162f6e8c9bb63718e44f8392838503528a6669e7553088a07f13be6036916",
+      "high_weight": 0.1199341983507337,
+      "backoff_weight": 0.05996709917536685,
+      "objective_influence_ratio_high_to_backoff": 2.0,
+      "selected_first_action_difference_norm": 0.003054747823575208,
+      "interpretation": "Same updated actor, physical state, warmstart, private planner state and candidate bank; only the agreement coefficient differs before the first changed executed control."
+    }
+  ],
+  "primary_termination_limits": {
+    "parent": {
+      "height": 16
+    },
+    "independent": {
+      "angle": 15,
+      "height": 1
+    },
+    "fixed_high": {
+      "angle": 15,
+      "height": 1
+    },
+    "backoff": {
+      "angle": 13,
+      "height": 3
+    }
+  },
+  "backoff_vs_parent": {
+    "all16_complete_costs_worse": true,
+    "all16_controls_shorter": true,
+    "cost_deltas": [
+      701.4642611045092,
+      72.57396520416114,
+      619.7371979722684,
+      586.4148367965054,
+      771.4398629261195,
+      547.4914862316182,
+      635.9175240555805,
+      577.9443391153645,
+      687.906833209995,
+      278.9530336401067,
+      582.2454059123302,
+      572.2336406955592,
+      608.1564398689707,
+      612.556479468878,
+      415.42555851324414,
+      588.5217287652549
+    ],
+    "control_deltas": [
+      -96,
+      -23,
+      -98,
+      -88,
+      -124,
+      -78,
+      -62,
+      -69,
+      -129,
+      -31,
+      -90,
+      -82,
+      -81,
+      -85,
+      -58,
+      -79
+    ]
+  },
+  "recorded_full_dataset_mse_reduction_fractions": {
+    "independent": 0.12539803518141074,
+    "fixed_high": 0.1159491579522609,
+    "backoff": 0.13227453368535352
+  },
+  "trigger_limitation": "All matched child success/survival counts tie at zero; the rule proposes hold despite regression against the incoming parent. Proposal only; no next acquisition executed.",
+  "input_result_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+  "script_sha256": "b08d7a3c1205c3cf1e7fdb7ec5546d51bec12fd6b43226c43f9beafe279e8240",
+  "new_controls": 0,
+  "new_neural_rows": 0,
+  "new_backward_rows": 0,
+  "new_optimizer_steps": 0,
+  "wall_seconds": 0.6180014999990817
+}

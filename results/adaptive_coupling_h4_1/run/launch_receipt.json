@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-B",
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/scripts/diagnostics/adaptive_coupling.py",
+    "worker",
+    "--out",
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001"
+  ],
+  "returncode": 0,
+  "started_utc": "2026-10-30T21:38:13.621804+00:00",
+  "ended_utc": "2026-10-30T21:53:23.021840+00:00",
+  "external_wall_seconds": 909.402364249996,
+  "hardware": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "processor": "arm",
+    "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+    "cpu_count": 18,
+    "dependency_versions": {
+      "numpy": "2.4.3",
+      "scipy": "1.17.1",
+      "mujoco": "3.6.0",
+      "torch": "2.10.0",
+      "h5py": "3.16.0"
+    }
+  },
+  "platform_scope": "Local native MuJoCo3.6 on macOSarm64; all new arms share this platform. Historical trigger/checkpoint were produced on Linuxx86; no cross-host bitwise inference/physics or causal-effect comparison is claimed."
+}

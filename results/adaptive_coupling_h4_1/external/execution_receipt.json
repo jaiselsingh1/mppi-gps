@@ -1,0 +1,247 @@
+{
+  "schema": "walker-h4.1-execution-receipt-v1",
+  "status": "primary_negative",
+  "scientific_gate_passed": false,
+  "instrumented_worker_passed": true,
+  "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001",
+  "config_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+  "input_manifest_sha256": "0833f5291bdfccbeb55c6be85478aab095c583e29634d3b33823a1f6603c1c2b",
+  "result_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+  "local_locator_sha256": "2e204cb68d67469285184ceb58eb72924c49b7a7b0dfb9428f421cc8af1d9436",
+  "full_raw": {
+    "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/raw.h5",
+    "bytes": 38618575691,
+    "sha256": "5805a0ea194b0cf2228c4a98830f6156887856f6eb46d1790e76942712c7a48c"
+  },
+  "full_ledger": {
+    "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/evidence/ledger.jsonl",
+    "bytes": 278187145,
+    "sha256": "c229397f0e3118da76a3db3ba1e287f8e1353fe26c975ae1e1e7b443e04b5f2d"
+  },
+  "work": {
+    "requested_controls": 74588133,
+    "completed_controls": 74588133,
+    "requested_model_controls": 74569728,
+    "completed_model_controls": 74569728,
+    "requested_live_controls": 18405,
+    "completed_live_controls": 18405,
+    "requested_physics_substeps": 298352532,
+    "completed_physics_substeps": 298352532,
+    "unknown_partial_controls": 0,
+    "unknown_partial_physics_substeps": 0,
+    "model_queries": 22006,
+    "live_queries": 18405,
+    "failed_queries": 0,
+    "rejected_queries": 0,
+    "measurement_requests": 38508,
+    "failed_measurements": 0,
+    "rejected_measurements": 0,
+    "requested_neural_rows": 45735401,
+    "completed_neural_rows": 45735401,
+    "unknown_partial_neural_rows": 0,
+    "requested_backward_rows": 1536000,
+    "completed_backward_rows": 1536000,
+    "unknown_partial_backward_rows": 0,
+    "requested_optimizer_steps": 6000,
+    "completed_optimizer_steps": 6000,
+    "unknown_partial_optimizer_steps": 0,
+    "resets": 78,
+    "reset_errors": 0,
+    "restores": 0,
+    "snapshots": 136115,
+    "episodes": 78,
+    "requested_checkpoint_loads": 1,
+    "completed_checkpoint_loads": 1,
+    "unknown_partial_checkpoint_loads": 0,
+    "neural_rows": 45735401,
+    "backward_rows": 1536000,
+    "optimizer_steps": 6000,
+    "queries": 40411,
+    "physics_frames": 298352532,
+    "wall_seconds": 908.4950794169999
+  },
+  "internal_seconds": 908.5268987910022,
+  "external_seconds": 909.402364249996,
+  "platform": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "processor": "arm",
+    "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+    "cpu_count": 18,
+    "dependency_versions": {
+      "numpy": "2.4.3",
+      "scipy": "1.17.1",
+      "mujoco": "3.6.0",
+      "torch": "2.10.0",
+      "h5py": "3.16.0"
+    }
+  },
+  "teacher_admission": {
+    "passed": true,
+    "checks": {
+      "independent_task_success": true,
+      "fixed_high_task_success": true,
+      "backoff_task_success": true,
+      "fixed_high_cost_guard": true,
+      "backoff_cost_guard": true
+    },
+    "agreement_used": false,
+    "per_slot_substitution": false
+  },
+  "primary_gate": {
+    "passed": false,
+    "checks": {
+      "minimum_walking_successes": false,
+      "more_walking_than_fixed": false
+    },
+    "comparisons": {
+      "parent": {
+        "checks": {
+          "success_nonregression": true,
+          "survival_nonregression": true,
+          "mean_controls_nonregression": false,
+          "complete_cost": false
+        },
+        "relative_cost_gain": -0.12907810094871822,
+        "passed": false,
+        "paired_cost_deltas": [
+          701.4642611045092,
+          72.57396520416114,
+          619.7371979722684,
+          586.4148367965054,
+          771.4398629261195,
+          547.4914862316182,
+          635.9175240555805,
+          577.9443391153645,
+          687.906833209995,
+          278.9530336401067,
+          582.2454059123302,
+          572.2336406955592,
+          608.1564398689707,
+          612.556479468878,
+          415.42555851324414,
+          588.5217287652549
+        ],
+        "paired_control_deltas": [
+          -96,
+          -23,
+          -98,
+          -88,
+          -124,
+          -78,
+          -62,
+          -69,
+          -129,
+          -31,
+          -90,
+          -82,
+          -81,
+          -85,
+          -58,
+          -79
+        ]
+      },
+      "independent": {
+        "checks": {
+          "success_nonregression": true,
+          "survival_nonregression": true,
+          "mean_controls_nonregression": true,
+          "complete_cost": false
+        },
+        "relative_cost_gain": 0.0014880428922342684,
+        "passed": false,
+        "paired_cost_deltas": [
+          -14.955697846492512,
+          -530.769866291681,
+          -32.081919992783696,
+          -5.130589320148829,
+          -24.266287803874548,
+          -48.35869599858688,
+          83.59620510379682,
+          551.235702159488,
+          -31.605229882529784,
+          -59.65102639658198,
+          -40.037974960782776,
+          -37.89656942270176,
+          -59.276430553736645,
+          -26.791635072631834,
+          165.34529762295097,
+          -4.838118529342864
+        ],
+        "paired_control_deltas": [
+          95,
+          117,
+          62,
+          -25,
+          99,
+          58,
+          43,
+          -128,
+          57,
+          -36,
+          51,
+          55,
+          84,
+          65,
+          -105,
+          -13
+        ]
+      },
+      "fixed_high": {
+        "checks": {
+          "success_nonregression": true,
+          "survival_nonregression": true,
+          "mean_controls_nonregression": false,
+          "complete_cost": false
+        },
+        "relative_cost_gain": 0.023070370062003714,
+        "passed": false,
+        "paired_cost_deltas": [
+          -91.11788379709469,
+          -469.8451050583162,
+          -75.10519934542572,
+          -120.70676173668744,
+          -68.55324207617832,
+          46.73139912809529,
+          50.47899111284187,
+          -87.1735783233189,
+          -3.720113839145597,
+          -365.29861192133467,
+          -94.05637461887727,
+          -90.29444849736956,
+          -70.9568545962311,
+          -74.96059406404675,
+          -226.92020687903278,
+          -88.4822625126535
+        ],
+        "paired_control_deltas": [
+          32,
+          -7,
+          -12,
+          -11,
+          24,
+          -6,
+          -42,
+          0,
+          -30,
+          15,
+          -20,
+          -122,
+          -16,
+          -11,
+          -5,
+          -5
+        ]
+      }
+    }
+  },
+  "next_round_launched": false,
+  "conditional_confirmation_launched": false,
+  "read_only_postprocessing": {
+    "new_controls": 0,
+    "new_neural_rows": 0,
+    "new_backward_rows": 0,
+    "new_optimizer_steps": 0
+  },
+  "staging_rejection_resolution": "NoH4privatecodeegress. SameWalkertaskrunlocallyonfrozenmacOSarm64withmatchedarms; priorLinuxtriggernotacross-hostbitwisecomparison."
+}

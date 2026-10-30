@@ -1,0 +1,361 @@
+{
+  "schema": "walker-cio-source-v1",
+  "command": "adaptive-coupling-h4.1",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "0f7ddc7112be9a55f863fff41f32afcc27420ebb60fbaf7992507b0657c9e4ee"
+    },
+    {
+      "file": "assets/walker2d.xml",
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    {
+      "file": "configs/mppi_gps_walker.json",
+      "sha256": "8dbd655e8d28b675f58b980f5f3ac31418390a37b6b781e5a7cd32888062b7d1"
+    },
+    {
+      "file": "configs/walker2d_best.json",
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6"
+    },
+    {
+      "file": "configs/walker2d_task.json",
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a"
+    },
+    {
+      "file": "docs/adaptive_coupling_h4_1.md",
+      "sha256": "74b470c84547d98e5c56c33241bae243f89f1363f6a11ce1122fd4459deee24c"
+    },
+    {
+      "file": "docs/adaptive_coupling_protocol_h4_1_001.md",
+      "sha256": "aa8f7b21631ec28ed04184dc8633d7cf086e8f7a0aa981c95be0e44c94ba8d6e"
+    },
+    {
+      "file": "docs/adaptive_coupling_review_v1.md",
+      "sha256": "19d173da2c4411a1586a5aac8f20d7d5b8fba40913f08e543727e4595998c866"
+    },
+    {
+      "file": "docs/algorithm.md",
+      "sha256": "e599be262fa53e06ea1b71f145db951536dd0718cabf285ea11b3a1d67ff2f81"
+    },
+    {
+      "file": "docs/code_map.md",
+      "sha256": "2cf68782fa3f862b48107e6a39b9147bb5b607696c8cf673d10fc4e262257200"
+    },
+    {
+      "file": "docs/evidence_availability.md",
+      "sha256": "3ce5e6757edf84c1d113637b70466ecb7b9e039b4b130e78fad4f7402784ffd7"
+    },
+    {
+      "file": "docs/evidence_index.json",
+      "sha256": "fe17cef32a5899bdce9c2899d06c082af30e5556b8ee597b8947de5de4c2e1e9"
+    },
+    {
+      "file": "docs/figures/policy_diagnosis.png",
+      "sha256": "6eab30e4af8e89585867962fe3470994d0100da093d5a66ddc28d70809a6a2c9"
+    },
+    {
+      "file": "docs/figures/policy_learning_curves.png",
+      "sha256": "c6d4653d91250a98f4703c35e1c53dbaa06060cbec7be1f672ae7f050c191fc0"
+    },
+    {
+      "file": "docs/figures/walker_v2_summary.png",
+      "sha256": "d70fd35dd2ebb88b237e82ae81f2cb9dad6f02e83b0392c64413e5743cdc0d7b"
+    },
+    {
+      "file": "docs/history.md",
+      "sha256": "e562e1b782bad8ed14ef917c5a51b17a2b7fb35f43584904a4e0bdc7f4663ad3"
+    },
+    {
+      "file": "docs/loop_v3_evidence_audit.md",
+      "sha256": "cd3b8712cac4cc80ae5f569938bcb7da831270d8a8e02cd345ce03b8c5193995"
+    },
+    {
+      "file": "docs/loop_v3_formulation.md",
+      "sha256": "1cf4453b1f35e8ea33aa7cb38f9638876de3320c9ce886fcaed2d0f0070cbd93"
+    },
+    {
+      "file": "docs/loop_v3_next_hypothesis_v3_2.md",
+      "sha256": "0b4a57e2fcbcd674f4f639edb62a20406c0f6f29dac6e95ea1dc9ad584ac8a4c"
+    },
+    {
+      "file": "docs/loop_v3_prior_art.md",
+      "sha256": "f6a99868df9e5bd9a9197faad41b240208e6e12f1377c9c34398e0ce33f6dbc3"
+    },
+    {
+      "file": "docs/loop_v3_results.md",
+      "sha256": "94683e7ea12b29b0359d1baa5c1bbb4da3dc7bfb8f06403465ccf8dbc138840c"
+    },
+    {
+      "file": "docs/loop_v3_saved_comparison_protocol.md",
+      "sha256": "55d248733fbb1c97cc6be863166005aefaf1a2d4d39192be5f9a66b20cb08d90"
+    },
+    {
+      "file": "docs/paper_mapping.md",
+      "sha256": "43c03278301445e8e01ad9306089822fc328f1ec0ff457d0a551b885a0b39ed5"
+    },
+    {
+      "file": "docs/research_tracks.md",
+      "sha256": "94f6114191c3e2c5695422853fffd3d0b4bbf6e0d903991ab8113bee73bbcfad"
+    },
+    {
+      "file": "docs/results.md",
+      "sha256": "f0c36c58b165030baf0028656f9de894c18970436d8dd7c043239c91f563e270"
+    },
+    {
+      "file": "docs/student_learnability_l1_results.md",
+      "sha256": "c2d1433b75b802c9542007ffe5bb89063eff972e52aec858c2f6dd0a280a0a6d"
+    },
+    {
+      "file": "docs/student_learnability_protocol_l1_001.md",
+      "sha256": "eeb8c64ab230d0a8401b894f773e974ce85d7011d755eea185a13712a2390762"
+    },
+    {
+      "file": "docs/student_learnability_track_v1.md",
+      "sha256": "638d8ec2bb7873d81a984caa7971546847d757e5cf3e1dcd4eb0d292b7cdafb2"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "dfe9d9b66e457f2d3e1050f511ed83e6004dec9a0017fead3d822942d8139612"
+    },
+    {
+      "file": "scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/diagnostics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/diagnostics/adaptive_coupling.py",
+      "sha256": "a2b8e26dc04859994da6efa2a21f84fe6e2f89d13bf10c48d605333ae42a7619"
+    },
+    {
+      "file": "scripts/diagnostics/guided_data_comparison.py",
+      "sha256": "4a86cc70e057fdd52ddde6f642cfad0caf301dc80fbb4abd9408e6facdfffbf6"
+    },
+    {
+      "file": "scripts/diagnostics/replay_walker.py",
+      "sha256": "d065b6d91bfea147ebccd31a011ba8c0ec5c45fca4a9e041dc4ea9e786bc48b0"
+    },
+    {
+      "file": "scripts/diagnostics/report_guided_data_comparison.py",
+      "sha256": "83b402c77e5413c63ff6c51abdfbc006dd2b4d155de7a6a45fa4d21a5c684461"
+    },
+    {
+      "file": "scripts/diagnostics/report_walker_experiments.py",
+      "sha256": "c189eb36a2ac83ba5ca2a55b9513627ed44d624f1871da34fef5be2313854395"
+    },
+    {
+      "file": "scripts/diagnostics/student_learnability.py",
+      "sha256": "5768132a81fc6d7942a679d37225b7e3313e07959f5ce27c72e9fb280e445d70"
+    },
+    {
+      "file": "scripts/runners/__init__.py",
+      "sha256": "af7aa3fff74e0de760dcc3ccefae1cf8603bb7116d35b0a593ebfc1fb1d6cf76"
+    },
+    {
+      "file": "scripts/runners/run_walker2d.py",
+      "sha256": "ef5a64578b8d530b4a843cd63287ac7a8715c13f191f08b1a0fa5b62f8645fa1"
+    },
+    {
+      "file": "scripts/train_mppi_gps.py",
+      "sha256": "c355d539175cc42e1ffee04eabb9ac3235ec0ff25838f172dc2cf9111fb326ba"
+    },
+    {
+      "file": "src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/base.py",
+      "sha256": "8dd51240137b3ef6810555b8b975d410b67eaefc2684ee92419034b62f237766"
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "sha256": "93cb45af567831d501c7afb437f9f9e5da95acfac710fb7a6c62c02347f00044"
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "sha256": "477c3d2d8735171825392c9fe011941bc26e386f2113b4dd54df8a8c1e03ebca"
+    },
+    {
+      "file": "src/gps/__init__.py",
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8"
+    },
+    {
+      "file": "src/gps/mppi_gps/__init__.py",
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e"
+    },
+    {
+      "file": "src/gps/mppi_gps/coupling_backoff.py",
+      "sha256": "309adb2f0fa025ff4ef81212afb1055a68e51f4825c07e2a5ce9bf4b029f46aa"
+    },
+    {
+      "file": "src/gps/mppi_gps/diagnostics.py",
+      "sha256": "f5de7b2fef5108b3340ea7a0be900eccae46f1790eca9d71a70399722746968a"
+    },
+    {
+      "file": "src/gps/mppi_gps/experience.py",
+      "sha256": "1a2d364c260cd3df0c63de4ada3d32447c672cba2a70946469e0b6afeec6f7e7"
+    },
+    {
+      "file": "src/gps/mppi_gps/loop.py",
+      "sha256": "b1f8af7c456d0f59364454f9b347d28d6e23b7ee281132655d2d266617a264bf"
+    },
+    {
+      "file": "src/gps/mppi_gps/policy.py",
+      "sha256": "508e2a12a3a1a728a30810a4a35bdb40f7b4d904f0f3eccdc16d40a0b9fb8aa2"
+    },
+    {
+      "file": "src/gps/mppi_gps/post_update.py",
+      "sha256": "23c0d69ab158ec8d5b28a44c05f77128bc67488d6119483fe0439ea550e4d58f"
+    },
+    {
+      "file": "src/gps/mppi_gps/runtime.py",
+      "sha256": "0f4bef90167e8f4d312f48d2d2d198c0c79af3440a08770f63085a25837f65ab"
+    },
+    {
+      "file": "src/gps/mppi_gps/search.py",
+      "sha256": "0657caf98a7bb7b047be864a85fe54b159f180ba37b0f71c970916ae4d90a926"
+    },
+    {
+      "file": "src/mppi/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/mppi/mppi.py",
+      "sha256": "bf083a6bdfa1057631cb58ea1897feadedc00c0b525905ce8ff57822c371eabf"
+    },
+    {
+      "file": "src/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/utils/config.py",
+      "sha256": "ef85a9a42bb4262f4cb2cecfcd4fe05f42781054cb26ca9e2fe30a1fdc531b4f"
+    },
+    {
+      "file": "src/utils/gait.py",
+      "sha256": "6330ecb4340e308030feffdedfcb0cfb161e4b2178d6910b68781a6ccbfe8f2d"
+    },
+    {
+      "file": "src/utils/math.py",
+      "sha256": "a593998ee603a4e24e964723807d3d9010a30641ff01e3f79aaab234ef2d8a36"
+    },
+    {
+      "file": "src/utils/rollout_data.py",
+      "sha256": "c6f698644a33a1177aaff87436b412803cd3434b12f1c6f04558ca6459ae03f5"
+    },
+    {
+      "file": "src/utils/stats.py",
+      "sha256": "b7f98f63f2964efe0f4765077e6fd29a8a063faddde555903900ba507abba431"
+    },
+    {
+      "file": "src/utils/trace_replay.py",
+      "sha256": "469594a7255e5df789614949efcbe14b16bfc40030fbb77d2253a94f952c819d"
+    },
+    {
+      "file": "tests/test_adaptive_coupling.py",
+      "sha256": "ac89a30fdfcb885e00c107c9cfcbd1de9bc09ad39271f65e841d7ccc8d5d0890"
+    },
+    {
+      "file": "tests/test_coupling_backoff.py",
+      "sha256": "0f2b9a7334564e06f9981e3e7e08b92010776b423ff18376c50bb6515d92e860"
+    },
+    {
+      "file": "tests/test_gait.py",
+      "sha256": "29232b38b2bd94890558b19379da142511cd3c5ba86f69c111b2ce5bed817032"
+    },
+    {
+      "file": "tests/test_gps_diagnostics.py",
+      "sha256": "3bac0a291f726f753837e0c204744e5f8943f271b64464dc4218c2d0dec1bd72"
+    },
+    {
+      "file": "tests/test_gps_experience.py",
+      "sha256": "35478eda59317f8a80b20318c1238684d4385c5fb0edcb1e35caca7df662d3a7"
+    },
+    {
+      "file": "tests/test_gps_policy.py",
+      "sha256": "8b806ea814bd06ab08d094867cdab1448e33cd0230e7ddd1c5e5d3f814eac7fd"
+    },
+    {
+      "file": "tests/test_gps_runtime.py",
+      "sha256": "0ffa70bfdd43c37d4690ec611e7392410da9aaf4d6bed5e12b12bb6bdfa23c27"
+    },
+    {
+      "file": "tests/test_gps_search.py",
+      "sha256": "97baef8bf76c3c221ee287fe9800b2383533823b0f18d4cc9b705fc4a3d2c8f2"
+    },
+    {
+      "file": "tests/test_gps_v2.py",
+      "sha256": "288d21fd69b0eaa3ed97db56cb28cec205ac854eb337f35e6ce19d4c3f11fb7a"
+    },
+    {
+      "file": "tests/test_gps_workflow.py",
+      "sha256": "774c6981a466a0456febac6ab1c2833eeaad9277704112e5531bed08c3d654a4"
+    },
+    {
+      "file": "tests/test_guided_data_comparison.py",
+      "sha256": "1a7c3dab4a1793194fa2eb8740a06264fd39916a7e895df8e9d9728c43bd57a1"
+    },
+    {
+      "file": "tests/test_math_hypothesis.py",
+      "sha256": "3ac3502338960c30d08bb61cdeb799c676a99b2b2fb28e07ca137cdf7ef5fb95"
+    },
+    {
+      "file": "tests/test_math_properties.py",
+      "sha256": "326df7f7759ebb291706bfdd5512ad9e589f13a5ddd3e7f12c1786c2a537eb8d"
+    },
+    {
+      "file": "tests/test_post_update_feedback.py",
+      "sha256": "945f3edd6ba3a16f16e4c26b75df7ecfaa0eb578f69d64737c71ce9587b939e7"
+    },
+    {
+      "file": "tests/test_rollout_data.py",
+      "sha256": "b37dfdea123d1237875be75f2301948f142fb9bd7b10f91c8a74212235dd88c7"
+    },
+    {
+      "file": "tests/test_stats.py",
+      "sha256": "7eef7d110ba2354f29364f1dfa83df41119cb76c751a6aa6a13304959d34c92a"
+    },
+    {
+      "file": "tests/test_student_learnability.py",
+      "sha256": "a4ccb454be7ba6217a66af9a2a3e00046ce9f1eee9e4a1f8af9c73eee7a30939"
+    },
+    {
+      "file": "tests/test_walker2d_cli.py",
+      "sha256": "edc07e61f097963e784b283a6332649bfb1eb2b6fbac54b568ce4801911fdcd9"
+    },
+    {
+      "file": "tests/test_walker2d_replay.py",
+      "sha256": "391da8ddf56e3ed7596ca13f844b7c18cad7779263288ca0a4d93f04147dae7c"
+    },
+    {
+      "file": "tests/test_walker2d_rollout.py",
+      "sha256": "6563b29e623c667c5ee8968db06dfea2789b3f595402acf796406475895976aa"
+    },
+    {
+      "file": "tests/test_walker_gymnasium_differential.py",
+      "sha256": "5cefd478c7e071b5d964a3b45839063e9818dcfe33b68aeb6ebdeac20a0b70df"
+    },
+    {
+      "file": "tests/test_warp_rollout.py",
+      "sha256": "db71b1cd2bed833cc85fc29346b52e530562fa011b2ddc6910b258774528c4bb"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "b4f0489bea00b6f59f1d684c4344188e8af0c8ea773a4f86f442fc00f2437fdb"
+    }
+  ],
+  "config_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+  "input_sha256": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+  "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "source_root": "/Users/jaisel/Documents/mppi-gps",
+  "policy_action_fitting": true,
+  "raw_search_protected": true
+}
