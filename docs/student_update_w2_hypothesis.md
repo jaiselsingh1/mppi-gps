@@ -1,6 +1,6 @@
 # W2 hypothesis: fixed learning budget, not a selected checkpoint
 
-**Proposed after W1; unlaunched.** This is the single next test recommended by the [W1 result](student_width_w1_results.md). It has no frozen configuration or launch budget yet and does not authorize another experiment by itself.
+**Promoted after explicit user authorization on 31 October 2026.** The [W2 protocol](student_update_w2_protocol.md) now fixes the comparison, budget, endpoints and gates before launch. This page preserves the hypothesis motivated by the [W1 result](student_width_w1_results.md); it does not authorize other interventions or follow-ups.
 
 W1's six validation curves worsened from the recorded 2k checkpoint to 5k and 10k while training MSE fell. Earlier checkpoints retained more controls in all six streams, but improved complete cost in only four, and none walked. This motivates testing update budget; it does not establish an optimal checkpoint or an early-stopping remedy.
 

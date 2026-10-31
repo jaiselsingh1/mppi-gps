@@ -22,6 +22,7 @@ STUDIES = {
     "backoff": "src.gps.mppi_gps.experiments.adaptive_coupling",
     "compatibility": "src.gps.mppi_gps.experiments.action_compatibility",
     "width": "src.gps.mppi_gps.experiments.student_width",
+    "update-budget": "src.gps.mppi_gps.experiments.student_update_budget",
 }
 
 
