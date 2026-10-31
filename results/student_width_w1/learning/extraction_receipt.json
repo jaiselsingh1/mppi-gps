@@ -1,0 +1,195 @@
+{
+  "schema": "walker-w1-saved-learning-bin-extraction-v1",
+  "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001",
+  "result_sha256": "3c1fe6903f7298a28161c22d6aa9c311c2150d835881c1cbb7e8872fab84ebe0",
+  "source_sha256": "bfce8e1a5dd1fd73490576205b29afe8fe5e376e35a89f248a80bfb61107d3df",
+  "source_rows": 60000,
+  "source_fit_files": 18,
+  "bins": 600,
+  "updates_per_bin": 100,
+  "binning": "Within each of six pair/width series, fixed inclusive update intervals1..100,101..200,...,9901..10000. Arithmetic mean/min/max action MSE and mean unclipped gradient norm. No checkpoint selection or smoothing across source files.",
+  "scope": "Source-bound rendering/aggregation of already recorded stochastic minibatch training losses. Not full-dataset train/validation losses, uncertainty intervals, new inference, optimizer arithmetic, or a research rerun.",
+  "sources": [
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s0_w128_u2000.json",
+      "sha256": "5fa11b87ba7f4c45a623dfd6bf9d62a8b56162d1bfee16f4cd1c8b976b300cbd",
+      "bytes": 445577,
+      "point": "s0_w128_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s0_w128_u5000.json",
+      "sha256": "c0c7a0cacafb20227d5025ce0d8080adc2a3d95f2312ccf803d8812b16f2fff9",
+      "bytes": 670812,
+      "point": "s0_w128_u5000",
+      "rows": 3000,
+      "update_start": 2001,
+      "update_end": 5000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s0_w128_u10000.json",
+      "sha256": "4d63612cec9c2899b7c79569229086afbccf4d5c9abbf46baa161a7dcc29c9c4",
+      "bytes": 1118093,
+      "point": "s0_w128_u10000",
+      "rows": 5000,
+      "update_start": 5001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s0_w256_u2000.json",
+      "sha256": "c7ff41def8a45de8cd8ba93933f3d1b83a1b842d5d66bee267d19543eaa13fe8",
+      "bytes": 445415,
+      "point": "s0_w256_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s0_w256_u5000.json",
+      "sha256": "3a8d7740a19e530372b3ec4f32a74a98bec854a97b0785212bf6553a27219aef",
+      "bytes": 671130,
+      "point": "s0_w256_u5000",
+      "rows": 3000,
+      "update_start": 2001,
+      "update_end": 5000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s0_w256_u10000.json",
+      "sha256": "d5e9a1f61215f0686ad7ea4d3a379ed02cb917916b6620e025023558e4a0d485",
+      "bytes": 1119621,
+      "point": "s0_w256_u10000",
+      "rows": 5000,
+      "update_start": 5001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s1_w128_u2000.json",
+      "sha256": "c82170d85bbea4f2f1ebac668eb147266fcbc7bf3e9272d66b11de5c66c500d3",
+      "bytes": 445689,
+      "point": "s1_w128_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s1_w128_u5000.json",
+      "sha256": "d15cad84dfd4f557d3f718b61a3581f176257d0bb7e0f75e3110dcfe1c7fa92a",
+      "bytes": 670729,
+      "point": "s1_w128_u5000",
+      "rows": 3000,
+      "update_start": 2001,
+      "update_end": 5000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s1_w128_u10000.json",
+      "sha256": "b8ac4e757dc6b5f1b148b8db931d37d5fd1ef4e25d617e82d9fbe2fc778022c7",
+      "bytes": 1118135,
+      "point": "s1_w128_u10000",
+      "rows": 5000,
+      "update_start": 5001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s1_w256_u2000.json",
+      "sha256": "729f482b30e1c5c5413ed90a0b40d13766f41877f9f62d83121305b84c458c4c",
+      "bytes": 445505,
+      "point": "s1_w256_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s1_w256_u5000.json",
+      "sha256": "abee182f6a30373bdebaac1c44c4829882552b5a2a69176073d91035db4a8d84",
+      "bytes": 671036,
+      "point": "s1_w256_u5000",
+      "rows": 3000,
+      "update_start": 2001,
+      "update_end": 5000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s1_w256_u10000.json",
+      "sha256": "d97c5a8771524bde99b0ebaf98018702842e14fa971b92e73f02d50135c3ae98",
+      "bytes": 1119450,
+      "point": "s1_w256_u10000",
+      "rows": 5000,
+      "update_start": 5001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s2_w128_u2000.json",
+      "sha256": "3f7ae8bc715fe0ea5c3e7b9e03d1cc8b294a8cb00ad04e0de0f3080dd92d38dc",
+      "bytes": 445624,
+      "point": "s2_w128_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s2_w128_u5000.json",
+      "sha256": "09e73ae3734ab3d7d1f95b358ec57824e4f6469e0bf7bbb3267f38e1bb285ac0",
+      "bytes": 670765,
+      "point": "s2_w128_u5000",
+      "rows": 3000,
+      "update_start": 2001,
+      "update_end": 5000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s2_w128_u10000.json",
+      "sha256": "42f7d866ca7369a9c2c1ae2242e39000e9a170b65716b5951cde29f2ce22db2e",
+      "bytes": 1117977,
+      "point": "s2_w128_u10000",
+      "rows": 5000,
+      "update_start": 5001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s2_w256_u2000.json",
+      "sha256": "ffe709c0e63ae0a29d0dc931d5f4d4bbc54b3565ffafbe594edc34fa973592cc",
+      "bytes": 445487,
+      "point": "s2_w256_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s2_w256_u5000.json",
+      "sha256": "3f86a497ac938e02c34ed042702288e4169a0737ded01826e8ae662c16f4496c",
+      "bytes": 671080,
+      "point": "s2_w256_u5000",
+      "rows": 3000,
+      "update_start": 2001,
+      "update_end": 5000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001/learning/s2_w256_u10000.json",
+      "sha256": "76d65ee52bb05b912cb67b0ead6d1d9022b108ac475cc07507f69f5d191b9b84",
+      "bytes": 1119437,
+      "point": "s2_w256_u10000",
+      "rows": 5000,
+      "update_start": 5001,
+      "update_end": 10000
+    }
+  ],
+  "outputs": {
+    "binned_learning_curves.csv": {
+      "bytes": 180768,
+      "sha256": "e3d44c994c5b08c719ad39730167a4badd3a833682cf2775bd8f40bd5a34045a"
+    },
+    "binned_learning_curves.png": {
+      "bytes": 265098,
+      "sha256": "7ab38bae4d67d7aeb6c0ebfdb903ad8dd6b8a4828e5ac0a8aefadba82fe00163"
+    },
+    "binned_learning_curves.pdf": {
+      "bytes": 33950,
+      "sha256": "4604ca9c19537c0085acfc297576c8cffb4f6c4cf1fbefb074461663f1399463"
+    }
+  },
+  "new_controls": 0,
+  "new_forward_rows": 0,
+  "new_backward_rows": 0,
+  "new_optimizer_steps": 0,
+  "wall_seconds": 9.685685666001518
+}

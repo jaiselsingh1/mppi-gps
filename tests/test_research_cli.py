@@ -166,3 +166,47 @@ def test_capsule_binding_rejects_tampering_and_escape(tmp_path):
     assert report["files"][0]["verified"] is False
     assert report["errors"] == [f"Missing bound evidence: {tmp_path / 'missing.json'}"]
     assert train_mppi_gps.main(["inspect", "--run", str(tmp_path), "--verify"]) == 1
+
+
+def test_width_inspector_exposes_summary_and_gates_without_episode_arrays(tmp_path):
+    run = tmp_path / "width"
+    run.mkdir()
+    (run / "config.json").write_text('{"schema":"walker-student-width-w1-v1"}')
+    (run / "result.json").write_text(
+        json.dumps(
+            {
+                "execution_complete": True,
+                "status": "complete",
+                "teacher_outcomes": {
+                    "train": {"teacher": {"cost": 400, "success": True, "complete": True}}
+                },
+                "evaluations": {
+                    "primary": {
+                        "s0_w256_u10000": {
+                            "summary": {
+                                "episodes": 16,
+                                "successes": 0,
+                                "survived": 0,
+                                "mean_steps": 80,
+                                "mean_cost": 5000,
+                            },
+                            "episodes": [{"raw": "must not leak into compact metadata"}],
+                        }
+                    }
+                },
+                "gates": {
+                    "primary": {
+                        "reconstruction_screen": True,
+                        "validation_guard": False,
+                        "task_screen": False,
+                    }
+                },
+            }
+        )
+    )
+    report = inspect_run(run)
+    assert report["outcomes"]["execution_complete"] is True
+    assert report["teacher_outcomes"]["train"]["teacher"]["cost"] == 400
+    assert report["student_outcomes"]["primary"]["s0_w256_u10000"]["episodes"] == 16
+    assert report["gates"]["primary"]["validation_guard"] is False
+    assert "must not leak" not in json.dumps(report)

@@ -1,0 +1,101 @@
+{
+  "points": 24,
+  "fit_blocks": 18,
+  "episodes": 192,
+  "actual_controls": 24507,
+  "diagnostic_forward_rows": 144000,
+  "fitting_rows": 15360000,
+  "confirmation_triggered": false,
+  "gates": {
+    "primary": {
+      "relative_train_mse_gains": [
+        0.48695721845884177,
+        0.47438354763640034,
+        0.47977869240402415
+      ],
+      "relative_validation_mse_gains": [
+        -0.21660837101443597,
+        -0.2456025683599219,
+        -0.2506300598106259
+      ],
+      "fitting_checks": {
+        "mean_train_gain": true,
+        "fitting_pairs": true
+      },
+      "reconstruction_screen": true,
+      "validation_guard": false,
+      "fitting_screen": false,
+      "task_pairs": [
+        {
+          "relative_cost_gain": -0.10448790906758942,
+          "walking_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "steps_nonregression": false
+        },
+        {
+          "relative_cost_gain": -0.030140685758213825,
+          "walking_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "steps_nonregression": false
+        },
+        {
+          "relative_cost_gain": -0.00048147628066108616,
+          "walking_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "steps_nonregression": false
+        }
+      ],
+      "task_checks": {
+        "mean_cost_gain": false,
+        "cost_pairs": false,
+        "walking_pairs": false,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true,
+        "all_pair_steps_nonregression": false
+      },
+      "task_screen": false
+    },
+    "confirmation_triggered": false,
+    "confirmation": null,
+    "confirmed_task_benefit": false,
+    "competence": {
+      "s0_w128_u10000": false,
+      "s0_w256_u10000": false,
+      "s1_w128_u10000": false,
+      "s1_w256_u10000": false,
+      "s2_w128_u10000": false,
+      "s2_w256_u10000": false
+    }
+  },
+  "work": {
+    "measurement_requests": 204651,
+    "requested_neural_rows": 15528507,
+    "completed_neural_rows": 15528507,
+    "requested_backward_rows": 15360000,
+    "completed_backward_rows": 15360000,
+    "requested_optimizer_steps": 60000,
+    "completed_optimizer_steps": 60000,
+    "resets": 192,
+    "requested_controls": 24507,
+    "requested_live_controls": 24507,
+    "requested_physics_substeps": 98028,
+    "live_queries": 24507,
+    "completed_controls": 24507,
+    "completed_live_controls": 24507,
+    "completed_physics_substeps": 98028,
+    "episodes": 192,
+    "queries": 24507,
+    "physics_frames": 98028,
+    "neural_rows": 15528507,
+    "backward_rows": 15360000,
+    "optimizer_steps": 60000
+  },
+  "source_lineage": "Small selected sealed K1 inputs; no historical raw/ledger replay",
+  "limitations": [
+    "Saved checkpoint/ledger ownership and exact sampler continuation are verified without replaying optimizer arithmetic or evaluating a network.",
+    "Three paired training seeds and shared reset panels do not establish a population effect or equal-compute comparison."
+  ]
+}

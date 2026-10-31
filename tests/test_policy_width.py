@@ -48,11 +48,7 @@ def test_default_128_preserves_pre_width_hash_rng_and_checkpoint_bytes(tmp_path)
     assert path.read_bytes() == explicit_path.read_bytes()
     # Serialized ZIP bytes are bound to the original Mac wheel, whereas the
     # named tensor hash, RNG and payload key contracts above/below are portable.
-    if (
-        sys.platform == "darwin"
-        and platform.machine() == "arm64"
-        and torch.__version__ == "2.10.0"
-    ):
+    if sys.platform == "darwin" and platform.machine() == "arm64" and torch.__version__ == "2.10.0":
         assert hashlib.sha256(path.read_bytes()).hexdigest() == (
             "96e3ae740acee2342217fb80d2984959172605c2c2a0e3d0f44faf82d6928335"
         )

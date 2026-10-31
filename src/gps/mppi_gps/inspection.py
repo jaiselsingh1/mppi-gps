@@ -80,6 +80,12 @@ def _summaries(value: Any) -> Any:
     keys = ("episodes", "successes", "survived", "mean_cost", "mean_steps", "mean_velocity_mae")
     if "episodes" in value:
         return {key: value[key] for key in keys if key in value}
+    if "cost" in value:
+        return {
+            key: value[key]
+            for key in ("complete", "success", "survived", "steps", "cost", "mae")
+            if key in value
+        }
     return {key: _summaries(item) for key, item in value.items() if isinstance(item, dict)}
 
 
@@ -132,8 +138,15 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             for name in ("evidence/raw.h5", "evidence/ledger.jsonl")
             if not (run / name).is_file()
         ]
+    student_outcomes = result.get("cases", {})
+    if "evaluations" in result:
+        student_outcomes = {
+            cohort: {name: record["summary"] for name, record in panel.items()}
+            for cohort, panel in result["evaluations"].items()
+        }
     summary_keys = (
         "schema",
+        "execution_complete",
         "passed",
         "status",
         "error",
@@ -163,12 +176,15 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "launch": launch,
         },
         "outcomes": {key: result[key] for key in summary_keys if key in result},
-        "teacher_outcomes": _summaries(result.get("teacher_summaries", {})),
-        "student_outcomes": _summaries(result.get("cases", {})),
+        "teacher_outcomes": _summaries(
+            result.get("teacher_summaries", result.get("teacher_outcomes", {}))
+        ),
+        "student_outcomes": _summaries(student_outcomes),
         "teacher_student_gap": result.get(
             "paired_teacher_student_gap", result.get("teacher_student_gap", {})
         ),
-        "gates": {
+        "gates": result.get("gates")
+        or {
             key: result[key]
             for key in ("primary_gate", "primary_feature_benefit", "teacher_admission")
             if key in result

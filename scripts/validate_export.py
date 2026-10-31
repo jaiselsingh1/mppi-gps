@@ -37,7 +37,13 @@ def main(argv: list[str] | None = None) -> int:
         ["-m", "pytest", "-q", "--basetemp", str(outputs / "pytest")],
         ["scripts/check_repository.py"],
     ]
-    capsules = ("guided_data_v3_1", "student_learnability_l1", "adaptive_coupling_h4_1")
+    capsules = (
+        "guided_data_v3_1",
+        "student_learnability_l1",
+        "adaptive_coupling_h4_1",
+        "action_compatibility_k1",
+        "student_width_w1",
+    )
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -69,6 +75,22 @@ def main(argv: list[str] | None = None) -> int:
             str(outputs / "coupling"),
         ],
     ]
+    commands += [
+        [
+            "scripts/diagnostics/report_action_compatibility.py",
+            "--run",
+            "results/action_compatibility_k1/run",
+            "--out",
+            str(outputs / "compatibility"),
+        ],
+        [
+            "scripts/diagnostics/report_width.py",
+            "--run",
+            "results/student_width_w1/run",
+            "--out",
+            str(outputs / "width"),
+        ],
+    ]
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -90,6 +112,11 @@ def main(argv: list[str] | None = None) -> int:
     for name in ("guided", "student", "coupling"):
         for extension in ("png", "pdf"):
             figure = outputs / name / f"learning_and_outcomes.{extension}"
+            if not figure.is_file() or figure.stat().st_size == 0:
+                raise ValueError(f"Missing rendered figure: {figure}")
+    for folder, stem in (("compatibility", "agreement_heatmaps"), ("width", "fitting_curves")):
+        for extension in ("png", "pdf"):
+            figure = outputs / folder / f"{stem}.{extension}"
             if not figure.is_file() or figure.stat().st_size == 0:
                 raise ValueError(f"Missing rendered figure: {figure}")
     print(

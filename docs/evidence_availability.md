@@ -1,10 +1,10 @@
 # Evidence availability
 
-A clean checkout contains active source, tests, recipes, historical source archives, reports and four exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1 diagnostic.
+A clean checkout contains active source, tests, recipes, historical source archives, reports and five exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1/W1 studies.
 
 ## What a clean checkout can do
 
-The [capsule index](../results/README.md) links v3.1, L1, H4.1 and K1 configurations, complete result JSON, original source/input manifests, launch metadata, study curves, figures, accounting and independent audit summaries. The fitting studies have per-update learning curves; K1 has agreement/control curves and no new learning. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
+The [capsule index](../results/README.md) links v3.1, L1, H4.1, K1 and W1 configurations, complete result JSON, original source/input manifests, launch metadata, study curves, figures, accounting and independent audit summaries. Earlier fitting capsules have per-update learning curves; W1 publishes source-bound 100-update bins covering every update and keeps full per-update JSON external. K1 has agreement/control curves and no new learning. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
 
 ```sh
 uv run python scripts/train_mppi_gps.py inspect --run results/adaptive_coupling_h4_1 --verify
@@ -13,7 +13,7 @@ uv run python scripts/check_repository.py
 
 These commands inspect metadata and validate repository evidence without simulation, inference or training. Reports can be rendered from each capsule's `run/` metadata into fresh output directories; see [development](development.md#reports-and-independent-audits). A capsule is not a complete runnable frozen run: its original manifests also describe intentionally omitted bulk data and source. Independent full-array audits require that optional data.
 
-The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locators and adds per-study availability, local/remote locations, sizes, checksums, receipt bindings and bulk-file catalogs. Historical bulk hashes are copied from closed export/audit receipts. K1's new closed-run file manifest hashes its own new files at publication; it does not repeat the expensive historical raw audits. The inspector's verification scope is explicit.
+The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locators and adds per-study availability, local/remote locations, sizes, checksums, receipt bindings and bulk-file catalogs. Historical bulk hashes are copied from closed export/audit receipts. K1 and W1 closed-run file manifests hash each study's own new files at publication; they do not repeat the expensive historical raw audits. The inspector's verification scope is explicit.
 
 ## Storage by study
 
@@ -23,6 +23,7 @@ The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locato
 | L1 fresh learnability | [Configuration, outcomes, curves, audit and accounting](../results/student_learnability_l1/README.md) | Complete local mirror and verified Linux remote copy; 178 original run files, 692,793,577 bytes |
 | H4.1 adaptive weight backoff | [Configuration, outcomes, curves, audit and accounting](../results/adaptive_coupling_h4_1/README.md) | **Local only.** Full raw HDF 38,618,575,691 bytes; ledger 278,187,145 bytes; no remote mirror asserted |
 | K1 action-compatibility diagnostic | [Protocol, matrix, outcomes, audit and accounting](../results/action_compatibility_k1/README.md) | **Local only.** Complete closed run: 281 files, 1,520,281,569 bytes; no remote mirror asserted |
+| W1 student width contrast | [Protocol, curves, outcomes, audit and accounting](../results/student_width_w1/README.md) | **Local only.** Complete closed run: 244 files, 1,081,903,391 bytes; no remote mirror asserted |
 
 ### v3.1 evidence
 
@@ -47,6 +48,18 @@ Stage A raw HDF: **9,817,424 bytes**, SHA-256 `aa1877cf431c03abe436c8d9a1df387d8
 All new K1 evidence is local-only. The run retains the 14 teacher inputs, 80 historical standalone trace copies, source-tagged retained/auxiliary datasets, nine frozen actor checkpoints, final serialized policy states, all 84 new episode attempts, the raw prediction matrices and complete query/learning ledgers. Bulk arrays, checkpoints, NPZs, ledgers and the frozen source tree remain outside Git. The capsule omits duplicate `stage_a_result.json` because complete `result.json` embeds it.
 
 Source parents are the original v1 discovery, v2 recorded teachers, v3.1 comparison, L1, H4.1 and the independent final-1M SAC checkpoint. Their original availability limits remain in their own records. The [frozen input inventory](../results/action_compatibility_k1/run/inputs/inventory.json) binds source hashes, policy interfaces, training exposure, reset ancestry and explicit missing original-discovery endpoint/warmstart/integration fields; no absent parent fields were simulated or invented. Six thousand saved H4 incoming-guide predictions were reused. K1 adds no model-rollout controls, training, backward rows or Adam steps. [Experimental](../results/action_compatibility_k1/report/cost_accounting.json) and [engineering](../results/action_compatibility_k1/accounting/engineering_accounting.json) costs are separate.
+
+### W1 local width-study evidence
+
+Run ID: `2026-10-31_student_width_w1_001`. Full local root: `/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001`. The [complete file manifest](../results/student_width_w1/external/full_run_file_manifest.json) records all 244 closed-run files, totaling 1,081,903,391 bytes. The [capsule](../results/student_width_w1/README.md) retains exact small records, canonical report/audit outputs and their actual source implementations.
+
+Raw HDF: **796,425,536 bytes**, SHA-256 `20d596f21da054628fceb41c6554c6dc1ac50e1253e2fa2f42eb8ca4976a9e40`; ledger: **248,153,369 bytes**, SHA-256 `980abf65c8b1d3c0b003131c65c336eb42bf44f86e0a5b4522a81e1aed5a35bc`. These are new W1 files, hashed only after worker closure; no historical bulk audit was repeated. No remote copy is asserted.
+
+The full run retains all 24 checkpoints and their Adam/RNG packages, all 18 complete per-update fit JSON files, exact paired-minibatch arrays, saved train/validation predictions, all 192 standalone attempts and complete simulator states/terminal evidence. The capsule publishes [600 fixed learning-curve bins](../results/student_width_w1/learning/binned_learning_curves.csv) covering all 60,000 updates, with [source-bound extraction receipt](../results/student_width_w1/learning/extraction_receipt.json), exact extraction code and PNG/PDF figures. Bins are stochastic training minibatch summaries; full-dataset reconstruction is separately recorded at updates 0, 2,000, 5,000 and 10,000. Full fit JSON and all large NPZ/HDF/checkpoint/ledger files remain outside Git, with hashes in the complete manifest.
+
+The [benchmark provenance](../results/student_width_w1/run/inputs/provenance.json) binds the exact K1 source chain: 4,000 executed discovery training rows, 2,000 later independent validation rows, and exclusion of all 96 auxiliary rows. Only training rows determine normalization. All six source teachers walked; original discovery's local endpoint/warmstart/integration limitations remain unchanged. Historical teacher versus fresh-student gaps are unpaired descriptive comparisons. Validation is held out of W1 fitting but remains historical development evidence.
+
+All six final policies walked 0/16 primary episodes; the conditional confirmation panel was not triggered. Experimental work was 15,528,507 forward rows, 15,360,000 backward rows, 60,000 Adam steps, 24,507 live controls and zero model-rollout controls. [Experimental accounting](../results/student_width_w1/report/cost_accounting.json), [engineering accounting](../results/student_width_w1/accounting/engineering_accounting.json), [audit receipt](../results/student_width_w1/audit/receipt.json) and [results interpretation](student_width_w1_results.md) retain the distinctions between fitting, validation and standalone task outcomes.
 
 ### Legacy evidence
 
