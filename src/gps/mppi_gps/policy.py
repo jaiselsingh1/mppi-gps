@@ -105,13 +105,18 @@ def _normalization(value, width=OBSERVATIONS):
 
 
 class Policy(nn.Module):
-    """17/23→128 tanh→128 tanh→6 tanh; the caller defines feature semantics."""
+    """17/23→128/256 tanh→same width tanh→6 tanh; caller defines features."""
 
-    def __init__(self, seed=0, device="cpu", normalization=None, obs_dim=OBSERVATIONS):
+    def __init__(
+        self, seed=0, device="cpu", normalization=None, obs_dim=OBSERVATIONS, hidden_dim=HIDDEN
+    ):
         super().__init__()
         self.obs_dim = _integer(obs_dim, "obs_dim")
         if self.obs_dim not in (17, 23):
             raise ValueError("obs_dim must be 17 or 23")
+        self.hidden_dim = _integer(hidden_dim, "hidden_dim")
+        if self.hidden_dim not in (128, 256):
+            raise ValueError("hidden_dim must be 128 or 256")
         self.seed = _integer(seed, "seed")
         if self.seed >= 2**63:
             raise ValueError("seed must be less than 2**63")
@@ -121,11 +126,11 @@ class Policy(nn.Module):
         # initialize every parameter from this policy's private stream.
         with torch.random.fork_rng(devices=[]):
             self.network = nn.Sequential(
-                nn.Linear(self.obs_dim, HIDDEN, device="cpu", dtype=torch.float32),
+                nn.Linear(self.obs_dim, self.hidden_dim, device="cpu", dtype=torch.float32),
                 nn.Tanh(),
-                nn.Linear(HIDDEN, HIDDEN, device="cpu", dtype=torch.float32),
+                nn.Linear(self.hidden_dim, self.hidden_dim, device="cpu", dtype=torch.float32),
                 nn.Tanh(),
-                nn.Linear(HIDDEN, ACTIONS, device="cpu", dtype=torch.float32),
+                nn.Linear(self.hidden_dim, ACTIONS, device="cpu", dtype=torch.float32),
                 nn.Tanh(),
             )
         for layer in self.network:
@@ -198,6 +203,8 @@ class Policy(nn.Module):
             optimizer_state=_cpu(optimizer_state),
             metadata=metadata,
         )
+        if self.hidden_dim != HIDDEN:
+            payload["hidden_dim"] = self.hidden_dim
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("xb") as stream:
@@ -218,11 +225,25 @@ class Policy(nn.Module):
         width = int(state["observation_mean"].numel())
         if payload.get("obs_dim", width) != width:
             raise ValueError("Checkpoint observation dimension differs from normalization")
+        first_weight = state.get("network.0.weight")
+        if (
+            not isinstance(first_weight, torch.Tensor)
+            or first_weight.ndim != 2
+            or first_weight.shape[1] != width
+        ):
+            raise ValueError("Checkpoint first layer differs from observation dimension")
+        hidden_dim = int(first_weight.shape[0])
+        if _integer(payload.get("hidden_dim", HIDDEN), "checkpoint hidden_dim") != hidden_dim:
+            raise ValueError("Checkpoint hidden dimension differs from first layer")
         normalization = dict(
             mean=state["observation_mean"].numpy(), std=state["observation_std"].numpy()
         )
         policy = cls(
-            seed=payload["seed"], device=device, normalization=normalization, obs_dim=width
+            seed=payload["seed"],
+            device=device,
+            normalization=normalization,
+            obs_dim=width,
+            hidden_dim=hidden_dim,
         )
         policy.load_state_dict(state, strict=True)
         policy._generator.set_state(payload["private_rng_state"].cpu())
@@ -345,7 +366,13 @@ def fit_policy(
             raise ValueError(
                 "Resuming a proximal block requires its unchanged data and fit settings"
             )
-    child = Policy(parent.seed, str(parent.device), parent.normalization, obs_dim=parent.obs_dim)
+    child = Policy(
+        parent.seed,
+        str(parent.device),
+        parent.normalization,
+        obs_dim=parent.obs_dim,
+        hidden_dim=parent.hidden_dim,
+    )
     child.load_state_dict(_cpu(parent.state_dict()), strict=True)
     child._generator.set_state(parent._generator.get_state().clone())
     child.train()
