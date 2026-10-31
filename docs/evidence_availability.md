@@ -1,10 +1,10 @@
 # Evidence availability
 
-A clean checkout contains active source, tests, recipes, historical source archives, reports and three exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup.
+A clean checkout contains active source, tests, recipes, historical source archives, reports and four exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1 diagnostic.
 
 ## What a clean checkout can do
 
-The [capsule index](../results/README.md) links v3.1, L1 and H4.1 configurations, complete result JSON, original source/input manifests, launch metadata, per-update learning curves, figures, accounting and independent audit summaries. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
+The [capsule index](../results/README.md) links v3.1, L1, H4.1 and K1 configurations, complete result JSON, original source/input manifests, launch metadata, study curves, figures, accounting and independent audit summaries. The fitting studies have per-update learning curves; K1 has agreement/control curves and no new learning. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
 
 ```sh
 uv run python scripts/train_mppi_gps.py inspect --run results/adaptive_coupling_h4_1 --verify
@@ -13,7 +13,7 @@ uv run python scripts/check_repository.py
 
 These commands inspect metadata and validate repository evidence without simulation, inference or training. Reports can be rendered from each capsule's `run/` metadata into fresh output directories; see [development](development.md#reports-and-independent-audits). A capsule is not a complete runnable frozen run: its original manifests also describe intentionally omitted bulk data and source. Independent full-array audits require that optional data.
 
-The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locators and adds per-study availability, local/remote locations, sizes, checksums, receipt bindings and bulk-file catalogs. Recorded bulk hashes are copied from closed export/audit receipts, not silently recomputed by this documentation change. The inspector's verification scope is explicit.
+The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locators and adds per-study availability, local/remote locations, sizes, checksums, receipt bindings and bulk-file catalogs. Historical bulk hashes are copied from closed export/audit receipts. K1's new closed-run file manifest hashes its own new files at publication; it does not repeat the expensive historical raw audits. The inspector's verification scope is explicit.
 
 ## Storage by study
 
@@ -22,6 +22,7 @@ The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locato
 | v3.1 recorded-data comparison | [Configuration, outcomes, curves, audit and accounting](../results/guided_data_v3_1/README.md) | Complete local mirror and verified Linux remote copy; 173 original run files, 756,044,512 bytes |
 | L1 fresh learnability | [Configuration, outcomes, curves, audit and accounting](../results/student_learnability_l1/README.md) | Complete local mirror and verified Linux remote copy; 178 original run files, 692,793,577 bytes |
 | H4.1 adaptive weight backoff | [Configuration, outcomes, curves, audit and accounting](../results/adaptive_coupling_h4_1/README.md) | **Local only.** Full raw HDF 38,618,575,691 bytes; ledger 278,187,145 bytes; no remote mirror asserted |
+| K1 action-compatibility diagnostic | [Protocol, matrix, outcomes, audit and accounting](../results/action_compatibility_k1/README.md) | **Local only.** Complete closed run: 281 files, 1,520,281,569 bytes; no remote mirror asserted |
 
 ### v3.1 evidence
 
@@ -36,6 +37,16 @@ Run ID: `2026-10-30_student_learnability_l1_001`. Local: `/Users/jaisel/Document
 Run ID: `2026-10-30_adaptive_coupling_h4_1_r1_001`. Full local root: `/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001`. The [local locator](../results/adaptive_coupling_h4_1/external/full_local_evidence_locator.json) gives raw HDF SHA-256 `5805a0ea194b0cf2228c4a98830f6156887856f6eb46d1790e76942712c7a48c` and ledger SHA-256 `c229397f0e3118da76a3db3ba1e287f8e1353fe26c975ae1e1e7b443e04b5f2d`, plus the compact executed export. The [audit file bindings](../results/adaptive_coupling_h4_1/audit/file_bindings.json) bind source, snapshots, training arrays and checkpoint files within their stated scope.
 
 Remote source upload was rejected by automatic approval review. A local macOS arm64 platform variant was frozen before launch, and all new H4 arms shared it. The historical trigger/checkpoint originated on Linux x86. The [execution receipt](../results/adaptive_coupling_h4_1/external/execution_receipt.json) records the platform and resolution. This is not a cross-host bitwise or efficiency comparison. A frozen export retains the historical filename `remote_evidence.json`; the tracked local locator clarifies that its actual raw paths are local. Do not interpret that filename as evidence of a remote backup.
+
+### K1 local diagnostic evidence
+
+Run ID: `2026-10-31_action_compatibility_k1_001`. Full local root: `/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001`. The [complete file manifest](../results/action_compatibility_k1/external/full_run_file_manifest.json) records all 281 closed-run files, totaling 1,520,281,569 bytes. The [K1 capsule](../results/action_compatibility_k1/README.md) contains exact small records, the canonical report_002 tables/figures, and the auditor/native sources actually used. [The results report](action_compatibility_k1_results.md) explains the action-agreement/competence distinction.
+
+Stage A raw HDF: **9,817,424 bytes**, SHA-256 `aa1877cf431c03abe436c8d9a1df387d8ccafc15f98a80c6c4e71c775938de64`; ledger **67,905 bytes**, SHA-256 `ea5eff6f6456f49f289a9db544f3ede998e1ee247e7204c819f5c0b9cc360822`. Stage B raw HDF: **1,239,388,136 bytes**, SHA-256 `2b73fc8e9f2b290dd3af0aa9153de009156f78d63cb239c65557ffe74d8c0e47`; ledger **173,947,239 bytes**, SHA-256 `109864de444d97cecf9ec8832b5a271875b79dde6ca7846437458562dd89a974`.
+
+All new K1 evidence is local-only. The run retains the 14 teacher inputs, 80 historical standalone trace copies, source-tagged retained/auxiliary datasets, nine frozen actor checkpoints, final serialized policy states, all 84 new episode attempts, the raw prediction matrices and complete query/learning ledgers. Bulk arrays, checkpoints, NPZs, ledgers and the frozen source tree remain outside Git. The capsule omits duplicate `stage_a_result.json` because complete `result.json` embeds it.
+
+Source parents are the original v1 discovery, v2 recorded teachers, v3.1 comparison, L1, H4.1 and the independent final-1M SAC checkpoint. Their original availability limits remain in their own records. The [frozen input inventory](../results/action_compatibility_k1/run/inputs/inventory.json) binds source hashes, policy interfaces, training exposure, reset ancestry and explicit missing original-discovery endpoint/warmstart/integration fields; no absent parent fields were simulated or invented. Six thousand saved H4 incoming-guide predictions were reused. K1 adds no model-rollout controls, training, backward rows or Adam steps. [Experimental](../results/action_compatibility_k1/report/cost_accounting.json) and [engineering](../results/action_compatibility_k1/accounting/engineering_accounting.json) costs are separate.
 
 ### Legacy evidence
 

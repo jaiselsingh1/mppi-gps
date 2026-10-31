@@ -1,5 +1,7 @@
 # Current Walker research scope
 
+The [K1 compatibility diagnostic](action_compatibility_k1_results.md) is now closed and independently audited. It compares MPPI/random/qualified-reference data against untrained/cloned/reference policies, with no new learning. The SAC reference passes 16/16 primary and 16/16 confirmation, while clones agree better with MPPI but fail standalone. This tests action agreement and conditional competence, not prospective teachability or a new coupling mechanism. Sparse cross-arm input collisions do not establish contradictory supervision in the actual teacher-training corpora. Its single recommended width contrast remains unlaunched and secondary to the diagnostic findings.
+
 The [L1 and H4.1 studies are closed](walker_experiments_l1_h4_results.md), with
 complete raw evidence, independent audits, learning curves and costs. Both are
 valid negative results. V3.1 remains a fixed-demonstration/fitting comparison;

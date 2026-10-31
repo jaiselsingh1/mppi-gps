@@ -1,0 +1,240 @@
+{
+  "schema": "walker-k1-full-accounting-v1",
+  "scope": "Final experimental counters and measured engineering work through this prepublication receipt. Packaging/publication after this timestamp has a separate receipt. No CPU/GPU efficiency claim.",
+  "measured_engineering_window": {
+    "start_utc": "2026-10-31 05:10:37 UTC",
+    "end_utc": "2026-10-31 05:43:49 UTC",
+    "elapsed_seconds": 1992.159602,
+    "includes": "Overlapping authoring, review, experimental execution, audit, tests and reports; elapsed interval is not summed CPU time.",
+    "before_start": "Initial reading and metadata audit wall time unavailable, not zero."
+  },
+  "experimental": {
+    "stages": {
+      "A": {
+        "requested_controls": 0,
+        "completed_controls": 0,
+        "requested_model_controls": 0,
+        "completed_model_controls": 0,
+        "requested_live_controls": 0,
+        "completed_live_controls": 0,
+        "requested_physics_substeps": 0,
+        "completed_physics_substeps": 0,
+        "unknown_partial_controls": 0,
+        "unknown_partial_physics_substeps": 0,
+        "model_queries": 0,
+        "live_queries": 0,
+        "failed_queries": 0,
+        "rejected_queries": 0,
+        "measurement_requests": 138,
+        "failed_measurements": 0,
+        "rejected_measurements": 0,
+        "requested_neural_rows": 120746,
+        "completed_neural_rows": 120746,
+        "unknown_partial_neural_rows": 0,
+        "requested_backward_rows": 0,
+        "completed_backward_rows": 0,
+        "unknown_partial_backward_rows": 0,
+        "requested_optimizer_steps": 0,
+        "completed_optimizer_steps": 0,
+        "unknown_partial_optimizer_steps": 0,
+        "resets": 0,
+        "reset_errors": 0,
+        "restores": 0,
+        "snapshots": 0,
+        "episodes": 0,
+        "requested_checkpoint_loads": 9,
+        "completed_checkpoint_loads": 9,
+        "unknown_partial_checkpoint_loads": 0,
+        "neural_rows": 120746,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "queries": 0,
+        "physics_frames": 0,
+        "wall_seconds": 1.0087782079936005
+      },
+      "B": {
+        "requested_controls": 38966,
+        "completed_controls": 38966,
+        "requested_model_controls": 0,
+        "completed_model_controls": 0,
+        "requested_live_controls": 38966,
+        "completed_live_controls": 38966,
+        "requested_physics_substeps": 155864,
+        "completed_physics_substeps": 155864,
+        "unknown_partial_controls": 0,
+        "unknown_partial_physics_substeps": 0,
+        "model_queries": 0,
+        "live_queries": 38966,
+        "failed_queries": 0,
+        "rejected_queries": 0,
+        "measurement_requests": 39060,
+        "failed_measurements": 0,
+        "rejected_measurements": 0,
+        "requested_neural_rows": 167442,
+        "completed_neural_rows": 167442,
+        "unknown_partial_neural_rows": 0,
+        "requested_backward_rows": 0,
+        "completed_backward_rows": 0,
+        "unknown_partial_backward_rows": 0,
+        "requested_optimizer_steps": 0,
+        "completed_optimizer_steps": 0,
+        "unknown_partial_optimizer_steps": 0,
+        "resets": 84,
+        "reset_errors": 0,
+        "restores": 0,
+        "snapshots": 194914,
+        "episodes": 84,
+        "neural_rows": 167442,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "queries": 38966,
+        "physics_frames": 155864,
+        "wall_seconds": 109.52396170899738
+      }
+    },
+    "new_forward_rows": 288188,
+    "live_controls": 38966,
+    "physics_substeps": 155864,
+    "episodes": 84,
+    "model_rollout_controls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "worker_wall_seconds": 110.67362674999458,
+    "external_launch": {
+      "exit_code": 0,
+      "external_wall_seconds": 111.76011783300783,
+      "finished_utc": "2026-10-31 05:28:59 UTC"
+    },
+    "worker_count": 1,
+    "worker_retries": 0,
+    "failed_rejected_or_unknown_partial_research_work": 0
+  },
+  "frozen_budgets": {
+    "stage_a_forward_rows": 1000000,
+    "stage_b_forward_rows": 1000000,
+    "combined_forward_rows": 2000000,
+    "actual_prelaunch_forward_reservation": {
+      "A": 236592,
+      "B": 260000,
+      "combined": 496592
+    },
+    "authorized_live_controls": 100000,
+    "roster_reserved_live_controls": 84000,
+    "episodes": 84,
+    "model_rollout_controls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "stage_wall_seconds": {
+      "A": 600,
+      "B": 3600
+    },
+    "storage_bytes": 8589934592
+  },
+  "checkpoint_decode_events": {
+    "prelaunch": {
+      "reference_metadata": 3,
+      "data_metadata_and_interface_audit": 12,
+      "preparation_source_roster": 5,
+      "preparation_normalization_owner": 1,
+      "preparation_reference": 1
+    },
+    "research_worker": 9,
+    "independent_audit": 9,
+    "known_total": 40,
+    "meaning": "Checkpoint file deserializations, not forwards or optimizer continuation."
+  },
+  "engineering": {
+    "prelaunch": {
+      "schema": "walker-k1-engineering-prelaunch-v1",
+      "prelaunch_checkpoint_decodes": {
+        "reference_metadata": 3,
+        "data_metadata_and_interface_audit": 12,
+        "preparation_source_roster": 5,
+        "preparation_normalization_owner": 1,
+        "preparation_reference": 1
+      },
+      "actual_roster_forward_rows_before_freeze": 0,
+      "training_updates": 0,
+      "backward_rows": 0,
+      "physics_controls_before_launch": 0,
+      "focused_final_tests": {
+        "passed": 63,
+        "wall_seconds": 11.06,
+        "scope": "Known synthetic metrics, synthetic adapter weights/formulas, synthetic HDF/ledger/native-cost arrays, report rendering and read-only CLI fixtures; no real roster predictions or simulator integrations."
+      },
+      "earlier_test_attempts": "Retained logs include one pytest collection command with nonexistent filenames (zero tests); no research worker retry.",
+      "cost_limitations": "Earlier engineering reading/audit time before measured_start_utc is unknown. Tool/model billing, authoring CPU time and uninstrumented synthetic fixture operations are not available; do not claim zero or an efficiency benefit."
+    },
+    "independent_saved_evidence_audit": {
+      "schema": "walker-action-compatibility-independent-audit-v1",
+      "passed": true,
+      "error": null,
+      "checks": 1313287,
+      "bound_files": 279,
+      "hashed_arrays": 1113,
+      "new_controls": 0,
+      "new_neural_rows": 0,
+      "new_backward_rows": 0,
+      "new_optimizer_steps": 0,
+      "wall_seconds": 6.300185041996883,
+      "scope": "Recomputed sealed-data agreement/aggregation/negative controls, all observation-only neighbors, collision/context summaries, new native outcomes/reset pairing, exact memoization/work census and serialized final tensors when supplied. No network forwards, simulator steps, optimizer arithmetic, or expensive historical raw/ledger audit replay."
+    },
+    "report_renders": [
+      {
+        "directory": "report_001",
+        "wall_seconds": 15.433593917012331,
+        "new_forward_rows": 0,
+        "physics_controls": 0,
+        "backward_rows": 0,
+        "optimizer_steps": 0
+      },
+      {
+        "directory": "report_002",
+        "wall_seconds": 14.114903208988835,
+        "new_forward_rows": 0,
+        "physics_controls": 0,
+        "backward_rows": 0,
+        "optimizer_steps": 0
+      }
+    ],
+    "run_manifest_wall_seconds": 0.604647,
+    "post_editorial_focused_tests": {
+      "passed": 65,
+      "wall_seconds": 11.75,
+      "log": "final_focused_tests.txt",
+      "scope": "Synthetic metrics/adapter/native-cost arrays/report rendering and read-only CLI fixtures; no actual roster predictions, simulator integration or optimizer updates."
+    },
+    "earlier_test_logs": [
+      "initial_synthetic_tests.txt",
+      "calibration_tests.txt",
+      "initial_test_command_error.txt",
+      "all_focused_tests.txt",
+      "budget_tests.txt",
+      "prefreeze_tests.txt"
+    ],
+    "test_accounting": "Logs retain intermediate runs and one collection failure with nonexistent filenames (zero tests). Synthetic arithmetic/fixture inference is not globally row-metered; not charged as actual-roster research predictions and not claimed zero. No fixture optimizer/backward work or physics integration. Full suite deliberately not run because unrelated fitting/physics work exceeds this focused study scope."
+  },
+  "storage": {
+    "full_new_run": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+      "files": 281,
+      "bytes": 1520281569,
+      "manifest": "external/full_run_file_manifest.json",
+      "availability": "Local-only; exact complete raw arrays, ledgers, checkpoints and simulator snapshots outside Git and vault."
+    },
+    "worker_stored_bytes_at_result_write": 1513974566,
+    "replicas": "Tracked capsule and artifact/report copies are separate replicas. Final capsule bytes and copy/hash overhead are recorded in the publication receipt rather than editing this frozen accounting record.",
+    "historical_evidence": "Existing inputs reused without changing originals. Historical training/acquisition costs are not charged as new work; see original bound receipts. Selected reference had 1,000,000 historical SAC training controls; historical neural/backward/optimizer counts were not re-audited here."
+  },
+  "unavailable_costs": [
+    "Wall time before measured engineering start",
+    "Global row-level counts for synthetic test fixtures",
+    "Token usage and model/tool billing",
+    "Uninstrumented authoring/editor CPU time",
+    "A single total CPU-time measure for parallel engineering work",
+    "Unre-audited historical training arithmetic counts"
+  ],
+  "environment": "execution_environment.json",
+  "editorial_revision": "editorial_revision.json",
+  "no_followup_authorized_or_launched": true
+}

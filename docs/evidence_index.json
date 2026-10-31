@@ -937,6 +937,268 @@
       },
       "platform_scope": "macOS arm64 local native MuJoCo; historical trigger/checkpoint originated on Linux x86. No cross-host bitwise or efficiency comparison is claimed.",
       "availability_note": "Remote source upload was rejected by automatic approval review. The local execution platform variant was frozen before launch; the raw payload remains local and has no asserted remote backup."
+    },
+    "action_compatibility_k1": {
+      "run_id": "2026-10-31_action_compatibility_k1_001",
+      "availability": "local_only_no_remote_mirror",
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+      "remote_host": null,
+      "remote_directory": null,
+      "capsule": {
+        "directory": "results/action_compatibility_k1",
+        "manifest": "results/action_compatibility_k1/capsule.json",
+        "manifest_sha256": "6a7601df78c5c9192676f344dc60a29ea13a439c9b35ac4c6d975cab44f06b51",
+        "exact_copy_files": 57,
+        "exact_copy_bytes": 14172482,
+        "in_git": true,
+        "scope": "Exact byte copies of completed-run small evidence, independent audit, canonical report_002 and engineering accounting. This capsule is readable without bulk data, but it is not a complete runnable frozen run."
+      },
+      "config": {
+        "source": "runs/2026-10-31_action_compatibility_k1_001/config.json",
+        "sha256": "167a45e2f947dfaa415267ad96c3f6eca37c06a0c810f32c5be626556bf57f43",
+        "bytes": 686733
+      },
+      "result": {
+        "source": "runs/2026-10-31_action_compatibility_k1_001/result.json",
+        "sha256": "c75b1bb4586f7ed5f50040a5e4996d14db86ae399f8132818073b4dae5061881",
+        "bytes": 6306890
+      },
+      "source_manifest": {
+        "source": "runs/2026-10-31_action_compatibility_k1_001/manifest.json",
+        "sha256": "ca7b4a2205e6cd0385dd261cd225aac772544f143a7067bdbe5b299117021d23",
+        "bytes": 23351
+      },
+      "input_manifest": {
+        "source": "runs/2026-10-31_action_compatibility_k1_001/input_manifest.json",
+        "sha256": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99",
+        "bytes": 13806
+      },
+      "audit_receipt": {
+        "source": "artifacts/2026-10-31_kendall_diagnostic_k1_001/audit_001/receipt.json",
+        "sha256": "123397d13638f13f13a91ba0c9aef3210e7b0f84bb6773a493672d398537e8e9",
+        "bytes": 663
+      },
+      "canonical_report_receipt": {
+        "source": "artifacts/2026-10-31_kendall_diagnostic_k1_001/report_002/receipt.json",
+        "sha256": "cc15fdeb21f04685554fd0a93c5747280c4e5235efed0e95ca18941eb23abc54",
+        "bytes": 3947
+      },
+      "engineering_accounting": {
+        "source": "artifacts/2026-10-31_kendall_diagnostic_k1_001/engineering_accounting.json",
+        "sha256": "dfb8f96bc8c356046056b522c91266bdd0e92e9d67e049ae23b3ad32c8ffe4da",
+        "bytes": 9863
+      },
+      "file_catalog": {
+        "file": "results/action_compatibility_k1/external/full_run_file_manifest.json",
+        "sha256": "553d22f10bfaa1c3d13130cd3b21f79f1b77ed260d17bfbdc0742dd45892a492",
+        "files": 281,
+        "bytes": 1520281569
+      },
+      "bulk_files": {
+        "evidence/stage_a/ledger.jsonl": {
+          "bytes": 67905,
+          "sha256": "ea5eff6f6456f49f289a9db544f3ede998e1ee247e7204c819f5c0b9cc360822",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/ledger.jsonl",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "evidence/stage_a/raw.h5": {
+          "bytes": 9817424,
+          "sha256": "aa1877cf431c03abe436c8d9a1df387d8ccafc15f98a80c6c4e71c775938de64",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "evidence/stage_b/ledger.jsonl": {
+          "bytes": 173947239,
+          "sha256": "109864de444d97cecf9ec8832b5a271875b79dde6ca7846437458562dd89a974",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/ledger.jsonl",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "evidence/stage_b/raw.h5": {
+          "bytes": 1239388136,
+          "sha256": "2b73fc8e9f2b290dd3af0aa9153de009156f78d63cb239c65557ffe74d8c0e47",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/h4_backoff.pt": {
+          "bytes": 330490,
+          "sha256": "540dd42afa74686de5477414e52e48674832ca202411264287775cf9bbe39c4d",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/h4_backoff.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/h4_fixed_high.pt": {
+          "bytes": 330490,
+          "sha256": "434df0e32b428e4d097d08ea9b7758d8a79673fd1217ebfc9f515d4bae519e8f",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/h4_fixed_high.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/h4_independent.pt": {
+          "bytes": 330490,
+          "sha256": "c2380edb2243716f992004d0acd2bc59ebf4375c337c1ae7bf96398ea7048365",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/h4_independent.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/h4_parent.pt": {
+          "bytes": 330490,
+          "sha256": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/h4_parent.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/l1_clipped.pt": {
+          "bytes": 330362,
+          "sha256": "14d7f326ed965af7852749177f3e4a8c882d478a2ae816abe1355386aa83eb36",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/l1_clipped.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/reference.pt": {
+          "bytes": 3524729,
+          "sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/reference.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/untrained_0.pt": {
+          "bytes": 87305,
+          "sha256": "d72f7b348c704679b0ca5586b4e79bc0097e02cd28f0f1eb0fb8d8197df2761a",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/untrained_0.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/untrained_1.pt": {
+          "bytes": 87305,
+          "sha256": "3b881e2a0514b5cc30d90c043978fe8976134e09998287d9e8262d582cdbd103",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/untrained_1.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/checkpoints/untrained_2.pt": {
+          "bytes": 87305,
+          "sha256": "5299425a9256998d8441f521cfccf9ae4051d416479395ec046b9c57f76f6c57",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/untrained_2.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/datasets/auxiliary.npz": {
+          "bytes": 57200,
+          "sha256": "7ccfaad09fc6da7f4da87e825da418d8bea34d335cf1dc0735ba8e5d380cd3b1",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/datasets/auxiliary.npz",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/datasets/history.npz": {
+          "bytes": 3537200,
+          "sha256": "51c3bc06f497ce9dc75f3749144447d9d6f4a0b13f08f03552c6fbef717b83f4",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/datasets/history.npz",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/datasets/l1_training.npz": {
+          "bytes": 3537200,
+          "sha256": "7f34380e947e02cbe507a8c6304c4b6316c6708d4e1c3e49d43ae5e93ce4c59a",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/datasets/l1_training.npz",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        }
+      },
+      "excluded_classes": [
+        "source snapshots",
+        "full HDF prediction matrices and simulator state arrays",
+        "ledgers",
+        "checkpoints",
+        "curated NPZ teacher, historical standalone and training inputs",
+        "serialized final tensor packages",
+        "worker logs",
+        "duplicate stage_a_result.json already embedded in result.json"
+      ],
+      "source_parents": {
+        "runs": [
+          "2026-10-29_walker_cio_mppi_001",
+          "2026-10-29_cio_feedback_v2_001",
+          "2026-10-30_guided_data_comparison_v3_001",
+          "2026-10-30_student_learnability_l1_001",
+          "2026-10-30_adaptive_coupling_h4_1_r1_001"
+        ],
+        "source_inventory": "results/action_compatibility_k1/run/inputs/inventory.json",
+        "historical_bulk_binding_scope": "Historical source hashes are pinned to original receipts where recorded; no repeated 38 GB historical raw-evidence audit was performed.",
+        "policy_checkpoints": {
+          "h4_parent": {
+            "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/input.pt",
+            "sha256": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+            "policy_hash": "7bf162f6e8c9bb63718e44f8392838503528a6669e7553088a07f13be6036916"
+          },
+          "h4_independent": {
+            "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/checkpoints/independent_2000.pt",
+            "sha256": "c2380edb2243716f992004d0acd2bc59ebf4375c337c1ae7bf96398ea7048365",
+            "policy_hash": "04138d35f78955b20eec82d53af2d0852d0c6bfcc1b5064fbc76659a3443d559"
+          },
+          "h4_fixed_high": {
+            "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/checkpoints/fixed_high_2000.pt",
+            "sha256": "434df0e32b428e4d097d08ea9b7758d8a79673fd1217ebfc9f515d4bae519e8f",
+            "policy_hash": "f63a37ad3dacb2bf0385b00ce873fd568ac75fc770ab12112c79b1581c73534b"
+          },
+          "h4_backoff": {
+            "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/checkpoints/backoff_2000.pt",
+            "sha256": "540dd42afa74686de5477414e52e48674832ca202411264287775cf9bbe39c4d",
+            "policy_hash": "e4b653584dded180622186b80edaa9fc2fbb87a3533c05e166b438a1da648a5c"
+          },
+          "l1_clipped": {
+            "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_student_learnability_l1_001/checkpoints/clipped_10000.pt",
+            "sha256": "14d7f326ed965af7852749177f3e4a8c882d478a2ae816abe1355386aa83eb36",
+            "policy_hash": "65c27480549328263c6fa0a2db0ee2b8d76e9d475318c4e53e56a70b8bb0e74b"
+          }
+        },
+        "independent_reference": {
+          "rule": "Original independent SAC ladder documented final 1M checkpoint; no retrospective best checkpoint or fallback after new results.",
+          "candidate": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_1000000.pt",
+          "checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+          "checkpoint_bytes": 3524729,
+          "actor_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+          "training_step": 1000000,
+          "training_seed": 0
+        }
+      },
+      "platform_scope": "macOS arm64 local native MuJoCo CPU with frozen software lock. Historical sources include Linux x86 runs. No cross-host bitwise or efficiency claim.",
+      "availability_note": "The complete new diagnostic evidence is local-only. The capsule retains exact small-file copies, complete local-run catalog, parent source inventory and missing-evidence declarations; no remote mirror or bulk availability from a clean Git export is asserted."
     }
   }
 }

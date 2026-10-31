@@ -1,0 +1,641 @@
+{
+  "schema": "walker-cio-source-v1",
+  "command": "action-compatibility-k1",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "d39e894627cd8a628a582fc98a51e7415341f6c668547f64be75d5f57ff5e9b9"
+    },
+    {
+      "file": "assets/walker2d.xml",
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    {
+      "file": "configs/mppi_gps_walker.json",
+      "sha256": "8dbd655e8d28b675f58b980f5f3ac31418390a37b6b781e5a7cd32888062b7d1"
+    },
+    {
+      "file": "configs/studies/README.md",
+      "sha256": "7433f619be117605ac87c4f9c834254045569a8aa78c5a8ef90cc29a97f381e7"
+    },
+    {
+      "file": "configs/studies/action_compatibility.json",
+      "sha256": "5d66e5158fc1c67c11aabf6d275d55cc920a78041bb9ff9ccaa62ebbf1d8d6f8"
+    },
+    {
+      "file": "configs/studies/adaptive_coupling.json",
+      "sha256": "0b1d6c03ce3a44ee956d6ae6c64fc45a3389951e3ebd8fd437368c2dcad0efbc"
+    },
+    {
+      "file": "configs/studies/guided_data_comparison.json",
+      "sha256": "4873c0bd40fb3b15654b991cd4a2c09cee3d3e44aead14e553b492c4d3571b45"
+    },
+    {
+      "file": "configs/studies/student_learnability.json",
+      "sha256": "f08673bf01cce8fa045e1576823add2f40685927388aaca1ffc93fdc706b7332"
+    },
+    {
+      "file": "configs/walker2d_best.json",
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6"
+    },
+    {
+      "file": "configs/walker2d_task.json",
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a"
+    },
+    {
+      "file": "docs/README.md",
+      "sha256": "792d9dfcfe13926277bb7308419d4d56a2eaddf27c85233400a83a1d8e0b3b0d"
+    },
+    {
+      "file": "docs/action_compatibility_k1_protocol.md",
+      "sha256": "79872b4de7f948c049575a014a4e1587b4717c317937219d59c13be50b1abbf8"
+    },
+    {
+      "file": "docs/adaptive_coupling_h4_1.md",
+      "sha256": "2f4f22ff03636a804033becaa94ed31e7c4d781cabaf07fd476adcc1ece77a76"
+    },
+    {
+      "file": "docs/adaptive_coupling_h4_2_hypothesis.md",
+      "sha256": "7ad318f750b4ec63cff7176614f2ed8400927dbdfaf35d767a376b5c57ce0bf5"
+    },
+    {
+      "file": "docs/adaptive_coupling_protocol_h4_1_001.md",
+      "sha256": "aa8f7b21631ec28ed04184dc8633d7cf086e8f7a0aa981c95be0e44c94ba8d6e"
+    },
+    {
+      "file": "docs/adaptive_coupling_review_v1.md",
+      "sha256": "19d173da2c4411a1586a5aac8f20d7d5b8fba40913f08e543727e4595998c866"
+    },
+    {
+      "file": "docs/algorithm.md",
+      "sha256": "0c1ac40bc640d691dfe59184e5d679d1a18bce48490750ad80e428ebc0a82b63"
+    },
+    {
+      "file": "docs/code_map.md",
+      "sha256": "b66f8d6cfda39a31545db747dcf44a0a6d38fb7112f9116a16c16fa866524230"
+    },
+    {
+      "file": "docs/development.md",
+      "sha256": "c61b9ab634325940b0db0d813de75e1d00ea7af56888d98bd8f7de5c5ac85c9b"
+    },
+    {
+      "file": "docs/evidence_availability.md",
+      "sha256": "ecdc759b5edf9722fc632836770a257706f279ecba90953addab666332592f4f"
+    },
+    {
+      "file": "docs/evidence_index.json",
+      "sha256": "7ae5f63b06eba2f7cdd92b2f69ce7b608facaa666a8e18a62e74bcb618f62bd5"
+    },
+    {
+      "file": "docs/external_reference_index.json",
+      "sha256": "e987536247873f2843e1d5c473af20d6c2f838125a4a6b036f71ff4a4b48855e"
+    },
+    {
+      "file": "docs/figures/policy_diagnosis.png",
+      "sha256": "6eab30e4af8e89585867962fe3470994d0100da093d5a66ddc28d70809a6a2c9"
+    },
+    {
+      "file": "docs/figures/policy_learning_curves.png",
+      "sha256": "c6d4653d91250a98f4703c35e1c53dbaa06060cbec7be1f672ae7f050c191fc0"
+    },
+    {
+      "file": "docs/figures/walker_v2_summary.png",
+      "sha256": "d70fd35dd2ebb88b237e82ae81f2cb9dad6f02e83b0392c64413e5743cdc0d7b"
+    },
+    {
+      "file": "docs/history.md",
+      "sha256": "7462e3b08787240b02e7d3c2993a4f0bca588902f409a79edbffa73927dc75e2"
+    },
+    {
+      "file": "docs/loop_v3_evidence_audit.md",
+      "sha256": "172ec04b670738679cf8023cc0dbdb8f1c02393991cf6ce48606793dbebf5228"
+    },
+    {
+      "file": "docs/loop_v3_formulation.md",
+      "sha256": "4f1fb833390dee23fe4a43fece7eb88e67297ca46f6752171eebfa9a6b8bdfad"
+    },
+    {
+      "file": "docs/loop_v3_next_hypothesis_v3_2.md",
+      "sha256": "eca34bdb572e79436d923277333607a160c86f7409600bc4080bf1fc45b12f97"
+    },
+    {
+      "file": "docs/loop_v3_prior_art.md",
+      "sha256": "1e467622c52bd6a00a77e3889464278740905c0392f657bf9f85edd2c6f045d4"
+    },
+    {
+      "file": "docs/loop_v3_results.md",
+      "sha256": "ba1ea0ee68bdff7b5c429b5c7da51192c173ef1e4cb5a56088ca70f33cb488f3"
+    },
+    {
+      "file": "docs/loop_v3_saved_comparison_protocol.md",
+      "sha256": "55d248733fbb1c97cc6be863166005aefaf1a2d4d39192be5f9a66b20cb08d90"
+    },
+    {
+      "file": "docs/methods.md",
+      "sha256": "0abda6392abc594e32ba71c706ea93b540586e8a5978f5b117a786955a2dc8fe"
+    },
+    {
+      "file": "docs/paper_mapping.md",
+      "sha256": "43c03278301445e8e01ad9306089822fc328f1ec0ff457d0a551b885a0b39ed5"
+    },
+    {
+      "file": "docs/research_tracks.md",
+      "sha256": "187d5b32a7c2279656625e60c4df399f1bdece66c3458b178d5dd39a624d20c0"
+    },
+    {
+      "file": "docs/results.md",
+      "sha256": "76fa39333fc33b87aa7c963266946afb9cf7a7076f9c5075b744d69518e2855c"
+    },
+    {
+      "file": "docs/student_learnability_l1_results.md",
+      "sha256": "cde7fe17f2879fbf9d64c6e6a967812513873d1e81d6984c1fd88274b7699310"
+    },
+    {
+      "file": "docs/student_learnability_protocol_l1_001.md",
+      "sha256": "eeb8c64ab230d0a8401b894f773e974ce85d7011d755eea185a13712a2390762"
+    },
+    {
+      "file": "docs/student_learnability_track_v1.md",
+      "sha256": "4b8bfa3b72023b06691f74a177dbc7596c580ca2325ca23b8cabe6bee1b05770"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/README.md",
+      "sha256": "34bf8be315d689720f985afa667c9c52b9169526fa55db939ef2200d7f658793"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/clean_export.txt",
+      "sha256": "64c93bfeb1a976a7ea2118bc1203c6ae4524eab66502e23c567c572482dd91c3"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/first_export_pytest.txt",
+      "sha256": "aef687abf1fb95793018e1651a06074cac10cda49eb8ff0d0be1176ec57430e1"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/h4_audit_receipt.json",
+      "sha256": "0a22f458e869c208e00554649e6e83aad11ea0af084df837e8000e1c31f2169e"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/headless_pytest.txt",
+      "sha256": "55665444e52cea5f2e6f27a056be548014078ac21e2288b39fe864f3924c3198"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/l1_audit_receipt.json",
+      "sha256": "1aa943998a16aa950382aca9c69e200c51f0c91891025651f6231bdbbf6d2439"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/pytest.txt",
+      "sha256": "06d58fb670b627331b4707bd8d2ffb32e897d41166ff266d02dc41471c653aae"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/v3_audit_receipt.json",
+      "sha256": "a82f9818b89cce41d874ad7dd25d71c06236b18396395155e18c6881dbed3e68"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/validation.json",
+      "sha256": "5ab77269d6a6d18adae531fe6db426cdb00ca13dc25c1baee3e801bddcb457fa"
+    },
+    {
+      "file": "docs/walker_experiments_l1_h4_results.md",
+      "sha256": "bcde0a8558c25de13fcb4f77a9a8e630c83a73cf8435f35f21b5714080f6c469"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "7fbd17ad0f9e98c12e31d30c8d53e282c06f3bd1725d8a9124b56d64aa1ca0a9"
+    },
+    {
+      "file": "scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/audits/__init__.py",
+      "sha256": "4a3aa5e520ddcaac72dce9b4ab8fe482aaa9a87a8f9133dac5e735f8e34e665d"
+    },
+    {
+      "file": "scripts/audits/compatibility.py",
+      "sha256": "727aee889242483c989dad4e534fbbb0297ed4bf3a166a0652569682747a81b6"
+    },
+    {
+      "file": "scripts/audits/coupling.py",
+      "sha256": "674c372a13ec5c0944893b80a3041b5175b636b9cbcbeb0a5a6e116b1db719d4"
+    },
+    {
+      "file": "scripts/audits/coupling_detail.py",
+      "sha256": "c585a49f1129dc65580c63ddc654f88f4d2d061942de847f4d511b9046ace206"
+    },
+    {
+      "file": "scripts/audits/guided_data.py",
+      "sha256": "7cab20d3aad1747efdb282319e03360719a4b90514f470e2aa1084950d7e4192"
+    },
+    {
+      "file": "scripts/audits/learnability.py",
+      "sha256": "632cf23c6dd848adb04d6071fccb553a7313b7da340153ac2504a67154fcc684"
+    },
+    {
+      "file": "scripts/audits/outcome_detail.py",
+      "sha256": "adab7d9adccd35a8a64aee4a1984aaa124ccbfec4d93428bced793c0d12fcb40"
+    },
+    {
+      "file": "scripts/check_repository.py",
+      "sha256": "5693eff920a5a4eba9962ee760ec0330eee9d6773bb03671e2a2b0bae001b237"
+    },
+    {
+      "file": "scripts/diagnostics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/diagnostics/action_compatibility.py",
+      "sha256": "ebed5337f1cb987f7dcc0e82677b235f87e848ddc7200474b57741d67eef3f3c"
+    },
+    {
+      "file": "scripts/diagnostics/adaptive_coupling.py",
+      "sha256": "faa9ebe594d99053a565227699a61956995e1deb14f249484d3f4abe1e0e7afc"
+    },
+    {
+      "file": "scripts/diagnostics/guided_data_comparison.py",
+      "sha256": "2abbc08e93aa3683e899c7e17ebafdbc5e598bcabcfa66b769e2e9ab4ddefd37"
+    },
+    {
+      "file": "scripts/diagnostics/replay_walker.py",
+      "sha256": "063a7ddf052f8e03daf89bb3dc9afbd3a795badb8ac7f89ffd430437fb5e7c0a"
+    },
+    {
+      "file": "scripts/diagnostics/report_action_compatibility.py",
+      "sha256": "6360e0a28e10e69d396cc803090b09cd1638980c9a3a2c41f95a378f38be9747"
+    },
+    {
+      "file": "scripts/diagnostics/report_guided_data_comparison.py",
+      "sha256": "0de726ab51a985ed42b39b51206051e6cb3df6714e27768f2ccda18def296e5a"
+    },
+    {
+      "file": "scripts/diagnostics/report_walker_experiments.py",
+      "sha256": "229229e6a33262d143540cd8bf2bee5c0a83a045518db5150e148b8d4243ce7a"
+    },
+    {
+      "file": "scripts/diagnostics/student_learnability.py",
+      "sha256": "507fb3fd302cb5096cd6bb92f8f9de5f17fcd040f64df5944dbdf2ae67a37cc4"
+    },
+    {
+      "file": "scripts/runners/__init__.py",
+      "sha256": "af7aa3fff74e0de760dcc3ccefae1cf8603bb7116d35b0a593ebfc1fb1d6cf76"
+    },
+    {
+      "file": "scripts/runners/run_walker2d.py",
+      "sha256": "b78aa4dfad62b38f14091547a1feceeec4d1985192571df8607a18dc3353e1ec"
+    },
+    {
+      "file": "scripts/train_mppi_gps.py",
+      "sha256": "d09ae0a3ee5a815f5dffc4fba5b2d84ab631f222a7bc35271a1785069e754bed"
+    },
+    {
+      "file": "scripts/validate_export.py",
+      "sha256": "b09b4292ff115472e9b912d4428b2ba0e328549c481e5764489d521347eaab58"
+    },
+    {
+      "file": "src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/base.py",
+      "sha256": "76e99e1cab088ac78dc1ffb3d17473afe40aa284db0136d3e372f47b037c38e3"
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "sha256": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a"
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6"
+    },
+    {
+      "file": "src/gps/__init__.py",
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8"
+    },
+    {
+      "file": "src/gps/mppi_gps/__init__.py",
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/__init__.py",
+      "sha256": "8bf2e9870f41f29beaf1c0ea96a9a7b396722411cd730c2991e2d53f9258fbb8"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/common.py",
+      "sha256": "bbb90fcc1a6731da30bc5744002da3dda994005e5abb83f5049a8504f68f09e6"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/compatibility.py",
+      "sha256": "da20dc15f518c9542c495c6bfb5e693486587ff0c8cb38d263297d9b3b34f7f2"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/coupling.py",
+      "sha256": "dfbccea7bca2b33a58bbdac9e7c8b3a683c7558527e7c7894dc407d6c9dbd076"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/coupling_detail.py",
+      "sha256": "d73809437d8f8df4b88f11c0349692a5fb6be510ccf0cb1cbb393db0686ad7bb"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/guided_data.py",
+      "sha256": "8814e24d4ea7c06d3d262a7963bcc0d68582320559d48ede82d0d351a8055d8c"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/learnability.py",
+      "sha256": "30f86fdaf57e5e89e199734cde5f606080937153f542e311e0374d23b67b1151"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/native.py",
+      "sha256": "2c5aac2407a2501e311d7c1dde10b390408de3ac9775b71e7ada46fde4d63694"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/outcome_detail.py",
+      "sha256": "20316910eced0daa8933b214cd2343ced45a6c6272cd8551df5b1ec627d0b521"
+    },
+    {
+      "file": "src/gps/mppi_gps/compatibility_inputs.py",
+      "sha256": "2343e8fffcf690c23ad9d8f018860b7527066d560cbcaed9650620cb22830c58"
+    },
+    {
+      "file": "src/gps/mppi_gps/compatibility_metrics.py",
+      "sha256": "fbcca99cbc02f733d2f532f288e741b2fa6920bc89fc98f3012b774ce7f0cdd9"
+    },
+    {
+      "file": "src/gps/mppi_gps/coupling_backoff.py",
+      "sha256": "5b3c2b9cc1b26aa68c6f4bb599764831884d30b6d377295dbd43479dd1d045bc"
+    },
+    {
+      "file": "src/gps/mppi_gps/diagnostic_policies.py",
+      "sha256": "c322c020a5a5bfce3db32372c928babdce797eade4c736ad9afc0033982112b6"
+    },
+    {
+      "file": "src/gps/mppi_gps/diagnostics.py",
+      "sha256": "a88d661cb517348efe50940166f56fe7c62c75ea07f3cd547380a228e30ae7ec"
+    },
+    {
+      "file": "src/gps/mppi_gps/execution.py",
+      "sha256": "c88973e23fbde5b23e97ffdd236036d610aad50a4d8c478ab04f47c58c1ee940"
+    },
+    {
+      "file": "src/gps/mppi_gps/experience.py",
+      "sha256": "9f03a96006a0928b86a81eb1e90bc6f75cf810461cdf02c1b817df26df9b0b17"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/__init__.py",
+      "sha256": "0314d38c11af4a34624c74ae38d88f8cba2dd7f12ff23ac220044891d62e05dc"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/action_compatibility.py",
+      "sha256": "eb2999c6fa18dcfd7586d070ae6d4b92407e304754bb858abe8c1005eb544abb"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/adaptive_coupling.py",
+      "sha256": "4d804baf68d0884edb4e5b40bc537623ffaa1fc3d55bcdeef3281631dcb0861a"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/guided_data_comparison.py",
+      "sha256": "bd346f2f3a4b8ea8e55d952465714f88e46078c7b973acf3688e760fa89dab8c"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/student_learnability.py",
+      "sha256": "144172e231fc27c8ee1c41bafcb164fd3009f9a9f78f3d7e86b31b900503cfe8"
+    },
+    {
+      "file": "src/gps/mppi_gps/inspection.py",
+      "sha256": "6264bcc8a771af45ba93caadd5a51477984d7c7955aa61693ae9a8abbfc93dc1"
+    },
+    {
+      "file": "src/gps/mppi_gps/lifecycle.py",
+      "sha256": "fd53e33cf61c9f5eaece9922cdc4d59e1e40dafaaa9da4a1c2995e3a399d4db8"
+    },
+    {
+      "file": "src/gps/mppi_gps/loop.py",
+      "sha256": "1894c1881e97693837be1e0de52a8129f414adbeb69a33c823d8c1b788fe5430"
+    },
+    {
+      "file": "src/gps/mppi_gps/metrics.py",
+      "sha256": "f2e8f143a73e4a1c8b8c3bc6411f1d1d8f27aab3096f3f08724b1a4586e7c890"
+    },
+    {
+      "file": "src/gps/mppi_gps/policy.py",
+      "sha256": "f0a8a64744593f97803b2b31db63d4df5fc253e29e09f57160f361f9f5b96c1d"
+    },
+    {
+      "file": "src/gps/mppi_gps/post_update.py",
+      "sha256": "590cd8dafbb1b577eb23f54f6f7ba828a7ad637456d1c234155d35e877a33e6c"
+    },
+    {
+      "file": "src/gps/mppi_gps/provenance.py",
+      "sha256": "afe07b1860731267e3c4777e4a0cf18dbad0209e02429b82f70b2526c3e80b99"
+    },
+    {
+      "file": "src/gps/mppi_gps/recipes.py",
+      "sha256": "ba073322d5f0326ac1e8efa8a82fb9a2d268ec2bf636ed8c37a4bf1527b86865"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/__init__.py",
+      "sha256": "cffae4650008a6b00a8ace134bb9f8a8774434c16a4a028716e47d3ed0e309fb"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/action_compatibility.py",
+      "sha256": "63305774878d0b16ad5d258eea65a479363bf6e020fb9289f744384f8e7e3bb8"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/guided_data_comparison.py",
+      "sha256": "51aef0e9a90fde1befaa0e3de160ee1c591ed56195a69d3bb520f21af5edfb2a"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/walker_experiments.py",
+      "sha256": "5a2a11ff7be978f78be69c09e607b38c77b03da1aa676c6e293a1c54b6698fb5"
+    },
+    {
+      "file": "src/gps/mppi_gps/runtime.py",
+      "sha256": "3f6a0308cfa5911c4146d39c81b7ca9a345a65e469d734ecabfba914318fc83d"
+    },
+    {
+      "file": "src/gps/mppi_gps/search.py",
+      "sha256": "c47f77f56b8085be074811f8d49f873f925e4f853263f750d06b664bf1f644bd"
+    },
+    {
+      "file": "src/mppi/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/mppi/mppi.py",
+      "sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99"
+    },
+    {
+      "file": "src/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/utils/config.py",
+      "sha256": "3cefbed0d66ded796971b7995b3d1be0a3dcb7e1210de26980d7420b0a515bb7"
+    },
+    {
+      "file": "src/utils/gait.py",
+      "sha256": "29183f91070ba595ea21469b79d3b32bee4bba2bf4ffecea18303543e5dc1d9a"
+    },
+    {
+      "file": "src/utils/math.py",
+      "sha256": "fb50fb821540a52f727b906e7d6b05ffd231ce9764dffeb49f3599cd431038bd"
+    },
+    {
+      "file": "src/utils/rollout_data.py",
+      "sha256": "c6f698644a33a1177aaff87436b412803cd3434b12f1c6f04558ca6459ae03f5"
+    },
+    {
+      "file": "src/utils/stats.py",
+      "sha256": "e36963f0ce04c7082543e318cb8a037566db46c54f6fc4090616cd4d39c443d5"
+    },
+    {
+      "file": "src/utils/trace_replay.py",
+      "sha256": "1da5fbfb0763c6f7cc811e69713be4ccbe9a3d5421c94429d7cc5f540cab267b"
+    },
+    {
+      "file": "tests/test_action_compatibility.py",
+      "sha256": "51a390d9cd066886941d1987e0bc09e0c91bfa70c076cf9485183372e0ca6bef"
+    },
+    {
+      "file": "tests/test_action_compatibility_inputs_integration.py",
+      "sha256": "9db0f91f79e12e4d3a9695e514b0a7473754fd83ed12878b42dfb68a41fbd6d3"
+    },
+    {
+      "file": "tests/test_action_compatibility_report.py",
+      "sha256": "8aa2953ca09e74fb37673a8f4caa0be0981b19375572df53c3f38c711e6a2d7e"
+    },
+    {
+      "file": "tests/test_adaptive_coupling.py",
+      "sha256": "c358364a709a7b701d87d16e4bfb081d554172f0cef9dd4099f7c70d1cff78fd"
+    },
+    {
+      "file": "tests/test_audits_cli.py",
+      "sha256": "3dded265531a7c7005290f6e8407826f269d0fdc6bb0cc1d1ccbdeac06f1cbed"
+    },
+    {
+      "file": "tests/test_audits_native.py",
+      "sha256": "fef0e84132d6be500166031e21dec7e9131c9f3462e326c5c7f4cb20c4575497"
+    },
+    {
+      "file": "tests/test_compatibility_audit.py",
+      "sha256": "6749c5c3e71dc11c7b7a635f5ce4199d42cb1f397e144aa85b2de5cd11512cb4"
+    },
+    {
+      "file": "tests/test_compatibility_inputs.py",
+      "sha256": "f2c2df099a860e4d056094e51e30700ebcdff022266b14e5bcba68e69cc593b1"
+    },
+    {
+      "file": "tests/test_compatibility_metrics.py",
+      "sha256": "93b461b50bc99a252cf7f3523f2b2f34dc867c69309ccf4faaf4f9ba3a6c25b7"
+    },
+    {
+      "file": "tests/test_coupling_backoff.py",
+      "sha256": "872d83fec759751944bf1a15fafc4ff218125c234becf36d07e79ba147a202d7"
+    },
+    {
+      "file": "tests/test_diagnostic_policies.py",
+      "sha256": "073c062408a826bbdabcccdd0dd1f29deb9766213ca6ebb7b30f29f3fc971db9"
+    },
+    {
+      "file": "tests/test_gait.py",
+      "sha256": "29232b38b2bd94890558b19379da142511cd3c5ba86f69c111b2ce5bed817032"
+    },
+    {
+      "file": "tests/test_gps_diagnostics.py",
+      "sha256": "26c0db5e6ddf8b9159b374c4c7039b877770c9c883a1e503527333e4276e9ea2"
+    },
+    {
+      "file": "tests/test_gps_experience.py",
+      "sha256": "5e8f06f24475b7694cf982c25f95d965c9117aced8b1b3fe514738f187f0516b"
+    },
+    {
+      "file": "tests/test_gps_policy.py",
+      "sha256": "9c2f341b931151bff2024ac0b946aa87aa9fa6db6ffacf90aaa54360e2d11528"
+    },
+    {
+      "file": "tests/test_gps_runtime.py",
+      "sha256": "46ccaafcfc43e30f038b53ebc3406d72d71fc78142756e5684ccef46467965dd"
+    },
+    {
+      "file": "tests/test_gps_search.py",
+      "sha256": "805a0950c23d6055de82738b6785f3b2c002777aa1e27ee4cf2ddb1384a03b04"
+    },
+    {
+      "file": "tests/test_gps_v2.py",
+      "sha256": "80928faa7b8a56a1d5f69d90d58bccef082dd34113f08231c147d542801b0860"
+    },
+    {
+      "file": "tests/test_gps_workflow.py",
+      "sha256": "cb51b9962abbbf20cc4cb5e65f3adfb050837512beccc6cd362a2fac29432020"
+    },
+    {
+      "file": "tests/test_guided_data_comparison.py",
+      "sha256": "d1b4ea3a9a761e0efdc45751d33feab8f363fce5097195922fa83cb3eedc62a7"
+    },
+    {
+      "file": "tests/test_math_hypothesis.py",
+      "sha256": "655958d952b9a72f86ba2ae2bdf324ea85d734421ee737b8b879ab07a595eeb9"
+    },
+    {
+      "file": "tests/test_math_properties.py",
+      "sha256": "326df7f7759ebb291706bfdd5512ad9e589f13a5ddd3e7f12c1786c2a537eb8d"
+    },
+    {
+      "file": "tests/test_post_update_feedback.py",
+      "sha256": "324ea3c72b9fa1244db79e8355ba27aa15d62fa55fb2b55dcb060b89a7c9088d"
+    },
+    {
+      "file": "tests/test_research_cli.py",
+      "sha256": "44c664bd15bfc0b45ee41f123575e7aac6512b9fd2e122df13ed5856f869ea98"
+    },
+    {
+      "file": "tests/test_research_layout.py",
+      "sha256": "a06d6b4f85b667cb2a4d7a2295e3619d519015f310fb584dd4712982357e9fed"
+    },
+    {
+      "file": "tests/test_rollout_data.py",
+      "sha256": "9c148d85c8db429fcdc3f0623928991080ebb706266b96825ece0306e49a349a"
+    },
+    {
+      "file": "tests/test_stats.py",
+      "sha256": "8ae43cd1e222b000479647ce792563537e565541ebae2c48dde8eb2a2307671f"
+    },
+    {
+      "file": "tests/test_student_learnability.py",
+      "sha256": "0695c4fd3dcaa85501657d554aa39c198eec61bc6b107aecf48f83f46ea04c57"
+    },
+    {
+      "file": "tests/test_walker2d_cli.py",
+      "sha256": "bf9ac8bf4b8ef9b150701d56df13951d815b4f9c69c4cc9f5a848cff94989228"
+    },
+    {
+      "file": "tests/test_walker2d_replay.py",
+      "sha256": "914a82de4fff1b7e199eea095a2da79821a4dab91b975f1ae3d2700144db1416"
+    },
+    {
+      "file": "tests/test_walker2d_rollout.py",
+      "sha256": "0877d0c9ae5ff58d42a15949b30f97cf2a643a5ac81a81f8cbb560e6594d50e4"
+    },
+    {
+      "file": "tests/test_walker_gymnasium_differential.py",
+      "sha256": "c4d4636cf84368ff3f5a56c4dd9aa9082a23e906c3be2f2675551d554de07c27"
+    },
+    {
+      "file": "tests/test_warp_rollout.py",
+      "sha256": "9d7a63edfb25be4c0d0633fb8ad99c9bab6feca81b66407142a328f6c37aa317"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "5a969b4d08ca03bbb535d482cc339e5e87ac50fe33014999d9be9bfc569fb636"
+    }
+  ],
+  "config_sha256": "167a45e2f947dfaa415267ad96c3f6eca37c06a0c810f32c5be626556bf57f43",
+  "input_sha256": null,
+  "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "source_root": "/Users/jaisel/Documents/mppi-gps",
+  "policy_action_fitting": true,
+  "raw_search_protected": true
+}

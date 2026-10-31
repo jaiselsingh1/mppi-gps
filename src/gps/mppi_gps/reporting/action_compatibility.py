@@ -22,6 +22,121 @@ LABELS = {
     "synthetic_random": "synthetic_random_labels",
     "permuted_recorded": "permuted_recorded_labels",
 }
+REPORT_SCHEMA = "walker-action-compatibility-report-v2"
+EDITORIAL_SCOPE = (
+    "Saved-result presentation revision only: central three-dataset comparison, "
+    "explicit reference normalization, pooled-collision scope, logged-reference "
+    "reuse explanation, and visible executed-bin-start curve markers. "
+    "No predictions, thresholds, label controls or scientific metrics changed."
+)
+
+
+def comparison_matrix(result: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Present the frozen E scores with equal weight per executed trajectory.
+
+    The representative clone is predeclared H4 independent, never whichever
+    child has the most favorable score. The untrained column averages exactly
+    three fixed initialization controls; incomplete synthetic fixtures remain
+    explicitly unavailable rather than changing that definition.
+    """
+    stages = result.get("stages", {})
+    qualified = stages.get("B", {}).get("reference_qualified", False)
+    stage_b = stages.get("B", {}).get("trajectories", [])
+    datasets = [
+        ("Successful MPPI teachers", stages.get("A", {}).get("trajectories", [])),
+        (
+            "Qualified reference primary",
+            [
+                row
+                for row in stage_b
+                if qualified and row["trajectory"]["group"] == "qualified_reference"
+            ],
+        ),
+        (
+            "Executed random actions",
+            [
+                row
+                for row in stage_b
+                if qualified and row["trajectory"]["group"] == "executed_random_actions"
+            ],
+        ),
+    ]
+
+    def mean_score(rows, names):
+        if not rows or any(name not in row["policies"] for row in rows for name in names):
+            return None
+        return float(np.mean([[row["policies"][name]["mse"] for name in names] for row in rows]))
+
+    return [
+        dict(
+            dataset=label,
+            trajectories=len(rows),
+            executed_rows=sum(row["trajectory"]["steps"] for row in rows),
+            mean_three_untrained=mean_score(rows, ["untrained_0", "untrained_1", "untrained_2"]),
+            h4_independent_clone=mean_score(rows, ["h4_independent"]),
+            independent_reference=mean_score(rows, ["reference"]),
+            aggregation="Equal trajectory weight; untrained column also averages its three fixed policies",
+        )
+        for label, rows in datasets
+    ]
+
+
+def collision_training_scope(result: Mapping[str, Any]) -> dict[str, Any]:
+    """Describe pooled collision ownership without reclassifying actual data."""
+    stage = result.get("stages", {}).get("A", {})
+    teachers = [row["trajectory"] for row in stage.get("trajectories", [])]
+    ownership = [row for teacher in teachers for row in [teacher] * teacher["steps"]]
+    details = (
+        stage.get("neighborhoods", {})
+        .get("exact_incoming_h4_effective_input_collisions", {})
+        .get("details", [])
+    )
+    policies = sorted({name for teacher in teachers for name in teacher.get("membership", {})})
+    cross_source = 0
+    maximum_fitted_rows = 0
+    for group in details:
+        rows = [ownership[index] for index in group["row_indices"]]
+        cross_source += len({row["group"] for row in rows}) > 1
+        maximum_fitted_rows = max(
+            [maximum_fitted_rows]
+            + [
+                sum(
+                    str(row.get("membership", {}).get(name, "")).startswith("fitted_")
+                    for row in rows
+                )
+                for name in policies
+            ]
+        )
+    auxiliary = stage.get("retained_datasets", {}).get("auxiliary", {})
+    return dict(
+        pooled_teacher_trajectories=len(teachers),
+        collision_groups=len(details),
+        cross_acquisition_source_groups=cross_source,
+        maximum_fitted_teacher_rows_per_collision_per_actual_policy=maximum_fitted_rows
+        if details
+        else None,
+        auxiliary_rows_outside_geometry=auxiliary.get("trajectory", {}).get("steps"),
+        scope="Pooled diagnostic roster only; not an irreducible loss floor for any actual child training corpus.",
+    )
+
+
+def _normalization_label(name: str, entry: Mapping[str, Any]) -> str:
+    if name == "reference":
+        normal = entry.get("normalization", {})
+        mean = np.asarray(normal.get("mean", []))
+        std = np.asarray(normal.get("std", []))
+        if mean.shape == std.shape == (17,) and np.all(mean == 0) and np.all(std == 1):
+            return "identity normalization (17 zero means / 17 unit standard deviations), frozen SAC buffers; no refit"
+        return "own frozen SAC normalization; see configuration (identity buffers not supplied to renderer)"
+    if name.startswith("untrained_"):
+        return "incoming H4 normalization copied unchanged; zero optimizer updates; no diagnostic refit"
+    return str(
+        entry.get("normalization_source", "own frozen checkpoint buffers; no diagnostic refit")
+    )
+
+
+def _number(value: float | None) -> str:
+    return "unavailable / not collected" if value is None else f"{value:.6f}"
 
 
 def ancestry_id(value: Any) -> str:
@@ -348,6 +463,7 @@ def build_tables(result: dict[str, Any], config: dict[str, Any]) -> dict[str, li
         exposure=exposure,
         historical=historical,
         reconstruction=reconstruction,
+        comparison_matrix=comparison_matrix(result),
     )
 
 
@@ -409,12 +525,9 @@ def _curves(tables, config, path):
                 for row in rows
                 if (row["stage"], row["group"], row["policy"]) == (stage, group, name)
             ]
-            x = [
-                row["start_control"] + 0.5 * (row["stop_control_exclusive"] - row["start_control"])
-                for row in series
-            ]
+            x = [row["start_control"] for row in series]
             y = [row["equal_trajectory_mean"] for row in series]
-            (line,) = axis.plot(x, y, label=name, linewidth=1.3)
+            (line,) = axis.plot(x, y, label=name, linewidth=1.3, marker="o", markersize=3)
             axis.fill_between(
                 x,
                 [row["equal_low"] for row in series],
@@ -424,9 +537,15 @@ def _curves(tables, config, path):
             )
         axis.set(
             title=f"{stage}: {group}",
-            xlabel="Executed control index",
+            xlabel="Executed-control bin start",
             ylabel="Equal-trajectory action MSE",
         )
+        bin_starts = sorted(
+            {row["start_control"] for row in rows if (row["stage"], row["group"]) == source}
+        )
+        if len(bin_starts) == 1:
+            axis.set_xticks(bin_starts)
+            axis.set_xlim(bin_starts[0] - 1, bin_starts[0] + 1)
     for axis in list(axes.flat)[len(sources) :]:
         axis.axis("off")
     if sources:
@@ -500,6 +619,21 @@ def markdown_report(result, config, inventory, tables) -> str:
         f"Execution complete: **{bool(result.get('execution_complete'))}**. Runtime error: `{result.get('error')}`.",
         f"Reference status: **{status}**. This report renderer does not perform the independent evidence audit.",
         "",
+        "## Central comparison: dataset × policy type",
+        "",
+        "Entries are the frozen action-agreement metric E, with equal weight per trajectory. **Lower E means closer actions**, not greater competence or teachability. The clone is the predeclared H4 independent-data child, not a retrospectively selected best child.",
+        "",
+        "| Executed dataset | Trajectories / controls | Untrained: mean of three | Cloned: H4 independent | Independent SAC reference |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for row in tables["comparison_matrix"]:
+        lines.append(
+            f"| {row['dataset']} | {row['trajectories']} / {row['executed_rows']} | {_number(row['mean_three_untrained'])} | {_number(row['h4_independent_clone'])} | {_number(row['independent_reference'])} |"
+        )
+    lines += [
+        "",
+        "Within each dataset, all policies see the same saved physical observations through their own frozen interfaces. Dataset rows visit different state distributions; their cross-row ordering does not isolate policy quality. Full nine-policy, per-source, synthetic-random-label and fixed-permutation results remain below and in the CSV files. These two label controls are distinct from physically executed random-action episodes.",
+        "",
         "Action agreement, task competence and usefulness after a fixed learning update are distinct constructs. This study measures the first, conditionally evaluates the second, and does not prospectively test the third. Different successful strategies may disagree with MPPI; low agreement does not disqualify successful teaching data.",
         "",
         "## Frozen policies and provenance",
@@ -513,16 +647,13 @@ def markdown_report(result, config, inventory, tables) -> str:
         if not isinstance(architecture, str):
             architecture = str(architecture)
         feature = entry.get("feature", "see frozen configuration")
-        normalization = entry.get(
-            "normalization_source",
-            "own frozen buffers; untrained controls copy incoming H4 normalization",
-        )
+        normalization = _normalization_label(name, entry)
         lines.append(
             f"| {name} | {architecture} | {feature}; {normalization} | {entry.get('training', 'existing frozen clone; see checkpoint provenance')} |"
         )
     lines += [
         "",
-        "The selected reference is an independent SAC checkpoint candidate, not an oracle. Its 256-ReLU architecture differs from the 128-tanh student; even qualified reference execution would not prove sufficiency of the current student class. Own deterministic logged-action agreement is a plumbing check, not validation of a teachability metric.",
+        "The selected reference is an independent SAC checkpoint candidate, not an oracle. Its 256-ReLU architecture differs from the 128-tanh student; even qualified reference execution would not prove sufficiency of the current student class. Its zero own-trajectory agreement reuses its deterministic logged predictions by construction, rather than independently generating a second prediction. It is a plumbing check, not validation of a teachability metric.",
         "",
         "## Recorded-label source means and uncertainty",
         "",
@@ -538,7 +669,7 @@ def markdown_report(result, config, inventory, tables) -> str:
         "",
         "Intervals resample whole reset ancestries with policy columns paired. H4 arms sharing reset contexts are not independent resets, frames are not independent trials, and small ancestry counts can make these intervals unstable or degenerate. Three fixed untrained initializations are not a population of trained policies. Different dataset groups visit different state distributions.",
         "",
-        "The trajectory CSV retains fitted/held-out exposure labels. 'Trajectory-held-out, same reset ancestry' is not independent-reset generalization. Retained history, auxiliary model re-solves and recovery labels are separately exported and are not treated as additional complete executed trajectories. Source curves use only actually executed rows; later random-policy bins can be survivor-conditioned.",
+        "The trajectory CSV retains fitted/held-out exposure labels. 'Trajectory-held-out, same reset ancestry' is not independent-reset generalization. Retained history, auxiliary model re-solves and recovery labels are separately exported and are not treated as additional complete executed trajectories. Source curves use only actually executed rows and place markers at the bin start. Early-terminated random episodes contribute only their actual rows to the first bin; a marker at control zero does not imply execution through control 100. Later bins can be survivor-conditioned.",
         "",
         "## Fitted and trajectory-held-out reconstruction",
         "",
@@ -596,10 +727,18 @@ def markdown_report(result, config, inventory, tables) -> str:
         "",
         "Neighbor indices and standardized distances were sealed from observations alone. Matched within/between comparisons use the fixed caliper; coverage and distance residuals must accompany action differences. Nearest-within and nearest-between raw means are not a controlled comparison when their distance distributions differ.",
         "",
-        f"Exact incoming-H4 normalized-float32 collision groups: **{collisions.get('groups', 'unavailable')}**; rows: **{collisions.get('rows', 'unavailable')}**; empirical deterministic finite-corpus MSE floor: **{collisions.get('weighted_empirical_deterministic_mse_floor', 'unavailable')}**.",
+        f"Exact incoming-H4 normalized-float32 collision groups: **{collisions.get('groups', 'unavailable')}**; rows: **{collisions.get('rows', 'unavailable')}**; empirical deterministic MSE floor on the **pooled diagnostic teacher roster**: **{collisions.get('weighted_empirical_deterministic_mse_floor', 'unavailable')}**. This is **not a training-loss floor for any actual child**.",
         "",
         "Identical student inputs with differing actions can reflect valid alternatives, contact transitions, sampling variation or hidden context. They do not alone prove incompatible demonstrations or establish that diversity caused failure. Saved physical/planner fields and unavailable context remain explicit in the result JSON. No same-state MPPI queries or new continuations are implied.",
         "",
+    ]
+    ownership = collision_training_scope(result)
+    if ownership["collision_groups"]:
+        lines += [
+            f"The pool contains {ownership['pooled_teacher_trajectories']} teacher trajectories. {ownership['cross_acquisition_source_groups']}/{ownership['collision_groups']} collision groups cross acquisition arms/sources; the maximum number of their teacher rows fitted by any one actual policy is {ownership['maximum_fitted_teacher_rows_per_collision_per_actual_policy']}. The separate {ownership['auxiliary_rows_outside_geometry'] if ownership['auxiliary_rows_outside_geometry'] is not None else 'auxiliary'} hypothetical/recovery rows are outside this geometry. Pooling alternative labels for diagnosis does not make them jointly fitted labels for a particular child.",
+            "",
+        ]
+    lines += [
         "## Work and missing evidence",
         "",
         "Stage experimental counters are retained in `cost_accounting.json`; report rendering performs zero policy forward rows, backward rows, optimizer steps and physics controls. Parent worker wall time remains separate from stage counters and report processing time. Historical imported work is not charged again as a new experiment.",
@@ -630,6 +769,18 @@ def render(run: Path, out: Path) -> dict[str, Any]:
     out.mkdir(parents=True, exist_ok=False)
     tables = build_tables(result, config)
     specifications = {
+        "comparison_matrix.csv": (
+            "comparison_matrix",
+            [
+                "dataset",
+                "trajectories",
+                "executed_rows",
+                "mean_three_untrained",
+                "h4_independent_clone",
+                "independent_reference",
+                "aggregation",
+            ],
+        ),
         "trajectory_policy_matrix.csv": (
             "matrix",
             [
@@ -797,6 +948,7 @@ def render(run: Path, out: Path) -> dict[str, Any]:
     with (out / "report.md").open("x") as stream:
         stream.write(markdown_report(result, config, inventory, tables))
     write(out / "derived_tables.json", tables)
+    write(out / "collision_training_scope.json", collision_training_scope(result))
     os.environ.setdefault("MPLCONFIGDIR", tempfile.mkdtemp(prefix="walker-k1-report-"))
     import matplotlib
 
@@ -824,7 +976,7 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         if path.is_file()
     }
     receipt = dict(
-        schema="walker-action-compatibility-report-v1",
+        schema=REPORT_SCHEMA,
         run=str(run),
         result_sha256=sha(run / "result.json"),
         config_sha256=sha(run / "config.json"),
@@ -835,6 +987,8 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         backward_rows=0,
         optimizer_steps=0,
         wall_seconds=time.perf_counter() - started,
+        editorial_scope=EDITORIAL_SCOPE,
+        scientific_metric_changed=False,
     )
     write(out / "receipt.json", receipt)
     return receipt

@@ -10,7 +10,12 @@ import pytest
 
 from src.gps.mppi_gps.compatibility_metrics import agreement_metrics
 from src.gps.mppi_gps.provenance import sha
-from src.gps.mppi_gps.reporting.action_compatibility import build_tables, render
+from src.gps.mppi_gps.reporting.action_compatibility import (
+    build_tables,
+    collision_training_scope,
+    comparison_matrix,
+    render,
+)
 
 
 def synthetic_result():
@@ -151,6 +156,8 @@ def test_saved_render_is_create_only_and_binds_outputs(tmp_path):
     out = tmp_path / "report"
     receipt = render(run, out)
     assert receipt["new_forward_rows"] == receipt["new_controls"] == 0
+    assert receipt["schema"] == "walker-action-compatibility-report-v2"
+    assert receipt["scientific_metric_changed"] is False
     assert receipt["result_sha256"] == sha(run / "result.json")
     for name in ("agreement_heatmaps", "source_control_curves", "standalone_outcomes"):
         for suffix in ("png", "pdf"):
@@ -167,3 +174,79 @@ def test_saved_render_is_create_only_and_binds_outputs(tmp_path):
     (run / "config.json").write_text("{}")
     with pytest.raises(ValueError, match="configuration binding"):
         render(run, tmp_path / "tampered")
+
+
+def test_editorial_matrix_preserves_equal_trajectory_means_and_fixed_clone():
+    def row(group, values, count):
+        names = ["untrained_0", "untrained_1", "untrained_2", "h4_independent", "reference"]
+        return dict(
+            trajectory=dict(group=group, steps=count),
+            policies={name: {"mse": value} for name, value in zip(names, values, strict=True)},
+        )
+
+    result = dict(
+        stages={
+            "A": {
+                "trajectories": [
+                    row("a", [0, 1, 2, 0.4, 0.7], 1000),
+                    row("b", [1, 2, 3, 0.6, 0.8], 100),
+                ]
+            },
+            "B": {
+                "reference_qualified": True,
+                "trajectories": [
+                    row("qualified_reference", [0.2, 0.4, 0.6, 0.8, 0], 1000),
+                    row("executed_random_actions", [0.1, 0.3, 0.5, 0.7, 0.9], 8),
+                ],
+            },
+        }
+    )
+    matrix = comparison_matrix(result)
+    assert matrix[0]["mean_three_untrained"] == 1.5
+    assert matrix[0]["h4_independent_clone"] == 0.5
+    assert matrix[0]["independent_reference"] == 0.75
+    assert matrix[0]["executed_rows"] == 1100
+    assert matrix[1]["mean_three_untrained"] == pytest.approx(0.4)
+    assert matrix[1]["independent_reference"] == 0
+    assert matrix[2]["mean_three_untrained"] == pytest.approx(0.3)
+    assert matrix[2]["executed_rows"] == 8
+    result["stages"]["B"]["reference_qualified"] = False
+    assert comparison_matrix(result)[1]["trajectories"] == 0
+
+
+def test_editorial_collision_scope_keeps_actual_fitted_corpora_separate():
+    result = dict(
+        stages={
+            "A": {
+                "trajectories": [
+                    {
+                        "trajectory": {
+                            "steps": 2,
+                            "group": "independent",
+                            "membership": {"clone": "fitted_new_acquisition"},
+                        }
+                    },
+                    {
+                        "trajectory": {
+                            "steps": 2,
+                            "group": "guided",
+                            "membership": {
+                                "clone": "trajectory_held_out_same_resets_as_fitted_h4_arm"
+                            },
+                        }
+                    },
+                ],
+                "neighborhoods": {
+                    "exact_incoming_h4_effective_input_collisions": {
+                        "details": [{"row_indices": [0, 2]}]
+                    }
+                },
+                "retained_datasets": {"auxiliary": {"trajectory": {"steps": 96}}},
+            }
+        }
+    )
+    scope = collision_training_scope(result)
+    assert scope["pooled_teacher_trajectories"] == 2
+    assert scope["cross_acquisition_source_groups"] == 1
+    assert scope["maximum_fitted_teacher_rows_per_collision_per_actual_policy"] == 1
+    assert scope["auxiliary_rows_outside_geometry"] == 96

@@ -21,6 +21,7 @@ The active package namespace is `src.gps.mppi_gps`. Study and reporting scripts 
 | Closed v2 workflow and fitting diagnostics | [loop.py](../src/gps/mppi_gps/loop.py), [diagnostics.py](../src/gps/mppi_gps/diagnostics.py) |
 | Post-update gates and scalar weight rule | [post_update.py](../src/gps/mppi_gps/post_update.py), [coupling_backoff.py](../src/gps/mppi_gps/coupling_backoff.py) |
 | Scientific recipes | [configs/studies/](../configs/studies), [v2 configuration](../configs/mppi_gps_walker.json) |
+| K1 saved compatibility data, metrics and actor-only reference | [compatibility_inputs.py](../src/gps/mppi_gps/compatibility_inputs.py), [compatibility_metrics.py](../src/gps/mppi_gps/compatibility_metrics.py), [diagnostic_policies.py](../src/gps/mppi_gps/diagnostic_policies.py) |
 
 See [methods](methods.md) for the control/learning dataflow and [development](development.md) for debugging boundaries, invariants and commands. A recipe does not supply historical bulk inputs: preparation takes explicit machine-specific evidence locations and freezes their bindings.
 

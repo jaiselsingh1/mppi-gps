@@ -1,0 +1,282 @@
+{
+  "schema": "walker-kendall-k1-reference-metadata-audit-v1",
+  "status": "interface_eligible_not_newly_qualified",
+  "passed": true,
+  "error": null,
+  "selection": {
+    "rule": "Original independent SAC ladder documented final 1M checkpoint; no retrospective best checkpoint or fallback after new results.",
+    "candidate": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints/step_1000000.pt",
+    "checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+    "checkpoint_bytes": 3524729,
+    "actor_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+    "training_step": 1000000,
+    "training_seed": 0
+  },
+  "interface": {
+    "obs_dim": 17,
+    "hidden_dim": 256,
+    "hidden_activations": [
+      "relu",
+      "relu"
+    ],
+    "heads": [
+      "mean",
+      "log_std"
+    ],
+    "feature_map": "concat(qpos[1:],clip(qvel,-10,10)); same native pre-action17 interface",
+    "normalization": {
+      "mean": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "std": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "action_low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "action_high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "action_scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "action_bias": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "execution": "deterministic_tanh_mean; original float32 batch-one operation order",
+    "simulator": "native MuJoCo CPU",
+    "control_dt": 0.008,
+    "physics_dt": 0.002,
+    "frame_skip": 4,
+    "xml_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+  },
+  "training": {
+    "independent_of_mppi_cloning": true,
+    "mp_pi_training_stream": false,
+    "controls": 1000000,
+    "updates": 995000,
+    "gamma": 0.995,
+    "reward": "negative native task cost; on fall add -gamma*5/(1-gamma), approximately-995; soft SAC training",
+    "evaluation_objective_difference": "SAC discounted soft training objective differs from current finite undiscounted complete task cost.",
+    "architecture_scope": "256-ReLU actor competence cannot establish sufficiency of the current128-tanh student."
+  },
+  "source_checks": [
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/src/envs/base.py",
+      "expected_sha256": "8dd51240137b3ef6810555b8b975d410b67eaefc2684ee92419034b62f237766",
+      "actual_sha256": "8dd51240137b3ef6810555b8b975d410b67eaefc2684ee92419034b62f237766",
+      "bytes": 2106,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/src/envs/walker2d.py",
+      "expected_sha256": "477c3d2d8735171825392c9fe011941bc26e386f2113b4dd54df8a8c1e03ebca",
+      "actual_sha256": "477c3d2d8735171825392c9fe011941bc26e386f2113b4dd54df8a8c1e03ebca",
+      "bytes": 9171,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/src/envs/mujoco_env.py",
+      "expected_sha256": "7e98983197a4ffe853923c60c698656317ee4e540f50428e5ebc07716936722a",
+      "actual_sha256": "7e98983197a4ffe853923c60c698656317ee4e540f50428e5ebc07716936722a",
+      "bytes": 9537,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/src/rl/walker.py",
+      "expected_sha256": "5b2102d720c785ddb94f05b48da7e78f3829b6664aa1ec70c485e682170f482a",
+      "actual_sha256": "5b2102d720c785ddb94f05b48da7e78f3829b6664aa1ec70c485e682170f482a",
+      "bytes": 5593,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/src/rl/sac.py",
+      "expected_sha256": "0dc7ae1fc6385992ac8bb5f40f725e13c8d386a4c752a908c654b13a78e57fbc",
+      "actual_sha256": "0dc7ae1fc6385992ac8bb5f40f725e13c8d386a4c752a908c654b13a78e57fbc",
+      "bytes": 17537,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/scripts/runners/eval_policy_walker2d.py",
+      "expected_sha256": "0f8538b9bf467057ef6f3c2156bd1f75f6b1c10cad892c8c1862cedaa2e6d565",
+      "actual_sha256": "0f8538b9bf467057ef6f3c2156bd1f75f6b1c10cad892c8c1862cedaa2e6d565",
+      "bytes": 12349,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/scripts/runners/run_walker2d.py",
+      "expected_sha256": "5d3e2e6a5d4d79b07f30cb27325e57cb82b7732553a7b0132b3096f36715db85",
+      "actual_sha256": "5d3e2e6a5d4d79b07f30cb27325e57cb82b7732553a7b0132b3096f36715db85",
+      "bytes": 17997,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/assets/walker2d.xml",
+      "expected_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590",
+      "actual_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590",
+      "bytes": 4950,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/scripts/training/train_walker2d_sac.py",
+      "expected_sha256": "5e10896f1aba9e0e7222923428e0ad13d5637314f4542d907d52786d5af3ccb1",
+      "actual_sha256": "5e10896f1aba9e0e7222923428e0ad13d5637314f4542d907d52786d5af3ccb1",
+      "bytes": 9845,
+      "passed": true
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/source/docs/rl_ladder.md",
+      "expected_sha256": "3b0b7eff030f0ff80a8da3dece45423ce41a0b30082a256a4e44471b8c18ebdf",
+      "actual_sha256": "3b0b7eff030f0ff80a8da3dece45423ce41a0b30082a256a4e44471b8c18ebdf",
+      "bytes": 5533,
+      "passed": true
+    }
+  ],
+  "cpu_method_behavior_ast_checks": {
+    "walker2d.py": {
+      "reset": true,
+      "step": true,
+      "_is_healthy": true,
+      "task_metrics": true,
+      "running_cost": true,
+      "terminal_cost": true,
+      "rollout_cost": true,
+      "rollout_states_to_obs": true,
+      "_get_obs": true
+    },
+    "mujoco_env.py": {
+      "reset": true,
+      "step": true,
+      "get_state": true,
+      "set_state": true,
+      "get_warmstart": true,
+      "set_warmstart": true,
+      "action_bounds": true
+    }
+  },
+  "ast_scope": "Imports, annotations and docstrings stripped; listed CPU/reset/observation/cost methods compared. Constructor/GPU-only branches not certified by this comparison; GPU is unused.",
+  "bindings": {
+    "config.json": {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/config.json",
+      "sha256": "93d1ccc8383193a8a2f3318571a43f41296ec5e2d571bf0469fe58477a0151bf",
+      "bytes": 3165
+    },
+    "task.json": {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/task.json",
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a",
+      "bytes": 314
+    },
+    "status.json": {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/status.json",
+      "sha256": "705ca835eefe27ddab10c369dc6f789f2344aeac727a38f24af48ec0b605873a",
+      "bytes": 518
+    },
+    "checkpoints.jsonl": {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/checkpoints.jsonl",
+      "sha256": "4291628a8e1100dcc9a8d736725e93cb2682c9612b55e14d646168dbbb767b2f",
+      "bytes": 7127
+    },
+    "review_001/review.json": {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/review_001/review.json",
+      "sha256": "a0ed10217ec38e3b498657b3c035470add9931157b1621589d65b6afd6b95de7",
+      "bytes": 23220
+    },
+    "classification/step_1000000.json": {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-11_s2_sac_ladder_seed0_001/classification/step_1000000.json",
+      "sha256": "102b3246622d336699b887c754ea6e90d5794cd0d03fcb49a421455e9bae2b4e",
+      "bytes": 28051
+    }
+  },
+  "adapter": {
+    "file": "src/gps/mppi_gps/diagnostic_policies.py",
+    "sha256": "c322c020a5a5bfce3db32372c928babdce797eade4c736ad9afc0033982112b6",
+    "policy_only": true,
+    "critic_constructed": false,
+    "optimizer_constructed": false
+  },
+  "missing_evidence": [
+    "Replay buffer, simulator state and complete training RNG not saved: no exact-training-resume claim.",
+    "Original config records package versions andCPU threads but not explicitOS/CPU architecture.",
+    "Historical final evaluation is not the new15/16per-episodewalkingqualification."
+  ],
+  "metadata_family_inventory": [
+    "S2smoke001/002(short plumbing runs,notselected)",
+    "S2ladder001(final1M selected;800k not fallback)",
+    "Step38SACseed0/1/2(existing reruns,notselected)",
+    "standing_sac_rerun_seed0(notselected)",
+    "standing_sb3_sac_seed0/1/2(notselected;no interface adaptation attempted)"
+  ],
+  "work": {
+    "current_receipt_checkpoint_loads": 1,
+    "new_forward_rows": 0,
+    "new_physics_controls": 0,
+    "new_backward_rows": 0,
+    "new_optimizer_steps": 0,
+    "historical_checkpoint_decodes_by_this_auditor_before_freeze": 3,
+    "synthetic_adapter_test_forward_rows": 6,
+    "synthetic_explicit_formula_test_forward_rows": 6
+  },
+  "validation": {
+    "synthetic_cases": 19,
+    "result": "19passed",
+    "actual_roster_prediction_performed": false
+  },
+  "wall_seconds": 0.01803158299298957,
+  "execution_platform": {
+    "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  }
+}
