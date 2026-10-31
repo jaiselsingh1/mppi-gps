@@ -1,5 +1,7 @@
 # W1: wider students fit better, generalize worse and still fail walking
 
+*Subsequent study: [W2 is now closed](student_update_w2_results.md). The recommendation below records the decision at W1 closure; W2 later ran under its own explicit authorization and frozen protocol.*
+
 **Execution complete; independent audit valid; the width intervention failed its standalone improvement screen.** Increasing both tanh layers from 128 to 256 reduced training MSE by 47–49% in all three seed pairs. Held-trajectory MSE increased 22–25%. All six final policies walked on 0/16 primary resets and survived on 0/16. The wider policy fell sooner and had higher mean complete cost in every pair.
 
 [Preregistered protocol](student_width_w1_protocol.md) · [exact capsule](../results/student_width_w1/README.md) · [generated report](../results/student_width_w1/report/report.md) · [all episode outcomes](../results/student_width_w1/report/episodes.csv) · [independent audit](../results/student_width_w1/audit/receipt.json).

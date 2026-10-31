@@ -1,0 +1,97 @@
+{
+  "available": true,
+  "draws": 2000,
+  "seed": 2026110299,
+  "interval_percentiles": [
+    2.5,
+    97.5
+  ],
+  "training_streams": 3,
+  "candidate_updates": 2000,
+  "baseline_updates": 10000,
+  "scope": "Descriptive crossed training-stream/shared-reset bootstrap. Three streams do not establish population coverage or power; frames and endpoints are not independent training replications.",
+  "fitting": {
+    "train": {
+      "mean_relative_mse_gain": -0.6614622020757783,
+      "interval": [
+        -0.6673537292410687,
+        -0.6573396848319137
+      ],
+      "direction": "1 - MSE_2k / MSE_10k; positive favors 2k",
+      "unit": "Paired training stream; fixed teacher trajectories not resampled"
+    },
+    "validation": {
+      "mean_relative_mse_gain": 0.260974492455501,
+      "interval": [
+        0.2554249957269681,
+        0.2640147176185017
+      ],
+      "direction": "1 - MSE_2k / MSE_10k; positive favors 2k",
+      "unit": "Paired training stream; fixed teacher trajectories not resampled"
+    }
+  },
+  "primary": {
+    "available": true,
+    "reset_count": 16,
+    "intervals": {
+      "relative_cost_gain": [
+        0.02432902695820522,
+        0.12672912327547955
+      ],
+      "relative_controls_gain": [
+        0.4898074879101608,
+        2.3449995788136797
+      ],
+      "cost_2k_minus_10k": [
+        -644.0027593226348,
+        -114.50077773512419
+      ],
+      "controls_2k_minus_10k": [
+        81.29114583333333,
+        142.27812499999996
+      ],
+      "walking_fraction_2k_minus_10k": [
+        0.0,
+        0.0
+      ],
+      "survival_fraction_2k_minus_10k": [
+        0.0,
+        0.0
+      ]
+    },
+    "pairing": "One resampled reset panel is shared across resampled training streams; the 2k/10k endpoint columns remain paired",
+    "direction": "Differences are 2k minus 10k; relative cost gain is 1-C2/C10, relative controls gain is T2/T10-1"
+  },
+  "confirmation": {
+    "available": true,
+    "reset_count": 16,
+    "intervals": {
+      "relative_cost_gain": [
+        0.058580075643254716,
+        0.12702470623151724
+      ],
+      "relative_controls_gain": [
+        0.6264871089291509,
+        2.308130294714234
+      ],
+      "cost_2k_minus_10k": [
+        -645.119830559487,
+        -276.5562221088179
+      ],
+      "controls_2k_minus_10k": [
+        94.01197916666666,
+        147.1921875
+      ],
+      "walking_fraction_2k_minus_10k": [
+        0.0,
+        0.0
+      ],
+      "survival_fraction_2k_minus_10k": [
+        0.0,
+        0.0
+      ]
+    },
+    "pairing": "One resampled reset panel is shared across resampled training streams; the 2k/10k endpoint columns remain paired",
+    "direction": "Differences are 2k minus 10k; relative cost gain is 1-C2/C10, relative controls gain is T2/T10-1"
+  }
+}

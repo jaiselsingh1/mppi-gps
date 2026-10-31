@@ -1,0 +1,199 @@
+{
+  "points": 9,
+  "fit_blocks": 6,
+  "reloaded_checkpoints": 3,
+  "training_streams": 3,
+  "episodes": 228,
+  "actual_controls": 38824,
+  "diagnostic_forward_rows": 54000,
+  "fitting_rows": 7680000,
+  "confirmation_triggered": true,
+  "gates": {
+    "primary": {
+      "pairs": [
+        {
+          "pair": 0,
+          "relative_train_mse_gain": -0.6673537292410687,
+          "relative_validation_mse_gain": 0.26348376402103313,
+          "relative_controls_gain": 0.5126791620727673,
+          "relative_cost_gain": 0.03269445553619821,
+          "controls_delta": 87.1875,
+          "cost_delta": -149.80247974897338,
+          "walking_gain": 0,
+          "survival_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "controls_nonregression": true
+        },
+        {
+          "pair": 1,
+          "relative_train_mse_gain": -0.6596931921543525,
+          "relative_validation_mse_gain": 0.2554249957269681,
+          "relative_controls_gain": 2.3727064220183487,
+          "relative_cost_gain": 0.12739023499292979,
+          "controls_delta": 129.3125,
+          "cost_delta": -647.402977540718,
+          "walking_gain": 0,
+          "survival_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "controls_nonregression": true
+        },
+        {
+          "pair": 2,
+          "relative_train_mse_gain": -0.6573396848319137,
+          "relative_validation_mse_gain": 0.2640147176185017,
+          "relative_controls_gain": 0.9216651745747537,
+          "relative_cost_gain": 0.07525518776665507,
+          "controls_delta": 128.6875,
+          "cost_delta": -360.44055753701286,
+          "walking_gain": 0,
+          "survival_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "controls_nonregression": true
+        }
+      ],
+      "validation_checks": {
+        "mean_gain": true,
+        "positive_pairs": true
+      },
+      "retention_checks": {
+        "mean_controls_gain": true,
+        "positive_pairs": true,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true
+      },
+      "cost_checks": {
+        "mean_cost_gain": true,
+        "positive_pairs": true,
+        "all_pair_controls_nonregression": true,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true
+      },
+      "walking_checks": {
+        "gain_pairs": false,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true
+      },
+      "validation_screen": true,
+      "retention_screen": true,
+      "cost_screen": true,
+      "walking_screen": false
+    },
+    "confirmation_triggered": true,
+    "confirmation": {
+      "pairs": [
+        {
+          "pair": 0,
+          "relative_train_mse_gain": -0.6673537292410687,
+          "relative_validation_mse_gain": 0.26348376402103313,
+          "relative_controls_gain": 0.7774237596722804,
+          "relative_cost_gain": 0.0713391478065456,
+          "controls_delta": 106.75,
+          "cost_delta": -337.70749059695663,
+          "walking_gain": 0,
+          "survival_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "controls_nonregression": true
+        },
+        {
+          "pair": 1,
+          "relative_train_mse_gain": -0.6596931921543525,
+          "relative_validation_mse_gain": 0.2554249957269681,
+          "relative_controls_gain": 2.3098751418842225,
+          "relative_cost_gain": 0.1269324314994693,
+          "controls_delta": 127.1875,
+          "cost_delta": -645.188993255686,
+          "walking_gain": 0,
+          "survival_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "controls_nonregression": true
+        },
+        {
+          "pair": 2,
+          "relative_train_mse_gain": -0.6573396848319137,
+          "relative_validation_mse_gain": 0.2640147176185017,
+          "relative_controls_gain": 0.9849726775956285,
+          "relative_cost_gain": 0.09374423647458452,
+          "controls_delta": 135.1875,
+          "cost_delta": -454.53699870126,
+          "walking_gain": 0,
+          "survival_gain": 0,
+          "walking_nonregression": true,
+          "survival_nonregression": true,
+          "controls_nonregression": true
+        }
+      ],
+      "validation_checks": {
+        "mean_gain": true,
+        "positive_pairs": true
+      },
+      "retention_checks": {
+        "mean_controls_gain": true,
+        "positive_pairs": true,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true
+      },
+      "cost_checks": {
+        "mean_cost_gain": true,
+        "positive_pairs": true,
+        "all_pair_controls_nonregression": true,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true
+      },
+      "walking_checks": {
+        "gain_pairs": false,
+        "all_pair_walking_nonregression": true,
+        "all_pair_survival_nonregression": true
+      },
+      "validation_screen": true,
+      "retention_screen": true,
+      "cost_screen": true,
+      "walking_screen": false
+    },
+    "confirmed_retention_benefit": true,
+    "confirmed_cost_benefit": true,
+    "confirmed_walking_gain": false,
+    "competence": {
+      "s0_u2000": false,
+      "s0_u10000": false,
+      "s1_u2000": false,
+      "s1_u10000": false,
+      "s2_u2000": false,
+      "s2_u10000": false
+    }
+  },
+  "work": {
+    "measurement_requests": 128881,
+    "requested_neural_rows": 7772824,
+    "completed_neural_rows": 7772824,
+    "requested_backward_rows": 7680000,
+    "completed_backward_rows": 7680000,
+    "requested_optimizer_steps": 30000,
+    "completed_optimizer_steps": 30000,
+    "requested_checkpoint_loads": 3,
+    "completed_checkpoint_loads": 3,
+    "resets": 228,
+    "requested_controls": 38824,
+    "requested_live_controls": 38824,
+    "requested_physics_substeps": 155296,
+    "live_queries": 38824,
+    "completed_controls": 38824,
+    "completed_live_controls": 38824,
+    "completed_physics_substeps": 155296,
+    "episodes": 228,
+    "queries": 38824,
+    "physics_frames": 155296,
+    "neural_rows": 7772824,
+    "backward_rows": 7680000,
+    "optimizer_steps": 30000
+  },
+  "limitations": [
+    "Saved checkpoint/ledger and sampler identities are verified without neural forwards, simulator replay or optimizer arithmetic.",
+    "The two endpoints share one training/minibatch prefix per seed; only three fresh training streams are independent intervention replications.",
+    "Retention benefit, cost benefit, walking gain and competence are separate claims; W2 cannot establish adaptive coupling."
+  ]
+}

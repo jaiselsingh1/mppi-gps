@@ -1,6 +1,8 @@
 # Current Walker research scope
 
-[W1](student_width_w1_results.md) is closed: widening improves fitted reconstruction but worsens held-trajectory transfer and standalone control across three paired seeds. It tests a student-width intervention, not adaptive coupling. The single next recommendation is [W2](student_update_w2_hypothesis.md), a fixed update-budget contrast that remains unlaunched.
+[W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
+
+[W1](student_width_w1_results.md) is closed: widening improves fitted reconstruction but worsens held-trajectory transfer and standalone control across three paired seeds. It tests a student-width intervention, not adaptive coupling. The recommended [W2 contrast](student_update_w2_results.md) subsequently ran under separate explicit authorization.
 
 The [K1 compatibility diagnostic](action_compatibility_k1_results.md) is now closed and independently audited. It compares MPPI/random/qualified-reference data against untrained/cloned/reference policies, with no new learning. The SAC reference passes 16/16 primary and 16/16 confirmation, while clones agree better with MPPI but fail standalone. This tests action agreement and conditional competence, not prospective teachability or a new coupling mechanism. Sparse cross-arm input collisions do not establish contradictory supervision in the actual teacher-training corpora. Its recommended width contrast subsequently ran as W1 under a separate frozen protocol and user authorization.
 

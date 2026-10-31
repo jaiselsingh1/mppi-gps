@@ -1,0 +1,87 @@
+{
+  "schema": "walker-w2-saved-learning-bin-extraction-v1",
+  "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001",
+  "result_sha256": "0885a6da57a0f53593c2f5fffde50895f313f8c0f857c3916fe8d52918e99e0f",
+  "source_sha256": "6918887a6019d60132f2db62611f859994116d4be210d8e2ce0915dda22cabf9",
+  "source_rows": 30000,
+  "source_fit_files": 6,
+  "bins": 300,
+  "updates_per_bin": 100,
+  "binning": "Within each of three fixed-width streams, fixed inclusive update intervals1..100,101..200,...,9901..10000. Arithmetic mean/min/max action MSE and mean unclipped gradient norm. No checkpoint selection or smoothing across source files.",
+  "scope": "Source-bound rendering/aggregation of already recorded stochastic minibatch training losses. Not full-dataset train/validation losses, uncertainty intervals, new inference, optimizer arithmetic, or a research rerun.",
+  "sources": [
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s0_u2000.json",
+      "sha256": "f613b40c28d1dc9d7fb8016df180e38ed592b83b620c83c02e71a69470e01d4e",
+      "bytes": 445549,
+      "point": "s0_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s0_u10000.json",
+      "sha256": "0a5757b2c2996f0955aefa6382203fdbe6653c1b25454fd77e2babaf91d21fa3",
+      "bytes": 1787196,
+      "point": "s0_u10000",
+      "rows": 8000,
+      "update_start": 2001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s1_u2000.json",
+      "sha256": "45061d2316ec8d076e363116db2338aba713ad4c8a8ea938d99e7c28df7e0a8c",
+      "bytes": 445628,
+      "point": "s1_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s1_u10000.json",
+      "sha256": "96c523683a6b39a32cc0b3ebb38036c5865fa4b311ac47dc630aeab5124686c8",
+      "bytes": 1787481,
+      "point": "s1_u10000",
+      "rows": 8000,
+      "update_start": 2001,
+      "update_end": 10000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s2_u2000.json",
+      "sha256": "b585b94d2a375ad58899c0f63a87407ae4a00e8e9118f3e7891b5825d633c555",
+      "bytes": 445725,
+      "point": "s2_u2000",
+      "rows": 2000,
+      "update_start": 1,
+      "update_end": 2000
+    },
+    {
+      "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s2_u10000.json",
+      "sha256": "a481c8234847de3c0c649f11f4a807c6aa89328b8d61aa51740a9bfdb407686b",
+      "bytes": 1787188,
+      "point": "s2_u10000",
+      "rows": 8000,
+      "update_start": 2001,
+      "update_end": 10000
+    }
+  ],
+  "outputs": {
+    "binned_learning_curves.csv": {
+      "bytes": 87867,
+      "sha256": "2ccfdbf5a8832414afca00ac00c9a2193c6c60083160a7e44d7422d5f7f6f86d"
+    },
+    "binned_learning_curves.png": {
+      "bytes": 195459,
+      "sha256": "586599772c568ade8b9ee9024687d329366ac0a95e438a77b3e267edcd845e97"
+    },
+    "binned_learning_curves.pdf": {
+      "bytes": 26371,
+      "sha256": "ba793ebb96f446aefa4b3ef018f362c968715be582c8e95767bfb4cc629568aa"
+    }
+  },
+  "new_controls": 0,
+  "new_forward_rows": 0,
+  "new_backward_rows": 0,
+  "new_optimizer_steps": 0,
+  "wall_seconds": 9.346597625000868
+}

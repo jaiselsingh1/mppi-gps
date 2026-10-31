@@ -9,5 +9,6 @@ These small evidence capsules make the completed Walker studies readable from a 
 | H4.1 actual weight backoff | [adaptive_coupling_h4_1](adaptive_coupling_h4_1/README.md) | All six teachers walked; all matched children regressed |
 | K1 Kendall action-compatibility diagnostic | [action_compatibility_k1](action_compatibility_k1/README.md) | Independent SAC reference qualified 16/16 +16/16; cloning reconstructed MPPI better but did not walk |
 | W1 paired tanh-width contrast | [student_width_w1](student_width_w1/README.md) | Wider policies fit training data better, worsened validation, and all six final policies walked 0/16 |
+| W2 fixed 2k/10k update budgets | [student_update_w2](student_update_w2/README.md) | Confirmed retention and cost benefits at 2k; all six endpoints still walked 0/16 on both panels |
 
-H4.1, K1 and W1 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.
+H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.

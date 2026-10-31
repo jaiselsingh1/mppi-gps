@@ -1,0 +1,367 @@
+{
+  "schema": "walker-w2-full-accounting-v1",
+  "scope": "Closed W2 work and measured engineering through this prepublication snapshot; later copy/validation/Git/CI has separate receipts. No efficiency claim.",
+  "engineering_interval": {
+    "start_utc": "2026-10-31 19:58:15 UTC",
+    "end_utc": "2026-10-31 20:08:34 UTC",
+    "elapsed_seconds": 619.654802,
+    "meaning": "Elapsed authoring/review/coordination/idle/research interval, not CPU time; parallel work overlaps. Before first timestamp unmetered."
+  },
+  "experimental": {
+    "work": {
+      "requested_controls": 38824,
+      "completed_controls": 38824,
+      "requested_model_controls": 0,
+      "completed_model_controls": 0,
+      "requested_live_controls": 38824,
+      "completed_live_controls": 38824,
+      "requested_physics_substeps": 155296,
+      "completed_physics_substeps": 155296,
+      "unknown_partial_controls": 0,
+      "unknown_partial_physics_substeps": 0,
+      "model_queries": 0,
+      "live_queries": 38824,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "measurement_requests": 128881,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "requested_neural_rows": 7772824,
+      "completed_neural_rows": 7772824,
+      "unknown_partial_neural_rows": 0,
+      "requested_backward_rows": 7680000,
+      "completed_backward_rows": 7680000,
+      "unknown_partial_backward_rows": 0,
+      "requested_optimizer_steps": 30000,
+      "completed_optimizer_steps": 30000,
+      "unknown_partial_optimizer_steps": 0,
+      "resets": 228,
+      "reset_errors": 0,
+      "restores": 0,
+      "snapshots": 194348,
+      "episodes": 228,
+      "requested_checkpoint_loads": 3,
+      "completed_checkpoint_loads": 3,
+      "unknown_partial_checkpoint_loads": 0,
+      "neural_rows": 7772824,
+      "backward_rows": 7680000,
+      "optimizer_steps": 30000,
+      "queries": 38824,
+      "physics_frames": 155296,
+      "wall_seconds": 109.25862779200543
+    },
+    "worker_wall_seconds": 109.32022216700716,
+    "external_launch": {
+      "exit_code": 0,
+      "external_wall_seconds": 110.29222154099261,
+      "finished_utc": "2026-10-31 20:06:12 UTC"
+    },
+    "workers": 1,
+    "retries": 0,
+    "fresh_training_streams": 3,
+    "independent_endpoint_refits": 0,
+    "fit_blocks": 6,
+    "updates": 30000,
+    "prefix_updates_already_in_total": 6000,
+    "suffix_updates": 24000,
+    "training_forward_backward_rows": 7680000,
+    "saved_reconstruction_forward_rows": 54000,
+    "standalone_forward_rows_controls": 38824,
+    "total_forward_rows": 7772824,
+    "physics_substeps": 155296,
+    "episodes": {
+      "curve": 36,
+      "primary": 96,
+      "confirmation": 96,
+      "total": 228
+    },
+    "checkpoint_writes": 9,
+    "checkpoint_loads": 3,
+    "new_teacher_model_controls": 0,
+    "failed_rejected_or_unknown_partial_work": 0,
+    "task_failures": "Every228 recorded episode fell; all retained. This differs from instrumentation failure."
+  },
+  "budgets": {
+    "requested_controls": 230000,
+    "neural_rows": 8250000,
+    "backward_rows": 7680000,
+    "optimizer_steps": 30000,
+    "episodes": 228,
+    "checkpoint_loads": 3,
+    "model_controls": 0,
+    "wall_seconds": 3600,
+    "storage_bytes": 17179869184
+  },
+  "prelaunch_reservation": {
+    "requested_controls": 228000,
+    "neural_rows": 7962000,
+    "backward_rows": 7680000,
+    "optimizer_steps": 30000,
+    "episodes": 228,
+    "model_controls": 0,
+    "checkpoint_loads": 3,
+    "diagnostic_forward_rows": 54000
+  },
+  "measured_call_groups": {
+    "update_budget_saved_reconstruction/u0/neural_rows": {
+      "amount": 18000,
+      "calls": 18,
+      "call_wall_seconds": 0.023423330974765122
+    },
+    "update_budget_fitting/u2000/neural_rows": {
+      "amount": 1536000,
+      "calls": 6000,
+      "call_wall_seconds": 1.2353644133982016
+    },
+    "update_budget_fitting/u2000/backward_rows": {
+      "amount": 1536000,
+      "calls": 6000,
+      "call_wall_seconds": 0.9753930515726097
+    },
+    "update_budget_fitting/u2000/optimizer_steps": {
+      "amount": 6000,
+      "calls": 6000,
+      "call_wall_seconds": 0.4456809214752866
+    },
+    "update_budget_saved_reconstruction/u2000/neural_rows": {
+      "amount": 18000,
+      "calls": 18,
+      "call_wall_seconds": 0.01190245799080003
+    },
+    "update_budget_checkpoint_reload/u2000/checkpoint_loads": {
+      "amount": 3,
+      "calls": 3,
+      "call_wall_seconds": 0.005362625000998378
+    },
+    "update_budget_fitting/u10000/neural_rows": {
+      "amount": 6144000,
+      "calls": 24000,
+      "call_wall_seconds": 4.952254529518541
+    },
+    "update_budget_fitting/u10000/backward_rows": {
+      "amount": 6144000,
+      "calls": 24000,
+      "call_wall_seconds": 3.8896861944522243
+    },
+    "update_budget_fitting/u10000/optimizer_steps": {
+      "amount": 24000,
+      "calls": 24000,
+      "call_wall_seconds": 1.817535683803726
+    },
+    "update_budget_saved_reconstruction/u10000/neural_rows": {
+      "amount": 18000,
+      "calls": 18,
+      "call_wall_seconds": 0.012056251987814903
+    },
+    "update_budget_standalone/uexecution/neural_rows": {
+      "amount": 38824,
+      "calls": 38824,
+      "call_wall_seconds": 2.06864785720245
+    }
+  },
+  "timing_scope": "Sum of measured operation wall times, excluding nonmetered loop arithmetic/I/O. Not CPU time or FLOPs.",
+  "outcome_accounting": {
+    "primary": {
+      "2000": {
+        "mean_cost": 4431.956519987818,
+        "mean_steps": 236.45833333333334,
+        "mean_velocity_mae": 1.1402093042663977,
+        "walking_successes": 0,
+        "full_survival": 0,
+        "mean_absorbing_cost": 3817.7083333333335,
+        "mean_cost_without_absorbing_tail": 614.2481866544845
+      },
+      "10000": {
+        "mean_cost": 4817.838524930053,
+        "mean_steps": 121.39583333333333,
+        "mean_velocity_mae": 1.8692246529791523,
+        "walking_successes": 0,
+        "full_survival": 0,
+        "mean_absorbing_cost": 4393.020833333333,
+        "mean_cost_without_absorbing_tail": 424.81769159671967
+      },
+      "early_minus_late": {
+        "mean_cost": -385.88200494223474,
+        "mean_steps": 115.06250000000001,
+        "mean_absorbing_cost": -575.3124999999995,
+        "mean_cost_without_absorbing_tail": 189.4304950577648
+      }
+    },
+    "confirmation": {
+      "2000": {
+        "mean_cost": 4409.341049005676,
+        "mean_steps": 232.91666666666666,
+        "mean_velocity_mae": 1.082636892500921,
+        "walking_successes": 0,
+        "full_survival": 0,
+        "mean_absorbing_cost": 3835.4166666666665,
+        "mean_cost_without_absorbing_tail": 573.9243823390093
+      },
+      "10000": {
+        "mean_cost": 4888.48554319031,
+        "mean_steps": 109.875,
+        "mean_velocity_mae": 2.0513712819091694,
+        "walking_successes": 0,
+        "full_survival": 0,
+        "mean_absorbing_cost": 4450.625,
+        "mean_cost_without_absorbing_tail": 437.8605431903097
+      },
+      "early_minus_late": {
+        "mean_cost": -479.1444941846339,
+        "mean_steps": 123.04166666666666,
+        "mean_absorbing_cost": -615.2083333333335,
+        "mean_cost_without_absorbing_tail": 136.06383914869957
+      }
+    }
+  },
+  "outcome_accounting_scope": "Post-closure accounting decomposition of the frozen complete-cost formula, not a new endpoint. Extra retained controls reduce5-per-missing-control absorbing tails. Cost and retention gains are related, not independent corroboration; non-tail sums have differing durations and are not per-step comparisons.",
+  "storage": {
+    "full_new_run": {
+      "directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001",
+      "files": 247,
+      "bytes": 1496794451,
+      "availability": "Local-only",
+      "manifest": "external/full_run_file_manifest.json"
+    },
+    "worker_snapshot_before_result_write": 1495433375,
+    "replicas": "Exact capsule and artifact/report copies separately recorded in publication receipts; raw arrays, ledgers, nine checkpoints, three index tapes and six full fitting JSONs remain outside Git and vault."
+  },
+  "engineering": {
+    "prelaunch_full_suite": {
+      "exit_code": 0,
+      "external_wall_seconds": 29.891088874996058,
+      "scope": "Full engineering regression suite, including synthetic fitting and native-physics fixtures. No real W2 roster prediction, fit or standalone episode. Fixture arithmetic/control counts not globally metered; do not claim zero overhead."
+    },
+    "prelaunch_full_summary": "375 passed,1skipped,1xfailed in29.32s",
+    "targeted_input_tests": {
+      "passed": 20,
+      "wall_seconds": 0.53,
+      "actual_nn_backward_optimizer_physics": 0
+    },
+    "targeted_root_tests": {
+      "passed": 25,
+      "wall_seconds": 1.65,
+      "new_serialized_continuation_fixture": {
+        "forward_rows": 64,
+        "backward_rows": 64,
+        "Adam_steps": 16,
+        "physics_controls": 0
+      }
+    },
+    "targeted_independent_audit_report_tests": {
+      "passed": 9,
+      "wall_seconds": 12.48,
+      "new_forward_backward_optimizer_physics": 0
+    },
+    "independent_saved_audit": {
+      "schema": "walker-student-update-w2-independent-audit-v1",
+      "passed": true,
+      "error": null,
+      "checks": 1701135,
+      "bound_files": 256,
+      "hashed_arrays": 2529,
+      "new_controls": 0,
+      "new_neural_rows": 0,
+      "new_backward_rows": 0,
+      "new_optimizer_steps": 0,
+      "wall_seconds": 5.055987166997511,
+      "scope": "Independent saved predictions, exact W1 corpus reuse, checkpoint/Adam/RNG continuation including actual 2k reload receipts, complete native outcomes/reset pairing, separate frozen gates and total finite work. No networks, simulator or optimizer arithmetic executed."
+    },
+    "saved_report_receipt": {
+      "schema": "walker-student-update-w2-report-v1",
+      "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001",
+      "result_sha256": "0885a6da57a0f53593c2f5fffde50895f313f8c0f857c3916fe8d52918e99e0f",
+      "config_sha256": "58e38a13f08c6c003970cddf51ce268f994a8182b14d2be997f0f28a8c7d4bf9",
+      "source_sha256": "b793e9ab06786db2babd74b9a728568c3d0d0c9e1ac848a300fcaef57e7791df",
+      "outputs": {
+        "cost_accounting.json": {
+          "sha256": "8a4724f621a2dc62f19db9ff7b5880366fd6cb326b631d16203609552df22a9a",
+          "bytes": 2061
+        },
+        "descriptive_bootstrap.json": {
+          "sha256": "aa475ecaf063718215c504359e74b330e480a33f74ef84dcdcd219580fd528ff",
+          "bytes": 2768
+        },
+        "episodes.csv": {
+          "sha256": "59e6800ba62c03dd92e39fad97cf65d27f9f4d6ce6cb13fa56badf8d2c558be8",
+          "bytes": 30664
+        },
+        "fitting.csv": {
+          "sha256": "89cf0f87f6c720925ba8c749d6fa65d72fdaedc66f6c9ec3dcf88c660db7f766",
+          "bytes": 1455
+        },
+        "fitting_curves.pdf": {
+          "sha256": "f740fb53a0f059b104496ae140809a15716356589d75500b1fc8802ef30edc7b",
+          "bytes": 19994
+        },
+        "fitting_curves.png": {
+          "sha256": "333c6761dec852841823e6b1cb4ee3cf010ddbe41f56b996d048b3b7ff02865e",
+          "bytes": 147339
+        },
+        "gates.json": {
+          "sha256": "a95a28de2adfab2b097336b85a28bbb16354e7d514e63dc5a4d16628df18dd75",
+          "bytes": 4975
+        },
+        "paired_endpoints.csv": {
+          "sha256": "fc9cb46dd238530c51d39ccaaa401200d83fafd742860d90660a7216a7743452",
+          "bytes": 1056
+        },
+        "primary_outcomes.pdf": {
+          "sha256": "a09fb504830888a5c4ca38fdc07f785159a830f5f14a5aa4f0c09260f380e3ec",
+          "bytes": 15928
+        },
+        "primary_outcomes.png": {
+          "sha256": "269e4cf2f5f9525fad9a90f38de305be5d157c5ed1b065c2d8192ea2f9e2c0b6",
+          "bytes": 57790
+        },
+        "report.md": {
+          "sha256": "d5d878f81ca97bdd133fe4b313ccca4b35d83a82e76392737cd8cfdfda0d944f",
+          "bytes": 8637
+        },
+        "standalone.csv": {
+          "sha256": "81b89f74d1eee68dc60622f76c769781f04f29605a39c1103428b468d7e54b36",
+          "bytes": 1686
+        },
+        "standalone_curves.pdf": {
+          "sha256": "c9352a5e606d1b686b9bde443f2c2e62afaaea62e85bebaa8bc251b88b7bbf0f",
+          "bytes": 19204
+        },
+        "standalone_curves.png": {
+          "sha256": "ba1db37886ee1d0d129bc695fd68768a8e65b9971e7bf73e868de31289017800",
+          "bytes": 158749
+        },
+        "teacher_outcomes.json": {
+          "sha256": "9c0f996decd53405e031426f8881bf91be2e23e462669fa6579c400583e1fcc5",
+          "bytes": 1052
+        },
+        "teacher_student_gaps.csv": {
+          "sha256": "da28c56ce1c103debd6dec4259b1fe559f291cc8dabc4e73ae72e96dd89e6558",
+          "bytes": 959
+        },
+        "trajectories.csv": {
+          "sha256": "897c6c6cfee55b850c97b1d124bac469ae3533393711fb5657e847a2d810f1bf",
+          "bytes": 5987
+        }
+      },
+      "new_controls": 0,
+      "new_forward_rows": 0,
+      "backward_rows": 0,
+      "optimizer_steps": 0,
+      "wall_seconds": 10.117426666998654
+    },
+    "full_new_run_manifest_hash_wall_seconds": 0.553203875,
+    "binned_saved_loss_export_render_wall_seconds": 9.346597625,
+    "new_ledger_accounting_scan_wall_seconds": 0.7354890409915242,
+    "prefreeze_static_fixes": "Ruff/source review caught a broad-token-rename error and a missing first-load-counter guard before any scientific attempt; tests verify final guard and serialization behavior. No scientific retry."
+  },
+  "source_result_sha256": "0885a6da57a0f53593c2f5fffde50895f313f8c0f857c3916fe8d52918e99e0f",
+  "historical_costs": "Exact W1 training/validation/normalization/task bytes reused; older teacher/K1/W1 costs not charged again. No W1 actor or Adam state inherited, no old bulk audit replay, no new teacher or reference acquisition.",
+  "unavailable_costs": [
+    "Global arithmetic/control counts across all full-suite local/CI engineering fixtures",
+    "Initial pre-timer reading wall time",
+    "Aggregate CPU time of authoring/parallel review/idle",
+    "Tool/model billing and tokens",
+    "Later publication overhead beyond this snapshot"
+  ],
+  "followups_launched": false
+}

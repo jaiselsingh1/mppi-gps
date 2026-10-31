@@ -6,7 +6,9 @@ The cloning and coupling studies remain negative for standalone walking. The [v3
 
 The [K1 compatibility diagnostic](docs/action_compatibility_k1_results.md) compares successful MPPI, random-action and qualified-reference trajectories against untrained, cloned and independently trained policies. An existing SAC reference walks **16/16 primary + 16/16 confirmation**, despite much worse MPPI action agreement than the failing clones. No new policy was trained. The result separates agreement from competence without establishing that trajectory diversity caused cloning failure.
 
-The [W1 width contrast](docs/student_width_w1_results.md) is also closed: widening 128 to 256 tanh units reduced training error by about 48%, increased held-trajectory error by about 24%, and produced no walking in any of three paired seed comparisons. All teachers remained successful. The wider policies fell sooner; no confirmation or further experiment ran.
+The [W1 width contrast](docs/student_width_w1_results.md) is also closed: widening 128 to 256 tanh units reduced training error by about 48%, increased held-trajectory error by about 24%, and produced no walking in any of three paired seed comparisons. All teachers remained successful. The wider policies fell sooner; W1 confirmation was not triggered.
+
+The [W2 update-budget contrast](docs/student_update_w2_results.md) confirmed that 2k checkpoints retain more controls and have lower complete cost than their continued 10k counterparts, across three fresh streams and a separate confirmation panel. Every endpoint still has **0/16 walking and full survival** on each panel. This is partial retention, not competent walking; no follow-up ran.
 
 ## Setup
 
@@ -33,6 +35,7 @@ uv run python scripts/train_mppi_gps.py study learnability --help
 uv run python scripts/train_mppi_gps.py study backoff --help
 uv run python scripts/train_mppi_gps.py study compatibility --help
 uv run python scripts/train_mppi_gps.py study width --help
+uv run python scripts/train_mppi_gps.py study update-budget --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 
@@ -41,7 +44,7 @@ The public CLI retains `baseline`, `train`, `evaluate` and `render`. Study recip
 ## Reading order
 
 1. [Research status and document map](docs/README.md), then [methods and interfaces](docs/methods.md).
-2. [W1 width result](docs/student_width_w1_results.md), [K1 comparison and verdict](docs/action_compatibility_k1_results.md), [L1/H4.1 results](docs/walker_experiments_l1_h4_results.md) and [v3.1 comparison](docs/loop_v3_results.md).
+2. [W2 fixed-budget result](docs/student_update_w2_results.md), [W1 width result](docs/student_width_w1_results.md), [K1 comparison and verdict](docs/action_compatibility_k1_results.md), [L1/H4.1 results](docs/walker_experiments_l1_h4_results.md) and [v3.1 comparison](docs/loop_v3_results.md).
 3. [Exact result capsules](results/README.md), [evidence availability](docs/evidence_availability.md) and [machine-readable index](docs/evidence_index.json).
 4. [Code map](docs/code_map.md), [debugging guide](docs/development.md), [primary-source review](docs/loop_v3_prior_art.md) and [historical record](docs/history.md).
 

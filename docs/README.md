@@ -1,6 +1,6 @@
 # Research and development guide
 
-Start with the [W1 width result](student_width_w1_results.md) and [K1 dataset-by-policy comparison and verdict](action_compatibility_k1_results.md), then the [L1/H4.1 outcome report](walker_experiments_l1_h4_results.md), [v3.1 recorded-data comparison](loop_v3_results.md), and [methods overview](methods.md). [Research tracks](research_tracks.md) separates student learnability from adaptation of trajectory optimization.
+Start with the [W2 fixed-budget result](student_update_w2_results.md), [W1 width result](student_width_w1_results.md) and [K1 dataset-by-policy comparison and verdict](action_compatibility_k1_results.md), then the [L1/H4.1 outcome report](walker_experiments_l1_h4_results.md), [v3.1 recorded-data comparison](loop_v3_results.md), and [methods overview](methods.md). [Research tracks](research_tracks.md) separates student learnability from adaptation of trajectory optimization.
 
 ## Completed evidence
 
@@ -11,6 +11,7 @@ Start with the [W1 width result](student_width_w1_results.md) and [K1 dataset-by
 | H4.1 | Does feedback-selected half agreement weight improve the next student? Teachers walked; all three children regressed. | [Protocol](adaptive_coupling_protocol_h4_1_001.md), [formulation](adaptive_coupling_h4_1.md), [capsule](../results/adaptive_coupling_h4_1/README.md) |
 | K1 | How do successful MPPI, random and reference trajectories align with untrained/cloned/reference policies? All clones outperform untrained on MPPI agreement; independently trained SAC qualifies 16/16 + 16/16 despite much worse MPPI agreement. | [Protocol](action_compatibility_k1_protocol.md), [verdict](action_compatibility_k1_results.md), [capsule](../results/action_compatibility_k1/README.md) |
 | W1 | Does 128→256 tanh width improve fixed-budget learning? Better training reconstruction, worse validation and control; all six final policies fail walking. | [Protocol](student_width_w1_protocol.md), [verdict](student_width_w1_results.md), [capsule](../results/student_width_w1/README.md), [W2 hypothesis](student_update_w2_hypothesis.md) |
+| W2 | Does fixed 2k deployment improve on the same stream continued to 10k? Retention and cost benefits repeat on confirmation; all endpoints still fail walking and full survival. | [Protocol](student_update_w2_protocol.md), [result](student_update_w2_results.md), [capsule](../results/student_update_w2/README.md) |
 
 Read the [evidence guide](evidence_availability.md) before attempting a bulk-data audit. Capsules support reading, plotting and metadata inspection in a clean checkout. Their original manifests describe full runs that also contain evidence excluded from Git.
 

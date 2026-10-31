@@ -23,6 +23,7 @@ The active package namespace is `src.gps.mppi_gps`. Study and reporting scripts 
 | Scientific recipes | [configs/studies/](../configs/studies), [v2 configuration](../configs/mppi_gps_walker.json) |
 | K1 saved compatibility data, metrics and actor-only reference | [compatibility_inputs.py](../src/gps/mppi_gps/compatibility_inputs.py), [compatibility_metrics.py](../src/gps/mppi_gps/compatibility_metrics.py), [diagnostic_policies.py](../src/gps/mppi_gps/diagnostic_policies.py) |
 | W1 width benchmark, bounded fitting and saved audit | [width_inputs.py](../src/gps/mppi_gps/width_inputs.py), [student_width.py](../src/gps/mppi_gps/experiments/student_width.py), [width auditor](../src/gps/mppi_gps/audits/width.py), [width reporter](../src/gps/mppi_gps/reporting/width.py) |
+| W2 exact corpus reuse and continued learning budget | [update_inputs.py](../src/gps/mppi_gps/update_inputs.py), [student_update_budget.py](../src/gps/mppi_gps/experiments/student_update_budget.py), [auditor](../src/gps/mppi_gps/audits/update_budget.py), [reporter](../src/gps/mppi_gps/reporting/update_budget.py) |
 
 See [methods](methods.md) for the control/learning dataflow and [development](development.md) for debugging boundaries, invariants and commands. A recipe does not supply historical bulk inputs: preparation takes explicit machine-specific evidence locations and freezes their bindings.
 

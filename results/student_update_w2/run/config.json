@@ -1,0 +1,126 @@
+{
+  "schema": "walker-student-update-w2-v1",
+  "hypothesis": "Continuing the fixed width128 student from 2000 to10000 updates harms held-trajectory error and fresh-reset control retention; shorter fixed learning budget may improve retention without competent walking.",
+  "seed_pairs": [
+    {
+      "policy_seed": 20261102001,
+      "fit_seed": 1203001000
+    },
+    {
+      "policy_seed": 20261102002,
+      "fit_seed": 1203001001
+    },
+    {
+      "policy_seed": 20261102003,
+      "fit_seed": 1203001002
+    }
+  ],
+  "rows": 4000,
+  "validation_rows": 2000,
+  "updates": 10000,
+  "checkpoints": [
+    0,
+    2000,
+    10000
+  ],
+  "batch_size": 256,
+  "lr": 0.0003,
+  "eta_theta": 0.0,
+  "prox_reduction": "mean",
+  "anchor_refresh": 0,
+  "gradient_clip": 0.5,
+  "normalization_floor": 0.05,
+  "torch_threads": 1,
+  "device": "cpu",
+  "prediction_batch_size": 1024,
+  "episode_steps": 1000,
+  "curve_seeds": [
+    1210000000,
+    1210000001,
+    1210000002,
+    1210000003
+  ],
+  "primary_seeds": [
+    1220000000,
+    1220000001,
+    1220000002,
+    1220000003,
+    1220000004,
+    1220000005,
+    1220000006,
+    1220000007,
+    1220000008,
+    1220000009,
+    1220000010,
+    1220000011,
+    1220000012,
+    1220000013,
+    1220000014,
+    1220000015
+  ],
+  "confirmation_seeds": [
+    1230000000,
+    1230000001,
+    1230000002,
+    1230000003,
+    1230000004,
+    1230000005,
+    1230000006,
+    1230000007,
+    1230000008,
+    1230000009,
+    1230000010,
+    1230000011,
+    1230000012,
+    1230000013,
+    1230000014,
+    1230000015
+  ],
+  "gates": {
+    "minimum_validation_gain": 0.1,
+    "minimum_retention_gain": 0.1,
+    "minimum_cost_gain": 0.05,
+    "minimum_positive_pairs": 2,
+    "minimum_walking_gain": 2,
+    "minimum_walking_pairs": 2,
+    "competence_minimum_successes": 15
+  },
+  "confirmation_trigger": "Any retention, cost or walking screen passes OR any endpoint reaches15/16 primary walking. Confirm all six fixed endpoint policies; validation alone does not trigger extra physics.",
+  "budgets": {
+    "requested_controls": 230000,
+    "neural_rows": 8250000,
+    "backward_rows": 7680000,
+    "optimizer_steps": 30000,
+    "episodes": 228,
+    "checkpoint_loads": 3,
+    "model_controls": 0,
+    "wall_seconds": 3600,
+    "storage_bytes": 17179869184
+  },
+  "stopping": "Exactly three fresh 10000-update streams, with a saved/reloaded2k checkpoint followed by8000 continued updates. No independent endpoint refits, retries, selected seeds/checkpoints, extra updates, data, new teachers or follow-ups. Stop on provenance, interface, runtime, pairing, wall, storage or budget error.",
+  "uncertainty": "Three paired training seeds are the intervention replication units. Reset panels are shared and paired. Report all seed effects and a paired crossed seed/reset descriptive bootstrap; do not count 48 episodes or frames as 48 independent training runs. Development thresholds are screening conventions, not power calculations.",
+  "bootstrap_seed": 2026110299,
+  "bootstrap_draws": 2000,
+  "claim_scope": "Fixed learning-budget intervention with shared prefixes, not adaptive stopping or coupling. Retention without walking is partial control retention. Confirmed retention is the primary result; cost, validation, walking and competence are separate. No population or mediation claim from three seeds.",
+  "width": 128,
+  "endpoints": [
+    2000,
+    10000
+  ],
+  "w1_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001",
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true,
+    "nthread": 16
+  },
+  "xml_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590",
+  "authorization": "Explicit user authorization: proceed with W2, fixed2000vs10000 at128, same W1 corpus/settings, fresh paired seeds/resets, exact Adam/RNG continuation, no redundant endpoint fits or follow-ups;31 October2026."
+}

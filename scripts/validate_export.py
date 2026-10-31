@@ -43,6 +43,7 @@ def main(argv: list[str] | None = None) -> int:
         "adaptive_coupling_h4_1",
         "action_compatibility_k1",
         "student_width_w1",
+        "student_update_w2",
     )
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
@@ -91,6 +92,15 @@ def main(argv: list[str] | None = None) -> int:
             str(outputs / "width"),
         ],
     ]
+    commands.append(
+        [
+            "scripts/diagnostics/report_update_budget.py",
+            "--run",
+            "results/student_update_w2/run",
+            "--out",
+            str(outputs / "update_budget"),
+        ]
+    )
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -114,7 +124,11 @@ def main(argv: list[str] | None = None) -> int:
             figure = outputs / name / f"learning_and_outcomes.{extension}"
             if not figure.is_file() or figure.stat().st_size == 0:
                 raise ValueError(f"Missing rendered figure: {figure}")
-    for folder, stem in (("compatibility", "agreement_heatmaps"), ("width", "fitting_curves")):
+    for folder, stem in (
+        ("compatibility", "agreement_heatmaps"),
+        ("width", "fitting_curves"),
+        ("update_budget", "fitting_curves"),
+    ):
         for extension in ("png", "pdf"):
             figure = outputs / folder / f"{stem}.{extension}"
             if not figure.is_file() or figure.stat().st_size == 0:

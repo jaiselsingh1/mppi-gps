@@ -1718,6 +1718,292 @@
       },
       "platform_scope": "macOS arm64 native MuJoCo CPU; Torch CPU1thread; source/platform/software bound before launch. Historical teacher sources include Linux execution. No equal-FLOP, cross-host-bitwise or efficiency claim.",
       "availability_note": "Complete new W1 run is local-only. Exact capsule, complete244-file catalog and source chain are tracked; no remote mirror or bulk evidence availability from a clean Git export is asserted. Validation remains historical development evidence; teacher/fresh-student gaps are unpaired."
+    },
+    "student_update_w2": {
+      "run_id": "2026-10-31_student_update_w2_001",
+      "availability": "local_only_no_remote_mirror",
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001",
+      "remote_host": null,
+      "remote_directory": null,
+      "capsule": {
+        "directory": "results/student_update_w2",
+        "manifest": "results/student_update_w2/capsule.json",
+        "manifest_sha256": "473addbd9a3124211f44ad3c47bf374a12ca5b1992511aacb9a6e357e96bfa50",
+        "exact_copy_files": 59,
+        "exact_copy_bytes": 4172027,
+        "in_git": true,
+        "scope": "Exact byte copies of completed-run small evidence, independent audit, canonical saved-data report and source-bound100-update learning bins. Readable without bulk evidence, but not a complete runnable frozen run."
+      },
+      "config": {
+        "source": "runs/2026-10-31_student_update_w2_001/config.json",
+        "sha256": "58e38a13f08c6c003970cddf51ce268f994a8182b14d2be997f0f28a8c7d4bf9",
+        "bytes": 4161
+      },
+      "result": {
+        "source": "runs/2026-10-31_student_update_w2_001/result.json",
+        "sha256": "0885a6da57a0f53593c2f5fffde50895f313f8c0f857c3916fe8d52918e99e0f",
+        "bytes": 1360963
+      },
+      "source_manifest": {
+        "source": "runs/2026-10-31_student_update_w2_001/manifest.json",
+        "sha256": "fdbe4b32527d52049cdeaa625ea2f016fec9b100c52a881da8d7ba49dc977ea5",
+        "bytes": 31764
+      },
+      "input_manifest": {
+        "source": "runs/2026-10-31_student_update_w2_001/input_manifest.json",
+        "sha256": "c9ebdeac1ab7fa1a252176d271513c27c98a79bcb9fab87dacf14ed5e1c1c19e",
+        "bytes": 1749
+      },
+      "audit_receipt": {
+        "source": "artifacts/2026-10-31_student_update_w2_001/audit_001/receipt.json",
+        "sha256": "b8f2c17999fae16d1a6e8f44095c0025e9a46649393cc2067b6e898d26d2e325",
+        "bytes": 583
+      },
+      "canonical_report_receipt": {
+        "source": "artifacts/2026-10-31_student_update_w2_001/report_001/receipt.json",
+        "sha256": "bdf119cb346cffddbd82ef7afcad5feb752dfb37104f00d5fab434bcbdba48ed",
+        "bytes": 2912
+      },
+      "engineering_accounting": {
+        "source": "artifacts/2026-10-31_student_update_w2_001/engineering_accounting.json",
+        "sha256": "88875ba5577c274ecb3b446107379d84c31e9ed1bdffd3013ba629aa189d0b95",
+        "bytes": 14114
+      },
+      "file_catalog": {
+        "file": "results/student_update_w2/external/full_run_file_manifest.json",
+        "sha256": "d701083b6ba575f5a61713c2b33b117b693bdc15d9275179e2524881f495815d",
+        "files": 247,
+        "bytes": 1496794451
+      },
+      "bulk_files": {
+        "checkpoints/s0_u0.pt": {
+          "bytes": 87305,
+          "sha256": "85b43f6c00effa592885b32f3bca7f1e4006651224ff96647711d999bac1cb4d",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s0_u0.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s0_u10000.pt": {
+          "bytes": 330490,
+          "sha256": "2ce5ad47c9bd2df5d0181c5576fb8df47ae147617809d7c12acc529a636a6360",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s0_u10000.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s0_u2000.pt": {
+          "bytes": 330426,
+          "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s0_u2000.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s1_u0.pt": {
+          "bytes": 87305,
+          "sha256": "98137db2cbb971af7c61283085d23d6767e06fb65eaab024bae202b87d1cd23a",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s1_u0.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s1_u10000.pt": {
+          "bytes": 330490,
+          "sha256": "e4e31c6f57a83b50ec258091938f337199bdf7e1b543db95a280a80ba53e7dbe",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s1_u10000.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s1_u2000.pt": {
+          "bytes": 330426,
+          "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s1_u2000.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s2_u0.pt": {
+          "bytes": 87305,
+          "sha256": "c3040d1b43c9672848ea8e5ca83b7d64cc46433f9a5a94e39628e91c9654809c",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s2_u0.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s2_u10000.pt": {
+          "bytes": 330490,
+          "sha256": "35ffbde797f48f39021d5dc17bb5b5e6db51406f8015aa548634b4edbae2a994",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s2_u10000.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "checkpoints/s2_u2000.pt": {
+          "bytes": 330426,
+          "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s2_u2000.pt",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "evidence/ledger.jsonl": {
+          "bytes": 233425401,
+          "sha256": "9ced9f3e23672e577fcd4f5aac155277c473e8b669b8542a7563fb97bc44f223",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/evidence/ledger.jsonl",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "evidence/raw.h5": {
+          "bytes": 1245241214,
+          "sha256": "427b79434deab6d60e65ee52bc4fa257f6f3648e155f6fd6396143e0b1ba1b64",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/evidence/raw.h5",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/normalization.npz": {
+          "bytes": 636,
+          "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/inputs/normalization.npz",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/train.npz": {
+          "bytes": 2321518,
+          "sha256": "2c53be793fb4b213dd9edb63195fb6b83d355c05f4eff0df8ed2cb44ee77ce6e",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/inputs/train.npz",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "inputs/validation.npz": {
+          "bytes": 1161518,
+          "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/inputs/validation.npz",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "learning/s0_u10000.json": {
+          "bytes": 1787196,
+          "sha256": "0a5757b2c2996f0955aefa6382203fdbe6653c1b25454fd77e2babaf91d21fa3",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s0_u10000.json",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "learning/s0_u2000.json": {
+          "bytes": 445549,
+          "sha256": "f613b40c28d1dc9d7fb8016df180e38ed592b83b620c83c02e71a69470e01d4e",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s0_u2000.json",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "learning/s1_u10000.json": {
+          "bytes": 1787481,
+          "sha256": "96c523683a6b39a32cc0b3ebb38036c5865fa4b311ac47dc630aeab5124686c8",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s1_u10000.json",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "learning/s1_u2000.json": {
+          "bytes": 445628,
+          "sha256": "45061d2316ec8d076e363116db2338aba713ad4c8a8ea938d99e7c28df7e0a8c",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s1_u2000.json",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "learning/s2_u10000.json": {
+          "bytes": 1787188,
+          "sha256": "a481c8234847de3c0c649f11f4a807c6aa89328b8d61aa51740a9bfdb407686b",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s2_u10000.json",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        },
+        "learning/s2_u2000.json": {
+          "bytes": 445725,
+          "sha256": "b585b94d2a375ad58899c0f63a87407ae4a00e8e9118f3e7891b5825d633c555",
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/learning/s2_u2000.json",
+          "available_local": true,
+          "remote_file": null,
+          "remote_copy_verified": false,
+          "in_git": false
+        }
+      },
+      "excluded_classes": [
+        "complete frozen source tree",
+        "raw HDF predictions, paired minibatch indices and native simulator state arrays",
+        "complete query and learning ledger",
+        "nine checkpoints and Adam/private-RNG packages",
+        "six complete per-update fit JSON files",
+        "exact reused train/validation/normalization NPZ inputs",
+        "worker logs"
+      ],
+      "source_parents": {
+        "w1_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_width_w1_001",
+        "w1_config_sha256": "1cbfa968a3d24bf35b731eb3d4fea451f5b4f06fd4635dc4ae487098fe4e9ebc",
+        "w1_input_manifest_sha256": "c2d7b1e2666e761f4ac87d187bf238ff638c3d2994db9a8f00c39255f4778da7",
+        "w1_source_manifest_sha256": "766073f9ebe8ff5bc2f4e2b95f0ea1ebaa2b1db04bc817a7ee37e4fcbd363e09",
+        "k1_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+        "k1_inventory_sha256": "5987f7cda53792ac60ea0253d817eb35dae8d98ec6a23e0186fdd0afbbcab197",
+        "k1_input_manifest_sha256": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99",
+        "source_provenance": "results/student_update_w2/run/inputs/provenance.json",
+        "training_trajectories": [
+          "discovery_00",
+          "discovery_01",
+          "discovery_02",
+          "discovery_03"
+        ],
+        "validation_trajectories": [
+          "v2_r0_trial_raw_0",
+          "v2_r0_trial_raw_1"
+        ],
+        "scope": "Byte-identical W1 benchmark and normalization with original K1/six-teacher ancestry. Three fresh10k streams include their2k prefixes and exact serialized reloads; no independent endpoint refits, new teacher queries or historical bulk audits."
+      },
+      "checkpoint_continuation": {
+        "file": "results/student_update_w2/run/result.json",
+        "field": "reloads",
+        "reloads": 3,
+        "scope": "Exact2k actor/Adam/private-RNG before-after receipts; actual checkpoint tensor packages and sampler-index arrays remain external."
+      },
+      "learning_curve_export": {
+        "file": "results/student_update_w2/learning/binned_learning_curves.csv",
+        "sha256": "2ccfdbf5a8832414afca00ac00c9a2193c6c60083160a7e44d7422d5f7f6f86d",
+        "rows": 300,
+        "source_updates": 30000,
+        "source_fit_files": 6,
+        "receipt": "results/student_update_w2/learning/extraction_receipt.json",
+        "scope": "Fixed100-update stochastic-minibatch summaries; complete per-update fit JSON remains external."
+      },
+      "platform_scope": "macOS arm64 native MuJoCo CPU and Torch CPU1thread, frozen before launch. Historical teacher sources include Linux execution. No cross-host-bitwise or efficiency claim.",
+      "availability_note": "Complete W2 evidence is local-only. Exact capsule, complete247-file catalog and source/continuation chain are tracked; no remote mirror or clean-export bulk availability is asserted. Confirmed partial retention and cost do not establish walking; absorbing-tail cost and retention gains are related. Validation remains historical development evidence and teacher/fresh-student gaps are unpaired."
     }
   }
 }
