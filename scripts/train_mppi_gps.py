@@ -20,6 +20,7 @@ STUDIES = {
     "guided-data": "src.gps.mppi_gps.experiments.guided_data_comparison",
     "learnability": "src.gps.mppi_gps.experiments.student_learnability",
     "backoff": "src.gps.mppi_gps.experiments.adaptive_coupling",
+    "compatibility": "src.gps.mppi_gps.experiments.action_compatibility",
 }
 
 
