@@ -1,0 +1,2917 @@
+{
+  "schema": "walker-k1-2-frozen-motion-input-candidate-v1",
+  "status": "metadata_inventory_only_not_launched",
+  "source_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+  "roster": [
+    {
+      "index": 0,
+      "id": "discovery_00",
+      "source": "original_discovery",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 811000000,
+        "reset_cluster": "native-reset-811000000",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_00.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "be4d76c12bf390350316be435dbfdc5e44b659fab5489d77c9ddc7a745984671"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": null
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000000_prediction_matrix_discovery_00",
+        "arrays": {
+          "predictions": {
+            "sha256": "a82bb2094c99ea11a66001281b0423fa8c23ffd94bc36959c20d2ab32277f1d5",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "eb6bf30cfadde75aaa274820d8ac59a3fd7c50164dde8e8d6bda703798503b16",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "270a31a82e6a32879a24334fde2b27d48042fd44cac84090172204aeee1733ab",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": true
+    },
+    {
+      "index": 1,
+      "id": "discovery_01",
+      "source": "original_discovery",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 811000001,
+        "reset_cluster": "native-reset-811000001",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_01.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "d5fd9a37dc194949a700ac6ad41cf7e8ba78385f98a4de290b44f263db26886b"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": null
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000001_prediction_matrix_discovery_01",
+        "arrays": {
+          "predictions": {
+            "sha256": "07325ad913e0912487ad025526ca572ca80e9f2adc38a5f944d1969e6b972481",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "5d27adfea5422ca93323a210190af69baefa8ff241204ef57fa80a28287c5bff",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "f564b5c41b6139cb0a7d688251a1c025627c308e19980580613c97ce49a3a969",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": true
+    },
+    {
+      "index": 2,
+      "id": "discovery_02",
+      "source": "original_discovery",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 811000002,
+        "reset_cluster": "native-reset-811000002",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_02.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "73cac9c990ca3d2696cefc6d2db14be7d0a0f7ba944c4a764f5c20e7cc8e7907"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": null
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000002_prediction_matrix_discovery_02",
+        "arrays": {
+          "predictions": {
+            "sha256": "08b19c79c1c414ca00f6e1b49e87b0d7304e1cb1426d991d996e272eddbe5e1e",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "981e4deaeaa9ae4e4a4f83544e22f145b30b4a9b05cda9535e06f7c803acc037",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "18599045272bd278ef189a330bcbefb77f1ddc6d3a3564d81ba1821120e939ff",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": true
+    },
+    {
+      "index": 3,
+      "id": "discovery_03",
+      "source": "original_discovery",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 811000003,
+        "reset_cluster": "native-reset-811000003",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_03.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "f2a305177b98f8c576fac5fc3f26f3046a07ce94fa0e0e9cea03031d213d924d"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": null
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000003_prediction_matrix_discovery_03",
+        "arrays": {
+          "predictions": {
+            "sha256": "eecd63633fcc673613dc4c5076aacfd565adec08b0f4ba563bf408606f2f0860",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "793038447f412c0ed30479b54899aef82927a2d04ef57bee4dfa08fffe081895",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "5206c2e0f56182d7d6a318200fd632ef10796ec63a3337f0375f8a8d2465bed1",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": true
+    },
+    {
+      "index": 4,
+      "id": "v2_r0_trial_raw_0",
+      "source": "later_independent",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 943000000,
+        "reset_cluster": "native-reset-943000000",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_raw_0.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "397d877c4d2bb52622566068c164e6e68f8f9f7db1537d3d52b0f765eae52ca1"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "c33491f2e51b2b7dc9543c939141f74b4fc69ae05cc5a2a2f255c2c9473b6f24"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000004_prediction_matrix_v2_r0_trial_raw_0",
+        "arrays": {
+          "predictions": {
+            "sha256": "c4bbf75cc71b27fa14a7108169c916412c011dc6c0f6b01f50961552303804d1",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "05beeef3369aa39d08ac5f4e9d1e2baf59eaf9e23ef420df872be497385ce117",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "aa86c47c35dbf163a41de5906ed27ed436ecf1a72c589fb23406258d8f1b8ef6",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 5,
+      "id": "v2_r0_trial_raw_1",
+      "source": "later_independent",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 943000001,
+        "reset_cluster": "native-reset-943000001",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_raw_1.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "5e06e22d5cc9f2eac3b114304dc9112b0c8513d233478cfef2e11370fc999ea7"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "d0d05613a5541aedb4edaf4f539faa7d225dc47bd61160197c0c7a6ad9958cb6"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000005_prediction_matrix_v2_r0_trial_raw_1",
+        "arrays": {
+          "predictions": {
+            "sha256": "a5b017e0f9d4d85c13dfbe2fed438256ace9b07906bde44598f4c221bd1ecc09",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "4944b577c7aa0042c1af2cb8a746490dcaa2c3dac5cf1d850cdf5e9c49efafcf",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "6c160f5bd4853d8cc8af2ee3497bf05c9907ff3c5710f22b2f7412cdaebde3ca",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 6,
+      "id": "v2_r0_trial_guided1_0",
+      "source": "later_guided",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 943000000,
+        "reset_cluster": "native-reset-943000000",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_guided1_0.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "86a144d8bda02a74a479d003f7f237dd298fa05173203a54399a41598a979ecb"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "af63ce18e14ee96d05d9a0f0b50f79b22e815d19ffd3f11ba71bbc1f8cfc8771"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000006_prediction_matrix_v2_r0_trial_guided1_0",
+        "arrays": {
+          "predictions": {
+            "sha256": "68286891ea82eb0fb69970120f89768019480293c30310cda08beac77d4b976d",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "4a49ef8e3da29e6d8aa03476a9cadf3eaff05b6081f54a7422a6cf9e9d32f826",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "ce2cd73f763008fd1de46cb8ed2bac745f1bbf14bd0b73e812786a1dcdba62c6",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 7,
+      "id": "v2_r0_trial_guided1_1",
+      "source": "later_guided",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 943000001,
+        "reset_cluster": "native-reset-943000001",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_guided1_1.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "a7dcf08dba730a9fc2060915c30a752e8126d2491b0732087359eb3171bad027"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "51b3694767edb36a4d3120de7c5e3611ae2986a42ab21899cd073a223b51cbd2"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000007_prediction_matrix_v2_r0_trial_guided1_1",
+        "arrays": {
+          "predictions": {
+            "sha256": "af6fbdf036bf8f077f7eb1f91b0c0ba224551673414d325e54c81ff2748b7b12",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "0ad1fc3032cab94cd7af3041d1dd8ee5e1bc336d65128b2d6f89eb4d543e52b5",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "40ce63314c5e79c5d0ee92fa09571b9f272dee8b3d8c9145b631ceae7cc8df30",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 8,
+      "id": "h4_r1_independent_00",
+      "source": "h4_independent",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 952000000,
+        "reset_cluster": "native-reset-952000000",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "89f6e298b6012caa725058544710b1281771834783c314c3562698149eff0208"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "b62c79d672de2693218e77710542ea5c3dcb50a4d9b996d2fac0975cd6aad9fb"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000008_prediction_matrix_h4_r1_independent_00",
+        "arrays": {
+          "predictions": {
+            "sha256": "8f815d9cc7d75e6ab88213ac18d708dd3a3069b450073556a03a1dd3fdc0c694",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "fb1e5d2461d9a711ab6bec8caf1c9441abd469bc594b4ced689ff3122bbb4c4e",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "e7ee0e6602a12c4d7c9eb2ee054a32fe37fcf75384461f9707daaac396ae0c29",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 9,
+      "id": "h4_r1_independent_01",
+      "source": "h4_independent",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 952000001,
+        "reset_cluster": "native-reset-952000001",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_01.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "e02f8aa87e50c7ed618456ae5fcfe2c7c4d10b345d335be1eb560854759de0ed"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "d133429b3c4cbac254e45c74aec2324483a3d9a0f1f55f951a90930fa3a0c585"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000009_prediction_matrix_h4_r1_independent_01",
+        "arrays": {
+          "predictions": {
+            "sha256": "7b43483090bbc77d77cf6652274c2604a22e7f04c99f3edb594d7e8236dfdcbb",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "6989dce4380678aeca50583066e1ba5bfc8896e4ad0550892542d2f49071e273",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "62fbb984d349f1031ddc629792388cd4ecb343aa28e31ccf73428efcf0c6c832",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 10,
+      "id": "h4_r1_fixed_high_00",
+      "source": "h4_fixed_high",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 952000000,
+        "reset_cluster": "native-reset-952000000",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_fixed_high_00.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "75cdddd30f9965557ecab9970944166302e2a5f2c0b535c9a86c2fb32b402dc2"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "139e88fc32aa5f952b691f362c333b75589190aae9145bbcd3d89b920baa2045"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000010_prediction_matrix_h4_r1_fixed_high_00",
+        "arrays": {
+          "predictions": {
+            "sha256": "7cc919bb6abc42cb5f0ce65d88f6d471d69dffe97ddc8f52aaa9913a0298a875",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "bbf4757534f0e77ee79c9f599909851868ae662c9206c1e2fba59c2a5e721bb9",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "921e00c8ffbbc1c396141280e0d03ac4e8efa7d767f2699f7af5e5e8375f4660",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 11,
+      "id": "h4_r1_fixed_high_01",
+      "source": "h4_fixed_high",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 952000001,
+        "reset_cluster": "native-reset-952000001",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_fixed_high_01.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "bc921764f4391bb341208878811d088f87a90badc2d38eec5912fc4a8f06c6a6"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "324da2ec9ed93641a2324fa877d9bbdc33ecfe024e425c7f5f186eacdd23db74"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000011_prediction_matrix_h4_r1_fixed_high_01",
+        "arrays": {
+          "predictions": {
+            "sha256": "01830608147c44a4c073a9fe9b173e3695a745e1e8c2566bc079c4421fdfaa7d",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "3c735234137b378b61a422ec8f1cb363ef063a703413c970b36f4ecd3ef7f417",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "7ac091e60893e3e5824ce0e4e9f5254176b17c7af54a6b85326b5ebcf4d00d70",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 12,
+      "id": "h4_r1_backoff_00",
+      "source": "h4_backoff",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 952000000,
+        "reset_cluster": "native-reset-952000000",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_backoff_00.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "14d4d7ad2add08548ba61c173d42f123f8f8bb110b2ee0e1c825db31265e9d0e"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "5566e0627eb3782b3f946d24fcbaed46cf6e561c79fdbd4bf10ce34f881c8bd2"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000012_prediction_matrix_h4_r1_backoff_00",
+        "arrays": {
+          "predictions": {
+            "sha256": "1d8692f20cf4a683ae68f355cf7b0901fe0ad1d70347ad8bb1f1a25cb4abe28c",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "c868a606f355fdd5c699e32a7576f1755a93c442313df68c215ab822f72b6c3f",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "5c9db55b2de991ed14c2e2f7f571863e46dcb8118d2ae5ea16e430b2ccdeecf9",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 13,
+      "id": "h4_r1_backoff_01",
+      "source": "h4_backoff",
+      "N": 1000,
+      "ancestry": {
+        "reset_seed": 952000001,
+        "reset_cluster": "native-reset-952000001",
+        "scope": "Historical development trajectory; paired arms share reset clusters"
+      },
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_backoff_01.npz",
+        "kind": "sealed_teacher_npz",
+        "group": null,
+        "states": {
+          "shape": [
+            1000,
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "b1c8fc1db3117a8dcb88096036eff7247466dd5b9d2773ce95e28b1878dffefe"
+        },
+        "row_steps": {
+          "shape": [
+            1000
+          ],
+          "dtype": "int64",
+          "sha256": "702746827e553786bb026ac120cb58745fef3d3f554c33891809001cc37639f0"
+        },
+        "terminal": {
+          "storage": "separate_npz_member",
+          "key": "terminal_state",
+          "shape": [
+            19
+          ],
+          "dtype": "float64",
+          "sha256": "8ce538a5b4db687dd209896f2c4e10cde08c038beea17ac7a9a57cb28e3f61dc"
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+        "group": "arrays/a000000013_prediction_matrix_h4_r1_backoff_01",
+        "arrays": {
+          "predictions": {
+            "sha256": "b27600e4a30667272b1c218f236b48ca1c4ec962a134da751c2d03f104b337a6",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "f3fd97734f97b80280ff8a01f50cc1b432f348d893e2ede3308ad3f9b795f676",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "d450dbbfa39407290f47544029d8005cab1ffccff6c2e533ef473a70b2d6925a",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 14,
+      "id": "k1_primary_reference_00",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103100",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000002000_episode_k1_primary_reference_00",
+        "states": {
+          "sha256": "d39c202c79f10e6d9302d1515175e0c85fa422b52c31e89416f3ef7b5ad87a19",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "d39c202c79f10e6d9302d1515175e0c85fa422b52c31e89416f3ef7b5ad87a19",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077872_prediction_matrix_k1_primary_reference_00",
+        "arrays": {
+          "predictions": {
+            "sha256": "8e3953ee1bca517df5bf41da76f572c9e6d1f1e2285c6b7f5438cd70f41195f4",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "97e499ed1bd4b4f70f2d5da31223cfcb0f10f4dd6e4f4af26cd25b19b55456ae",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "d6263f3b7b7eb115eab79c13288a6762b2d6097d708a6c2bbbb5bafc3a3056c7",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 15,
+      "id": "k1_primary_reference_01",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103101",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000004850_episode_k1_primary_reference_01",
+        "states": {
+          "sha256": "a57f97aba58df1ca58ef5412458af22b5c95fac1d9bdddf49943b10e7b88187c",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "a57f97aba58df1ca58ef5412458af22b5c95fac1d9bdddf49943b10e7b88187c",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077873_prediction_matrix_k1_primary_reference_01",
+        "arrays": {
+          "predictions": {
+            "sha256": "30378caee6ae68f0dbdbc1a8ce33da5b41ac03dbbbac78bba509b68ebda7111d",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "447702b536aaa8eac90bf87ba55ff24e85bc7b2a8edbc87d1ab21f5e4e346b55",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "a4e4ad163c56a5821ee2e1107a1056ce7e311d5b19de5c96323844d93baccc67",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 16,
+      "id": "k1_primary_reference_02",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103102",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000008124_episode_k1_primary_reference_02",
+        "states": {
+          "sha256": "4fd35ccc01a0b320d31afa1e58c7bdb394cd804a5f0f9119c3f37930fbf282c5",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "4fd35ccc01a0b320d31afa1e58c7bdb394cd804a5f0f9119c3f37930fbf282c5",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077874_prediction_matrix_k1_primary_reference_02",
+        "arrays": {
+          "predictions": {
+            "sha256": "90b5604acdd42bc16d8db406da6d9302797d89d1acbe9bbe857266c96a4bd47f",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "1c075cecd47d7cc6e4ec890b192516380f3eeeec3421ffff8b63aa04186c2904",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "84204aeb784f90a8f396ae9236a682a863ef6aefec732073e04361a213ca82c5",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 17,
+      "id": "k1_primary_reference_03",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103103",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000010962_episode_k1_primary_reference_03",
+        "states": {
+          "sha256": "76aa90dbe0f938d4e461c0dd28c2c2da3a8d7b30a203a9b3253ea6bf0eef773c",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "76aa90dbe0f938d4e461c0dd28c2c2da3a8d7b30a203a9b3253ea6bf0eef773c",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077875_prediction_matrix_k1_primary_reference_03",
+        "arrays": {
+          "predictions": {
+            "sha256": "52d9410538f5b3064a7a5de5dd7a18b129a86b298763958a323f534fe41610c2",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "3764ef9cd42bf4e996f3e0ddaf29643bb5041ebffaa354faa33c629ae7a70d23",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "38dc8f3359e09fcef3b3c2b97d635393ce6d2f666cf4ae47135e5b3d6dd3373e",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 18,
+      "id": "k1_primary_reference_04",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103104",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000013884_episode_k1_primary_reference_04",
+        "states": {
+          "sha256": "cf0a966bdd4ca6f05639b055da603330176d64e6eaed4cfc34d5ea2da0fc84ef",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "cf0a966bdd4ca6f05639b055da603330176d64e6eaed4cfc34d5ea2da0fc84ef",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077876_prediction_matrix_k1_primary_reference_04",
+        "arrays": {
+          "predictions": {
+            "sha256": "7c5ff53197cb1d89896c35fc76f1eccaa879951548e8b1639b46dfe53fe44fb9",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "34fb720f93a107a005d1687903ec85cfbb73d6de69c9b576084dd26184c74f9a",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "48d2a8de7e9f64a09e0b94392f9a3bd37daac77b8d0d33bfdcb9e545dcebd6b4",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 19,
+      "id": "k1_primary_reference_05",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103105",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000016786_episode_k1_primary_reference_05",
+        "states": {
+          "sha256": "5650c1e18886a1d9c070b9204d1b3303dc47e6ce4ff422ae04b57cc50ac00c09",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "5650c1e18886a1d9c070b9204d1b3303dc47e6ce4ff422ae04b57cc50ac00c09",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077877_prediction_matrix_k1_primary_reference_05",
+        "arrays": {
+          "predictions": {
+            "sha256": "39d05a6d3c773dd214c321d9121ac0e4433384375c9e18c1fbe3ad5b573741df",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "b84a76928828e794f0e727bd7a5979126894b8dea54843b05604ffc50029fa23",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "2cd222986d45955120fd0a3de43197416db234a7859792c1ad87ec97cef47483",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 20,
+      "id": "k1_primary_reference_06",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103106",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000019580_episode_k1_primary_reference_06",
+        "states": {
+          "sha256": "9a23c4073318d355a1c07d2ff04b88174f5916fb9220a62ab7e2b701d02cd4ff",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "9a23c4073318d355a1c07d2ff04b88174f5916fb9220a62ab7e2b701d02cd4ff",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077878_prediction_matrix_k1_primary_reference_06",
+        "arrays": {
+          "predictions": {
+            "sha256": "bf3e7e69c76faa85f0634a59bc8c23cbe25c8aeef60b09b107a547ade6d2b5cb",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "1bb111929fe2dfa2b520b000d050a57ac17199473acda3597227f73632b8ebad",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "319ef39253e8d2b8fd271328de32d664a49ffd7d535da13f800d2c557a4cdf72",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 21,
+      "id": "k1_primary_reference_07",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103107",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000022396_episode_k1_primary_reference_07",
+        "states": {
+          "sha256": "87cc9f1dfbaff0f17cd715e4effc942fb175fe5c703533c2463562e7e48599c3",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "87cc9f1dfbaff0f17cd715e4effc942fb175fe5c703533c2463562e7e48599c3",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077879_prediction_matrix_k1_primary_reference_07",
+        "arrays": {
+          "predictions": {
+            "sha256": "3d6994a2840390e65ce7978ca18bddd45f9c673a93d562b4e4cbb7c1e0e77cd7",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "f391ead2b642a61bffe9e3ef42ee05434e1cb182a257b3ca6692c53c26ba55bb",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "d4f28beb29c4453dc2b1e2b2b61df808f92eb2623e6afc65283adc4967c203df",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 22,
+      "id": "k1_primary_reference_08",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103108",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000025230_episode_k1_primary_reference_08",
+        "states": {
+          "sha256": "83e301690d61947daf6dce90779a339593c73f55e69b67a3fe48c278f8c08ab3",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "83e301690d61947daf6dce90779a339593c73f55e69b67a3fe48c278f8c08ab3",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077880_prediction_matrix_k1_primary_reference_08",
+        "arrays": {
+          "predictions": {
+            "sha256": "e576fbc32acae1a5671a09d1e99fe68dbdb30a9ad137985f72ab85d3450c9f94",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "b9cc98ba85ea91be3fc2c211455bf39281e81223efbd06d0fbd1ebc4e717f154",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "d39f84fb93a39df90296cb1999368a41b5163ef4eb3e4d095b5c484fe5ba7816",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 23,
+      "id": "k1_primary_reference_09",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103109",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000028048_episode_k1_primary_reference_09",
+        "states": {
+          "sha256": "850c8de8f3e56fcf9d7bd6b3c98eebf35a2aec8f895ac73994c6af0ba055c070",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "850c8de8f3e56fcf9d7bd6b3c98eebf35a2aec8f895ac73994c6af0ba055c070",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077881_prediction_matrix_k1_primary_reference_09",
+        "arrays": {
+          "predictions": {
+            "sha256": "98a97d71dfe5286314e63f17016f3892b1c55969fed9e47f98ff08cf3c481163",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "0b7ec9609adc60f5f4ed65a43109a84c072fb7bc2a7ceddfc5f1c3f7984c2d1a",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "a25a881531b57f1263c33b350385c79cc5441473c35f560e315bc02c500e6dbd",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 24,
+      "id": "k1_primary_reference_10",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103110",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000030880_episode_k1_primary_reference_10",
+        "states": {
+          "sha256": "f09896d6a92c0ba0fb1e915f1062a951d2e1652cfd8e23e3d60edcce440f0e6b",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "f09896d6a92c0ba0fb1e915f1062a951d2e1652cfd8e23e3d60edcce440f0e6b",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077882_prediction_matrix_k1_primary_reference_10",
+        "arrays": {
+          "predictions": {
+            "sha256": "b27cb7e7d34cdfb893c922c9741048d2d3578942de4ea813d904f82213bf0d15",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "a7bc75f931d81ef3096b1bd4aca97fb88cac912e487a20f21a6746961499e5bf",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "46df0da9fcc4d9f6bbbaacf41af3cb99de26ce0769378505038d2c547d7e671a",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 25,
+      "id": "k1_primary_reference_11",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103111",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000033828_episode_k1_primary_reference_11",
+        "states": {
+          "sha256": "22ea712718da52ff96eadf33392f9bdd9b714a04c902e5fdb715cbe3a89b2228",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "22ea712718da52ff96eadf33392f9bdd9b714a04c902e5fdb715cbe3a89b2228",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077883_prediction_matrix_k1_primary_reference_11",
+        "arrays": {
+          "predictions": {
+            "sha256": "7a1c223d021ef89d67fb08494de5943b12154594b98fd7d718cb5de0674ec648",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "691a41b96ae14110b51d05f84fc2807f2acef6aecdbba3cfcddce2cb60807407",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "ee9ac320b67fec208547a4d9e2307ba4195bdf69bac7f4d5f5760c069db12c7a",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 26,
+      "id": "k1_primary_reference_12",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103112",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000036618_episode_k1_primary_reference_12",
+        "states": {
+          "sha256": "28b9ba1df88eb2d9ee3365a5da8f1c9d8f61932fb68759f2e9dfc2d25836e202",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "28b9ba1df88eb2d9ee3365a5da8f1c9d8f61932fb68759f2e9dfc2d25836e202",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077884_prediction_matrix_k1_primary_reference_12",
+        "arrays": {
+          "predictions": {
+            "sha256": "3681345af0e70b98e26c75b247450fe362eb3783c275b1cde269b3c3787d6a49",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "ab4adbe256b1c619c110a6257e6bdaa6d536081244434a02a21ceb32def7cc4c",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "a9ee02693ec5c9cf4a095aaa160beef2669aaf28092fcbd5cdc96bb7898277c8",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 27,
+      "id": "k1_primary_reference_13",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103113",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000039452_episode_k1_primary_reference_13",
+        "states": {
+          "sha256": "4f9c1dccc6b26d23f42c77f0df8e7c7ddc01206fae1104e00be27c7f60c2d789",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "4f9c1dccc6b26d23f42c77f0df8e7c7ddc01206fae1104e00be27c7f60c2d789",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077885_prediction_matrix_k1_primary_reference_13",
+        "arrays": {
+          "predictions": {
+            "sha256": "d2fcb79706bff567bfa5792bf1c617128a91420b8d519a4a36092acf2dcbee34",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "edb467e58e8b06cae0bcea649c55675c3b36c21ae53ee32ee31db0b11a45d8a8",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "6c2b609a9002f7817682a259bce7cdb3173e631567a64fe7957b8cdcffdaa1c5",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 28,
+      "id": "k1_primary_reference_14",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103114",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000042218_episode_k1_primary_reference_14",
+        "states": {
+          "sha256": "8e87f86a0eed30ceecc9f3d32192550087cbf096113a644199352e2f42ab4dab",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "8e87f86a0eed30ceecc9f3d32192550087cbf096113a644199352e2f42ab4dab",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077886_prediction_matrix_k1_primary_reference_14",
+        "arrays": {
+          "predictions": {
+            "sha256": "9762339e36bbbbe216160888dee7385c6031dfc1755678541f310c300d974542",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "4760a6215d388459a23349035d10a58a6dcc9eb42975347d5bb834e8b74d28e1",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "d4904658441f3e5b6bff41c059649a92ff4aafb0c7b4268a3e051368a30cec8e",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 29,
+      "id": "k1_primary_reference_15",
+      "source": "qualified_reference",
+      "N": 1000,
+      "ancestry": "native-reset-2026103115",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000045096_episode_k1_primary_reference_15",
+        "states": {
+          "sha256": "f45b9cb276eb4c47d53d6bb82c55c818eafc531d53fbd9b93d87c45e34599d16",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 1000,
+          "parent_key": "states",
+          "parent_sha256": "f45b9cb276eb4c47d53d6bb82c55c818eafc531d53fbd9b93d87c45e34599d16",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077887_prediction_matrix_k1_primary_reference_15",
+        "arrays": {
+          "predictions": {
+            "sha256": "c5a847d338f7189141066d5288b8205f38ae4b42556b5f9b94fc6d63bb53d83f",
+            "shape": [
+              1000,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "b8d8e61958fb5f9a21d03c26dab7bc9ae1c5db1700e820c68b5aebd97ff44580",
+            "shape": [
+              1000,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "c04a81bf791d9bbd6c40993814773481ccbea3e02647ffc8688b4a7653b5ac7c",
+            "shape": [
+              1000,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 30,
+      "id": "k1_random_00",
+      "source": "executed_random_actions",
+      "N": 8,
+      "ancestry": "native-reset-2026103100",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000077904_episode_k1_random_00",
+        "states": {
+          "sha256": "8a1231c3a4f668b7e55935150b1125b41b82decd6b67cc674e75b28f1c2b03c7",
+          "shape": [
+            9,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 8,
+          "parent_key": "states",
+          "parent_sha256": "8a1231c3a4f668b7e55935150b1125b41b82decd6b67cc674e75b28f1c2b03c7",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077905_prediction_matrix_k1_random_00",
+        "arrays": {
+          "predictions": {
+            "sha256": "8b76ab9568778cbd8ca8d59a289e85d8108c49c05007f9db3c97bf0e98faa802",
+            "shape": [
+              8,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "86d64d6b17368df583d960c20255bd26a4a27b7af7b8e7fcd5b885b6505095cd",
+            "shape": [
+              8,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "dd067b98027a45eb33a97a647d61e8118a509739efc9eff9638c424408f5bd53",
+            "shape": [
+              8,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 31,
+      "id": "k1_random_01",
+      "source": "executed_random_actions",
+      "N": 26,
+      "ancestry": "native-reset-2026103101",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000077958_episode_k1_random_01",
+        "states": {
+          "sha256": "c4225f5a8aac8a96630f76ad815916f9d8b51362911e80d153c0267f8f52e3b9",
+          "shape": [
+            27,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 26,
+          "parent_key": "states",
+          "parent_sha256": "c4225f5a8aac8a96630f76ad815916f9d8b51362911e80d153c0267f8f52e3b9",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000077959_prediction_matrix_k1_random_01",
+        "arrays": {
+          "predictions": {
+            "sha256": "28da980c23fa8415fb9baf17d134bfd587132e5ba10db8b8b73f5761f564f53f",
+            "shape": [
+              26,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "06418775aba674cc311baaef93bb5e56537427dfeee8cbf1c0c119b599e0cacf",
+            "shape": [
+              26,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "140a479145cb58274953d6caa6d320ad3ec5d75e587dee315c7d389e496677d6",
+            "shape": [
+              26,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 32,
+      "id": "k1_random_02",
+      "source": "executed_random_actions",
+      "N": 22,
+      "ancestry": "native-reset-2026103102",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000078004_episode_k1_random_02",
+        "states": {
+          "sha256": "d4aa57733507eaa0ddb2bf21ddf9131e4d3df3026f5ef0977fc45ad20267c8d5",
+          "shape": [
+            23,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 22,
+          "parent_key": "states",
+          "parent_sha256": "d4aa57733507eaa0ddb2bf21ddf9131e4d3df3026f5ef0977fc45ad20267c8d5",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000078005_prediction_matrix_k1_random_02",
+        "arrays": {
+          "predictions": {
+            "sha256": "dff3fab37be82298ac6741e4b76b1772a6d1e0d60819c148efceb0950abb0744",
+            "shape": [
+              22,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "82f3a80b371ef32362168c0b04122910971acdf3afe796d9cd406e6028e12412",
+            "shape": [
+              22,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "1eb30311ecda23db35a5593d36980e5427f3e67a78429ce015d8a892d2a6ce80",
+            "shape": [
+              22,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    },
+    {
+      "index": 33,
+      "id": "k1_random_03",
+      "source": "executed_random_actions",
+      "N": 14,
+      "ancestry": "native-reset-2026103103",
+      "physical_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "kind": "k1_stage_b_episode_hdf",
+        "group": "arrays/a000078034_episode_k1_random_03",
+        "states": {
+          "sha256": "cf9df8f3088dfeb3f8a1c41c0e85c4d5072ab52ae24b9fba9fde0de57c1b5e16",
+          "shape": [
+            15,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "row_steps": null,
+        "terminal": {
+          "storage": "last_row_of_full_state_array",
+          "row": 14,
+          "parent_key": "states",
+          "parent_sha256": "cf9df8f3088dfeb3f8a1c41c0e85c4d5072ab52ae24b9fba9fde0de57c1b5e16",
+          "shape": [
+            19
+          ],
+          "dtype": "<f8",
+          "independent_terminal_sha256": null
+        }
+      },
+      "prediction_source": {
+        "file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "group": "arrays/a000078035_prediction_matrix_k1_random_03",
+        "arrays": {
+          "predictions": {
+            "sha256": "d8d37500a9b3290be4a0920cd3dc03e70e202c0e410cd84618c209c8f5ce28d5",
+            "shape": [
+              14,
+              9,
+              6
+            ],
+            "dtype": "<f4",
+            "encoding": "array"
+          },
+          "executed_actions": {
+            "sha256": "3e0ad7cf0b6b3b734ca6f9020c1cb3173a8d3d70000a209d65c4dacd76975a51",
+            "shape": [
+              14,
+              6
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          },
+          "observations": {
+            "sha256": "4abd2967e04e7a881d5faa0b276022abedbfe1d35894ca9cccffe88d54d63526",
+            "shape": [
+              14,
+              17
+            ],
+            "dtype": "<f8",
+            "encoding": "array"
+          }
+        },
+        "reference_column": 8,
+        "reference_slice_sha256": null
+      },
+      "label_observation_join": "Exact equality of recorded whole-array hashes between physical source and K1 prediction group; payloads remain unverified in this preflight.",
+      "views": {
+        "time": "states[:,0]",
+        "qpos": "states[:,1:10]",
+        "qvel": "states[:,10:19]",
+        "pre_action": "states[:N]",
+        "post_action": "states[1:N+1] where endpoint exists"
+      },
+      "terminal_missing": false
+    }
+  ],
+  "files": [
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_00.npz",
+      "available": true,
+      "bytes": 3164366,
+      "recorded_sha256": "2a2bc2fe1acc8c460c7135248683708a06fc07d6ad65a091d7f35b4f711f9e5f",
+      "recorded_bytes": 3164366,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_a/raw.h5",
+      "available": true,
+      "bytes": 9817424,
+      "recorded_sha256": "aa1877cf431c03abe436c8d9a1df387d8ccafc15f98a80c6c4e71c775938de64",
+      "recorded_bytes": 9817424,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_01.npz",
+      "available": true,
+      "bytes": 3164366,
+      "recorded_sha256": "a7a727990488b776e53578247d9b6dfe43512bebc8a3c9297c60ab8eebf41d10",
+      "recorded_bytes": 3164366,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_02.npz",
+      "available": true,
+      "bytes": 3164366,
+      "recorded_sha256": "cbdd1c41f5fcd51721309e0478ae0362db7b32aa9dc2ef18f76a54eadf28ff5e",
+      "recorded_bytes": 3164366,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/discovery_03.npz",
+      "available": true,
+      "bytes": 3164366,
+      "recorded_sha256": "4a0037a0fbb33deadc26c59960eedd414fbb3b52ff828a2670392df39c033b7f",
+      "recorded_bytes": 3164366,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_raw_0.npz",
+      "available": true,
+      "bytes": 3983124,
+      "recorded_sha256": "2d3c40d4a1e675aacc314ce5eb44b2b2a421459c722bb3a3e94b6e828a985e0f",
+      "recorded_bytes": 3983124,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_raw_1.npz",
+      "available": true,
+      "bytes": 3983124,
+      "recorded_sha256": "e793678542c84f98b47573b2d2851078ac4d08e497d34e3ee0da44740e187df7",
+      "recorded_bytes": 3983124,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_guided1_0.npz",
+      "available": true,
+      "bytes": 3983124,
+      "recorded_sha256": "9f1e8780834833e8f7d6fb4a49044cded401df23787dbdaea47fe7af99336b66",
+      "recorded_bytes": 3983124,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/v2_r0_trial_guided1_1.npz",
+      "available": true,
+      "bytes": 3983124,
+      "recorded_sha256": "2e44bfb77b0074c8939aa5fb3a8774561c36964a2230faee9e2de681b366baab",
+      "recorded_bytes": 3983124,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz",
+      "available": true,
+      "bytes": 4007410,
+      "recorded_sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413",
+      "recorded_bytes": 4007410,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_01.npz",
+      "available": true,
+      "bytes": 4007410,
+      "recorded_sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1",
+      "recorded_bytes": 4007410,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_fixed_high_00.npz",
+      "available": true,
+      "bytes": 4007410,
+      "recorded_sha256": "1b254a6b33ca56acfc18a9869f4c1f5e1fc0495104c34f572bff4137203900f9",
+      "recorded_bytes": 4007410,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_fixed_high_01.npz",
+      "available": true,
+      "bytes": 4007410,
+      "recorded_sha256": "431c9c790e11c89978661fede05d6be30da3753f3b94199119c788227ade8770",
+      "recorded_bytes": 4007410,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_backoff_00.npz",
+      "available": true,
+      "bytes": 4007410,
+      "recorded_sha256": "e04b36d27820a2a3619cfdb22c849ee5d8164cad3f363eee042cffa6cef2632c",
+      "recorded_bytes": 4007410,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_backoff_01.npz",
+      "available": true,
+      "bytes": 4007410,
+      "recorded_sha256": "d78c3b43e5eaab2c5162eadd6508f3cb0846d852efe65da42f59cb61876b3345",
+      "recorded_bytes": 4007410,
+      "whole_file_sha256_recomputed": false
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+      "available": true,
+      "bytes": 1239388136,
+      "recorded_sha256": "2b73fc8e9f2b290dd3af0aa9153de009156f78d63cb239c65557ffe74d8c0e47",
+      "recorded_bytes": 1239388136,
+      "whole_file_sha256_recomputed": false
+    }
+  ],
+  "complete_input_file_bytes": 1301839980,
+  "array_payload_bytes": {
+    "states": 4570640,
+    "terminal_states": 4560,
+    "observations": 4089520,
+    "actions": 1059360,
+    "full_prediction_matrices": 6495120,
+    "reference_prediction_slice": 721680,
+    "row_steps": 112000
+  },
+  "selected_verified_array_payload_bytes": 16331200,
+  "maximum_full_control_rows": 30070,
+  "terminal_rows_available": 30,
+  "joint_order": [
+    "rootx",
+    "rootz",
+    "rooty",
+    "thigh_joint",
+    "leg_joint",
+    "foot_joint",
+    "thigh_left_joint",
+    "leg_left_joint",
+    "foot_left_joint"
+  ],
+  "joint_types": [
+    "slide",
+    "slide",
+    "hinge",
+    "hinge",
+    "hinge",
+    "hinge",
+    "hinge",
+    "hinge",
+    "hinge"
+  ],
+  "actuator_order": [
+    "thigh_joint",
+    "leg_joint",
+    "foot_joint",
+    "thigh_left_joint",
+    "leg_left_joint",
+    "foot_left_joint"
+  ],
+  "input_hash_contract": "SHA-256 of C-contiguous native array bytes, distinct from whole-file SHA-256; no numeric payload hashed in this preflight.",
+  "reference_prediction_contract": "Hash the complete saved (N,9,6) float32 matrix, then select immutable policy_order column8. No separate reference-slice hash is recorded.",
+  "state_contract": "state=(time,qpos[9],qvel[9]); qpos=state[1:10], qvel=state[10:19]; physical qvel is unclipped. observations=state[2:10] + clip(state[10:19],-10,10). Do not reconstruct qvel from clipped observations.",
+  "terminal_limits": "Four original-discovery NPZs preserve N pre-action states only. Ten later MPPI NPZs preserve N pre-action states plus separate terminal_state; 20 K1 stage-B episodes preserve N+1 states. No missing terminal is fabricated.",
+  "no_duplicate_reads": "Use prediction-group observations and executed_actions canonically; their hashes match source arrays. Read physical states from fourteen sealed teacher NPZs and twenty stage-B episode groups only.",
+  "excluded": "All warmstarts, integration arrays, planner arrays, model banks, checkpoint files and S1.1 student roster are unnecessary for the motion-only diagnosis.",
+  "integrity_scope": "File sizes checked and HDF dtype/shape/sha256 metadata plus NPZ ZIP member directories inspected. Whole-file hashes inherited from original closed K1 catalog/NPZ descriptors; array numeric integrity remains a frozen-execution task.",
+  "metadata_source": {
+    "file": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/preflight_005.json",
+    "bytes": 444165,
+    "sha256": "ae0acdffa9ae096074e5a7e6bfe4d1393269ae84aee255b8a08afb433ca66a58"
+  },
+  "normalization_script_new_read_bytes": 444165,
+  "normalization_script_wall_seconds": 0.001129208001657389,
+  "numeric_motion_dataset_reads": 0,
+  "numeric_npz_member_reads": 0,
+  "new_network_forwards": 0,
+  "new_physics_controls": 0,
+  "new_training_updates": 0
+}

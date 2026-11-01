@@ -1,0 +1,54 @@
+{
+  "schema": "walker-guided-data-comparison-v3.1",
+  "hypothesis": "Recorded successful high-weight guided experience improves a fixed-update child versus matched independent experience.",
+  "parent_hash": "c107f02196502b2e2fe8aed52cea8691e5204c27ef413adfb5fcbd2a41b1bcf0",
+  "common_original_rows": 4064,
+  "common_recovery_rows": 32,
+  "teacher_rows": 2000,
+  "updates": 2000,
+  "checkpoints": [
+    500,
+    1000,
+    2000
+  ],
+  "batch_size": 256,
+  "lr": 0.0003,
+  "eta_theta": 0.01,
+  "prox_reduction": "mean",
+  "anchor_refresh": 250,
+  "fit_seed": 910001000,
+  "device": "cpu",
+  "torch_threads": 4,
+  "episode_steps": 1000,
+  "primary_root": 950100000,
+  "curve_root": 950110000,
+  "confirmation_root": 950120000,
+  "curve_episodes": 4,
+  "cohort_episodes": 16,
+  "gate": {
+    "minimum_relative_cost_gain": 0.05,
+    "success_nonregression": true,
+    "survival_nonregression": true,
+    "mean_steps_nonregression": true,
+    "comparisons": [
+      "parent",
+      "independent"
+    ],
+    "minimum_successes": null
+  },
+  "teacher_cost_guard": {
+    "aggregate_relative_tolerance": 0.05,
+    "per_pair_fallback": false
+  },
+  "generating_rho": 0.1199341983507337,
+  "stopping_rule": "Exactly two fixed fits. Fresh confirmation only if guided primary gate passes. Stop on primary or confirmation failure; no alternate updates, seed, labels or coupling retry.",
+  "action_agreement_role": "Diagnostic only; cannot reject data or select a checkpoint.",
+  "budgets": {
+    "requested_controls": 124000,
+    "neural_rows": 1400000,
+    "optimizer_steps": 4000,
+    "backward_rows": 1024000
+  },
+  "novel_mechanism": false,
+  "claim_scope": "Development comparison on two recorded teacher starts and sixteen fresh paired actor starts; no population or loop-closure claim."
+}

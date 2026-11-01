@@ -1,0 +1,62 @@
+{
+  "schema": "walker-k1-2-independent-metadata-prelaunch-check-v1",
+  "execution": "Already performed once through exec_command; this receipt records known facts, not a second check.",
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-"
+  ],
+  "stdin_file": "executed_script.py",
+  "exit_code": 0,
+  "wall_seconds": null,
+  "wall_note": "External command wall was not retained by the initial helper. Tool wrapper reported approximately 0.2 s; no exact external timing is asserted.",
+  "logical_metadata_input_bytes": 7433718,
+  "logical_metadata_bytes_note": "Complete seven JSON contents plus recipe read once; interpreter/import reads were not instrumented. Receipt-generation reads are separate engineering overhead.",
+  "numeric_motion_dataset_reads": 0,
+  "numeric_npz_member_reads": 0,
+  "original_full_file_hash_bytes": 0,
+  "checks": 3552,
+  "inputs": {
+    "configs/studies/motion_diagnosis.json": {
+      "bytes": 6610,
+      "sha256": "6e01b7967906723e6c2af099472fefd8db8ceb93497116d4658f3f88af4b196f"
+    },
+    "src/gps/mppi_gps/audits/motion_diagnosis.py": {
+      "bytes": 49016,
+      "sha256": "ab3edb232f3c6c9bac54daa8bbc35af8f9bf5f2905aac3449148815dd246d0a3"
+    },
+    "src/gps/mppi_gps/audits/trajectory_review.py": {
+      "bytes": 39570,
+      "sha256": "5378e7dea986dcc52110fe9c468971a6f30f8352ac43cc8882124b519e5d16fe"
+    },
+    "configs/studies/motion_inputs_k1_2.json": {
+      "bytes": 100299,
+      "sha256": "31b64f1893b4e62f37cdac4db3eb40a2f65856ed815afbabad82e443cacf7d7c"
+    },
+    "results/action_compatibility_k1/run/config.json": {
+      "bytes": 686733,
+      "sha256": "167a45e2f947dfaa415267ad96c3f6eca37c06a0c810f32c5be626556bf57f43"
+    },
+    "results/action_compatibility_k1/run/result.json": {
+      "bytes": 6306890,
+      "sha256": "c75b1bb4586f7ed5f50040a5e4996d14db86ae399f8132818073b4dae5061881"
+    },
+    "results/action_compatibility_k1/run/input_manifest.json": {
+      "bytes": 13806,
+      "sha256": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99"
+    },
+    "results/action_compatibility_k1/external/full_run_file_manifest.json": {
+      "bytes": 45938,
+      "sha256": "553d22f10bfaa1c3d13130cd3b21f79f1b77ed260d17bfbdc0742dd45892a492"
+    },
+    "results/action_compatibility_k1/capsule.json": {
+      "bytes": 15040,
+      "sha256": "6a7601df78c5c9192676f344dc60a29ea13a439c9b35ac4c6d975cab44f06b51"
+    },
+    "results/trajectory_review_k1_1/run/result.json": {
+      "bytes": 258402,
+      "sha256": "90ff089887a72f217d82a091ca64de3c800a56290f3d6e1e8e182d989c552bd8"
+    }
+  }
+}

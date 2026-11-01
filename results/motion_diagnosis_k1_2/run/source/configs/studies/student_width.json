@@ -1,0 +1,109 @@
+{
+  "schema": "walker-student-width-w1-v1",
+  "hypothesis": "Changing only both tanh hidden-layer widths from 128 to 256 improves fixed-budget reconstruction and standalone control on the frozen clean executed-data benchmark.",
+  "widths": [
+    128,
+    256
+  ],
+  "seed_pairs": [
+    {
+      "policy_seed": 20261101001,
+      "fit_seed": 1103001000
+    },
+    {
+      "policy_seed": 20261101002,
+      "fit_seed": 1103001001
+    },
+    {
+      "policy_seed": 20261101003,
+      "fit_seed": 1103001002
+    }
+  ],
+  "rows": 4000,
+  "validation_rows": 2000,
+  "updates": 10000,
+  "checkpoints": [
+    0,
+    2000,
+    5000,
+    10000
+  ],
+  "batch_size": 256,
+  "lr": 0.0003,
+  "eta_theta": 0.0,
+  "prox_reduction": "mean",
+  "anchor_refresh": 0,
+  "gradient_clip": 0.5,
+  "normalization_floor": 0.05,
+  "torch_threads": 1,
+  "device": "cpu",
+  "prediction_batch_size": 1024,
+  "episode_steps": 1000,
+  "curve_seeds": [
+    1110000000,
+    1110000001,
+    1110000002,
+    1110000003
+  ],
+  "primary_seeds": [
+    1120000000,
+    1120000001,
+    1120000002,
+    1120000003,
+    1120000004,
+    1120000005,
+    1120000006,
+    1120000007,
+    1120000008,
+    1120000009,
+    1120000010,
+    1120000011,
+    1120000012,
+    1120000013,
+    1120000014,
+    1120000015
+  ],
+  "confirmation_seeds": [
+    1130000000,
+    1130000001,
+    1130000002,
+    1130000003,
+    1130000004,
+    1130000005,
+    1130000006,
+    1130000007,
+    1130000008,
+    1130000009,
+    1130000010,
+    1130000011,
+    1130000012,
+    1130000013,
+    1130000014,
+    1130000015
+  ],
+  "gates": {
+    "minimum_train_mse_gain": 0.1,
+    "minimum_fitting_pairs": 2,
+    "minimum_cost_gain": 0.05,
+    "minimum_cost_pairs": 2,
+    "competence_minimum_successes": 15,
+    "minimum_walking_gain": 2,
+    "minimum_walking_pairs": 2
+  },
+  "confirmation_trigger": "Task screen passes OR any final policy reaches 15/16 primary walking. Evaluate ALL six final policies on the disjoint confirmation panel; no best checkpoint/seed selection.",
+  "budgets": {
+    "requested_controls": 300000,
+    "neural_rows": 18000000,
+    "backward_rows": 15360000,
+    "optimizer_steps": 60000,
+    "episodes": 288,
+    "model_controls": 0,
+    "wall_seconds": 7200,
+    "storage_bytes": 17179869184
+  },
+  "stopping": "Exactly six fresh 10000-update fits, fixed 10k endpoint. Retain every failed episode and partial attempt. Stop on provenance, interface, runtime, budget, wall or storage error; no retry, extra seeds, best checkpoint, longer fit, new data, further teacher acquisition or coupling round.",
+  "uncertainty": "Three paired training seeds are the intervention replication units. Reset panels are shared and paired. Report all seed effects and a paired crossed seed/reset descriptive bootstrap; do not count 48 episodes or frames as 48 independent training runs. Development thresholds are screening conventions, not power calculations.",
+  "bootstrap_seed": 2026110199,
+  "bootstrap_draws": 2000,
+  "claim_scope": "Width intervention under a fixed update/row budget and fan-in initialization rule. Wider networks use more parameters/FLOPs; no equal-compute, universal capacity, teachability or coupling-convergence claim. Historical L1 is not a matched control."
+}

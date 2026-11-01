@@ -20,12 +20,18 @@ near-equal full scores conceal large, opposing local differences; cancellation
 varies by source. This establishes an averaging effect, not gait phase, causal
 importance or teachability. The [capsule](../results/trajectory_review_k1_1/README.md)
 retains the failed first audit, corrected tools source and both reports. No
-inference, simulation, training or coupling ran. The next
+inference, simulation, training or coupling ran. The earlier
 [S1.2 visitation hypothesis](student_visitation_s1_2_hypothesis.md) holds the label
 function fixed while contrasting state distributions. It remains untested and
 not launchable; it proposes no automatic learning or coupling follow-up.
 
-The user has authorized [K1.2](motion_diagnosis_k1_2_protocol.md), a bounded actual-motion diagnosis of all34 K1 trajectories. It will inspect saved physical states/actions and one fixed ordered-segment probe before recommending the next experiment. Repeated gait is only a possible Walker-specific factor; no stable cycle, unique attractor or teachability is assumed. S1.2 is not selected merely because drafted, and this authorization launches no training or coupling.
+[K1.2](motion_diagnosis_k1_2_results.md) is complete and independently audited:
+all 34 saved physical state/action histories, 561 cross-trajectory pairs and full
+motion atlases are retained. The finite probe and visual review do not establish
+a transfer cause, stable cycle or teachability. No new inference, integration,
+training or acquisition ran. The next [H5.0 guided-proposal hypothesis](teacher_proposal_h5_0_hypothesis.md)
+requires a separate frozen protocol; it is unimplemented and unlaunched. Repeated
+gait remains a possible Walker-specific factor rather than a requirement.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 

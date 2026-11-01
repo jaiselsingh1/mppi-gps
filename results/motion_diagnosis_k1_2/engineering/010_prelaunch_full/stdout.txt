@@ -1,0 +1,95 @@
+........................................................................ [  8%]
+........................................................................ [ 17%]
+........................................................................ [ 26%]
+........................................................................ [ 35%]
+........................................................................ [ 44%]
+........................................................................ [ 53%]
+..........................FF............................................ [ 61%]
+........................................................................ [ 70%]
+........................................................................ [ 79%]
+........................................................................ [ 88%]
+..............................................................x......... [ 97%]
+.......................                                                  [100%]
+=================================== FAILURES ===================================
+_________ test_one_shot_owner_preserves_result_and_never_retries[True] _________
+
+launch_tree = PosixPath('/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-195/test_one_shot_owner_preserves_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11840b290>
+complete = True
+
+    @pytest.mark.parametrize("complete", [True, False])
+    def test_one_shot_owner_preserves_result_and_never_retries(launch_tree, monkeypatch, complete):
+        calls = []
+    
+        class Process:
+            pid, returncode = 12345, 0
+    
+            def poll(self):
+                return self.returncode
+    
+            def wait(self, timeout):
+                assert timeout > 0
+                return self.returncode
+    
+        def start(command, **kwargs):
+            calls.append(command)
+            assert kwargs["env"]["CUDA_VISIBLE_DEVICES"] == ""
+            assert kwargs["start_new_session"]
+            (launch_tree / "result.json").write_text(json.dumps(dict(execution_complete=complete)))
+            return Process()
+    
+        monkeypatch.setattr(owner.subprocess, "Popen", start)
+        result = owner.launch(launch_tree)
+        assert result["execution_complete"] == complete
+        assert len(calls) == 1
+        assert (launch_tree / "evidence/episodes").is_dir()
+        launch = json.loads((launch_tree / "launch_receipt.json").read_text())
+        assert launch["retries_permitted"] is False
+        assert launch["owner"]["start_ticks"] == "42"
+>       assert launch["deadline_monotonic"] - launch["started_monotonic"] == 3600
+E       assert (132389.92878725 - 128789.92878725) == 3600
+
+tests/test_source_evaluation_launch.py:67: AssertionError
+________ test_one_shot_owner_preserves_result_and_never_retries[False] _________
+
+launch_tree = PosixPath('/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-195/test_one_shot_owner_preserves_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1184092d0>
+complete = False
+
+    @pytest.mark.parametrize("complete", [True, False])
+    def test_one_shot_owner_preserves_result_and_never_retries(launch_tree, monkeypatch, complete):
+        calls = []
+    
+        class Process:
+            pid, returncode = 12345, 0
+    
+            def poll(self):
+                return self.returncode
+    
+            def wait(self, timeout):
+                assert timeout > 0
+                return self.returncode
+    
+        def start(command, **kwargs):
+            calls.append(command)
+            assert kwargs["env"]["CUDA_VISIBLE_DEVICES"] == ""
+            assert kwargs["start_new_session"]
+            (launch_tree / "result.json").write_text(json.dumps(dict(execution_complete=complete)))
+            return Process()
+    
+        monkeypatch.setattr(owner.subprocess, "Popen", start)
+        result = owner.launch(launch_tree)
+        assert result["execution_complete"] == complete
+        assert len(calls) == 1
+        assert (launch_tree / "evidence/episodes").is_dir()
+        launch = json.loads((launch_tree / "launch_receipt.json").read_text())
+        assert launch["retries_permitted"] is False
+        assert launch["owner"]["start_ticks"] == "42"
+>       assert launch["deadline_monotonic"] - launch["started_monotonic"] == 3600
+E       assert (132389.935716375 - 128789.935716375) == 3600
+
+tests/test_source_evaluation_launch.py:67: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_source_evaluation_launch.py::test_one_shot_owner_preserves_result_and_never_retries[True]
+FAILED tests/test_source_evaluation_launch.py::test_one_shot_owner_preserves_result_and_never_retries[False]
+2 failed, 812 passed, 1 skipped, 1 xfailed in 53.95s

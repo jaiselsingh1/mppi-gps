@@ -3065,6 +3065,189 @@
         "later_receipts_external": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_trajectory_review_k1_1_001/engineering",
         "scope": "Engineering validation only; immutable scientific capsule and original gates unchanged."
       }
+    },
+    "motion_diagnosis_k1_2": {
+      "study": "K1.2",
+      "kind": "saved_actual_motion_and_ordered_segment_diagnosis",
+      "run_id": "2026-11-01_motion_diagnosis_k1_2_001",
+      "status": "complete_independently_audited",
+      "execution_complete": true,
+      "implementation_commit": "a77aa8831870674867d9a8af5564867bc742ec40",
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001",
+      "remote_directory": null,
+      "remote_copy_verified": false,
+      "availability": "Full new run available locally; tracked capsule omits only the compact raw motion NPZ. Original K1 source HDF/NPZ/checkpoints remain local-only outside Git.",
+      "file_count": 373,
+      "total_bytes": 26248760,
+      "capsule": {
+        "directory": "results/motion_diagnosis_k1_2",
+        "manifest": "results/motion_diagnosis_k1_2/capsule.json",
+        "manifest_sha256": "c8b5505b7d17abbaec39841fd948f4261a15e55448a77f433efa40b13971c993",
+        "manifest_bytes": 156553,
+        "exact_copy_files": 495,
+        "exact_copy_bytes": 43600350,
+        "run_files_copied": 372,
+        "run_bytes_copied": 20183975,
+        "in_git": true,
+        "scope": "Full new frozen run except evidence/motion.npz, all report assets, audit, preflight/engineering failures, independent metadata review, complete cost accounting and compact all-page visual review."
+      },
+      "file_catalog": {
+        "file": "results/motion_diagnosis_k1_2/external/full_run_file_manifest.json",
+        "sha256": "a55de0df77d1b955e1ed0d798a653c558f90ab679fe314836d7f2f70b7f3ccc5",
+        "bytes": 64017,
+        "files": 373,
+        "full_run_bytes": 26248760,
+        "scope": "Every closed-run file, including the omitted raw archive, is bound by the independent audit."
+      },
+      "config": {
+        "file": "results/motion_diagnosis_k1_2/run/config.json",
+        "sha256": "6e01b7967906723e6c2af099472fefd8db8ceb93497116d4658f3f88af4b196f",
+        "bytes": 6610
+      },
+      "result": {
+        "file": "results/motion_diagnosis_k1_2/run/result.json",
+        "sha256": "95f66aaaf9e99be2200ad965cb9a61a929aacf7a6a65e3a46724f647ff686fe3",
+        "bytes": 6231055
+      },
+      "input_manifest": {
+        "file": "results/motion_diagnosis_k1_2/run/input_manifest.json",
+        "sha256": "a68f85886888b209ad1142cd614dd569129c7cfa7ff804d91bd9f723923767ba",
+        "bytes": 2202
+      },
+      "source_manifest": {
+        "file": "results/motion_diagnosis_k1_2/run/manifest.json",
+        "sha256": "7f38451620636dda443e18f5e5d1f7723df1e43a97cda5bdf551f8c69c5517b6",
+        "bytes": 56340
+      },
+      "config_sha256": "6e01b7967906723e6c2af099472fefd8db8ceb93497116d4658f3f88af4b196f",
+      "result_sha256": "95f66aaaf9e99be2200ad965cb9a61a929aacf7a6a65e3a46724f647ff686fe3",
+      "input_manifest_sha256": "a68f85886888b209ad1142cd614dd569129c7cfa7ff804d91bd9f723923767ba",
+      "source_manifest_sha256": "7f38451620636dda443e18f5e5d1f7723df1e43a97cda5bdf551f8c69c5517b6",
+      "independent_audit": {
+        "file": "results/motion_diagnosis_k1_2/audit_001/receipt.json",
+        "sha256": "f939cf1c7827369a50d297ff473dbe61496815eb776babccf54a2e4cf5532ee9",
+        "bytes": 717,
+        "passed": true,
+        "checks": 380112,
+        "work": {
+          "source_hash_bytes": 1301839980,
+          "source_io_bytes": 247739332,
+          "dataset_attempts": 160,
+          "completed_datasets": 160,
+          "failed_datasets": 0,
+          "decoded_bytes": 16331200,
+          "within_queries": 19980,
+          "cross_queries": 700806,
+          "aligned_state_pairs": 17982374,
+          "total_hash_bytes": 1368114173,
+          "compact_io_bytes": 6064811,
+          "compact_arrays": 132,
+          "compact_decoded_bytes": 6356240
+        },
+        "wall_seconds": 12.20420954200381,
+        "earlier_findings_snapshot": "results/motion_diagnosis_k1_2/audit_001/findings.json",
+        "scope": "Final receipt includes the last closed-run rehash after the findings snapshot; final work is authoritative for cost."
+      },
+      "raw_motion_archive": {
+        "bytes": 6064785,
+        "file": "evidence/motion.npz",
+        "sha256": "55337bee1245059c96e208865fa04730364be0267b8489c42558073b16aff783",
+        "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001/evidence/motion.npz",
+        "available_local": true,
+        "in_git": false,
+        "remote_copy_verified": false
+      },
+      "canonical_report": {
+        "directory": "results/motion_diagnosis_k1_2/report",
+        "receipt": {
+          "file": "results/motion_diagnosis_k1_2/report/receipt.json",
+          "sha256": "621bd3d4706bc7aa7d96b6d876b7e0a1112d7c8418553af4f66f6c89e864d46c",
+          "bytes": 3832
+        },
+        "full_motion_atlas": {
+          "file": "results/motion_diagnosis_k1_2/report/full_motion_atlas.pdf",
+          "sha256": "212a3893cb7c57069d26408bb5ddb4ece891ef40a598bea4ad2436727b361bfe",
+          "bytes": 5690634
+        },
+        "derived_atlas": {
+          "file": "results/motion_diagnosis_k1_2/report/derived_curve_atlas.pdf",
+          "sha256": "ed739f825f473a2267f1f56f341b2223bc2ad76e954583ca3df1ac1b82aa7c01",
+          "bytes": 1380327
+        },
+        "scope": "Clean-clone mode renders saved block25 summaries and copies exact bound full-motion/pair assets; it does not rerender raw samples without the NPZ."
+      },
+      "visual_review": {
+        "file": "results/motion_diagnosis_k1_2/visual_qa/inspection_001.json",
+        "sha256": "1826c62bc77326c119a4ce6c218ef1bdc5f16416ed80503f4d4145ae62c17108",
+        "bytes": 6044,
+        "raw_pages": 34,
+        "derived_pages": 34,
+        "contact_sheets": 12,
+        "full_page_png_availability": "Local artifacts/2026-11-01_motion_diagnosis_k1_2_001/visual_qa/{raw,derived}_pages_001; exact hashes retained in capsule receipts."
+      },
+      "new_work": {
+        "aligned_completed": 17982374,
+        "aligned_requested": 17982374,
+        "checkpoint_loads": 0,
+        "completed_datasets": 160,
+        "dataset_attempts": 160,
+        "decoded_bytes": 16331200,
+        "failed_datasets": 0,
+        "gpu_operations": 0,
+        "new_mppi_controls": 0,
+        "new_neural_rows": 0,
+        "new_optimizer_steps": 0,
+        "new_physics_controls": 0,
+        "physical_rows": 30070,
+        "queries_completed": 720786,
+        "queries_requested": 720786,
+        "source_hash_bytes": 1301839980,
+        "source_io_bytes": 18690996,
+        "terminal_rows": 30
+      },
+      "analysis_counts": {
+        "aligned_state_pairs": 17982374,
+        "cross_queries": 700806,
+        "cross_trajectory_pairs": 561,
+        "curve_bins": 1205,
+        "pair_queries": 720786,
+        "rows": 30070,
+        "segments": 1204,
+        "trajectories": 34,
+        "within_queries": 19980
+      },
+      "worker_wall_seconds": 3.072112250010832,
+      "worker_peak_rss_bytes": 102137856,
+      "logical_file_io": {
+        "worker": 1320530976,
+        "audit_final": 1621918316,
+        "worker_plus_audit": 2942449292,
+        "report_compact_reads": 12129596,
+        "decoded_arrays_are_not_extra_file_io": true,
+        "convention": "Audit total_hash_bytes already contains source_hash_bytes. Add its source_io_bytes and compact_io_bytes once. Do not add decoded/heap bytes or archive size again."
+      },
+      "accounting": {
+        "file": "results/motion_diagnosis_k1_2/accounting/accounting.json",
+        "sha256": "25cdf30fb42b316e3b7ed1b9b1f1eec7c956500143fda0b9ef7a376b2c40a820",
+        "bytes": 67002
+      },
+      "preflight": {
+        "file": "results/motion_diagnosis_k1_2/preflight/preflight_accounting_007.json",
+        "sha256": "63e578f691851548703588034ef7526a650c199cc949a273ad75c0650691ea7e",
+        "bytes": 2695,
+        "failed_path_attempts": 2,
+        "scope": "Only metadata/header/file-descriptor reads preceded launch; known and unknown overhead retained."
+      },
+      "inherited_evidence": {
+        "k1": "results/action_compatibility_k1/capsule.json",
+        "k1_1": "results/trajectory_review_k1_1/capsule.json",
+        "availability": "K1 full source arrays/checkpoints remain local-only. Earlier acquisition/inference/learning/diagnosis counters are referenced separately, not pooled or claimed paid again."
+      },
+      "claim_scope": "Descriptive actual-motion inspection and one finite fixed-SI ordered-window probe; no gait-period, limit-cycle, causal transfer, teachability or useful-coupling claim.",
+      "next_hypothesis": {
+        "file": "docs/teacher_proposal_h5_0_hypothesis.md",
+        "status": "untested_unimplemented_not_launch_authorized_separate_protocol_required"
+      }
     }
   },
   "saved_analyses": {

@@ -1,0 +1,60 @@
+{
+  "schema": "walker-motion-preflight-accounting-v1",
+  "scope": "Explicit metadata input reads only; no raw numeric motion arrays, checkpoint loads, inference, physics, fitting or acquisition. Input-byte counters are logical bytes returned by readers, not OS cache/storage billing.",
+  "attempts": {
+    "preflight_001.json": {
+      "file_sha256": "d25fa22d9b40b9e03e0d4c6e56f7dbb420ce254e96d397b5231300ebb6ac7f7a",
+      "logical_input_read_bytes": 7831090,
+      "wall_seconds": 0.02066154200292658,
+      "tool_reported_wall_seconds": null,
+      "success": true
+    },
+    "preflight_002_failure.json": {
+      "file_sha256": "17177633613476175cd92bdee2b1d4a17c0c3d62dbdfab505bd1b6ab69b82733",
+      "logical_input_read_bytes": 634557,
+      "wall_seconds": null,
+      "tool_reported_wall_seconds": 0.086531833,
+      "success": false
+    },
+    "preflight_003_read_receipt.json": {
+      "file_sha256": "97ff92a7e2eb56b2d71233fb0b0b3747985a53d4571de48c103e5f3a185602cf",
+      "logical_input_read_bytes": 634557,
+      "wall_seconds": 0.0029746249929303303,
+      "tool_reported_wall_seconds": null,
+      "success": false
+    },
+    "preflight_004_path_lookup.json": {
+      "file_sha256": "2baf330b6991e015610f1ffae74f322f102ca0666e3d1c2b52fe3ad0b33f2f63",
+      "logical_input_read_bytes": 45938,
+      "wall_seconds": null,
+      "tool_reported_wall_seconds": null,
+      "success": true
+    },
+    "preflight_005_read_receipt.json": {
+      "file_sha256": "2fb8d9f0ecc0f2c10d8c96e2f2f0c08000c4888de282f77e2a280fd1b85e0aa1",
+      "logical_input_read_bytes": 4664885,
+      "wall_seconds": 0.08588458399754018,
+      "tool_reported_wall_seconds": null,
+      "success": true
+    }
+  },
+  "metered_pass_input_bytes": 13811027,
+  "metadata_normalization_read_bytes": 544347,
+  "preliminary_source_full_read_equivalent_bytes": 160675,
+  "preliminary_source_full_read_equivalents": {
+    "src/gps/mppi_gps/compatibility_inputs.py": 2,
+    "assets/walker2d.xml": 1,
+    "src/gps/mppi_gps/experiments/action_compatibility.py": 3
+  },
+  "unmetered_overhead": "Python/library startup imports, filesystem directory traversal, source-generation/helper reads, metadata accounting reads and tool/token billing not completely instrumented; unknown rather than zero. Failed shorthand-path attempts preserved.",
+  "known_failed_attempts": 2,
+  "numeric_motion_dataset_reads": 0,
+  "numeric_npz_member_reads": 0,
+  "new_network_forwards": 0,
+  "new_physics_controls": 0,
+  "new_training_updates": 0,
+  "final_roster": {
+    "file": "artifacts/2026-11-01_motion_diagnosis_k1_2_001/motion_input_roster_007.json",
+    "sha256": "31b64f1893b4e62f37cdac4db3eb40a2f65856ed815afbabad82e443cacf7d7c"
+  }
+}
