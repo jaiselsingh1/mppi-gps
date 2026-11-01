@@ -10,6 +10,8 @@ The [W1 width contrast](docs/student_width_w1_results.md) is also closed: wideni
 
 The [W2 update-budget contrast](docs/student_update_w2_results.md) confirmed that 2k checkpoints retain more controls and have lower complete cost than their continued 10k counterparts, across three fresh streams and a separate confirmation panel. Every endpoint still has **0/16 walking and full survival** on each panel. This is partial retention, not competent walking; no follow-up ran.
 
+The authorized [D1/D2 transfer diagnosis](docs/transfer_diagnosis_d1d2_protocol.md) next separates saved-state support from the consequences of single action errors. It reuses K1/W2 evidence, changes no learner or planner, and requires all unmodified teacher replays to pass before any action substitution.
+
 ## Setup
 
 Use Python 3.11 or newer and [uv](https://docs.astral.sh/uv/). Run commands from the checkout root:
@@ -36,6 +38,7 @@ uv run python scripts/train_mppi_gps.py study backoff --help
 uv run python scripts/train_mppi_gps.py study compatibility --help
 uv run python scripts/train_mppi_gps.py study width --help
 uv run python scripts/train_mppi_gps.py study update-budget --help
+uv run python scripts/train_mppi_gps.py study transfer-diagnosis --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 

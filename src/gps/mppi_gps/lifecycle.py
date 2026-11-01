@@ -54,7 +54,7 @@ def freeze(
             python=sys.version,
             platform=platform.platform(),
             source_root=str(ROOT),
-            policy_action_fitting=True,
+            policy_action_fitting=command != "transfer-diagnosis",
             raw_search_protected=True,
         ),
     )

@@ -163,7 +163,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         "feature_benefit_confirmed",
         "next_round_eligible",
     )
-    return {
+    report = {
         "directory": str(root),
         "kind": "result_capsule" if capsule else "frozen_run",
         "run_id": capsule.get("run_id", root.name),
@@ -211,6 +211,18 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         if capsule
         else "source snapshot and sealed inputs",
     }
+    if result.get("schema") == "walker-transfer-diagnosis-result-v1":
+        d1, d2 = result.get("d1", {}), result.get("d2", {})
+        report["diagnostics"] = {
+            "support_queries": d1.get("query_count"),
+            "support_threshold_q95": d1.get("calibration", {}).get("threshold_q95"),
+            "coverage_traces": len(d1.get("coverage_records", [])),
+            "baseline_replays": len(d2.get("baselines", [])),
+            "baseline_gate_passed": d2.get("baseline_gate_passed", False),
+            "substituted_branches": len(d2.get("branches", [])),
+            "scope": "Single-action substitution under a fixed open-loop teacher suffix; no learning or recovery claim.",
+        }
+    return report
 
 
 def format_inspection(report: dict[str, Any]) -> str:
@@ -227,6 +239,8 @@ def format_inspection(report: dict[str, Any]) -> str:
     )
     for label in ("teacher_outcomes", "student_outcomes", "teacher_student_gap", "gates", "costs"):
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
+    if "diagnostics" in report:
+        lines.append(f"diagnostics: {json.dumps(report['diagnostics'], sort_keys=True)}")
     lines.append(f"Inputs: {json.dumps(report['provenance']['input_manifest'], sort_keys=True)}")
     for item in report["files"]:
         state = "available" if item["available"] else "missing"

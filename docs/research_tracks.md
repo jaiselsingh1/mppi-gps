@@ -1,5 +1,13 @@
 # Current Walker research scope
 
+[D1/D2](transfer_diagnosis_d1d2_protocol.md) is the authorized next diagnostic block:
+all final W2 traces plus K1 agreement/source data, followed by numerically validated
+single-action substitutions from two fully snapshotted independent teachers. It
+performs no learning, new inference or MPPI search. Its outputs must separate
+support/frequency associations from effects under the fixed open-loop continuation.
+After closure, propose one versioned next protocol; do not automatically launch an
+intervention, change a metric or resume H4.2.
+
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 
 [W1](student_width_w1_results.md) is closed: widening improves fitted reconstruction but worsens held-trajectory transfer and standalone control across three paired seeds. It tests a student-width intervention, not adaptive coupling. The recommended [W2 contrast](student_update_w2_results.md) subsequently ran under separate explicit authorization.

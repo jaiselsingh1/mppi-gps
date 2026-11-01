@@ -4,6 +4,11 @@ Start with the [W2 fixed-budget result](student_update_w2_results.md), [W1 width
 
 ## Completed evidence
 
+The authorized [D1/D2 protocol](transfer_diagnosis_d1d2_protocol.md) extends saved-state
+support analysis and tests single-action consequences under a fixed teacher suffix.
+Its learner/planner remain unchanged; subsequent learning and loop stages require a
+separately frozen, result-dependent protocol.
+
 | Study | Question and outcome | Protocol and exact capsule |
 |---|---|---|
 | v3.1 | Can the previously rejected successful guided data teach a matched child? No walking success; guided data lost the independent child's survival benefit. | [Protocol](loop_v3_saved_comparison_protocol.md), [capsule](../results/guided_data_v3_1/README.md), [saved-evidence audit](loop_v3_evidence_audit.md) |
