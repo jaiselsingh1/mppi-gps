@@ -22,6 +22,7 @@ def load_recipe(name: str) -> dict[str, Any]:
         "trajectory_review",
         "motion_diagnosis",
         "teacher_proposal_h5_0",
+        "teacher_proposal_h5_0_round1",
     }:
         raise ValueError(f"Unknown study recipe: {name}")
     return json.loads((ROOT / "configs" / "studies" / f"{name}.json").read_text())

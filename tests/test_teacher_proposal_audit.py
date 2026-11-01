@@ -532,9 +532,15 @@ def test_optimizer_tree_contract_distinguishes_lists_tuples_and_typed_arrays():
     )
 
 
-def write_preparation(path):
+def write_preparation(path, *, recipe_name=None, authorized=False):
     path.mkdir()
     config = recipe()
+    if recipe_name is not None:
+        config["recipe_name"] = recipe_name
+    if authorized:
+        config["launch_authorized"] = True
+        config["eligibility"]["decision"] = "approved_single_round_exception"
+    source_name = f"configs/studies/{recipe_name or 'teacher_proposal_h5_0'}.json"
     for label, binding in config["inputs"].items():
         payload = ("synthetic sealed opaque bytes " + label).encode()
         target = path / binding["file"]
@@ -543,7 +549,7 @@ def write_preparation(path):
         binding.update(bytes=len(payload), sha256=hashlib.sha256(payload).hexdigest())
     for name, value in (
         ("config.json", config),
-        ("source/configs/studies/teacher_proposal_h5_0.json", config),
+        ("source/" + source_name, config),
         ("call_census.json", config["call_census"]),
         ("launch_receipt.json", dict(command="preparation only")),
         (
@@ -561,15 +567,23 @@ def write_preparation(path):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(value))
 
-    def digest(path):
-        return hashlib.sha256(path.read_bytes()).hexdigest()
+    reseal_preparation(path)
 
-    source = path / "source/configs/studies/teacher_proposal_h5_0.json"
+
+def reseal_preparation(path):
+    def digest(target):
+        return hashlib.sha256(target.read_bytes()).hexdigest()
+
     manifest = dict(
         config_sha256=digest(path / "config.json"),
-        files=[dict(file="configs/studies/teacher_proposal_h5_0.json", sha256=digest(source))],
+        files=[
+            dict(file=str(source.relative_to(path / "source")), sha256=digest(source))
+            for source in sorted((path / "source").rglob("*"))
+            if source.is_file()
+        ],
     )
     (path / "manifest.json").write_text(json.dumps(manifest))
+    config = json.loads((path / "config.json").read_text())
     seal = dict(
         config_sha256=digest(path / "config.json"),
         source_manifest_sha256=digest(path / "manifest.json"),
@@ -605,6 +619,46 @@ def test_preparation_audit_is_opaque_hashing_and_never_decodes_or_launches(tmp_p
         if path.is_file()
     }
     with pytest.raises(FileExistsError):
+        audit_preparation(run, tmp_path / "audit")
+
+
+def test_authorized_preparation_audit_binds_the_separate_frozen_recipe(tmp_path):
+    run = tmp_path / "authorized"
+    write_preparation(run, recipe_name="teacher_proposal_h5_0_round1", authorized=True)
+    result = audit_preparation(run, tmp_path / "audit")
+    assert result["preparation_audit_complete"]
+    assert result["launch_authorized"] is True
+    assert result["eligibility_decision"] == "approved_single_round_exception"
+    assert "source/configs/studies/teacher_proposal_h5_0_round1.json" in result["bindings"]
+    assert "source/configs/studies/teacher_proposal_h5_0.json" not in result["bindings"]
+    assert result["array_decodes"] == result["new_network_rows"] == 0
+    assert result["new_physics_controls"] == result["new_optimizer_steps"] == 0
+
+
+def test_authorized_preparation_rejects_a_different_sealed_recipe(tmp_path):
+    run = tmp_path / "authorized"
+    write_preparation(run, recipe_name="teacher_proposal_h5_0_round1", authorized=True)
+    source = run / "source/configs/studies/teacher_proposal_h5_0_round1.json"
+    changed = json.loads(source.read_text())
+    changed["launch_authorized"] = False
+    source.write_text(json.dumps(changed))
+    reseal_preparation(run)
+    with pytest.raises(AuditError, match="differs from its frozen checked-in recipe"):
+        audit_preparation(run, tmp_path / "audit")
+
+
+@pytest.mark.parametrize(
+    "binding",
+    ("../../outside", "teacher_proposal_h5_0_round2", "teacher_proposal_h5_0_round1.json"),
+)
+def test_authorized_preparation_rejects_unknown_recipe_binding_before_lookup(tmp_path, binding):
+    run = tmp_path / "authorized"
+    write_preparation(run, recipe_name="teacher_proposal_h5_0_round1", authorized=True)
+    config = json.loads((run / "config.json").read_text())
+    config["recipe_name"] = binding
+    (run / "config.json").write_text(json.dumps(config))
+    reseal_preparation(run)
+    with pytest.raises(AuditError, match="Unknown H5.0 checked-in recipe binding"):
         audit_preparation(run, tmp_path / "audit")
 
 

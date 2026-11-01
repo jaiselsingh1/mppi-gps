@@ -43,10 +43,21 @@ def seed_roster(config: dict[str, Any]) -> dict[str, Any]:
     )
 
 
-def prepare(out: Path, source: Path, runtime_probe: Path, seed_review: Path) -> dict[str, Any]:
+def prepare(
+    out: Path,
+    source: Path,
+    runtime_probe: Path,
+    seed_review: Path,
+    *,
+    recipe_name: str = "teacher_proposal_h5_0",
+) -> dict[str, Any]:
     """Hash and copy sealed benchmark bytes; never load an NPZ or checkpoint."""
     started = time.perf_counter()
-    config = load_recipe("teacher_proposal_h5_0")
+    if recipe_name not in ("teacher_proposal_h5_0", "teacher_proposal_h5_0_round1"):
+        raise ValueError("Unknown H5 preparation recipe: " + recipe_name)
+    config = load_recipe(recipe_name)
+    if config.get("recipe_name", "teacher_proposal_h5_0") != recipe_name:
+        raise ValueError("H5 configuration differs from its declared recipe binding")
     plan = census(config)
     source = source.resolve()
     out = out.resolve()
@@ -160,9 +171,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--source-run", type=Path)
     parser.add_argument("--runtime-probe", type=Path)
     parser.add_argument("--seed-review", type=Path)
+    parser.add_argument(
+        "--recipe",
+        choices=("teacher_proposal_h5_0", "teacher_proposal_h5_0_round1"),
+        default="teacher_proposal_h5_0",
+        help="Preparation/census recipe; execution always reads the frozen run configuration",
+    )
     args = parser.parse_args(argv)
     if args.command == "census":
-        print(json.dumps(census(load_recipe("teacher_proposal_h5_0")), indent=2))
+        print(json.dumps(census(load_recipe(args.recipe)), indent=2))
         return 0
     if args.out is None:
         parser.error("This command requires --out")
@@ -171,7 +188,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             parser.error("prepare requires --source-run, --runtime-probe and --seed-review")
         print(
             json.dumps(
-                prepare(args.out, args.source_run, args.runtime_probe, args.seed_review), indent=2
+                prepare(
+                    args.out,
+                    args.source_run,
+                    args.runtime_probe,
+                    args.seed_review,
+                    recipe_name=args.recipe,
+                ),
+                indent=2,
             )
         )
         return 0

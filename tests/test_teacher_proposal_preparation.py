@@ -9,6 +9,7 @@ import pytest
 
 from src.gps.mppi_gps.experiments import teacher_proposal as module
 from src.gps.mppi_gps.inspection import inspect_run
+from src.gps.mppi_gps.proposal_budget import census
 from src.gps.mppi_gps.provenance import sha
 from src.gps.mppi_gps.recipes import load_recipe
 from src.gps.mppi_gps.reporting.teacher_proposal import render
@@ -154,3 +155,48 @@ def test_unclosed_launch_is_unknown_work_instead_of_reusing_preparation_zeroes(
     assert view["outcomes"]["status"] == "launch_attempt_without_worker_result"
     assert view["costs"]["work"]["completion_unknown"]
     assert "worker_result.json" in view["missing_evidence"]
+
+
+def test_authorized_round_recipe_preserves_every_scientific_setting_and_budget():
+    original = load_recipe("teacher_proposal_h5_0")
+    authorized = load_recipe("teacher_proposal_h5_0_round1")
+    assert original["launch_authorized"] is False
+    assert authorized["launch_authorized"] is True
+    assert authorized["eligibility"]["decision"] == "approved_single_round_exception"
+    assert authorized["eligibility"]["useful_learning_prerequisite_satisfied"] is False
+    assert authorized["eligibility"]["second_round_authorized"] is False
+    assert authorized["authorization"]["second_round_authorized"] is False
+    assert authorized["recipe_name"] == "teacher_proposal_h5_0_round1"
+    assert module.seed_roster(original) == module.seed_roster(authorized)
+    assert census(original) == census(authorized)
+    assert module.launch_blockers(authorized) == []
+    metadata = {"status", "launch_authorized", "recipe_name", "authorization", "blockers"}
+    before, after = deepcopy(original), deepcopy(authorized)
+    before["eligibility"].pop("decision")
+    after["eligibility"].pop("decision")
+    assert {k: v for k, v in before.items() if k not in metadata} == {
+        k: v for k, v in after.items() if k not in metadata
+    }
+
+
+def test_explicit_authorized_recipe_freezes_without_modifying_the_old_owner(tmp_path, monkeypatch):
+    source, probe, config, seeds = fixture(tmp_path, monkeypatch)
+    config.update(launch_authorized=True, recipe_name="teacher_proposal_h5_0_round1")
+    config["eligibility"]["decision"] = "approved_single_round_exception"
+    before = {str(p): sha(p) for p in source.rglob("*") if p.is_file()}
+    out = tmp_path / "authorized"
+    result = module.prepare(out, source, probe, seeds, recipe_name="teacher_proposal_h5_0_round1")
+    assert result["launch_blockers"] == []
+    assert not result["execution_complete"]
+    assert json.loads((out / "manifest.json").read_text())["command"] == "teacher-proposal-h5.0"
+    assert before == {str(p): sha(p) for p in source.rglob("*") if p.is_file()}
+    assert json.loads((out / "config.json").read_text())["recipe_name"] == config["recipe_name"]
+
+
+def test_prepare_rejects_mismatched_recipe_binding_before_export(tmp_path, monkeypatch):
+    source, probe, config, seeds = fixture(tmp_path, monkeypatch)
+    with pytest.raises(ValueError, match="recipe binding"):
+        module.prepare(
+            tmp_path / "out", source, probe, seeds, recipe_name="teacher_proposal_h5_0_round1"
+        )
+    assert not (tmp_path / "out").exists()

@@ -2352,7 +2352,12 @@ def audit_preparation(run: Path, out: Path, *, max_read_bytes: int = 1024**3) ->
             bind(run / name, binding)
         else:
             bind(run / name, binding["sha256"], binding["bytes"])
-    frozen_recipe = load(run / "source/configs/studies/teacher_proposal_h5_0.json")
+    recipe_name = config.get("recipe_name", "teacher_proposal_h5_0")
+    _need(
+        recipe_name in ("teacher_proposal_h5_0", "teacher_proposal_h5_0_round1"),
+        "Unknown H5.0 checked-in recipe binding",
+    )
+    frozen_recipe = load(run / "source/configs/studies" / (recipe_name + ".json"))
     _need(
         config == frozen_recipe, "Prepared configuration differs from its frozen checked-in recipe"
     )
