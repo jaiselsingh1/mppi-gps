@@ -13,12 +13,26 @@ def launch_tree(tmp_path, monkeypatch):
     (tmp_path / "config.json").write_text(json.dumps(load_recipe("student_source_evaluation")))
     (tmp_path / "input_manifest.json").write_text("{}")
     (tmp_path / "manifest.json").write_text("{}")
+    (tmp_path / "inputs").mkdir()
+    (tmp_path / "inputs/remote_seed_audit.json").write_text(
+        json.dumps(dict(host=owner.socket.gethostname()))
+    )
     monkeypatch.setattr(owner, "verify", lambda path: {})
     monkeypatch.setattr(owner, "read_boot_id", lambda: "test-boot")
     monkeypatch.setattr(
         owner, "process_identity", lambda pid: dict(pid=pid, start_ticks="42", state="S")
     )
     return tmp_path
+
+
+def test_physical_host_is_pinned_separately_from_ssh_alias(launch_tree, monkeypatch):
+    (launch_tree / "inputs/remote_seed_audit.json").write_text(
+        json.dumps(dict(host="another-host"))
+    )
+    monkeypatch.setattr(owner.subprocess, "Popen", lambda *a, **kw: pytest.fail("must stop first"))
+    with pytest.raises(ValueError, match="physical host"):
+        owner.launch(launch_tree)
+    assert not (launch_tree / "launch.lock").exists()
 
 
 @pytest.mark.parametrize("complete", [True, False])

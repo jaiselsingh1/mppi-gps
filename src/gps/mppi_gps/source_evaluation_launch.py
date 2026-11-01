@@ -38,6 +38,9 @@ def launch(out: Path) -> dict:
     config = json.loads((out / "config.json").read_text())
     if config["schema"] != "walker-student-source-s1.1-v1":
         raise ValueError("Expected S1.1 frozen recipe")
+    remote_proof = json.loads((out / "inputs/remote_seed_audit.json").read_text())
+    if socket.gethostname() != remote_proof["host"]:
+        raise ValueError("S1.1 physical host differs from the sealed remote preflight")
     boot = read_boot_id()
     started = time.monotonic()
     identity = process_identity(os.getpid())

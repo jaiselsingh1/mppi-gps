@@ -955,7 +955,8 @@ def audit_run(
         lock, launch["owner"] | dict(boot_id=launch["boot_id"]), "Create-only owner lock identity"
     )
     a.need(
-        launch["retries_permitted"] is False and launch["host"] == cfg["platform"]["host"],
+        launch["retries_permitted"] is False
+        and launch["host"] == a.load(run / "inputs/remote_seed_audit.json")["host"],
         "One authorized host and no retries",
     )
     a.equal(
