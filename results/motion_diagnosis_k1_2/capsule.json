@@ -1842,11 +1842,6 @@
       "sha256": "5a969b4d08ca03bbb535d482cc339e5e87ac50fe33014999d9be9bfc569fb636",
       "bytes": 277061
     },
-    "run/work.jsonl": {
-      "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001/work.jsonl",
-      "sha256": "a167565202a7b939fdee362bc93c57e3a110c6fd115c2d0b8b0632d3f24703e6",
-      "bytes": 1478297
-    },
     "run/worker.lock": {
       "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001/worker.lock",
       "sha256": "d0608ebd6d335bb2b6414f67004085be30b617a1f5b22c17c6abc64f39883e8c",
@@ -2478,29 +2473,78 @@
       "bytes": 64017
     },
     "README.md": {
-      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/publication/README_capsule_001.md",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/publication/README_capsule_002.md",
+      "sha256": "f7740ef3015f1a33661358228c3262247ea013040271faf9fc5983d5eacdf49d",
+      "bytes": 2996
+    },
+    "historical/publication_001/capsule.json": {
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/publication/historical_publication_001/capsule.json",
+      "sha256": "c8b5505b7d17abbaec39841fd948f4261a15e55448a77f433efa40b13971c993",
+      "bytes": 156553
+    },
+    "historical/publication_001/README.md": {
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/publication/historical_publication_001/README.md",
       "sha256": "ca28960d4308ef08b7f2261915d6b58e2da4baf650c8f8514b4969a0967c0fbe",
       "bytes": 2426
+    },
+    "publication/portability_correction_002.py": {
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/publication/portability_correction_002.py",
+      "sha256": "7b150c8ec7daae6c2a35ad8674fec55625278506d557bfa2df364b97529d4267",
+      "bytes": 9343
+    },
+    "publication/portability_correction_002.json": {
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/publication/portability_correction_002.json",
+      "sha256": "0533ffb806bf81ced9274e01962faa1df10a1983dd8431268bae7ea1902854c7",
+      "bytes": 2469
     }
   },
-  "copied_file_count": 495,
-  "copied_bytes": 43600350,
+  "copied_file_count": 498,
+  "copied_bytes": 42293414,
   "bulk_evidence": {
     "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001",
     "remote_directory": null,
     "remote_copy_verified": false,
     "omitted": [
-      "evidence/motion.npz"
+      "evidence/motion.npz",
+      "work.jsonl"
     ],
     "raw_archive": {
       "bytes": 6064785,
       "file": "evidence/motion.npz",
       "sha256": "55337bee1245059c96e208865fa04730364be0267b8489c42558073b16aff783"
     },
-    "scope": "Entire new run except its compact raw archive. Original full raw atlas is preserved here as an inspectable exact asset; inherited K1 raw remains local-only outside Git."
+    "scope": "Entire new run except its compact raw archive and work journal; both remain external/local. Full raw atlas and all published scientific payloads are unchanged.",
+    "work_journal": {
+      "file": "work.jsonl",
+      "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001/work.jsonl",
+      "sha256": "a167565202a7b939fdee362bc93c57e3a110c6fd115c2d0b8b0632d3f24703e6",
+      "bytes": 1478297,
+      "available_local": true,
+      "in_git": false,
+      "remote_copy_verified": false
+    }
   },
   "new_physics": 0,
   "new_inference": 0,
   "new_training": 0,
-  "operation_scope": "Create-only exact-copy publication. Registry excludes itself; source files, closed runs and older capsules are never modified."
+  "operation_scope": "Publication v2 metadata/navigation correction. Original v1 manifest/navigation are preserved. Registry excludes itself; ignored local extras are not published payload. Scientific payloads and the original full run are unchanged.",
+  "publication_version": 2,
+  "publication_correction": "publication/portability_correction_002.json",
+  "publication_history": [
+    {
+      "manifest": "historical/publication_001/capsule.json",
+      "sha256": "c8b5505b7d17abbaec39841fd948f4261a15e55448a77f433efa40b13971c993",
+      "bytes": 156553,
+      "readme": "historical/publication_001/README.md",
+      "readme_sha256": "ca28960d4308ef08b7f2261915d6b58e2da4baf650c8f8514b4969a0967c0fbe",
+      "payload_files": 495,
+      "payload_bytes": 43600350
+    }
+  ],
+  "accounting_publication_snapshot": {
+    "file": "accounting/accounting.json",
+    "publication_version": 1,
+    "sha256": "25cdf30fb42b316e3b7ed1b9b1f1eec7c956500143fda0b9ef7a376b2c40a820",
+    "scope": "Unchanged scientific/accounting record. Its publication495-file snapshot remains true for v1; capsule.json governs the corrected portable v2 payload."
+  }
 }

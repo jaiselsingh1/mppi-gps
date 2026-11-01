@@ -8,7 +8,7 @@ One source-frozen diagnosis of all 34 K1 trajectories, 30,070 controls and 561 c
 - [All-page visual review](visual_qa/inspection_001.json) and [ordered contact sheets](visual_qa/contact_sheets_001/receipt.json).
 - [Next H5.0 hypothesis](../../docs/teacher_proposal_h5_0_hypothesis.md), untested and not authorized for launch.
 
-The entire new run is copied here except `evidence/motion.npz`: 6,064,785 bytes, SHA-256 `55337bee1245059c96e208865fa04730364be0267b8489c42558073b16aff783`. The [full run catalog](external/full_run_file_manifest.json) binds that local-only raw archive and all 373 closed-run files. Original K1 raw HDF/NPZ/checkpoints remain external and local-only; no legacy raw arrays were copied to Git. Four discovery endpoints remain missing. Available terminal states do not create terminal actions.
+Two new-run files remain external: `evidence/motion.npz` (6,064,785 bytes, SHA-256 `55337bee1245059c96e208865fa04730364be0267b8489c42558073b16aff783`) and `work.jsonl` (1,478,297 bytes, SHA-256 `a167565202a7b939fdee362bc93c57e3a110c6fd115c2d0b8b0632d3f24703e6`). Both remain in the full local RUN. The [full run catalog](external/full_run_file_manifest.json) binds all 373 closed-run files. Original K1 raw HDF/NPZ/checkpoints remain external and local-only; no legacy raw arrays were copied to Git. Four discovery endpoints remain missing. Available terminal states do not create terminal actions.
 
 Clean-checkout reporting renders saved block means/min/max and copies the exact bound original full-motion atlas and fixed-pair figures. It explicitly discloses this provenance; it does not reconstruct raw motion from block summaries. All 68 page PNGs remain external with hashes in the visual-review receipts; only compact contact sheets are included here.
 
@@ -18,3 +18,5 @@ python -B scripts/diagnostics/report_motion_diagnosis.py --run results/motion_di
 ```
 
 The two failed preflight path attempts, independent metadata-check timing limitation, failed deadline test, corrected regression checks, source publication, report marker, rendering and QA costs are preserved. Do not execute workers inside this immutable capsule. Later publication validation stays separate.
+
+Publication v2 [corrects the portable payload](publication/portability_correction_002.json): the global journal ignore rule excluded `work.jsonl` from Git export. The exact [v1 manifest](historical/publication_001/capsule.json) and [v1 navigation](historical/publication_001/README.md) are preserved. Scientific evidence and the original accounting snapshot are unchanged; that accounting describes publication v1. The current manifest defines publication v2.

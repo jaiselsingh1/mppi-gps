@@ -1,0 +1,35 @@
+{
+  "schema": "walker-motion-publication-portability-correction-v2",
+  "scope": "Publication manifest/navigation only; no scientific reexecution or altered evidence.",
+  "discovery": "Clean Git export027 passed814 tests, then repository verification found the ignored work.jsonl missing despite the v1 manifest binding. The global *.jsonl exclusion correctly keeps journals outside Git.",
+  "failed_export_receipt": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/engineering/027_results_export_validation/receipt.json",
+  "prior_publication": {
+    "manifest": "historical/publication_001/capsule.json",
+    "sha256": "c8b5505b7d17abbaec39841fd948f4261a15e55448a77f433efa40b13971c993",
+    "bytes": 156553,
+    "readme": "historical/publication_001/README.md",
+    "readme_sha256": "ca28960d4308ef08b7f2261915d6b58e2da4baf650c8f8514b4969a0967c0fbe",
+    "payload_files": 495,
+    "payload_bytes": 43600350
+  },
+  "change": "Remove run/work.jsonl from the published payload contract and bind its original RUN location externally. Preserve both prior publication documents and archive this correction source.",
+  "external_work_journal": {
+    "file": "work.jsonl",
+    "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001/work.jsonl",
+    "sha256": "a167565202a7b939fdee362bc93c57e3a110c6fd115c2d0b8b0632d3f24703e6",
+    "bytes": 1478297,
+    "available_local": true,
+    "in_git": false,
+    "remote_copy_verified": false
+  },
+  "accounting_snapshot": {
+    "file": "accounting/accounting.json",
+    "publication_version": 1,
+    "sha256": "25cdf30fb42b316e3b7ed1b9b1f1eec7c956500143fda0b9ef7a376b2c40a820",
+    "scope": "Unchanged scientific/accounting record. Its publication495-file snapshot remains true for v1; capsule.json governs the corrected portable v2 payload."
+  },
+  "scientific_payloads": "All run configurations/results/source manifests, audit/report outputs and accounting bytes are unchanged. The full original run and its373-file catalog remain valid.",
+  "ignored_local_copy": "Existing capsule/run/work.jsonl is left untouched as an ignored local extra; it is not part of the corrected published contract.",
+  "policy": "No force-add and no change to .gitignore. No rerun, array read, audit or new PDF authoring.",
+  "cost_capture_external": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_motion_diagnosis_k1_2_001/engineering/029_portability_correction/receipt.json"
+}

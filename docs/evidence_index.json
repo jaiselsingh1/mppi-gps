@@ -3076,20 +3076,21 @@
       "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001",
       "remote_directory": null,
       "remote_copy_verified": false,
-      "availability": "Full new run available locally; tracked capsule omits only the compact raw motion NPZ. Original K1 source HDF/NPZ/checkpoints remain local-only outside Git.",
+      "availability": "Full new run available locally; tracked publication v2 omits the compact raw motion NPZ and work journal. Original K1 source HDF/NPZ/checkpoints remain local-only outside Git.",
       "file_count": 373,
       "total_bytes": 26248760,
       "capsule": {
         "directory": "results/motion_diagnosis_k1_2",
         "manifest": "results/motion_diagnosis_k1_2/capsule.json",
-        "manifest_sha256": "c8b5505b7d17abbaec39841fd948f4261a15e55448a77f433efa40b13971c993",
-        "manifest_bytes": 156553,
-        "exact_copy_files": 495,
-        "exact_copy_bytes": 43600350,
-        "run_files_copied": 372,
-        "run_bytes_copied": 20183975,
+        "manifest_sha256": "68e03441b3bec7d51331a1544a028ef1d0a5c232eb78109e200d837abf0d54cf",
+        "manifest_bytes": 158900,
+        "exact_copy_files": 498,
+        "exact_copy_bytes": 42293414,
+        "run_files_copied": 371,
+        "run_bytes_copied": 18705678,
         "in_git": true,
-        "scope": "Full new frozen run except evidence/motion.npz, all report assets, audit, preflight/engineering failures, independent metadata review, complete cost accounting and compact all-page visual review."
+        "scope": "Full new frozen run except evidence/motion.npz and work.jsonl, all report assets, audit, preflight/engineering failures, independent metadata review, unchanged v1 accounting snapshot and compact all-page visual review. Prior publication documents and the portability correction are retained.",
+        "publication_version": 2
       },
       "file_catalog": {
         "file": "results/motion_diagnosis_k1_2/external/full_run_file_manifest.json",
@@ -3247,6 +3248,41 @@
       "next_hypothesis": {
         "file": "docs/teacher_proposal_h5_0_hypothesis.md",
         "status": "untested_unimplemented_not_launch_authorized_separate_protocol_required"
+      },
+      "external_work_journal": {
+        "file": "work.jsonl",
+        "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_motion_diagnosis_k1_2_001/work.jsonl",
+        "sha256": "a167565202a7b939fdee362bc93c57e3a110c6fd115c2d0b8b0632d3f24703e6",
+        "bytes": 1478297,
+        "available_local": true,
+        "in_git": false,
+        "remote_copy_verified": false
+      },
+      "publication_revision": {
+        "current_version": 2,
+        "correction": {
+          "file": "results/motion_diagnosis_k1_2/publication/portability_correction_002.json",
+          "bytes": 2469,
+          "sha256": "0533ffb806bf81ced9274e01962faa1df10a1983dd8431268bae7ea1902854c7"
+        },
+        "prior_manifest": {
+          "file": "results/motion_diagnosis_k1_2/historical/publication_001/capsule.json",
+          "bytes": 156553,
+          "sha256": "c8b5505b7d17abbaec39841fd948f4261a15e55448a77f433efa40b13971c993"
+        },
+        "prior_readme": {
+          "file": "results/motion_diagnosis_k1_2/historical/publication_001/README.md",
+          "bytes": 2426,
+          "sha256": "ca28960d4308ef08b7f2261915d6b58e2da4baf650c8f8514b4969a0967c0fbe"
+        },
+        "accounting_snapshot": {
+          "file": "results/motion_diagnosis_k1_2/accounting/accounting.json",
+          "publication_version": 1,
+          "payload_files": 495,
+          "payload_bytes": 43600350,
+          "unchanged_sha256": "25cdf30fb42b316e3b7ed1b9b1f1eec7c956500143fda0b9ef7a376b2c40a820"
+        },
+        "proof_scope": "Publication metadata/navigation correction only. Global *.jsonl exclusion retained; no journal force-add. Original run and all scientific/result/source/audit/report/accounting payloads unchanged."
       }
     }
   },
