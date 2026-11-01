@@ -59,6 +59,14 @@ after any outcome. Full initial physical state, solver warmstart and integration
 context must match across all actors for each seed. Different successful paths
 remain valid.
 
+The native-ledger census distinguishes saved synthetic fixture trees named
+`test_evidence` and `pytest_tmp`. Their ledger files remain preserved and receive
+an explicit exclusion roster with hashes and sizes. Malformed native ledgers and
+native seed collisions still fail the check. The initial broader census retained
+66 intentional fixture parse failures and no collisions; its failed receipt is
+engineering evidence, not a research outcome. Preparation can write a create-only
+`--preflight-out` receipt outside the frozen run before either passing or failing.
+
 Each episode allows 1,000 native controls / 8 seconds. Execute direct bounded
 torques every 0.008 seconds using the unchanged 17-observation map
 `concat(state[2:10], clip(state[10:19], -10, 10))` and each actor's frozen
@@ -183,7 +191,8 @@ Useful interfaces, with fresh create-only paths substituted explicitly:
 uv run python scripts/train_mppi_gps.py study source-evaluation prepare \
   --out runs/FRESH_S1_1_RUN \
   --source runs/2026-10-31_student_source_s1_001 \
-  --remote-freshness artifacts/FRESH_REMOTE_RESET_AUDIT.json
+  --remote-freshness artifacts/FRESH_REMOTE_RESET_AUDIT.json \
+  --preflight-out artifacts/FRESH_LOCAL_PREPARATION_RECEIPT.json
 
 # Run the off-host coordinator and one-shot Linux owner concurrently.
 # The owner and worker execute their sealed source, never current checkout code.

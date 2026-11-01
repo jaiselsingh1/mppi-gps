@@ -27,7 +27,7 @@ def audit_known_reset_ledgers(repo: Path, seeds: list[int]) -> dict:
         raise ValueError("Explicit uint32 reset seeds are required")
     selected = set(seeds)
     possible_seed = re.compile(b"|".join(str(seed).encode("ascii") for seed in sorted(selected)))
-    files, collisions, errors = [], [], []
+    files, excluded_files, collisions, errors = [], [], [], []
 
     def visit(value, address, path):
         if type(value) is int and value in selected:
@@ -55,6 +55,25 @@ def audit_known_reset_ledgers(repo: Path, seeds: list[int]) -> dict:
         try:
             digest, size, count = hashlib.sha256(), 0, 0
             binding = dict(file=str(path), sha256=None, bytes=None, records=None)
+            synthetic_root = next(
+                (
+                    part
+                    for part in path.relative_to(Path(repo).resolve()).parts[:-1]
+                    if part in {"test_evidence", "pytest_tmp"}
+                ),
+                None,
+            )
+            if synthetic_root is not None:
+                binding.update(
+                    reason="explicit_synthetic_fixture_root", synthetic_root=synthetic_root
+                )
+                excluded_files.append(binding)
+                with path.open("rb") as stream:
+                    for block in iter(lambda: stream.read(1024 * 1024), b""):
+                        digest.update(block)
+                        size += len(block)
+                binding.update(sha256=digest.hexdigest(), bytes=size)
+                continue
             files.append(binding)
             if path.suffix == ".jsonl":
                 with path.open("rb") as stream:
@@ -91,9 +110,10 @@ def audit_known_reset_ledgers(repo: Path, seeds: list[int]) -> dict:
         passed=not collisions and not errors,
         seeds=list(seeds),
         files=files,
+        excluded_files=excluded_files,
         collisions=collisions,
         errors=errors,
-        scope="Exact integer census of readable saved *ledger*.json/jsonl under runs, artifacts, results and archive; frozen source copies excluded. Unknown, external and unrecorded resets are outside this proof.",
+        scope="Exact integer census of readable saved *ledger*.json/jsonl under runs, artifacts, results and archive; frozen source copies excluded. Candidate files under explicit synthetic fixture roots named test_evidence or pytest_tmp are excluded from reset evidence and retained separately with hashes and byte counts. Unknown, external and unrecorded resets are outside this proof.",
     )
 
 

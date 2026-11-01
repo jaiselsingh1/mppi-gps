@@ -91,10 +91,14 @@ class EvaluationMeter(Meter):
         return dict(self.final_work) if self.final_work is not None else super().totals()
 
 
-def prepare(out: Path, source: Path, remote_freshness: Path) -> dict:
+def prepare(
+    out: Path, source: Path, remote_freshness: Path, preflight_out: Path | None = None
+) -> dict:
     from ..source_evaluation_inputs import audit_known_reset_ledgers, prepare_inputs
     from ..width_inputs import audit_reset_seeds
 
+    if preflight_out is not None and preflight_out.resolve().is_relative_to(out.resolve()):
+        raise ValueError("Preflight diagnostics must be outside the create-only frozen run")
     config = load_recipe("student_source_evaluation")
     config["source_run"] = str(source.resolve())
     seeds = config["primary_seeds"] + config["confirmation_seeds"]
@@ -102,6 +106,18 @@ def prepare(out: Path, source: Path, remote_freshness: Path) -> dict:
     proof["known_reset_ledgers"] = audit_known_reset_ledgers(ROOT, seeds)
     proof["passed"] = proof["passed"] and proof["known_reset_ledgers"]["passed"]
     remote = json.loads(remote_freshness.read_text())
+    if preflight_out is not None:
+        write(
+            preflight_out,
+            dict(
+                schema="walker-s1.1-preparation-preflight-v1",
+                local=proof,
+                remote=remote,
+                remote_proof_binding=file_binding(remote_freshness),
+                new_neural_rows=0,
+                new_native_controls=0,
+            ),
+        )
     if (
         not proof["passed"]
         or not remote["passed"]
@@ -578,12 +594,13 @@ def main(argv: list[str] | None = None) -> int:
     item.add_argument("--out", type=Path, required=True)
     item.add_argument("--source", type=Path, required=True)
     item.add_argument("--remote-freshness", type=Path, required=True)
+    item.add_argument("--preflight-out", type=Path)
     item = commands.add_parser("worker")
     item.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     out = args.out.resolve()
     result = (
-        prepare(out, args.source, args.remote_freshness)
+        prepare(out, args.source, args.remote_freshness, args.preflight_out)
         if args.command == "prepare"
         else worker(out)
     )
