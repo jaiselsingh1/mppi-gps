@@ -1,0 +1,272 @@
+{
+  "schema": "walker-student-source-s1.1-v1",
+  "status": "authorized_execution_protocol",
+  "purpose": "Complete a new fresh-panel evaluation of all fixed S1 actors after the original native evaluation was interrupted by a host reboot. Evaluation only; no new scientific mechanism or repeat fitting.",
+  "source_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001",
+  "source_bindings": {
+    "s1_config_sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+    "s1_input_manifest_sha256": "fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10",
+    "s1_source_manifest_sha256": "31cb7f3556247181590842c5fc16133dad4707492ce5bbbee7c20f8f87b0d4d5",
+    "s1_fit_result_sha256": "545f7f3a6c267aef3fbdffa5e36353324eb26bb283733be167dc94b92947222b",
+    "task_sha256": "2da5a7a34fd6fdd9e69165ed6b1bf5345ab893f7570c5dee03e577d92093921a",
+    "reference_checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+    "reference_policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+    "s1_original_run_manifest_sha256": "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44"
+  },
+  "checkpoints": {
+    "incoming_s0": {
+      "file": "checkpoints/incoming_s0.pt",
+      "sha256": "717b17baf3294b2c026521535a3a1721b0c5fae2a4271928f1ebc294b416745b",
+      "bytes": 87305,
+      "policy_hash": "fa95e0b284f6e33ca71ccaad6659966ae2cc62b9550ac23505728678f6ac53c5",
+      "optimizer_fingerprint": "c73b1c29bacc25bc42b5386633c33057c1150089a695a38610ec6dd2bb504f34"
+    },
+    "mppi_s0": {
+      "file": "checkpoints/mppi_s0.pt",
+      "sha256": "b2bf3ae7f838cb5e3d0c38c44d7b99cf3c58d394a50caef3cb954ce0779d997d",
+      "bytes": 330426,
+      "policy_hash": "7d088ceb7885b88a393d0704a314a35cf05a93087ddb361c94650c845a05984f",
+      "optimizer_fingerprint": "fabe381dd68307c120a358494aba4c492b180f6d541a57256f29a34bc3e5d8ce"
+    },
+    "sac_reference_s0": {
+      "file": "checkpoints/sac_reference_s0.pt",
+      "sha256": "954aa687aae4de9f3b3a88ab6950a9421801231cc8b0f1c105c8211d94ab4672",
+      "bytes": 330426,
+      "policy_hash": "2f1c2b0df535c049d8b5f6c3a604893ff642ea7d7c90ef300a1f29dc63b62eea",
+      "optimizer_fingerprint": "0f806a38b2ef8821270bd058e4f612365706781b09d3749d2aea24019e442cb6"
+    },
+    "incoming_s1": {
+      "file": "checkpoints/incoming_s1.pt",
+      "sha256": "64e46d84d732fb9f6bc4a00ff316986f5980aa8c52fceeaf9e359cc00305a5ea",
+      "bytes": 87305,
+      "policy_hash": "b08ba1d64874c343f8fb1c3f274a88d0c46d1b98bac5398794b4ea783e36f103",
+      "optimizer_fingerprint": "c73b1c29bacc25bc42b5386633c33057c1150089a695a38610ec6dd2bb504f34"
+    },
+    "mppi_s1": {
+      "file": "checkpoints/mppi_s1.pt",
+      "sha256": "8d7f88601a1bee1b177c85ab2d7e9e18e6092f13353f9b2c32c9c951978d41a0",
+      "bytes": 330426,
+      "policy_hash": "9722e1f37110a2527a28cb835e286f6a53f5a9840ce947a9bcf5a26dbe69463a",
+      "optimizer_fingerprint": "1b92c99e94a5571117307b59b281bca6ae841bd8b1e6e89c4d01f38bcbc11e20"
+    },
+    "sac_reference_s1": {
+      "file": "checkpoints/sac_reference_s1.pt",
+      "sha256": "f16aebaa8e0a034f75308f748832982cb9a1e1e3a8ad5526173f91f8bf26f60e",
+      "bytes": 330426,
+      "policy_hash": "4acf884cfce33f60931c5a7efb30c6f6a515b2d36b8336497ef64df4bc8f3208",
+      "optimizer_fingerprint": "c1f74dcad82f057aa13541609a87a5098abfef45e37ff9461677b30d21853db1"
+    },
+    "incoming_s2": {
+      "file": "checkpoints/incoming_s2.pt",
+      "sha256": "49d35201a2e204cd8915cdd67e476bd36a028014c9cb403cd569847f3d641d41",
+      "bytes": 87305,
+      "policy_hash": "e6d04ffc1e4aed70b3e13a7ccca6e1559c6cb3499d21148a3a34c792f5610241",
+      "optimizer_fingerprint": "c73b1c29bacc25bc42b5386633c33057c1150089a695a38610ec6dd2bb504f34"
+    },
+    "mppi_s2": {
+      "file": "checkpoints/mppi_s2.pt",
+      "sha256": "b6d08092885f5ece437e299a03227e2828c7a412409ebece66ca8c4e8034452e",
+      "bytes": 330426,
+      "policy_hash": "edb89e840eae36078b857ba02b101224c6c8bc3dda39f70d269beee21dee4bb2",
+      "optimizer_fingerprint": "63a8e201e84aa101be390c0684318c74e4dcad5eb6d4b23628cdcc8c77715cce"
+    },
+    "sac_reference_s2": {
+      "file": "checkpoints/sac_reference_s2.pt",
+      "sha256": "76f5baffbd5105c2d1736aea9a929d34d8f182dcabb8f03963c0f60616bbe826",
+      "bytes": 330426,
+      "policy_hash": "592868fb7308f6de3bebf97f6c86a86dbd89dc64d27c09bd88c9ae6b5692d01c",
+      "optimizer_fingerprint": "25a35190a71027e46d8b27b74f2338599180d58c606161d76841894ab3b3bf79"
+    }
+  },
+  "reference": {
+    "file": "inputs/reference.pt",
+    "sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+    "policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba"
+  },
+  "closed_fit_reuse": "Copy the nine exact original checkpoint packages and the reference bytes. Preserve all policy, normalization, Adam and private RNG payloads; do not refit, reset, reserialize, strip or extend them. Adam/RNG state is preserved for ownership, never used for optimization.",
+  "historical_episode_role": "All original complete and partial native attempts remain interrupted-run development context. None is pooled into the new primary or confirmation panels.",
+  "platform": {
+    "host": "robopil5090",
+    "native_interpreter": "/home/jaisel/mppi-gps/.venv/bin/python",
+    "torch": "2.10.0+cpu",
+    "mujoco": "3.6.0",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "h5py": "3.16.0",
+    "device": "cpu",
+    "torch_cpu_threads": 1,
+    "cuda_visible_devices": "",
+    "gpu_work_permitted": false,
+    "fit_interpreter": null,
+    "physics": "Unchanged native CPU task/XML, frame_skip 4; no Warp."
+  },
+  "task": {
+    "task": {
+      "frame_skip": 4,
+      "cost_style": "target_velocity",
+      "target_velocity": 1.5,
+      "vel_cost_weight": 2.0,
+      "vertical_velocity_cost_weight": 0.5,
+      "angle_cost_weight": 0.1,
+      "unhealthy_cost_weight": 5.0,
+      "ctrl_cost_weight": 0.001,
+      "terminal_unhealthy_weight": 20.0,
+      "apply_terminal_cost_on_done": true,
+      "nthread": 16
+    },
+    "xml_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+  },
+  "episode_steps": 1000,
+  "evaluation_order": [
+    "reference",
+    "incoming_s0",
+    "mppi_s0",
+    "sac_reference_s0",
+    "incoming_s1",
+    "mppi_s1",
+    "sac_reference_s1",
+    "incoming_s2",
+    "mppi_s2",
+    "sac_reference_s2"
+  ],
+  "primary_seeds": [
+    1270000000,
+    1270000001,
+    1270000002,
+    1270000003,
+    1270000004,
+    1270000005,
+    1270000006,
+    1270000007,
+    1270000008,
+    1270000009,
+    1270000010,
+    1270000011,
+    1270000012,
+    1270000013,
+    1270000014,
+    1270000015
+  ],
+  "confirmation_seeds": [
+    1280000000,
+    1280000001,
+    1280000002,
+    1280000003,
+    1280000004,
+    1280000005,
+    1280000006,
+    1280000007,
+    1280000008,
+    1280000009,
+    1280000010,
+    1280000011,
+    1280000012,
+    1280000013,
+    1280000014,
+    1280000015
+  ],
+  "confirmation": "Run both complete 16-reset panels for all ten actors unconditionally, regardless of source arm or primary outcome.",
+  "walking_screen": {
+    "minimum_additional_successes": 2,
+    "minimum_positive_pairs": 2,
+    "walking_nonregression_every_pair": true,
+    "survival_nonregression_every_pair": true,
+    "confirmed_benefit": "The same walking screen passes separately on primary and confirmation."
+  },
+  "competence": {
+    "minimum_walking_successes_per_panel": 15,
+    "panels_required": [
+      "primary",
+      "confirmation"
+    ],
+    "scope": "Report every individual actor and all three training pairs; one competent seed is not seed-robust fitting."
+  },
+  "bootstrap": {
+    "seed": 2026111199,
+    "draws": 2000,
+    "unit": "Paired training seeds crossed with shared reset contexts; descriptive only, no frame independence or population coverage claim."
+  },
+  "reconstruction": "Reuse the closed S1 fit/reconstruction evidence and its original hashes; no new reconstruction forward calls or checkpoint selection.",
+  "budgets": {
+    "episodes": 320,
+    "live_controls": 320000,
+    "neural_rows": 320000,
+    "physics_substeps": 1280000,
+    "checkpoint_loads": 10,
+    "optimizer_steps": 0,
+    "backward_rows": 0,
+    "new_fits": 0,
+    "new_teacher_episodes": 0,
+    "model_controls": 0,
+    "gpu_operations": 0,
+    "wall_seconds": 3600,
+    "storage_bytes": 17179869184
+  },
+  "durability_prerequisites": {
+    "closed_episode_segments": "Use a new evaluation orchestrator with a separate existing-Meter HDF and ledger segment per episode. Close and fsync both files and their directory before committing that episode. Closed committed segments are immutable and never reopened for writing; one ever-growing HDF is not the authoritative durable store. Preserve the existing raw-array SHA/dtype/shape contract, with per-segment evidence-directory ownership.",
+    "atomic_receipt": "Create a per-episode JSON receipt binding source/config/input/checkpoint/reset/boot identities, complete segment file hashes, raw-array hashes, outcomes and cumulative work. Commit via a create-only atomic rename, then fsync the receipt and directory. A console line or local ledger event alone is not an externally committed episode.",
+    "off_host_copy": "Before the next episode, the existing coordinator on the local Mac pulls only the CLOSED HDF/ledger segment and receipt to an independent disk, verifies exact hashes, and acknowledges that episode. No open-HDF copy is accepted as the durable backup. Stop on a failed or missing acknowledgement within 60 seconds; charge transfer/wait time to the overall deadline and report engineering work separately.",
+    "cumulative_budget": "The new owner tracks the sum of all per-episode segment work against the single 320-episode/global work budget. Creating a new Meter segment never replenishes scientific budgets or resets the cumulative deadline.",
+    "boot_guard": "Pin the worker host boot ID in the new one-shot owner/launch record. Check it at each episode boundary and bind PID identity to boot ID. An external coordinator also records observed boot changes. A reboot, vanished owner or stale PID cannot trigger an automatic restart or append to the run.",
+    "synthetic_acceptance": "Before any new authorization, test close/fsync failure, writer death and truncated active-HDF tails, recovery of prior immutable CLOSED segments, mirror/hash failure, missing acknowledgement, boot change and duplicate create-only paths using synthetic arrays/fake controllers. Test that segment rotation does not replenish budgets. These engineering tests perform no real policy inference, fitting or native physics."
+  },
+  "preauthorization_requirements": [
+    "Independent scoped audit of the original closed fit and interrupted evaluation prefix; retain original bytes and recovery-copy provenance.",
+    "Reverify the S1 config/input/source/fit-result and ten checkpoint pins plus normalization/task/XML/actor interfaces.",
+    "Audit fresh reset ranges against then-current local/remote configuration and known reset ledgers, without replacing IDs after outcomes.",
+    "Verify the native CPU interpreter/package/source pins, host identity and implemented durability/boot guards.",
+    "Create a fresh source/input/config/platform seal and a reviewable immutable roster/budget; obtain explicit authorization for this new evaluation-only run."
+  ],
+  "cost_accounting": "Keep original closed fit costs, original verified evaluation-prefix costs, original interrupted/unknown work, recovery/export engineering and new S1.1 costs as separate rows. Aggregate only known disjoint work; never replace unknown costs with zero or charge inherited fitting as newly executed. Record off-host mirror bytes and time separately from worker storage.",
+  "storage_scope": "The 16 GiB cap covers the new worker run including per-episode HDF/ledger segments and receipts. Off-host mirror/storage-copy costs are separately reported, never described as zero.",
+  "stopping": "One new evaluation-only attempt: ten fixed actors on both fresh16-reset panels,320episodes. No retraining/reconstruction/GPU/MPPI/retries. Stop on source/boot/owner/interface/numeric/pairing/durability/mirror/ack/work/wall/storage error; preserve completed and partial/unknown work. No automatic follow-up.",
+  "claim_scope": "Fresh evaluation of the same three paired S1 training realizations, not new training replications. The original S1 remains interrupted. A confirmed whole-source effect is conditional on the existing corpora/learner and does not isolate multimodality, establish competent MPPI teaching, authorize coupling or close the loop.",
+  "authorization": "User: Can you go ahead and continue with it then. Implement durability safeguards and execute the evaluation-only S1.1 protocol; no repeat fitting or automatic follow-up.",
+  "ack_timeout_seconds": 60,
+  "poll_seconds": 0.1,
+  "expected_python": "3.11.16",
+  "learning": {
+    "updates": 2000,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "gradient_clip": 0.5,
+    "eta_theta": 0.0,
+    "prox_reduction": "mean",
+    "anchor_refresh": 0,
+    "initial_adam": "zero",
+    "minibatches": "Same private PCG64 index tape within each source pair; with replacement; preserve all tapes.",
+    "checkpoints": [
+      0,
+      2000
+    ]
+  },
+  "seed_pairs": [
+    {
+      "policy_seed": 20261111001,
+      "fit_seed": 1240001000
+    },
+    {
+      "policy_seed": 20261111002,
+      "fit_seed": 1240001001
+    },
+    {
+      "policy_seed": 20261111003,
+      "fit_seed": 1240001002
+    }
+  ],
+  "fit_arms": [
+    "mppi",
+    "sac_reference"
+  ],
+  "training_rows_per_arm": 4000,
+  "held_rows_per_arm": 2000,
+  "feature_map": "Native17 clipped observations; concat(state[2:10],clip(state[10:19],-10,10)).",
+  "normalization": "Exact shared W2 normalization.npz buffers, fitted only on the 4,000 original MPPI training observations. No per-source refit or use of held observations.",
+  "policy": {
+    "obs_dim": 17,
+    "hidden_dim": 128,
+    "action_dim": 6,
+    "activation": "tanh",
+    "execution": "Direct bounded torque each0.008s, native CPU, no teacher prefix or fallback."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-c",
+    "import json;from pathlib import Path;r=json.loads(Path(\"runs/2026-11-01_trajectory_review_k1_1_001/result.json\").read_text());print(json.dumps({\"totals\":r[\"totals\"],\"work\":r[\"work\"],\"groups\":[{k:g[k] for k in (\"source\",\"count\",\"E_mean\",\"E_sd\",\"E_spread\",\"decomposition\",\"two_trajectory_difference\")} for g in r[\"groups\"]],\"trajectories\":[{k:t[k] for k in (\"source\",\"id\",\"N\",\"E\",\"bin_sd\",\"marginals\")} for t in r[\"trajectories\"]]},indent=2))"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 0,
+  "wall_seconds": 0.022207625006558374,
+  "stdout_sha256": "e19d6602a0cf81b5470d8455e7c1d459ae27d437351befccb9395886eb13086e",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

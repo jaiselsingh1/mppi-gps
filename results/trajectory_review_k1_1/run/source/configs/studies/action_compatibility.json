@@ -1,0 +1,107 @@
+{
+  "schema": "walker-action-compatibility-k1-v1",
+  "claim_scope": "Action agreement and conditional native competence; no new learning or prospective teachability test.",
+  "untrained_seeds": [
+    20261031001,
+    20261031002,
+    20261031003
+  ],
+  "primary_seeds": [
+    2026103100,
+    2026103101,
+    2026103102,
+    2026103103,
+    2026103104,
+    2026103105,
+    2026103106,
+    2026103107,
+    2026103108,
+    2026103109,
+    2026103110,
+    2026103111,
+    2026103112,
+    2026103113,
+    2026103114,
+    2026103115
+  ],
+  "confirmation_seeds": [
+    2026104100,
+    2026104101,
+    2026104102,
+    2026104103,
+    2026104104,
+    2026104105,
+    2026104106,
+    2026104107,
+    2026104108,
+    2026104109,
+    2026104110,
+    2026104111,
+    2026104112,
+    2026104113,
+    2026104114,
+    2026104115
+  ],
+  "synthetic_random_seed": 2026103122,
+  "permutation_seed": 2026103123,
+  "random_execution_seed": 2026103124,
+  "bootstrap_seed": 2026103133,
+  "bootstrap_draws": 2000,
+  "prediction_batch_size": 1024,
+  "cache_conflict_atol": 2e-06,
+  "torch_threads": 1,
+  "episode_steps": 1000,
+  "primary_policy_order": [
+    "reference",
+    "h4_parent",
+    "h4_independent",
+    "untrained_0"
+  ],
+  "reference_checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+  "reference_qualification": {
+    "walking_successes": 15,
+    "episodes": 16,
+    "velocity_mae": 0.3
+  },
+  "metrics": {
+    "early_controls": 100,
+    "bin_controls": 100,
+    "saturation_threshold": 0.95
+  },
+  "neighborhoods": {
+    "anchors_per_trajectory": 100,
+    "minimum_step_separation": 50,
+    "distance_caliper": 0.02,
+    "action_difference_atol": 1e-06,
+    "distance_bins": [
+      0,
+      0.05,
+      0.1,
+      0.25,
+      0.5,
+      1,
+      2,
+      4,
+      1000000000
+    ]
+  },
+  "budgets": {
+    "stage_a_forward_rows": 1000000,
+    "stage_b_forward_rows": 1000000,
+    "combined_forward_rows": 2000000,
+    "live_controls": 100000,
+    "reserved_live_controls": 84000,
+    "maximum_episodes": 84,
+    "model_controls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "stage_a_wall_seconds": 600,
+    "stage_b_wall_seconds": 3600,
+    "storage_bytes": 8589934592,
+    "stage_a_storage_bytes": 268435456,
+    "stage_b_storage_bytes": 7516192768
+  },
+  "stopping_rule": "Complete Stage A, then the fixed 64-episode primary panel if the preselected reference is eligible. Only primary >=15/16 permits 16 reference confirmation episodes. Only confirmation >=15/16 permits four random episodes and reference/random cross-scoring. No fallback candidate, retries, training, metric changes or next experiment. Any unresolved provenance/interface/runtime error closes the run.",
+  "negative_controls": "Independent Uniform[-1,1]^6 labels and one fixed within-trajectory whole-action row permutation. Same labels for all policies; not executed trajectories or training data.",
+  "uncertainty": "2000-draw reset-ancestry block bootstrap, paired policy columns. Descriptive intervals; few ancestral resets and three fixed initializations are not population guarantees."
+}

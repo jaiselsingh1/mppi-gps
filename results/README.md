@@ -12,7 +12,9 @@ These small evidence capsules make the completed Walker studies readable from a 
 | W2 fixed 2k/10k update budgets | [student_update_w2](student_update_w2/README.md) | Confirmed retention and cost benefits at 2k; all six endpoints still walked 0/16 on both panels |
 | D1/D2 support and action consequences | [transfer_diagnosis_d1d2](transfer_diagnosis_d1d2/README.md) | All 20 replays matched exactly; support and fixed-suffix action effects do not yet explain failed transfer |
 | S1 demonstrated-source comparison, interrupted | [student_source_s1](student_source_s1/README.md) | Six fits completed; host reboot interrupted confirmation. Original bytes and scoped surviving evidence are preserved; full comparison remains incomplete |
-
 | S1.1 fixed-checkpoint fresh evaluation | [student_source_s1_1](student_source_s1_1/README.md) | All 320 episodes audited; reference 32/32 walking, MPPI children 0/96, reference-data children 5/96 in one stream. No competent student or confirmed source benefit. |
+| K1.1 saved temporal agreement review | [trajectory_review_k1_1](trajectory_review_k1_1/README.md) | Complete independent audit of all 34 trajectories/304 bins; some close full means conceal opposing local differences. No new inference, physics, training or coupling. |
 
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.
+
+K1.1 includes its entire new metadata-only run plus both audit/report versions and corrected tools source: 544 bound files / 16,707,798 bytes. Its inherited K1 raw evidence remains local-only. The next [S1.2 hypothesis](../docs/student_visitation_s1_2_hypothesis.md) is an untested draft, not a launchable experiment.

@@ -1,0 +1,39 @@
+{
+  "schema": "walker-student-learnability-l1-v1",
+  "hypothesis": "Fresh training with full physical velocities improves competent walking relative to clipped-feature training; this is a representation/training-pipeline intervention.",
+  "policy_seed": 20261029,
+  "fit_seed": 953000000,
+  "initialization": "Same fresh trainable parameter bytes/private Torch stream; zero Adam; map-specific training-only normalization.",
+  "rows": 6096,
+  "updates": 10000,
+  "checkpoints": [
+    2000,
+    5000,
+    10000
+  ],
+  "batch_size": 256,
+  "lr": 0.0003,
+  "eta_theta": 0.0,
+  "prox_reduction": "mean",
+  "anchor_refresh": 0,
+  "normalization_floor": 0.05,
+  "torch_threads": 4,
+  "device": "cpu",
+  "episode_steps": 1000,
+  "curve_root": 953110000,
+  "curve_episodes": 4,
+  "primary_root": 953100000,
+  "confirmation_root": 953120000,
+  "cohort_episodes": 16,
+  "confirmation_trigger": "Either fixed final fresh arm has at least15/16 primary walking successes; evaluate both arms and original clipped parent on16 new paired starts.",
+  "competence_minimum_successes": 15,
+  "feature_benefit_minimum_cost_gain": 0.05,
+  "stopping": "Exactly two10000-update fits. No checkpoint selection, extra seeds, retuning, new data, longer fit, or normalization change after evaluation. Conditional confirmation only under the frozen rule. Stop on provenance/runtime/budget mismatch.",
+  "budgets": {
+    "requested_controls": 250000,
+    "neural_rows": 6000000,
+    "backward_rows": 5120000,
+    "optimizer_steps": 20000
+  },
+  "claim": "One seed, one6096-row saved dataset, two feature pipelines. No pure information-content causal claim and no adaptive-coupling result."
+}

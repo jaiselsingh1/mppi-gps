@@ -1,0 +1,78 @@
+{
+  "schema": "walker-adaptive-coupling-h4.1-r1",
+  "round": 1,
+  "hypothesis": "Outcome-triggered half weight improves the next fixed-update student compared with fixed high and independent acquisition.",
+  "parent_hash": "7bf162f6e8c9bb63718e44f8392838503528a6669e7553088a07f13be6036916",
+  "platform_scope": "Local native MuJoCo3.6 on macOSarm64; all new arms share this platform. Historical trigger/checkpoint were produced on Linuxx86; no cross-host bitwise inference/physics or causal-effect comparison is claimed.",
+  "common_rows": 6096,
+  "teacher_rows": 2000,
+  "episode_steps": 1000,
+  "policy": {
+    "hidden": 128,
+    "device": "cpu"
+  },
+  "coupling": {
+    "eta_u": 0.01
+  },
+  "gates": {
+    "velocity_mae": 0.3,
+    "action_change_atol": 1e-06
+  },
+  "weights": {
+    "independent": 0.0,
+    "fixed_high": 0.1199341983507337,
+    "backoff": 0.05996709917536685
+  },
+  "learning": {
+    "updates": 2000,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "eta_theta": 0.01,
+    "prox_reduction": "mean",
+    "anchor_refresh": 250,
+    "seed": 910001000
+  },
+  "fit_checkpoints": [
+    500,
+    1000,
+    2000
+  ],
+  "torch_threads": 4,
+  "roots": {
+    "acquisition": 952000000,
+    "planner": 952100000,
+    "primary": 952200000,
+    "confirmation": 952300000
+  },
+  "reserved_second_round_roots": {
+    "acquisition": 954000000,
+    "planner": 954100000,
+    "primary": 954200000,
+    "confirmation": 954300000
+  },
+  "teacher_episodes": 2,
+  "cohort_episodes": 16,
+  "teacher_guard": {
+    "all_full_task_success": true,
+    "aggregate_cost_tolerance": 0.05,
+    "action_agreement_gate": false,
+    "substitute_failed_slots": false
+  },
+  "child_guard": {
+    "minimum_task_successes": 1,
+    "more_successes_than_fixed": true,
+    "success_nonregression": true,
+    "survival_nonregression": true,
+    "mean_controls_nonregression": true,
+    "minimum_cost_gain_vs_children": 0.05,
+    "cost_nonregression_vs_parent": true
+  },
+  "budgets": {
+    "requested_controls": 80000000,
+    "neural_rows": 60000000,
+    "backward_rows": 1536000,
+    "optimizer_steps": 6000
+  },
+  "stopping_rule": "Acquire all six complete attempts. Any failed required teacher task/cost guard stops child fitting while retaining incoming-parent primary and acquisition-start evaluations. Otherwise exactly three fixed 2k fits, paired primary and acquisition-start diagnostics, confirmation only on primary benefit. No data substitution, rho retry, representation change or fit extension. Round2 requires its own frozen confirmed-parent inputs.",
+  "claim_scope": "One prospective feedback-selected weight reduction at a fixed updated learner. Not a test against fixed-half/open-loop schedules and not convergence."
+}

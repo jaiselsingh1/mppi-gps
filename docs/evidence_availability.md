@@ -1,17 +1,17 @@
 # Evidence availability
 
-A clean checkout contains active source, tests, recipes, historical source archives, reports and eight small evidence capsules, including the interrupted S1 record. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1/W1/W2/D1/D2/S1 studies.
+A clean checkout contains active source, tests, recipes, historical source archives, reports and ten evidence capsules, including the interrupted S1 record and completed S1.1/K1.1 studies. Raw arrays, checkpoints, ledgers, NPZ training inputs, videos and most full frozen run trees remain outside Git. K1.1 includes its entire new metadata-only run. No historical evidence was deleted.
 
 ## What a clean checkout can do
 
-The [capsule index](../results/README.md) links v3.1, L1, H4.1, K1, W1, W2, D1/D2 and S1 configurations, original source/input manifests, launch metadata, curves, figures, accounting and audit summaries. Completed studies retain their original result JSON. S1 instead retains its closed fit result and an explicitly derived interruption summary; its missing final worker result is not fabricated. Earlier fitting capsules have per-update learning curves; W1/W2/S1 publish source-bound 100-update bins and keep full per-update JSON external. K1 and D1/D2 have diagnostic curves and no new learning. Every copied file has its source path, byte size and SHA-256 in `capsule.json`.
+The [capsule index](../results/README.md) links all study configurations, original source/input manifests, launch metadata, curves, figures, accounting and audit summaries. Completed studies retain their original result JSON. S1 instead retains its closed fit result and an explicitly derived interruption summary; its missing final worker result is not fabricated. Earlier fitting capsules have per-update learning curves; W1/W2/S1 publish source-bound 100-update bins and keep full per-update JSON external. K1, D1/D2 and K1.1 have diagnostic curves and no new learning. Every copied file has its source path, byte size and SHA-256 in `capsule.json`.
 
 ```sh
 uv run python scripts/train_mppi_gps.py inspect --run results/adaptive_coupling_h4_1 --verify
 uv run python scripts/check_repository.py
 ```
 
-These commands inspect metadata and validate repository evidence without simulation, inference or training. Reports can be rendered from each capsule's `run/` metadata into fresh output directories; see [development](development.md#reports-and-independent-audits). A capsule is not a complete runnable frozen run: its original manifests also describe intentionally omitted bulk data and source. Independent full-array audits require that optional data.
+These commands inspect metadata and validate repository evidence without simulation, inference or training. Reports can be rendered from each capsule's `run/` metadata into fresh external output directories; see [development](development.md#reports-and-independent-audits). Most capsules contain selected evidence, with intentionally omitted bulk data and source recorded in their original manifests. K1.1 includes its entire new saved-only run, which remains closed evidence. Independent full-array audits of earlier studies require optional bulk data.
 
 The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locators and adds per-study availability, local/remote locations, sizes, checksums, receipt bindings and bulk-file catalogs. Historical bulk hashes are copied from closed export/audit receipts. K1/W1/W2 closed-run file manifests hash each study's own new files at publication; they do not repeat the expensive historical raw audits. The inspector's verification scope is explicit.
 
@@ -27,6 +27,8 @@ The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locato
 | W2 student update-budget contrast | [Protocol, continuation, curves, outcomes, audit and accounting](../results/student_update_w2/README.md) | **Local only.** Complete closed run: 247 files, 1,496,794,451 bytes; no remote mirror asserted |
 | D1/D2 transfer diagnosis | [Protocol, measurements, curves, audit and accounting](../results/transfer_diagnosis_d1d2/README.md) | Complete local and remote mirror, independently hashed: 544 files, 898,176,991 bytes |
 | S1 source-learning comparison, interrupted | [Fits, surviving evaluations, recovery and scoped audit](../results/student_source_s1/README.md) | Exact original interrupted run mirrored on both hosts: 328 files, 2,067,119,147 bytes; evaluation HDF remains truncated. Separate derived container: 1,761,505,518 bytes per host |
+| S1.1 fresh fixed-checkpoint evaluation | [Outcomes, durability, audits and accounting](../results/student_source_s1_1/README.md) | Complete local and remote copies: 2,223 files, 2,764,317,907 bytes |
+| K1.1 saved temporal agreement review | [Entire new run, inputs, both audit/report versions and accounting](../results/trajectory_review_k1_1/README.md) | New run local and fully copied into Git: 312 files, 12,984,938 bytes; complete capsule has 544 bound files, 16,707,798 bytes. Inherited K1 raw evidence remains local-only |
 
 ### v3.1 evidence
 
@@ -162,6 +164,14 @@ engineering-transfer logs are outside that selected immutable artifact scope.
 The [S1.1 capsule](../results/student_source_s1_1/README.md) preserves all 321 packet receipts/ACK chains, the passing third audit and both failed checker versions, original inherited fits, fresh outcomes, figures and cost accounting. Full raw data are available on both hosts: local `runs/2026-10-31_student_source_s1_1_001` and remote `/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_1_001`. The identical full catalogs contain **2,223 files / 2,764,317,907 bytes**, SHA-256 `fbd821a9e43b9adf0fde52eefd413c93d60b801cccd686158a11db6c537694b6`.
 
 The independently acknowledged Mac backup is `artifacts/2026-10-31_student_source_s1_1_001/mirror_001` (2,670,087,910 logical bytes); the local analysis view is an additional regular-file copy on the same Mac. These are two hosts, not three independent hosts. Detailed per-file/array audit registries and the three immutable analysis-source exports remain in that artifact directory, with [exact registry locations/checksums](../results/student_source_s1_1/external/registry_index.json). The original interrupted S1 remains unchanged; these fresh outcomes do not repair its absent result or raw gaps.
+
+### K1.1 complete saved-only trajectory review
+
+The [K1.1 result](trajectory_review_k1_1_results.md) is complete and independently audited. Its full new local run is `/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_trajectory_review_k1_1_001`: **312 files / 12,984,938 bytes**, all copied into the [capsule](../results/trajectory_review_k1_1/README.md). The complete capsule binds **544 files / 16,707,798 bytes**; [capsule manifest](../results/trajectory_review_k1_1/capsule.json) SHA-256 is `516e704d0854d1fd6ab24b3a22f050b08bec694beb7d99588604b294824d26d2`. No remote copy is asserted.
+
+The [passing second audit](../results/trajectory_review_k1_1/audit_002/receipt.json) records 34,849 checks and 313 bound files, including the checker. The [failed first audit](../results/trajectory_review_k1_1/audit_001/receipt.json), original frozen worker/checker source, [separately frozen corrected tools](../results/trajectory_review_k1_1/analysis_source_002/source_manifest.json), original overlapping-title report and corrected report are all retained. The checker correction handles the original K1 confirmation schema; it changes no science gate or tolerance. The report correction changes only layout, with all seven CSVs byte-identical. [Accounting](../results/trajectory_review_k1_1/accounting/accounting.json) preserves both attempts and engineering overhead.
+
+This run covered 34 trajectories, 30,070 saved controls and 304 ordered bins with zero new inference, physics, training, raw-array reads, checkpoint loads or GPU operations. It generated no raw arrays. Inherited K1 bulk arrays and checkpoints remain local-only under the earlier K1 entry; their absence from this analysis is not evidence of a remote mirror. Exact configuration, input-seal, result and source hashes are in the [machine-readable index](evidence_index.json). The next [S1.2 hypothesis](student_visitation_s1_2_hypothesis.md) remains an untested, unlaunchable draft.
 
 ### Legacy evidence
 

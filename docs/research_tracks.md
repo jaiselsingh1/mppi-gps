@@ -14,12 +14,16 @@ one training seed. The source-benefit screen failed and no student met competenc
 This fresh evaluation does not complete or erase interrupted S1. S1's original
 proposal and protocol remain preserved.
 
-The next bounded block is [K1.1](trajectory_review_k1_1_protocol.md), a saved-only
-review of all 34 fixed-reference trajectory scores and their 304 ordered bins.
-It separates whole-trajectory averaging, actuator contributions and marginal
-magnitude/saturation. Existing K1 agreement and S1.1 standalone outcomes retain
-their distinct meanings. No model inference, simulation, training or coupling
-mechanism runs in this block; no metric is selected to force a ranking.
+[K1.1](trajectory_review_k1_1_results.md) is complete and independently audited:
+all 34 fixed-reference trajectory scores and 304 ordered bins reconcile. Some
+near-equal full scores conceal large, opposing local differences; cancellation
+varies by source. This establishes an averaging effect, not gait phase, causal
+importance or teachability. The [capsule](../results/trajectory_review_k1_1/README.md)
+retains the failed first audit, corrected tools source and both reports. No
+inference, simulation, training or coupling ran. The next
+[S1.2 visitation hypothesis](student_visitation_s1_2_hypothesis.md) holds the label
+function fixed while contrasting state distributions. It remains untested and
+not launchable; it proposes no automatic learning or coupling follow-up.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 

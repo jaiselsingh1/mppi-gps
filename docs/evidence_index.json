@@ -2914,6 +2914,145 @@
       "external_registries": "results/student_source_s1_1/external/registry_index.json",
       "accounting": "results/student_source_s1_1/accounting/engineering_accounting.json",
       "claim_scope": "Same three retained training realizations, two new all-actor panels; no new fitting/acquisition/coupling and no competent student."
+    },
+    "trajectory_review_k1_1": {
+      "study": "K1.1",
+      "kind": "saved_metric_temporal_review",
+      "run_id": "2026-11-01_trajectory_review_k1_1_001",
+      "status": "complete_independently_audited",
+      "execution_complete": true,
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_trajectory_review_k1_1_001",
+      "remote_directory": null,
+      "remote_copy_verified": false,
+      "availability": "Entire new metadata-only run available locally and copied exactly into the tracked capsule. Inherited K1 bulk evidence remains local-only outside Git.",
+      "file_count": 312,
+      "total_bytes": 12984938,
+      "capsule": {
+        "directory": "results/trajectory_review_k1_1",
+        "manifest": "results/trajectory_review_k1_1/capsule.json",
+        "manifest_sha256": "516e704d0854d1fd6ab24b3a22f050b08bec694beb7d99588604b294824d26d2",
+        "manifest_bytes": 170180,
+        "exact_copy_files": 544,
+        "exact_copy_bytes": 16707798,
+        "in_git": true,
+        "scope": "Entire new saved-only run plus exact input copies, both audit/report attempts, separately corrected tools source, publication and accounting. No new raw arrays/checkpoints/videos exist."
+      },
+      "file_catalog": {
+        "file": "results/trajectory_review_k1_1/capsule.json",
+        "sha256": "516e704d0854d1fd6ab24b3a22f050b08bec694beb7d99588604b294824d26d2",
+        "bytes": 170180,
+        "full_run_prefix": "run/",
+        "scope": "The 312 run/ entries bind every file in the complete new run; all 544 entries bind the entire capsule payload. The manifest excludes itself."
+      },
+      "config": {
+        "file": "results/trajectory_review_k1_1/run/config.json",
+        "sha256": "0e45ee0095b58411f367cb057b0f118af09b183dc968980715acda9d7e5f78b0",
+        "bytes": 5767
+      },
+      "result": {
+        "file": "results/trajectory_review_k1_1/run/result.json",
+        "sha256": "90ff089887a72f217d82a091ca64de3c800a56290f3d6e1e8e182d989c552bd8",
+        "bytes": 258402
+      },
+      "input_manifest": {
+        "file": "results/trajectory_review_k1_1/run/input_manifest.json",
+        "sha256": "9e3a8b2048f01519be25d419b57ede41cfa2b1531ddbc9679237af85939904c6",
+        "bytes": 2326
+      },
+      "source_manifest": {
+        "file": "results/trajectory_review_k1_1/run/manifest.json",
+        "sha256": "092851ef6b4ea2be4455670f377399aea852252f4b6b7d36ffc14761f4289f61",
+        "bytes": 44758
+      },
+      "config_sha256": "0e45ee0095b58411f367cb057b0f118af09b183dc968980715acda9d7e5f78b0",
+      "result_sha256": "90ff089887a72f217d82a091ca64de3c800a56290f3d6e1e8e182d989c552bd8",
+      "input_manifest_sha256": "9e3a8b2048f01519be25d419b57ede41cfa2b1531ddbc9679237af85939904c6",
+      "source_manifest_sha256": "092851ef6b4ea2be4455670f377399aea852252f4b6b7d36ffc14761f4289f61",
+      "implementation_commit": "e73cc5bdf3efbd7029773375d6b4f8e74c6860fc",
+      "independent_audit": {
+        "file": "results/trajectory_review_k1_1/audit_002/receipt.json",
+        "sha256": "149e5b14eedd206d2df59439341434b943a993e5d24e73df93dd4957ec4bc567",
+        "bytes": 600,
+        "passed": true,
+        "checks": 34849,
+        "bound_files": 313
+      },
+      "prior_failed_audit": {
+        "file": "results/trajectory_review_k1_1/audit_001/receipt.json",
+        "sha256": "153124ab8bc76aba1d737c2fc000d0f66d82e1c6be1eeeec27ac8a463f0a002b",
+        "bytes": 1654,
+        "passed": false,
+        "reason": "Original checker assumed a primary-style policy mapping for the historical confirmation summary; original failure and cost retained."
+      },
+      "corrected_tools_source": {
+        "file": "results/trajectory_review_k1_1/analysis_source_002/source_manifest.json",
+        "sha256": "a5e5ac6c8d8fe1fe68ac27f396705480822e92900b5f9396a954d1b3d196b3f0",
+        "bytes": 19720,
+        "implementation_commit": "3dcec3618c647c847badf5b7fb5a543af6059494",
+        "scope": "Separate create-only source export correcting the audit schema handling and report title layout; no scientific worker rerun, gate or tolerance change."
+      },
+      "canonical_report": {
+        "directory": "results/trajectory_review_k1_1/report",
+        "receipt": {
+          "file": "results/trajectory_review_k1_1/report/receipt.json",
+          "sha256": "a859705337c4e25a7f33747da72eebbd7ba9588c6301f9a48bc7309d2112b412",
+          "bytes": 2885
+        }
+      },
+      "prior_report_retained": {
+        "directory": "results/trajectory_review_k1_1/historical/report_001",
+        "receipt": {
+          "file": "results/trajectory_review_k1_1/historical/report_001/receipt.json",
+          "sha256": "bed74aec421d2e87bf2aebf590020acc2f5133c7de21c587f334962e657c4daf",
+          "bytes": 2886
+        },
+        "scope": "Original overlapping-title figure preserved. All seven CSVs and report text are byte-identical to the corrected report; only cumulative PNG layout and PDF timestamps differ."
+      },
+      "analysis_counts": {
+        "actuator_entries": 204,
+        "actuator_joins": 204,
+        "bins": 304,
+        "curve_joins": 71,
+        "group_joins": 8,
+        "matrix_joins": 34,
+        "rows": 30070,
+        "saturation_joins": 68,
+        "trajectories": 34
+      },
+      "new_work": {
+        "bins": 304,
+        "checkpoint_loads": 0,
+        "gpu_operations": 0,
+        "input_bytes": 8328586,
+        "input_files": 9,
+        "metric_records": 34,
+        "new_mppi_controls": 0,
+        "new_optimizer_steps": 0,
+        "new_physics_controls": 0,
+        "new_policy_forward_rows": 0,
+        "raw_array_reads": 0,
+        "source_control_rows_covered": 30070
+      },
+      "worker_wall_seconds": 0.04296391700336244,
+      "worker_peak_rss_bytes": 64880640,
+      "accounting": {
+        "file": "results/trajectory_review_k1_1/accounting/accounting.json",
+        "sha256": "df2b075755fbeb3e7903e1f8c4d39ecbf9401287fd1f39557f501ced4a36b941",
+        "bytes": 28031
+      },
+      "inherited_evidence": {
+        "study": "action_compatibility_k1",
+        "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+        "availability": "K1 full raw arrays/checkpoints/ledgers remain local-only and outside Git; K1.1 copied and read nine saved JSON/CSV files only.",
+        "raw_array_reads": 0,
+        "checkpoint_loads": 0,
+        "remote_copy_verified": false
+      },
+      "claim_scope": "Descriptive saved-score temporal averaging and covariance identities, not gait phase, causal action importance, teachability or useful coupling.",
+      "next_hypothesis": {
+        "file": "docs/student_visitation_s1_2_hypothesis.md",
+        "status": "untested_not_launchable_no_followup_authorized"
+      }
     }
   },
   "saved_analyses": {

@@ -1,0 +1,191 @@
+{
+  "schema": "walker-student-source-s1-proposal-v1",
+  "status": "unlaunched_proposal_for_review_not_registered_for_execution",
+  "hypothesis": "With the current 128-tanh student and a fixed 2k update budget, an equal-sized corpus of successful independently trained reference behavior produces a better standalone child than the original successful MPPI corpus. This is a whole-corpus source contrast, not an isolation of multimodality or a coupling experiment.",
+  "source_runs": {
+    "k1": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+    "w2": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001",
+    "diagnostic": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001"
+  },
+  "source_bindings": {
+    "k1_input_manifest_sha256": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99",
+    "w2_input_manifest_sha256": "c9ebdeac1ab7fa1a252176d271513c27c98a79bcb9fab87dacf14ed5e1c1c19e",
+    "reference_checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+    "reference_policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+    "diagnostic_config_sha256": "be462b70ac7b5a0b420b1b137c998f6a78f3a52c198cbbffaf06609f9aa0031a",
+    "diagnostic_input_manifest_sha256": "bf93b0a479b073bfe32d8d05e92b207506fda9398d5e82e83d15c40cc3c12033",
+    "diagnostic_result_sha256": "757cf6a0961ed7879865b0dfa1bf137f3fce7c5f26b53468068e19424adbb119"
+  },
+  "arms": {
+    "mppi": {
+      "training_episodes": [
+        "discovery_00",
+        "discovery_01",
+        "discovery_02",
+        "discovery_03"
+      ],
+      "held_episodes": [
+        "v2_r0_trial_raw_0",
+        "v2_r0_trial_raw_1"
+      ],
+      "container_rule": "Exact W2 train.npz and validation.npz container bytes; no auxiliary, recovery or hypothetical rows."
+    },
+    "sac_reference": {
+      "training_episodes": [
+        "k1_primary_reference_00",
+        "k1_primary_reference_01",
+        "k1_primary_reference_02",
+        "k1_primary_reference_03"
+      ],
+      "held_episodes": [
+        "k1_primary_reference_04",
+        "k1_primary_reference_05"
+      ],
+      "container_rule": "Original executed pre-action observations and applied torques from the named complete successful K1 episodes; preserve stored dtypes and source raw-array hashes; concatenate episode IDs then controls 0..999. Never relabel MPPI observations using reference predictions."
+    }
+  },
+  "training_rows_per_arm": 4000,
+  "held_rows_per_arm": 2000,
+  "feature_map": "Native17 clipped observations; concat(state[2:10],clip(state[10:19],-10,10)).",
+  "normalization": "Exact shared W2 normalization.npz buffers, fitted only on the 4,000 original MPPI training observations. No per-source refit or use of held observations.",
+  "policy": {
+    "obs_dim": 17,
+    "hidden_dim": 128,
+    "action_dim": 6,
+    "activation": "tanh",
+    "execution": "Direct bounded torque each0.008s, native CPU, no teacher prefix or fallback."
+  },
+  "seed_pairs": [
+    {
+      "policy_seed": 20261111001,
+      "fit_seed": 1240001000
+    },
+    {
+      "policy_seed": 20261111002,
+      "fit_seed": 1240001001
+    },
+    {
+      "policy_seed": 20261111003,
+      "fit_seed": 1240001002
+    }
+  ],
+  "learning": {
+    "updates": 2000,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "gradient_clip": 0.5,
+    "eta_theta": 0.0,
+    "prox_reduction": "mean",
+    "anchor_refresh": 0,
+    "initial_adam": "zero",
+    "minibatches": "Same private PCG64 index tape within each source pair; with replacement; preserve all tapes.",
+    "checkpoints": [
+      0,
+      2000
+    ]
+  },
+  "platform": {
+    "host": "robopil5090",
+    "fit_device": "cuda:0",
+    "gpu": "NVIDIA GeForce RTX 5090 with 32 GiB",
+    "torch": "2.10.0+cu128",
+    "precision": "float32",
+    "allow_tf32": false,
+    "deterministic_algorithms": true,
+    "cublas_workspace_config": ":4096:8",
+    "torch_cpu_threads": 1,
+    "adam_foreach": false,
+    "adam_fused": false,
+    "physics": "Pinned D1/D2 native CPU runtime and XML; no Warp/GPU physics",
+    "historical_comparison": "Both source arms are new fits on the same CUDA runtime; historical CPU W2 policies are not matched controls.",
+    "fit_interpreter": "/home/jaisel/mppi-gps-venvs/cuda/bin/python",
+    "native_interpreter": "/home/jaisel/mppi-gps/.venv/bin/python"
+  },
+  "episode_steps": 1000,
+  "primary_seeds": [
+    1250000000,
+    1250000001,
+    1250000002,
+    1250000003,
+    1250000004,
+    1250000005,
+    1250000006,
+    1250000007,
+    1250000008,
+    1250000009,
+    1250000010,
+    1250000011,
+    1250000012,
+    1250000013,
+    1250000014,
+    1250000015
+  ],
+  "confirmation_seeds": [
+    1260000000,
+    1260000001,
+    1260000002,
+    1260000003,
+    1260000004,
+    1260000005,
+    1260000006,
+    1260000007,
+    1260000008,
+    1260000009,
+    1260000010,
+    1260000011,
+    1260000012,
+    1260000013,
+    1260000014,
+    1260000015
+  ],
+  "evaluation_order": [
+    "reference",
+    "incoming_s0",
+    "mppi_s0",
+    "sac_reference_s0",
+    "incoming_s1",
+    "mppi_s1",
+    "sac_reference_s1",
+    "incoming_s2",
+    "mppi_s2",
+    "sac_reference_s2"
+  ],
+  "confirmation": "Both complete 16-reset panels run for all 10 fixed actors regardless of primary outcomes; no favorable seed selection.",
+  "diagnostics": "All 9 student/incoming actors predict both arms\u2019 4,000 training and 2,000 held rows once each: 108,000 rows. The reference reuses its existing K1 predictions/logged actions. Fit curves use already computed minibatch losses; no extra checkpoint evaluation.",
+  "walking_screen": {
+    "minimum_additional_successes": 2,
+    "minimum_positive_pairs": 2,
+    "walking_nonregression_every_pair": true,
+    "survival_nonregression_every_pair": true,
+    "confirmed_benefit": "The same walking screen passes separately on primary and confirmation."
+  },
+  "competence": {
+    "minimum_walking_successes_per_panel": 15,
+    "panels_required": [
+      "primary",
+      "confirmation"
+    ],
+    "scope": "Report every individual actor and all three training pairs; one competent seed is not seed-robust fitting."
+  },
+  "budgets": {
+    "optimizer_steps": 12000,
+    "backward_rows": 3072000,
+    "neural_rows": 3500000,
+    "diagnostic_forward_rows": 108000,
+    "live_controls": 320000,
+    "physics_substeps": 1280000,
+    "episodes": 320,
+    "checkpoint_loads": 10,
+    "new_teacher_episodes": 0,
+    "model_controls": 0,
+    "wall_seconds": 3600,
+    "storage_bytes": 17179869184
+  },
+  "bootstrap": {
+    "seed": 2026111199,
+    "draws": 2000,
+    "unit": "Paired training seeds crossed with shared reset contexts; descriptive only, no frame independence or population coverage claim."
+  },
+  "stopping": "Proposal only: no worker, registration, fit or evaluation is authorized by this file. After separate approval and a new input/source/platform seal: exactly6fixed 2k fits,9 fixed student/incoming actors plus 1 fixed reference, and both panels. Stop on any source, alignment, normalization, continuation-owner, interface, numeric, deterministic-runtime, work, wall or storage error. Preserve partial work; no retry, source substitution, extra update, selected checkpoint, new labels, importance weighting, OT objective or automatic follow-up.",
+  "claim_scope": "A whole demonstrated-behavior source intervention conditional on these corpora, student, normalization, update budget and CUDA runtime. No inference that trajectory diversity caused failure, that reference actions are uniquely correct, or that SAC 256 competence proves 128-tanh competence. Reference-clone walking alone does not authorize MPPI coupling or establish loop closure."
+}
