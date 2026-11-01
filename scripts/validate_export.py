@@ -16,6 +16,20 @@ import tempfile
 from pathlib import Path
 
 
+def verify_report_outputs(report: Path, bindings: dict[str, dict]) -> None:
+    """Resolve host path aliases while rejecting files outside the report."""
+    report = report.resolve()
+    for name, binding in bindings.items():
+        path = (report / name).resolve()
+        if (
+            not path.is_relative_to(report)
+            or not path.is_file()
+            or path.stat().st_size != binding["bytes"]
+            or hashlib.sha256(path.read_bytes()).hexdigest() != binding["sha256"]
+        ):
+            raise ValueError(f"Rendered trajectory-review binding differs: {path}")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--export", type=Path, required=True)
@@ -220,14 +234,7 @@ def main(argv: list[str] | None = None) -> int:
         source = root / "src/gps/mppi_gps/reporting/trajectory_review.py"
         if hashlib.sha256(source.read_bytes()).hexdigest() != receipt["source_sha256"]:
             raise ValueError("Rendered trajectory-review source differs")
-        for name, binding in receipt["outputs"].items():
-            path = report / name
-            if (
-                not path.resolve().is_relative_to(report)
-                or path.stat().st_size != binding["bytes"]
-                or hashlib.sha256(path.read_bytes()).hexdigest() != binding["sha256"]
-            ):
-                raise ValueError(f"Rendered trajectory-review binding differs: {path}")
+        verify_report_outputs(report, receipt["outputs"])
     print(
         json.dumps(
             dict(
