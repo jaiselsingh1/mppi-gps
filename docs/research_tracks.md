@@ -7,10 +7,19 @@ MPPI search. Support does not certify competence; consequences under the fixed
 open-loop continuation do not consistently rank whole-policy retention. The
 [S1 source-learning comparison](student_source_s1_results.md) completed six fixed
 fits but was interrupted by a host reboot during confirmation. Its original
-bytes and incomplete roster are preserved. [S1.1](student_source_s1_1_protocol.md)
-proposes fresh evaluation of the existing actors after durability work; it is
-unlaunched. No new learning or coupling mechanism is selected from the incomplete
-comparison. S1's original proposal and protocol remain preserved.
+bytes and incomplete roster are preserved. [S1.1](student_source_s1_1_results.md)
+completed all 320 fresh evaluations with an independent audit: the reference
+walked 32/32, MPPI-data children 0/96 and reference-data children 5/96, all from
+one training seed. The source-benefit screen failed and no student met competence.
+This fresh evaluation does not complete or erase interrupted S1. S1's original
+proposal and protocol remain preserved.
+
+The next bounded block is [K1.1](trajectory_review_k1_1_protocol.md), a saved-only
+review of all 34 fixed-reference trajectory scores and their 304 ordered bins.
+It separates whole-trajectory averaging, actuator contributions and marginal
+magnitude/saturation. Existing K1 agreement and S1.1 standalone outcomes retain
+their distinct meanings. No model inference, simulation, training or coupling
+mechanism runs in this block; no metric is selected to force a ranking.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 

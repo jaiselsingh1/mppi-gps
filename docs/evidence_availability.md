@@ -138,9 +138,9 @@ The [capsule](../results/student_source_s1/README.md) contains original small
 metadata, a named `interruption_summary.json`, source-bound curve bins, figures,
 prefix-audit evidence and known/unknown cost accounting. It supports clean-checkout
 inspection and plotting. Full arrays and the detailed audit registry remain in
-the artifacts store. The original run remains interrupted. The next
-[S1.1 proposal](student_source_s1_1_protocol.md) is unlaunched and reuses the closed
-fits rather than repeating training.
+the artifacts store. The original run remains interrupted. The separately
+completed [S1.1 fresh evaluation](student_source_s1_1_results.md) reused the closed
+fits without repeating training; it does not retroactively complete S1.
 
 The postmortem also **fails full-prefix integrity**: 187 complete episodes verify,
 eight completion records lack required raw groups, one attempt is censored and

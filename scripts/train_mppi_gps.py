@@ -26,6 +26,7 @@ STUDIES = {
     "transfer-diagnosis": "src.gps.mppi_gps.experiments.transfer_diagnosis",
     "source": "src.gps.mppi_gps.experiments.student_source",
     "source-evaluation": "src.gps.mppi_gps.experiments.student_source_evaluation",
+    "trajectory-review": "src.gps.mppi_gps.experiments.trajectory_review",
 }
 
 

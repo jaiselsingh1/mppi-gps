@@ -106,6 +106,34 @@ runpy.run_path('scripts/train_mppi_gps.py', run_name='__main__')
     assert json.loads(result.stdout)["kind"] == "frozen_run"
 
 
+def test_saved_metric_inspector_requires_inputs_without_inventing_raw_evidence(saved_run):
+    (saved_run / "config.json").write_text('{"schema":"walker-trajectory-review-config-v1"}')
+    manifest = json.loads((saved_run / "manifest.json").read_text())
+    manifest["config_sha256"] = hashlib.sha256((saved_run / "config.json").read_bytes()).hexdigest()
+    (saved_run / "manifest.json").write_text(json.dumps(manifest))
+    (saved_run / "result.json").write_text(
+        json.dumps(
+            {
+                "schema": "walker-trajectory-review-result-v1",
+                "execution_complete": True,
+                "reference": {"policy": "reference"},
+                "analysis_counts": {"trajectories": 34, "rows": 30070, "bins": 304},
+                "groups": [{"source": "synthetic", "count": 2}],
+                "work": {"new_policy_forward_rows": 0},
+            }
+        )
+    )
+    before = {p: p.read_bytes() for p in saved_run.rglob("*") if p.is_file()}
+    report = inspect_run(saved_run, verify=True)
+    assert report["diagnostics"]["analysis_counts"]["bins"] == 304
+    assert report["diagnostics"]["groups"] == [{"source": "synthetic", "count": 2}]
+    assert report["bulk_evidence"] == {}
+    assert report["missing_evidence"] == report["errors"] == report["hash_mismatches"] == []
+    assert before == {p: p.read_bytes() for p in saved_run.rglob("*") if p.is_file()}
+    (saved_run / "inputs/provenance.json").unlink()
+    assert "inputs/provenance.json" in inspect_run(saved_run, verify=True)["missing_evidence"]
+
+
 @pytest.mark.parametrize("name", train_mppi_gps.STUDIES)
 def test_study_dispatch_preserves_worker_arguments(monkeypatch, name):
     seen = []

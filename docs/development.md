@@ -133,6 +133,20 @@ uv run python scripts/audits/student_source_interruption.py --help
 
 `learnability.py` also takes an explicit provenance receipt. H4 checks can take an explicit comparison run, compact HDF and raw locator; the locator must describe its actual local storage. Use [the evidence index](evidence_index.json) and capsule `file_bindings.json` for exact recorded hashes rather than guessing paths or assuming a remote mirror.
 
+## Saved-only K1.1 review
+
+The [K1.1 protocol](trajectory_review_k1_1_protocol.md) binds nine existing K1 JSON/CSV inputs and reduces their saved measurements. It loads no policy, checkpoint, raw array or simulator, performs no new training or inference, and changes no coupling rule. Use a fresh run and fresh external artifact directories:
+
+```sh
+MPPI_GPS_REVIEW_RUN="/absolute/path/to/runs/FRESH_K1_1_RUN"
+uv run python scripts/train_mppi_gps.py study trajectory-review prepare --source-root /absolute/path/to/mppi-gps --out "$MPPI_GPS_REVIEW_RUN"
+uv run python "$MPPI_GPS_REVIEW_RUN/source/scripts/train_mppi_gps.py" study trajectory-review run --out "$MPPI_GPS_REVIEW_RUN"
+uv run python scripts/audits/trajectory_review.py --run "$MPPI_GPS_REVIEW_RUN" --out /absolute/path/to/artifacts/FRESH_K1_1_AUDIT --config-sha CONFIG_SHA256 --seal-sha INPUT_MANIFEST_SHA256
+uv run python scripts/diagnostics/report_trajectory_review.py --run "$MPPI_GPS_REVIEW_RUN" --out /absolute/path/to/artifacts/FRESH_K1_1_REPORT
+```
+
+Replace the machine-specific paths and the two audit pins with the exact `config_sha256` and `input_manifest_sha256` emitted by preparation. Run the launcher through the frozen CLI so its source verification uses the same frozen root as the worker. Current reporting reads only the saved `config.json` and completed `result.json`; it also accepts a portable capsule root containing `run/`. Audit/report output must remain outside the immutable run or capsule. Ordered bins preserve absolute control time (one control is 0.008 s), and short random trajectories retain missing post-fall data rather than padded values. These are conditional agreement diagnostics, separate from S1.1's standalone outcomes.
+
 ## Validation without historical data
 
 ```sh

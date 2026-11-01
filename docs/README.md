@@ -1,6 +1,6 @@
 # Research and development guide
 
-Start with the [S1.1 audited fresh evaluation](student_source_s1_1_results.md) and [K1 fixed-reference trajectory spread](action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review), then the [S1 interrupted comparison](student_source_s1_results.md), [D1/D2 diagnosis](transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](student_update_w2_results.md), [W1 width result](student_width_w1_results.md) and [K1 dataset-by-policy comparison and verdict](action_compatibility_k1_results.md), then the [L1/H4.1 outcome report](walker_experiments_l1_h4_results.md), [v3.1 recorded-data comparison](loop_v3_results.md), and [methods overview](methods.md). [Research tracks](research_tracks.md) separates student learnability from adaptation of trajectory optimization.
+Start with the [S1.1 audited fresh evaluation](student_source_s1_1_results.md) and [K1.1 saved along-trajectory review protocol](trajectory_review_k1_1_protocol.md), then [K1 fixed-reference trajectory spread](action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review), the [S1 interrupted comparison](student_source_s1_results.md), [D1/D2 diagnosis](transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](student_update_w2_results.md), [W1 width result](student_width_w1_results.md) and [K1 dataset-by-policy comparison and verdict](action_compatibility_k1_results.md), then the [L1/H4.1 outcome report](walker_experiments_l1_h4_results.md), [v3.1 recorded-data comparison](loop_v3_results.md), and [methods overview](methods.md). [Research tracks](research_tracks.md) separates student learnability from adaptation of trajectory optimization.
 
 ## Study evidence
 
@@ -12,6 +12,8 @@ Its [original proposal](student_source_s1_protocol.md) and
 [execution protocol](student_source_s1_execution_protocol.md) are preserved.
 [S1.1](student_source_s1_1_results.md) completed all 320 fresh evaluations with a passing independent audit. Only one reference-data student walked occasionally (3/16 primary, 2/16 confirmation); no student met competence and the source screen failed. Subsequent learning and loop stages require separate authorization.
 
+[K1.1](trajectory_review_k1_1_protocol.md) next checks ordered temporal errors, actuator contributions and marginal saturation using saved K1 metrics only. Its [commands](development.md#saved-only-k11-review) freeze inputs, run the bounded reduction, audit it independently and render it. It does not train a policy or change trajectory optimization.
+
 | Study | Question and outcome | Protocol and exact capsule |
 |---|---|---|
 | v3.1 | Can the previously rejected successful guided data teach a matched child? No walking success; guided data lost the independent child's survival benefit. | [Protocol](loop_v3_saved_comparison_protocol.md), [capsule](../results/guided_data_v3_1/README.md), [saved-evidence audit](loop_v3_evidence_audit.md) |
@@ -22,8 +24,8 @@ Its [original proposal](student_source_s1_protocol.md) and
 | W2 | Does fixed 2k deployment improve on the same stream continued to 10k? Retention and cost benefits repeat on confirmation; all endpoints still fail walking and full survival. | [Protocol](student_update_w2_protocol.md), [result](student_update_w2_results.md), [capsule](../results/student_update_w2/README.md) |
 | D1/D2 | Do saved support and controlled action consequences explain transfer failure? Support does not certify competence; single-action effects under a fixed suffix do not consistently rank whole-policy retention. | [Protocol](transfer_diagnosis_d1d2_protocol.md), [result](transfer_diagnosis_d1d2_results.md), [capsule](../results/transfer_diagnosis_d1d2/README.md) |
 | S1 | Does the same learner transfer reference demonstrations better than MPPI data? Fits completed; confirmation interrupted by host reboot. Full comparison remains incomplete. | [Protocol](student_source_s1_execution_protocol.md), [preserved result](student_source_s1_results.md), [capsule](../results/student_source_s1/README.md), [S1.1 proposal](student_source_s1_1_protocol.md) |
-
 | S1.1 | Do the exact retained S1 actors reliably walk on two fresh panels? Reference 32/32; MPPI children 0/96; reference-data children 5/96 in one stream. Source screen failed; no competent student. | [Protocol](student_source_s1_1_execution_protocol.md), [result](student_source_s1_1_results.md), [capsule](../results/student_source_s1_1/README.md) |
+| K1.1 | Do similar whole-trajectory fixed-reference scores conceal different ordered bin profiles? Bounded saved-metric review; no new training or coupling. | [Protocol](trajectory_review_k1_1_protocol.md), [prior spread review](action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review) |
 
 Read the [evidence guide](evidence_availability.md) before attempting a bulk-data audit. Capsules support reading, plotting and metadata inspection in a clean checkout. Their original manifests describe full runs that also contain evidence excluded from Git.
 

@@ -139,6 +139,9 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     ]
     omitted = capsule.get("bulk_evidence", {}).get("omitted", [])
     evidence_names = ("evidence/raw.h5", "evidence/ledger.jsonl")
+    saved_metric_review = config.get("schema") == "walker-trajectory-review-config-v1"
+    if saved_metric_review:
+        evidence_names = ()
     if config.get("schema") == "walker-student-source-s1-v1":
         evidence_names = tuple(
             f"evidence/{phase}/{name}"
@@ -264,6 +267,14 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "baseline_gate_passed": d2.get("baseline_gate_passed", False),
             "substituted_branches": len(d2.get("branches", [])),
             "scope": "Single-action substitution under a fixed open-loop teacher suffix; no learning or recovery claim.",
+        }
+    if saved_metric_review:
+        report["diagnostics"] = {
+            "reference": result.get("reference", {}),
+            "analysis_counts": result.get("analysis_counts", {}),
+            "groups": result.get("groups", []),
+            "worker_exit_available": (run / "worker_exit.json").is_file(),
+            "scope": "Saved fixed-reference action agreement; no new predictions, physics, fitting or optimization feedback. Ordered bins retain actual observed lengths. Inspection does not establish an independent audit pass.",
         }
     if segmented:
         report["provenance"]["inherited_fit"] = result.get("inherited_fit", {})

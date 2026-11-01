@@ -7,6 +7,7 @@ saved capsule data, and all generated files go to a new temporary directory.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -36,6 +37,10 @@ def main(argv: list[str] | None = None) -> int:
     commands = [
         ["-m", "pytest", "-q", "--basetemp", str(outputs / "pytest")],
         ["scripts/check_repository.py"],
+        ["scripts/train_mppi_gps.py", "study", "trajectory-review", "prepare", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "trajectory-review", "run", "--help"],
+        ["scripts/audits/trajectory_review.py", "--help"],
+        ["scripts/diagnostics/report_trajectory_review.py", "--help"],
     ]
     capsules = (
         "guided_data_v3_1",
@@ -50,6 +55,8 @@ def main(argv: list[str] | None = None) -> int:
         capsules += ("student_source_s1",)
     if (root / "results/student_source_s1_1/capsule.json").is_file():
         capsules += ("student_source_s1_1",)
+    if (root / "results/trajectory_review_k1_1/capsule.json").is_file():
+        capsules += ("trajectory_review_k1_1",)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -137,6 +144,16 @@ def main(argv: list[str] | None = None) -> int:
                 str(outputs / "student_source_s1_1"),
             ]
         )
+    if "trajectory_review_k1_1" in capsules:
+        commands.append(
+            [
+                "scripts/diagnostics/report_trajectory_review.py",
+                "--run",
+                "results/trajectory_review_k1_1",
+                "--out",
+                str(outputs / "trajectory_review"),
+            ]
+        )
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -176,11 +193,41 @@ def main(argv: list[str] | None = None) -> int:
                 "cost_components",
             )
         )
+    if "trajectory_review_k1_1" in capsules:
+        figures += tuple(
+            ("trajectory_review", stem)
+            for stem in (
+                "individual_bin_errors",
+                "cumulative_agreement",
+                "actuator_and_saturation",
+                "variance_decomposition",
+            )
+        )
     for folder, stem in figures:
         for extension in ("png", "pdf"):
             figure = outputs / folder / f"{stem}.{extension}"
             if not figure.is_file() or figure.stat().st_size == 0:
                 raise ValueError(f"Missing rendered figure: {figure}")
+    if "trajectory_review_k1_1" in capsules:
+        report = outputs / "trajectory_review"
+        receipt = json.loads((report / "receipt.json").read_text())
+        if receipt["scientific_calls"] != 0:
+            raise ValueError("Saved trajectory review must perform zero scientific calls")
+        for name, expected in receipt["inputs"].items():
+            path = root / "results/trajectory_review_k1_1/run" / name
+            if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise ValueError(f"Rendered trajectory-review input differs: {path}")
+        source = root / "src/gps/mppi_gps/reporting/trajectory_review.py"
+        if hashlib.sha256(source.read_bytes()).hexdigest() != receipt["source_sha256"]:
+            raise ValueError("Rendered trajectory-review source differs")
+        for name, binding in receipt["outputs"].items():
+            path = report / name
+            if (
+                not path.resolve().is_relative_to(report)
+                or path.stat().st_size != binding["bytes"]
+                or hashlib.sha256(path.read_bytes()).hexdigest() != binding["sha256"]
+            ):
+                raise ValueError(f"Rendered trajectory-review binding differs: {path}")
     print(
         json.dumps(
             dict(
