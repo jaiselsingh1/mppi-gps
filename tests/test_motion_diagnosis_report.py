@@ -81,15 +81,40 @@ def write_run(path: Path) -> tuple[Path, dict]:
 
 def cli_report(run: Path, out: Path) -> dict:
     script = Path("scripts/diagnostics/report_motion_diagnosis.py").resolve()
+    # Linux carries pre-exec peak RSS from a heavy pytest parent into its child.
+    # Spawn the measured renderer from a fresh, small interpreter so its fixed
+    # memory budget covers the renderer rather than unrelated earlier tests.
+    launcher = (
+        "import subprocess,sys; "
+        "raise SystemExit(subprocess.run(sys.argv[1:], timeout=110).returncode)"
+    )
     completed = subprocess.run(
-        [sys.executable, "-B", str(script), "--run", str(run), "--out", str(out)],
-        check=True,
+        [
+            sys.executable,
+            "-B",
+            "-c",
+            launcher,
+            sys.executable,
+            "-B",
+            str(script),
+            "--run",
+            str(run),
+            "--out",
+            str(out),
+        ],
+        check=False,
         capture_output=True,
         text=True,
         timeout=120,
     )
+    receipt_path = out / "receipt.json"
+    assert completed.returncode == 0, (
+        f"Report exited {completed.returncode}\nstdout: {completed.stdout}"
+        f"\nstderr: {completed.stderr}\nreceipt: "
+        + (receipt_path.read_text() if receipt_path.is_file() else "missing")
+    )
     assert json.loads(completed.stdout)["execution_complete"] is True
-    return json.loads((out / "receipt.json").read_text())
+    return json.loads(receipt_path.read_text())
 
 
 def test_tables_keep_all_pairs_horizons_contributions_and_actual_tail():

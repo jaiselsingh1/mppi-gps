@@ -47,3 +47,5 @@ Use the [code map](code_map.md) to locate active responsibilities and the [devel
 [K1.1 publication validation](validation/trajectory_review_k1_1_2026-11-01/README.md) records the 707-test clean export, all 26 report/inspection checks, retained validation failures and later engineering costs.
 
 [K1.2 publication validation](validation/motion_diagnosis_k1_2_2026-11-01/README.md) records the 814-test clean export, all 31 report/inspection checks, publication correction, notes preservation and verified off-host backup.
+
+The later [Linux report-fixture follow-up](validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/README.md) preserves the first final-CI failure and bounded memory-pressure reproductions. Its fix isolates test processes without changing scientific or report budgets.
