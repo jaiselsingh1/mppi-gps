@@ -455,6 +455,27 @@ def audit_csv_joins(
                 a.equal(float(row[key]), value, "Source-bin CSV scalar " + key)
 
 
+def verify_reference_qualification(a: ReviewAudit, stage_b: dict[str, Any]) -> None:
+    """Honor K1's asymmetric saved primary and confirmation summary layouts."""
+    primary, confirmation = stage_b["primary"], stage_b["confirmation"]
+    a.need(
+        isinstance(primary, dict) and isinstance(primary.get("reference"), dict),
+        "K1 primary stores policy-to-summary mapping with a reference entry",
+    )
+    a.need(
+        isinstance(confirmation, dict)
+        and "reference" not in confirmation
+        and "episodes" in confirmation,
+        "K1 confirmation stores the reference summary directly",
+    )
+    for cohort, summary in (("primary", primary["reference"]), ("confirmation", confirmation)):
+        a.prove(
+            summary,
+            dict(episodes=16, successes=16, survived=16, steps=[1000] * 16),
+            "Competent frozen reference " + cohort,
+        )
+
+
 def audit_statistics(
     a: ReviewAudit, inputs: dict[str, Path], config: dict[str, Any], result: dict[str, Any]
 ) -> dict[str, Any]:
@@ -491,13 +512,7 @@ def audit_statistics(
         and original["stages"]["B"]["reference_qualified"] is True,
         "Completed qualified original K1 evidence",
     )
-    for cohort in ("primary", "confirmation"):
-        summary = original["stages"]["B"][cohort]["reference"]
-        a.prove(
-            summary,
-            dict(episodes=16, successes=16, survived=16, steps=[1000] * 16),
-            "Competent frozen reference " + cohort,
-        )
+    verify_reference_qualification(a, original["stages"]["B"])
     fixed = dict(spread["fixed_reference"], policy="reference")
     a.prove(result["reference"], fixed, "Unchanged fixed reference metadata")
     a.need(

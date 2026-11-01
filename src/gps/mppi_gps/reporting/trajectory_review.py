@@ -226,6 +226,8 @@ def _figures(result: dict, config: dict, out: Path) -> None:
     save(figure, "individual_bin_errors")
 
     figure, axes = plt.subplots(1, 2, figsize=(18, 6), sharey=True)
+    # Reserve space above both panels for their secondary time axes and the suptitle.
+    figure.subplots_adjust(top=0.74)
     groups = list(dict.fromkeys(row["source"] for row in rows))
     colors = {name: plt.cm.tab10(i % 10) for i, name in enumerate(groups)}
     for axis, reference in zip(axes, (False, True), strict=True):

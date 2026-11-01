@@ -16,6 +16,7 @@ from src.gps.mppi_gps.audits.trajectory_review import (
     derive_group,
     derive_trajectory,
     verify_metric,
+    verify_reference_qualification,
     verify_worker_close,
 )
 
@@ -201,6 +202,36 @@ def test_saved_worker_close_requires_clean_child_and_bound_complete_result():
     verify_worker_close(ReviewAudit(), receipt, "a" * 64)
     with pytest.raises(AssertionError, match="result_sha256"):
         verify_worker_close(ReviewAudit(), receipt, "b" * 64)
+
+
+def reference_summary() -> dict:
+    return dict(episodes=16, successes=16, survived=16, steps=[1000] * 16)
+
+
+def test_k1_primary_has_reference_wrapper_but_confirmation_is_direct_summary():
+    stage = dict(
+        primary=dict(reference=reference_summary(), another_policy=dict(episodes=16)),
+        confirmation=reference_summary(),
+    )
+    verify_reference_qualification(ReviewAudit(), stage)
+    wrapped_confirmation = deepcopy(stage)
+    wrapped_confirmation["confirmation"] = dict(reference=reference_summary())
+    with pytest.raises(AssertionError, match="confirmation.*directly"):
+        verify_reference_qualification(ReviewAudit(), wrapped_confirmation)
+    unwrapped_primary = deepcopy(stage)
+    unwrapped_primary["primary"] = reference_summary()
+    with pytest.raises(AssertionError, match="primary.*mapping"):
+        verify_reference_qualification(ReviewAudit(), unwrapped_primary)
+
+
+@pytest.mark.parametrize("cohort", ("primary", "confirmation"))
+@pytest.mark.parametrize("field", ("episodes", "successes", "survived", "steps"))
+def test_asymmetric_layout_correction_preserves_every_reference_competence_gate(cohort, field):
+    stage = dict(primary=dict(reference=reference_summary()), confirmation=reference_summary())
+    summary = stage["primary"]["reference"] if cohort == "primary" else stage["confirmation"]
+    summary[field] = [1000] * 15 + [999] if field == "steps" else 15
+    with pytest.raises(AssertionError, match=field):
+        verify_reference_qualification(ReviewAudit(), stage)
 
 
 @pytest.mark.parametrize(
