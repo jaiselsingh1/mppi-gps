@@ -1,0 +1,41 @@
+{
+  "schema": "walker-h5-saved-report-engineering-v2",
+  "supersedes_status_not_bytes": "operator_report_checks_001.json",
+  "latest_focused_tests": {
+    "passed": 30,
+    "pytest_wall_seconds": 8.87,
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_teacher_proposal_report.py",
+      "tests/test_teacher_proposal_preparation.py",
+      "tests/test_export_validation.py"
+    ]
+  },
+  "peer_review_changes": [
+    "Launch attempt lacking worker_result is explicitly incomplete; genuine unlaunched preparation is not.",
+    "Markdown teacher/student tables expose summary_source and observed-prefix roster_status."
+  ],
+  "new_report_test_cases": 16,
+  "ruff_check": "passed",
+  "ruff_format": "passed",
+  "git_diff_check": "passed",
+  "actual_research_reads": 0,
+  "actual_research_network_forwards": 0,
+  "actual_research_physics_controls": 0,
+  "actual_research_optimizer_steps": 0,
+  "scope": "Synthetic JSON/CSV/plot tests only. No actualrun reads or frozenworker/source/evidence edits. Only the active report module and its new tests changed. Library/font reads, peakRAM, tool/editing overhead unmetered; pytest timer is internal and must not be added to enclosing tool/process walltimes.",
+  "files": {
+    "src/gps/mppi_gps/reporting/teacher_proposal.py": {
+      "bytes": 32216,
+      "sha256": "de1ad2c0048ed64f5627a955c737dd79f94f46c6b0b929148f8be36643e66318"
+    },
+    "tests/test_teacher_proposal_report.py": {
+      "bytes": 15220,
+      "sha256": "116336482a89af6e3411d2fdd6cb93037e6fdea3fed6260dffd9e20e5763f74b"
+    }
+  }
+}

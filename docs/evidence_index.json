@@ -3361,6 +3361,50 @@
       "verified_backup": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/verified_backup.json",
       "verified_backup_sha256": "8e787cf4942da265720401b8d0bfd10d37af5f8a3b180d7ac641ac918a00f738",
       "original_capsule_availability_scope": "Pre-approval publication snapshot, preserved unchanged."
+    },
+    "teacher_proposal_h5_0_round1": {
+      "run_id": "2026-11-01_teacher_proposal_h5_0_r1_001",
+      "status": "running_one_bounded_round",
+      "status_scope": "Launch-publication snapshot; scientific outcomes and independent outcome audit pending.",
+      "research_execution_authorized": true,
+      "research_rounds_authorized": 1,
+      "useful_learning_prerequisite_satisfied": false,
+      "eligibility_decision": "approved_single_round_exception",
+      "second_round_authorized": false,
+      "implementation_commit": "ff67495dae33ee43952677d0c0165a43f8d469b0",
+      "config_sha256": "5fe92168c331e433c3843a4ae4b319e279deec963cc7afb7f3a2a599b1c753ad",
+      "launch_record": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/launch/manifest.json",
+      "launch_record_sha256": "4ad27dd06940614970b0a8576bb0f385888bc58d10de9bcb1f32f8c4300042d8",
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+      "local_availability": "Initial source/config/input export only; no local mirror of newly generated scientific evidence.",
+      "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+      "remote_availability": "Current scientific checkpoints, learning evidence and raw streams are remote only.",
+      "initial_export": {
+        "files": 539,
+        "bytes": 10622281,
+        "catalog_sha256": "2a0957df57e3e7e080474cc0852ddb2d200d9d1bc2b80090477e86d358e67178",
+        "remote_copy_verified_before_launch": true,
+        "scope": "539-file initial export only; current growing remote run has additional evidence."
+      },
+      "coordinator_pid": 166160,
+      "worker_wall_seconds": 21600,
+      "preparation_audit": {
+        "checks": 540,
+        "scientific_round_audit_complete": false
+      },
+      "scientific_outcomes": "pending",
+      "scientific_round_audit_complete": false,
+      "raw_evidence": {
+        "files": [
+          "evidence/arrays.bin",
+          "evidence/arrays.index.jsonl",
+          "evidence/ledger.jsonl"
+        ],
+        "status": "growing_on_remote_host",
+        "final_bytes": null,
+        "sha256": null,
+        "scope": "No final size/hash claimed while the writer is running; full raw files remain outside Git."
+      }
     }
   },
   "saved_analyses": {
