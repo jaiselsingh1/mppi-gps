@@ -4,6 +4,8 @@ Start with the [K1.2 audited actual-motion diagnosis](motion_diagnosis_k1_2_resu
 
 ## Study evidence
 
+The [H5.0 preparation validation](validation/teacher_proposal_h5_0_2026-11-01/README.md) records the 979-test clean export, 37 CLI/report checks and metadata-only audit. Its engineering preparation is complete; research execution remains blocked pending review.
+
 The completed [D1/D2 diagnosis](transfer_diagnosis_d1d2_results.md) connects saved-state
 support to single-action effects under a fixed teacher suffix. Its learner/planner
 remain unchanged. The subsequent [S1 source-learning comparison](student_source_s1_results.md)

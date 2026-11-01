@@ -1,0 +1,509 @@
+{
+  "schema": "walker-h5-preparation-publication-validation-v1",
+  "validated_export_commit": "16eec8636709a245128900dc34eab99ca8050738",
+  "implementation_and_frozen_source_commit": "a19ad4ca31c07d393497f610f228810289839eb2",
+  "tests": {
+    "passed": 979,
+    "skipped": 1,
+    "xfailed": 1
+  },
+  "clean_export_commands": 37,
+  "capsule_bindings_verified": 3243,
+  "historical_files_verified": 162,
+  "maintained_links_verified_in_export": 1060,
+  "frozen_h5_source_and_input_files_verified": 484,
+  "independent_preparation_audit_checks": 490,
+  "capsule_sha256": "2b21de65ec1996df4cd83bad5bafe3bccdf41b78cae99fe83d27f9f5d36600f4",
+  "h5_research_execution": false,
+  "launch_authorized": false,
+  "useful_learning_prerequisite_satisfied": false,
+  "weak_learner_exception": "pending_explicit_review",
+  "no_second_round_authorized": true,
+  "all_metered_commands_through_025": {
+    "001_remote_runtime": {
+      "command": [
+        "ssh",
+        "robopil5090",
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "-"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.49092541699064896,
+      "stdout_sha256": "53e2a3e8c6aad73b7280868eb3745358a74f1b81f668dafd6daf7a71268efe61",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "002_focused_engineering": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_guided_proposals.py",
+        "tests/test_proposal_budget.py",
+        "tests/test_proposal_evidence.py",
+        "tests/test_proposal_round.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 1.0202411669888534,
+      "stdout_sha256": "728c4d1d3f31805d6394caa2f9cf690ad55e47c94eab0a4c5447c5b53b14b819",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "003_boundary_engineering": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_proposal_execution.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 1.428846082999371,
+      "stdout_sha256": "a76678fcd0fd5c840a2d1dd67b206fee94ae1ce5d1118c743dc24dd571b298b0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "004_observer_watchdog": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_proposal_execution.py",
+        "tests/test_proposal_launch.py",
+        "tests/test_gps_policy.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 2.305884084024001,
+      "stdout_sha256": "75d72a06cd4c618a4073ef4b7eecdbbc2220be45902936bd5ffc24a5f53942d6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "005_preparation_lifecycle": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_round.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.21082404200569727,
+      "stdout_sha256": "7a31e66378c8cfe7c15128f94cc1506ce059a413da978d80115e1e55e5e976e5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "006_full_engineering": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 1,
+      "wall_seconds": 54.18892737501301,
+      "stdout_sha256": "56927aa9294f77deb17094dd47f185b3c69fee51ee40581bbfac424376552368",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "007_full_geometry_boundaries": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_guided_proposals.py",
+        "tests/test_proposal_execution.py",
+        "tests/test_proposal_storage.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 1.9877065409964416,
+      "stdout_sha256": "a4cfe26fe1a034a4a2b0aebdb49a54d9fb0820d12eb1c937d936f536758a816c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "008_sealed_seed_lifecycle": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_budget.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.2591336670157034,
+      "stdout_sha256": "74c66f4981932e270585935cb3b6a10fd2ea6142b2fd7c90194b67bf53f417b7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "009_stable_full_suite": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 53.98059158297838,
+      "stdout_sha256": "0e3c63117fb5c4c14cbe19766139263e6076456bbcbf59db8d57ba080b1c527d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "010_final_ruff": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "src",
+        "scripts",
+        "tests"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.030523749999701977,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "011_final_format": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "scripts",
+        "tests"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.02755512497969903,
+      "stdout_sha256": "26ac41fcc7d8f7b53a6c2456dc1fdd2ac4ebe0fbee318a469e2081c0ea274f68",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "012_preserved_evidence": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_repository.py",
+        "--frozen-run",
+        "runs/2026-11-01_motion_diagnosis_k1_2_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.6329533329990227,
+      "stdout_sha256": "31480d61c96f2ae656cd7b76642de12c1d8bc998798650fcde84a03f886ac993",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "013_export_smokes": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_validate_export.py",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_budget.py",
+        "tests/test_proposal_storage.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 4,
+      "wall_seconds": 0.16037125000730157,
+      "stdout_sha256": "24f0b6026255df17440df650134db1c767346a9d49b0d687d39847d5911a9e9a",
+      "stderr_sha256": "5db44606d90fc6788b3eac87811b0f96a735fca4f94cf4ac57d29a9cb07c5926"
+    },
+    "014_final_preparation_checks": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_budget.py",
+        "tests/test_proposal_storage.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.2997168340079952,
+      "stdout_sha256": "2d7cd9eb4ce621d9a23bf08436bcf25106efdc1dbfc0400c9b6dfadb794b398f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "015_export_test": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_export_validation.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.5146759579947684,
+      "stdout_sha256": "fc99c56adf2cb5702a4564ceead9e104cf6db01c3cd1a15756b5c9630e644ce6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "016_prepare": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "teacher-proposal",
+        "prepare",
+        "--source-run",
+        "runs/2026-10-31_student_update_w2_001",
+        "--runtime-probe",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/001_remote_runtime/stdout.txt",
+        "--seed-review",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/seed_review.json",
+        "--out",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.19814941700315103,
+      "stdout_sha256": "6f2b095583384628c1829abb6a3a901a2218e0de34fef75ba457d3f3b763cfe7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "017_preparation_audit": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/audits/teacher_proposal.py",
+        "--mode",
+        "preparation",
+        "--run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+        "--out",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/audit_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.10436374999699183,
+      "stdout_sha256": "069661175bc3a6bcd65226dc513bc16167037eab572b2c7d8ba078020044c6d7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "018_inspection": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.07774149999022484,
+      "stdout_sha256": "bcb3df5393a369ee8d8f41075a7d5ef8bfd655673cc587a1e0989fc094649af7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "019_launch_gate": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "teacher-proposal",
+        "check-launch",
+        "--out",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 2,
+      "wall_seconds": 0.05499020899878815,
+      "stdout_sha256": "87ce96a6cc1914db2f564f6a4843632282baceab4b91fb94b86c675d42838313",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "020_report": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/diagnostics/report_teacher_proposal.py",
+        "--run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+        "--out",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/report_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.05274495799676515,
+      "stdout_sha256": "5a990403168038a56202c65d0b376a01d992bfca11acf67de4444d5c265369c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "022_publish_preparation": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "/tmp/h50_publish_preparation.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.06556004198500887,
+      "stdout_sha256": "209847eba0e83b352492be014e1163879a5196f2be6c4e4f571f9187537ac9c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "023_capsule_navigation": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_repository.py",
+        "--frozen-run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.32419124999432825,
+      "stdout_sha256": "b3cf3b55232fc7fd25f500ddddf1c664772b1763381c765df5c0b62f384fe38d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "024_style_publication": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.024349542014533654,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "025_clean_export": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/validate_export.py",
+        "--export",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-h50-export-2e_5h4rh"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 79.9279232500121,
+      "stdout_sha256": "7707422837de978908c221a75a62ff7937aedb3fb155c4a02eb9afc12f842ac1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "enclosing_command_wall_seconds_sum": 198.36889012699248,
+  "cost_scope": "Enclosing times include nested subprocesses; do not add internal timers. Engineering tests include small fitting and physics work; their aggregate calls, uninstrumented editing/tool/agent time, peak RAM, billing and energy remain unknown. H5 research work is zero. Later publication, CI and checks remain external append-only receipts.",
+  "offhost_backup": {
+    "status": "blocked_before_execution_by_automatic_review",
+    "bytes_transferred": 0,
+    "full_preparation_local_only": true
+  },
+  "files": {
+    "commands/023_capsule_navigation/receipt.json": {
+      "bytes": 448,
+      "sha256": "6d0b042621fbd50d8b8a1540118f3bc55bf8e53402679662f659074612b75a47",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/023_capsule_navigation/receipt.json"
+    },
+    "commands/023_capsule_navigation/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/023_capsule_navigation/stderr.txt"
+    },
+    "commands/023_capsule_navigation/stdout.txt": {
+      "bytes": 143,
+      "sha256": "b3cf3b55232fc7fd25f500ddddf1c664772b1763381c765df5c0b62f384fe38d",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/023_capsule_navigation/stdout.txt"
+    },
+    "commands/024_style_publication/receipt.json": {
+      "bytes": 377,
+      "sha256": "c6c73a00d7d99717eb09b41b9a2d969885e5c50f303d527b347961afb3091d47",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/024_style_publication/receipt.json"
+    },
+    "commands/024_style_publication/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/024_style_publication/stderr.txt"
+    },
+    "commands/024_style_publication/stdout.txt": {
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/024_style_publication/stdout.txt"
+    },
+    "commands/025_clean_export/receipt.json": {
+      "bytes": 462,
+      "sha256": "201d592f15f5f94a6677cd840bfc2a0f9abea2e1170c811279924a58d9b7d309",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/025_clean_export/receipt.json"
+    },
+    "commands/025_clean_export/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/025_clean_export/stderr.txt"
+    },
+    "commands/025_clean_export/stdout.txt": {
+      "bytes": 3143,
+      "sha256": "7707422837de978908c221a75a62ff7937aedb3fb155c4a02eb9afc12f842ac1",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/025_clean_export/stdout.txt"
+    },
+    "export_location.json": {
+      "bytes": 334,
+      "sha256": "4efa3594c69211d4cd538588f204860f2c428f2fe0bf5652d6bef36f9d827e20",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/publication/export_location.json"
+    },
+    "export_commands/00.stdout.txt": {
+      "bytes": 1163,
+      "sha256": "76197aa53822af93229e5433377cf3ba21d358d7bf41db392de198f8fb7fb5d3",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/00.stdout.txt"
+    },
+    "export_commands/00.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/00.stderr.txt"
+    },
+    "export_commands/01.stdout.txt": {
+      "bytes": 141,
+      "sha256": "e7426bf62e387f1290b024612f31c302251e9b24127b94f22790a7c5f2ef49c5",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/01.stdout.txt"
+    },
+    "export_commands/01.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/01.stderr.txt"
+    },
+    "export_commands/36.stdout.txt": {
+      "bytes": 451,
+      "sha256": "5a990403168038a56202c65d0b376a01d992bfca11acf67de4444d5c265369c3",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/36.stdout.txt"
+    },
+    "export_commands/36.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/36.stderr.txt"
+    },
+    "export_report/receipt.json": {
+      "bytes": 451,
+      "sha256": "5a990403168038a56202c65d0b376a01d992bfca11acf67de4444d5c265369c3",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/teacher_proposal/receipt.json"
+    },
+    "export_report/report.md": {
+      "bytes": 1027,
+      "sha256": "3a3ced83cc4ab6c73c24111fc5f2e9468b06f283c0b2aa308f3ed39005985d27",
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-sfx99jc1/teacher_proposal/report.md"
+    }
+  }
+}

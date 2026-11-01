@@ -184,6 +184,8 @@ python -B scripts/train_mppi_gps.py study teacher-proposal check-launch \
 
 The current `check-launch` exit code 2 means that launch and the weak-learner ordering exception remain unapproved. Preparation does not clear either. Existing directories are never reused or edited. A future authorized launch needs a new frozen authorization/configuration and its outer watchdog; invoking the native worker directly cannot bypass that owner.
 
+The completed [preparation validation](validation/teacher_proposal_h5_0_2026-11-01/README.md) preserves clean-export results, metadata auditing and engineering costs. The full preparation is local only; its compact capsule supports inspection and report rendering from a clean clone.
+
 Use the VS Code **H5 synthetic proposal and budget checks** configuration, or:
 
 ```sh
