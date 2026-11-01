@@ -13,4 +13,6 @@ These small evidence capsules make the completed Walker studies readable from a 
 | D1/D2 support and action consequences | [transfer_diagnosis_d1d2](transfer_diagnosis_d1d2/README.md) | All 20 replays matched exactly; support and fixed-suffix action effects do not yet explain failed transfer |
 | S1 demonstrated-source comparison, interrupted | [student_source_s1](student_source_s1/README.md) | Six fits completed; host reboot interrupted confirmation. Original bytes and scoped surviving evidence are preserved; full comparison remains incomplete |
 
+| S1.1 fixed-checkpoint fresh evaluation | [student_source_s1_1](student_source_s1_1/README.md) | All 320 episodes audited; reference 32/32 walking, MPPI children 0/96, reference-data children 5/96 in one stream. No competent student or confirmed source benefit. |
+
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.

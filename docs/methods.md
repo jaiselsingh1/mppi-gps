@@ -39,6 +39,23 @@ Each study freezes seeds, parent bindings, work ceilings, teacher admission, adv
 
 Teaching usefulness is measured through what a matched student executes after its fixed learning update. Current action proximity alone does not establish teachability, and post-update usefulness is an established research idea whose benefit here remains unresolved. H4.1 adjusts a scalar in existing candidate reweighting; it does not optimize through learning or introduce a new trajectory solver. [H4.2](adaptive_coupling_h4_2_hypothesis.md) proposes a different learner-response selection rule but has not run.
 
+## Along-trajectory agreement and what it changes
+
+For candidate controls \(U^k\), hard forward dynamics generate that candidate's own pre-action states \(x^k_{h+1}=f(x^k_h,u^k_h)\). The selector scores
+
+\[
+S_k=J_H(U^k;x_0)+\frac{\eta_u}{2}\sum_{h<H}\|u^k_h-\bar U_h\|^2
+ +\frac{\alpha}{2}\sum_{h<H}m^k_h\|u^k_h-\pi_\theta(o(x^k_h))\|^2.
+\]
+
+This is already agreement along the candidate horizon, not only its first action. The mask admits finite supported observations on the healthy executable prefix, including the first fall-causing action. Post-fall rows remain paid raw evidence but are excluded from agreement. See [the exact sum](../src/gps/mppi_gps/search.py), [score construction](../src/gps/mppi_gps/search.py) and [pre-action alignment/mask](../src/utils/rollout_data.py).
+
+Guidance reweights an actor-independent bank and simulates its synthesized mean before choosing. It can change the selected control sequence, its simulated states and the next executed action; later MPC banks start from the resulting actual state. It does not change the independent producer's proposal objective/nominal or optimize a whole episode jointly. This remains finite-horizon candidate reweighting. A future coupled optimization must specify how its feedback changes controls/states under task cost and dynamics; an offline reconstruction score alone does not do that.
+
+For a recorded trajectory, the existing diagnostic is \(E=\sum_{t,j}e_{tj}^2/(6N)\), with individual identities, first-100-control and ordered 100-control bins retained. [K1's saved fixed-reference review](action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review) separates within-source spread from group ordering and duration. S1's [trajectory/control-bin tables](../results/student_source_s1_1/report/reconstruction_control_bins.csv) are inherited observations on teacher states. Fitting still samples individual rows uniformly; these diagnostics do not turn its loss into a sequence-control objective. [S1.1](student_source_s1_1_results.md) separately measures the states reached during standalone execution.
+
+The paper's agreement term participates in changing its trajectory variables throughout optimization (equations 3–4/Algorithm 1). Our six direct bounded torques, hard forward dynamics, short MPC windows and lack of desired-velocity/contact-force state-to-state execution or analytic feedback targets remain explicit [departures](paper_mapping.md). No agreement score certifies teachability or walking, and successful demonstrations must not be discarded solely because disagreement fails to decrease.
+
 ## Evidence and accounting
 
 Preparation seals code, configuration and inputs. Frozen workers retain complete simulator/planner snapshots, executed pairs, checkpoints, raw model arrays and a durable query/learning ledger. Independent audits read saved evidence and recompute bindings/outcomes/accounting within their stated scope; check counts are audit assertions, not independent control trials. Model controls, live controls, forward/backward rows, Adam steps and episodes remain separate, and imported lineage is counted once. [The current report](walker_experiments_l1_h4_results.md) links complete stage and lineage accounting.

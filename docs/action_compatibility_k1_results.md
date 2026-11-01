@@ -115,3 +115,28 @@ Protocol/source checkpoint: commit `25b3d62`; config SHA256 `167a45e2f947dfaa415
 Recommend the already discussed **128 versus 256 tanh width contrast**, conditional on a source-bound clean executed-data benchmark. Use fresh paired seeds, identical corpus/features/normalization rule, paired minibatches, optimizer settings and fixed update/primary endpoint; assess reconstruction and standalone walking separately. Both arms must rerun; historical L1 is not a matched control. Do not simultaneously change activations, targets, horizon, proximity or coupling.
 
 The prediction is that a specific width intervention reduces substantial within-fitted-trajectory residuals and improves execution. Better fitting without walking would leave coverage/execution sensitivity unresolved; no fitting gain would leave optimization/target structure unresolved. This is a test of one intervention, **not a conclusion that capacity caused the failure**. K1 supplies no strong reason to prioritize a generic trajectory-diversity repair. This recommendation is secondary to the completed compatibility comparison and authorizes no follow-up training or simulation.
+
+## Fixed-reference trajectory spread review
+
+This 2026-11-01 review uses only the existing saved K1 scores. It does not rerun inference, rollouts, fitting or the completed comparison. The fixed competent reference is queried at the successive saved states of each trajectory; a separate reference rollout is not needed to score each MPPI trajectory. Its own qualification/self trajectories remain distinct controls.
+
+The existing score is \(E(\tau,\pi)=\frac{1}{6N}\sum_{t,j}(u_{tj}-\pi(o(x_t))_j)^2\). The schematic sum \(D=6NE\) is the same saved error with another reduction, not a newly selected metric. All torque scales are one and biases zero. Every executed pre-action row is retained, including the final fall-causing action; there is no fabricated post-fall padding or new support mask.
+
+| Source | Trajectories | Controls per trajectory | Minimum E | Maximum E | Max–min |
+|---|---:|---|---:|---:|---:|
+| `original_discovery` | 4 | 1000 | 0.620175355 | 0.713856238 | 0.093680884 |
+| `later_independent` | 2 | 1000 | 0.637960496 | 0.641759262 | 0.003798767 |
+| `later_guided` | 2 | 1000 | 0.613040983 | 0.667837658 | 0.054796675 |
+| `h4_independent` | 2 | 1000 | 0.638843183 | 0.646626004 | 0.007782821 |
+| `h4_fixed_high` | 2 | 1000 | 0.629622858 | 0.649650487 | 0.020027629 |
+| `h4_backoff` | 2 | 1000 | 0.607808240 | 0.647614485 | 0.039806245 |
+| `qualified_reference` | 16 | 1000 | 0.000000000 | 0.000000000 | 0.000000000 |
+| `executed_random_actions` | 4 | 8, 26, 22, 14 | 0.751944104 | 1.075869481 | 0.323925377 |
+
+All 14 MPPI trajectories walked and survived for 1,000 controls. Their scores vary, but the two later-independent trajectories differ by only 0.003799. These paths include paired source contexts and are not 14 independent task replications. Two-trajectory groups provide limited evidence about variance; aggregation over time, similar behavior and action saturation are possible explanations for concentration, not established causes. Score variation alone does not show that the score ranks teaching quality.
+
+The established **self < MPPI < random** ordering concerns the mean-reduced score E. Random trajectories fell at 8, 26, 22 and 14 controls. Their unnormalized D values are only 36.09–136.21, whereas the full MPPI trajectories have D=3646.85–4283.14. Comparing those sums as equal-duration trajectories would confound length with agreement. The reference self-error is zero by construction from its deterministic logged predictions; it is a plumbing check.
+
+The [34 individual scores, ordered bins, lengths, source labels and exact input bindings](k1_fixed_reference_spread.json) retain the whole recorded-label reference column. They join the unchanged [trajectory matrix](../results/action_compatibility_k1/report/trajectory_policy_matrix.csv) and [temporal curves](../results/action_compatibility_k1/report/source_control_curves.csv). The JSON records five verified source-file hashes, all 34 joins and zero scientific calls. Original discovery contexts remain missing where unavailable.
+
+What remains unresolved is whether these differences predict usefulness after a fixed student update, and why some competent MPPI sources have concentrated scores. This set contains no within-MPPI walking-failure contrast: all 14 walk. A metric should not be changed solely to manufacture a desired ranking. Additional reference-training algorithms are not the immediate diagnostic priority. Different successful gaits remain valid.

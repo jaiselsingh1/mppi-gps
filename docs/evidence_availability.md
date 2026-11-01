@@ -157,6 +157,12 @@ separate recovery copy, claims, reports and completed clean-export receipts on
 both hosts. This is a preservation check, not a passing scientific audit. Live
 engineering-transfer logs are outside that selected immutable artifact scope.
 
+### S1.1 complete fresh evaluation evidence
+
+The [S1.1 capsule](../results/student_source_s1_1/README.md) preserves all 321 packet receipts/ACK chains, the passing third audit and both failed checker versions, original inherited fits, fresh outcomes, figures and cost accounting. Full raw data are available on both hosts: local `runs/2026-10-31_student_source_s1_1_001` and remote `/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_1_001`. The identical full catalogs contain **2,223 files / 2,764,317,907 bytes**, SHA-256 `fbd821a9e43b9adf0fde52eefd413c93d60b801cccd686158a11db6c537694b6`.
+
+The independently acknowledged Mac backup is `artifacts/2026-10-31_student_source_s1_1_001/mirror_001` (2,670,087,910 logical bytes); the local analysis view is an additional regular-file copy on the same Mac. These are two hosts, not three independent hosts. Detailed per-file/array audit registries and the three immutable analysis-source exports remain in that artifact directory, with [exact registry locations/checksums](../results/student_source_s1_1/external/registry_index.json). The original interrupted S1 remains unchanged; these fresh outcomes do not repair its absent result or raw gaps.
+
 ### Legacy evidence
 
 The Linux workspace is `/home/jaisel/mppi-gps-workspace/` on `robopil5090`. `current/mppi-gps/` holds active source, `runs/<run-id>/` holds original Linux runs, and `history/artifacts/` holds preserved diagnostic/audit artifacts. The existing interpreter is `/home/jaisel/mppi-gps/.venv/bin/python`. v1 raw physics, v2 raw evidence, the corrective-data diagnosis and saved audits remain there; some local copies are compact executed-trace exports. The older [index records](evidence_index.json) distinguish full raw locators from these exports. Source/config/result records and figures that were previously linked into ignored directories are now reachable through the explicit references below rather than broken GitHub links.

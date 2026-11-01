@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-c",
+    "from pathlib import Path;from src.gps.mppi_gps.source_evaluation_inputs import prepare_inputs;from src.gps.mppi_gps.recipes import load_recipe;from src.gps.mppi_gps.experiments.student_source_evaluation import inherited_result;from src.gps.mppi_gps.provenance import write;root=Path(\".\").resolve();out=root/\"artifacts/2026-10-31_student_source_s1_1_001/closed_input_preflight_001\";out.mkdir(exist_ok=False);c=load_recipe(\"student_source_evaluation\");write(out/\"config.json\",c);print(prepare_inputs(root/\"runs/2026-10-31_student_source_s1_001\",out/\"inputs\",c));write(out/\"derived_fit_view.json\",inherited_result(out,c))"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 1,
+  "wall_seconds": 0.3266910420061322,
+  "stdout_sha256": "54adca9e27c41deb176b86bfa4353c4a90a7c14cb33fe371081484f62ebda0b0",
+  "stderr_sha256": "0f8027720551c3badd86f9307ee4fd8a05f07b3ff3903b45070d800b39f6101b"
+}

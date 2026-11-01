@@ -1,0 +1,260 @@
+{
+  "cumulative": {
+    "backward_rows": 0,
+    "completed_backward_rows": 0,
+    "completed_checkpoint_loads": 10,
+    "completed_controls": 48777,
+    "completed_live_controls": 48777,
+    "completed_model_controls": 0,
+    "completed_neural_rows": 48777,
+    "completed_optimizer_steps": 0,
+    "completed_physics_substeps": 195108,
+    "episodes": 171,
+    "failed_measurements": 0,
+    "failed_queries": 0,
+    "live_queries": 48777,
+    "measurement_requests": 48787,
+    "model_queries": 0,
+    "neural_rows": 48777,
+    "optimizer_steps": 0,
+    "physics_frames": 195108,
+    "queries": 48777,
+    "rejected_measurements": 0,
+    "rejected_queries": 0,
+    "requested_backward_rows": 0,
+    "requested_checkpoint_loads": 10,
+    "requested_controls": 48777,
+    "requested_live_controls": 48777,
+    "requested_model_controls": 0,
+    "requested_neural_rows": 48777,
+    "requested_optimizer_steps": 0,
+    "requested_physics_substeps": 195108,
+    "reset_errors": 0,
+    "resets": 171,
+    "restores": 0,
+    "snapshots": 244056,
+    "unknown_partial_backward_rows": 0,
+    "unknown_partial_checkpoint_loads": 0,
+    "unknown_partial_controls": 0,
+    "unknown_partial_neural_rows": 0,
+    "unknown_partial_optimizer_steps": 0,
+    "unknown_partial_physics_substeps": 0,
+    "wall_seconds": 415.60017371999766
+  },
+  "episode": {
+    "absorbing_cost": 0.0,
+    "complete": true,
+    "cost": 493.556683720096,
+    "mae": 0.21241181813110244,
+    "raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f4",
+          "encoding": "array",
+          "sha256": "bec31d5c14d1bbc60e4483258e0d6e070ad1f5f46abe1781f3dc8a43c51da87b",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "ccfa2c55d67b0361cf1afc37713a9ba28f0d7a9eb661608c34e412e714344736",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U463215",
+          "encoding": "json",
+          "sha256": "6c6631088512fc68bfe80986e8b5ee2ea602fbed58b483e512a2842be13208c9",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "b32db09586150f91433387539302da2ffeb55ac4ccfcf9a6091cb50eeb92e8b7",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "77508d0ef788668fea0b89e6fee205beee73c5019e7def953a8f88922f0e9b7c",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "c67b27a52afa8b626e2e83d8771b1a9d6779ccc88311b29276fa4b1fa7f63f23",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "b1af33c27b93e0b905667713aaa1683a756d87f8f521d4b11f23482d9c756c12",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "4ad5ca9ee04260335578d8f479e02f1915cfdc6b68de6c0aa67e4f395861d7b2",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000002000_episode_confirmation_reference_10",
+      "tag": "episode_confirmation_reference_10"
+    },
+    "seed": 1280000010,
+    "steps": 1000,
+    "success": true,
+    "survived": true,
+    "tag": "confirmation_reference_10",
+    "terminal_adjustment": 0.0,
+    "terminal_cost": 0.0
+  },
+  "files": {
+    "ledger.jsonl": {
+      "bytes": 3920358,
+      "sha256": "20b201fc1ceb9811abf2a74f19f94a4a4db3673528f578b433504585bef452a9"
+    },
+    "raw.h5": {
+      "bytes": 31619422,
+      "sha256": "c90a1a2f2829488461b0e4d8b4ca6baf9a2319b6fafc342a23390dc6d5eaa29b"
+    }
+  },
+  "ownership": {
+    "boot_id": "10d38c74-6db7-47c4-a040-72eaa118cc2b",
+    "boot_id_after": "10d38c74-6db7-47c4-a040-72eaa118cc2b",
+    "checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+    "config_sha256": "2fa20b855c44d0430c39b8a57c083b83450be5d248517490b5bdb1dc0f376c1d",
+    "cumulative_before": {
+      "backward_rows": 0,
+      "completed_backward_rows": 0,
+      "completed_checkpoint_loads": 10,
+      "completed_controls": 47777,
+      "completed_live_controls": 47777,
+      "completed_model_controls": 0,
+      "completed_neural_rows": 47777,
+      "completed_optimizer_steps": 0,
+      "completed_physics_substeps": 191108,
+      "episodes": 170,
+      "failed_measurements": 0,
+      "failed_queries": 0,
+      "live_queries": 47777,
+      "measurement_requests": 47787,
+      "model_queries": 0,
+      "neural_rows": 47777,
+      "optimizer_steps": 0,
+      "physics_frames": 191108,
+      "queries": 47777,
+      "rejected_measurements": 0,
+      "rejected_queries": 0,
+      "requested_backward_rows": 0,
+      "requested_checkpoint_loads": 10,
+      "requested_controls": 47777,
+      "requested_live_controls": 47777,
+      "requested_model_controls": 0,
+      "requested_neural_rows": 47777,
+      "requested_optimizer_steps": 0,
+      "requested_physics_substeps": 191108,
+      "reset_errors": 0,
+      "resets": 170,
+      "restores": 0,
+      "snapshots": 239055,
+      "unknown_partial_backward_rows": 0,
+      "unknown_partial_checkpoint_loads": 0,
+      "unknown_partial_controls": 0,
+      "unknown_partial_neural_rows": 0,
+      "unknown_partial_optimizer_steps": 0,
+      "unknown_partial_physics_substeps": 0,
+      "wall_seconds": 407.2868821799975
+    },
+    "initial_context_fingerprint": "5b5c0a92a2575234968652b9dc98476124c8a51a8dda1f85d66134885be98f1f",
+    "input_manifest_sha256": "171df69988cc5d14b68b04f73161c84d14d7969c812d7ddebf7fca0576986c2b",
+    "launch_receipt_sha256": "4a9a2b4c72a79b3ee9d48df1d5187dfa702ef9ffe65892739daac4a1d8206e32",
+    "optimizer_fingerprint": "c73b1c29bacc25bc42b5386633c33057c1150089a695a38610ec6dd2bb504f34",
+    "ordinal": 170,
+    "owner_pid": 51482,
+    "panel": "confirmation",
+    "point": "reference",
+    "policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+    "seed": 1280000010,
+    "source_manifest_sha256": "915b74af11d4121dc389c56d9c4b518b5e5d64dd398a9304490233fe12aec3a0",
+    "tag": "confirmation_reference_10",
+    "worker_started_sha256": "d298de1add1fa5821ed543d4b20a9509ec54c7eca58b219604e027109502e150"
+  },
+  "schema": "walker-durable-episode-v1",
+  "work": {
+    "backward_rows": 0,
+    "completed_backward_rows": 0,
+    "completed_controls": 1000,
+    "completed_live_controls": 1000,
+    "completed_model_controls": 0,
+    "completed_neural_rows": 1000,
+    "completed_optimizer_steps": 0,
+    "completed_physics_substeps": 4000,
+    "episodes": 1,
+    "failed_measurements": 0,
+    "failed_queries": 0,
+    "live_queries": 1000,
+    "measurement_requests": 1000,
+    "model_queries": 0,
+    "neural_rows": 1000,
+    "optimizer_steps": 0,
+    "physics_frames": 4000,
+    "queries": 1000,
+    "rejected_measurements": 0,
+    "rejected_queries": 0,
+    "requested_backward_rows": 0,
+    "requested_controls": 1000,
+    "requested_live_controls": 1000,
+    "requested_model_controls": 0,
+    "requested_neural_rows": 1000,
+    "requested_optimizer_steps": 0,
+    "requested_physics_substeps": 4000,
+    "reset_errors": 0,
+    "resets": 1,
+    "restores": 0,
+    "snapshots": 5001,
+    "unknown_partial_backward_rows": 0,
+    "unknown_partial_controls": 0,
+    "unknown_partial_neural_rows": 0,
+    "unknown_partial_optimizer_steps": 0,
+    "unknown_partial_physics_substeps": 0,
+    "wall_seconds": 8.313291540000137
+  }
+}

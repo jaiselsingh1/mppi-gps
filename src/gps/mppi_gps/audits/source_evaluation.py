@@ -368,7 +368,20 @@ def verify_owner_journal(
             requested["request_sha256"] == descriptor["request"]["sha256"],
             "Publication journal SHA",
         )
-        a.prove(accepted, descriptor, "Accepted ACK matches published result descriptor")
+        # point/panel/tag are joined to the result after publish_and_wait returns;
+        # the immutable ACK event contains only the publication descriptor.
+        publication = {
+            key: descriptor[key]
+            for key in (
+                "segment",
+                "receipt_sha256",
+                "request",
+                "ack",
+                "mirror_commit_sha256",
+                "wait_seconds",
+            )
+        }
+        a.prove(accepted, publication, "Accepted ACK matches published result descriptor")
         previous_ack = descriptor["ack"]["sha256"]
     a.prove(
         rows[-1],
@@ -501,6 +514,15 @@ def audit_inherited(a: EvaluationAudit, run: Path, cfg: dict, result: dict) -> t
     return details["payloads"], inventory
 
 
+def ordered_panel(a: EvaluationAudit, records: dict, order: list[str]) -> list[tuple[str, dict]]:
+    """JSON object order is immaterial; segments and the journal own execution order."""
+    a.need(
+        len(records) == len(order) and set(records) == set(order),
+        "Every actor runs both panels regardless of prior outcomes",
+    )
+    return [(name, records[name]) for name in order]
+
+
 def audit_segments(
     a: EvaluationAudit,
     run: Path,
@@ -616,8 +638,7 @@ def audit_segments(
     all_episodes = {}
     for panel in ("primary", "confirmation"):
         records = result["evaluations"][panel]
-        a.need(list(records) == order, "Every actor runs both panels regardless of prior outcomes")
-        for name, record in records.items():
+        for name, record in ordered_panel(a, records, order):
             a.prove(record, owners[name], "Native evaluation unchanged actor owner")
             a.need(
                 [row["seed"] for row in record["episodes"]] == cfg[panel + "_seeds"],

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/jaisel/Documents/mppi-gps/scripts/train_mppi_gps.py", line 140, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/jaisel/Documents/mppi-gps/scripts/train_mppi_gps.py", line 37, in main
+    return int(module.main(arguments[2:]) or 0)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jaisel/Documents/mppi-gps/src/gps/mppi_gps/experiments/student_source_evaluation.py", line 586, in main
+    prepare(out, args.source, args.remote_freshness)
+  File "/Users/jaisel/Documents/mppi-gps/src/gps/mppi_gps/experiments/student_source_evaluation.py", line 112, in prepare
+    raise ValueError("S1.1 fresh-reset proof failed")
+ValueError: S1.1 fresh-reset proof failed

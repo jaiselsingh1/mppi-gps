@@ -1,0 +1,21 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "scripts/train_mppi_gps.py",
+    "study",
+    "source-evaluation",
+    "prepare",
+    "--out",
+    "runs/2026-10-31_student_source_s1_1_001",
+    "--source",
+    "runs/2026-10-31_student_source_s1_001",
+    "--remote-freshness",
+    "artifacts/2026-10-31_student_source_s1_1_001/remote_seed_audit_both.json"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": -15,
+  "wall_seconds": 39.560484250003356,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

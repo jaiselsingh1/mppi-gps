@@ -84,3 +84,39 @@ This is a correction to v2's teacher-data admission and a finite outer search ov
 **H-next-observation-v1:** clipped velocity features discard control-relevant distinctions that impede this torque student's fixed-budget execution. The existing observation audit measured clipping in 2,359/4,000 pre-action teacher states while MPPI used full velocities. That observation motivates the hypothesis; it does not identify the cause of falling.
 
 A separate future test can compare the current clipped velocity features with full recorded velocities in the same 17-dimensional representation, retaining the physical task, independent planner, torque targets, architecture and budget. Both training and deployment must apply the declared feature map, and normalization/initial learner matching must be specified before queries. It needs no critic, new environment or additional network. This would test an observation intervention, not establish the MPPI–policy loop; it must be versioned and frozen separately. Do not mix it into the guided-data comparison or infer that unclipping will help.
+## Additional distillation and trajectory-similarity context
+
+The 2026-11-01 source review informs interpretation, without changing the frozen
+S1.1 study or selecting a new intervention:
+
+- [Avé, De Schepper and Mets (2024)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11314760/)
+  compare collection controllers, action targets and evaluation modes in policy
+  compression. Their refreshed 100,000-transition replay setting differs from
+  S1's fixed 4,000-row corpora. Section 6.3 compares SAC/PPO teachers; the specific
+  attribution that return declines while fitting loss improves was not verified
+  in that section. Separate fidelity and execution outcomes without using that
+  unverified attribution to explain Walker's failure.
+- [Li, Siddique and Cao's author-version symbolic-distillation paper](https://openreview.net/notes/edits/attachment?id=W49Fb6So1X&name=pdf)
+  combines aggregation, teacher-value information and fidelity before symbolic
+  regression. Its experiments do not include Walker and its illustrative
+  discrete-action guarantee does not transfer to this torque MLP. Equivalence
+  to the supplied hash-named OpenReview PDF was not established; this citation
+  identifies the inspected author version.
+- [SAC Algorithms and Applications, v2, section 7.1](https://arxiv.org/pdf/1812.05905v2)
+  evaluates mean actions. Stochastic SAC training alone therefore does not
+  establish a deterministic-deployment or cloning failure. Published Gym scores
+  neither qualify this saved actor under our native task nor establish which
+  teacher provides more learnable demonstrations.
+- [Agarwal et al. (2021), section 3](https://arxiv.org/pdf/2101.05265)
+  define policy-grounded state similarity recursively through action differences
+  and future-transition Wasserstein coupling. That is distinct from whole-path
+  alignment and from usefulness after a fixed student update. It supplies no
+  universal ranking or teachability guarantee for our trajectories.
+
+The immediate fixed-reference diagnostic is the [saved K1 trajectory-spread
+review](action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review),
+not a teacher-algorithm sweep. Its per-trajectory action agreement, teacher task
+competence, and the [student's fresh execution](student_source_s1_1_results.md)
+answer different questions. Any later reference, weighting, transport or coupled
+optimization study requires its own purpose, representation, controls and finite
+protocol; these sources establish neither novelty nor benefit here.

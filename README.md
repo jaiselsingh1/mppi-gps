@@ -10,7 +10,7 @@ The [W1 width contrast](docs/student_width_w1_results.md) is also closed: wideni
 
 The [W2 update-budget contrast](docs/student_update_w2_results.md) confirmed that 2k checkpoints retain more controls and have lower complete cost than their continued 10k counterparts, across three fresh streams and a separate confirmation panel. Every endpoint still has **0/16 walking and full survival** on each panel. This is partial retention, not competent walking. W2 launched no follow-up.
 
-The [S1 source comparison](docs/student_source_s1_results.md) completed six matched fits, then the host rebooted during confirmation. Its original evidence is preserved; the full comparison remains incomplete. [S1.1](docs/student_source_s1_1_execution_protocol.md) is authorized for fresh evaluation of the fixed actors after durability validation, with no retraining. Its [historical proposal](docs/student_source_s1_1_protocol.md) remains preserved. The preceding [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md) remains complete and audited.
+The [S1 source comparison](docs/student_source_s1_results.md) completed six matched fits, then the host rebooted during confirmation. Its original evidence is preserved; the full comparison remains incomplete. [S1.1 is complete and independently audited](docs/student_source_s1_1_results.md): the reference walked 32/32; MPPI-data children walked 0/96; reference-data children walked 5/96, all from one training seed. Neither source produced a competent student, and the source-benefit criterion failed. All 320 episodes were retained with closed off-host backups. No new fitting or coupling round ran. The [fixed-reference K1 trajectory review](docs/action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review) distinguishes within-source score spread from the established group ordering. The preceding [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md) remains complete and audited.
 
 ## Setup
 
@@ -49,7 +49,7 @@ The public CLI retains `baseline`, `train`, `evaluate` and `render`. Study recip
 ## Reading order
 
 1. [Research status and document map](docs/README.md), then [methods and interfaces](docs/methods.md).
-2. [S1 interrupted comparison](docs/student_source_s1_results.md), [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](docs/student_update_w2_results.md), [W1 width result](docs/student_width_w1_results.md), [K1 comparison and verdict](docs/action_compatibility_k1_results.md), [L1/H4.1 results](docs/walker_experiments_l1_h4_results.md) and [v3.1 comparison](docs/loop_v3_results.md).
+2. [S1.1 fresh evaluation](docs/student_source_s1_1_results.md), [S1 interrupted comparison](docs/student_source_s1_results.md), [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](docs/student_update_w2_results.md), [W1 width result](docs/student_width_w1_results.md), [K1 comparison and verdict](docs/action_compatibility_k1_results.md), [L1/H4.1 results](docs/walker_experiments_l1_h4_results.md) and [v3.1 comparison](docs/loop_v3_results.md).
 3. [Exact result capsules](results/README.md), [evidence availability](docs/evidence_availability.md) and [machine-readable index](docs/evidence_index.json).
 4. [Code map](docs/code_map.md), [debugging guide](docs/development.md), [primary-source review](docs/loop_v3_prior_art.md) and [historical record](docs/history.md).
 

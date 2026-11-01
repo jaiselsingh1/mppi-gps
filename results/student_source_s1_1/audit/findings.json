@@ -1,0 +1,237 @@
+{
+  "episodes": 320,
+  "native_controls": 74714,
+  "competence": {
+    "reference": true,
+    "incoming_s0": false,
+    "mppi_s0": false,
+    "sac_reference_s0": false,
+    "incoming_s1": false,
+    "mppi_s1": false,
+    "sac_reference_s1": false,
+    "incoming_s2": false,
+    "mppi_s2": false,
+    "sac_reference_s2": false
+  },
+  "new_work": {
+    "requested_physics_substeps": 298856,
+    "requested_model_controls": 0,
+    "completed_backward_rows": 0,
+    "requested_checkpoint_loads": 10,
+    "queries": 74714,
+    "completed_model_controls": 0,
+    "requested_backward_rows": 0,
+    "completed_physics_substeps": 298856,
+    "rejected_measurements": 0,
+    "wall_seconds": 642.822993197995,
+    "backward_rows": 0,
+    "rejected_queries": 0,
+    "completed_neural_rows": 74714,
+    "episodes": 320,
+    "measurement_requests": 74724,
+    "unknown_partial_neural_rows": 0,
+    "requested_live_controls": 74714,
+    "requested_neural_rows": 74714,
+    "reset_errors": 0,
+    "live_queries": 74714,
+    "restores": 0,
+    "completed_optimizer_steps": 0,
+    "optimizer_steps": 0,
+    "unknown_partial_physics_substeps": 0,
+    "requested_controls": 74714,
+    "completed_live_controls": 74714,
+    "model_queries": 0,
+    "unknown_partial_checkpoint_loads": 0,
+    "unknown_partial_controls": 0,
+    "completed_checkpoint_loads": 10,
+    "requested_optimizer_steps": 0,
+    "neural_rows": 74714,
+    "physics_frames": 298856,
+    "unknown_partial_backward_rows": 0,
+    "failed_measurements": 0,
+    "failed_queries": 0,
+    "snapshots": 373890,
+    "resets": 320,
+    "completed_controls": 74714,
+    "unknown_partial_optimizer_steps": 0
+  },
+  "mirror_wait_seconds": 445.5116795910035,
+  "comparison_complete": true,
+  "reused_fits": 6,
+  "new_fits": 0,
+  "new_reconstruction_rows": 0,
+  "gates": {
+    "competence": {
+      "incoming_s0": false,
+      "incoming_s1": false,
+      "incoming_s2": false,
+      "mppi_s0": false,
+      "mppi_s1": false,
+      "mppi_s2": false,
+      "reference": true,
+      "sac_reference_s0": false,
+      "sac_reference_s1": false,
+      "sac_reference_s2": false
+    },
+    "confirmation": {
+      "checks": {
+        "all_pair_survival_nonregression": true,
+        "all_pair_walking_nonregression": true,
+        "positive_pairs": false
+      },
+      "pairs": [
+        {
+          "controls_delta": -126.375,
+          "pair": 0,
+          "relative_cost_gain": 0.014707095245664825,
+          "survival_gain": 0,
+          "survival_nonregression": true,
+          "walking_gain": 0,
+          "walking_nonregression": true
+        },
+        {
+          "controls_delta": -39.5625,
+          "pair": 1,
+          "relative_cost_gain": -0.02824115329939092,
+          "survival_gain": 0,
+          "survival_nonregression": true,
+          "walking_gain": 0,
+          "walking_nonregression": true
+        },
+        {
+          "controls_delta": 106.0625,
+          "pair": 2,
+          "relative_cost_gain": 0.11828639129926066,
+          "survival_gain": 2,
+          "survival_nonregression": true,
+          "walking_gain": 2,
+          "walking_nonregression": true
+        }
+      ],
+      "walking_screen": false
+    },
+    "confirmed_walking_benefit": false,
+    "primary": {
+      "checks": {
+        "all_pair_survival_nonregression": true,
+        "all_pair_walking_nonregression": true,
+        "positive_pairs": false
+      },
+      "pairs": [
+        {
+          "controls_delta": -136.0625,
+          "pair": 0,
+          "relative_cost_gain": -0.003805842281932925,
+          "survival_gain": 0,
+          "survival_nonregression": true,
+          "walking_gain": 0,
+          "walking_nonregression": true
+        },
+        {
+          "controls_delta": -41.4375,
+          "pair": 1,
+          "relative_cost_gain": -0.029358125069000263,
+          "survival_gain": 0,
+          "survival_nonregression": true,
+          "walking_gain": 0,
+          "walking_nonregression": true
+        },
+        {
+          "controls_delta": 149.375,
+          "pair": 2,
+          "relative_cost_gain": 0.1622471595970929,
+          "survival_gain": 3,
+          "survival_nonregression": true,
+          "walking_gain": 3,
+          "walking_nonregression": true
+        }
+      ],
+      "walking_screen": false
+    }
+  },
+  "inherited_work": {
+    "original_eval_known_prefix": {
+      "backward_rows": 0,
+      "completed_backward_rows": 0,
+      "completed_checkpoint_loads": 10,
+      "completed_controls": 55607,
+      "completed_live_controls": 55607,
+      "completed_neural_rows": 55608,
+      "completed_optimizer_steps": 0,
+      "completed_physics_substeps": 222428,
+      "episodes": 195,
+      "live_queries": 55607,
+      "measurement_requests": 55618,
+      "neural_rows": 55608,
+      "optimizer_steps": 0,
+      "physics_frames": 222428,
+      "queries": 55607,
+      "requested_backward_rows": 0,
+      "requested_checkpoint_loads": 10,
+      "requested_controls": 55607,
+      "requested_live_controls": 55607,
+      "requested_neural_rows": 55608,
+      "requested_optimizer_steps": 0,
+      "requested_physics_substeps": 222428,
+      "resets": 196,
+      "snapshots": null,
+      "wall_seconds": null,
+      "wall_seconds_lower_bound": 1006.001209398004
+    },
+    "original_eval_unknown_tail": {
+      "explanation": "An abrupt reboot prevented final counters and exits. Pending registered operations are listed separately; even an empty pending set does not certify that the durable prefix captures all pre-reboot work.",
+      "status": "unresolved_not_zero"
+    },
+    "original_fit": {
+      "backward_rows": 3072000,
+      "completed_backward_rows": 3072000,
+      "completed_controls": 0,
+      "completed_live_controls": 0,
+      "completed_model_controls": 0,
+      "completed_neural_rows": 3180000,
+      "completed_optimizer_steps": 12000,
+      "completed_physics_substeps": 0,
+      "episodes": 0,
+      "failed_measurements": 0,
+      "failed_queries": 0,
+      "live_queries": 0,
+      "measurement_requests": 36108,
+      "model_queries": 0,
+      "neural_rows": 3180000,
+      "optimizer_steps": 12000,
+      "physics_frames": 0,
+      "queries": 0,
+      "rejected_measurements": 0,
+      "rejected_queries": 0,
+      "requested_backward_rows": 3072000,
+      "requested_controls": 0,
+      "requested_live_controls": 0,
+      "requested_model_controls": 0,
+      "requested_neural_rows": 3180000,
+      "requested_optimizer_steps": 12000,
+      "requested_physics_substeps": 0,
+      "reset_errors": 0,
+      "resets": 0,
+      "restores": 0,
+      "snapshots": 0,
+      "unknown_partial_backward_rows": 0,
+      "unknown_partial_controls": 0,
+      "unknown_partial_neural_rows": 0,
+      "unknown_partial_optimizer_steps": 0,
+      "unknown_partial_physics_substeps": 0,
+      "wall_seconds": 91.31227392599976
+    }
+  },
+  "closed_run_bytes": 2764317907,
+  "off_host_engineering": {
+    "copied_closed_packet_bytes": 2663436886,
+    "copy_wall_seconds": 331.19526563194813,
+    "coordinator_wall_seconds": 1107.981612375006,
+    "storage_bytes": 2670087910
+  },
+  "limitations": [
+    "Fresh evaluation reuses the same three paired S1 training realizations; no new training replications.",
+    "Whole-source effects do not identify a source property, establish MPPI teachability or test adaptive coupling.",
+    "Original S1 remains interrupted with a failed full-prefix audit and unresolved paid tail; its outcomes are not pooled with these panels."
+  ]
+}

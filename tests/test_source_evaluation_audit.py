@@ -17,6 +17,7 @@ from src.gps.mppi_gps.audits import native
 from src.gps.mppi_gps.audits.source_evaluation import (
     EvaluationAudit,
     counter_sum,
+    ordered_panel,
     prove_episode_owner,
     verify_closed_segment,
     verify_coordinator,
@@ -24,6 +25,17 @@ from src.gps.mppi_gps.audits.source_evaluation import (
     verify_exchange,
     verify_owner_journal,
 )
+
+
+def test_panel_object_order_is_separate_from_frozen_execution_order(tmp_path):
+    order = ["reference", "incoming_s0", "mppi_s0"]
+    records = json.loads(json.dumps({name: dict(point=name) for name in order}, sort_keys=True))
+    assert list(records) != order
+    audit = EvaluationAudit(tmp_path)
+    assert [name for name, _ in ordered_panel(audit, records, order)] == order
+    for invalid in ({"reference": {}}, records | {"unexpected": {}}):
+        with pytest.raises(AssertionError, match="Every actor"):
+            ordered_panel(audit, invalid, order)
 
 
 def write_json(path, value):
@@ -415,6 +427,9 @@ def test_owner_state_machine_forbids_next_start_before_previous_ack(tmp_path):
                 dict(event="ack_accepted", ordinal=index - 1, identifier=identifier, **saved),
             ]
         )
+        if index:
+            # Result-only labels are added after the immutable ACK event.
+            saved.update(ordinal=0, point="reference", panel="primary", tag="primary_reference_00")
         previous = str(index)
     records.append(dict(event="worker_finished", execution_complete=True, work=receipt["work"]))
     for index, row in enumerate(records):

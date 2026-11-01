@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/jaisel/Documents/mppi-gps/src/gps/mppi_gps/experiments/student_source_evaluation.py", line 214, in inherited_result
+    input_manifest_sha256=sha(out / "input_manifest.json"),
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jaisel/Documents/mppi-gps/src/gps/mppi_gps/provenance.py", line 20, in sha
+    with Path(path).open("rb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jaisel/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_student_source_s1_1_001/closed_input_preflight_001/input_manifest.json'
