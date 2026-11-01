@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
 import hashlib
+import io
 import json
 import os
 import tempfile
@@ -20,6 +22,17 @@ from ..provenance import sha, write
 
 REPORT_SCHEMA = "walker-transfer-diagnosis-report-v1"
 RESULT_SCHEMA = "walker-transfer-diagnosis-result-v1"
+DERIVED_SCHEMA = "walker-transfer-derived-curves-v1"
+DERIVED_FIELDS = (
+    "distance",
+    "outside",
+    "control_index",
+    "time_to_end",
+    "height",
+    "torso_angle",
+    "forward_velocity",
+    "clipped_count",
+)
 SAMPLE_FIELDS = (
     "distance",
     "outside",
@@ -155,6 +168,154 @@ def _raw_arrays(run: Path, descriptor: Mapping[str, Any], directory: str) -> dic
                 raise ValueError(f"Saved report array binding differs: {name}")
             arrays[name] = value
     return arrays
+
+
+def _raw_available(run: Path, descriptor: Mapping[str, Any], directory: str) -> bool:
+    relative = Path(str(descriptor["file"]))
+    return any(path.is_file() for path in (run / relative, run / directory / relative))
+
+
+def _write_derived_curves(
+    run: Path,
+    out: Path,
+    arrays: Sequence[Mapping[str, np.ndarray]],
+    counts: Mapping[str, int],
+) -> dict[str, Any]:
+    """Export exact derived plot fields, excluding actions and full simulator context."""
+    coverage = []
+    for index, saved in enumerate(arrays):
+        if not set(DERIVED_FIELDS).issubset(saved):
+            raise ValueError("Portable plot curves require all eight derived coverage fields")
+        fields = {}
+        for name in DERIVED_FIELDS:
+            value = np.ascontiguousarray(saved[name])
+            fields[name] = dict(
+                dtype=value.dtype.str,
+                shape=list(value.shape),
+                sha256=hashlib.sha256(value.tobytes()).hexdigest(),
+                values=value.tolist(),
+            )
+        coverage.append(dict(record_index=index, arrays=fields))
+    full_rows = {
+        name: dict(sha256=sha(out / name), bytes=(out / name).stat().st_size, rows=counts[key])
+        for name, key in (
+            ("coverage_samples.csv", "coverage"),
+            ("reconstruction_samples.csv", "reconstruction"),
+        )
+    }
+    payload = dict(
+        schema=DERIVED_SCHEMA,
+        result_sha256=sha(run / "result.json"),
+        config_sha256=sha(run / "config.json"),
+        input_manifest_sha256=sha(run / "input_manifest.json"),
+        fields=list(DERIVED_FIELDS),
+        coverage=coverage,
+        full_row_tables=full_rows,
+        scope="Exact derived D1 plot fields only; no actions, full 19D states, six-torque residuals, checkpoints or D2 simulator arrays. This cache rerenders saved curves; it cannot audit or recreate the experiment.",
+    )
+    buffer = io.BytesIO()
+    with gzip.GzipFile(filename="", fileobj=buffer, mode="wb", compresslevel=9, mtime=0) as stream:
+        stream.write(
+            json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+        )
+    with (out / "derived_curves.json.gz").open("xb") as stream:
+        stream.write(buffer.getvalue())
+    return full_rows
+
+
+def _capsule_binding(root: Path, files: Sequence[Path]) -> None:
+    """Check the independent tracked capsule inventory when using a capsule layout."""
+    manifest = root / "capsule.json"
+    if not manifest.is_file():
+        raise ValueError("Portable capsule metadata is missing")
+    inventory = json.loads(manifest.read_text())["files"]
+    for path in files:
+        relative = str(path.resolve().relative_to(root.resolve()))
+        binding = inventory.get(relative)
+        if (
+            binding is None
+            or not path.is_file()
+            or sha(path) != binding.get("sha256")
+            or path.stat().st_size != binding.get("bytes")
+        ):
+            raise ValueError("Capsule file binding differs: " + relative)
+
+
+def _load_derived_curves(
+    run: Path,
+    path: Path,
+    result: Mapping[str, Any],
+    capsule: Path | None,
+) -> tuple[list[dict[str, np.ndarray]], dict[str, Any], str]:
+    receipt_path = path.parent / "receipt.json"
+    required = [run / name for name in ("config.json", "result.json", "input_manifest.json")]
+    if capsule is not None:
+        _capsule_binding(capsule, [*required, path, receipt_path])
+    if not path.is_file() or not receipt_path.is_file():
+        raise ValueError("Portable derived curves and their original report receipt are required")
+    receipt = json.loads(receipt_path.read_text())
+    binding = receipt.get("outputs", {}).get(path.name, {})
+    if sha(path) != binding.get("sha256") or path.stat().st_size != binding.get("bytes"):
+        raise ValueError("Portable derived-curve file binding differs")
+    payload = json.loads(gzip.decompress(path.read_bytes()))
+    if payload.get("schema") != DERIVED_SCHEMA or payload.get("fields") != list(DERIVED_FIELDS):
+        raise ValueError("Portable derived-curve schema or field allowlist differs")
+    for field, filename in (
+        ("result_sha256", "result.json"),
+        ("config_sha256", "config.json"),
+        ("input_manifest_sha256", "input_manifest.json"),
+    ):
+        expected = sha(run / filename)
+        if payload.get(field) != expected:
+            raise ValueError("Portable derived-curve source binding differs: " + filename)
+        if field in receipt and receipt[field] != expected:
+            raise ValueError("Portable report receipt source binding differs: " + filename)
+    records = result.get("d1", {}).get("coverage_records", [])
+    if len(payload.get("coverage", [])) != len(records):
+        raise ValueError("Portable derived-curve record roster differs")
+    arrays = []
+    for index, (cached, record) in enumerate(zip(payload["coverage"], records, strict=True)):
+        if cached.get("record_index") != index or set(cached.get("arrays", {})) != set(
+            DERIVED_FIELDS
+        ):
+            raise ValueError("Portable derived-curve record fields differ")
+        saved = {}
+        for name in DERIVED_FIELDS:
+            value = cached["arrays"][name]
+            original = record["raw"]["arrays"][name]
+            array = np.asarray(value["values"], dtype=np.dtype(value["dtype"]))
+            checksum = hashlib.sha256(np.ascontiguousarray(array).tobytes()).hexdigest()
+            if (
+                list(array.shape) != value["shape"]
+                or list(array.shape) != original["shape"]
+                or value["dtype"] != original["dtype"]
+                or checksum != value["sha256"]
+                or checksum != original["sha256"]
+                or array.shape != (record["rows"],)
+            ):
+                raise ValueError("Portable derived-curve typed-array binding differs: " + name)
+            saved[name] = array
+        arrays.append(saved)
+    expected_counts = dict(
+        coverage=sum(int(row["rows"]) for row in records),
+        reconstruction=sum(
+            int(row["rows"]) for row in result.get("d1", {}).get("teacher_reconstruction", [])
+        ),
+    )
+    full_rows = payload.get("full_row_tables", {})
+    for name, key in (
+        ("coverage_samples.csv", "coverage"),
+        ("reconstruction_samples.csv", "reconstruction"),
+    ):
+        metadata = full_rows.get(name, {})
+        source = receipt.get("outputs", {}).get(
+            name, receipt.get("external_full_row_tables", {}).get(name, {})
+        )
+        if metadata.get("rows") != expected_counts[key] or any(
+            metadata.get(field) != source.get(field) for field in ("sha256", "bytes")
+        ):
+            raise ValueError("Portable external full-row table binding differs: " + name)
+    return arrays, full_rows, sha(receipt_path)
 
 
 def _sample_rows(
@@ -635,7 +796,11 @@ def _display(value: Any) -> str:
 
 
 def markdown_report(
-    result: Mapping[str, Any], tables: Mapping[str, Any], sample_counts: Mapping[str, int]
+    result: Mapping[str, Any],
+    tables: Mapping[str, Any],
+    sample_counts: Mapping[str, int],
+    *,
+    portable: bool = False,
 ) -> str:
     d1, d2 = result.get("d1", {}), result.get("d2", {})
     baselines = d2.get("baselines", [])
@@ -645,6 +810,11 @@ def markdown_report(
         "",
         f"Execution complete: **{result.get('execution_complete', False)}**. Status: **{result.get('status', 'unavailable')}**.",
         f"Recorded error: `{json.dumps(result.get('error'), allow_nan=False)}`.",
+        "Render scope: **portable derived curves and result summaries**. Full per-row coverage and six-torque "
+        "reconstruction tables remain external; neither CSV is fabricated here. This render verifies exact "
+        "cached field bytes and metadata, not the underlying simulator, predictions or support computation."
+        if portable
+        else "Render scope: **complete saved-array report**. Full per-row coverage and reconstruction CSVs are exported.",
         "",
         "## What was measured",
         "",
@@ -673,7 +843,7 @@ def markdown_report(
         "",
         "## Support, frequency and reconstruction",
         "",
-        f"D1 recorded-observation queries: {_display(d1.get('query_count'))}. Exported recorded coverage rows: {sample_counts.get('coverage', 0)}; "
+        f"D1 recorded-observation queries: {_display(d1.get('query_count'))}. Represented recorded coverage rows: {sample_counts.get('coverage', 0)}; "
         f"reconstruction samples: {sample_counts.get('reconstruction', 0)}.",
         "",
         "Training-teacher distances use leave-one-trajectory-out support; other records use all training rows. "
@@ -684,7 +854,8 @@ def markdown_report(
         "",
         "The outside-support threshold and calibration are saved in `d1_summary.json`. First-100 and last-25 "
         "fractions are descriptive failure-proximity summaries, not evidence that drift caused failure. "
-        "`coverage_samples.csv` and `reconstruction_samples.csv` preserve every supplied recorded row. "
+        "The canonical full report's `coverage_samples.csv` and `reconstruction_samples.csv` preserve every "
+        "supplied recorded row; their hashes and row counts remain in the derived-curve cache. "
         "Torque errors on teacher observations are distinct from action consequences at substituted states.",
         "`temporal_physical.csv` retains means by absolute control, fixed 100-control bin and time to recorded "
         "end. Each bin first averages within a trace, then equally across its observed contributors. "
@@ -757,9 +928,15 @@ def markdown_report(
     return "\n".join(lines)
 
 
-def render(run: Path, out: Path) -> dict[str, Any]:
+def render(run: Path, out: Path, *, derived_curves: Path | None = None) -> dict[str, Any]:
     started = time.perf_counter()
     run, out = run.resolve(), out.resolve()
+    requested = run
+    capsule = None
+    if not (run / "config.json").is_file() and (run / "run/config.json").is_file():
+        capsule, run = run, run / "run"
+    elif run.name == "run" and (run.parent / "capsule.json").is_file():
+        capsule = run.parent
     result = json.loads((run / "result.json").read_text())
     config = json.loads((run / "config.json").read_text())
     seal = json.loads((run / "input_manifest.json").read_text())
@@ -773,26 +950,58 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         run / "input_manifest.json"
     ):
         raise ValueError("Transfer result/input-manifest binding differs")
-    out.mkdir(parents=True, exist_ok=False)
-    tables = build_tables(result)
-    for name, rows in tables.items():
-        _write_csv(out / f"{name}.csv", rows)
     d1 = result.get("d1", {})
     records = d1.get("coverage_records", [])
     reconstruction = d1.get("teacher_reconstruction", [])
     directory = str(d1.get("evidence_directory", "evidence"))
-    coverage_arrays = [_raw_arrays(run, row["raw"], directory) for row in records]
-    reconstruction_arrays = [_raw_arrays(run, row["raw"], directory) for row in reconstruction]
+    portable = (
+        capsule is not None
+        or derived_curves is not None
+        or not all(
+            _raw_available(run, row["raw"], directory) for row in [*records, *reconstruction]
+        )
+    )
+    source_receipt_sha256 = None
+    if portable:
+        candidates = (
+            [derived_curves.resolve()]
+            if derived_curves is not None
+            else [
+                requested / "report/derived_curves.json.gz",
+                run / "report/derived_curves.json.gz",
+                run.parent / "report/derived_curves.json.gz",
+            ]
+        )
+        cache = next((path for path in candidates if path.is_file()), candidates[0])
+        coverage_arrays, full_rows, source_receipt_sha256 = _load_derived_curves(
+            run, cache, result, capsule
+        )
+        counts = dict(
+            coverage=int(full_rows["coverage_samples.csv"]["rows"]),
+            reconstruction=int(full_rows["reconstruction_samples.csv"]["rows"]),
+        )
+    else:
+        coverage_arrays = [_raw_arrays(run, row["raw"], directory) for row in records]
+        reconstruction_arrays = [_raw_arrays(run, row["raw"], directory) for row in reconstruction]
+    out.mkdir(parents=True, exist_ok=False)
+    tables = build_tables(result)
+    for name, rows in tables.items():
+        _write_csv(out / f"{name}.csv", rows)
     temporal = temporal_tables(records, coverage_arrays)
     tables.update(temporal)
     for name, rows in temporal.items():
         _write_csv(out / f"{name}.csv", rows)
-    counts = dict(
-        coverage=_write_samples(out / "coverage_samples.csv", records, coverage_arrays),
-        reconstruction=_write_samples(
-            out / "reconstruction_samples.csv", reconstruction, reconstruction_arrays
-        ),
-    )
+    if portable:
+        with (out / "derived_curves.json.gz").open("xb") as stream:
+            stream.write(cache.read_bytes())
+    else:
+        counts = dict(
+            coverage=_write_samples(out / "coverage_samples.csv", records, coverage_arrays),
+            reconstruction=_write_samples(
+                out / "reconstruction_samples.csv", reconstruction, reconstruction_arrays
+            ),
+        )
+        full_rows = _write_derived_curves(run, out, coverage_arrays, counts)
     write(
         out / "d1_summary.json",
         {
@@ -810,7 +1019,7 @@ def render(run: Path, out: Path) -> dict[str, Any]:
             if key not in {"baselines", "branches", "prefixes"}
         },
     )
-    (out / "report.md").write_text(markdown_report(result, tables, counts))
+    (out / "report.md").write_text(markdown_report(result, tables, counts, portable=portable))
     os.environ.setdefault("MPLCONFIGDIR", tempfile.mkdtemp(prefix="walker-transfer-report-"))
     import matplotlib
 
@@ -820,8 +1029,11 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         experimental_work=result.get("work", {}),
         worker_wall_seconds=result.get("wall_seconds"),
         worker_status=result.get("status"),
-        coverage_csv_rows=counts["coverage"],
-        reconstruction_csv_rows=counts["reconstruction"],
+        render_scope="portable_derived_curves" if portable else "full_saved_arrays",
+        represented_coverage_rows=counts["coverage"],
+        represented_reconstruction_rows=counts["reconstruction"],
+        coverage_csv_rows=0 if portable else counts["coverage"],
+        reconstruction_csv_rows=0 if portable else counts["reconstruction"],
         report_new_controls=0,
         report_new_forward_rows=0,
         report_backward_rows=0,
@@ -835,8 +1047,13 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         run=str(run),
         result_sha256=sha(run / "result.json"),
         config_sha256=sha(run / "config.json"),
+        input_manifest_sha256=sha(run / "input_manifest.json"),
         config_schema=config.get("schema"),
         scientific_metric_changed=False,
+        render_scope="portable_derived_curves" if portable else "full_saved_arrays",
+        derived_curves_sha256=sha(out / "derived_curves.json.gz"),
+        source_report_receipt_sha256=source_receipt_sha256,
+        external_full_row_tables=full_rows,
         source_sha256=sha(Path(__file__)),
         outputs={
             path.name: dict(sha256=sha(path), bytes=path.stat().st_size)
@@ -857,8 +1074,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument(
+        "--derived-curves",
+        type=Path,
+        help="Use an exact derived-curve cache and its adjacent report receipt; never requires raw simulator arrays",
+    )
     args = parser.parse_args(argv)
-    receipt = render(args.run, args.out)
+    receipt = render(args.run, args.out, derived_curves=args.derived_curves)
     print(json.dumps(dict(report=str(args.out.resolve()), outputs=len(receipt["outputs"]))))
     return 0
 

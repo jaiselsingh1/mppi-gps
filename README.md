@@ -8,9 +8,9 @@ The [K1 compatibility diagnostic](docs/action_compatibility_k1_results.md) compa
 
 The [W1 width contrast](docs/student_width_w1_results.md) is also closed: widening 128 to 256 tanh units reduced training error by about 48%, increased held-trajectory error by about 24%, and produced no walking in any of three paired seed comparisons. All teachers remained successful. The wider policies fell sooner; W1 confirmation was not triggered.
 
-The [W2 update-budget contrast](docs/student_update_w2_results.md) confirmed that 2k checkpoints retain more controls and have lower complete cost than their continued 10k counterparts, across three fresh streams and a separate confirmation panel. Every endpoint still has **0/16 walking and full survival** on each panel. This is partial retention, not competent walking; no follow-up ran.
+The [W2 update-budget contrast](docs/student_update_w2_results.md) confirmed that 2k checkpoints retain more controls and have lower complete cost than their continued 10k counterparts, across three fresh streams and a separate confirmation panel. Every endpoint still has **0/16 walking and full survival** on each panel. This is partial retention, not competent walking. W2 launched no follow-up.
 
-The authorized [D1/D2 transfer diagnosis](docs/transfer_diagnosis_d1d2_protocol.md) next separates saved-state support from the consequences of single action errors. It reuses K1/W2 evidence, changes no learner or planner, and requires all unmodified teacher replays to pass before any action substitution.
+The [D1/D2 transfer diagnosis](docs/transfer_diagnosis_d1d2_results.md) is complete and audited. All 20 unmodified teacher replays matched exactly before 220 single-action substitutions. Support drift and single-action consequences do not yet explain transfer failure or supply a validated teaching score. No learner or planner changed. The next [S1 data-source learning comparison](docs/student_source_s1_protocol.md) is a proposal for review, not a launched study.
 
 ## Setup
 

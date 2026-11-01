@@ -1,0 +1,266 @@
+{
+  "result_sha256": "757cf6a0961ed7879865b0dfa1bf137f3fce7c5f26b53468068e19424adbb119",
+  "calibration_threshold": 0.8601479856552903,
+  "coverage": [
+    {
+      "point": "s0_u10000",
+      "episodes": 32,
+      "rows": 4918,
+      "mean_episode_outside": 0.15759680391483905,
+      "mean_episode_first100_outside": 0.09699671827566228,
+      "mean_episode_last25_outside": 0.7025,
+      "mean_episode_median_distance": 0.4264869495738259
+    },
+    {
+      "point": "s0_u2000",
+      "episodes": 32,
+      "rows": 8021,
+      "mean_episode_outside": 0.09003640325339475,
+      "mean_episode_first100_outside": 0.0,
+      "mean_episode_last25_outside": 0.7962500000000001,
+      "mean_episode_median_distance": 0.4366651692069483
+    },
+    {
+      "point": "s1_u10000",
+      "episodes": 32,
+      "rows": 1753,
+      "mean_episode_outside": 0.6186616406297292,
+      "mean_episode_first100_outside": 0.6186616406297292,
+      "mean_episode_last25_outside": 1.0,
+      "mean_episode_median_distance": 1.13512983774249
+    },
+    {
+      "point": "s1_u2000",
+      "episodes": 32,
+      "rows": 5857,
+      "mean_episode_outside": 0.06055418519462697,
+      "mean_episode_first100_outside": 0.0,
+      "mean_episode_last25_outside": 0.44375,
+      "mean_episode_median_distance": 0.40385769046192105
+    },
+    {
+      "point": "s2_u10000",
+      "episodes": 32,
+      "rows": 4430,
+      "mean_episode_outside": 0.29606738010459094,
+      "mean_episode_first100_outside": 0.19135005195115673,
+      "mean_episode_last25_outside": 0.79625,
+      "mean_episode_median_distance": 0.5884829119842121
+    },
+    {
+      "point": "s2_u2000",
+      "episodes": 32,
+      "rows": 8652,
+      "mean_episode_outside": 0.0498707602633387,
+      "mean_episode_first100_outside": 0.0,
+      "mean_episode_last25_outside": 0.50625,
+      "mean_episode_median_distance": 0.43486398032055146
+    }
+  ],
+  "sources": [
+    {
+      "kind": "held_teacher",
+      "group": "later_independent",
+      "trajectories": 2,
+      "rows": 2000,
+      "mean_trajectory_outside": 0.0045000000000000005,
+      "row_weighted_outside": 0.0045
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "executed_random_actions",
+      "trajectories": 4,
+      "rows": 70,
+      "mean_trajectory_outside": 0.469030969030969,
+      "row_weighted_outside": 0.4714285714285714
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "h4_backoff",
+      "trajectories": 2,
+      "rows": 2000,
+      "mean_trajectory_outside": 0.025,
+      "row_weighted_outside": 0.025
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "h4_fixed_high",
+      "trajectories": 2,
+      "rows": 2000,
+      "mean_trajectory_outside": 0.004,
+      "row_weighted_outside": 0.004
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "h4_independent",
+      "trajectories": 2,
+      "rows": 2000,
+      "mean_trajectory_outside": 0.005,
+      "row_weighted_outside": 0.005
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "later_guided",
+      "trajectories": 2,
+      "rows": 2000,
+      "mean_trajectory_outside": 0.011,
+      "row_weighted_outside": 0.011
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "later_independent",
+      "trajectories": 2,
+      "rows": 2000,
+      "mean_trajectory_outside": 0.0045000000000000005,
+      "row_weighted_outside": 0.0045
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "original_discovery",
+      "trajectories": 4,
+      "rows": 4000,
+      "mean_trajectory_outside": 0.0,
+      "row_weighted_outside": 0.0
+    },
+    {
+      "kind": "k1_trajectory",
+      "group": "qualified_reference",
+      "trajectories": 16,
+      "rows": 16000,
+      "mean_trajectory_outside": 0.1389375,
+      "row_weighted_outside": 0.1389375
+    },
+    {
+      "kind": "training_teacher",
+      "group": "original_discovery",
+      "trajectories": 4,
+      "rows": 4000,
+      "mean_trajectory_outside": 0.049999999999999996,
+      "row_weighted_outside": 0.05
+    }
+  ],
+  "consequences": [
+    {
+      "name": "teacher",
+      "anchors": 20,
+      "mean_mse": 0.0,
+      "mean_delta_cost_100": 0.0,
+      "median_delta_cost_100": 0.0,
+      "falls": 0,
+      "nonpositive_cost_effects": 20,
+      "max_delta_cost_100": 0.0
+    },
+    {
+      "name": "reference",
+      "anchors": 20,
+      "mean_mse": 0.5187735527219066,
+      "mean_delta_cost_100": 152.51751977110803,
+      "median_delta_cost_100": 180.26373930697687,
+      "falls": 10,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 311.37859737481983
+    },
+    {
+      "name": "untrained_0",
+      "anchors": 20,
+      "mean_mse": 0.25810764503129835,
+      "mean_delta_cost_100": 95.62093697625511,
+      "median_delta_cost_100": 92.83163502788595,
+      "falls": 9,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 210.22802108668725
+    },
+    {
+      "name": "untrained_1",
+      "anchors": 20,
+      "mean_mse": 0.2586528812421707,
+      "mean_delta_cost_100": 117.0632274446455,
+      "median_delta_cost_100": 113.74326152739633,
+      "falls": 12,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 318.7251596396025
+    },
+    {
+      "name": "untrained_2",
+      "anchors": 20,
+      "mean_mse": 0.2646517914323522,
+      "mean_delta_cost_100": 126.45147055828647,
+      "median_delta_cost_100": 105.5879851501636,
+      "falls": 11,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 322.0576413799697
+    },
+    {
+      "name": "s0_u2000",
+      "anchors": 20,
+      "mean_mse": 0.18499120814837933,
+      "mean_delta_cost_100": 105.40365762269398,
+      "median_delta_cost_100": 97.2740470810856,
+      "falls": 9,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 267.7350283517529
+    },
+    {
+      "name": "s0_u10000",
+      "anchors": 20,
+      "mean_mse": 0.24123038715685205,
+      "mean_delta_cost_100": 106.89829847942777,
+      "median_delta_cost_100": 84.97943631347924,
+      "falls": 7,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 326.4629773800705
+    },
+    {
+      "name": "s1_u2000",
+      "anchors": 20,
+      "mean_mse": 0.20107719720979428,
+      "mean_delta_cost_100": 101.07808409360072,
+      "median_delta_cost_100": 111.83221048670144,
+      "falls": 9,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 200.59092058334312
+    },
+    {
+      "name": "s1_u10000",
+      "anchors": 20,
+      "mean_mse": 0.2808085834779284,
+      "mean_delta_cost_100": 100.64949011444757,
+      "median_delta_cost_100": 71.07568917611968,
+      "falls": 8,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 247.58561912205232
+    },
+    {
+      "name": "s2_u2000",
+      "anchors": 20,
+      "mean_mse": 0.19318481694564263,
+      "mean_delta_cost_100": 99.11846188789545,
+      "median_delta_cost_100": 93.0055438193022,
+      "falls": 9,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 220.73027629676562
+    },
+    {
+      "name": "s2_u10000",
+      "anchors": 20,
+      "mean_mse": 0.2657089434580838,
+      "mean_delta_cost_100": 90.90372368531568,
+      "median_delta_cost_100": 74.52474925972068,
+      "falls": 6,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 335.70813822296986
+    },
+    {
+      "name": "uniform_random",
+      "anchors": 20,
+      "mean_mse": 0.5938173288280596,
+      "mean_delta_cost_100": 126.06503318470777,
+      "median_delta_cost_100": 104.26133447407413,
+      "falls": 9,
+      "nonpositive_cost_effects": 0,
+      "max_delta_cost_100": 346.47886203500826
+    }
+  ],
+  "scope": "Post-closure descriptive aggregation of all declared saved summaries; no new support, neural, physics or optimizer queries. Episodes/anchors remain nested development observations.",
+  "wall_seconds": 0.0044948330032639205
+}

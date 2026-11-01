@@ -1,10 +1,10 @@
 # Evidence availability
 
-A clean checkout contains active source, tests, recipes, historical source archives, reports and six exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1/W1/W2 studies.
+A clean checkout contains active source, tests, recipes, historical source archives, reports and seven exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1/W1/W2/D1/D2 studies.
 
 ## What a clean checkout can do
 
-The [capsule index](../results/README.md) links v3.1, L1, H4.1, K1, W1 and W2 configurations, complete result JSON, original source/input manifests, launch metadata, study curves, figures, accounting and independent audit summaries. Earlier fitting capsules have per-update learning curves; W1/W2 publish source-bound 100-update bins covering every update and keep full per-update JSON external. K1 has agreement/control curves and no new learning. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
+The [capsule index](../results/README.md) links v3.1, L1, H4.1, K1, W1, W2 and D1/D2 configurations, complete result JSON, original source/input manifests, launch metadata, study curves, figures, accounting and independent audit summaries. Earlier fitting capsules have per-update learning curves; W1/W2 publish source-bound 100-update bins covering every update and keep full per-update JSON external. K1 and D1/D2 have diagnostic curves and no new learning. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
 
 ```sh
 uv run python scripts/train_mppi_gps.py inspect --run results/adaptive_coupling_h4_1 --verify
@@ -25,6 +25,7 @@ The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locato
 | K1 action-compatibility diagnostic | [Protocol, matrix, outcomes, audit and accounting](../results/action_compatibility_k1/README.md) | **Local only.** Complete closed run: 281 files, 1,520,281,569 bytes; no remote mirror asserted |
 | W1 student width contrast | [Protocol, curves, outcomes, audit and accounting](../results/student_width_w1/README.md) | **Local only.** Complete closed run: 244 files, 1,081,903,391 bytes; no remote mirror asserted |
 | W2 student update-budget contrast | [Protocol, continuation, curves, outcomes, audit and accounting](../results/student_update_w2/README.md) | **Local only.** Complete closed run: 247 files, 1,496,794,451 bytes; no remote mirror asserted |
+| D1/D2 transfer diagnosis | [Protocol, measurements, curves, audit and accounting](../results/transfer_diagnosis_d1d2/README.md) | Complete local and remote mirror, independently hashed: 544 files, 898,176,991 bytes |
 
 ### v3.1 evidence
 
@@ -75,6 +76,29 @@ The [augmented provenance](../results/student_update_w2/run/inputs/provenance.js
 The 2k endpoint passed retention and cost screens on primary and confirmation panels. Every endpoint still had 0/16 walking and full survival on both panels. [Results interpretation](student_update_w2_results.md) distinguishes confirmed partial retention from competence and coupling. Experimental work was 7,772,824 forward rows, 7,680,000 backward rows, 30,000 Adam steps, three new-checkpoint reloads, 38,824 live controls and zero model-rollout controls. [Experimental accounting](../results/student_update_w2/report/cost_accounting.json), [engineering accounting](../results/student_update_w2/accounting/engineering_accounting.json) and [independent audit](../results/student_update_w2/audit/receipt.json) retain the complete cost and verification scope.
 
 The engineering accounting also decomposes complete-cost changes: smaller absorbing tails contributed −575.31/−615.21 on primary/confirmation, versus total complete-cost differences −385.88/−479.14. Cost and retention screens are related through the task's missing-control charge; passing both does not independently demonstrate improved gait.
+
+### D1/D2 transfer-diagnosis evidence
+
+Run ID: `2026-10-31_transfer_diagnosis_d1d2_001`. Full local run is under
+`/Users/jaisel/Documents/mppi-gps/runs/`; the byte-identical remote run is under
+`/home/jaisel/mppi-gps-workspace/runs/` on `robopil5090`. The
+[full file manifest](../results/transfer_diagnosis_d1d2/external/full_run_file_manifest.json)
+and [mirror receipt](../results/transfer_diagnosis_d1d2/external/mirror_receipt.json)
+bind every file, including native arrays, checkpoints, original source/input seals
+and launch/exit records. This selected-input diagnostic mirror does not change the
+local-only status of the complete K1/W1/W2/H4.1 parent runs.
+
+The [capsule](../results/transfer_diagnosis_d1d2/README.md) preserves exact small
+outputs, audit summaries and a 2,736,810-byte deterministic derived plotting cache.
+That cache contains eight derived D1 plotting fields, not full native states,
+actions or checkpoints. Clean-checkout rendering reproduces all nine figure
+families and summary/temporal tables. Full per-row tables and the 87 MB detailed
+audit-array registry remain under the local diagnostic artifacts directory; the
+full original audit also remains on the remote host. The
+[artifact manifest](../results/transfer_diagnosis_d1d2/external/artifact_file_manifest.json)
+binds the full registry and report outputs; the audit mirror hashes also match
+independently. See the [results interpretation](transfer_diagnosis_d1d2_results.md)
+for causal limits and the [unlaunched S1 proposal](student_source_s1_protocol.md).
 
 ### Legacy evidence
 

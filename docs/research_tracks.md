@@ -1,12 +1,13 @@
 # Current Walker research scope
 
-[D1/D2](transfer_diagnosis_d1d2_protocol.md) is the authorized next diagnostic block:
-all final W2 traces plus K1 agreement/source data, followed by numerically validated
-single-action substitutions from two fully snapshotted independent teachers. It
-performs no learning, new inference or MPPI search. Its outputs must separate
-support/frequency associations from effects under the fixed open-loop continuation.
-After closure, propose one versioned next protocol; do not automatically launch an
-intervention, change a metric or resume H4.2.
+[D1/D2](transfer_diagnosis_d1d2_results.md) is closed and independently audited:
+all final W2 traces plus K1 source data, then 20 exactly matched teacher continuations
+and 220 single-action substitutions. It performed no learning, new inference or
+MPPI search. Support does not certify competence; consequences under the fixed
+open-loop continuation do not consistently rank whole-policy retention. The
+[S1 source-learning proposal](student_source_s1_protocol.md) is the next hypothesis
+for review only: equal executed reference/MPPI corpora, one student and fixed update.
+It is unlaunched and does not authorize coupling, weighting or an OT objective.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 

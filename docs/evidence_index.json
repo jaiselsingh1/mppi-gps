@@ -2004,6 +2004,234 @@
       },
       "platform_scope": "macOS arm64 native MuJoCo CPU and Torch CPU1thread, frozen before launch. Historical teacher sources include Linux execution. No cross-host-bitwise or efficiency claim.",
       "availability_note": "Complete W2 evidence is local-only. Exact capsule, complete247-file catalog and source/continuation chain are tracked; no remote mirror or clean-export bulk availability is asserted. Confirmed partial retention and cost do not establish walking; absorbing-tail cost and retention gains are related. Validation remains historical development evidence and teacher/fresh-student gaps are unpaired."
+    },
+    "transfer_diagnosis_d1d2": {
+      "run_id": "2026-10-31_transfer_diagnosis_d1d2_001",
+      "availability": "local_and_remote_full_mirror_verified",
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001",
+      "remote_host": "robopil5090",
+      "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001",
+      "capsule": {
+        "directory": "results/transfer_diagnosis_d1d2",
+        "manifest": "results/transfer_diagnosis_d1d2/capsule.json",
+        "manifest_sha256": "a03f6ef770ddcff4d42d74fc7ed18f191a537799e2df906dde996d0be7e39fac",
+        "exact_copy_files": 83,
+        "exact_copy_bytes": 9983067,
+        "in_git": true,
+        "scope": "Exact selected original metadata, audit summaries, figures, summary CSVs and hash-bound derived plotting curves. Complete native arrays/checkpoints/ledgers/full-row CSVs remain external."
+      },
+      "config": {
+        "file": "results/transfer_diagnosis_d1d2/run/config.json",
+        "source": "runs/2026-10-31_transfer_diagnosis_d1d2_001/config.json",
+        "sha256": "be462b70ac7b5a0b420b1b137c998f6a78f3a52c198cbbffaf06609f9aa0031a",
+        "bytes": 3989
+      },
+      "result": {
+        "file": "results/transfer_diagnosis_d1d2/run/result.json",
+        "source": "runs/2026-10-31_transfer_diagnosis_d1d2_001/result.json",
+        "sha256": "757cf6a0961ed7879865b0dfa1bf137f3fce7c5f26b53468068e19424adbb119",
+        "bytes": 2309496
+      },
+      "source_manifest": {
+        "file": "results/transfer_diagnosis_d1d2/run/manifest.json",
+        "source": "runs/2026-10-31_transfer_diagnosis_d1d2_001/manifest.json",
+        "sha256": "7cf38bfb22898169142d35729e4665b844b60b718857f4a796d29c835a4542f7",
+        "bytes": 35077
+      },
+      "input_manifest": {
+        "file": "results/transfer_diagnosis_d1d2/run/input_manifest.json",
+        "source": "runs/2026-10-31_transfer_diagnosis_d1d2_001/input_manifest.json",
+        "sha256": "bf93b0a479b073bfe32d8d05e92b207506fda9398d5e82e83d15c40cc3c12033",
+        "bytes": 49674
+      },
+      "audit_receipt": {
+        "file": "results/transfer_diagnosis_d1d2/audit/receipt.json",
+        "source": "artifacts/2026-10-31_transfer_diagnosis_d1d2_001/audit_001/receipt.json",
+        "sha256": "0fa5dc2f5d29efa2bd5a118658c9ea2395554c9a26c5b638ddf9f2438448068f",
+        "bytes": 731
+      },
+      "file_catalog": {
+        "file": "results/transfer_diagnosis_d1d2/external/full_run_file_manifest.json",
+        "source": "artifacts/2026-10-31_transfer_diagnosis_d1d2_001/local_full_run_file_manifest.json",
+        "sha256": "fc00cc88696494923586e9fc54f44ed8fd31e18dcf456b389995c6ff0c2556d0",
+        "bytes": 898176991,
+        "catalog_file_bytes": 97367,
+        "files": 544
+      },
+      "mirror_receipt": {
+        "file": "results/transfer_diagnosis_d1d2/external/mirror_receipt.json",
+        "source": "artifacts/2026-10-31_transfer_diagnosis_d1d2_001/mirror_receipt.json",
+        "sha256": "35a8b2c61d13c0517c476666a10257a762af81890d95cdd2a0d05df31ea66e08",
+        "bytes": 612
+      },
+      "artifact_file_catalog": {
+        "file": "results/transfer_diagnosis_d1d2/external/artifact_file_manifest.json",
+        "source": "artifacts/2026-10-31_transfer_diagnosis_d1d2_001/artifact_file_manifest.json",
+        "sha256": "2c7f57e13f60cb25dc56fe81b19213025cfa34f340582ae9e8fa43d7fde3c309",
+        "bytes": 10355
+      },
+      "derived_curves": {
+        "file": "results/transfer_diagnosis_d1d2/report/derived_curves.json.gz",
+        "source": "artifacts/2026-10-31_transfer_diagnosis_d1d2_001/report_001/derived_curves.json.gz",
+        "sha256": "0c66b56e7cb34d5ddcb43108b6015050302189c4c5d4bc300214c3eaf39ab12b",
+        "bytes": 2736810
+      },
+      "bulk_files": {
+        "evidence/ledger.jsonl": {
+          "sha256": "e188d36b138c3733800d2c421982725717f84356d746f9cb0847b0809884cbf4",
+          "bytes": 64827819,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/evidence/ledger.jsonl",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/evidence/ledger.jsonl",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "evidence/raw.h5": {
+          "sha256": "673c8773f35be4b7e5b5e4ee72c4ba25924eae770e50f7b50ccdc98992c7393f",
+          "bytes": 701199979,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/evidence/raw.h5",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/evidence/raw.h5",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_h4_backoff.pt": {
+          "sha256": "540dd42afa74686de5477414e52e48674832ca202411264287775cf9bbe39c4d",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_backoff.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_backoff.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_h4_fixed_high.pt": {
+          "sha256": "434df0e32b428e4d097d08ea9b7758d8a79673fd1217ebfc9f515d4bae519e8f",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_fixed_high.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_fixed_high.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_h4_independent.pt": {
+          "sha256": "c2380edb2243716f992004d0acd2bc59ebf4375c337c1ae7bf96398ea7048365",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_independent.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_independent.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_h4_parent.pt": {
+          "sha256": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_parent.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_h4_parent.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_l1_clipped.pt": {
+          "sha256": "14d7f326ed965af7852749177f3e4a8c882d478a2ae816abe1355386aa83eb36",
+          "bytes": 330362,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_l1_clipped.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_l1_clipped.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_reference.pt": {
+          "sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+          "bytes": 3524729,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_reference.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_reference.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_untrained_0.pt": {
+          "sha256": "d72f7b348c704679b0ca5586b4e79bc0097e02cd28f0f1eb0fb8d8197df2761a",
+          "bytes": 87305,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_untrained_0.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_untrained_0.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_untrained_1.pt": {
+          "sha256": "3b881e2a0514b5cc30d90c043978fe8976134e09998287d9e8262d582cdbd103",
+          "bytes": 87305,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_untrained_1.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_untrained_1.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/k1_untrained_2.pt": {
+          "sha256": "5299425a9256998d8441f521cfccf9ae4051d416479395ec046b9c57f76f6c57",
+          "bytes": 87305,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_untrained_2.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/k1_untrained_2.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/w2_s0_u10000.pt": {
+          "sha256": "2ce5ad47c9bd2df5d0181c5576fb8df47ae147617809d7c12acc529a636a6360",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s0_u10000.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s0_u10000.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/w2_s0_u2000.pt": {
+          "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s0_u2000.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s0_u2000.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/w2_s1_u10000.pt": {
+          "sha256": "e4e31c6f57a83b50ec258091938f337199bdf7e1b543db95a280a80ba53e7dbe",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s1_u10000.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s1_u10000.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/w2_s1_u2000.pt": {
+          "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s1_u2000.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s1_u2000.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/w2_s2_u10000.pt": {
+          "sha256": "35ffbde797f48f39021d5dc17bb5b5e6db51406f8015aa548634b4edbae2a994",
+          "bytes": 330490,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s2_u10000.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s2_u10000.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/checkpoints/w2_s2_u2000.pt": {
+          "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s2_u2000.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001/inputs/checkpoints/w2_s2_u2000.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        }
+      },
+      "original_parent_availability": "Selected imported inputs do not establish complete remote mirrors of K1,W1,W2 or H4.1."
     }
   }
 }

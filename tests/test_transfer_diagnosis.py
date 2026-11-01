@@ -148,6 +148,35 @@ def test_frozen_diagnostic_does_not_claim_policy_fitting(tmp_path, monkeypatch):
         assert manifest["policy_action_fitting"] is expected
 
 
+def test_repository_check_accepts_sized_input_bindings(tmp_path):
+    from scripts.check_repository import check_frozen, digest
+
+    (tmp_path / "inputs").mkdir()
+    config, evidence = tmp_path / "config.json", tmp_path / "inputs/example.txt"
+    config.write_text('{"schema":"synthetic"}')
+    evidence.write_text("sealed input\n")
+    (tmp_path / "manifest.json").write_text(
+        json.dumps(dict(files=[], config_sha256=digest(config)))
+    )
+    (tmp_path / "input_manifest.json").write_text(
+        json.dumps(
+            dict(
+                files={
+                    "inputs/example.txt": dict(
+                        sha256=digest(evidence), bytes=evidence.stat().st_size
+                    )
+                }
+            )
+        )
+    )
+    errors = []
+    check_frozen(tmp_path, errors)
+    assert errors == []
+    evidence.write_text("changed\n")
+    check_frozen(tmp_path, errors)
+    assert any("Hash mismatch" in value for value in errors)
+
+
 def test_inspector_exposes_partial_diagnostic_gate(tmp_path):
     for name, value in {
         "config.json": {"schema": "walker-transfer-diagnosis-v1"},

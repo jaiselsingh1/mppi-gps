@@ -115,8 +115,9 @@ def check_frozen(run: Path, errors: list[str]) -> int:
         check_binding(run, "input.pt", {"sha256": manifest["input_sha256"]}, errors)
     seal_path = run / "input_manifest.json"
     if seal_path.is_file():
-        for name, sha in json.loads(seal_path.read_text()).get("files", {}).items():
-            check_binding(run, name, {"sha256": sha}, errors)
+        for name, binding in json.loads(seal_path.read_text()).get("files", {}).items():
+            binding = {"sha256": binding} if isinstance(binding, str) else binding
+            check_binding(run, name, binding, errors)
             count += 1
     return count
 

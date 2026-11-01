@@ -1,4 +1,4 @@
-"""Render saved transfer-diagnosis evidence without new inference or physics."""
+"""Render full transfer evidence or a portable derived-curve result capsule."""
 
 import sys
 from pathlib import Path

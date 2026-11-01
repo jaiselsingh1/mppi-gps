@@ -1,0 +1,277 @@
+{
+  "export": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+  "files": 1732,
+  "excluded_ignored_evidence": true,
+  "results": [
+    {
+      "name": "pytest",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 37.10749087500153,
+      "stdout_sha256": "f26f0921470ca93cd92cbeb3e56ea8b254d34213d2d69414032cd804587459a8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "........................................................................ [ 86%]",
+        ".........................x................................               [100%]",
+        "417 passed, 1 skipped, 1 xfailed in 36.52s"
+      ]
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src",
+        "scripts",
+        "tests"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.04262083300272934,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "All checks passed!"
+      ]
+    },
+    {
+      "name": "repository",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.15716558399435598,
+      "stdout_sha256": "a730d2b3e2a3a55a95065069f17d92393e8de4427c665536a42dca5bca2053f8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  },",
+        "  \"errors\": []",
+        "}"
+      ]
+    },
+    {
+      "name": "cli",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "transfer-diagnosis",
+        "--help"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.058529791989712976,
+      "stdout_sha256": "05265d42d5372d294928932aa5a79045e7c6dafaf2656a49cff204ea4647c225",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "",
+        "options:",
+        "  -h, --help        show this help message and exit"
+      ]
+    },
+    {
+      "name": "inspect_action_compatibility_k1",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/action_compatibility_k1",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.05895095900632441,
+      "stdout_sha256": "02bcf7350f11b8247b3b3e78cf6825e4d88b229ae430d0c5a3cd60034dbefc58",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  \"verification_requested\": true,",
+        "  \"verification_scope\": \"copied capsule bytes\"",
+        "}"
+      ]
+    },
+    {
+      "name": "inspect_adaptive_coupling_h4_1",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/adaptive_coupling_h4_1",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.04649833399162162,
+      "stdout_sha256": "05f129af317cbfe3068f2bafb268d2442c750c5860b4a8c8d73c93f132a0d0b2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  \"verification_requested\": true,",
+        "  \"verification_scope\": \"copied capsule bytes\"",
+        "}"
+      ]
+    },
+    {
+      "name": "inspect_guided_data_v3_1",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/guided_data_v3_1",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.04118658299557865,
+      "stdout_sha256": "f84aaa29a30c6dcd0392ff4c0123a71ab435da3ea34e53c14f2a6cec0c56a96c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  \"verification_requested\": true,",
+        "  \"verification_scope\": \"copied capsule bytes\"",
+        "}"
+      ]
+    },
+    {
+      "name": "inspect_student_learnability_l1",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/student_learnability_l1",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.041553625007509254,
+      "stdout_sha256": "1dc2fa8618846edb6376a6205f3e89b653ddcf4c959d9575de9c4d89410f7f5d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  \"verification_requested\": true,",
+        "  \"verification_scope\": \"copied capsule bytes\"",
+        "}"
+      ]
+    },
+    {
+      "name": "inspect_student_update_w2",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/student_update_w2",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.03245254200010095,
+      "stdout_sha256": "9b1807c2661dd3001b4c5d7a5f194eefdfb906a6538c3119ff9c7c3e03210075",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  \"verification_requested\": true,",
+        "  \"verification_scope\": \"copied capsule bytes\"",
+        "}"
+      ]
+    },
+    {
+      "name": "inspect_student_width_w1",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/student_width_w1",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.0325736670056358,
+      "stdout_sha256": "4fb3193bd3284ad6ae339dca329c2715c3aee45c7e32ba0d1a5b06eba8ae6ecf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "  \"verification_requested\": true,",
+        "  \"verification_scope\": \"copied capsule bytes\"",
+        "}"
+      ]
+    },
+    {
+      "name": "inspect_transfer_diagnosis_d1d2",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk/results/transfer_diagnosis_d1d2",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 0.03789979200519156,
+      "stdout_sha256": "f77ccad4f592ec3c947b67b4fcea6d16de384691cb4fddac141f70cf91f58ebf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": [
+        "    \"scope\": \"Single-action substitution under a fixed open-loop teacher suffix; no learning or recovery claim.\"",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "name": "portable_render",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/diagnostics/report_transfer_diagnosis.py",
+        "--run",
+        "results/transfer_diagnosis_d1d2",
+        "--out",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_transfer_diagnosis_d1d2_001/publication_validation_001/portable_report"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-final-clean-export-9co0kxdk",
+      "exit_code": 0,
+      "wall_seconds": 12.14830020799127,
+      "stdout_sha256": "ffe4e4707a586a633c3b0c1ecc8cfee609b20b5dfb6dda3a2f0b418fe211c2dd",
+      "stderr_sha256": "cace1071573ef725e762e8856427937617c8c67e5d0784c45c0e854e56a803a8",
+      "stdout_tail": [
+        "{\"report\": \"/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_transfer_diagnosis_d1d2_001/publication_validation_001/portable_report\", \"outputs\": 36}"
+      ]
+    }
+  ],
+  "nine_pngs_match_full_report": {
+    "physical_distributions.png": true,
+    "physical_temporal.png": true,
+    "support_distribution.png": true,
+    "teacher_reconstruction.png": true,
+    "w2_outcomes.png": true,
+    "k1_alignment.png": true,
+    "survivor_counts.png": true,
+    "consequence_vs_action_error.png": true,
+    "failure_proximity.png": true
+  },
+  "passed": true
+}

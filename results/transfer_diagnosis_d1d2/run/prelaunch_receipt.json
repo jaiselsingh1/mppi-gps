@@ -1,0 +1,105 @@
+{
+  "implementation_commit": "95f0a55e490204f9ca898b6f8891c56e95e7a824",
+  "config_sha256": "be462b70ac7b5a0b420b1b137c998f6a78f3a52c198cbbffaf06609f9aa0031a",
+  "input_manifest_sha256": "bf93b0a479b073bfe32d8d05e92b207506fda9398d5e82e83d15c40cc3c12033",
+  "source_manifest_sha256": "7cf38bfb22898169142d35729e4665b844b60b718857f4a796d29c835a4542f7",
+  "prelaunch_validation": {
+    "export": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-clean-export-agiieu17",
+    "tracked_and_proposed_files": 1659,
+    "excluded_ignored_evidence": true,
+    "results": [
+      {
+        "name": "pytest",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q"
+        ],
+        "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-clean-export-agiieu17",
+        "exit_code": 0,
+        "wall_seconds": 29.439423417003127,
+        "stdout_sha256": "4a0715f124ad00e3279cfc02fd9868ca7765d66205ee8364195e7f3862e87c27",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_tail": [
+          "........................................................................ [ 69%]",
+          "........................................................................ [ 86%]",
+          "......................x................................                  [100%]",
+          "414 passed, 1 skipped, 1 xfailed in 28.96s"
+        ]
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+          "check",
+          "src",
+          "scripts",
+          "tests"
+        ],
+        "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-clean-export-agiieu17",
+        "exit_code": 0,
+        "wall_seconds": 0.016062584007158875,
+        "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_tail": [
+          "All checks passed!"
+        ]
+      },
+      {
+        "name": "repository",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/check_repository.py"
+        ],
+        "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-clean-export-agiieu17",
+        "exit_code": 0,
+        "wall_seconds": 0.09619970800122246,
+        "stdout_sha256": "7782f010df99aeb4c9adb0c6ed59eeb0d8a1a9de65c5274fd1cb495df7add3b6",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_tail": [
+          "    \"frozen_files\": 0",
+          "  },",
+          "  \"errors\": []",
+          "}"
+        ]
+      },
+      {
+        "name": "cli",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "transfer-diagnosis",
+          "--help"
+        ],
+        "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-transfer-clean-export-agiieu17",
+        "exit_code": 0,
+        "wall_seconds": 0.05291262498940341,
+        "stdout_sha256": "05265d42d5372d294928932aa5a79045e7c6dafaf2656a49cff204ea4647c225",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_tail": [
+          "  {prepare,worker}",
+          "",
+          "options:",
+          "  -h, --help        show this help message and exit"
+        ]
+      }
+    ],
+    "passed": true
+  },
+  "remote_host": "robopil5090",
+  "remote_run": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_transfer_diagnosis_d1d2_001",
+  "worker_interpreter": "/home/jaisel/mppi-gps/.venv/bin/python",
+  "new_research_before_launch": {
+    "physics": 0,
+    "forwards": 0,
+    "backward_rows": 0,
+    "Adam": 0,
+    "D1_support_queries": 0
+  },
+  "unavailable_overhead": "Engineering before explicit command receipts and global synthetic-fixture arithmetic counts are unknown, not zero."
+}

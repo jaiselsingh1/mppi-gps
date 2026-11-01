@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import csv
+import gzip
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -14,7 +16,13 @@ import numpy as np
 import pytest
 
 from src.gps.mppi_gps.provenance import sha
-from src.gps.mppi_gps.reporting.transfer import build_tables, render, temporal_tables
+from src.gps.mppi_gps.reporting import transfer
+from src.gps.mppi_gps.reporting.transfer import (
+    DERIVED_FIELDS,
+    build_tables,
+    render,
+    temporal_tables,
+)
 
 
 def _raw(stream, name, **arrays):
@@ -314,6 +322,101 @@ def test_report_rejects_tampered_saved_array(tmp_path):
         stream["coverage_0/distance"][0] = 99
     with pytest.raises(ValueError, match="array binding differs"):
         render(run, tmp_path / "tampered_arrays")
+
+
+def _capsule(tmp_path, run, report):
+    capsule = tmp_path / "capsule"
+    (capsule / "run").mkdir(parents=True)
+    (capsule / "report").mkdir()
+    for name in ("config.json", "result.json", "input_manifest.json"):
+        shutil.copy2(run / name, capsule / "run" / name)
+    for name in ("derived_curves.json.gz", "receipt.json"):
+        shutil.copy2(report / name, capsule / "report" / name)
+    _rebind_capsule(capsule)
+    return capsule
+
+
+def _rebind_capsule(capsule):
+    files = {
+        str(path.relative_to(capsule)): dict(sha256=sha(path), bytes=path.stat().st_size)
+        for folder in ("run", "report")
+        for path in (capsule / folder).iterdir()
+        if path.is_file()
+    }
+    (capsule / "capsule.json").write_text(json.dumps(dict(files=files)))
+
+
+def test_clean_capsule_renders_identical_figures_without_raw_or_full_row_tables(
+    tmp_path, monkeypatch
+):
+    run, _ = _fixture(tmp_path)
+    full = tmp_path / "full"
+    full_receipt = render(run, full)
+    capsule = _capsule(tmp_path, run, full)
+    assert not list(capsule.rglob("*.h5"))
+    assert not list(capsule.rglob("*.npz"))
+    payload = json.loads(gzip.decompress((full / "derived_curves.json.gz").read_bytes()))
+    assert payload["fields"] == list(DERIVED_FIELDS)
+    assert all(set(row["arrays"]) == set(DERIVED_FIELDS) for row in payload["coverage"])
+    assert (full / "derived_curves.json.gz").read_bytes()[4:8] == b"\x00" * 4
+    monkeypatch.setattr(
+        transfer, "_raw_arrays", lambda *args: pytest.fail("Portable render cannot read raw arrays")
+    )
+    portable = tmp_path / "portable"
+    receipt = render(capsule, portable)
+    assert receipt["render_scope"] == "portable_derived_curves"
+    assert receipt["new_controls"] == receipt["new_forward_rows"] == 0
+    assert receipt["derived_curves_sha256"] == full_receipt["derived_curves_sha256"]
+    assert not (portable / "coverage_samples.csv").exists()
+    assert not (portable / "reconstruction_samples.csv").exists()
+    for path in full.glob("*.png"):
+        assert sha(path) == sha(portable / path.name)
+    for name in (
+        "coverage_summary",
+        "reconstruction_summary",
+        "temporal_physical",
+        "frequency_summary",
+        "survivor_counts",
+        "consequence_prefixes",
+    ):
+        assert (full / f"{name}.csv").read_bytes() == (portable / f"{name}.csv").read_bytes()
+    accounting = json.loads((portable / "cost_accounting.json").read_text())
+    assert accounting["coverage_csv_rows"] == accounting["reconstruction_csv_rows"] == 0
+    assert accounting["represented_coverage_rows"] == 6
+    assert accounting["represented_reconstruction_rows"] == 8
+    text = (portable / "report.md").read_text()
+    assert "portable derived curves and result summaries" in text
+    assert "neither CSV is fabricated here" in text
+    assert "not the underlying simulator, predictions or support computation" in text
+    with pytest.raises(FileExistsError):
+        render(capsule, portable)
+
+
+def test_portable_cache_rejects_file_and_typed_array_tampering(tmp_path):
+    run, _ = _fixture(tmp_path)
+    full = tmp_path / "full"
+    render(run, full)
+    capsule = _capsule(tmp_path, run, full)
+    cache = capsule / "report/derived_curves.json.gz"
+    original = cache.read_bytes()
+    cache.write_bytes(original + b"tampered")
+    with pytest.raises(ValueError, match="Capsule file binding"):
+        render(capsule, tmp_path / "tampered_file")
+    assert not (tmp_path / "tampered_file").exists()
+
+    # Rebinding file-level inventories cannot disguise changed numerical fields:
+    # exact typed-array pins also bind the cache to the original result records.
+    payload = json.loads(gzip.decompress(original))
+    payload["coverage"][0]["arrays"]["height"]["values"][0] += 1
+    cache.write_bytes(gzip.compress(json.dumps(payload).encode(), mtime=0))
+    receipt_path = capsule / "report/receipt.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt["outputs"][cache.name] = dict(sha256=sha(cache), bytes=cache.stat().st_size)
+    receipt_path.write_text(json.dumps(receipt))
+    _rebind_capsule(capsule)
+    with pytest.raises(ValueError, match="typed-array binding"):
+        render(capsule / "run", tmp_path / "tampered_array")
+    assert not (tmp_path / "tampered_array").exists()
 
 
 def test_import_and_cli_help_do_not_import_policy_or_simulator():

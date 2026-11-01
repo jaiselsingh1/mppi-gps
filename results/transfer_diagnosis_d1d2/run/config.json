@@ -1,0 +1,119 @@
+{
+  "schema": "walker-transfer-diagnosis-v1",
+  "hypothesis": "Incomplete reconstruction, learner state support and action consequences are distinct possible obstacles to transferring successful Walker teacher behavior; diagnose them without changing learning or search.",
+  "random_seed": 2026111001,
+  "anchors": [
+    0,
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900
+  ],
+  "horizons": [
+    1,
+    10,
+    25,
+    50,
+    100
+  ],
+  "branch_controls": 100,
+  "teacher_ids": [
+    "v2_r0_trial_raw_0",
+    "v2_r0_trial_raw_1"
+  ],
+  "branch_names": [
+    "teacher",
+    "reference",
+    "untrained_0",
+    "untrained_1",
+    "untrained_2",
+    "s0_u2000",
+    "s0_u10000",
+    "s1_u2000",
+    "s1_u10000",
+    "s2_u2000",
+    "s2_u10000",
+    "uniform_random"
+  ],
+  "replay_atol": 1e-10,
+  "replay_rtol": 0.0,
+  "expected_runtime": {
+    "python": "3.11.16",
+    "packages": {
+      "numpy": "2.4.3",
+      "scipy": "1.17.1",
+      "mujoco": "3.6.0",
+      "h5py": "3.16.0",
+      "torch": "2.10.0+cpu"
+    }
+  },
+  "parent_metadata_sha256": {
+    "k1": {
+      "result.json": "c75b1bb4586f7ed5f50040a5e4996d14db86ae399f8132818073b4dae5061881",
+      "config.json": "167a45e2f947dfaa415267ad96c3f6eca37c06a0c810f32c5be626556bf57f43",
+      "input_manifest.json": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99",
+      "manifest.json": "ca7b4a2205e6cd0385dd261cd225aac772544f143a7067bdbe5b299117021d23"
+    },
+    "w2": {
+      "result.json": "0885a6da57a0f53593c2f5fffde50895f313f8c0f857c3916fe8d52918e99e0f",
+      "config.json": "58e38a13f08c6c003970cddf51ce268f994a8182b14d2be997f0f28a8c7d4bf9",
+      "input_manifest.json": "c9ebdeac1ab7fa1a252176d271513c27c98a79bcb9fab87dacf14ed5e1c1c19e",
+      "manifest.json": "fdbe4b32527d52049cdeaa625ea2f016fec9b100c52a881da8d7ba49dc977ea5"
+    }
+  },
+  "early_controls": 100,
+  "bin_controls": 100,
+  "support_quantile": 0.95,
+  "d1_budgets": {
+    "support_queries": 75000,
+    "wall_seconds": 1200,
+    "memory_bytes": 1073741824
+  },
+  "d2_budgets": {
+    "branches": 240,
+    "live_controls": 24000,
+    "physics_substeps": 96000,
+    "wall_seconds": 2400
+  },
+  "budgets": {
+    "storage_bytes": 8589934592,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "model_controls": 0
+  },
+  "expected": {
+    "w2_episodes": 192,
+    "w2_rows": 33631,
+    "k1_rows": 30070,
+    "train_rows": 4000,
+    "validation_rows": 2000,
+    "support_queries": 69701,
+    "anchors": 20,
+    "policy_action_rows": 200
+  },
+  "stopping": "Run D1 once, then all20unmodified replay branches before any substituted branch. Stop on any provenance, snapshot, numerical replay, memory, wall, storage or work-budget failure; retain partial evidence. No replacement sources, relaxed tolerances, extra anchors, retries, inference, fitting, MPPI queries or follow-up intervention.",
+  "claim_scope": "Descriptive saved-state support and single-action causal effects under a fixed open-loop teacher continuation. Neither diagnoses a unique cause, measures recovery/teachability, nor establishes policy competence or earlier-time importance. Two teacher source trajectories are not20independent task replications.",
+  "next_stage": "Close with established/supported/unresolved findings and one separately versioned unlaunched learning protocol for review.",
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true,
+    "nthread": 16
+  },
+  "xml_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590",
+  "k1_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+  "w2_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001"
+}

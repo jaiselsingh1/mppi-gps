@@ -4,10 +4,10 @@ Start with the [W2 fixed-budget result](student_update_w2_results.md), [W1 width
 
 ## Completed evidence
 
-The authorized [D1/D2 protocol](transfer_diagnosis_d1d2_protocol.md) extends saved-state
-support analysis and tests single-action consequences under a fixed teacher suffix.
-Its learner/planner remain unchanged; subsequent learning and loop stages require a
-separately frozen, result-dependent protocol.
+The completed [D1/D2 diagnosis](transfer_diagnosis_d1d2_results.md) connects saved-state
+support to single-action effects under a fixed teacher suffix. Its learner/planner
+remain unchanged. The next [S1 source-learning proposal](student_source_s1_protocol.md)
+is unlaunched; subsequent learning and loop stages require separate authorization.
 
 | Study | Question and outcome | Protocol and exact capsule |
 |---|---|---|
@@ -17,6 +17,7 @@ separately frozen, result-dependent protocol.
 | K1 | How do successful MPPI, random and reference trajectories align with untrained/cloned/reference policies? All clones outperform untrained on MPPI agreement; independently trained SAC qualifies 16/16 + 16/16 despite much worse MPPI agreement. | [Protocol](action_compatibility_k1_protocol.md), [verdict](action_compatibility_k1_results.md), [capsule](../results/action_compatibility_k1/README.md) |
 | W1 | Does 128→256 tanh width improve fixed-budget learning? Better training reconstruction, worse validation and control; all six final policies fail walking. | [Protocol](student_width_w1_protocol.md), [verdict](student_width_w1_results.md), [capsule](../results/student_width_w1/README.md), [W2 hypothesis](student_update_w2_hypothesis.md) |
 | W2 | Does fixed 2k deployment improve on the same stream continued to 10k? Retention and cost benefits repeat on confirmation; all endpoints still fail walking and full survival. | [Protocol](student_update_w2_protocol.md), [result](student_update_w2_results.md), [capsule](../results/student_update_w2/README.md) |
+| D1/D2 | Do saved support and controlled action consequences explain transfer failure? Support does not certify competence; single-action effects under a fixed suffix do not consistently rank whole-policy retention. | [Protocol](transfer_diagnosis_d1d2_protocol.md), [result](transfer_diagnosis_d1d2_results.md), [capsule](../results/transfer_diagnosis_d1d2/README.md) |
 
 Read the [evidence guide](evidence_availability.md) before attempting a bulk-data audit. Capsules support reading, plotting and metadata inspection in a clean checkout. Their original manifests describe full runs that also contain evidence excluded from Git.
 
