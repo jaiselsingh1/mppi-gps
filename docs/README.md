@@ -40,3 +40,5 @@ Read the [evidence guide](evidence_availability.md) before attempting a bulk-dat
 Use the [code map](code_map.md) to locate active responsibilities and the [development guide](development.md) for PDB, VS Code, checkpoints, provenance and safe fresh replay directories. The [historical index](history.md), [closed v2 algorithm](algorithm.md) and [closed v2 results](results.md) remain available; they describe their original gates, including the agreement proxy that v3.1 subsequently tested through actual child fitting. Historical notes and archive bytes are retained.
 
 [Repository cleanup validation](validation/cleanup_2026-10-30/README.md) records preservation, recipe/continuation regressions and canonical audit parity; this is engineering validation, separate from the scientific results.
+
+[K1.1 publication validation](validation/trajectory_review_k1_1_2026-11-01/README.md) records the 707-test clean export, all 26 report/inspection checks, retained validation failures and later engineering costs.

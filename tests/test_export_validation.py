@@ -39,5 +39,5 @@ def test_report_binding_rejects_changed_bytes(tmp_path):
     with pytest.raises(ValueError, match="binding differs"):
         verify_report_outputs(
             tmp_path,
-            {path.name: {"bytes": 7, "sha256": hashlib.sha256(b"original").hexdigest()}},
+            {path.name: {"bytes": 7, "sha256": hashlib.sha256(b"initial").hexdigest()}},
         )
