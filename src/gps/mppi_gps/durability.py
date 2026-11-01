@@ -114,33 +114,36 @@ def durable_json(path: str | Path, value: Any) -> None:
         prefix="." + path.name + ".", suffix=".tmp", dir=path.parent
     )
     temporary_path = Path(temporary)
-    owned_inode = temporary_path.stat()
+    owned_inode = os.fstat(descriptor)
     linked = False
-    try:
-        with os.fdopen(descriptor, "wb") as stream:
+    # Keep this descriptor open until the rollback ownership decision finishes.
+    # Otherwise unlinking the last name allows Linux to reuse this inode for a
+    # different writer's replacement before the device/inode comparison below.
+    with os.fdopen(descriptor, "wb") as stream:
+        try:
             stream.write(data)
             stream.flush()
             os.fsync(stream.fileno())
-        os.link(temporary_path, path)
-        linked = True
-        temporary_path.unlink()
-        fsync_directory(path.parent)
-    except BaseException:
-        # A failed commit is not a valid acknowledgement. Remove only a target
-        # created by this call; a racing pre-existing target stays untouched.
-        if linked:
+            os.link(temporary_path, path)
+            linked = True
+            temporary_path.unlink()
+            fsync_directory(path.parent)
+        except BaseException:
+            # A failed commit is not a valid acknowledgement. Remove only a
+            # target created by this call; another writer's target stays intact.
+            if linked:
+                try:
+                    current = path.lstat()
+                    if (current.st_dev, current.st_ino) == (owned_inode.st_dev, owned_inode.st_ino):
+                        path.unlink()
+                except OSError:
+                    pass
+            raise
+        finally:
             try:
-                current = path.lstat()
-                if (current.st_dev, current.st_ino) == (owned_inode.st_dev, owned_inode.st_ino):
-                    path.unlink()
+                temporary_path.unlink(missing_ok=True)
             except OSError:
                 pass
-        raise
-    finally:
-        try:
-            temporary_path.unlink(missing_ok=True)
-        except OSError:
-            pass
 
 
 def file_binding(path: str | Path) -> dict[str, Any]:

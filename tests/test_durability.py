@@ -161,6 +161,36 @@ def test_failed_commit_never_removes_another_owners_replacement(tmp_path, monkey
     assert path.read_bytes() == b"replacement belongs to another owner"
 
 
+def test_rollback_pins_original_inode_until_ownership_decision_finishes(tmp_path, monkeypatch):
+    path = tmp_path / "receipt.json"
+    streams = []
+    original_fdopen = durable.os.fdopen
+
+    def capture_stream(*args, **kwargs):
+        stream = original_fdopen(*args, **kwargs)
+        streams.append(stream)
+        return stream
+
+    def replace_then_fail(_):
+        stream = streams[0]
+        assert not stream.closed
+        owned = durable.os.fstat(stream.fileno())
+        path.unlink()
+        assert durable.os.fstat(stream.fileno()).st_nlink == 0
+        path.write_bytes(b"a replacement whose inode cannot alias the open original")
+        replacement = path.stat()
+        assert (replacement.st_dev, replacement.st_ino) != (owned.st_dev, owned.st_ino)
+        raise OSError("directory commit failed with pinned inode")
+
+    monkeypatch.setattr(durable.os, "fdopen", capture_stream)
+    monkeypatch.setattr(durable, "fsync_directory", replace_then_fail)
+    with pytest.raises(OSError, match="pinned inode"):
+        durable.durable_json(path, {"value": 1})
+    assert streams[0].closed
+    assert path.read_bytes() == b"a replacement whose inode cannot alias the open original"
+    assert list(tmp_path.iterdir()) == [path]
+
+
 def test_nonfinite_json_is_rejected_before_creating_files(tmp_path):
     with pytest.raises(ValueError):
         durable.durable_json(tmp_path / "receipt.json", {"value": float("nan")})
