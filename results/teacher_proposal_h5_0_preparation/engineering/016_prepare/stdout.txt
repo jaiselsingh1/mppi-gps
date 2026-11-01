@@ -1,0 +1,91 @@
+{
+  "schema": "walker-h5-preparation-result-v1",
+  "execution_complete": false,
+  "preparation_complete": true,
+  "status": "prepared_unlaunched",
+  "launch_blockers": [
+    "No explicit first-round launch authorization",
+    "Weak-learner ordering exception has not been approved"
+  ],
+  "useful_learning_prerequisite_satisfied": false,
+  "loop_closed": false,
+  "call_census": {
+    "per_episode": {
+      "teacher_live_decisions": 1000,
+      "optimization_passes_per_stream": 1001,
+      "sampled_model_calls": 2002,
+      "stream_mean_model_calls": 2000,
+      "selector_mean_model_calls": 2000,
+      "model_queries": 6002,
+      "model_controls": 24792576,
+      "guidance_forward_rows": 37020288
+    },
+    "per_arm": {
+      "teacher_episodes": 18,
+      "model_controls": 446266368,
+      "guidance_forward_rows": 666365184,
+      "child_optimizer_updates": 6000,
+      "child_backward_rows": 1536000,
+      "child_diagnostic_forward_rows": 42000,
+      "child_standalone_controls": 102000,
+      "teacher_posthoc_forward_rows": 18000,
+      "worker_neural_rows": 668063184
+    },
+    "shared_parent_prefix": {
+      "optimizer_updates": 6000,
+      "backward_rows": 1536000,
+      "diagnostic_forward_rows": 36000,
+      "standalone_controls": 96000,
+      "neural_rows": 1668000
+    },
+    "total": {
+      "teacher_decisions": 54000,
+      "model_queries": 324108,
+      "model_controls": 1338799104,
+      "live_controls": 456000,
+      "physics_substeps": 5357020416,
+      "guidance_forward_rows": 1999095552,
+      "training_forward_and_backward_rows_each": 6144000,
+      "diagnostic_forward_rows": 162000,
+      "worker_neural_rows": 2005857552
+    },
+    "strong_audit_neural_rows": 1999713552,
+    "per_arm_strong_audit_neural_rows": 666527184,
+    "per_arm_combined_neural_rows": 1334590368,
+    "shared_parent_strong_audit_neural_rows": 132000,
+    "shared_parent_combined_neural_rows": 1800000,
+    "combined_neural_rows": 4005571104,
+    "worker_optimizer_steps": 24000,
+    "worker_backward_rows": 6144000,
+    "worker_requested_controls": 1339255104,
+    "teacher_live_controls": 54000,
+    "standalone_live_controls": 402000,
+    "worker_episodes": 456,
+    "checkpoint_loads": 12,
+    "per_decision_first": {
+      "model_controls": 49344,
+      "requested_controls": 49344,
+      "physics_substeps": 197376,
+      "neural_rows": 49296,
+      "model_queries": 8,
+      "prediction_queries": 4
+    },
+    "per_decision_later": {
+      "model_controls": 24768,
+      "requested_controls": 24768,
+      "physics_substeps": 99072,
+      "neural_rows": 37008,
+      "model_queries": 6,
+      "prediction_queries": 3
+    },
+    "scope": "Strict roster reservations, not observations or HDF5 storage proof"
+  },
+  "work": {
+    "network_forwards": 0,
+    "physics_controls": 0,
+    "optimizer_steps": 0,
+    "mppi_queries": 0
+  },
+  "wall_seconds": 0.14847991600981914,
+  "input_bytes_copied": 4505649
+}

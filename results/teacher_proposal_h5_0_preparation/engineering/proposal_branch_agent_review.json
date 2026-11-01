@@ -1,0 +1,49 @@
+{
+  "schema": "walker-h5-proposal-branch-agent-engineering-v1",
+  "scope": "Synthetic engineering validation only. No policy network, checkpoint, simulator integration or original numerical evidence loaded. Tool wrapper durations were not captured into this receipt; editing, totalelapsed and global synthetic arithmetic are unknown, not zero.",
+  "latest_test_command": ".venv/bin/python -B -m pytest -q tests/test_guided_proposals.py tests/test_proposal_evidence.py",
+  "latest_observed_pytest": {
+    "passed": 36,
+    "wall_seconds": 0.84
+  },
+  "latest_ruff": "check passed; all4 files formatted after final formatting-only cleanup",
+  "preserved_development_failures": [
+    {
+      "stage": "Initial binary adapter fixture suite",
+      "failed": 4,
+      "passed": 29,
+      "pytest_wall_seconds": 1.01,
+      "causes": [
+        "memoryview cannot cast an array with zero shape",
+        "Synthetic1024-byte metadata ceiling too small for full runtime_close counters"
+      ],
+      "correction": "Explicit zero-byte buffer; minimum2048-byte event line with defaultfrozen16384-byte production cap."
+    },
+    {
+      "stage": "Ruff development",
+      "causes": [
+        "Unused copy/json imports",
+        "One formatting-only test statement"
+      ],
+      "correction": "Imports removed/used, test formatted; no existing core file changed."
+    }
+  ],
+  "files": {
+    "src/gps/mppi_gps/guided_proposals.py": {
+      "bytes": 22096,
+      "sha256": "effdbc6bcda9527bb6d17723989b60b5c74ca86dc199c14d22ad9bd4864bfa8a"
+    },
+    "src/gps/mppi_gps/proposal_evidence.py": {
+      "bytes": 14097,
+      "sha256": "4d83e58988eb8f947af297a0f68a98987459867088c3c9926ba8334b21fded0c"
+    },
+    "tests/test_guided_proposals.py": {
+      "bytes": 15274,
+      "sha256": "d4b91ec8fe30f89bb8fd4010cb717971607a92e06b91571cb107d92ea071d2b7"
+    },
+    "tests/test_proposal_evidence.py": {
+      "bytes": 10937,
+      "sha256": "07a018a1f59a8bed29ec4baf225542ab8f74ba4226779f8a9e3a744b380b6cbc"
+    }
+  }
+}

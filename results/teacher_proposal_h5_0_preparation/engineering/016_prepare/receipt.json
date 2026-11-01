@@ -1,0 +1,23 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "scripts/train_mppi_gps.py",
+    "study",
+    "teacher-proposal",
+    "prepare",
+    "--source-run",
+    "runs/2026-10-31_student_update_w2_001",
+    "--runtime-probe",
+    "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/001_remote_runtime/stdout.txt",
+    "--seed-review",
+    "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/seed_review.json",
+    "--out",
+    "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 0,
+  "wall_seconds": 0.19814941700315103,
+  "stdout_sha256": "6f2b095583384628c1829abb6a3a901a2218e0de34fef75ba457d3f3b763cfe7",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,600 @@
+{
+  "schema": "walker-h5-preparation-accounting-v1",
+  "scope": "Engineering preparation only; prospective scientific work is not executed work.",
+  "h5_research_executed": {
+    "parent_fits": 0,
+    "child_fits": 0,
+    "network_forward_rows": 0,
+    "native_controls": 0,
+    "mppi_queries": 0,
+    "optimizer_steps": 0,
+    "round_audit_neural_rows": 0
+  },
+  "preparation": {
+    "schema": "walker-h5-preparation-result-v1",
+    "execution_complete": false,
+    "preparation_complete": true,
+    "status": "prepared_unlaunched",
+    "launch_blockers": [
+      "No explicit first-round launch authorization",
+      "Weak-learner ordering exception has not been approved"
+    ],
+    "useful_learning_prerequisite_satisfied": false,
+    "loop_closed": false,
+    "call_census": {
+      "per_episode": {
+        "teacher_live_decisions": 1000,
+        "optimization_passes_per_stream": 1001,
+        "sampled_model_calls": 2002,
+        "stream_mean_model_calls": 2000,
+        "selector_mean_model_calls": 2000,
+        "model_queries": 6002,
+        "model_controls": 24792576,
+        "guidance_forward_rows": 37020288
+      },
+      "per_arm": {
+        "teacher_episodes": 18,
+        "model_controls": 446266368,
+        "guidance_forward_rows": 666365184,
+        "child_optimizer_updates": 6000,
+        "child_backward_rows": 1536000,
+        "child_diagnostic_forward_rows": 42000,
+        "child_standalone_controls": 102000,
+        "teacher_posthoc_forward_rows": 18000,
+        "worker_neural_rows": 668063184
+      },
+      "shared_parent_prefix": {
+        "optimizer_updates": 6000,
+        "backward_rows": 1536000,
+        "diagnostic_forward_rows": 36000,
+        "standalone_controls": 96000,
+        "neural_rows": 1668000
+      },
+      "total": {
+        "teacher_decisions": 54000,
+        "model_queries": 324108,
+        "model_controls": 1338799104,
+        "live_controls": 456000,
+        "physics_substeps": 5357020416,
+        "guidance_forward_rows": 1999095552,
+        "training_forward_and_backward_rows_each": 6144000,
+        "diagnostic_forward_rows": 162000,
+        "worker_neural_rows": 2005857552
+      },
+      "strong_audit_neural_rows": 1999713552,
+      "per_arm_strong_audit_neural_rows": 666527184,
+      "per_arm_combined_neural_rows": 1334590368,
+      "shared_parent_strong_audit_neural_rows": 132000,
+      "shared_parent_combined_neural_rows": 1800000,
+      "combined_neural_rows": 4005571104,
+      "worker_optimizer_steps": 24000,
+      "worker_backward_rows": 6144000,
+      "worker_requested_controls": 1339255104,
+      "teacher_live_controls": 54000,
+      "standalone_live_controls": 402000,
+      "worker_episodes": 456,
+      "checkpoint_loads": 12,
+      "per_decision_first": {
+        "model_controls": 49344,
+        "requested_controls": 49344,
+        "physics_substeps": 197376,
+        "neural_rows": 49296,
+        "model_queries": 8,
+        "prediction_queries": 4
+      },
+      "per_decision_later": {
+        "model_controls": 24768,
+        "requested_controls": 24768,
+        "physics_substeps": 99072,
+        "neural_rows": 37008,
+        "model_queries": 6,
+        "prediction_queries": 3
+      },
+      "scope": "Strict roster reservations, not observations or HDF5 storage proof"
+    },
+    "work": {
+      "network_forwards": 0,
+      "physics_controls": 0,
+      "optimizer_steps": 0,
+      "mppi_queries": 0
+    },
+    "wall_seconds": 0.14847991600981914,
+    "input_bytes_copied": 4505649
+  },
+  "preparation_audit": {
+    "schema": "walker-h5.0-preparation-audit-v1",
+    "preparation_audit_complete": true,
+    "scientific_round_audit_complete": false,
+    "checks": 490,
+    "source_read_bytes": 10493125,
+    "array_decodes": 0,
+    "new_network_rows": 0,
+    "new_physics_controls": 0,
+    "new_optimizer_steps": 0,
+    "launch_authorized": false,
+    "eligibility_decision": "pending_explicit_review",
+    "wall_seconds": 0.042508874990744516
+  },
+  "metadata_seed_review": {
+    "source_read_bytes": 12512791,
+    "wall_seconds": 0.181359375,
+    "proposed_seeds": 94,
+    "top_level_configurations": 234,
+    "conservative_intervals": 3326,
+    "collisions": 0
+  },
+  "enclosing_metered_commands": {
+    "001_remote_runtime": {
+      "command": [
+        "ssh",
+        "robopil5090",
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "-"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.49092541699064896,
+      "stdout_sha256": "53e2a3e8c6aad73b7280868eb3745358a74f1b81f668dafd6daf7a71268efe61",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "002_focused_engineering": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_guided_proposals.py",
+        "tests/test_proposal_budget.py",
+        "tests/test_proposal_evidence.py",
+        "tests/test_proposal_round.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 1.0202411669888534,
+      "stdout_sha256": "728c4d1d3f31805d6394caa2f9cf690ad55e47c94eab0a4c5447c5b53b14b819",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "003_boundary_engineering": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_proposal_execution.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 1.428846082999371,
+      "stdout_sha256": "a76678fcd0fd5c840a2d1dd67b206fee94ae1ce5d1118c743dc24dd571b298b0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "004_observer_watchdog": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_proposal_execution.py",
+        "tests/test_proposal_launch.py",
+        "tests/test_gps_policy.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 2.305884084024001,
+      "stdout_sha256": "75d72a06cd4c618a4073ef4b7eecdbbc2220be45902936bd5ffc24a5f53942d6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "005_preparation_lifecycle": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_round.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.21082404200569727,
+      "stdout_sha256": "7a31e66378c8cfe7c15128f94cc1506ce059a413da978d80115e1e55e5e976e5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "006_full_engineering": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 1,
+      "wall_seconds": 54.18892737501301,
+      "stdout_sha256": "56927aa9294f77deb17094dd47f185b3c69fee51ee40581bbfac424376552368",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "007_full_geometry_boundaries": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_guided_proposals.py",
+        "tests/test_proposal_execution.py",
+        "tests/test_proposal_storage.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 1.9877065409964416,
+      "stdout_sha256": "a4cfe26fe1a034a4a2b0aebdb49a54d9fb0820d12eb1c937d936f536758a816c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "008_sealed_seed_lifecycle": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_budget.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.2591336670157034,
+      "stdout_sha256": "74c66f4981932e270585935cb3b6a10fd2ea6142b2fd7c90194b67bf53f417b7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "009_stable_full_suite": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 53.98059158297838,
+      "stdout_sha256": "0e3c63117fb5c4c14cbe19766139263e6076456bbcbf59db8d57ba080b1c527d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "010_final_ruff": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "src",
+        "scripts",
+        "tests"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.030523749999701977,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "011_final_format": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "scripts",
+        "tests"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.02755512497969903,
+      "stdout_sha256": "26ac41fcc7d8f7b53a6c2456dc1fdd2ac4ebe0fbee318a469e2081c0ea274f68",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "012_preserved_evidence": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_repository.py",
+        "--frozen-run",
+        "runs/2026-11-01_motion_diagnosis_k1_2_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.6329533329990227,
+      "stdout_sha256": "31480d61c96f2ae656cd7b76642de12c1d8bc998798650fcde84a03f886ac993",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "013_export_smokes": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_validate_export.py",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_budget.py",
+        "tests/test_proposal_storage.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 4,
+      "wall_seconds": 0.16037125000730157,
+      "stdout_sha256": "24f0b6026255df17440df650134db1c767346a9d49b0d687d39847d5911a9e9a",
+      "stderr_sha256": "5db44606d90fc6788b3eac87811b0f96a735fca4f94cf4ac57d29a9cb07c5926"
+    },
+    "014_final_preparation_checks": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_proposal_preparation.py",
+        "tests/test_proposal_budget.py",
+        "tests/test_proposal_storage.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.2997168340079952,
+      "stdout_sha256": "2d7cd9eb4ce621d9a23bf08436bcf25106efdc1dbfc0400c9b6dfadb794b398f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "015_export_test": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_export_validation.py"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.5146759579947684,
+      "stdout_sha256": "fc99c56adf2cb5702a4564ceead9e104cf6db01c3cd1a15756b5c9630e644ce6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "016_prepare": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "teacher-proposal",
+        "prepare",
+        "--source-run",
+        "runs/2026-10-31_student_update_w2_001",
+        "--runtime-probe",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/001_remote_runtime/stdout.txt",
+        "--seed-review",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/seed_review.json",
+        "--out",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.19814941700315103,
+      "stdout_sha256": "6f2b095583384628c1829abb6a3a901a2218e0de34fef75ba457d3f3b763cfe7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "017_preparation_audit": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/audits/teacher_proposal.py",
+        "--mode",
+        "preparation",
+        "--run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+        "--out",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/audit_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.10436374999699183,
+      "stdout_sha256": "069661175bc3a6bcd65226dc513bc16167037eab572b2c7d8ba078020044c6d7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "018_inspection": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+        "--verify",
+        "--json"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.07774149999022484,
+      "stdout_sha256": "bcb3df5393a369ee8d8f41075a7d5ef8bfd655673cc587a1e0989fc094649af7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "019_launch_gate": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "teacher-proposal",
+        "check-launch",
+        "--out",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 2,
+      "wall_seconds": 0.05499020899878815,
+      "stdout_sha256": "87ce96a6cc1914db2f564f6a4843632282baceab4b91fb94b86c675d42838313",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "020_report": {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/diagnostics/report_teacher_proposal.py",
+        "--run",
+        "runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+        "--out",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/report_preparation_001"
+      ],
+      "cwd": "/Users/jaisel/Documents/mppi-gps",
+      "exit_code": 0,
+      "wall_seconds": 0.05274495799676515,
+      "stdout_sha256": "5a990403168038a56202c65d0b376a01d992bfca11acf67de4444d5c265369c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "enclosing_command_wall_seconds_sum": 118.02686604298651,
+  "wall_time_interpretation": "Command times include nested subprocesses and must not be added to their internal timers or interpreted as total investigation elapsed time.",
+  "engineering_tests": {
+    "latest_full_suite": {
+      "passed": 979,
+      "skipped": 1,
+      "xfailed": 1,
+      "receipt": "engineering/009_stable_full_suite/receipt.json"
+    },
+    "synthetic_and_baseline_fitting_or_physics": "Tests include small real Torch fitting/checkpoint continuation and existing native physics checks. Their aggregate neural/control/update census was not instrumented and is unknown; the H5 research-work zero does not describe those tests."
+  },
+  "retained_failures": [
+    "006_full_engineering: 2 audit fixture failures while required integration/warmstart evidence was missing; fixed fixtures, preserved audit contracts; 966 passed.",
+    "013_export_smokes: wrong test filename; no tests ran, exit4; corrected invocation preserved separately.",
+    "Proposal agent review retains initial synthetic fixture failures; later passing receipts supersede the engineering status without erasing failures.",
+    "021 remote backup rejected by automatic approval review before execution; no archive or transfer was made."
+  ],
+  "prospective_scientific_reservations": {
+    "per_episode": {
+      "teacher_live_decisions": 1000,
+      "optimization_passes_per_stream": 1001,
+      "sampled_model_calls": 2002,
+      "stream_mean_model_calls": 2000,
+      "selector_mean_model_calls": 2000,
+      "model_queries": 6002,
+      "model_controls": 24792576,
+      "guidance_forward_rows": 37020288
+    },
+    "per_arm": {
+      "teacher_episodes": 18,
+      "model_controls": 446266368,
+      "guidance_forward_rows": 666365184,
+      "child_optimizer_updates": 6000,
+      "child_backward_rows": 1536000,
+      "child_diagnostic_forward_rows": 42000,
+      "child_standalone_controls": 102000,
+      "teacher_posthoc_forward_rows": 18000,
+      "worker_neural_rows": 668063184
+    },
+    "shared_parent_prefix": {
+      "optimizer_updates": 6000,
+      "backward_rows": 1536000,
+      "diagnostic_forward_rows": 36000,
+      "standalone_controls": 96000,
+      "neural_rows": 1668000
+    },
+    "total": {
+      "teacher_decisions": 54000,
+      "model_queries": 324108,
+      "model_controls": 1338799104,
+      "live_controls": 456000,
+      "physics_substeps": 5357020416,
+      "guidance_forward_rows": 1999095552,
+      "training_forward_and_backward_rows_each": 6144000,
+      "diagnostic_forward_rows": 162000,
+      "worker_neural_rows": 2005857552
+    },
+    "strong_audit_neural_rows": 1999713552,
+    "per_arm_strong_audit_neural_rows": 666527184,
+    "per_arm_combined_neural_rows": 1334590368,
+    "shared_parent_strong_audit_neural_rows": 132000,
+    "shared_parent_combined_neural_rows": 1800000,
+    "combined_neural_rows": 4005571104,
+    "worker_optimizer_steps": 24000,
+    "worker_backward_rows": 6144000,
+    "worker_requested_controls": 1339255104,
+    "teacher_live_controls": 54000,
+    "standalone_live_controls": 402000,
+    "worker_episodes": 456,
+    "checkpoint_loads": 12,
+    "per_decision_first": {
+      "model_controls": 49344,
+      "requested_controls": 49344,
+      "physics_substeps": 197376,
+      "neural_rows": 49296,
+      "model_queries": 8,
+      "prediction_queries": 4
+    },
+    "per_decision_later": {
+      "model_controls": 24768,
+      "requested_controls": 24768,
+      "physics_substeps": 99072,
+      "neural_rows": 37008,
+      "model_queries": 6,
+      "prediction_queries": 3
+    },
+    "scope": "Strict roster reservations, not observations or HDF5 storage proof"
+  },
+  "prospective_storage_reservation": {
+    "schema": "walker-h5-storage-census-v1",
+    "payload_upper_bytes": 390594466128,
+    "array_groups_upper": 1722817,
+    "index_upper_bytes": 28226633728,
+    "ledger_records_upper": 3403015,
+    "ledger_upper_bytes": 55754997760,
+    "external_reserved_bytes": 17179869184,
+    "total_upper_bytes": 491755966800,
+    "quotas": {
+      "payload": 412316860416,
+      "ledger": 85899345920,
+      "index": 34359738368,
+      "external": 17179869184
+    },
+    "contract": {
+      "max_array_groups": 2000000,
+      "max_ledger_records": 5000000,
+      "emergency_records": 8,
+      "index_lines_per_group": 2,
+      "max_index_line_bytes": 8192,
+      "max_event_line_bytes": 16384,
+      "max_array_bytes": 16777216,
+      "max_arrays_per_group": 24,
+      "max_integration_components": 128,
+      "state_components": 19,
+      "action_components": 6,
+      "sensor_components": 0,
+      "native_info_text_bytes": 1024,
+      "episode_row_text_bytes": 2048,
+      "private_planner_text_bytes": 8192,
+      "child_row_tag_characters": 64,
+      "global_rng_bytes": 65536
+    },
+    "proof_scope": "Conditional full-roster upper bound: NativeMeter must enforce all dimensions, JSON/schema/group/line/byte limits and pre-call output reservations. No duplicated native banks, HDF5 metadata, compression credit or second ReservationLedger event sink. OS errors retain paid intent and stop."
+  },
+  "preparation_files": {
+    "count": 489,
+    "bytes": 10332583
+  },
+  "offhost_backup": {
+    "status": "not_performed",
+    "reason": "Automatic approval review rejected exporting W2 inputs and metadata; optional approval question pending. Published code is on origin/main; full local preparation is intact.",
+    "bytes_transferred": 0
+  },
+  "uninstrumented_or_unknown": [
+    "Interactive editing/tool/agent overhead",
+    "Aggregate CPU arithmetic and native/NN calls in engineering tests",
+    "Peak RAM for local engineering/preparation processes",
+    "Global filesystem reads/cache costs beyond recorded phases",
+    "Billing, energy and any later publication/CI overhead"
+  ],
+  "no_efficiency_or_learning_benefit_claim": true
+}

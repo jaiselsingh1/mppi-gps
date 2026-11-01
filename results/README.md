@@ -1,6 +1,6 @@
 # Portable research results
 
-These small evidence capsules make the completed Walker studies readable from a clean clone. They contain exact original configurations, results, manifests, fitting curves, figures and audit evidence. Their `capsule.json` files preserve source paths, sizes and SHA-256 hashes. Bulk arrays, ledgers, checkpoints, datasets and videos remain outside Git.
+These small evidence capsules make the completed Walker studies and explicitly unlaunched preparations readable from a clean clone. They contain exact original configurations, results, manifests and audit evidence, with fitting curves and figures where the study produced them. Their `capsule.json` files preserve source paths, sizes and SHA-256 hashes. Bulk arrays, ledgers, checkpoints, datasets and videos remain outside Git.
 
 | Study | Capsule | Outcome |
 |---|---|---|
@@ -15,9 +15,12 @@ These small evidence capsules make the completed Walker studies readable from a 
 | S1.1 fixed-checkpoint fresh evaluation | [student_source_s1_1](student_source_s1_1/README.md) | All 320 episodes audited; reference 32/32 walking, MPPI children 0/96, reference-data children 5/96 in one stream. No competent student or confirmed source benefit. |
 | K1.1 saved temporal agreement review | [trajectory_review_k1_1](trajectory_review_k1_1/README.md) | Complete independent audit of all 34 trajectories/304 bins; some close full means conceal opposing local differences. No new inference, physics, training or coupling. |
 | K1.2 actual saved-motion diagnosis | [motion_diagnosis_k1_2](motion_diagnosis_k1_2/README.md) | All 34 motions, 561 pairs and both 34-page atlases retained; independent audit passed. No new inference, physics, fitting or acquisition; no transfer cause or useful coupling established. |
+| H5.0 implementation and first-round preparation | [teacher_proposal_h5_0_preparation](teacher_proposal_h5_0_preparation/README.md) | 979 engineering tests pass, with one skip and one expected failure; metadata audit passes 490 checks. No H5.0 inference, physics or fitting. Launch and the weak-learner ordering exception remain unapproved. |
 
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.
 
-K1.1 includes its entire new metadata-only run plus both audit/report versions and corrected tools source: 544 bound files / 16,707,798 bytes. K1.2 publication v2 binds 498 files / 42,293,414 bytes, including the new run except its local-only 6,064,785-byte raw archive and 1,478,297-byte work journal. Its full-motion PDF preserves every plotted sample; clean-clone rendering copies that exact bound asset and regenerates saved block summaries. Inherited K1 raw evidence remains local-only. The next [H5.0 hypothesis](../docs/teacher_proposal_h5_0_hypothesis.md) is an untested draft requiring a separate protocol; [S1.2](../docs/student_visitation_s1_2_hypothesis.md) remains preserved and unlaunched.
+K1.1 includes its entire new metadata-only run plus both audit/report versions and corrected tools source: 544 bound files / 16,707,798 bytes. K1.2 publication v2 binds 498 files / 42,293,414 bytes, including the new run except its local-only 6,064,785-byte raw archive and 1,478,297-byte work journal. Its full-motion PDF preserves every plotted sample; clean-clone rendering copies that exact bound asset and regenerates saved block summaries. Inherited K1 raw evidence remains local-only.
+
+The H5.0 capsule preserves compact preparation metadata and the exact benchmark seal. Its input arrays and full frozen source remain external and local-only; no off-host backup is verified. The [execution protocol](../docs/teacher_proposal_h5_0_execution_protocol.md) and implementation are prepared, while the [scientific mechanism](../docs/teacher_proposal_h5_0_hypothesis.md) remains untested and the useful-learning prerequisite remains unmet. [S1.2](../docs/student_visitation_s1_2_hypothesis.md) remains preserved and unlaunched.
 
 K1.2's [publication-only portability correction](motion_diagnosis_k1_2/publication/portability_correction_002.json) preserves the exact v1 manifest/navigation and unchanged scientific payloads. Its accounting retains the historical 495-file v1 snapshot; the current capsule manifest defines v2.

@@ -1,0 +1,40 @@
+{
+  "schema": "walker-h5-proposal-branch-agent-engineering-v2",
+  "supersedes_metadata_only": "proposal_branch_agent_review.json",
+  "latest_observed_pytest": {
+    "passed": 43,
+    "wall_seconds": 0.91
+  },
+  "ruff": "check passes; all4 files formatted",
+  "scope": "Synthetic mechanisms, fake native callables and bounded file IO only. No actual policy inference, fitting, native simulation or original numerical evidence read. Fullpytest/test setup CPU work and tool wrapper durations were not metered here; rootcaptured fullsuite remains authoritative.",
+  "additions": [
+    "Typedexpectedcostguard vsunexpectednativeerrors andproducermeanvalidity",
+    "Pre-first-query privateplannerU/RNG/initialflag durablecontext",
+    "Actualproducerweights andcanonicalcachequeryIDs withoutduplicaterollouts",
+    "Correctlowlevelcouplingdiagnostics"
+  ],
+  "future_new_payload_upper_bytes": {
+    "extra_private_planner_context": 3538944000,
+    "producer_weight_vectors": 221184000
+  },
+  "future_new_groups": 54000,
+  "future_new_ledger_records": 108000,
+  "files": {
+    "src/gps/mppi_gps/guided_proposals.py": {
+      "bytes": 25214,
+      "sha256": "39149c31c586ca3415891c656e6fe3460d9074c43b54c62cb99608f09a93e3c6"
+    },
+    "src/gps/mppi_gps/proposal_evidence.py": {
+      "bytes": 14097,
+      "sha256": "4d83e58988eb8f947af297a0f68a98987459867088c3c9926ba8334b21fded0c"
+    },
+    "tests/test_guided_proposals.py": {
+      "bytes": 19455,
+      "sha256": "a9d5f1f812ae51ff2acc68386abd9669eae0b3cf3aa09967d9dffc5bf4a0ccd8"
+    },
+    "tests/test_proposal_evidence.py": {
+      "bytes": 10937,
+      "sha256": "07a018a1f59a8bed29ec4baf225542ab8f74ba4226779f8a9e3a744b380b6cbc"
+    }
+  }
+}
