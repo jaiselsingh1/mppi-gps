@@ -25,6 +25,8 @@ inference, simulation, training or coupling ran. The next
 function fixed while contrasting state distributions. It remains untested and
 not launchable; it proposes no automatic learning or coupling follow-up.
 
+The user has authorized [K1.2](motion_diagnosis_k1_2_protocol.md), a bounded actual-motion diagnosis of all34 K1 trajectories. It will inspect saved physical states/actions and one fixed ordered-segment probe before recommending the next experiment. Repeated gait is only a possible Walker-specific factor; no stable cycle, unique attractor or teachability is assumed. S1.2 is not selected merely because drafted, and this authorization launches no training or coupling.
+
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 
 [W1](student_width_w1_results.md) is closed: widening improves fitted reconstruction but worsens held-trajectory transfer and standalone control across three paired seeds. It tests a student-width intervention, not adaptive coupling. The recommended [W2 contrast](student_update_w2_results.md) subsequently ran under separate explicit authorization.

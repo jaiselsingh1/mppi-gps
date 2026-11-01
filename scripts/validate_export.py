@@ -55,6 +55,9 @@ def main(argv: list[str] | None = None) -> int:
         ["scripts/train_mppi_gps.py", "study", "trajectory-review", "run", "--help"],
         ["scripts/audits/trajectory_review.py", "--help"],
         ["scripts/diagnostics/report_trajectory_review.py", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "motion-diagnosis", "--help"],
+        ["scripts/audits/motion_diagnosis.py", "--help"],
+        ["scripts/diagnostics/report_motion_diagnosis.py", "--help"],
     ]
     capsules = (
         "guided_data_v3_1",
@@ -71,6 +74,8 @@ def main(argv: list[str] | None = None) -> int:
         capsules += ("student_source_s1_1",)
     if (root / "results/trajectory_review_k1_1/capsule.json").is_file():
         capsules += ("trajectory_review_k1_1",)
+    if (root / "results/motion_diagnosis_k1_2/capsule.json").is_file():
+        capsules += ("motion_diagnosis_k1_2",)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -168,6 +173,16 @@ def main(argv: list[str] | None = None) -> int:
                 str(outputs / "trajectory_review"),
             ]
         )
+    if "motion_diagnosis_k1_2" in capsules:
+        commands.append(
+            [
+                "scripts/diagnostics/report_motion_diagnosis.py",
+                "--run",
+                "results/motion_diagnosis_k1_2",
+                "--out",
+                str(outputs / "motion_diagnosis"),
+            ]
+        )
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -235,6 +250,29 @@ def main(argv: list[str] | None = None) -> int:
         if hashlib.sha256(source.read_bytes()).hexdigest() != receipt["source_sha256"]:
             raise ValueError("Rendered trajectory-review source differs")
         verify_report_outputs(report, receipt["outputs"])
+    if "motion_diagnosis_k1_2" in capsules:
+        report = outputs / "motion_diagnosis"
+        receipt = json.loads((report / "receipt.json").read_text())
+        if (
+            not receipt["execution_complete"]
+            or receipt["error"] is not None
+            or any(receipt["scientific_calls"].values())
+            or receipt["raw_read_bytes"] != 0
+        ):
+            raise ValueError("Clean motion report must use saved derived curves and bound assets")
+        verify_report_outputs(report, receipt["outputs"])
+        for name in ("full_motion_atlas.pdf", "derived_curve_atlas.pdf"):
+            if not (report / name).is_file():
+                raise ValueError("Missing motion atlas: " + name)
+        for stem in (
+            "all_trajectory_errors",
+            "within_recurrence",
+            "cross_trajectory_minima",
+            "near_equal_pair",
+        ):
+            for suffix in ("png", "pdf"):
+                if not (report / (stem + "." + suffix)).is_file():
+                    raise ValueError("Missing motion figure: " + stem)
     print(
         json.dumps(
             dict(

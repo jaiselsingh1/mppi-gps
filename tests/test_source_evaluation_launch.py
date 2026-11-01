@@ -64,7 +64,8 @@ def test_one_shot_owner_preserves_result_and_never_retries(launch_tree, monkeypa
     launch = json.loads((launch_tree / "launch_receipt.json").read_text())
     assert launch["retries_permitted"] is False
     assert launch["owner"]["start_ticks"] == "42"
-    assert launch["deadline_monotonic"] - launch["started_monotonic"] == 3600
+    # Subtraction can lose an ULP when start/deadline straddle a binary exponent.
+    assert launch["deadline_monotonic"] == launch["started_monotonic"] + 3600
     with pytest.raises(FileExistsError):
         owner.launch(launch_tree)
     assert len(calls) == 1

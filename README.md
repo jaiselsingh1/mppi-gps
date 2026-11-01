@@ -14,6 +14,8 @@ The [S1 source comparison](docs/student_source_s1_results.md) completed six matc
 
 [K1.1 is complete and independently audited](docs/trajectory_review_k1_1_results.md): some close full-trajectory agreement scores conceal large, opposing local differences. All 34 trajectories and 304 ordered bins reconcile. The [capsule](results/trajectory_review_k1_1/README.md) preserves both audit/report attempts and their sources. No training, inference, physics or coupling ran. The next [S1.2 visitation hypothesis](docs/student_visitation_s1_2_hypothesis.md) is an untested draft for review, with no launchable protocol.
 
+The authorized next block is [K1.2's actual saved-motion diagnosis](docs/motion_diagnosis_k1_2_protocol.md): bind all 34 physical state/action traces, inspect every control, and use one frozen ordered-segment probe. It adds no inference, integration or fitting. The next experimental recommendation follows that evidence; S1.2 is not the default.
+
 ## Setup
 
 Use Python 3.11 or newer and [uv](https://docs.astral.sh/uv/). Run commands from the checkout root:
@@ -44,6 +46,7 @@ uv run python scripts/train_mppi_gps.py study transfer-diagnosis --help
 uv run python scripts/train_mppi_gps.py study source --help
 uv run python scripts/train_mppi_gps.py study source-evaluation --help
 uv run python scripts/train_mppi_gps.py study trajectory-review --help
+uv run python scripts/train_mppi_gps.py study motion-diagnosis --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 

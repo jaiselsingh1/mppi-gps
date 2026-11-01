@@ -149,6 +149,8 @@ Replace the machine-specific paths and the two audit pins with the exact `config
 
 ## Validation without historical data
 
+For actual saved motion, use the separately authorized [K1.2 protocol](motion_diagnosis_k1_2_protocol.md) and `study motion-diagnosis --help`. Break in `motion_inputs.read_sources` for exact saved-array joins and `motion_diagnosis.segment_distances` for the fixed ordered probe. Prepare a fresh path and execute its frozen launcher; never reuse a closed run. Report/audit outputs remain external. Capsule reporting regenerates derived curves and copies the hash-bound original raw atlas, explicitly distinguishing that from raw re-rendering.
+
 ```sh
 uv sync --locked --extra test
 uv run --locked --extra test python -m pytest -q

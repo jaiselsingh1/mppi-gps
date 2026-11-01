@@ -151,6 +151,7 @@ def test_study_dispatch_preserves_worker_arguments(monkeypatch, name):
         ["study", "guided-data", "--help"],
         ["study", "learnability", "--help"],
         ["study", "backoff", "--help"],
+        ["study", "motion-diagnosis", "--help"],
     ],
 )
 def test_public_help_commands(arguments):
@@ -288,3 +289,29 @@ def test_evaluation_inspector_describes_segments_and_inherited_costs_read_only(t
     result["segments"].append(dict(segment="../escaped"))
     (run / "result.json").write_text(json.dumps(result))
     assert "escapes run" in inspect_run(run)["errors"][0]
+
+
+def test_motion_inspector_exposes_missing_raw_without_loading_it(saved_run):
+    (saved_run / "config.json").write_text('{"schema":"walker-motion-diagnosis-config-v1"}')
+    manifest = json.loads((saved_run / "manifest.json").read_text())
+    manifest["config_sha256"] = hashlib.sha256((saved_run / "config.json").read_bytes()).hexdigest()
+    (saved_run / "manifest.json").write_text(json.dumps(manifest))
+    (saved_run / "result.json").write_text(
+        json.dumps(
+            {
+                "schema": "walker-motion-diagnosis-result-v1",
+                "counts": {"trajectories": 34, "pair_queries": 720786},
+                "motion_archive": {"file": "evidence/motion.npz", "bytes": 20},
+                "trajectories": [{"id": "missing-terminal", "terminal_state_available": False}],
+            }
+        )
+    )
+    before = {p: p.read_bytes() for p in saved_run.rglob("*") if p.is_file()}
+    report = inspect_run(saved_run, verify=True)
+    assert report["diagnostics"]["counts"]["pair_queries"] == 720786
+    assert report["diagnostics"]["terminal_availability"] == {"missing-terminal": False}
+    assert "evidence/motion.npz" in report["missing_evidence"]
+    assert "work.jsonl" in report["missing_evidence"]
+    assert "evidence/raw.h5" not in report["missing_evidence"]
+    assert report["errors"] == report["hash_mismatches"] == []
+    assert before == {p: p.read_bytes() for p in saved_run.rglob("*") if p.is_file()}

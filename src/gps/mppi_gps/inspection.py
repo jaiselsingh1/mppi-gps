@@ -142,6 +142,9 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     saved_metric_review = config.get("schema") == "walker-trajectory-review-config-v1"
     if saved_metric_review:
         evidence_names = ()
+    motion_review = config.get("schema") == "walker-motion-diagnosis-config-v1"
+    if motion_review:
+        evidence_names = ("evidence/motion.npz", "work.jsonl")
     if config.get("schema") == "walker-student-source-s1-v1":
         evidence_names = tuple(
             f"evidence/{phase}/{name}"
@@ -275,6 +278,16 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "groups": result.get("groups", []),
             "worker_exit_available": (run / "worker_exit.json").is_file(),
             "scope": "Saved fixed-reference action agreement; no new predictions, physics, fitting or optimization feedback. Ordered bins retain actual observed lengths. Inspection does not establish an independent audit pass.",
+        }
+    if motion_review:
+        report["diagnostics"] = {
+            "counts": result.get("counts", {}),
+            "motion_archive": result.get("motion_archive", {}),
+            "terminal_availability": {
+                row["id"]: row.get("terminal_state_available")
+                for row in result.get("trajectories", [])
+            },
+            "scope": "Saved physical state/action sequences and one rigid ordered-segment probe. No inference, simulation, learning or optimization feedback. Missing endpoints remain missing; this inspector does not establish an independent audit pass.",
         }
     if segmented:
         report["provenance"]["inherited_fit"] = result.get("inherited_fit", {})
