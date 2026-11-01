@@ -1,0 +1,32 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "artifacts/2026-10-31_student_source_s1_001/analysis_source_001/scripts/audits/student_source_interruption.py",
+    "--run",
+    "runs/2026-10-31_student_source_s1_001",
+    "--out",
+    "artifacts/2026-10-31_student_source_s1_001/audit_interruption_001",
+    "--config-sha",
+    "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+    "--seal-sha",
+    "fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10",
+    "--original-manifest",
+    "artifacts/2026-10-31_student_source_s1_001/local_full_run_file_manifest.json",
+    "--original-manifest-sha",
+    "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44",
+    "--recovery-receipt",
+    "artifacts/2026-10-31_student_source_s1_001/recovery_001/recovery_receipt.json",
+    "--recovered-raw",
+    "artifacts/2026-10-31_student_source_s1_001/recovery_001/eval_recovered_container.h5",
+    "--interruption-evidence",
+    "artifacts/2026-10-31_student_source_s1_001/interruption_evidence.json",
+    "--expected-complete-episodes",
+    "195"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 1,
+  "wall_seconds": 8.168904916994506,
+  "stdout_sha256": "9e2397606559aca347f8cba861c16952f12b7b0952192fefc8b9c7390a265ca8",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

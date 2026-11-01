@@ -16,6 +16,7 @@ from src.gps.mppi_gps.reporting import source
 from src.gps.mppi_gps.reporting.source import (
     build_tables,
     episode_components,
+    matched_reference_gaps,
     paired_bootstrap,
     render,
 )
@@ -307,12 +308,22 @@ def test_partial_cuda_failure_retains_partial_loss_bin_without_native_imputation
     assert "Declared confirmed source walking benefit: **unavailable**" in text
 
 
-def _capsule(tmp_path, run, report):
+def _capsule(tmp_path, run, report, interruption_summary=None, ledger_claims=None):
     capsule = tmp_path / "capsule"
     (capsule / "run").mkdir(parents=True)
     (capsule / "report").mkdir()
-    for name in ("config.json", "result.json", "input_manifest.json"):
+    result_name = "fit_result.json" if interruption_summary is not None else "result.json"
+    for name in ("config.json", result_name, "input_manifest.json"):
         shutil.copy2(run / name, capsule / "run" / name)
+    if interruption_summary is not None:
+        shutil.copy2(interruption_summary, capsule / "run/interruption_summary.json")
+        shutil.copy2(interruption_summary.parent / "receipt.json", capsule / "run/receipt.json")
+    if ledger_claims is not None:
+        shutil.copy2(ledger_claims, capsule / "run/ledger_claims.json")
+        shutil.copy2(
+            ledger_claims.parent / "full_run_file_manifest.json",
+            capsule / "run/full_run_file_manifest.json",
+        )
     for name in ("learning_bins.csv", "learning_bins_manifest.json", "receipt.json"):
         shutil.copy2(report / name, capsule / "report" / name)
     paths = [path for folder in ("run", "report") for path in (capsule / folder).iterdir()]
@@ -329,6 +340,324 @@ def _capsule(tmp_path, run, report):
         )
     )
     return capsule
+
+
+def _interruption_fixture(tmp_path):
+    run, original, config = _fixture(tmp_path)
+    fit = {
+        key: original[key] for key in ("points", "fits", "teacher_outcomes", "work", "wall_seconds")
+    }
+    fit.update(
+        schema="walker-student-source-s1-fit-v1", execution_complete=True, error=None, samplers={}
+    )
+    (run / "fit_result.json").write_text(json.dumps(fit))
+    (run / "result.json").unlink()
+    confirmation = original["evaluations"]["confirmation"]
+    evaluations = dict(
+        primary=original["evaluations"]["primary"],
+        confirmation={
+            "reference": confirmation["reference"],
+            "incoming_s0": confirmation["incoming_s0"],
+            "mppi_s0": dict(episodes=confirmation["mppi_s0"]["episodes"][:3]),
+        },
+    )
+    partial = dict(
+        point="mppi_s0",
+        panel="confirmation",
+        tag="confirmation_mppi_s0_103",
+        seed=103,
+        verified_steps=22,
+        observed_native_cost=42.0,
+        complete=False,
+        success=None,
+        survived=None,
+        complete_cost=None,
+    )
+    completed = {
+        (panel, name, row["seed"])
+        for panel, actors in evaluations.items()
+        for name, record in actors.items()
+        for row in record["episodes"]
+    }
+    missing = [
+        dict(
+            panel=panel,
+            point=name,
+            seed=seed,
+            tag=f"{panel}_{name}_{seed}",
+            status="verified_complete"
+            if (panel, name, seed) in completed
+            else "partial"
+            if (panel, name, seed) == ("confirmation", "mppi_s0", 103)
+            else "not_started",
+        )
+        for panel in ("primary", "confirmation")
+        for name in config["evaluation_order"]
+        for seed in config[panel + "_seeds"]
+    ]
+    summary = dict(
+        fit,
+        schema="walker-student-source-s1-interrupted-summary-v1",
+        execution_complete=False,
+        comparison_complete=False,
+        status="interrupted_infrastructure",
+        error="Synthetic host restart",
+        audit_complete=True,
+        integrity_status="valid_scoped_prefix",
+        fit_result_sha256=sha(run / "fit_result.json"),
+        config_sha256=sha(run / "config.json"),
+        input_manifest_sha256=sha(run / "input_manifest.json"),
+        audit_receipt=dict(
+            file="receipt.json", schema="walker-student-source-s1-interruption-audit-v1"
+        ),
+        evaluations=evaluations,
+        partial_attempts=[partial],
+        missing_roster=missing,
+        gates=dict(withheld=True, reason="The frozen comparison was interrupted"),
+        work=dict(
+            known_durable_prefix=dict(episodes=195, partial_controls=22),
+            unknown_unrecorded_tail="Not quantified; not zero",
+        ),
+    )
+    folder = tmp_path / "postmortem"
+    folder.mkdir()
+    path = folder / "interruption_summary.json"
+    _write_interruption(path, summary)
+    return run, path, summary
+
+
+def _write_interruption(path, summary):
+    path.write_text(json.dumps(summary))
+    (path.parent / "receipt.json").write_text(
+        json.dumps(
+            dict(
+                schema="walker-student-source-s1-interruption-audit-v1",
+                passed=True,
+                summary_sha256=sha(path),
+            )
+        )
+    )
+
+
+def _failed_audit_fixture(tmp_path):
+    run, path, summary = _interruption_fixture(tmp_path)
+    original_episodes = [
+        dict(row, event="episode_complete")
+        for actors in summary["evaluations"].values()
+        for record in actors.values()
+        for row in record["episodes"]
+    ]
+    actors = [
+        dict(
+            event="source_actor_evaluated",
+            cohort=panel,
+            point=name,
+            summary=record.get("summary", {}),
+        )
+        for panel, values in summary["evaluations"].items()
+        for name, record in values.items()
+        if len(record["episodes"]) == 16
+    ]
+    unavailable = {
+        "primary_mppi_s1_7",
+        *(f"primary_sac_reference_s2_{seed}" for seed in range(11, 16)),
+        "confirmation_reference_100",
+        "confirmation_reference_101",
+    }
+    for values in summary["evaluations"].values():
+        for record in values.values():
+            record["episodes"] = [
+                row for row in record["episodes"] if row["tag"] not in unavailable
+            ]
+    for row in summary["missing_roster"]:
+        if row["tag"] in unavailable:
+            row["status"] = "unverified_raw"
+    summary["integrity_status"] = "incomplete_retained_evidence"
+    _write_interruption(path, summary)
+    audit = path.parent / "receipt.json"
+    receipt = json.loads(audit.read_text())
+    receipt.update(passed=False, error="Synthetic missing native-array groups")
+    audit.write_text(json.dumps(receipt))
+    ledger = run / "evidence/eval/ledger.jsonl"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in [*original_episodes, *actors])
+    )
+    binding = dict(
+        file="evidence/eval/ledger.jsonl", sha256=sha(ledger), bytes=ledger.stat().st_size
+    )
+    catalog = path.parent / "full_run_file_manifest.json"
+    catalog.write_text(json.dumps(dict(files=[binding])))
+    claims = path.parent / "ledger_claims.json"
+    claims.write_text(
+        json.dumps(
+            dict(
+                schema="walker-s1-surviving-ledger-claims-v1",
+                source_ledger=binding,
+                original_file_manifest=dict(file=catalog.name, sha256=sha(catalog)),
+                episode_complete=original_episodes,
+                actor_summaries=actors,
+            )
+        )
+    )
+    return run, path, claims
+
+
+def test_failed_audit_display_requires_flag_and_withholds_native_comparisons(tmp_path):
+    run, summary, claims = _failed_audit_fixture(tmp_path)
+    original_audit_hash = sha(summary.parent / "receipt.json")
+    with pytest.raises(ValueError, match="display-failed-audit"):
+        render(run, tmp_path / "rejected", interruption_summary=summary)
+    out = tmp_path / "forensic"
+    receipt = render(
+        run, out, interruption_summary=summary, display_failed_audit=True, ledger_claims=claims
+    )
+    assert receipt["audit_passed"] is False and receipt["failed_audit_display"] is True
+    assert receipt["verified_against_original_ledger"] is True
+    assert sha(summary.parent / "receipt.json") == original_audit_hash
+    with (out / "verified_native_subset.csv").open() as stream:
+        assert len(list(csv.DictReader(stream))) == 187
+    with (out / "unverified_ledger_episode_claims.csv").open() as stream:
+        assert len(list(csv.DictReader(stream))) == 8
+    with (out / "worker_actor_summary_claims.csv").open() as stream:
+        assert len(list(csv.DictReader(stream))) == 12
+    for name in (
+        "matched_reference_gaps",
+        "teacher_student_gaps",
+        "paired_cost_components",
+        "cost_components",
+    ):
+        with (out / f"{name}.csv").open() as stream:
+            assert list(csv.DictReader(stream)) == []
+    with (out / "standalone.csv").open() as stream:
+        assert "mean_cost" not in next(csv.DictReader(stream))
+    text = (out / "report.md").read_text()
+    assert "integrity audit remains FAILED" in text and "nonrepresentative" in text
+    assert "No actor/source rate" in text and "unknown unrecorded tail" in text
+
+
+def test_failed_forensic_capsule_keeps_explicit_flag_and_source_receipt_proof(tmp_path):
+    run, summary, claims = _failed_audit_fixture(tmp_path)
+    full = tmp_path / "full_forensic"
+    render(run, full, interruption_summary=summary, display_failed_audit=True, ledger_claims=claims)
+    capsule = _capsule(tmp_path, run, full, summary, claims)
+    with pytest.raises(ValueError, match="display-failed-audit"):
+        render(capsule, tmp_path / "silently_accepted")
+    out = tmp_path / "portable_forensic"
+    receipt = render(capsule, out, display_failed_audit=True)
+    assert receipt["audit_passed"] is False
+    assert receipt["verified_against_original_ledger"] is False
+    assert receipt["source_report_verified_against_original_ledger"] is True
+    assert not (capsule / "run/evidence").exists()
+    for name in ("reconstruction", "learning_curves", "standalone_outcomes", "cost_components"):
+        assert sha(full / f"{name}.png") == sha(out / f"{name}.png")
+
+
+@pytest.mark.parametrize("field", ["cost", "success"])
+def test_ledger_claim_outcome_tampering_cannot_reuse_an_unrelated_correct_source_hash(
+    tmp_path, field
+):
+    run, summary, path = _failed_audit_fixture(tmp_path)
+    claims = json.loads(path.read_text())
+    row = claims["episode_complete"][0]
+    row[field] = row[field] + 1 if field == "cost" else not row[field]
+    path.write_text(json.dumps(claims))
+    with pytest.raises(ValueError, match="claim rows differ"):
+        render(
+            run,
+            tmp_path / "tampered_claim",
+            interruption_summary=summary,
+            display_failed_audit=True,
+            ledger_claims=path,
+        )
+    assert not (tmp_path / "tampered_claim").exists()
+
+
+def test_interrupted_run_keeps_partial_outcomes_unknown_and_original_outputs_absent(tmp_path):
+    run, summary, _ = _interruption_fixture(tmp_path)
+    fit_hash = sha(run / "fit_result.json")
+    out = tmp_path / "interrupted_report"
+    receipt = render(run, out, interruption_summary=summary)
+    assert not (run / "result.json").exists() and not (run / "owner_exit.json").exists()
+    assert sha(run / "fit_result.json") == fit_hash
+    assert receipt["interruption_summary_sha256"] == sha(summary)
+    assert receipt["fit_result_sha256"] == fit_hash
+    with (out / "episodes.csv").open() as stream:
+        episodes = list(csv.DictReader(stream))
+    assert len(episodes) == 196
+    partial = next(row for row in episodes if row["complete"] == "False")
+    assert partial["verified_steps"] == "22" and partial["observed_native_cost"] == "42.0"
+    assert partial["success"] == partial["survived"] == partial["cost"] == ""
+    with (out / "standalone.csv").open() as stream:
+        observed = next(
+            row
+            for row in csv.DictReader(stream)
+            if row["panel"] == "confirmation" and row["point"] == "mppi_s0"
+        )
+    assert observed["completed_episodes"] == "3" and observed["recorded_attempts"] == "4"
+    with (out / "missing_roster.csv").open() as stream:
+        assert len(list(csv.DictReader(stream))) == 320
+    bootstrap = json.loads((out / "descriptive_bootstrap.json").read_text())
+    assert not bootstrap["primary"]["available"] and not bootstrap["confirmation"]["available"]
+    text = (out / "report.md").read_text()
+    assert "Interrupted experiment" in text and "not a completed S1 comparison" in text
+    assert "unknown unrecorded tail" in text
+    assert "Declared confirmed source walking benefit: **unavailable**" in text
+
+
+def test_unstarted_actor_with_zero_observed_episodes_has_no_imputed_failure_rate(tmp_path):
+    _, _, summary = _interruption_fixture(tmp_path)
+    summary["evaluations"]["confirmation"]["sac_reference_s0"] = dict(
+        episodes=[],
+        summary=dict(
+            episodes=0,
+            successes=0,
+            survived=0,
+            mean_cost=None,
+            expected_episodes=16,
+            cohort_complete=False,
+        ),
+    )
+    row = next(
+        row
+        for row in build_tables(summary)["standalone"]
+        if row["panel"] == "confirmation" and row["point"] == "sac_reference_s0"
+    )
+    assert row["recorded_attempts"] == row["completed_episodes"] == 0
+    assert row["walking_count"] is row["walking_fraction"] is row["mean_cost"] is None
+    assert row["declared_episodes"] == 0 and row["declared_expected_episodes"] == 16
+
+
+def test_interrupted_capsule_preserves_summary_and_fit_ownership_without_raw(tmp_path):
+    run, summary, _ = _interruption_fixture(tmp_path)
+    full = tmp_path / "full_interrupted"
+    render(run, full, interruption_summary=summary)
+    capsule = _capsule(tmp_path, run, full, summary)
+    assert not (capsule / "run/result.json").exists()
+    assert not (capsule / "run/learning").exists()
+    out = tmp_path / "portable_interrupted"
+    receipt = render(capsule, out)
+    assert receipt["render_scope"] == "portable_learning_bins"
+    assert receipt["interruption_summary_sha256"] == sha(summary)
+    for name in ("reconstruction", "learning_curves", "standalone_outcomes", "cost_components"):
+        assert sha(full / f"{name}.png") == sha(out / f"{name}.png")
+    assert (full / "episodes.csv").read_bytes() == (out / "episodes.csv").read_bytes()
+    manifest = json.loads((out / "learning_bins_manifest.json").read_text())
+    assert manifest["interruption_summary_sha256"] == sha(summary)
+    assert manifest["fit_result_sha256"] == sha(run / "fit_result.json")
+
+
+@pytest.mark.parametrize("fault", ["audit_pending", "fit_ownership"])
+def test_interruption_summary_rejects_pending_audit_or_changed_fit_fields(tmp_path, fault):
+    run, path, summary = _interruption_fixture(tmp_path)
+    if fault == "audit_pending":
+        summary["audit_complete"] = False
+    else:
+        summary["points"]["incoming_s0"]["metrics"]["mppi_train"]["mse"] += 1
+    _write_interruption(path, summary)
+    with pytest.raises(ValueError, match="scoped-prefix audit|fit ownership"):
+        render(run, tmp_path / "rejected", interruption_summary=path)
+    assert not (tmp_path / "rejected").exists()
 
 
 def test_clean_capsule_renders_without_full_loss_curves_or_simulator_arrays(tmp_path, monkeypatch):
@@ -370,6 +699,42 @@ def test_missing_cpu_attempt_is_not_counted_as_a_failed_episode_or_bootstrapped(
     assert row["recorded_attempts"] == row["completed_episodes"] == 15
     assert row["walking_count"] == 2 and row["walking_fraction"] == pytest.approx(2 / 15)
     assert not paired_bootstrap(result, config)["primary"]["available"]
+
+
+def test_fresh_reference_gaps_pair_actual_reset_rows_without_replicating_the_control(tmp_path):
+    _, result, config = _fixture(tmp_path)
+    gaps, status = matched_reference_gaps(result, config)
+    assert len(gaps) == len(status) == 6
+    assert all(row["available"] for row in status)
+    row = next(row for row in gaps if row["panel"] == "primary" and row["pair"] == 0)
+    assert row["reference_walking_count"] == row["reference_survival_count"] == 16
+    assert row["child_walking_count"] == row["child_survival_count"] == 2
+    assert row["walking_count_gap"] == row["survival_count_gap"] == -14
+    assert row["mean_steps_gap"] == -770
+    assert row["mean_raw_cost_gap"] + row["mean_terminal_cost_gap"] + row[
+        "mean_terminal_adjustment_gap"
+    ] + row["mean_absorbing_cost_gap"] == pytest.approx(row["mean_cost_gap"])
+    assert row["shared_reference_control"] is True
+    assert "not three independent teacher replications" in row["scope"]
+    assert all(row["source"] == "sac_reference" for row in gaps)
+
+
+@pytest.mark.parametrize("fault", ["missing", "misaligned", "incomplete"])
+def test_fresh_reference_gap_never_imputes_missing_or_misaligned_episodes(tmp_path, fault):
+    _, result, config = _fixture(tmp_path)
+    episodes = result["evaluations"]["primary"]["sac_reference_s0"]["episodes"]
+    if fault == "missing":
+        episodes.pop()
+    elif fault == "misaligned":
+        episodes[0]["seed"] = 99999
+    else:
+        episodes[0]["complete"] = False
+    gaps, status = matched_reference_gaps(result, config)
+    assert len(gaps) == 5
+    assert not any(row["panel"] == "primary" and row["pair"] == 0 for row in gaps)
+    unavailable = next(row for row in status if row["panel"] == "primary" and row["pair"] == 0)
+    assert unavailable["available"] is False and unavailable["reason"]
+    assert "walking_count_gap" not in unavailable
 
 
 def test_full_curve_tampering_and_cli_lazy_import_contract(tmp_path):

@@ -1,0 +1,165 @@
+{
+  "export": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+  "artifact": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_student_source_s1_001/engineering/prelaunch_clean_export",
+  "all_commands_passed": false,
+  "commands": [
+    {
+      "name": "audit_help",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/audits/student_source.py",
+        "--help"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.8394167079968611,
+      "error": null,
+      "stdout": "audit_help.stdout.txt",
+      "stderr": "audit_help.stderr.txt"
+    },
+    {
+      "name": "check_repository",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.13462029201036785,
+      "error": null,
+      "stdout": "check_repository.stdout.txt",
+      "stderr": "check_repository.stderr.txt"
+    },
+    {
+      "name": "full_pytest",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 44.69162699999288,
+      "error": null,
+      "stdout": "full_pytest.stdout.txt",
+      "stderr": "full_pytest.stderr.txt"
+    },
+    {
+      "name": "import_origin",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-c",
+        "from pathlib import Path; import src.gps.mppi_gps.provenance as p; root=Path.cwd().resolve(); assert Path(p.__file__).resolve().is_relative_to(root); print(p.__file__)"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.08034491600119509,
+      "error": null,
+      "stdout": "import_origin.stdout.txt",
+      "stderr": "import_origin.stderr.txt"
+    },
+    {
+      "name": "inspect_portable_d1",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh/results/transfer_diagnosis_d1d2",
+        "--json"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 2,
+      "wall_seconds": 0.03877341699262615,
+      "error": null,
+      "stdout": "inspect_portable_d1.stdout.txt",
+      "stderr": "inspect_portable_d1.stderr.txt"
+    },
+    {
+      "name": "launch_help",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/diagnostics/launch_student_source.py",
+        "--help"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.07718916700105183,
+      "error": null,
+      "stdout": "launch_help.stdout.txt",
+      "stderr": "launch_help.stderr.txt"
+    },
+    {
+      "name": "report_help",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/diagnostics/report_student_source.py",
+        "--help"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.07748733399785124,
+      "error": null,
+      "stdout": "report_help.stdout.txt",
+      "stderr": "report_help.stderr.txt"
+    },
+    {
+      "name": "ruff_check",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.04085404198849574,
+      "error": null,
+      "stdout": "ruff_check.stdout.txt",
+      "stderr": "ruff_check.stderr.txt"
+    },
+    {
+      "name": "ruff_format_check",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.04001162499480415,
+      "error": null,
+      "stdout": "ruff_format_check.stdout.txt",
+      "stderr": "ruff_format_check.stderr.txt"
+    },
+    {
+      "name": "study_source_help",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "source",
+        "--help"
+      ],
+      "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+      "exit_code": 0,
+      "wall_seconds": 0.07979170900944155,
+      "error": null,
+      "stdout": "study_source_help.stdout.txt",
+      "stderr": "study_source_help.stderr.txt"
+    }
+  ],
+  "source_changed_after_export": [
+    "src/gps/mppi_gps/audits/source.py"
+  ],
+  "total_wall_seconds": 45.70630979099951,
+  "no_research_workers": true
+}

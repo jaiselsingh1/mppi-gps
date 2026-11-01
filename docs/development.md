@@ -66,6 +66,32 @@ Give a **nonexistent child path**, such as `$MPPI_GPS_DEBUG_ROOT/report`, to cre
 
 Simulator construction is lazy. `policy.fit_policy` and saved-data fitting can be imported and tested without importing the simulator. Preserve that boundary when adding diagnostics.
 
+S1 has two explicit worker entries: `student_source.fit_worker` under CUDA and
+`student_source.eval_worker` under the pinned native CPU interpreter. Use
+`source_launch.run_phase` to inspect external phase ownership, and the
+`fit_policy` `initial_observer` boundary to inspect the actual copied tensors,
+empty Adam state and private streams before the first update. The observer
+receives copies and performs no predictions. A completed `fit_result.json`
+does not imply completed standalone evaluation. The inspector exposes fit-only
+results and separately lists missing evaluation evidence. The one-shot owner's
+`launch.lock` forbids retrying the same run.
+
+S1's host reboot left the original `result.json` and exit receipts absent. The
+separate `audits.source_interruption` checker accepts an explicit recovery-copy
+receipt and verifies only a scoped saved prefix. Its derived
+`interruption_summary.json` belongs in postmortem artifacts or a capsule, never
+in place of the missing worker result. Reports accept `--interruption-summary`
+for an original run or detect the explicitly named summary in a capsule. The
+inspector labels this as an interrupted prefix and retains missing original
+evidence. No command repairs or resumes the original run.
+
+The S1 postmortem found eight unverified completion records. Default report
+rendering refuses its failed audit. Use `--display-failed-audit` only for an
+explicit forensic display; it keeps both audit failures visible, separates
+worker ledger claims from individually verified records, and withholds native
+comparisons and gates. It never promotes the retained subset into a passing
+comparison.
+
 Checkpoint tensor hashes, whole-file SHA-256, raw-array hashes, fitting-array hashes and typed optimizer fingerprints have different byte contracts. They are not interchangeable. A checkpoint continuation includes normalization, optimizer state, private fitting RNG and proximal-anchor state as specified by the protocol; copying policy weights alone is not a matched child.
 
 ## Reports and independent audits
@@ -75,6 +101,7 @@ The [capsules](../results/README.md) contain complete saved result JSON, curves 
 ```sh
 uv run python scripts/diagnostics/report_guided_data_comparison.py --help
 uv run python scripts/diagnostics/report_walker_experiments.py --help
+uv run python scripts/diagnostics/report_student_source.py --help
 
 MPPI_GPS_REPORT_ROOT="$(mktemp -d /tmp/mppi-gps-reports.XXXXXX)"
 uv run python scripts/diagnostics/report_guided_data_comparison.py --run results/guided_data_v3_1/run --out "$MPPI_GPS_REPORT_ROOT/v31"
@@ -90,6 +117,8 @@ Maintained independent audit entry points live in [scripts/audits](../scripts/au
 uv run python scripts/audits/guided_data.py --help
 uv run python scripts/audits/learnability.py --help
 uv run python scripts/audits/coupling.py --help
+uv run python scripts/audits/student_source.py --help
+uv run python scripts/audits/student_source_interruption.py --help
 ```
 
 `learnability.py` also takes an explicit provenance receipt. H4 checks can take an explicit comparison run, compact HDF and raw locator; the locator must describe its actual local storage. Use [the evidence index](evidence_index.json) and capsule `file_bindings.json` for exact recorded hashes rather than guessing paths or assuming a remote mirror.

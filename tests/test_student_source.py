@@ -145,7 +145,8 @@ def test_actual_recipe_retains_proposal_seeds_gates_and_budgets():
         assert config[key] == proposal[key], key
 
 
-def test_inspector_exposes_fit_only_result_and_separate_missing_phases(tmp_path):
+@pytest.mark.parametrize("fit_complete", [False, True])
+def test_inspector_exposes_fit_only_result_and_separate_missing_phases(tmp_path, fit_complete):
     from src.gps.mppi_gps.inspection import inspect_run
 
     (tmp_path / "config.json").write_text(json.dumps(load_recipe("student_source")))
@@ -153,16 +154,43 @@ def test_inspector_exposes_fit_only_result_and_separate_missing_phases(tmp_path)
         json.dumps(
             dict(
                 schema="walker-student-source-s1-fit-v1",
-                execution_complete=False,
-                error={"type": "BudgetExhausted"},
-                work={"completed_optimizer_steps": 53},
+                execution_complete=fit_complete,
+                error=None if fit_complete else {"type": "BudgetExhausted"},
+                work={"completed_optimizer_steps": 12000 if fit_complete else 53},
             )
         )
     )
     report = inspect_run(tmp_path)
     assert report["result_file"] == "fit_result.json"
-    assert report["costs"]["work"]["completed_optimizer_steps"] == 53
+    assert report["outcomes"]["scope"] == "fit_phase_only"
+    assert not report["outcomes"]["comparison_complete"]
+    assert report["costs"]["work"]["completed_optimizer_steps"] == (12000 if fit_complete else 53)
     assert "result.json" in report["missing_evidence"]
     assert "evidence/fit/raw.h5" in report["missing_evidence"]
     assert "evidence/eval/raw.h5" in report["missing_evidence"]
     assert "evidence/raw.h5" not in report["missing_evidence"]
+
+
+def test_inspector_labels_derived_interruption_without_fabricating_original_result(tmp_path):
+    from src.gps.mppi_gps.inspection import format_inspection, inspect_run
+
+    (tmp_path / "config.json").write_text(json.dumps(load_recipe("student_source")))
+    (tmp_path / "interruption_summary.json").write_text(
+        json.dumps(
+            dict(
+                schema="walker-student-source-s1-interrupted-summary-v1",
+                execution_complete=False,
+                status="interrupted_host_reboot",
+                work={"completed_live_controls": 22},
+                accounting={"scope": "known durable prefix", "unknown_tail_work": True},
+            )
+        )
+    )
+    report = inspect_run(tmp_path)
+    assert report["result_file"] == "interruption_summary.json"
+    assert report["outcomes"]["scope"] == "interrupted_prefix_only"
+    assert not report["outcomes"]["comparison_complete"]
+    assert report["costs"]["accounting"]["unknown_tail_work"] is True
+    assert "result.json" in report["missing_evidence"]
+    assert "interrupted prefix only" in format_inspection(report)
+    assert not (tmp_path / "result.json").exists()

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "rsync",
+    "-a",
+    "--ignore-existing",
+    "--stats",
+    "-e",
+    "ssh -o BatchMode=yes -o ConnectTimeout=10 -o UpdateHostKeys=no",
+    "robopil5090:/home/jaisel/mppi-gps-workspace/artifacts/2026-10-31_student_source_s1_001/original_interrupted_run_file_manifest.json",
+    "artifacts/2026-10-31_student_source_s1_001/remote_full_run_file_manifest.json"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 0,
+  "wall_seconds": 2.3681767499947455,
+  "stdout_sha256": "5f605e851185b619659959958d11e47388a1f23d72a7113114c4c5e0db750e7b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

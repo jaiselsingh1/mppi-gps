@@ -1,10 +1,10 @@
 # Evidence availability
 
-A clean checkout contains active source, tests, recipes, historical source archives, reports and seven exact small result capsules. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1/W1/W2/D1/D2 studies.
+A clean checkout contains active source, tests, recipes, historical source archives, reports and eight small evidence capsules, including the interrupted S1 record. Generated raw arrays, checkpoints, ledgers, NPZ training inputs, videos and full frozen run trees remain outside Git. No evidence was deleted for repository cleanup or the K1/W1/W2/D1/D2/S1 studies.
 
 ## What a clean checkout can do
 
-The [capsule index](../results/README.md) links v3.1, L1, H4.1, K1, W1, W2 and D1/D2 configurations, complete result JSON, original source/input manifests, launch metadata, study curves, figures, accounting and independent audit summaries. Earlier fitting capsules have per-update learning curves; W1/W2 publish source-bound 100-update bins covering every update and keep full per-update JSON external. K1 and D1/D2 have diagnostic curves and no new learning. Every copied file has its original source path, byte size and SHA-256 in `capsule.json`. Original scientific JSON and audit-source bytes are unchanged.
+The [capsule index](../results/README.md) links v3.1, L1, H4.1, K1, W1, W2, D1/D2 and S1 configurations, original source/input manifests, launch metadata, curves, figures, accounting and audit summaries. Completed studies retain their original result JSON. S1 instead retains its closed fit result and an explicitly derived interruption summary; its missing final worker result is not fabricated. Earlier fitting capsules have per-update learning curves; W1/W2/S1 publish source-bound 100-update bins and keep full per-update JSON external. K1 and D1/D2 have diagnostic curves and no new learning. Every copied file has its source path, byte size and SHA-256 in `capsule.json`.
 
 ```sh
 uv run python scripts/train_mppi_gps.py inspect --run results/adaptive_coupling_h4_1 --verify
@@ -26,6 +26,7 @@ The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locato
 | W1 student width contrast | [Protocol, curves, outcomes, audit and accounting](../results/student_width_w1/README.md) | **Local only.** Complete closed run: 244 files, 1,081,903,391 bytes; no remote mirror asserted |
 | W2 student update-budget contrast | [Protocol, continuation, curves, outcomes, audit and accounting](../results/student_update_w2/README.md) | **Local only.** Complete closed run: 247 files, 1,496,794,451 bytes; no remote mirror asserted |
 | D1/D2 transfer diagnosis | [Protocol, measurements, curves, audit and accounting](../results/transfer_diagnosis_d1d2/README.md) | Complete local and remote mirror, independently hashed: 544 files, 898,176,991 bytes |
+| S1 source-learning comparison, interrupted | [Fits, surviving evaluations, recovery and scoped audit](../results/student_source_s1/README.md) | Exact original interrupted run mirrored on both hosts: 328 files, 2,067,119,147 bytes; evaluation HDF remains truncated. Separate derived container: 1,761,505,518 bytes per host |
 
 ### v3.1 evidence
 
@@ -98,7 +99,63 @@ full original audit also remains on the remote host. The
 [artifact manifest](../results/transfer_diagnosis_d1d2/external/artifact_file_manifest.json)
 binds the full registry and report outputs; the audit mirror hashes also match
 independently. See the [results interpretation](transfer_diagnosis_d1d2_results.md)
-for causal limits and the [unlaunched S1 proposal](student_source_s1_protocol.md).
+for causal limits and its [original S1 proposal](student_source_s1_protocol.md).
+S1 subsequently ran under separate authorization; its incomplete status is below.
+
+### S1 interrupted source-comparison evidence
+
+Run ID: `2026-10-31_student_source_s1_001`. Original local root is
+`/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001`; the exact
+remote mirror is under `/home/jaisel/mppi-gps-workspace/runs/` on `robopil5090`.
+The [original full-file manifest](../results/student_source_s1/external/full_run_file_manifest.json)
+has SHA-256 `576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44`;
+both manifest copies are byte-identical. No original file was repaired, resumed,
+overwritten or removed. This selected-input mirror does not establish full remote
+copies of K1/W1/W2/H4.1.
+
+All six fits, nine student checkpoint packages, actual paired initial Adam/RNG
+packages, exact minibatch tapes, predictions and all 12,000 per-update losses are
+preserved. The host rebooted at **2026-11-01 02:19:34 UTC** during confirmation.
+The original final result, evaluation exit and owner exit are absent. The
+[original full audit](../results/student_source_s1/full_audit/receipt.json)
+refuses completion; a separate scoped postmortem concerns usable saved prefixes.
+See [the report and causal limits](student_source_s1_results.md).
+
+Original evaluation HDF: **1,761,491,166 bytes**, SHA-256
+`2602e9e51c68a8ae7839042ee856a5c369edba328f35629b3eef6d51da51a40f`.
+Its recorded EOF exceeds its actual length by 14,352 bytes. Separate copies under
+the corresponding local/remote artifacts directories were zero-extended to the
+stored EOF: **1,761,505,518 bytes**, SHA-256
+`a2ae6ae9c0a0577abd5b3e246db80ee7a13ca0d9380a7aa75bcab7c0547337fc`.
+Directory enumeration still fails. Direct saved dataset paths can be read, and
+only independently verified dtype/shape/SHA-bound arrays are accepted. The
+[recovery receipt](../results/student_source_s1/recovery/recovery_receipt.json)
+records the exact operation and original-byte preservation. Missing states,
+unreadable data, unclosed attempts and work after the durable prefix remain
+explicitly unresolved.
+
+The [capsule](../results/student_source_s1/README.md) contains original small
+metadata, a named `interruption_summary.json`, source-bound curve bins, figures,
+prefix-audit evidence and known/unknown cost accounting. It supports clean-checkout
+inspection and plotting. Full arrays and the detailed audit registry remain in
+the artifacts store. The original run remains interrupted. The next
+[S1.1 proposal](student_source_s1_1_protocol.md) is unlaunched and reuses the closed
+fits rather than repeating training.
+
+The postmortem also **fails full-prefix integrity**: 187 complete episodes verify,
+eight completion records lack required raw groups, one attempt is censored and
+124 roles are absent from the durable prefix. Both ledger-reported student
+walking successes are among the unverified records. The verified subset is not
+representative; no native source ranking or complete comparison is accepted.
+Rendering requires the explicit `--display-failed-audit` flag. That flag displays
+the failure and its retained evidence; it does not waive an audit requirement.
+
+The [selected artifact manifest](../results/student_source_s1/external/artifact_evidence_manifest.json)
+and [independent mirror proof](../results/student_source_s1/external/artifact_mirror_receipt.json)
+bind 376 files / 1,771,654,239 bytes of frozen analysis source, failed audits,
+separate recovery copy, claims, reports and completed clean-export receipts on
+both hosts. This is a preservation check, not a passing scientific audit. Live
+engineering-transfer logs are outside that selected immutable artifact scope.
 
 ### Legacy evidence
 

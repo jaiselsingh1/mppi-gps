@@ -44,7 +44,10 @@ def main(argv: list[str] | None = None) -> int:
         "action_compatibility_k1",
         "student_width_w1",
         "student_update_w2",
+        "transfer_diagnosis_d1d2",
     )
+    if (root / "results/student_source_s1/capsule.json").is_file():
+        capsules += ("student_source_s1",)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -101,6 +104,27 @@ def main(argv: list[str] | None = None) -> int:
             str(outputs / "update_budget"),
         ]
     )
+    commands.append(
+        [
+            "scripts/diagnostics/report_transfer_diagnosis.py",
+            "--run",
+            "results/transfer_diagnosis_d1d2",
+            "--out",
+            str(outputs / "transfer_diagnosis"),
+        ]
+    )
+    if "student_source_s1" in capsules:
+        source_report = [
+            "scripts/diagnostics/report_student_source.py",
+            "--run",
+            "results/student_source_s1",
+            "--out",
+            str(outputs / "student_source"),
+        ]
+        source_capsule = json.loads((root / "results/student_source_s1/capsule.json").read_text())
+        if source_capsule.get("report_requires_failed_audit_display"):
+            source_report.append("--display-failed-audit")
+        commands.append(source_report)
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -124,11 +148,23 @@ def main(argv: list[str] | None = None) -> int:
             figure = outputs / name / f"learning_and_outcomes.{extension}"
             if not figure.is_file() or figure.stat().st_size == 0:
                 raise ValueError(f"Missing rendered figure: {figure}")
-    for folder, stem in (
+    figures = (
         ("compatibility", "agreement_heatmaps"),
         ("width", "fitting_curves"),
         ("update_budget", "fitting_curves"),
-    ):
+        ("transfer_diagnosis", "support_distribution"),
+    )
+    if "student_source_s1" in capsules:
+        figures += tuple(
+            ("student_source", stem)
+            for stem in (
+                "reconstruction",
+                "learning_curves",
+                "standalone_outcomes",
+                "cost_components",
+            )
+        )
+    for folder, stem in figures:
         for extension in ("png", "pdf"):
             figure = outputs / folder / f"{stem}.{extension}"
             if not figure.is_file() or figure.stat().st_size == 0:

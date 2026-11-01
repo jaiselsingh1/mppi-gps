@@ -1,0 +1,18 @@
+{
+  "schema": "walker-student-source-s1-independent-audit-v1",
+  "passed": false,
+  "error": {
+    "type": "FileNotFoundError",
+    "message": "[Errno 2] No such file or directory: '/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/result.json'",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/source/src/gps/mppi_gps/audits/source.py\", line 1054, in main\n    findings = audit_run(a, run, config_sha=args.config_sha, seal_sha=args.seal_sha)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/source/src/gps/mppi_gps/audits/source.py\", line 908, in audit_run\n    result = a.load(run / \"result.json\")\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/source/src/gps/mppi_gps/audits/native.py\", line 128, in load\n    self.bind(path)\n  File \"/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/source/src/gps/mppi_gps/audits/native.py\", line 121, in bind\n    record = dict(bytes=path.stat().st_size, sha256=sha(path))\n                        ^^^^^^^^^^^\n  File \"/home/jaisel/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/pathlib.py\", line 1013, in stat\n    return os.stat(self, follow_symlinks=follow_symlinks)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/result.json'\n"
+  },
+  "checks": 559681,
+  "bound_files": 315,
+  "hashed_arrays": 93,
+  "new_controls": 0,
+  "new_neural_rows": 0,
+  "new_backward_rows": 0,
+  "new_optimizer_steps": 0,
+  "wall_seconds": 0.9028119550000042,
+  "scope": "Independent source/input seals, original executed teacher arrays, common normalization, effective-input separation, actual paired initial tensors/Adam/RNG, minibatch tapes, checkpoint state, diagnostic MSE, native paired outcomes, gates and separate/combined work. CPU tensor decoding only; no inference, optimizer or simulator arithmetic. Integrity success does not establish successful walking, robust fitting or loop closure."
+}

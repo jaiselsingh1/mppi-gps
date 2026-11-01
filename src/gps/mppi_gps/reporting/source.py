@@ -20,6 +20,8 @@ from ..provenance import sha, write
 REPORT_SCHEMA = "walker-student-source-s1-report-v1"
 CURVE_SCHEMA = "walker-student-source-s1-learning-bins-v1"
 RESULT_SCHEMAS = {"walker-student-source-s1-result-v1", "walker-student-source-s1-fit-v1"}
+INTERRUPTED_SCHEMA = "walker-student-source-s1-interrupted-summary-v1"
+INTERRUPTION_AUDIT_SCHEMA = "walker-student-source-s1-interruption-audit-v1"
 SPLITS = ("mppi_train", "mppi_validation", "sac_reference_train", "sac_reference_validation")
 CURVE_FIELDS = ("action_mse", "proximal_loss", "total_loss", "unclipped_gradient_norm")
 COST_FIELDS = ("raw_cost", "terminal_cost", "terminal_adjustment", "absorbing_cost", "cost")
@@ -97,6 +99,35 @@ def _observed_summary(episodes: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     return output
 
 
+def _evaluation_records(result: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    """Include explicit incomplete attempts without inventing their final outcomes."""
+    output = {
+        panel: {
+            name: dict(record, episodes=list(record.get("episodes", [])))
+            for name, record in records.items()
+        }
+        for panel, records in result.get("evaluations", {}).items()
+    }
+    for partial in result.get("partial_attempts", []):
+        panel, point = partial["panel"], partial["point"]
+        record = output.setdefault(panel, {}).setdefault(point, dict(episodes=[]))
+        if any(row.get("tag") == partial.get("tag") for row in record["episodes"]):
+            raise ValueError("S1 interrupted summary duplicates a partial native attempt")
+        row = dict(partial)
+        row.update(
+            complete=False,
+            success=None,
+            survived=None,
+            cost=None,
+            mae=None,
+            terminal_cost=None,
+            terminal_adjustment=None,
+            absorbing_cost=None,
+        )
+        record["episodes"].append(row)
+    return output
+
+
 def _teacher_tables(result: Mapping[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     teachers = []
     for name, record in result.get("teacher_outcomes", {}).items():
@@ -132,7 +163,86 @@ def _teacher_tables(result: Mapping[str, Any]) -> tuple[list[dict[str, Any]], li
     return teachers, groups
 
 
-def build_tables(result: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
+def matched_reference_gaps(
+    result: Mapping[str, Any], config: Mapping[str, Any] | None = None
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Compare each reference-data child with the one shared fresh reference panel."""
+    gaps, availability = [], []
+    children = {
+        name: point
+        for name, point in result.get("points", {}).items()
+        if point.get("arm") == "sac_reference" and point.get("update") == 2000
+    }
+    for panel in ("primary", "confirmation"):
+        records = result.get("evaluations", {}).get(panel, {})
+        reference = records.get("reference", {}).get("episodes", [])
+        expected = config.get(panel + "_seeds") if config is not None else None
+        for name, point in children.items():
+            child = records.get(name, {}).get("episodes", [])
+            identity = dict(
+                panel=panel,
+                child_point=name,
+                pair=point.get("pair"),
+                teacher_point="reference",
+                source="sac_reference",
+            )
+            reference_seeds = [row.get("seed") for row in reference]
+            child_seeds = [row.get("seed") for row in child]
+            reason = None
+            if len(reference) != 16 or len(child) != 16:
+                reason = "Both complete 16-reset episode rosters are required; missing attempts are not imputed"
+            elif (
+                any(seed is None for seed in reference_seeds)
+                or len(set(reference_seeds)) != 16
+                or reference_seeds != child_seeds
+                or (expected is not None and reference_seeds != list(expected))
+            ):
+                reason = "Reference and child reset rosters are duplicated, misaligned or differ from the fixed panel"
+            elif any(row.get("complete") is not True for row in [*reference, *child]):
+                reason = "An incomplete episode record prevents the matched gap"
+            elif any(
+                row.get(field) is None
+                for row in [*reference, *child]
+                for field in ("success", "survived", "steps", "mae", *COST_FIELDS[1:])
+            ):
+                reason = "A required outcome or native cost component is unavailable"
+            availability.append(dict(**identity, available=reason is None, reason=reason))
+            if reason is not None:
+                continue
+            row = dict(
+                **identity,
+                paired_resets=16,
+                shared_reference_control=True,
+                reference_walking_count=sum(bool(episode["success"]) for episode in reference),
+                child_walking_count=sum(bool(episode["success"]) for episode in child),
+                reference_survival_count=sum(bool(episode["survived"]) for episode in reference),
+                child_survival_count=sum(bool(episode["survived"]) for episode in child),
+                direction="Child minus fresh reference; negative count/control gaps and positive cost/velocity-error gaps indicate deficits",
+                scope="One shared reference control across the three training pairs; not three independent teacher replications. Native snapshot pairing belongs to the independent audit.",
+            )
+            row["walking_count_gap"] = row["child_walking_count"] - row["reference_walking_count"]
+            row["survival_count_gap"] = (
+                row["child_survival_count"] - row["reference_survival_count"]
+            )
+            for field in ("steps", "mae", *COST_FIELDS):
+                pairs = [
+                    (episode_components(candidate)[field], episode_components(baseline)[field])
+                    if field in COST_FIELDS
+                    else (candidate[field], baseline[field])
+                    for baseline, candidate in zip(reference, child, strict=True)
+                ]
+                row["reference_mean_" + field] = float(np.mean([baseline for _, baseline in pairs]))
+                row["child_mean_" + field] = float(np.mean([candidate for candidate, _ in pairs]))
+                row["mean_" + field + "_gap"] = float(
+                    np.mean([candidate - baseline for candidate, baseline in pairs])
+                )
+            gaps.append(row)
+    return gaps, availability
+
+
+def build_tables(
+    result: Mapping[str, Any], config: Mapping[str, Any] | None = None
+) -> dict[str, list[dict[str, Any]]]:
     points = result.get("points", {})
     fitting, trajectories, actuators, control_bins, standalone, episodes, paired, competence = (
         [],
@@ -181,7 +291,7 @@ def build_tables(result: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
                     control_bins.append(
                         dict(**identity, split=split, trajectory=teacher, **_flatten(control_bin))
                     )
-    for panel, records in result.get("evaluations", {}).items():
+    for panel, records in _evaluation_records(result).items():
         for name, record in records.items():
             identity = dict(panel=panel, **_point_identity(name, points))
             saved = record.get("episodes", [])
@@ -277,6 +387,7 @@ def build_tables(result: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
         }
         for row in standalone
     ]
+    reference_gaps, reference_gap_status = matched_reference_gaps(result, config)
     return dict(
         fitting=fitting,
         trajectories=trajectories,
@@ -291,6 +402,10 @@ def build_tables(result: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
         teacher_student_gaps=gaps,
         cost_components=components,
         paired_cost_components=paired_components,
+        matched_reference_gaps=reference_gaps,
+        matched_reference_gap_status=reference_gap_status,
+        partial_attempts=[_flatten(row) for row in result.get("partial_attempts", [])],
+        missing_roster=[_flatten(row) for row in result.get("missing_roster", [])],
     )
 
 
@@ -311,6 +426,13 @@ def paired_bootstrap(result: Mapping[str, Any], config: Mapping[str, Any]) -> di
         seed=seed,
         scope="Descriptive paired-training-stream/shared-reset bootstrap. Fixed corpora are not resampled; frames, endpoints and resets are not independent training runs. Three streams do not establish population coverage.",
     )
+    if result.get("schema") == INTERRUPTED_SCHEMA:
+        for panel in ("primary", "confirmation"):
+            output[panel] = dict(
+                available=False,
+                reason="Experiment interrupted; final comparative intervals are withheld. Verified-prefix observations remain descriptive and missing outcomes are not imputed.",
+            )
+        return output
     for panel in ("primary", "confirmation"):
         records = result.get("evaluations", {}).get(panel, {})
         expected_seeds = config.get(panel + "_seeds", [])
@@ -426,9 +548,197 @@ def learning_bins(
     return bins, bindings
 
 
+def _load_interruption_summary(
+    run: Path, path: Path, *, display_failed_audit: bool = False
+) -> tuple[dict[str, Any], str, bool]:
+    if (run / "result.json").exists():
+        raise ValueError(
+            "An interruption summary cannot replace an original closed evaluation result"
+        )
+    result = json.loads(path.read_text())
+    if (
+        result.get("schema") != INTERRUPTED_SCHEMA
+        or result.get("execution_complete") is not False
+        or result.get("comparison_complete") is not False
+    ):
+        raise ValueError("S1 interruption summary must identify an incomplete comparison")
+    if result.get("audit_complete") is not True:
+        raise ValueError("S1 interruption summary lacks a completed scoped-prefix audit")
+    gates = result.get("gates", {})
+    if gates.get("withheld") is not True or any(
+        name in gates
+        for name in ("confirmed_walking_benefit", "competence", "primary", "confirmation")
+    ):
+        raise ValueError("S1 interrupted comparison must withhold final gates and competence flags")
+    for field, filename in (
+        ("fit_result_sha256", "fit_result.json"),
+        ("config_sha256", "config.json"),
+        ("input_manifest_sha256", "input_manifest.json"),
+    ):
+        if result.get(field) != sha(run / filename):
+            raise ValueError("S1 interruption summary input binding differs: " + filename)
+    fit = json.loads((run / "fit_result.json").read_text())
+    if (
+        fit.get("schema") != "walker-student-source-s1-fit-v1"
+        or fit.get("execution_complete") is not True
+        or fit.get("error")
+    ):
+        raise ValueError("S1 interruption summary requires the original complete fit phase")
+    for field in ("points", "fits", "samplers", "teacher_outcomes"):
+        if result.get(field) != fit.get(field):
+            raise ValueError("S1 interruption summary changed original fit ownership: " + field)
+    binding = result.get("audit_receipt", {})
+    if binding.get("file") != "receipt.json" or binding.get("schema") != INTERRUPTION_AUDIT_SCHEMA:
+        raise ValueError("S1 interruption audit receipt location or schema differs")
+    receipt_path = path.parent / "receipt.json"
+    receipt = json.loads(receipt_path.read_text())
+    if receipt.get("schema") != INTERRUPTION_AUDIT_SCHEMA or receipt.get("summary_sha256") != sha(
+        path
+    ):
+        raise ValueError("S1 interruption audit receipt binding differs")
+    passed = receipt.get("passed") is True
+    if passed and result.get("integrity_status") != "valid_scoped_prefix":
+        raise ValueError("S1 passed audit and summary integrity status differ")
+    if not passed and not display_failed_audit:
+        raise ValueError(
+            "S1 audit failed; explicit --display-failed-audit is required for a forensic display"
+        )
+    if not passed and result.get("integrity_status") != "incomplete_retained_evidence":
+        raise ValueError("S1 failed-audit display requires retained verified-prefix evidence")
+    return result, sha(receipt_path), passed
+
+
+def _load_ledger_claims(run: Path, path: Path) -> tuple[dict[str, Any], Path, bool]:
+    claims = json.loads(path.read_text())
+    if claims.get("schema") != "walker-s1-surviving-ledger-claims-v1":
+        raise ValueError("S1 surviving ledger-claim schema differs")
+    binding = claims["original_file_manifest"]
+    if Path(binding["file"]).name != binding["file"]:
+        raise ValueError("S1 original file catalog must be adjacent to ledger claims")
+    catalog_path = path.parent / binding["file"]
+    if sha(catalog_path) != binding["sha256"]:
+        raise ValueError("S1 original file catalog binding differs")
+    files = json.loads(catalog_path.read_text())["files"]
+    if isinstance(files, list):
+        files = {row["file"]: row for row in files}
+    ledger = claims["source_ledger"]
+    relative = Path(ledger["file"])
+    if relative.is_absolute() or ".." in relative.parts:
+        raise ValueError("S1 source ledger path escapes its run")
+    original = files.get(ledger["file"], {})
+    if any(original.get(key) != ledger.get(key) for key in ("sha256", "bytes")):
+        raise ValueError("S1 ledger source binding differs from the original file catalog")
+    source = run / relative
+    if source.is_file() and (
+        sha(source) != ledger["sha256"] or source.stat().st_size != ledger["bytes"]
+    ):
+        raise ValueError("S1 surviving source ledger differs from its preservation catalog")
+    verified = source.is_file()
+    if verified:
+        episodes, actors = [], []
+        with source.open() as stream:
+            for line in stream:
+                if not line.endswith("\n"):
+                    break
+                try:
+                    record = json.loads(line)
+                except json.JSONDecodeError:
+                    break
+                if record.get("event") == "episode_complete":
+                    episodes.append(record)
+                elif record.get("event") == "source_actor_evaluated":
+                    actors.append(record)
+        if episodes != claims.get("episode_complete") or actors != claims.get("actor_summaries"):
+            raise ValueError("S1 ledger claim rows differ from the original source ledger")
+    return claims, catalog_path, verified
+
+
+def _forensic_tables(
+    tables: dict[str, Any], result: Mapping[str, Any], claims: Mapping[str, Any]
+) -> None:
+    roster = {row["tag"]: row for row in result["missing_roster"]}
+    episodes = claims["episode_complete"]
+    expected = {
+        tag
+        for tag, row in roster.items()
+        if row["status"] in {"verified_complete", "unverified_raw"}
+    }
+    if (
+        len({row["tag"] for row in episodes}) != len(episodes)
+        or {row["tag"] for row in episodes} != expected
+    ):
+        raise ValueError("S1 ledger claims do not match the declared complete-record roster")
+    annotated = []
+    for row in episodes:
+        role = roster[row["tag"]]
+        if row.get("seed") != role["seed"]:
+            raise ValueError("S1 ledger claim reset role differs")
+        annotated.append(
+            dict(
+                **_flatten({key: value for key, value in row.items() if key != "raw"}),
+                raw_verification_status=role["status"],
+                evidence_scope="Verbatim worker ledger claim; independent native verification is separate",
+            )
+        )
+    tables["ledger_episode_claims"] = annotated
+    tables["unverified_ledger_episode_claims"] = [
+        row for row in annotated if row["raw_verification_status"] == "unverified_raw"
+    ]
+    tables["worker_actor_summary_claims"] = [_flatten(row) for row in claims["actor_summaries"]]
+    tables["verified_native_subset"] = [
+        dict(
+            row,
+            evidence_scope="Individually verified, nonrepresentative retained subset; no native source ranking",
+        )
+        for row in tables["episodes"]
+        if row.get("complete") is True
+    ]
+    tables["episodes"] = tables["verified_native_subset"]
+    tables["standalone"] = [
+        {
+            key: value
+            for key, value in row.items()
+            if key
+            in {
+                "panel",
+                "point",
+                "pair",
+                "arm",
+                "update",
+                "recorded_attempts",
+                "completed_episodes",
+                "incomplete_records",
+            }
+        }
+        for row in tables["standalone"]
+    ]
+    for name in (
+        "teacher_student_gaps",
+        "paired_cost_components",
+        "cost_components",
+        "matched_reference_gaps",
+        "paired_sources",
+        "competence",
+    ):
+        tables[name] = []
+    for row in tables["matched_reference_gap_status"]:
+        row.update(
+            available=False,
+            reason="Native comparisons withheld: failed retained-evidence integrity audit; subset is not representative",
+        )
+
+
 def _portable_bins(
-    run: Path, result_file: str, result: Mapping[str, Any], cache: Path, capsule: Path | None
+    run: Path,
+    result_file: str,
+    result: Mapping[str, Any],
+    cache: Path,
+    capsule: Path | None,
+    result_path: Path | None = None,
+    ledger_claims: Path | None = None,
+    catalog_path: Path | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    result_path = result_path or run / result_file
     manifest_path, receipt_path = (
         cache.parent / "learning_bins_manifest.json",
         cache.parent / "receipt.json",
@@ -436,11 +746,15 @@ def _portable_bins(
     required = [
         run / "config.json",
         run / "input_manifest.json",
-        run / result_file,
+        result_path,
         cache,
         manifest_path,
         receipt_path,
     ]
+    if result.get("schema") == INTERRUPTED_SCHEMA:
+        required.extend([run / "fit_result.json", result_path.parent / "receipt.json"])
+    if ledger_claims is not None:
+        required.extend([ledger_claims, catalog_path])
     if capsule is not None:
         inventory = json.loads((capsule / "capsule.json").read_text())["files"]
         for path in required:
@@ -458,17 +772,41 @@ def _portable_bins(
         if sha(path) != binding.get("sha256") or path.stat().st_size != binding.get("bytes"):
             raise ValueError("S1 portable learning-bin file binding differs")
     manifest = json.loads(manifest_path.read_text())
-    if manifest.get("schema") != CURVE_SCHEMA or manifest.get("bin_updates") != 100:
+    if (
+        manifest.get("schema") != CURVE_SCHEMA
+        or manifest.get("bin_updates") != 100
+        or manifest.get("result_file") != result_file
+    ):
         raise ValueError("S1 portable learning-bin schema differs")
     if manifest.get("learning_bins_sha256") != sha(cache):
         raise ValueError("S1 portable learning-bin summary binding differs")
-    for field, name in (
-        ("result_sha256", result_file),
-        ("config_sha256", "config.json"),
-        ("input_manifest_sha256", "input_manifest.json"),
+    for field, source_path in (
+        ("result_sha256", result_path),
+        ("config_sha256", run / "config.json"),
+        ("input_manifest_sha256", run / "input_manifest.json"),
     ):
-        if manifest.get(field) != sha(run / name):
+        if manifest.get(field) != sha(source_path):
             raise ValueError("S1 portable learning-bin source binding differs")
+    if result.get("schema") == INTERRUPTED_SCHEMA and (
+        manifest.get("interruption_summary_sha256") != sha(result_path)
+        or manifest.get("fit_result_sha256") != sha(run / "fit_result.json")
+        or manifest.get("interruption_audit_receipt_sha256")
+        != sha(result_path.parent / "receipt.json")
+    ):
+        raise ValueError("S1 portable interruption-summary binding differs")
+    if ledger_claims is not None and (
+        manifest.get("failed_audit_display") is not True
+        or manifest.get("ledger_claims_sha256") != sha(ledger_claims)
+        or manifest.get("original_file_catalog_sha256") != sha(catalog_path)
+    ):
+        raise ValueError("S1 portable forensic claim binding differs")
+    if ledger_claims is not None and not (
+        receipt.get("verified_against_original_ledger") is True
+        or receipt.get("source_report_verified_against_original_ledger") is True
+    ):
+        raise ValueError(
+            "S1 portable claims lack a source report that verified original ledger rows"
+        )
     expected = sorted((row["point"], row["file"], row["sha256"]) for row in _fits(result))
     bindings = manifest["source_curves"]
     if sorted((row["point"], row["file"], row["sha256"]) for row in bindings) != expected:
@@ -504,7 +842,9 @@ def _save_figure(figure: Any, path: Path, plt: Any) -> None:
     plt.close(figure)
 
 
-def _figures(tables: Mapping[str, Any], config: Mapping[str, Any], out: Path) -> None:
+def _figures(
+    tables: Mapping[str, Any], config: Mapping[str, Any], out: Path, *, forensic: bool = False
+) -> None:
     import matplotlib.pyplot as plt
 
     colors = {
@@ -576,6 +916,48 @@ def _figures(tables: Mapping[str, Any], config: Mapping[str, Any], out: Path) ->
     figure.suptitle("Fixed 100-update bins; min–max shading is minibatch spread, not uncertainty")
     _save_figure(figure, out / "learning_curves", plt)
 
+    if forensic:
+        figure, axes = plt.subplots(1, 2, figsize=(14, 5.5), constrained_layout=True)
+        order = list(config.get("evaluation_order", []))
+        for axis, panel in zip(axes, ("primary", "confirmation"), strict=True):
+            bottom = np.zeros(len(order))
+            for status, color in (
+                ("verified_complete", "#2b8c5a"),
+                ("unverified_raw", "#b54040"),
+                ("partial", "#cf8e36"),
+                ("not_started", "#a8adb1"),
+            ):
+                values = [
+                    sum(
+                        row.get("panel") == panel
+                        and row.get("point") == name
+                        and row.get("status") == status
+                        for row in tables["missing_roster"]
+                    )
+                    for name in order
+                ]
+                axis.bar(range(len(order)), values, bottom=bottom, color=color, label=status)
+                bottom += values
+            axis.set_xticks(range(len(order)), order, rotation=90, fontsize=7)
+            axis.set(
+                title=panel, ylabel="Recorded-role availability, not performance", ylim=(0, 17)
+            )
+        axes[0].legend(fontsize=7)
+        figure.suptitle("Native comparison withheld: incomplete retained evidence")
+        _save_figure(figure, out / "standalone_outcomes", plt)
+        figure, axis = plt.subplots(figsize=(10, 4.5), constrained_layout=True)
+        axis.axis("off")
+        axis.text(
+            0.5,
+            0.55,
+            "Native comparison withheld: incomplete retained evidence\n\nNo source ranking, competence decision, cost comparison or gap is issued.\nIndividually verified episodes form a nonrepresentative retained subset.\nUnverified worker ledger claims are exported separately.",
+            ha="center",
+            va="center",
+            fontsize=12,
+        )
+        _save_figure(figure, out / "cost_components", plt)
+        return
+
     order = list(config.get("evaluation_order", []))
     if not order:
         order = sorted({row["point"] for row in tables["standalone"]})
@@ -640,10 +1022,51 @@ def _display(value: Any) -> str:
     return f"{value:.6g}" if isinstance(value, float) else str(value)
 
 
+def _reference_gap_markdown(tables: Mapping[str, Any]) -> list[str]:
+    lines = [
+        "### Fresh matched reference–student gaps",
+        "",
+        "`matched_reference_gaps.csv` compares each reference-data child with the fresh reference on "
+        "the same complete 16-reset panel. Differences are child minus reference. It retains walking "
+        "and full-survival count gaps, controls, velocity MAE and every complete-cost component. "
+        "`matched_reference_gap_status.csv` explains unavailable or misaligned comparisons; none is imputed.",
+        "",
+        "The reference panel is one shared control across three training pairs, not three independent "
+        "teacher replications or three times its recorded work. Reset-snapshot equality is checked by "
+        "the independent native audit. Fresh matched MPPI-teacher gaps are unavailable because S1 "
+        "collects no new MPPI teacher episodes; historical own-source gaps above remain unpaired.",
+        "",
+        "| Panel | Child pair | Walking gap | Survival gap | Mean controls gap | Complete-cost gap | Velocity-MAE gap |",
+        "|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for row in tables["matched_reference_gaps"]:
+        lines.append(
+            "| "
+            + " | ".join(
+                _display(row.get(key))
+                for key in (
+                    "panel",
+                    "pair",
+                    "walking_count_gap",
+                    "survival_count_gap",
+                    "mean_steps_gap",
+                    "mean_cost_gap",
+                    "mean_mae_gap",
+                )
+            )
+            + " |"
+        )
+    if not tables["matched_reference_gaps"]:
+        lines.append("No complete aligned fresh reference–child comparison is available.")
+    lines.append("")
+    return lines
+
+
 def markdown_report(
     result: Mapping[str, Any], tables: Mapping[str, Any], *, phase: str, portable: bool
 ) -> str:
     gates = result.get("gates", {})
+    interrupted = result.get("schema") == INTERRUPTED_SCHEMA
     observed = len(tables["episodes"])
     lines = [
         "# S1: MPPI-data versus competent-reference-data cloning",
@@ -651,6 +1074,12 @@ def markdown_report(
         f"Artifact: **{phase}**. Artifact execution complete: **{result.get('execution_complete', False)}**. "
         f"Status: **{result.get('status', 'unavailable')}**. Recorded native attempts: **{observed}/320**.",
         f"Error: `{json.dumps(result.get('error'), allow_nan=False)}`.",
+        "**Interrupted experiment; this is a scoped verified-prefix report, not a completed S1 comparison.** "
+        "The original evaluation result and owner exit remain absent. This separately audited summary "
+        "does not replace them. Final source-benefit, competence gates and comparative bootstrap intervals "
+        "are withheld; no automatic retry or new intervention follows."
+        if interrupted
+        else "",
         "",
         "Portable scope: result summaries and exact cached 100-update learning bins. Full per-update fit "
         "JSONs, tensors, predictions, minibatch tapes and native snapshots remain external. Their absence "
@@ -695,6 +1124,12 @@ def markdown_report(
         "`episodes.csv` retains every supplied attempt, including incomplete records. Summaries below use "
         "recorded complete episodes with known outcomes, and disclose their denominators; absent or failed "
         "work is not imputed as a completed failure. A partial fitting or CPU stage remains incomplete.",
+        "For the interrupted run, `partial_attempts.csv` retains verified executed steps and observed native "
+        "cost separately from unknown terminal walking, survival, velocity error and complete-cost outcomes. "
+        "`missing_roster.csv` records all planned roles. Its unstarted/unverified entries describe the "
+        "durable record, not a quantified bound on unknown unrecorded work."
+        if interrupted
+        else "",
         "",
         "| Panel | Actor | Complete / recorded | Walking | Full survival | Mean controls | Velocity MAE | Complete cost |",
         "|---|---|---:|---:|---:|---:|---:|---:|",
@@ -732,6 +1167,11 @@ def markdown_report(
         "It requires complete paired panels; missing outcomes produce an unavailable result, not an imputed "
         "interval. Corpora are fixed, and frames, actors' resets and endpoints are not extra training "
         "replications. All-zero observed walking does not prove equal population success rates.",
+        "For this interrupted comparison both final bootstrap panels are unavailable. Known completed "
+        "primary observations remain descriptive; incomplete confirmation is not silently substituted "
+        "with a smaller experiment."
+        if interrupted
+        else "",
         "",
         "## Costs, source teachers and causal verdict",
         "",
@@ -748,7 +1188,9 @@ def markdown_report(
         "student episodes. These are descriptive unpaired gaps, not matched-reset causal differences. "
         "Unavailable historical cost components remain unavailable; none is reconstructed from assumptions.",
         "",
-        "A reference-data clone that walks establishes a positive learning control under this exact setup. "
+        *_reference_gap_markdown(tables),
+        "A reference-data clone meeting the provisional competence criterion would establish a competent "
+        "learning control under this exact setup; occasional successful episodes remain successes, not competence. "
         "A source advantage identifies the chosen corpus intervention, not its causal property or unique "
         "correct actions. Failure of both arms does not prove class incapacity. Neither outcome closes the "
         "MPPI–policy loop; a later mechanism and a second useful acquisition–learning round would require "
@@ -759,6 +1201,14 @@ def markdown_report(
         "report arithmetic. The planned six fits total 12,000 Adam steps and 3,072,000 backward rows; only "
         "actual recorded counters are reported as completed. Reporting performs zero new forward, backward, "
         "optimizer, simulator or teacher-acquisition work.",
+        "The interrupted work census is a known durable prefix plus an **unknown unrecorded tail**, "
+        "not an exact all-work total or a zero tail. Recovery copies and accepted array hashes belong "
+        "to the scoped audit; the original truncated HDF5 bytes remain preserved."
+        if interrupted
+        else "",
+        "```json\n" + json.dumps(result.get("work", {}), indent=2, allow_nan=False) + "\n```"
+        if interrupted
+        else "",
         "",
         "![Four-split reconstruction](reconstruction.png)",
         "![Learning curves](learning_curves.png)",
@@ -769,7 +1219,101 @@ def markdown_report(
     return "\n".join(lines)
 
 
-def render(run: Path, out: Path) -> dict[str, Any]:
+def _forensic_markdown(result: Mapping[str, Any], tables: Mapping[str, Any], portable: bool) -> str:
+    counts: dict[str, int] = defaultdict(int)
+    for row in tables["missing_roster"]:
+        counts[str(row["status"])] += 1
+    lines = [
+        "# S1 forensic display: interrupted experiment, failed native-evidence audit",
+        "",
+        "**The scientific integrity audit remains FAILED. This explicit forensic display does not accept "
+        "the run, complete its comparison or change the failed summary/receipt.** The original evaluation "
+        "result and owner exit remain absent. No retry or later learning intervention is launched.",
+        "",
+        f"Individually verified native outcomes: **{len(tables['verified_native_subset'])}**, a nonrepresentative "
+        f"retained subset. Unverified ledger episode claims: **{len(tables['unverified_ledger_episode_claims'])}**. "
+        f"Partial attempts: **{len(tables['partial_attempts'])}**. Worker actor-panel claims: "
+        f"**{len(tables['worker_actor_summary_claims'])}**.",
+        "",
+        "## Closed fitting remains available",
+        "",
+        "All six original fixed-budget source fits, their ownership receipts, four-split reconstruction "
+        "metrics and loss curves remain separate from the native HDF5 loss. Both arms use matched fresh "
+        "128-tanh initializations, common W2 normalization, paired indices and exactly 2,000 updates. "
+        "Changing the demonstrated corpus jointly changes states, gaits and labels; lower reconstruction "
+        "is not evidence of walking or a property such as multimodality being isolated.",
+        "",
+        "`fitting.csv`, `trajectories.csv`, `actuator_errors.csv`, `reconstruction_control_bins.csv` and "
+        "`learning_bins.csv` retain these fitting measurements. CUDA batched reconstruction and CPU "
+        "batch-one deployment differ as frozen; no extra CPU reconstruction forwards were performed. "
+        "Full per-update curve hashes remain bound in `learning_bins_manifest.json`.",
+        "",
+        "Portable mode uses exact hash-bound 100-update bins; full curves and tensors remain external."
+        if portable
+        else "This render reads the original hash-bound fit curves; it performs no new fitting or inference.",
+        "",
+        "## Native evidence classes remain separate",
+        "",
+        "| Durable roster status | Planned roles |",
+        "|---|---:|",
+    ]
+    lines.extend(f"| {status} | {count} |" for status, count in sorted(counts.items()))
+    lines += [
+        "",
+        "`verified_native_subset.csv` and `episodes.csv` contain only individually verified complete "
+        "episode outcomes. Their missingness is not random or balanced; they are not a smaller substitute "
+        "experiment. No actor/source rate, native cost ranking, teacher–student gap, competence gate or "
+        "comparative interval is issued from that subset. Native plots display availability and a "
+        "withheld-comparison notice, not performance bars.",
+        "",
+        "`ledger_episode_claims.csv` preserves documentary worker claims with raw-verification status. "
+        "`unverified_ledger_episode_claims.csv` isolates claims lacking full native-array verification. "
+        "`worker_actor_summary_claims.csv` preserves the original worker panel summaries separately. "
+        "Their ledger source SHA and byte size match the independently preserved original file catalog. "
+        "A ledger claim is not promoted to an independently verified native outcome.",
+        "",
+        "`partial_attempts.csv` retains verified steps and observed native cost separately from ledger-"
+        "recorded boundaries. Final walking, survival and complete cost remain unknown: no post-interruption "
+        "fall, absorbing penalty or completion is invented. `missing_roster.csv` preserves all 320 roles; "
+        "unstarted roles describe the durable record while an unknown unrecorded tail remains unresolved.",
+        "",
+        "Both final gates and bootstrap panels are withheld. Historical source-teacher outcomes remain "
+        "available, but fresh native gaps are withheld, including comparisons using the shared reference. "
+        "Documentary success counts must not be presented as fully verified panel rates.",
+        "",
+        "## Preservation and accounting",
+        "",
+        "Original files, the failed audit and the separately labelled recovery copy remain preserved. "
+        "Padding a recovery copy does not recover missing information. This renderer does not read or "
+        "repair HDF5; its inputs are the unchanged closed-fit result, failed postmortem summary and "
+        "receipt, source-bound ledger claims and preservation catalog. All are hash-bound in the report.",
+        "",
+        "`cost_accounting.json` retains exact closed-fit counters and the known durable native ledger "
+        "prefix separately from the **unknown unrecorded tail**. Final wall and snapshot totals may be "
+        "null; a lower bound is not an exact total. Reporting itself performs zero new policy inference, "
+        "training, physics or teacher acquisition.",
+        "",
+        "```json",
+        json.dumps(result.get("work", {}), indent=2, allow_nan=False),
+        "```",
+        "",
+        "![Valid fitting reconstruction](reconstruction.png)",
+        "![Valid recorded learning curves](learning_curves.png)",
+        "![Native data availability only](standalone_outcomes.png)",
+        "![Native comparisons withheld](cost_components.png)",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def render(
+    run: Path,
+    out: Path,
+    *,
+    interruption_summary: Path | None = None,
+    display_failed_audit: bool = False,
+    ledger_claims: Path | None = None,
+) -> dict[str, Any]:
     started = time.perf_counter()
     run, out = run.resolve(), out.resolve()
     requested, capsule = run, None
@@ -777,11 +1321,31 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         capsule, run = run, run / "run"
     elif run.name == "run" and (run.parent / "capsule.json").is_file():
         capsule = run.parent
-    result_file = "result.json" if (run / "result.json").is_file() else "fit_result.json"
-    result = json.loads((run / result_file).read_text())
+    if interruption_summary is None and (run / "interruption_summary.json").is_file():
+        interruption_summary = run / "interruption_summary.json"
+    interruption_audit_sha256 = None
+    audit_passed, forensic, claims, catalog_path = None, False, None, None
+    ledger_verified, source_ledger_verified = False, False
+    if interruption_summary is not None:
+        result_file, result_path = "interruption_summary.json", interruption_summary.resolve()
+        result, interruption_audit_sha256, audit_passed = _load_interruption_summary(
+            run, result_path, display_failed_audit=display_failed_audit
+        )
+        forensic = audit_passed is False
+        if forensic:
+            if ledger_claims is None:
+                ledger_claims = run / "ledger_claims.json"
+            ledger_claims = ledger_claims.resolve()
+            claims, catalog_path, ledger_verified = _load_ledger_claims(run, ledger_claims)
+    else:
+        result_file = "result.json" if (run / "result.json").is_file() else "fit_result.json"
+        result_path = run / result_file
+        result = json.loads(result_path.read_text())
+        if display_failed_audit:
+            raise ValueError("Failed-audit display requires an interrupted-run summary")
     config = json.loads((run / "config.json").read_text())
     seal = json.loads((run / "input_manifest.json").read_text())
-    if result.get("schema") not in RESULT_SCHEMAS:
+    if result.get("schema") not in RESULT_SCHEMAS | {INTERRUPTED_SCHEMA}:
         raise ValueError("Unexpected S1 result schema")
     if sha(run / "config.json") != seal.get("config_sha256") or result.get(
         "config_sha256", sha(run / "config.json")
@@ -801,11 +1365,32 @@ def render(run: Path, out: Path) -> dict[str, Any]:
             run.parent / "report/learning_bins.csv",
         ]
         cache = next((path for path in candidates if path.is_file()), candidates[0])
-        bins, bindings = _portable_bins(run, result_file, result, cache, capsule)
+        bins, bindings = _portable_bins(
+            run,
+            result_file,
+            result,
+            cache,
+            capsule,
+            result_path,
+            ledger_claims if forensic else None,
+            catalog_path,
+        )
+        if forensic:
+            source_receipt = json.loads((cache.parent / "receipt.json").read_text())
+            source_ledger_verified = bool(
+                source_receipt.get("verified_against_original_ledger")
+                or source_receipt.get("source_report_verified_against_original_ledger")
+            )
     else:
+        if forensic and not ledger_verified:
+            raise ValueError(
+                "Full forensic display requires original ledger row verification or a canonical portable cache"
+            )
         bins, bindings = learning_bins(run, result)
     out.mkdir(parents=True, exist_ok=False)
-    tables = build_tables(result)
+    tables = build_tables(result, config)
+    if forensic:
+        _forensic_tables(tables, result, claims)
     tables["learning_bins"] = bins
     for name, rows in tables.items():
         columns = (
@@ -818,7 +1403,7 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         schema=CURVE_SCHEMA,
         bin_updates=100,
         result_file=result_file,
-        result_sha256=sha(run / result_file),
+        result_sha256=sha(result_path),
         config_sha256=sha(run / "config.json"),
         input_manifest_sha256=sha(run / "input_manifest.json"),
         source_curves=bindings,
@@ -826,18 +1411,32 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         learning_bins_sha256=sha(out / "learning_bins.csv"),
         scope="Fixed summaries of already-computed losses; full per-update JSONs remain external. This cache cannot replay optimization.",
     )
+    if interruption_summary is not None:
+        curve_manifest.update(
+            interruption_summary_sha256=sha(result_path),
+            fit_result_sha256=sha(run / "fit_result.json"),
+            interruption_audit_receipt_sha256=interruption_audit_sha256,
+        )
+    if forensic:
+        curve_manifest.update(
+            failed_audit_display=True,
+            ledger_claims_sha256=sha(ledger_claims),
+            original_file_catalog_sha256=sha(catalog_path),
+        )
     write(out / "learning_bins_manifest.json", curve_manifest)
     write(out / "teacher_outcomes.json", result.get("teacher_outcomes", {}))
     write(out / "gates.json", result.get("gates", {}))
     write(out / "descriptive_bootstrap.json", paired_bootstrap(result, config))
     (out / "report.md").write_text(
-        markdown_report(result, tables, phase=result_file, portable=portable)
+        _forensic_markdown(result, tables, portable)
+        if forensic
+        else markdown_report(result, tables, phase=result_file, portable=portable)
     )
     os.environ.setdefault("MPLCONFIGDIR", tempfile.mkdtemp(prefix="walker-s1-report-"))
     import matplotlib
 
     matplotlib.use("Agg")
-    _figures(tables, config, out)
+    _figures(tables, config, out, forensic=forensic)
     write(
         out / "cost_accounting.json",
         dict(
@@ -848,7 +1447,24 @@ def render(run: Path, out: Path) -> dict[str, Any]:
             counter_scope="Combined recorded work already includes each phase once; phase tables explain it and must not be added again.",
             worker_wall_seconds=result.get("wall_seconds"),
             artifact_phase=result_file,
-            recorded_native_attempts=len(tables["episodes"]),
+            failed_audit_display=forensic,
+            audit_passed=audit_passed,
+            comparison_complete=result.get("comparison_complete", result.get("execution_complete")),
+            scoped_interruption_audit=result.get("integrity_status"),
+            partial_attempts=len(result.get("partial_attempts", [])),
+            unknown_unrecorded_tail=result.get("work", {}).get("unknown_unrecorded_tail"),
+            interruption=result.get("interruption_evidence", result.get("interruption")),
+            recovery=result.get("recovery"),
+            durable_prefix=result.get("durable_prefix"),
+            observed_wall_seconds_lower_bound=result.get("observed_wall_seconds_lower_bound"),
+            recorded_native_attempts=len(claims["episode_complete"])
+            + len(tables["partial_attempts"])
+            if forensic
+            else len(tables["episodes"]),
+            verified_native_outcomes=len(tables["verified_native_subset"]) if forensic else None,
+            unverified_ledger_outcome_claims=len(tables["unverified_ledger_episode_claims"])
+            if forensic
+            else None,
             original_curve_files=len(bindings),
             binned_updates=sum(int(row["updates"]) for row in bins),
             render_scope="portable_learning_bins" if portable else "full_saved_curves",
@@ -865,7 +1481,19 @@ def render(run: Path, out: Path) -> dict[str, Any]:
         schema=REPORT_SCHEMA,
         run=str(run),
         result_file=result_file,
-        result_sha256=sha(run / result_file),
+        result_sha256=sha(result_path),
+        interruption_summary_sha256=sha(result_path) if interruption_summary is not None else None,
+        fit_result_sha256=sha(run / "fit_result.json")
+        if interruption_summary is not None
+        else result.get("fit_result_sha256"),
+        interruption_audit_receipt_sha256=interruption_audit_sha256,
+        failed_audit_display=forensic,
+        audit_passed=audit_passed,
+        native_comparison_withheld=forensic,
+        verified_against_original_ledger=ledger_verified,
+        source_report_verified_against_original_ledger=source_ledger_verified,
+        ledger_claims_sha256=sha(ledger_claims) if forensic else None,
+        original_file_catalog_sha256=sha(catalog_path) if forensic else None,
         config_sha256=sha(run / "config.json"),
         input_manifest_sha256=sha(run / "input_manifest.json"),
         source_sha256=sha(Path(__file__)),
@@ -890,8 +1518,29 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument(
+        "--interruption-summary",
+        type=Path,
+        help="Use a separately audited interrupted-run summary; never writes an original result or owner exit",
+    )
+    parser.add_argument(
+        "--display-failed-audit",
+        action="store_true",
+        help="Explicit forensic display of retained verified subsets without accepting a failed integrity audit",
+    )
+    parser.add_argument(
+        "--ledger-claims",
+        type=Path,
+        help="Source-bound surviving ledger claims for the explicit failed-audit display",
+    )
     args = parser.parse_args(argv)
-    receipt = render(args.run, args.out)
+    receipt = render(
+        args.run,
+        args.out,
+        interruption_summary=args.interruption_summary,
+        display_failed_audit=args.display_failed_audit,
+        ledger_claims=args.ledger_claims,
+    )
     print(json.dumps(dict(report=str(args.out.resolve()), outputs=len(receipt["outputs"]))))
     return 0
 

@@ -172,3 +172,9 @@ and the 87 MB detailed audit-array registry remain outside Git. Original parent
 and frozen-source bytes are preserved. The separate
 [artifact manifest](../results/transfer_diagnosis_d1d2/external/artifact_file_manifest.json)
 binds full reports and audit outputs, including the omitted registry.
+
+Subsequent status: [S1](student_source_s1_results.md) ran under separate
+authorization, completed fitting and was interrupted by a host reboot during
+confirmation. Its original proposal remains historical; the next unlaunched
+[S1.1 protocol](student_source_s1_1_protocol.md) concerns comparison completion,
+with no new learning or coupling mechanism.

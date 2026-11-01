@@ -1,0 +1,18 @@
+{
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "UpdateHostKeys=no",
+    "robopil5090",
+    "/home/jaisel/mppi-gps/.venv/bin/python -B /home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/source/scripts/audits/student_source.py --run /home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001 --out /home/jaisel/mppi-gps-workspace/artifacts/2026-10-31_student_source_s1_001/full_audit_001 --config-sha e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877 --seal-sha fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 1,
+  "wall_seconds": 3.630826332999277,
+  "stdout_sha256": "93a9541bf16e92e9ae03b2d450b1534a0490efdcf1f80ae7379b1878f636b0e3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

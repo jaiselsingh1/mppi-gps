@@ -2232,6 +2232,441 @@
         }
       },
       "original_parent_availability": "Selected imported inputs do not establish complete remote mirrors of K1,W1,W2 or H4.1."
+    },
+    "student_source_s1": {
+      "run_id": "2026-10-31_student_source_s1_001",
+      "availability": "original_interrupted_run_mirrored_and_derived_recovery_copies",
+      "scientific_status": "interrupted_confirmation_incomplete",
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001",
+      "remote_host": "robopil5090",
+      "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001",
+      "capsule": {
+        "directory": "results/student_source_s1",
+        "manifest": "results/student_source_s1/capsule.json",
+        "manifest_sha256": "c108b99d7c48d72fb9c9437c4983901a1c81704550b7efd63cf8681897495d29",
+        "exact_copy_files": 315,
+        "exact_copy_bytes": 6998378,
+        "in_git": true,
+        "scope": "Exact original S1 metadata, closed fits and explicitly derived/audited surviving native prefix. The original worker never wrote result.json or exit receipts. This capsule does not claim a completed S1 comparison."
+      },
+      "config": {
+        "source": "runs/2026-10-31_student_source_s1_001/config.json",
+        "sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+        "bytes": 8648
+      },
+      "result": {
+        "available": false,
+        "reason": "Host reboot; original result.json was never written. No original result or exit receipt was fabricated."
+      },
+      "closed_fit_result": {
+        "source": "runs/2026-10-31_student_source_s1_001/fit_result.json",
+        "sha256": "545f7f3a6c267aef3fbdffa5e36353324eb26bb283733be167dc94b92947222b",
+        "bytes": 957249
+      },
+      "derived_interruption_summary": {
+        "source": "results/student_source_s1/run/interruption_summary.json",
+        "sha256": "b9ffd9f76fddcb0c68c08e41295fb542c8ad34456072bcf133abc4515a5f6e3f",
+        "bytes": 1767933
+      },
+      "source_manifest": {
+        "source": "runs/2026-10-31_student_source_s1_001/manifest.json",
+        "sha256": "31cb7f3556247181590842c5fc16133dad4707492ce5bbbee7c20f8f87b0d4d5",
+        "bytes": 38087
+      },
+      "input_manifest": {
+        "source": "runs/2026-10-31_student_source_s1_001/input_manifest.json",
+        "sha256": "fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10",
+        "bytes": 6071
+      },
+      "scoped_audit_receipt": {
+        "source": "results/student_source_s1/audit/receipt.json",
+        "sha256": "b5589b920e36805f59f2488a3d12e56aa1cf33cb18801e99478522de3c50a7cb",
+        "bytes": 1308
+      },
+      "full_audit_refusal": {
+        "source": "results/student_source_s1/full_audit/receipt.json",
+        "sha256": "d1eb046a9f8354a27bf5fb48f5960e0bc0f70897a2ba1fe5a08ddc696493e0a0",
+        "bytes": 2314
+      },
+      "canonical_report_receipt": {
+        "source": "results/student_source_s1/report/receipt.json",
+        "sha256": "66220e6baa1a7b699f3315e9db426c9c0f16abf097c43ffd26233564b033802f",
+        "bytes": 6562
+      },
+      "engineering_accounting": {
+        "source": "results/student_source_s1/accounting/engineering_accounting.json",
+        "sha256": "6957e0f1cff3bdd20a872913321f7c72f1f02245f7dfd3aff3f91084e65609bf",
+        "bytes": 21271
+      },
+      "file_catalog": {
+        "file": "results/student_source_s1/external/full_run_file_manifest.json",
+        "sha256": "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44",
+        "files": 328,
+        "bytes": 2067119147
+      },
+      "bulk_files": {
+        "checkpoints/incoming_s0.pt": {
+          "sha256": "717b17baf3294b2c026521535a3a1721b0c5fae2a4271928f1ebc294b416745b",
+          "bytes": 87305,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/incoming_s0.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/incoming_s0.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/incoming_s1.pt": {
+          "sha256": "64e46d84d732fb9f6bc4a00ff316986f5980aa8c52fceeaf9e359cc00305a5ea",
+          "bytes": 87305,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/incoming_s1.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/incoming_s1.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/incoming_s2.pt": {
+          "sha256": "49d35201a2e204cd8915cdd67e476bd36a028014c9cb403cd569847f3d641d41",
+          "bytes": 87305,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/incoming_s2.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/incoming_s2.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/mppi_s0.pt": {
+          "sha256": "b2bf3ae7f838cb5e3d0c38c44d7b99cf3c58d394a50caef3cb954ce0779d997d",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/mppi_s0.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/mppi_s0.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/mppi_s1.pt": {
+          "sha256": "8d7f88601a1bee1b177c85ab2d7e9e18e6092f13353f9b2c32c9c951978d41a0",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/mppi_s1.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/mppi_s1.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/mppi_s2.pt": {
+          "sha256": "b6d08092885f5ece437e299a03227e2828c7a412409ebece66ca8c4e8034452e",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/mppi_s2.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/mppi_s2.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/sac_reference_s0.pt": {
+          "sha256": "954aa687aae4de9f3b3a88ab6950a9421801231cc8b0f1c105c8211d94ab4672",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/sac_reference_s0.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/sac_reference_s0.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/sac_reference_s1.pt": {
+          "sha256": "f16aebaa8e0a034f75308f748832982cb9a1e1e3a8ad5526173f91f8bf26f60e",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/sac_reference_s1.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/sac_reference_s1.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "checkpoints/sac_reference_s2.pt": {
+          "sha256": "76f5baffbd5105c2d1736aea9a929d34d8f182dcabb8f03963c0f60616bbe826",
+          "bytes": 330426,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/checkpoints/sac_reference_s2.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/checkpoints/sac_reference_s2.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "evidence/eval/ledger.jsonl": {
+          "sha256": "9d69f274c62859ceb6416894e2eabcff447b3dfdb85a99916fcbe295dbd67e19",
+          "bytes": 215998880,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/evidence/eval/ledger.jsonl",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/evidence/eval/ledger.jsonl",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "evidence/eval/raw.h5": {
+          "sha256": "2602e9e51c68a8ae7839042ee856a5c369edba328f35629b3eef6d51da51a40f",
+          "bytes": 1761491166,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/evidence/eval/raw.h5",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/evidence/eval/raw.h5",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "evidence/fit/ledger.jsonl": {
+          "sha256": "4454f5477dd1e0eefb137cf68d56a7a786198b4e4499147b3e56fa50068f2684",
+          "bytes": 27614508,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/evidence/fit/ledger.jsonl",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/evidence/fit/ledger.jsonl",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "evidence/fit/raw.h5": {
+          "sha256": "c46aee4dc4cfe6859bc54ea57c1e327406347d8104ae9bd44be7cf35c7da5102",
+          "bytes": 5761136,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/evidence/fit/raw.h5",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/evidence/fit/raw.h5",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/mppi_train.npz": {
+          "sha256": "2c53be793fb4b213dd9edb63195fb6b83d355c05f4eff0df8ed2cb44ee77ce6e",
+          "bytes": 2321518,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/mppi_train.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/mppi_train.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/mppi_validation.npz": {
+          "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6",
+          "bytes": 1161518,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/mppi_validation.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/mppi_validation.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/normalization.npz": {
+          "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73",
+          "bytes": 636,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/normalization.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/normalization.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/reference.pt": {
+          "sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+          "bytes": 3524729,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/reference.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/reference.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/sac_reference_train.npz": {
+          "sha256": "b992958ba58c1d5c2a5cc73aa3cb778d05483f7b5fbe70155c685bdeb2c4843c",
+          "bytes": 1198131,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/sac_reference_train.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/sac_reference_train.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/sac_reference_validation.npz": {
+          "sha256": "4b0223fad9eafc7e2ee2e2d34edffa2004a8a2547f5c2067a55391a11b1ae10c",
+          "bytes": 600605,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/sac_reference_validation.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/sac_reference_validation.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/discovery_00.npz": {
+          "sha256": "2a2bc2fe1acc8c460c7135248683708a06fc07d6ad65a091d7f35b4f711f9e5f",
+          "bytes": 3164366,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_00.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_00.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/discovery_01.npz": {
+          "sha256": "a7a727990488b776e53578247d9b6dfe43512bebc8a3c9297c60ab8eebf41d10",
+          "bytes": 3164366,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_01.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_01.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/discovery_02.npz": {
+          "sha256": "cbdd1c41f5fcd51721309e0478ae0362db7b32aa9dc2ef18f76a54eadf28ff5e",
+          "bytes": 3164366,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_02.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_02.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/discovery_03.npz": {
+          "sha256": "4a0037a0fbb33deadc26c59960eedd414fbb3b52ff828a2670392df39c033b7f",
+          "bytes": 3164366,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_03.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/discovery_03.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/k1_primary_reference_00.npz": {
+          "sha256": "94d4159ec2eed1b63a696100fca6b9e76a967a06e97d495c041d08f29570dcca",
+          "bytes": 751543,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_00.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_00.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/k1_primary_reference_01.npz": {
+          "sha256": "fb461c99b506296a47160b03cc65fc4177cd24c69b0f8acee6d103a1274f381f",
+          "bytes": 750918,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_01.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_01.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/k1_primary_reference_02.npz": {
+          "sha256": "0cf4f22e8471fdf85c519ddcba352165c513bb542834a824595be2ca0168dd3d",
+          "bytes": 751731,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_02.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_02.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/k1_primary_reference_03.npz": {
+          "sha256": "bc074acc48827d6c255d22d5d97aea4591792bc34f6ff98717f75fa1d7b1f48d",
+          "bytes": 751794,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_03.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_03.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/k1_primary_reference_04.npz": {
+          "sha256": "d9c443bba275487be1a1cb443c9757c0927dc3d7581526791ac40b932147d003",
+          "bytes": 750144,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_04.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_04.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/k1_primary_reference_05.npz": {
+          "sha256": "b116b66198caf3bfb2debe86b3d68e1ba87036361a7b082cf94267d12ceaf0df",
+          "bytes": 750549,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_05.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/k1_primary_reference_05.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/v2_r0_trial_raw_0.npz": {
+          "sha256": "2d3c40d4a1e675aacc314ce5eb44b2b2a421459c722bb3a3e94b6e828a985e0f",
+          "bytes": 3983124,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/v2_r0_trial_raw_0.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/v2_r0_trial_raw_0.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "inputs/teachers/v2_r0_trial_raw_1.npz": {
+          "sha256": "e793678542c84f98b47573b2d2851078ac4d08e497d34e3ee0da44740e187df7",
+          "bytes": 3983124,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/inputs/teachers/v2_r0_trial_raw_1.npz",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/inputs/teachers/v2_r0_trial_raw_1.npz",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "learning/mppi_s0_initial.pt": {
+          "sha256": "a71a34cb7fc8b940f1bb9900eea5d34fcc9c22c03584cc9d5fceab4fa0beca1d",
+          "bytes": 87369,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/learning/mppi_s0_initial.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/learning/mppi_s0_initial.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "learning/mppi_s1_initial.pt": {
+          "sha256": "574d4af894983d6661480a497830f17ab90c6f56a0af944c2ddbecbd443fee2e",
+          "bytes": 87369,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/learning/mppi_s1_initial.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/learning/mppi_s1_initial.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "learning/mppi_s2_initial.pt": {
+          "sha256": "2ec87753cf8cb83b982b56e77bc7003bbac5948c603dc618d56f572a76f36984",
+          "bytes": 87369,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/learning/mppi_s2_initial.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/learning/mppi_s2_initial.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "learning/sac_reference_s0_initial.pt": {
+          "sha256": "a71a34cb7fc8b940f1bb9900eea5d34fcc9c22c03584cc9d5fceab4fa0beca1d",
+          "bytes": 87369,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/learning/sac_reference_s0_initial.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/learning/sac_reference_s0_initial.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "learning/sac_reference_s1_initial.pt": {
+          "sha256": "574d4af894983d6661480a497830f17ab90c6f56a0af944c2ddbecbd443fee2e",
+          "bytes": 87369,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/learning/sac_reference_s1_initial.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/learning/sac_reference_s1_initial.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        },
+        "learning/sac_reference_s2_initial.pt": {
+          "sha256": "2ec87753cf8cb83b982b56e77bc7003bbac5948c603dc618d56f572a76f36984",
+          "bytes": 87369,
+          "local_file": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001/learning/sac_reference_s2_initial.pt",
+          "available_local": true,
+          "remote_file": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001/learning/sac_reference_s2_initial.pt",
+          "remote_copy_verified": true,
+          "in_git": false
+        }
+      },
+      "recovery": {
+        "original_container_readable": false,
+        "original_container_sha256": "2602e9e51c68a8ae7839042ee856a5c369edba328f35629b3eef6d51da51a40f",
+        "derived_container_sha256": "a2ae6ae9c0a0577abd5b3e246db80ee7a13ca0d9380a7aa75bcab7c0547337fc",
+        "derived_container_bytes": 1761505518,
+        "appended_zero_bytes": 14352,
+        "local_file": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_student_source_s1_001/recovery_001/eval_recovered_container.h5",
+        "remote_file": "/home/jaisel/mppi-gps-workspace/artifacts/2026-10-31_student_source_s1_001/recovery_001/eval_recovered_container.h5",
+        "scope": "Original remains truncated; derived container directory enumeration is damaged. Only direct-path arrays with independently verified saved dtype/shape/SHA256 are accepted."
+      },
+      "learning_curve_export": {
+        "file": "results/student_source_s1/report/learning_bins.csv",
+        "sha256": "afae13355a05c3d925091c04c6ed3b14786dab69628635186ce025d31061cdc5",
+        "source_updates": 12000,
+        "source_fit_files": 6,
+        "bin_updates": 100
+      },
+      "source_parents": {
+        "k1_input_manifest_sha256": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99",
+        "w2_input_manifest_sha256": "c9ebdeac1ab7fa1a252176d271513c27c98a79bcb9fab87dacf14ed5e1c1c19e",
+        "reference_checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+        "reference_policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+        "diagnostic_config_sha256": "be462b70ac7b5a0b420b1b137c998f6a78f3a52c198cbbffaf06609f9aa0031a",
+        "diagnostic_input_manifest_sha256": "bf93b0a479b073bfe32d8d05e92b207506fda9398d5e82e83d15c40cc3c12033",
+        "diagnostic_result_sha256": "757cf6a0961ed7879865b0dfa1bf137f3fce7c5f26b53468068e19424adbb119"
+      },
+      "original_parent_availability": "Selected mirrored inputs do not create complete remote mirrors of K1,W1,W2 or H4.1.",
+      "availability_note": "Exact interrupted original and separate derived copy preserved on both hosts. Closed fits and verified prefix are reusable evidence; the full comparison and complete cost census remain incomplete. S1.1 is proposal-only."
     }
   }
 }

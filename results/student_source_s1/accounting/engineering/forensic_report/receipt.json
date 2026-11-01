@@ -1,0 +1,21 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "scripts/diagnostics/report_student_source.py",
+    "--run",
+    "runs/2026-10-31_student_source_s1_001",
+    "--out",
+    "artifacts/2026-10-31_student_source_s1_001/report_001",
+    "--interruption-summary",
+    "artifacts/2026-10-31_student_source_s1_001/audit_interruption_001/interruption_summary.json",
+    "--display-failed-audit",
+    "--ledger-claims",
+    "artifacts/2026-10-31_student_source_s1_001/ledger_claims_v2.json"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 0,
+  "wall_seconds": 10.382175042002928,
+  "stdout_sha256": "c3bfe78535465f4ab7500b370a1d088eb6cf06bd7564e43a2a0d3f5b2fd962d6",
+  "stderr_sha256": "85e1da3e1b52c51c46dd212e5f190e69f1c535ab9ebddfb29762546a09bb615e"
+}

@@ -11,5 +11,6 @@ These small evidence capsules make the completed Walker studies readable from a 
 | W1 paired tanh-width contrast | [student_width_w1](student_width_w1/README.md) | Wider policies fit training data better, worsened validation, and all six final policies walked 0/16 |
 | W2 fixed 2k/10k update budgets | [student_update_w2](student_update_w2/README.md) | Confirmed retention and cost benefits at 2k; all six endpoints still walked 0/16 on both panels |
 | D1/D2 support and action consequences | [transfer_diagnosis_d1d2](transfer_diagnosis_d1d2/README.md) | All 20 replays matched exactly; support and fixed-suffix action effects do not yet explain failed transfer |
+| S1 demonstrated-source comparison, interrupted | [student_source_s1](student_source_s1/README.md) | Six fits completed; host reboot interrupted confirmation. Original bytes and scoped surviving evidence are preserved; full comparison remains incomplete |
 
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.

@@ -1,0 +1,1676 @@
+{
+  "discovery_00": {
+    "id": "discovery_00",
+    "source": "mppi",
+    "split": "train",
+    "rows": 1000,
+    "seed": 811000000,
+    "outcome": {
+      "complete": true,
+      "success": true,
+      "survived": true,
+      "cost": 456.71619732851303,
+      "mae": 0.16572706139006163
+    },
+    "source_file": "k1/trajectories/discovery_00.npz",
+    "source_file_sha256": "2a2bc2fe1acc8c460c7135248683708a06fc07d6ad65a091d7f35b4f711f9e5f",
+    "audit_file": "teachers/discovery_00.npz",
+    "source_raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "eb6bf30cfadde75aaa274820d8ac59a3fd7c50164dde8e8d6bda703798503b16",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "0162d660757728a29e25eebfaf6291fac83903fd2389f31e40324de140232676",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U5312354",
+          "encoding": "json",
+          "sha256": "828fc8ae9a28bad76aa43cbd14f55f637729383508e5740c62f5f00306345f35",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "ae349bdbc69b89be25eda5d29687b856749cd902330870e107d50145c8847bee",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "270a31a82e6a32879a24334fde2b27d48042fd44cac84090172204aeee1733ab",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "b36f79ed4190fcfc0e75967e47b5dfaafa8947d4b117d54305181bb4c47e3652",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "2fabe81a924e60cff4e986d21a26b7426b30536cfb6619924f37dbb29a2c7f14",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "ffbef7c58087750fd9f428f990d98d3e93109faebc31aa1739b1b93e135c323e",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000009002_episode_discovery_00",
+      "tag": "episode_discovery_00"
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "be4d76c12bf390350316be435dbfdc5e44b659fab5489d77c9ddc7a745984671"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "270a31a82e6a32879a24334fde2b27d48042fd44cac84090172204aeee1733ab"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f8",
+        "sha256": "eb6bf30cfadde75aaa274820d8ac59a3fd7c50164dde8e8d6bda703798503b16"
+      }
+    }
+  },
+  "discovery_01": {
+    "id": "discovery_01",
+    "source": "mppi",
+    "split": "train",
+    "rows": 1000,
+    "seed": 811000001,
+    "outcome": {
+      "complete": true,
+      "success": true,
+      "survived": true,
+      "cost": 409.80047138514806,
+      "mae": 0.15968683879030787
+    },
+    "source_file": "k1/trajectories/discovery_01.npz",
+    "source_file_sha256": "a7a727990488b776e53578247d9b6dfe43512bebc8a3c9297c60ab8eebf41d10",
+    "audit_file": "teachers/discovery_01.npz",
+    "source_raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "5d27adfea5422ca93323a210190af69baefa8ff241204ef57fa80a28287c5bff",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "6d2a5fa25e3fc564bebe9089b214b6297ebddc1b4117f124f2fe21ce514b1ea9",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U5315548",
+          "encoding": "json",
+          "sha256": "997abbbd74b346b1e0f30ae2c1250264e51545f29dda3d127669ab663fb02da7",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "912f0cfc2907d50794afe992ef00c45ef992bd6ea44666966f6e72fd5522b71a",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "f564b5c41b6139cb0a7d688251a1c025627c308e19980580613c97ce49a3a969",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "d24786471293ae2ffde178b96bc7ed478f9170914e049ae58a74f96a1bea016a",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "b29b3d961020b076d076c9d0f92f46343ceb115aa2e061291fef76a0f36788d1",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "b8ff16d899891805b422e78667016f876323d7e43a2720d833487e21fa345ec7",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000018005_episode_discovery_01",
+      "tag": "episode_discovery_01"
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "d5fd9a37dc194949a700ac6ad41cf7e8ba78385f98a4de290b44f263db26886b"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "f564b5c41b6139cb0a7d688251a1c025627c308e19980580613c97ce49a3a969"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f8",
+        "sha256": "5d27adfea5422ca93323a210190af69baefa8ff241204ef57fa80a28287c5bff"
+      }
+    }
+  },
+  "discovery_02": {
+    "id": "discovery_02",
+    "source": "mppi",
+    "split": "train",
+    "rows": 1000,
+    "seed": 811000002,
+    "outcome": {
+      "complete": true,
+      "success": true,
+      "survived": true,
+      "cost": 360.1578944381712,
+      "mae": 0.14029689547473187
+    },
+    "source_file": "k1/trajectories/discovery_02.npz",
+    "source_file_sha256": "cbdd1c41f5fcd51721309e0478ae0362db7b32aa9dc2ef18f76a54eadf28ff5e",
+    "audit_file": "teachers/discovery_02.npz",
+    "source_raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "981e4deaeaa9ae4e4a4f83544e22f145b30b4a9b05cda9535e06f7c803acc037",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "bcbe6341010f15a642c96e3ee135baf55f10d957dc4280927f3d07710ffa1b2e",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U5318587",
+          "encoding": "json",
+          "sha256": "682f0599ad4576bc7dc06538912d73b9fc8c15a9511c5705f8ef600d6d43e22c",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "9758ba235f69390ed72ae7c7843f8bbaa0a2c28ec7c2c9401a99b6dd1b3edfce",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "18599045272bd278ef189a330bcbefb77f1ddc6d3a3564d81ba1821120e939ff",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "39acd4adbd102fef74b06765427690905ce6e57078b85c6b508f7248800acc7b",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "5d2a208f5cf5e25cd88ef82553fad95a833d8c525997291d1281a4b099707bdc",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "ce7598ff259be47f42773a29c52a6238844f8f909b2567fe41bc72e9e090b490",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000027008_episode_discovery_02",
+      "tag": "episode_discovery_02"
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "73cac9c990ca3d2696cefc6d2db14be7d0a0f7ba944c4a764f5c20e7cc8e7907"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "18599045272bd278ef189a330bcbefb77f1ddc6d3a3564d81ba1821120e939ff"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f8",
+        "sha256": "981e4deaeaa9ae4e4a4f83544e22f145b30b4a9b05cda9535e06f7c803acc037"
+      }
+    }
+  },
+  "discovery_03": {
+    "id": "discovery_03",
+    "source": "mppi",
+    "split": "train",
+    "rows": 1000,
+    "seed": 811000003,
+    "outcome": {
+      "complete": true,
+      "success": true,
+      "survived": true,
+      "cost": 381.13544166546285,
+      "mae": 0.14846506094356426
+    },
+    "source_file": "k1/trajectories/discovery_03.npz",
+    "source_file_sha256": "4a0037a0fbb33deadc26c59960eedd414fbb3b52ff828a2670392df39c033b7f",
+    "audit_file": "teachers/discovery_03.npz",
+    "source_raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "793038447f412c0ed30479b54899aef82927a2d04ef57bee4dfa08fffe081895",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "6c032114d16642ff1b9b0fbcd52933eddb38aca499c4d8af723f9771185bbd16",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U5318911",
+          "encoding": "json",
+          "sha256": "a082f465836cfee722739811701db163cd97ea929500ba43bfd4a27927b2d49a",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "0308c3eefff39f12d03859774f3550cb432c4b0544dab94c5354d22db831d2ee",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "5206c2e0f56182d7d6a318200fd632ef10796ec63a3337f0375f8a8d2465bed1",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "a6d439be3d360ca8a1f4e5ee7c888827410e066ee9131d0c939ad40fc7294fc2",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "9fde2aeb0907e3ad2e0b0c7b7160dd2f441438e47e99408afb03c133f8a60f2d",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "40bc5a22f96aedf57b927b68306315f47694dc90658b0f03847c41de58facc4c",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000036011_episode_discovery_03",
+      "tag": "episode_discovery_03"
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "f2a305177b98f8c576fac5fc3f26f3046a07ce94fa0e0e9cea03031d213d924d"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "5206c2e0f56182d7d6a318200fd632ef10796ec63a3337f0375f8a8d2465bed1"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f8",
+        "sha256": "793038447f412c0ed30479b54899aef82927a2d04ef57bee4dfa08fffe081895"
+      }
+    }
+  },
+  "v2_r0_trial_raw_0": {
+    "id": "v2_r0_trial_raw_0",
+    "source": "mppi",
+    "split": "validation",
+    "rows": 1000,
+    "seed": 943000000,
+    "outcome": {
+      "complete": true,
+      "success": true,
+      "survived": true,
+      "cost": 338.55120227246425,
+      "mae": 0.12797575782985363
+    },
+    "source_file": "k1/trajectories/v2_r0_trial_raw_0.npz",
+    "source_file_sha256": "2d3c40d4a1e675aacc314ce5eb44b2b2a421459c722bb3a3e94b6e828a985e0f",
+    "audit_file": "teachers/v2_r0_trial_raw_0.npz",
+    "source_raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "05beeef3369aa39d08ac5f4e9d1e2baf59eaf9e23ef420df872be497385ce117",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "86bc0a11adbc7470806586df876e50cce6a7c34b5b81124ef51907ebab3b32a6",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U5318164",
+          "encoding": "json",
+          "sha256": "66981df107b01e504ac910009e9996424796fe7028efc7a00963fed8da5b4f91",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "3e81f9457498e3e96ac62c5198175fc99bbfb27404c6bbed426a0ddd1c320196",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "aa86c47c35dbf163a41de5906ed27ed436ecf1a72c589fb23406258d8f1b8ef6",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "cdeeb4a5a11f8639ae3f4aa3ad4c508cd4b1dc84eed515d8d280583b03e05e65",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "b34d3a53da7a483c39042d744caf2d6da89a4716cf222db4e925e1dc360f1f7a",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "a151673dbb9a531e3e9ac2b632c05d20f667e68b624e4e7d30e532721b04ec97",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000072040_episode_v2_r0_trial_raw_0",
+      "tag": "episode_v2_r0_trial_raw_0"
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "397d877c4d2bb52622566068c164e6e68f8f9f7db1537d3d52b0f765eae52ca1"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "aa86c47c35dbf163a41de5906ed27ed436ecf1a72c589fb23406258d8f1b8ef6"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f8",
+        "sha256": "05beeef3369aa39d08ac5f4e9d1e2baf59eaf9e23ef420df872be497385ce117"
+      }
+    }
+  },
+  "v2_r0_trial_raw_1": {
+    "id": "v2_r0_trial_raw_1",
+    "source": "mppi",
+    "split": "validation",
+    "rows": 1000,
+    "seed": 943000001,
+    "outcome": {
+      "complete": true,
+      "success": true,
+      "survived": true,
+      "cost": 421.16713436735336,
+      "mae": 0.1609133776651603
+    },
+    "source_file": "k1/trajectories/v2_r0_trial_raw_1.npz",
+    "source_file_sha256": "e793678542c84f98b47573b2d2851078ac4d08e497d34e3ee0da44740e187df7",
+    "audit_file": "teachers/v2_r0_trial_raw_1.npz",
+    "source_raw": {
+      "arrays": {
+        "absorbing_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "actions": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "4944b577c7aa0042c1af2cb8a746490dcaa2c3dac5cf1d850cdf5e9c49efafcf",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "0372485b6aece79155505152518783ff1d73c9f900d4342b3d3be2753af114ac",
+          "shape": [
+            1000
+          ]
+        },
+        "infos": {
+          "dtype": "<U5313032",
+          "encoding": "json",
+          "sha256": "0e8acaa91e9913898e5d56f80d3cfd773e31c8f6dd42a0f4e6c9f2833bc9ace7",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "07af1ceb50ba755ee859a677b305eb4641867b2794dd299a46378d54a59bf1df",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "6c160f5bd4853d8cc8af2ee3497bf05c9907ff3c5710f22b2f7412cdaebde3ca",
+          "shape": [
+            1000,
+            17
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "8d398b47eddb55760c6dd8179a2c117c485cfa1cdb2187e3fd2f102b2729f0a2",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "terminal_adjustment": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "terminal_cost": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": []
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "79c7852633d5a440cec30686818fe75beb03ac4da5e16ecbb5ae92631b4e3696",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "encoding": "array",
+          "sha256": "167385a99dc60206e710aeb110b2b2cba646f5b447a7d34f686eaf4784ac3553",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "file": "raw.h5",
+      "group": "arrays/a000081044_episode_v2_r0_trial_raw_1",
+      "tag": "episode_v2_r0_trial_raw_1"
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "5e06e22d5cc9f2eac3b114304dc9112b0c8513d233478cfef2e11370fc999ea7"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "6c160f5bd4853d8cc8af2ee3497bf05c9907ff3c5710f22b2f7412cdaebde3ca"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f8",
+        "sha256": "4944b577c7aa0042c1af2cb8a746490dcaa2c3dac5cf1d850cdf5e9c49efafcf"
+      }
+    }
+  },
+  "k1_primary_reference_00": {
+    "id": "k1_primary_reference_00",
+    "source": "sac_reference",
+    "split": "train",
+    "rows": 1000,
+    "seed": 2026103100,
+    "outcome": {
+      "policy": "reference",
+      "cohort": "primary",
+      "seed": 2026103100,
+      "tag": "k1_primary_reference_00",
+      "steps": 1000,
+      "cost": 545.7482689405566,
+      "success": true,
+      "survived": true,
+      "mae": 0.24053023180854088,
+      "complete": true,
+      "terminated": false,
+      "terminal_cost": 0.0,
+      "terminal_adjustment": 0.0,
+      "absorbing_cost": 0.0
+    },
+    "source_file": "k1/trajectories/k1_primary_reference_00.npz",
+    "source_file_sha256": "94d4159ec2eed1b63a696100fca6b9e76a967a06e97d495c041d08f29570dcca",
+    "audit_file": "teachers/k1_primary_reference_00.npz",
+    "source_raw": {
+      "file": "raw.h5",
+      "group": "arrays/a000002000_episode_k1_primary_reference_00",
+      "tag": "episode_k1_primary_reference_00",
+      "arrays": {
+        "observations": {
+          "sha256": "d6263f3b7b7eb115eab79c13288a6762b2d6097d708a6c2bbbb5bafc3a3056c7",
+          "shape": [
+            1000,
+            17
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "actions": {
+          "sha256": "97e499ed1bd4b4f70f2d5da31223cfcb0f10f4dd6e4f4af26cd25b19b55456ae",
+          "shape": [
+            1000,
+            6
+          ],
+          "dtype": "<f4",
+          "encoding": "array"
+        },
+        "states": {
+          "sha256": "d39c202c79f10e6d9302d1515175e0c85fa422b52c31e89416f3ef7b5ad87a19",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "warmstarts": {
+          "sha256": "5ba9a8192ce13bc5a030c18e173c689122934a2f74e1e7afd06f1e66f7d2eb49",
+          "shape": [
+            1001,
+            9
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "integrations": {
+          "sha256": "5b170c34b4f06a5cf0762790a1835b922d6dc6df7c59cf0be1d5f0339b88cc67",
+          "shape": [
+            1001,
+            91
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "costs": {
+          "sha256": "991812e12f78f17d74d629ec0b35a811c7501d993e67da0057c4db98431bc1c8",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "velocities": {
+          "sha256": "b94f00a8fb33e7894615e0b6bde3f5982a199e94426de7690787239f814a33b6",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "infos": {
+          "sha256": "c886571d6dbba300debdd1c8a3b7558a2276296f604e2bd4904f76100818f9a8",
+          "shape": [],
+          "dtype": "<U472938",
+          "encoding": "json"
+        },
+        "terminal_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "terminal_adjustment": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "absorbing_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        }
+      }
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "73ac9a67943ff96b3a67a2d1e89a3bc3b429a0456b11b6d23dda3dc4d8d0d119"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "d6263f3b7b7eb115eab79c13288a6762b2d6097d708a6c2bbbb5bafc3a3056c7"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f4",
+        "sha256": "97e499ed1bd4b4f70f2d5da31223cfcb0f10f4dd6e4f4af26cd25b19b55456ae"
+      }
+    }
+  },
+  "k1_primary_reference_01": {
+    "id": "k1_primary_reference_01",
+    "source": "sac_reference",
+    "split": "train",
+    "rows": 1000,
+    "seed": 2026103101,
+    "outcome": {
+      "policy": "reference",
+      "cohort": "primary",
+      "seed": 2026103101,
+      "tag": "k1_primary_reference_01",
+      "steps": 1000,
+      "cost": 463.7867917188095,
+      "success": true,
+      "survived": true,
+      "mae": 0.19772268388704903,
+      "complete": true,
+      "terminated": false,
+      "terminal_cost": 0.0,
+      "terminal_adjustment": 0.0,
+      "absorbing_cost": 0.0
+    },
+    "source_file": "k1/trajectories/k1_primary_reference_01.npz",
+    "source_file_sha256": "fb461c99b506296a47160b03cc65fc4177cd24c69b0f8acee6d103a1274f381f",
+    "audit_file": "teachers/k1_primary_reference_01.npz",
+    "source_raw": {
+      "file": "raw.h5",
+      "group": "arrays/a000004850_episode_k1_primary_reference_01",
+      "tag": "episode_k1_primary_reference_01",
+      "arrays": {
+        "observations": {
+          "sha256": "a4e4ad163c56a5821ee2e1107a1056ce7e311d5b19de5c96323844d93baccc67",
+          "shape": [
+            1000,
+            17
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "actions": {
+          "sha256": "447702b536aaa8eac90bf87ba55ff24e85bc7b2a8edbc87d1ab21f5e4e346b55",
+          "shape": [
+            1000,
+            6
+          ],
+          "dtype": "<f4",
+          "encoding": "array"
+        },
+        "states": {
+          "sha256": "a57f97aba58df1ca58ef5412458af22b5c95fac1d9bdddf49943b10e7b88187c",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "warmstarts": {
+          "sha256": "edb3f56511a1a59895f9fca6da97b65209b602255690ff3229ddf8ef2e450d6b",
+          "shape": [
+            1001,
+            9
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "integrations": {
+          "sha256": "d5e10ff82553f6b56c1bc377e5be4566e9af353ca807c1d2ff155d5fe76bdcb8",
+          "shape": [
+            1001,
+            91
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "costs": {
+          "sha256": "18b8e42e76e84b0e95183f2f48fb44b0a6c75da81c2e47e3f4c3d392d3d6c992",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "velocities": {
+          "sha256": "43a143599c199a40b8c8fedbc53f6afe7c3fd3888393fa6a0585d551785f0b08",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "infos": {
+          "sha256": "6cd173aaa7b30c1dee4bf783c29f58eed6a0deb5d52436e3a32260e16f0cd787",
+          "shape": [],
+          "dtype": "<U473348",
+          "encoding": "json"
+        },
+        "terminal_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "terminal_adjustment": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "absorbing_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        }
+      }
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "d24f0b898f21068fb294816e0a50e168c31d7d5068ff2139b67086ae07bfe0c5"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "a4e4ad163c56a5821ee2e1107a1056ce7e311d5b19de5c96323844d93baccc67"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f4",
+        "sha256": "447702b536aaa8eac90bf87ba55ff24e85bc7b2a8edbc87d1ab21f5e4e346b55"
+      }
+    }
+  },
+  "k1_primary_reference_02": {
+    "id": "k1_primary_reference_02",
+    "source": "sac_reference",
+    "split": "train",
+    "rows": 1000,
+    "seed": 2026103102,
+    "outcome": {
+      "policy": "reference",
+      "cohort": "primary",
+      "seed": 2026103102,
+      "tag": "k1_primary_reference_02",
+      "steps": 1000,
+      "cost": 584.0663237704881,
+      "success": true,
+      "survived": true,
+      "mae": 0.2613461039322606,
+      "complete": true,
+      "terminated": false,
+      "terminal_cost": 0.0,
+      "terminal_adjustment": 0.0,
+      "absorbing_cost": 0.0
+    },
+    "source_file": "k1/trajectories/k1_primary_reference_02.npz",
+    "source_file_sha256": "0cf4f22e8471fdf85c519ddcba352165c513bb542834a824595be2ca0168dd3d",
+    "audit_file": "teachers/k1_primary_reference_02.npz",
+    "source_raw": {
+      "file": "raw.h5",
+      "group": "arrays/a000008124_episode_k1_primary_reference_02",
+      "tag": "episode_k1_primary_reference_02",
+      "arrays": {
+        "observations": {
+          "sha256": "84204aeb784f90a8f396ae9236a682a863ef6aefec732073e04361a213ca82c5",
+          "shape": [
+            1000,
+            17
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "actions": {
+          "sha256": "1c075cecd47d7cc6e4ec890b192516380f3eeeec3421ffff8b63aa04186c2904",
+          "shape": [
+            1000,
+            6
+          ],
+          "dtype": "<f4",
+          "encoding": "array"
+        },
+        "states": {
+          "sha256": "4fd35ccc01a0b320d31afa1e58c7bdb394cd804a5f0f9119c3f37930fbf282c5",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "warmstarts": {
+          "sha256": "66c98d0707123cb1747eab7150f7b86c149391c51e2e7993485bb73144cff782",
+          "shape": [
+            1001,
+            9
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "integrations": {
+          "sha256": "68f898bf0c5e5c22b08fafb9a5bfaa98861ab30035371dcd2737ebe597208917",
+          "shape": [
+            1001,
+            91
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "costs": {
+          "sha256": "e7424730ce8b6dbc21fcfc42fbbe2ac34e1ddb97696c4cc6ec7a117c6f269e5e",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "velocities": {
+          "sha256": "651605251c61dc8686bcc0473864ed7375018db69f1b5a36aebbd22060fd9dc7",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "infos": {
+          "sha256": "78ca731b5fb0d7da9cb0adb14777928bcf47f4da33a2638e0a11ce0919d1439b",
+          "shape": [],
+          "dtype": "<U472753",
+          "encoding": "json"
+        },
+        "terminal_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "terminal_adjustment": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "absorbing_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        }
+      }
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "0cef6fc7a33d45fdce2b2abefb13dd10b2292215749ccae4ef24ad3bcf24fd68"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "84204aeb784f90a8f396ae9236a682a863ef6aefec732073e04361a213ca82c5"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f4",
+        "sha256": "1c075cecd47d7cc6e4ec890b192516380f3eeeec3421ffff8b63aa04186c2904"
+      }
+    }
+  },
+  "k1_primary_reference_03": {
+    "id": "k1_primary_reference_03",
+    "source": "sac_reference",
+    "split": "train",
+    "rows": 1000,
+    "seed": 2026103103,
+    "outcome": {
+      "policy": "reference",
+      "cohort": "primary",
+      "seed": 2026103103,
+      "tag": "k1_primary_reference_03",
+      "steps": 1000,
+      "cost": 556.7348662516664,
+      "success": true,
+      "survived": true,
+      "mae": 0.2454331745543007,
+      "complete": true,
+      "terminated": false,
+      "terminal_cost": 0.0,
+      "terminal_adjustment": 0.0,
+      "absorbing_cost": 0.0
+    },
+    "source_file": "k1/trajectories/k1_primary_reference_03.npz",
+    "source_file_sha256": "bc074acc48827d6c255d22d5d97aea4591792bc34f6ff98717f75fa1d7b1f48d",
+    "audit_file": "teachers/k1_primary_reference_03.npz",
+    "source_raw": {
+      "file": "raw.h5",
+      "group": "arrays/a000010962_episode_k1_primary_reference_03",
+      "tag": "episode_k1_primary_reference_03",
+      "arrays": {
+        "observations": {
+          "sha256": "38dc8f3359e09fcef3b3c2b97d635393ce6d2f666cf4ae47135e5b3d6dd3373e",
+          "shape": [
+            1000,
+            17
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "actions": {
+          "sha256": "3764ef9cd42bf4e996f3e0ddaf29643bb5041ebffaa354faa33c629ae7a70d23",
+          "shape": [
+            1000,
+            6
+          ],
+          "dtype": "<f4",
+          "encoding": "array"
+        },
+        "states": {
+          "sha256": "76aa90dbe0f938d4e461c0dd28c2c2da3a8d7b30a203a9b3253ea6bf0eef773c",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "warmstarts": {
+          "sha256": "cd5a83e5a213757e3777f2310d5798be38297ecb095132caaf222adcb5feb538",
+          "shape": [
+            1001,
+            9
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "integrations": {
+          "sha256": "5c10cb83437fa1cd266d5e2cf38e5e10613d3f0fb06263a96eee39b365e857cd",
+          "shape": [
+            1001,
+            91
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "costs": {
+          "sha256": "d2ca3a19e6bd634f54a03230f62c21290b26e5b5db95cbf8c328c4386f9b54c8",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "velocities": {
+          "sha256": "0aa18ff30823ec18a64abcfd9fe941745e3abd999cd3bb0e5bb9f0060261a95f",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "infos": {
+          "sha256": "2576f0017b8b54a26e3d6b62f1bcb16033a1dcc5a23956e98928165c762a4b11",
+          "shape": [],
+          "dtype": "<U472987",
+          "encoding": "json"
+        },
+        "terminal_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "terminal_adjustment": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "absorbing_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        }
+      }
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "241f7d07c9ad51cbed5f916668fcd922a2357d301311252409508e8704ef535a"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "38dc8f3359e09fcef3b3c2b97d635393ce6d2f666cf4ae47135e5b3d6dd3373e"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f4",
+        "sha256": "3764ef9cd42bf4e996f3e0ddaf29643bb5041ebffaa354faa33c629ae7a70d23"
+      }
+    }
+  },
+  "k1_primary_reference_04": {
+    "id": "k1_primary_reference_04",
+    "source": "sac_reference",
+    "split": "validation",
+    "rows": 1000,
+    "seed": 2026103104,
+    "outcome": {
+      "policy": "reference",
+      "cohort": "primary",
+      "seed": 2026103104,
+      "tag": "k1_primary_reference_04",
+      "steps": 1000,
+      "cost": 468.03387813070685,
+      "success": true,
+      "survived": true,
+      "mae": 0.19705996526319416,
+      "complete": true,
+      "terminated": false,
+      "terminal_cost": 0.0,
+      "terminal_adjustment": 0.0,
+      "absorbing_cost": 0.0
+    },
+    "source_file": "k1/trajectories/k1_primary_reference_04.npz",
+    "source_file_sha256": "d9c443bba275487be1a1cb443c9757c0927dc3d7581526791ac40b932147d003",
+    "audit_file": "teachers/k1_primary_reference_04.npz",
+    "source_raw": {
+      "file": "raw.h5",
+      "group": "arrays/a000013884_episode_k1_primary_reference_04",
+      "tag": "episode_k1_primary_reference_04",
+      "arrays": {
+        "observations": {
+          "sha256": "48d2a8de7e9f64a09e0b94392f9a3bd37daac77b8d0d33bfdcb9e545dcebd6b4",
+          "shape": [
+            1000,
+            17
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "actions": {
+          "sha256": "34fb720f93a107a005d1687903ec85cfbb73d6de69c9b576084dd26184c74f9a",
+          "shape": [
+            1000,
+            6
+          ],
+          "dtype": "<f4",
+          "encoding": "array"
+        },
+        "states": {
+          "sha256": "cf0a966bdd4ca6f05639b055da603330176d64e6eaed4cfc34d5ea2da0fc84ef",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "warmstarts": {
+          "sha256": "1a2f8187487d73f4f7e4c3ad40ae77d0a24aa3ba8d0101b0f5fb26fdd9766062",
+          "shape": [
+            1001,
+            9
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "integrations": {
+          "sha256": "3cabcd4929fee2ac150d4f722d568fd9f31a2921e3116adb40d250144df862a0",
+          "shape": [
+            1001,
+            91
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "costs": {
+          "sha256": "270b0396543906fac2cd26f349d0349c83cea070eed168809e544aef0687b9b0",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "velocities": {
+          "sha256": "77d129cc33b26ccd67d4f043ee42c559dc6355f3e92ebbae681f8859804cad75",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "infos": {
+          "sha256": "bc5627e3e43f844927058f0c2f95f8c257081156a32cf43b5ecb905e2fc14c73",
+          "shape": [],
+          "dtype": "<U473374",
+          "encoding": "json"
+        },
+        "terminal_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "terminal_adjustment": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "absorbing_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        }
+      }
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "bdb764c9ac7f7b4c16f90a1f79891746b2e0cb1c5ce9cbbdecb02c2ae0f4ec27"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "48d2a8de7e9f64a09e0b94392f9a3bd37daac77b8d0d33bfdcb9e545dcebd6b4"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f4",
+        "sha256": "34fb720f93a107a005d1687903ec85cfbb73d6de69c9b576084dd26184c74f9a"
+      }
+    }
+  },
+  "k1_primary_reference_05": {
+    "id": "k1_primary_reference_05",
+    "source": "sac_reference",
+    "split": "validation",
+    "rows": 1000,
+    "seed": 2026103105,
+    "outcome": {
+      "policy": "reference",
+      "cohort": "primary",
+      "seed": 2026103105,
+      "tag": "k1_primary_reference_05",
+      "steps": 1000,
+      "cost": 474.87135135146843,
+      "success": true,
+      "survived": true,
+      "mae": 0.2026851958355311,
+      "complete": true,
+      "terminated": false,
+      "terminal_cost": 0.0,
+      "terminal_adjustment": 0.0,
+      "absorbing_cost": 0.0
+    },
+    "source_file": "k1/trajectories/k1_primary_reference_05.npz",
+    "source_file_sha256": "b116b66198caf3bfb2debe86b3d68e1ba87036361a7b082cf94267d12ceaf0df",
+    "audit_file": "teachers/k1_primary_reference_05.npz",
+    "source_raw": {
+      "file": "raw.h5",
+      "group": "arrays/a000016786_episode_k1_primary_reference_05",
+      "tag": "episode_k1_primary_reference_05",
+      "arrays": {
+        "observations": {
+          "sha256": "2cd222986d45955120fd0a3de43197416db234a7859792c1ad87ec97cef47483",
+          "shape": [
+            1000,
+            17
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "actions": {
+          "sha256": "b84a76928828e794f0e727bd7a5979126894b8dea54843b05604ffc50029fa23",
+          "shape": [
+            1000,
+            6
+          ],
+          "dtype": "<f4",
+          "encoding": "array"
+        },
+        "states": {
+          "sha256": "5650c1e18886a1d9c070b9204d1b3303dc47e6ce4ff422ae04b57cc50ac00c09",
+          "shape": [
+            1001,
+            19
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "warmstarts": {
+          "sha256": "007cb659c8df5e8538dbc8f02bded91041985a457f07cee944db3428adb0d4cc",
+          "shape": [
+            1001,
+            9
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "integrations": {
+          "sha256": "023bf16b57fe4d2c272d8d94656ca80e487f2b773009d444841478777da9ec74",
+          "shape": [
+            1001,
+            91
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "costs": {
+          "sha256": "262ede4d3e180538914a364142a0371aa5d47400a2442da4fc46669be0aed455",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "velocities": {
+          "sha256": "f0db126eb66def51006df645b36778b1a8a04015788d5aa4191f5e9ac0ab010a",
+          "shape": [
+            1000
+          ],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "infos": {
+          "sha256": "080cbee7821fb2ddb5c6d44cc00cbe25859e66ad3b18b5cf26841227367a734f",
+          "shape": [],
+          "dtype": "<U473423",
+          "encoding": "json"
+        },
+        "terminal_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "terminal_adjustment": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        },
+        "absorbing_cost": {
+          "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "shape": [],
+          "dtype": "<f8",
+          "encoding": "array"
+        }
+      }
+    },
+    "array_bindings": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "<f8",
+        "sha256": "1df047cce2a0b435211554ce1fbc90c5222293df68d6a1b5b727940a5b4b9ee3"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "<f8",
+        "sha256": "2cd222986d45955120fd0a3de43197416db234a7859792c1ad87ec97cef47483"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "<f4",
+        "sha256": "b84a76928828e794f0e727bd7a5979126894b8dea54843b05604ffc50029fa23"
+      }
+    }
+  }
+}

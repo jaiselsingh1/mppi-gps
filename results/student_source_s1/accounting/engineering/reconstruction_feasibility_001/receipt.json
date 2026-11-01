@@ -1,0 +1,72 @@
+{
+  "schema": "walker-s1-readonly-reconstruction-feasibility-receipt-v1",
+  "source_script_sha256": "fe80aa6fb35d78b27a8a647b1d79080c7b5bfe12a2e0085c89902a69d9eba18a",
+  "attempts": [
+    {
+      "attempt": 0,
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "/tmp/s1_exact_reconstruction_feasibility.py"
+      ],
+      "exit_code": 1,
+      "status": "engineering_import_failure_before_evidence_access",
+      "evidence_reads": 0,
+      "new_physics": 0,
+      "new_neural_rows": 0,
+      "new_optimizer_steps": 0,
+      "external_wall_seconds": null,
+      "output": "attempt_000_import_error.txt"
+    },
+    {
+      "attempt": 1,
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-c",
+        "import runpy; runpy.run_path(\"/tmp/s1_exact_reconstruction_feasibility.py\", run_name=\"__main__\")"
+      ],
+      "exit_code": 0,
+      "status": "stopped_at_first_missing_action_duplicate",
+      "output": "attempt_001.stdout.json",
+      "script_wall_seconds": 3.195195667009102,
+      "external_wall_seconds": null
+    }
+  ],
+  "read_operations": {
+    "successful_query_pairs": 117,
+    "successful_direct_group_read_calls": 352,
+    "failed_direct_group_read_calls": 1,
+    "hash_verified_array_reads": 1171,
+    "qualification": "Logical counts derived from the preserved recipe and recorded successful iterations; no new execution or physical disk-I/O measurement."
+  },
+  "result": {
+    "schema": "walker-s1-exact-duplicate-reconstruction-feasibility-v1",
+    "all_eight_feasible": false,
+    "read_only": true,
+    "new_physics": 0,
+    "new_neural_rows": 0,
+    "new_optimizer_steps": 0,
+    "episode_checks": [
+      {
+        "tag": "primary_mppi_s1_07",
+        "steps": 160,
+        "field_sha_matches": {},
+        "completed_query_inputs_read": 117,
+        "fully_exactly_reconstructable": false,
+        "stopping_error": {
+          "type": "KeyError",
+          "message": "\"Unable to synchronously open object (object 'a000053533_q000026723_inputs' doesn't exist)\""
+        }
+      }
+    ],
+    "accepted_audit_episode_count_unchanged": 187,
+    "derived_arrays_written": 0,
+    "stopped_at_first_unrecoverable_episode": "primary_mppi_s1_07",
+    "wall_seconds": 3.195195667009102,
+    "checks": 1340777,
+    "source_script_sha256": "fe80aa6fb35d78b27a8a647b1d79080c7b5bfe12a2e0085c89902a69d9eba18a"
+  },
+  "scope": "No scientific arrays were written, no actual audit was rerun, and the prior failed audit/187 verified subset remain unchanged. The remaining seven episodes were not attempted after the first unresolvable action input. Missing data were not inferred from a network or simulator.",
+  "capture": "Tool-returned JSON and failure text preserved from existing invocations; stderr was not separately captured and no external wall measurement is invented."
+}

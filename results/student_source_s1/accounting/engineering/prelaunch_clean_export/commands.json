@@ -1,0 +1,79 @@
+{
+  "cwd": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "MUJOCO_GL": "disable",
+    "MPLBACKEND": "Agg",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh",
+    "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_student_source_s1_001/engineering/prelaunch_clean_export/matplotlib_cache"
+  },
+  "commands": {
+    "import_origin": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; import src.gps.mppi_gps.provenance as p; root=Path.cwd().resolve(); assert Path(p.__file__).resolve().is_relative_to(root); print(p.__file__)"
+    ],
+    "full_pytest": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "ruff_check": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+      "check",
+      "."
+    ],
+    "ruff_format_check": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+      "format",
+      "--check",
+      "."
+    ],
+    "check_repository": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/check_repository.py"
+    ],
+    "study_source_help": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/train_mppi_gps.py",
+      "study",
+      "source",
+      "--help"
+    ],
+    "launch_help": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/diagnostics/launch_student_source.py",
+      "--help"
+    ],
+    "audit_help": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/audits/student_source.py",
+      "--help"
+    ],
+    "report_help": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/diagnostics/report_student_source.py",
+      "--help"
+    ],
+    "inspect_portable_d1": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/train_mppi_gps.py",
+      "inspect",
+      "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/mppi-s1-clean-export-d1__s1mh/results/transfer_diagnosis_d1d2",
+      "--json"
+    ]
+  },
+  "no_research_workers": true
+}

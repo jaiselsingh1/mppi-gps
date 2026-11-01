@@ -106,9 +106,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
     if not result and config.get("schema") == "walker-student-source-s1-v1":
-        result = _read_json(run / "fit_result.json", errors)
-        if result:
-            result_file = "fit_result.json"
+        for name in ("interruption_summary.json", "fit_result.json"):
+            result = _read_json(run / name, errors)
+            if result:
+                result_file = name
+                break
     manifest = _read_json(run / "manifest.json", errors)
     inputs = _read_json(run / "input_manifest.json", errors)
     launch = _read_json(run / "launch_receipt.json", errors)
@@ -170,6 +172,9 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         "incremental_gain_confirmed",
         "feature_benefit_confirmed",
         "next_round_eligible",
+        "comparison_complete",
+        "audit_complete",
+        "integrity_status",
     )
     report = {
         "directory": str(root),
@@ -201,6 +206,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "work": result.get("work", {}),
             "phase_work": result.get("phase_work", {}),
             "wall_seconds": result.get("wall_seconds"),
+            "accounting": result.get("accounting", {}),
         },
         "result_file": result_file if result else None,
         "files": files,
@@ -235,6 +241,15 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "substituted_branches": len(d2.get("branches", [])),
             "scope": "Single-action substitution under a fixed open-loop teacher suffix; no learning or recovery claim.",
         }
+    if result_file == "fit_result.json":
+        report["outcomes"]["scope"] = "fit_phase_only"
+        report["outcomes"]["comparison_complete"] = False
+    elif result_file == "interruption_summary.json":
+        report["outcomes"]["scope"] = "interrupted_prefix_only"
+        report["outcomes"]["comparison_complete"] = False
+        audit = _read_json(run / "receipt.json", errors)
+        report["outcomes"]["audit_passed"] = audit.get("passed")
+        report["provenance"]["interruption_audit"] = audit
     return report
 
 
@@ -246,6 +261,12 @@ def format_inspection(report: dict[str, Any]) -> str:
         f"Outcome (recorded): {outcomes.get('status', 'unreported')}; error={outcomes.get('error')}"
     )
     lines.append(f"Config schema: {report['config'].get('schema', 'missing')}")
+    if report.get("result_file") == "fit_result.json":
+        lines.append("Result scope: fit phase only; standalone comparison is incomplete")
+    elif report.get("result_file") == "interruption_summary.json":
+        lines.append(
+            "Result scope: interrupted prefix only; full comparison and cost census incomplete"
+        )
     provenance = report["provenance"]
     lines.append(
         f"Frozen source: {provenance['source_file_count']} recorded files; present={provenance['source_present']}"

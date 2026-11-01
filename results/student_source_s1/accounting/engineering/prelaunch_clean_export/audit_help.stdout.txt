@@ -1,0 +1,13 @@
+usage: student_source.py [-h] --run RUN --out OUT --config-sha CONFIG_SHA
+                         --seal-sha SEAL_SHA
+
+Independent saved-only S1 source comparison audit. CPU Torch deserializes
+saved tensors only. No policy, optimizer, planner, production source helper,
+or simulator implementation is imported or executed.
+
+options:
+  -h, --help            show this help message and exit
+  --run RUN
+  --out OUT
+  --config-sha CONFIG_SHA
+  --seal-sha SEAL_SHA
