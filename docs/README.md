@@ -36,7 +36,7 @@ Read the [evidence guide](evidence_availability.md) before attempting a bulk-dat
 
 [H3.2](loop_v3_next_hypothesis_v3_2.md) is an unlaunched inherited-network input diagnostic. It is distinct from the executed [fresh L1 pipeline](student_learnability_track_v1.md). [H4.2](adaptive_coupling_h4_2_hypothesis.md) is an untested proposal for parent-relative learner-response selection. Neither document authorizes an experiment or establishes that its mechanism helps.
 
-[H5.0](teacher_proposal_h5_0_hypothesis.md) proposes testing a guided proposal mechanism beyond the current completed-bank selector. It is unimplemented and unlaunched; K1.2 does not certify its benefit or novelty.
+[H5.0](teacher_proposal_h5_0_hypothesis.md) tests a guided proposal mechanism beyond the current completed-bank selector. Its [execution protocol](teacher_proposal_h5_0_execution_protocol.md), [exact recipe](../configs/studies/teacher_proposal_h5_0.json) and [metric review](teacher_proposal_h5_0_metric_review.md) distinguish implementation preparation from research launch. The code is under engineering validation; no H5.0 research round has run, and K1.2 does not certify its benefit or novelty.
 
 ## Implementation and history
 

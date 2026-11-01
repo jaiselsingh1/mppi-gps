@@ -167,3 +167,29 @@ The `git archive` command builds a clean committed export without ignored eviden
 The repository checker verifies capsule copies, active documentation links and historical manifests without the ignored evidence directories. Tests include synthetic lifecycle/CLI fixtures, recipe and gate preservation, distinct hash contracts, checkpoint continuation, planner independence and fitting without simulator imports. The historical validation receipt records 187 passing tests, two documented skips and one expected stock-Gymnasium mismatch; cleanup adds regression coverage. The cleanup suite passes 234 tests, with one skip and the same expected failure: 42 new cases and five previously skipped Hypothesis cases enabled by the locked test extra. [Cleanup checks and raw receipts](validation/cleanup_2026-10-30/README.md) record the evidence. GPU/Warp tests remain conditional on that optional runtime. The locked CPU CI configuration is in [.github/workflows](../.github/workflows).
 
 Formatting and linting cover active source only. Frozen capsules, historical archives, generated evidence and source snapshots are excluded. The repository supports execution from a source checkout; model assets and frozen-root conventions should not be inferred to be an installed-wheel interface.
+
+## H5 preparation and safe synthetic debugging
+
+The [H5 execution protocol](teacher_proposal_h5_0_execution_protocol.md) separates engineering preparation from a future research launch. `study teacher-proposal census` imports no policy or simulator. `prepare` hashes/copies the exact W2 benchmark and binds the metadata-only runtime and seed reviews into a new source/config/input export:
+
+```sh
+python -B scripts/train_mppi_gps.py study teacher-proposal prepare \
+  --source-run runs/2026-10-31_student_update_w2_001 \
+  --runtime-probe artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/001_remote_runtime/stdout.txt \
+  --seed-review artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/seed_review.json \
+  --out runs/2026-11-01_teacher_proposal_h5_0_preparation_001
+python -B scripts/train_mppi_gps.py study teacher-proposal check-launch \
+  --out runs/2026-11-01_teacher_proposal_h5_0_preparation_001
+```
+
+The current `check-launch` exit code 2 means that launch and the weak-learner ordering exception remain unapproved. Preparation does not clear either. Existing directories are never reused or edited. A future authorized launch needs a new frozen authorization/configuration and its outer watchdog; invoking the native worker directly cannot bypass that owner.
+
+Use the VS Code **H5 synthetic proposal and budget checks** configuration, or:
+
+```sh
+python -B -m pdb -m pytest -q tests/test_guided_proposals.py -k full_geometry -x
+```
+
+Useful breakpoints are `GuidedProposalMPPI.propose` (pre-action alignment and inner scores), `TwoStreamMPPI.decide` (protected/guided state and verified means), `NativeMeter._query` (reservations before native calls), `NativeOperations._fit` (actual incoming tensors/Adam/RNG and index tapes) and the independent `RoundChecks` methods (source/query/step joins). The synthetic geometry fixtures use fake dynamics and a deterministic array-valued actor; they do not construct Walker or run a research fit.
+
+H5 uses a separately versioned append-only array stream because duplicating the complete selector banks would exceed its storage envelope. `arrays.bin` holds exact C bytes; `arrays.index.jsonl` owns dtype/shape/offset/length/hash, and `ledger.jsonl` owns intent/completion and provenance. Historical HDF5 formats stay unchanged. Full planner cache state resolves through canonical query IDs and saved weights/nominals/RNG, rather than a large repeated JSON object. The read-only inspector exposes preparation and incomplete-worker status without loading these arrays. An interrupted launch never inherits preparation's zero-work claim.

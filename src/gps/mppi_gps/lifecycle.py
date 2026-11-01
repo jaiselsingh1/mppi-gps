@@ -60,6 +60,7 @@ def freeze(
                 "student-source-evaluation-s1.1",
                 "trajectory-review-k1.1",
                 "motion-diagnosis-k1.2",
+                "teacher-proposal-h5.0-preparation",
             ),
             raw_search_protected=True,
         ),

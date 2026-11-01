@@ -6,7 +6,12 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/scripts/train_mppi_gps.py",
-      "args": ["inspect", "--run", "${workspaceFolder}/results/adaptive_coupling_h4_1", "--verify"],
+      "args": [
+        "inspect",
+        "--run",
+        "${workspaceFolder}/results/adaptive_coupling_h4_1",
+        "--verify"
+      ],
       "cwd": "${workspaceFolder}",
       "justMyCode": true
     },
@@ -15,7 +20,13 @@
       "type": "debugpy",
       "request": "launch",
       "module": "pytest",
-      "args": ["-q", "tests/test_research_cli.py", "tests/test_research_layout.py", "-x", "--pdb"],
+      "args": [
+        "-q",
+        "tests/test_research_cli.py",
+        "tests/test_research_layout.py",
+        "-x",
+        "--pdb"
+      ],
       "cwd": "${workspaceFolder}",
       "justMyCode": true
     },
@@ -24,14 +35,50 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${input:workerProgram}",
-      "args": ["worker", "--out", "${input:freshRun}"],
+      "args": [
+        "worker",
+        "--out",
+        "${input:freshRun}"
+      ],
       "cwd": "${input:freshRun}/source",
-      "env": {"PYTHONDONTWRITEBYTECODE": "1", "OMP_NUM_THREADS": "4", "OPENBLAS_NUM_THREADS": "4"},
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      },
       "justMyCode": true
+    },
+    {
+      "name": "H5 synthetic proposal and budget checks",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "-q",
+        "tests/test_guided_proposals.py",
+        "-k",
+        "full_geometry",
+        "-x"
+      ],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
     }
   ],
   "inputs": [
-    {"id": "freshRun", "type": "promptString", "description": "Absolute NEW prepared run path; never a closed evidence run"},
-    {"id": "workerProgram", "type": "promptString", "description": "Absolute script path inside that fresh run/source/scripts/diagnostics/"}
+    {
+      "id": "freshRun",
+      "type": "promptString",
+      "description": "Absolute NEW prepared run path; never a closed evidence run"
+    },
+    {
+      "id": "workerProgram",
+      "type": "promptString",
+      "description": "Absolute script path inside that fresh run/source/scripts/diagnostics/"
+    }
   ]
 }

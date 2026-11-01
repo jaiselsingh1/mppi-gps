@@ -10,6 +10,9 @@ The active package namespace is `src.gps.mppi_gps`. Study and reporting scripts 
 | Frozen source/configuration lifecycle | [lifecycle.py](../src/gps/mppi_gps/lifecycle.py) |
 | Native task and physics | [walker2d.py](../src/envs/walker2d.py), [mujoco_env.py](../src/envs/mujoco_env.py), [Walker XML](../assets/walker2d.xml) |
 | Native MPPI, protected bank and guided selector | [mppi.py](../src/mppi/mppi.py), [search.py](../src/gps/mppi_gps/search.py) |
+| H5 isolated guided proposal and fixed I/S/P controls | [guided_proposals.py](../src/gps/mppi_gps/guided_proposals.py), [one-round ordering and gates](../src/gps/mppi_gps/proposal_round.py) |
+| H5 exact budgets and canonical evidence storage | [call census](../src/gps/mppi_gps/proposal_budget.py), [byte census](../src/gps/mppi_gps/proposal_storage.py), [bounded writer](../src/gps/mppi_gps/proposal_evidence.py), [native boundaries](../src/gps/mppi_gps/proposal_execution.py) |
+| H5 preparation, guarded launch and actual-task adapter | [study CLI](../src/gps/mppi_gps/experiments/teacher_proposal.py), [watchdog](../src/gps/mppi_gps/proposal_launch.py), [native adapter](../src/gps/mppi_gps/proposal_native.py), [independent audit](../src/gps/mppi_gps/audits/teacher_proposal.py) |
 | Torque policy, normalization and continuation fitting | [policy.py](../src/gps/mppi_gps/policy.py) |
 | Teacher/student execution and authority records | [execution.py](../src/gps/mppi_gps/execution.py) |
 | Query/learning ledger, full snapshots and episodes | [runtime.py](../src/gps/mppi_gps/runtime.py) |

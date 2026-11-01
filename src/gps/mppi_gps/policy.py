@@ -320,6 +320,7 @@ def fit_policy(
     prox_reduction="sum",
     anchor_refresh=0,
     initial_observer=None,
+    update_observer=None,
 ):
     """Clone parent/Adam; fit MSE plus .5*eta times summed/mean parameter change.
 
@@ -334,6 +335,8 @@ def fit_policy(
         raise TypeError("A Policy parent and boolean resume_fit are required")
     if initial_observer is not None and not callable(initial_observer):
         raise TypeError("initial_observer must be callable or None")
+    if update_observer is not None and not callable(update_observer):
+        raise TypeError("update_observer must be callable or None")
     updates = _integer(updates, "updates")
     batch_size = _integer(batch_size, "batch_size", 1)
     seed = _integer(seed, "seed")
@@ -510,6 +513,10 @@ def fit_policy(
                     unclipped_gradient_norm=norm,
                 )
             )
+            if update_observer is not None:
+                # Scalar/row-index copies only; no model tensors are exposed.
+                # The numerical update and RNG draw order stay unchanged.
+                update_observer(dict(curve[-1], indices=rows.detach().cpu().numpy().copy()))
         if parent.hash() != parent_hash:
             raise RuntimeError("Input parent changed during fitting")
     except BaseException as error:

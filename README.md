@@ -14,7 +14,7 @@ The [S1 source comparison](docs/student_source_s1_results.md) completed six matc
 
 [K1.1 is complete and independently audited](docs/trajectory_review_k1_1_results.md): some close full-trajectory agreement scores conceal large, opposing local differences. All 34 trajectories and 304 ordered bins reconcile. The [capsule](results/trajectory_review_k1_1/README.md) preserves both audit/report attempts and their sources. No training, inference, physics or coupling ran. The earlier [S1.2 visitation hypothesis](docs/student_visitation_s1_2_hypothesis.md) remains an untested draft.
 
-[K1.2 is complete and independently audited](docs/motion_diagnosis_k1_2_results.md): all 34 actual motions and 561 cross-trajectory pairs are preserved with full and first-100-control views. The [capsule](results/motion_diagnosis_k1_2/README.md) contains both 34-page motion atlases, complete tables and costs. No new inference, integration, fitting or acquisition ran; this diagnosis does not establish a transfer cause or useful coupling. The next [H5.0 guided-proposal hypothesis](docs/teacher_proposal_h5_0_hypothesis.md) is a draft requiring its own frozen protocol, not a launch authorization.
+[K1.2 is complete and independently audited](docs/motion_diagnosis_k1_2_results.md): all 34 actual motions and 561 cross-trajectory pairs are preserved with full and first-100-control views. The [capsule](results/motion_diagnosis_k1_2/README.md) contains both 34-page motion atlases, complete tables and costs. No new inference, integration, fitting or acquisition ran; this diagnosis does not establish a transfer cause or useful coupling. [H5.0 preparation](docs/teacher_proposal_h5_0_execution_protocol.md) now makes the fixed-metric guided-proposal comparison concrete. Research execution and the proposed weak-learner ordering exception remain unapproved.
 
 ## Setup
 
@@ -47,6 +47,8 @@ uv run python scripts/train_mppi_gps.py study source --help
 uv run python scripts/train_mppi_gps.py study source-evaluation --help
 uv run python scripts/train_mppi_gps.py study trajectory-review --help
 uv run python scripts/train_mppi_gps.py study motion-diagnosis --help
+uv run python scripts/train_mppi_gps.py study teacher-proposal --help
+uv run python scripts/train_mppi_gps.py study teacher-proposal census
 uv run python scripts/train_mppi_gps.py --help
 ```
 

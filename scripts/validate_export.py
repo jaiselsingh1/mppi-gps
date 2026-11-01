@@ -58,6 +58,10 @@ def main(argv: list[str] | None = None) -> int:
         ["scripts/train_mppi_gps.py", "study", "motion-diagnosis", "--help"],
         ["scripts/audits/motion_diagnosis.py", "--help"],
         ["scripts/diagnostics/report_motion_diagnosis.py", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "teacher-proposal", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "teacher-proposal", "census"],
+        ["scripts/audits/teacher_proposal.py", "--help"],
+        ["scripts/diagnostics/report_teacher_proposal.py", "--help"],
     ]
     capsules = (
         "guided_data_v3_1",
@@ -76,6 +80,8 @@ def main(argv: list[str] | None = None) -> int:
         capsules += ("trajectory_review_k1_1",)
     if (root / "results/motion_diagnosis_k1_2/capsule.json").is_file():
         capsules += ("motion_diagnosis_k1_2",)
+    if (root / "results/teacher_proposal_h5_0_preparation/capsule.json").is_file():
+        capsules += ("teacher_proposal_h5_0_preparation",)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -183,6 +189,16 @@ def main(argv: list[str] | None = None) -> int:
                 str(outputs / "motion_diagnosis"),
             ]
         )
+    if "teacher_proposal_h5_0_preparation" in capsules:
+        commands.append(
+            [
+                "scripts/diagnostics/report_teacher_proposal.py",
+                "--run",
+                "results/teacher_proposal_h5_0_preparation",
+                "--out",
+                str(outputs / "teacher_proposal"),
+            ]
+        )
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -273,6 +289,21 @@ def main(argv: list[str] | None = None) -> int:
             for suffix in ("png", "pdf"):
                 if not (report / (stem + "." + suffix)).is_file():
                     raise ValueError("Missing motion figure: " + stem)
+    if "teacher_proposal_h5_0_preparation" in capsules:
+        report = outputs / "teacher_proposal"
+        receipt = json.loads((report / "receipt.json").read_text())
+        if any(
+            receipt[key] != 0 for key in ("network_forwards", "physics_controls", "optimizer_steps")
+        ):
+            raise ValueError("H5 preparation report must perform zero scientific calls")
+        capsule_run = root / "results/teacher_proposal_h5_0_preparation/run"
+        for name, key in (
+            ("config.json", "config_sha256"),
+            ("result.json", "source_result_sha256"),
+        ):
+            if hashlib.sha256((capsule_run / name).read_bytes()).hexdigest() != receipt[key]:
+                raise ValueError("Rendered H5 preparation input differs: " + name)
+        verify_report_outputs(report, receipt["outputs"])
     print(
         json.dumps(
             dict(

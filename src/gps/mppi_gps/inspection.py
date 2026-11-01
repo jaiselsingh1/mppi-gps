@@ -105,6 +105,23 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     config = _read_json(run / "config.json", errors)
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
+    h5_attempt_without_result = False
+    if (
+        config.get("schema") == "walker-teacher-proposal-h5.0-r1"
+        and (run / "worker_result.json").is_file()
+    ):
+        result = _read_json(run / "worker_result.json", errors)
+        result_file = "worker_result.json"
+    elif config.get("schema") == "walker-teacher-proposal-h5.0-r1" and any(
+        (run / name).exists() for name in ("launch_ownership.json", "worker_exit.json", "evidence")
+    ):
+        h5_attempt_without_result = True
+        result = dict(
+            result,
+            status="launch_attempt_without_worker_result",
+            execution_complete=False,
+            work=dict(completion_unknown=True, authoritative_prefix="evidence/ledger.jsonl"),
+        )
     if not result and config.get("schema") == "walker-student-source-s1-v1":
         for name in ("interruption_summary.json", "fit_result.json"):
             result = _read_json(run / name, errors)
@@ -131,6 +148,8 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         source_files = _files(run / "source", source_bindings, verify, errors)
     required = ("config.json", "result.json", "manifest.json", "input_manifest.json")
     missing = [name for name in required if not (run / name).is_file()]
+    if h5_attempt_without_result:
+        missing.append("worker_result.json")
     missing += [item["file"] for item in files if not item["available"]]
     failed = [
         item["file"]
@@ -145,6 +164,13 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     motion_review = config.get("schema") == "walker-motion-diagnosis-config-v1"
     if motion_review:
         evidence_names = ("evidence/motion.npz", "work.jsonl")
+    h5_preparation = config.get("schema") == "walker-teacher-proposal-h5.0-r1"
+    if h5_preparation:
+        evidence_names = (
+            ("evidence/arrays.bin", "evidence/arrays.index.jsonl", "evidence/ledger.jsonl")
+            if result_file == "worker_result.json" or h5_attempt_without_result
+            else ()
+        )
     if config.get("schema") == "walker-student-source-s1-v1":
         evidence_names = tuple(
             f"evidence/{phase}/{name}"
@@ -204,6 +230,9 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         "comparison_complete",
         "audit_complete",
         "integrity_status",
+        "preparation_complete",
+        "launch_blockers",
+        "useful_learning_prerequisite_satisfied",
     )
     report = {
         "directory": str(root),
