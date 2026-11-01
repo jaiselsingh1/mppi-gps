@@ -24,6 +24,7 @@ STUDIES = {
     "width": "src.gps.mppi_gps.experiments.student_width",
     "update-budget": "src.gps.mppi_gps.experiments.student_update_budget",
     "transfer-diagnosis": "src.gps.mppi_gps.experiments.transfer_diagnosis",
+    "source": "src.gps.mppi_gps.experiments.student_source",
 }
 
 

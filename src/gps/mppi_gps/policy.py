@@ -319,6 +319,7 @@ def fit_policy(
     resume_fit=False,
     prox_reduction="sum",
     anchor_refresh=0,
+    initial_observer=None,
 ):
     """Clone parent/Adam; fit MSE plus .5*eta times summed/mean parameter change.
 
@@ -331,6 +332,8 @@ def fit_policy(
     started = time.perf_counter()
     if not isinstance(parent, Policy) or type(resume_fit) is not bool:
         raise TypeError("A Policy parent and boolean resume_fit are required")
+    if initial_observer is not None and not callable(initial_observer):
+        raise TypeError("initial_observer must be callable or None")
     updates = _integer(updates, "updates")
     batch_size = _integer(batch_size, "batch_size", 1)
     seed = _integer(seed, "seed")
@@ -442,6 +445,17 @@ def fit_policy(
         return value
 
     try:
+        if initial_observer is not None:
+            # Copies expose the actual initial child/Adam/private streams for
+            # provenance, without granting the observer mutable training state.
+            initial_observer(
+                dict(
+                    state_dict=_cpu(child.state_dict()),
+                    adam=_cpu(optimizer.state_dict()),
+                    rng=deepcopy(rng.bit_generator.state),
+                    private_rng_state=child._generator.get_state().clone(),
+                )
+            )
         for index in range(updates):
             completed_in_block = fit_updates + index
             if anchor_refresh and completed_in_block and completed_in_block % anchor_refresh == 0:

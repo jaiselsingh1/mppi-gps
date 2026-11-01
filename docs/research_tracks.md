@@ -5,9 +5,9 @@ all final W2 traces plus K1 source data, then 20 exactly matched teacher continu
 and 220 single-action substitutions. It performed no learning, new inference or
 MPPI search. Support does not certify competence; consequences under the fixed
 open-loop continuation do not consistently rank whole-policy retention. The
-[S1 source-learning proposal](student_source_s1_protocol.md) is the next hypothesis
-for review only: equal executed reference/MPPI corpora, one student and fixed update.
-It is unlaunched and does not authorize coupling, weighting or an OT objective.
+[S1 source-learning comparison](student_source_s1_execution_protocol.md) is authorized:
+equal executed reference/MPPI corpora, one student and fixed update. Its original
+proposal is preserved. It does not authorize coupling, weighting or an OT objective.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 

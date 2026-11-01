@@ -104,6 +104,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     run = root / "run" if capsule else root
     config = _read_json(run / "config.json", errors)
     result = _read_json(run / "result.json", errors)
+    result_file = "result.json"
+    if not result and config.get("schema") == "walker-student-source-s1-v1":
+        result = _read_json(run / "fit_result.json", errors)
+        if result:
+            result_file = "fit_result.json"
     manifest = _read_json(run / "manifest.json", errors)
     inputs = _read_json(run / "input_manifest.json", errors)
     launch = _read_json(run / "launch_receipt.json", errors)
@@ -131,13 +136,16 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         if item["available"] and item.get("verified") is False
     ]
     omitted = capsule.get("bulk_evidence", {}).get("omitted", [])
+    evidence_names = ("evidence/raw.h5", "evidence/ledger.jsonl")
+    if config.get("schema") == "walker-student-source-s1-v1":
+        evidence_names = tuple(
+            f"evidence/{phase}/{name}"
+            for phase in ("fit", "eval")
+            for name in ("raw.h5", "ledger.jsonl")
+        )
     if not capsule:
         missing += [f"source/{item['file']}" for item in source_files if not item["available"]]
-        missing += [
-            name
-            for name in ("evidence/raw.h5", "evidence/ledger.jsonl")
-            if not (run / name).is_file()
-        ]
+        missing += [name for name in evidence_names if not (run / name).is_file()]
     student_outcomes = result.get("cases", {})
     if "evaluations" in result:
         student_outcomes = {
@@ -189,7 +197,12 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             for key in ("primary_gate", "primary_feature_benefit", "teacher_admission")
             if key in result
         },
-        "costs": {"work": result.get("work", {}), "wall_seconds": result.get("wall_seconds")},
+        "costs": {
+            "work": result.get("work", {}),
+            "phase_work": result.get("phase_work", {}),
+            "wall_seconds": result.get("wall_seconds"),
+        },
+        "result_file": result_file if result else None,
         "files": files,
         "source_files": source_files,
         "policy_hashes": result.get("policy_hashes", {}),
@@ -200,7 +213,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
                 "available": (run / name).is_file(),
                 "bytes": (run / name).stat().st_size if (run / name).is_file() else None,
             }
-            for name in ("evidence/raw.h5", "evidence/ledger.jsonl")
+            for name in evidence_names
         },
         "missing_evidence": sorted(set(missing)),
         "omitted_bulk_evidence": omitted,

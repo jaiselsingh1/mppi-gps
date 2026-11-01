@@ -6,8 +6,9 @@ Start with the [W2 fixed-budget result](student_update_w2_results.md), [W1 width
 
 The completed [D1/D2 diagnosis](transfer_diagnosis_d1d2_results.md) connects saved-state
 support to single-action effects under a fixed teacher suffix. Its learner/planner
-remain unchanged. The next [S1 source-learning proposal](student_source_s1_protocol.md)
-is unlaunched; subsequent learning and loop stages require separate authorization.
+remain unchanged. The next [S1 source-learning comparison](student_source_s1_execution_protocol.md)
+is authorized; its [original proposal](student_source_s1_protocol.md) is preserved.
+Subsequent learning and loop stages require separate authorization.
 
 | Study | Question and outcome | Protocol and exact capsule |
 |---|---|---|
