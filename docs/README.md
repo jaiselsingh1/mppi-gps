@@ -10,8 +10,8 @@ remain unchanged. The subsequent [S1 source-learning comparison](student_source_
 completed fitting but was interrupted by a host reboot during confirmation.
 Its [original proposal](student_source_s1_protocol.md) and
 [execution protocol](student_source_s1_execution_protocol.md) are preserved.
-[S1.1](student_source_s1_1_protocol.md) is an unlaunched evaluation-only completion
-proposal. Subsequent learning and loop stages require separate authorization.
+[S1.1](student_source_s1_1_execution_protocol.md) is an authorized evaluation-only completion
+protocol. Subsequent learning and loop stages require separate authorization.
 
 | Study | Question and outcome | Protocol and exact capsule |
 |---|---|---|

@@ -324,9 +324,20 @@ def _capsule(tmp_path, run, report, interruption_summary=None, ledger_claims=Non
             ledger_claims.parent / "full_run_file_manifest.json",
             capsule / "run/full_run_file_manifest.json",
         )
+    result_path = run / result_name
+    result = json.loads(result_path.read_text())
+    if result.get("schema") == source.EVALUATION_SCHEMA:
+        inherited = Path(result["inherited_fit"]["file"])
+        (capsule / "run" / inherited).parent.mkdir(parents=True)
+        shutil.copy2(run / inherited, capsule / "run" / inherited)
     for name in ("learning_bins.csv", "learning_bins_manifest.json", "receipt.json"):
         shutil.copy2(report / name, capsule / "report" / name)
-    paths = [path for folder in ("run", "report") for path in (capsule / folder).iterdir()]
+    paths = [
+        path
+        for folder in ("run", "report")
+        for path in (capsule / folder).rglob("*")
+        if path.is_file()
+    ]
     (capsule / "capsule.json").write_text(
         json.dumps(
             dict(
@@ -745,6 +756,187 @@ def test_full_curve_tampering_and_cli_lazy_import_contract(tmp_path):
         render(run, tmp_path / "tampered")
     root = Path(__file__).resolve().parents[1]
     code = "import sys; from src.gps.mppi_gps.reporting.source import main; assert 'torch' not in sys.modules; assert 'mujoco' not in sys.modules; main(['--help'])"
+    process = subprocess.run([sys.executable, "-c", code], cwd=root, capture_output=True, text=True)
+    assert process.returncode == 0, process.stderr
+    assert "--run" in process.stdout and "--out" in process.stdout
+
+
+def _evaluation_fixture(tmp_path):
+    """Derived metadata redirects unchanged closed curves; no model is involved."""
+    run, result, config = _fixture(tmp_path)
+    original = json.loads(json.dumps(result))
+    for name, point in original["points"].items():
+        point.update(
+            parameter_count=19590,
+            optimizer_fingerprint="adam-" + name,
+            checkpoint=dict(
+                file="checkpoints/" + name + ".pt",
+                sha256="checkpoint-" + name,
+                policy_hash="policy-" + name,
+                bytes=12,
+            ),
+        )
+    for name, fit in original["fits"].items():
+        fit["optimizer_fingerprint"] = "adam-" + name
+    original = {
+        key: original[key] for key in ("points", "fits", "teacher_outcomes", "work", "wall_seconds")
+    }
+    original.update(
+        schema="walker-student-source-s1-fit-v1",
+        samplers={"paired": "exact original tape owner"},
+        execution_complete=True,
+        error=None,
+    )
+    inherited = run / "inputs/s1"
+    inherited.mkdir(parents=True)
+    (inherited / "fit_result.json").write_text(json.dumps(original))
+    shutil.move(str(run / "learning"), inherited / "learning")
+    result.update(
+        schema=source.EVALUATION_SCHEMA,
+        points=json.loads(json.dumps(original["points"])),
+        fits=json.loads(json.dumps(original["fits"])),
+        samplers=original["samplers"],
+        inherited_fit=dict(
+            file="inputs/s1/fit_result.json", sha256=sha(inherited / "fit_result.json")
+        ),
+        inherited_work=dict(
+            original_fit=original["work"],
+            original_eval_known_prefix=dict(completed_neural_rows=55607),
+            original_eval_unknown_tail="Unquantified; not zero",
+        ),
+        work=dict(
+            completed_neural_rows=75000,
+            completed_live_controls=75000,
+            completed_optimizer_steps=0,
+            completed_backward_rows=0,
+            checkpoint_loads=10,
+        ),
+    )
+    result["phase_work"] = dict(eval=result["work"])
+    for point in result["points"].values():
+        point["checkpoint"]["file"] = "inputs/s1/" + point["checkpoint"]["file"]
+    for fit in result["fits"].values():
+        fit["file"] = "inputs/s1/" + fit["file"]
+    for panel, first in (("primary", 1270000000), ("confirmation", 1280000000)):
+        config[panel + "_seeds"] = list(range(first, first + 16))
+        for name, actor in result["evaluations"][panel].items():
+            actor["episodes"] = [
+                _episode(name, panel, seed, index)
+                for index, seed in enumerate(config[panel + "_seeds"])
+            ]
+    config["schema"] = "walker-student-source-s1.1-v1"
+    config["source_bindings"] = dict(s1_fit_result_sha256=result["inherited_fit"]["sha256"])
+    (run / "config.json").write_text(json.dumps(config))
+    (run / "input_manifest.json").write_text(
+        json.dumps(dict(config_sha256=sha(run / "config.json")))
+    )
+    (run / "result.json").write_text(json.dumps(result))
+    return run, result, config
+
+
+def test_evaluation_only_report_reuses_fits_and_separates_original_and_new_work(tmp_path):
+    run, result, config = _evaluation_fixture(tmp_path)
+    out = tmp_path / "evaluation_report"
+    receipt = render(run, out)
+    assert receipt["schema"] == source.EVALUATION_REPORT_SCHEMA
+    assert receipt["study"] == "S1.1"
+    assert receipt["inherited_fit"] == result["inherited_fit"]
+    assert receipt["new_forward_rows"] == receipt["optimizer_steps"] == 0
+    accounting = json.loads((out / "cost_accounting.json").read_text())
+    assert accounting["recorded_work"]["completed_optimizer_steps"] == 0
+    assert accounting["inherited_work"]["original_fit"]["completed_optimizer_steps"] == 12000
+    assert accounting["inherited_work"]["original_eval_unknown_tail"] == "Unquantified; not zero"
+    with (out / "work_groups.csv").open() as stream:
+        groups = {row["group"]: row for row in csv.DictReader(stream)}
+    assert set(groups) == {
+        "original_fit",
+        "original_eval_known_prefix",
+        "original_eval_unknown_tail",
+        "s1_1_new_native",
+    }
+    assert groups["s1_1_new_native"]["completed_neural_rows"] == "75000"
+    assert groups["original_eval_known_prefix"]["completed_neural_rows"] == "55607"
+    with (out / "episodes.csv").open() as stream:
+        episodes = list(csv.DictReader(stream))
+    assert len(episodes) == 320
+    assert {int(row["seed"]) for row in episodes} == set(
+        config["primary_seeds"] + config["confirmation_seeds"]
+    )
+    bootstrap = json.loads((out / "descriptive_bootstrap.json").read_text())
+    assert all(bootstrap[panel]["training_streams"] == 3 for panel in ("primary", "confirmation"))
+    assert "zero new training replications" in bootstrap["training_stream_origin"]
+    assert "original interrupted outcomes are not pooled" in bootstrap["native_scope"]
+    assert len(build_tables(result, config)["matched_reference_gaps"]) == 6
+    text = (out / "report.md").read_text()
+    assert "# S1.1:" in text and "zero fitting, reconstruction inference" in text
+    assert (
+        "same three training realizations" in text
+        and "repeated testing is not a new learning gain" in text
+    )
+    assert "original interrupted native attempts are not pooled" in text
+
+
+@pytest.mark.parametrize(
+    "fault", ["metric", "checkpoint_owner", "fit_owner", "closed_fit_hash", "recipe_binding"]
+)
+def test_evaluation_report_rejects_changed_inherited_evidence(tmp_path, fault):
+    run, result, _ = _evaluation_fixture(tmp_path)
+    if fault == "metric":
+        result["points"]["mppi_s0"]["metrics"]["mppi_train"]["mse"] += 1
+    elif fault == "checkpoint_owner":
+        result["points"]["mppi_s0"]["checkpoint"]["policy_hash"] = "different owner"
+    elif fault == "fit_owner":
+        result["fits"]["mppi_s0"]["optimizer_fingerprint"] = "different Adam owner"
+    elif fault == "closed_fit_hash":
+        (run / "inputs/s1/fit_result.json").write_text("{}")
+    else:
+        binding = run / result["inherited_fit"]["file"]
+        closed_fit = json.loads(binding.read_text())
+        closed_fit["wall_seconds"] += 1
+        binding.write_text(json.dumps(closed_fit))
+        result["inherited_fit"]["sha256"] = sha(binding)
+    (run / "result.json").write_text(json.dumps(result))
+    with pytest.raises(ValueError, match="S1.1 .* (evidence|owner|ownership|binding)"):
+        render(run, tmp_path / "rejected")
+    assert not (tmp_path / "rejected").exists()
+
+
+def test_evaluation_capsule_uses_inherited_bins_without_original_full_curves(tmp_path, monkeypatch):
+    run, _, _ = _evaluation_fixture(tmp_path)
+    full = tmp_path / "full_evaluation"
+    render(run, full)
+    capsule = _capsule(tmp_path, run, full)
+    assert (capsule / "run/inputs/s1/fit_result.json").is_file()
+    assert not (capsule / "run/inputs/s1/learning").exists()
+    assert not list(capsule.rglob("*.h5"))
+    monkeypatch.setattr(
+        source,
+        "learning_bins",
+        lambda *args: pytest.fail("S1.1 capsule may only use existing loss bins"),
+    )
+    out = tmp_path / "portable_evaluation"
+    receipt = render(capsule, out)
+    assert receipt["schema"] == source.EVALUATION_REPORT_SCHEMA
+    assert receipt["render_scope"] == "portable_learning_bins"
+    for name in ("reconstruction", "learning_curves", "standalone_outcomes", "cost_components"):
+        assert sha(full / f"{name}.png") == sha(out / f"{name}.png")
+    for name in ("learning_bins", "fitting", "episodes", "work_groups", "matched_reference_gaps"):
+        assert (full / f"{name}.csv").read_bytes() == (out / f"{name}.csv").read_bytes()
+    (capsule / "run/inputs/s1/fit_result.json").write_text("{}")
+    with pytest.raises(ValueError, match="inherited closed-fit file binding"):
+        render(capsule, tmp_path / "tampered")
+
+
+def test_evaluation_report_wrapper_has_lazy_help():
+    root = Path(__file__).resolve().parents[1]
+    code = """import runpy, sys
+sys.argv = ['report_student_source_s1_1.py', '--help']
+try:
+    runpy.run_path('scripts/diagnostics/report_student_source_s1_1.py', run_name='__main__')
+except SystemExit as exit_status:
+    assert exit_status.code == 0
+assert 'torch' not in sys.modules and 'mujoco' not in sys.modules
+"""
     process = subprocess.run([sys.executable, "-c", code], cwd=root, capture_output=True, text=True)
     assert process.returncode == 0, process.stderr
     assert "--run" in process.stdout and "--out" in process.stdout

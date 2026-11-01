@@ -48,6 +48,8 @@ def main(argv: list[str] | None = None) -> int:
     )
     if (root / "results/student_source_s1/capsule.json").is_file():
         capsules += ("student_source_s1",)
+    if (root / "results/student_source_s1_1/capsule.json").is_file():
+        capsules += ("student_source_s1_1",)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -125,6 +127,16 @@ def main(argv: list[str] | None = None) -> int:
         if source_capsule.get("report_requires_failed_audit_display"):
             source_report.append("--display-failed-audit")
         commands.append(source_report)
+    if "student_source_s1_1" in capsules:
+        commands.append(
+            [
+                "scripts/diagnostics/report_student_source_s1_1.py",
+                "--run",
+                "results/student_source_s1_1",
+                "--out",
+                str(outputs / "student_source_s1_1"),
+            ]
+        )
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(

@@ -13,7 +13,7 @@ import pytest
 
 from scripts import train_mppi_gps
 from scripts.check_repository import check_binding
-from src.gps.mppi_gps.inspection import inspect_run
+from src.gps.mppi_gps.inspection import format_inspection, inspect_run
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -210,3 +210,53 @@ def test_width_inspector_exposes_summary_and_gates_without_episode_arrays(tmp_pa
     assert report["student_outcomes"]["primary"]["s0_w256_u10000"]["episodes"] == 16
     assert report["gates"]["primary"]["validation_guard"] is False
     assert "must not leak" not in json.dumps(report)
+
+
+def test_evaluation_inspector_describes_segments_and_inherited_costs_read_only(tmp_path):
+    run = tmp_path / "evaluation"
+    run.mkdir()
+    (run / "config.json").write_text(
+        json.dumps(dict(schema="walker-student-source-s1.1-v1", budgets=dict(episodes=320)))
+    )
+    setup, episode = "evidence/loads", "evidence/episodes/000_primary_reference_00"
+    for directory in (setup, episode):
+        target = run / directory
+        target.mkdir(parents=True)
+        for name in ("raw.h5", "ledger.jsonl", "receipt.json"):
+            (target / name).write_text("synthetic availability only")
+    result = dict(
+        schema="walker-student-source-s1.1-result-v1",
+        execution_complete=False,
+        status="stopped_partial",
+        setup=dict(segment=setup),
+        segments=[dict(segment=episode)],
+        inherited_fit=dict(file="inputs/s1/fit_result.json", sha256="original-fit"),
+        work=dict(completed_live_controls=1000, completed_optimizer_steps=0),
+        inherited_work=dict(
+            original_fit=dict(completed_optimizer_steps=12000),
+            original_eval_known_prefix=dict(completed_live_controls=55607),
+            original_eval_unknown_tail="Not quantified; not zero",
+        ),
+    )
+    (run / "result.json").write_text(json.dumps(result))
+    before = {p: p.read_bytes() for p in run.rglob("*") if p.is_file()}
+    report = inspect_run(run)
+    assert report["costs"]["work"]["completed_optimizer_steps"] == 0
+    assert report["costs"]["inherited_work"] == result["inherited_work"]
+    assert report["provenance"]["inherited_fit"] == result["inherited_fit"]
+    assert report["segmented_evidence"]["declared_episode_segments"] == 1
+    assert report["segmented_evidence"]["planned_episodes"] == 320
+    assert report["segmented_evidence"]["owner_exit_available"] is False
+    assert set(report["bulk_evidence"]) == {
+        f"{directory}/{name}"
+        for directory in (setup, episode)
+        for name in ("raw.h5", "ledger.jsonl", "receipt.json")
+    }
+    assert "evidence/raw.h5" not in report["missing_evidence"]
+    assert "fresh S1.1 evaluation only" in format_inspection(report)
+    assert before == {p: p.read_bytes() for p in run.rglob("*") if p.is_file()}
+    (run / episode / "raw.h5").unlink()
+    assert episode + "/raw.h5" in inspect_run(run)["missing_evidence"]
+    result["segments"].append(dict(segment="../escaped"))
+    (run / "result.json").write_text(json.dumps(result))
+    assert "escapes run" in inspect_run(run)["errors"][0]

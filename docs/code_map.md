@@ -43,3 +43,5 @@ The Linux experiment workspace is `/home/jaisel/mppi-gps-workspace/` on `robopil
 | `history/` | Archived implementations and audit artifacts |
 
 The existing Linux interpreter is `/home/jaisel/mppi-gps/.venv/bin/python`. H4.1 ran on the local macOS platform and its full evidence is **local only**; do not infer that all studies share this remote location. [Per-study locations and checksums](evidence_availability.md) identify the available copies. [archive/](../archive) retains historical code and documentation outside active imports and formatting.
+
+S1.1 uses a separate [evaluation-only study](../src/gps/mppi_gps/experiments/student_source_evaluation.py), [input binding](../src/gps/mppi_gps/source_evaluation_inputs.py), [one-shot owner](../src/gps/mppi_gps/source_evaluation_launch.py), [closed-file durability](../src/gps/mppi_gps/durability.py), [off-host coordinator](../src/gps/mppi_gps/source_evaluation_coordinator.py) and [independent auditor](../src/gps/mppi_gps/audits/source_evaluation.py). See the [execution protocol](student_source_s1_1_execution_protocol.md). It reuses the closed S1 fits and performs no learning.

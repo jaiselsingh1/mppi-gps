@@ -145,6 +145,29 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             for phase in ("fit", "eval")
             for name in ("raw.h5", "ledger.jsonl")
         )
+    segmented = config.get("schema") == "walker-student-source-s1.1-v1"
+    if segmented:
+        evidence = []
+        descriptors = result.get("segments", [])
+        if result.get("setup"):
+            descriptors = [result["setup"], *descriptors]
+        for descriptor in descriptors:
+            try:
+                segment = descriptor["segment"]
+                _contained_path(run, segment)
+                evidence.extend(
+                    f"{segment}/{name}" for name in ("raw.h5", "ledger.jsonl", "receipt.json")
+                )
+            except (KeyError, TypeError, ValueError) as error:
+                errors.append("Invalid declared S1.1 segment: " + str(error))
+        partial = result.get("uncommitted_partial", {}).get("directory")
+        if partial:
+            try:
+                _contained_path(run, partial)
+                evidence.extend(f"{partial}/{name}" for name in ("raw.h5", "ledger.jsonl"))
+            except (TypeError, ValueError) as error:
+                errors.append("Invalid partial S1.1 segment: " + str(error))
+        evidence_names = tuple(dict.fromkeys(evidence))
     if not capsule:
         missing += [f"source/{item['file']}" for item in source_files if not item["available"]]
         missing += [name for name in evidence_names if not (run / name).is_file()]
@@ -205,6 +228,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         "costs": {
             "work": result.get("work", {}),
             "phase_work": result.get("phase_work", {}),
+            "inherited_work": result.get("inherited_work", {}),
             "wall_seconds": result.get("wall_seconds"),
             "accounting": result.get("accounting", {}),
         },
@@ -241,6 +265,18 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "substituted_branches": len(d2.get("branches", [])),
             "scope": "Single-action substitution under a fixed open-loop teacher suffix; no learning or recovery claim.",
         }
+    if segmented:
+        report["provenance"]["inherited_fit"] = result.get("inherited_fit", {})
+        report["outcomes"]["scope"] = "fresh_evaluation_only_same_original_training_streams"
+        report["segmented_evidence"] = {
+            "planned_episodes": config.get("budgets", {}).get("episodes"),
+            "declared_episode_segments": len(result.get("segments", [])),
+            "declared_load_segment": bool(result.get("setup")),
+            "declared_partial_segment": result.get("uncommitted_partial", {}).get("directory"),
+            "worker_exit_available": (run / "worker_exit.json").is_file(),
+            "owner_exit_available": (run / "owner_exit.json").is_file(),
+            "scope": "Saved declarations and file availability only; closed bytes, reset pairing, cumulative work and distinct off-host ACKs require the independent audit. Original S1 native attempts are not pooled.",
+        }
     if result_file == "fit_result.json":
         report["outcomes"]["scope"] = "fit_phase_only"
         report["outcomes"]["comparison_complete"] = False
@@ -267,6 +303,10 @@ def format_inspection(report: dict[str, Any]) -> str:
         lines.append(
             "Result scope: interrupted prefix only; full comparison and cost census incomplete"
         )
+    elif "segmented_evidence" in report:
+        lines.append(
+            "Result scope: fresh S1.1 evaluation only; original fitting and costs remain inherited"
+        )
     provenance = report["provenance"]
     lines.append(
         f"Frozen source: {provenance['source_file_count']} recorded files; present={provenance['source_present']}"
@@ -275,6 +315,11 @@ def format_inspection(report: dict[str, Any]) -> str:
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
     if "diagnostics" in report:
         lines.append(f"diagnostics: {json.dumps(report['diagnostics'], sort_keys=True)}")
+    if "segmented_evidence" in report:
+        lines.append(
+            f"segmented_evidence: {json.dumps(report['segmented_evidence'], sort_keys=True)}"
+        )
+        lines.append(f"inherited_fit: {json.dumps(provenance['inherited_fit'], sort_keys=True)}")
     lines.append(f"Inputs: {json.dumps(report['provenance']['input_manifest'], sort_keys=True)}")
     for item in report["files"]:
         state = "available" if item["available"] else "missing"

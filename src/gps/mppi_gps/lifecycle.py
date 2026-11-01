@@ -54,7 +54,8 @@ def freeze(
             python=sys.version,
             platform=platform.platform(),
             source_root=str(ROOT),
-            policy_action_fitting=command != "transfer-diagnosis",
+            policy_action_fitting=command
+            not in ("transfer-diagnosis", "student-source-evaluation-s1.1"),
             raw_search_protected=True,
         ),
     )

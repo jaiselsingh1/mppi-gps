@@ -92,6 +92,16 @@ worker ledger claims from individually verified records, and withholds native
 comparisons and gates. It never promotes the retained subset into a passing
 comparison.
 
+S1.1 has one evaluation-only worker, `student_source_evaluation.worker`. Its
+`controller` checks the unchanged observation arithmetic; `EvaluationMeter`
+checks cumulative work across segment rotation; `evaluation_exchange.publish_and_wait`
+blocks the next episode until the off-host coordinator acknowledges closed bytes.
+The [execution protocol](student_source_s1_1_execution_protocol.md) gives the exact
+owner/coordinator commands. Breakpoints in an authorized worker consume its global
+deadline and can trigger the 60-second ACK stop. Debug the synthetic fixtures in
+`tests/test_source_evaluation_worker.py` and `tests/test_source_evaluation_launch.py`
+first; never restart a paid run, reuse its mirror path or edit its frozen source.
+
 Checkpoint tensor hashes, whole-file SHA-256, raw-array hashes, fitting-array hashes and typed optimizer fingerprints have different byte contracts. They are not interchangeable. A checkpoint continuation includes normalization, optimizer state, private fitting RNG and proximal-anchor state as specified by the protocol; copying policy weights alone is not a matched child.
 
 ## Reports and independent audits

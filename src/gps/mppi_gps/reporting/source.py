@@ -18,8 +18,14 @@ import numpy as np
 from ..provenance import sha, write
 
 REPORT_SCHEMA = "walker-student-source-s1-report-v1"
+EVALUATION_REPORT_SCHEMA = "walker-student-source-s1.1-report-v1"
 CURVE_SCHEMA = "walker-student-source-s1-learning-bins-v1"
-RESULT_SCHEMAS = {"walker-student-source-s1-result-v1", "walker-student-source-s1-fit-v1"}
+EVALUATION_SCHEMA = "walker-student-source-s1.1-result-v1"
+RESULT_SCHEMAS = {
+    "walker-student-source-s1-result-v1",
+    "walker-student-source-s1-fit-v1",
+    EVALUATION_SCHEMA,
+}
 INTERRUPTED_SCHEMA = "walker-student-source-s1-interrupted-summary-v1"
 INTERRUPTION_AUDIT_SCHEMA = "walker-student-source-s1-interruption-audit-v1"
 SPLITS = ("mppi_train", "mppi_validation", "sac_reference_train", "sac_reference_validation")
@@ -388,6 +394,38 @@ def build_tables(
         for row in standalone
     ]
     reference_gaps, reference_gap_status = matched_reference_gaps(result, config)
+    work_groups = []
+    if result.get("schema") == EVALUATION_SCHEMA:
+        inherited = result.get("inherited_work", {})
+        for key, scope in (
+            (
+                "original_fit",
+                "Inherited original S1 closed fitting/reconstruction; not newly executed",
+            ),
+            (
+                "original_eval_known_prefix",
+                "Inherited original interrupted evaluation ledger prefix; not pooled with new outcomes",
+            ),
+            (
+                "original_eval_unknown_tail",
+                "Original interrupted unknown work remains unquantified, not zero",
+            ),
+        ):
+            value = inherited.get(key)
+            work_groups.append(
+                dict(
+                    group=key,
+                    scope=scope,
+                    **(_flatten(value) if isinstance(value, Mapping) else {"value": value}),
+                )
+            )
+        work_groups.append(
+            dict(
+                group="s1_1_new_native",
+                scope="Only newly recorded S1.1 native evaluation work",
+                **_flatten(result.get("work", {})),
+            )
+        )
     return dict(
         fitting=fitting,
         trajectories=trajectories,
@@ -406,6 +444,7 @@ def build_tables(
         matched_reference_gap_status=reference_gap_status,
         partial_attempts=[_flatten(row) for row in result.get("partial_attempts", [])],
         missing_roster=[_flatten(row) for row in result.get("missing_roster", [])],
+        work_groups=work_groups,
     )
 
 
@@ -426,6 +465,11 @@ def paired_bootstrap(result: Mapping[str, Any], config: Mapping[str, Any]) -> di
         seed=seed,
         scope="Descriptive paired-training-stream/shared-reset bootstrap. Fixed corpora are not resampled; frames, endpoints and resets are not independent training runs. Three streams do not establish population coverage.",
     )
+    if result.get("schema") == EVALUATION_SCHEMA:
+        output.update(
+            training_stream_origin="The same original S1 training streams; zero new training replications",
+            native_scope="Only fresh S1.1 reset panels; original interrupted outcomes are not pooled",
+        )
     if result.get("schema") == INTERRUPTED_SCHEMA:
         for panel in ("primary", "confirmation"):
             output[panel] = dict(
@@ -499,6 +543,50 @@ def _fits(result: Mapping[str, Any]) -> list[dict[str, Any]]:
     if isinstance(value, Mapping):
         return [dict(record, point=record.get("point", name)) for name, record in value.items()]
     return list(value)
+
+
+def _verify_inherited_fit(run: Path, result: Mapping[str, Any], config: Mapping[str, Any]) -> None:
+    """S1.1 reuses fitting measurements and owners; it cannot introduce new ones."""
+    if result.get("schema") != EVALUATION_SCHEMA:
+        return
+    binding = result["inherited_fit"]
+    if binding["sha256"] != config["source_bindings"]["s1_fit_result_sha256"]:
+        raise ValueError("S1.1 inherited closed-fit binding differs from the frozen recipe")
+    path = (run / binding["file"]).resolve()
+    if not path.is_relative_to(run) or sha(path) != binding["sha256"]:
+        raise ValueError("S1.1 inherited closed-fit file binding differs")
+    fit = json.loads(path.read_text())
+    if (
+        fit.get("schema") != "walker-student-source-s1-fit-v1"
+        or not fit.get("execution_complete")
+        or fit.get("error")
+    ):
+        raise ValueError("S1.1 requires the original complete fitting artifact")
+    for field in ("samplers", "teacher_outcomes"):
+        if result.get(field) != fit.get(field):
+            raise ValueError("S1.1 changed inherited fitting evidence: " + field)
+    if set(result["points"]) != set(fit["points"]):
+        raise ValueError("S1.1 inherited actor roster differs")
+    for name, original in fit["points"].items():
+        point = result["points"][name]
+        for field in (
+            "pair",
+            "arm",
+            "update",
+            "parameter_count",
+            "metrics",
+            "optimizer_fingerprint",
+        ):
+            if point.get(field) != original.get(field):
+                raise ValueError("S1.1 changed inherited point evidence: " + name + "/" + field)
+        for field in ("sha256", "policy_hash", "bytes"):
+            if point.get("checkpoint", {}).get(field) != original.get("checkpoint", {}).get(field):
+                raise ValueError("S1.1 changed inherited checkpoint owner: " + name)
+    fields = ("point", "pair", "arm", "sha256", "optimizer_fingerprint")
+    original_fits = sorted(tuple(row.get(field) for field in fields) for row in _fits(fit))
+    inherited_fits = sorted(tuple(row.get(field) for field in fields) for row in _fits(result))
+    if original_fits != inherited_fits:
+        raise ValueError("S1.1 inherited fit-curve ownership differs")
 
 
 def learning_bins(
@@ -753,6 +841,8 @@ def _portable_bins(
     ]
     if result.get("schema") == INTERRUPTED_SCHEMA:
         required.extend([run / "fit_result.json", result_path.parent / "receipt.json"])
+    if result.get("schema") == EVALUATION_SCHEMA:
+        required.append(run / result["inherited_fit"]["file"])
     if ledger_claims is not None:
         required.extend([ledger_claims, catalog_path])
     if capsule is not None:
@@ -800,6 +890,10 @@ def _portable_bins(
         or manifest.get("original_file_catalog_sha256") != sha(catalog_path)
     ):
         raise ValueError("S1 portable forensic claim binding differs")
+    if result.get("schema") == EVALUATION_SCHEMA and manifest.get("inherited_fit") != result.get(
+        "inherited_fit"
+    ):
+        raise ValueError("S1.1 portable inherited-fit binding differs")
     if ledger_claims is not None and not (
         receipt.get("verified_against_original_ledger") is True
         or receipt.get("source_report_verified_against_original_ledger") is True
@@ -843,7 +937,12 @@ def _save_figure(figure: Any, path: Path, plt: Any) -> None:
 
 
 def _figures(
-    tables: Mapping[str, Any], config: Mapping[str, Any], out: Path, *, forensic: bool = False
+    tables: Mapping[str, Any],
+    config: Mapping[str, Any],
+    out: Path,
+    *,
+    forensic: bool = False,
+    inherited_fit: bool = False,
 ) -> None:
     import matplotlib.pyplot as plt
 
@@ -877,7 +976,11 @@ def _figures(
         axis.set(title=split, xlabel="Paired training seed", ylabel="Original-torque action MSE")
         axis.set_xticks([0, 1, 2])
     axes[0, 0].legend(fontsize=8)
-    figure.suptitle("All four fixed reconstruction splits; held data select no endpoint")
+    figure.suptitle(
+        "Inherited S1 reconstruction; no new prediction or endpoint selection"
+        if inherited_fit
+        else "All four fixed reconstruction splits; held data select no endpoint"
+    )
     _save_figure(figure, out / "reconstruction", plt)
 
     figure, axes = plt.subplots(1, 3, figsize=(14, 4.5), constrained_layout=True)
@@ -913,7 +1016,11 @@ def _figures(
             ylabel="Minibatch action MSE",
         )
     axes[0].legend(fontsize=8)
-    figure.suptitle("Fixed 100-update bins; min–max shading is minibatch spread, not uncertainty")
+    figure.suptitle(
+        "Inherited S1 loss bins; no new fitting (min–max is minibatch spread)"
+        if inherited_fit
+        else "Fixed 100-update bins; min–max shading is minibatch spread, not uncertainty"
+    )
     _save_figure(figure, out / "learning_curves", plt)
 
     if forensic:
@@ -984,7 +1091,9 @@ def _figures(
             if field.endswith("fraction"):
                 axis.set_ylim(0, 1.03)
     figure.suptitle(
-        "Recorded complete episode outcomes only; missing actors/attempts are not failures"
+        "S1.1 fresh panels; recorded complete episodes only, missing attempts are not failures"
+        if inherited_fit
+        else "Recorded complete episode outcomes only; missing actors/attempts are not failures"
     )
     _save_figure(figure, out / "standalone_outcomes", plt)
 
@@ -1012,7 +1121,11 @@ def _figures(
     handles, labels = axes[0].get_legend_handles_labels()
     if handles:
         axes[0].legend(handles, labels, fontsize=7)
-    figure.suptitle("Absorbing tail and native terminal charges are reported separately")
+    figure.suptitle(
+        "S1.1 fresh-panel costs; absorbing tail and native terminal are separate"
+        if inherited_fit
+        else "Absorbing tail and native terminal charges are reported separately"
+    )
     _save_figure(figure, out / "cost_components", plt)
 
 
@@ -1067,13 +1180,23 @@ def markdown_report(
 ) -> str:
     gates = result.get("gates", {})
     interrupted = result.get("schema") == INTERRUPTED_SCHEMA
+    reevaluation = result.get("schema") == EVALUATION_SCHEMA
     observed = len(tables["episodes"])
     lines = [
-        "# S1: MPPI-data versus competent-reference-data cloning",
+        "# S1.1: fresh evaluation of the retained S1 actors"
+        if reevaluation
+        else "# S1: MPPI-data versus competent-reference-data cloning",
         "",
         f"Artifact: **{phase}**. Artifact execution complete: **{result.get('execution_complete', False)}**. "
         f"Status: **{result.get('status', 'unavailable')}**. Recorded native attempts: **{observed}/320**.",
         f"Error: `{json.dumps(result.get('error'), allow_nan=False)}`.",
+        "**Evaluation only:** all fitting, four-split reconstruction metrics and loss curves are inherited "
+        "from the original closed S1 fit result. S1.1 performs zero fitting, reconstruction inference, "
+        "backward steps, Adam updates or GPU work. Its new native outcomes use entirely fresh paired "
+        "reset panels, and the original interrupted native attempts are not pooled into either panel. "
+        "These are the same three training realizations, not three new training replications."
+        if reevaluation
+        else "",
         "**Interrupted experiment; this is a scoped verified-prefix report, not a completed S1 comparison.** "
         "The original evaluation result and owner exit remain absent. This separately audited summary "
         "does not replace them. Final source-benefit, competence gates and comparative bootstrap intervals "
@@ -1090,7 +1213,8 @@ def markdown_report(
         "",
         "## Intervention and limits",
         "",
-        "Frozen design: three paired fresh 128-tanh initializations each fit once on 4,000 original MPPI rows and once on "
+        ("Original S1 fitting design (inherited): " if reevaluation else "Frozen design: ")
+        + "three paired fresh 128-tanh initializations each fit once on 4,000 original MPPI rows and once on "
         "4,000 executed competent-reference rows, at the fixed 2k endpoint. Both use the exact shared W2 "
         "normalization, paired minibatch index tapes and optimizer settings. The source changes reset "
         "contexts, states, gait, torque statistics and controller history jointly. This is a whole-corpus "
@@ -1099,7 +1223,7 @@ def markdown_report(
         "reflect conditioning or the finite fitting budget.",
         "",
         "The reference-data arm uses the reference's own executed behavior, not reference relabels at MPPI "
-        "states. Both source arms are fresh fits on the same pinned CUDA backend; historical CPU W2 policies "
+        "states. Both original source arms were fit on the same pinned CUDA backend; historical CPU W2 policies "
         "are context, not matched controls. Native standalone execution uses the pinned CPU simulator. "
         "No new teacher acquisition, trajectory optimization or acquisition–learning feedback occurs.",
         "",
@@ -1115,7 +1239,8 @@ def markdown_report(
         "A final partial bin contains only recorded updates. Min–max shading is minibatch spread, not "
         "a confidence interval. Full per-update JSON hashes and update counts remain in "
         "`learning_bins_manifest.json`; no extra diagnostic inference is hidden in these curves.",
-        f"Recorded curve files: **{len(_fits(result))}/6**; binned recorded updates: "
+        ("Inherited " if reevaluation else "Recorded ")
+        + f"curve files: **{len(_fits(result))}/6**; binned original updates: "
         f"**{sum(int(row['updates']) for row in tables['learning_bins'])}/12000**.",
         "",
         "## Standalone outcomes and separate decisions",
@@ -1167,6 +1292,12 @@ def markdown_report(
         "It requires complete paired panels; missing outcomes produce an unavailable result, not an imputed "
         "interval. Corpora are fixed, and frames, actors' resets and endpoints are not extra training "
         "replications. All-zero observed walking does not prove equal population success rates.",
+        "S1.1 evaluates the same fixed three S1 training streams after observing the interrupted run's "
+        "documentary primary declarations. A later pass cannot erase or retroactively confirm that "
+        "original screen, and repeated testing is not a new learning gain. Bootstrap rows use only the "
+        "new S1.1 reset panels; inherited native attempts are excluded."
+        if reevaluation
+        else "",
         "For this interrupted comparison both final bootstrap panels are unavailable. Known completed "
         "primary observations remain descriptive; incomplete confirmation is not silently substituted "
         "with a smaller experiment."
@@ -1197,7 +1328,13 @@ def markdown_report(
         "their own versioned protocol. Retain negative results and formulate one unlaunched next hypothesis; "
         "no weighting, transport loss, critic, normalization change or follow-up launches automatically.",
         "",
-        "`cost_accounting.json` separates saved fit/evaluation phase counters and imported evidence from "
+        "`work_groups.csv` and `cost_accounting.json` keep original closed fitting, original interrupted "
+        "evaluation's known prefix, its unknown tail, and newly paid S1.1 native work separate. Original "
+        "12,000 Adam updates, 3,072,000 backward rows and 3,180,000 forward rows are inherited once, not "
+        "new S1.1 work; no unknown original amount is set to zero. Off-host acknowledgement and mirror "
+        "engineering costs remain separately recorded."
+        if reevaluation
+        else "`cost_accounting.json` separates saved fit/evaluation phase counters and imported evidence from "
         "report arithmetic. The planned six fits total 12,000 Adam steps and 3,072,000 backward rows; only "
         "actual recorded counters are reported as completed. Reporting performs zero new forward, backward, "
         "optimizer, simulator or teacher-acquisition work.",
@@ -1355,6 +1492,7 @@ def render(
         run / "input_manifest.json"
     ):
         raise ValueError("S1 input-manifest binding differs")
+    _verify_inherited_fit(run, result, config)
     portable = capsule is not None or any(
         not (run / fit["file"]).is_file() for fit in _fits(result)
     )
@@ -1417,6 +1555,8 @@ def render(
             fit_result_sha256=sha(run / "fit_result.json"),
             interruption_audit_receipt_sha256=interruption_audit_sha256,
         )
+    if result.get("schema") == EVALUATION_SCHEMA:
+        curve_manifest.update(curve_origin="inherited_s1", inherited_fit=result["inherited_fit"])
     if forensic:
         curve_manifest.update(
             failed_audit_display=True,
@@ -1436,15 +1576,25 @@ def render(
     import matplotlib
 
     matplotlib.use("Agg")
-    _figures(tables, config, out, forensic=forensic)
+    _figures(
+        tables,
+        config,
+        out,
+        forensic=forensic,
+        inherited_fit=result.get("schema") == EVALUATION_SCHEMA,
+    )
     write(
         out / "cost_accounting.json",
         dict(
             phase_work=result.get("phase_work", {}),
             recorded_work=result.get("work", {}),
+            inherited_work=result.get("inherited_work", {}),
+            inherited_fit=result.get("inherited_fit"),
             platform=result.get("platform", {}),
             planned_budgets=config.get("budgets", {}),
-            counter_scope="Combined recorded work already includes each phase once; phase tables explain it and must not be added again.",
+            counter_scope="Recorded work is new S1.1 native evaluation only. Original fitting, original interrupted evaluation prefix and unknown tail are inherited, never pooled or charged again."
+            if result.get("schema") == EVALUATION_SCHEMA
+            else "Combined recorded work already includes each phase once; phase tables explain it and must not be added again.",
             worker_wall_seconds=result.get("wall_seconds"),
             artifact_phase=result_file,
             failed_audit_display=forensic,
@@ -1467,6 +1617,9 @@ def render(
             else None,
             original_curve_files=len(bindings),
             binned_updates=sum(int(row["updates"]) for row in bins),
+            binned_update_scope="Inherited S1 updates; zero new fitting/reconstruction"
+            if result.get("schema") == EVALUATION_SCHEMA
+            else "Original S1 recorded fitting updates",
             render_scope="portable_learning_bins" if portable else "full_saved_curves",
             report_new_forward_rows=0,
             report_backward_rows=0,
@@ -1478,10 +1631,14 @@ def render(
         ),
     )
     receipt = dict(
-        schema=REPORT_SCHEMA,
+        schema=EVALUATION_REPORT_SCHEMA
+        if result.get("schema") == EVALUATION_SCHEMA
+        else REPORT_SCHEMA,
+        study="S1.1" if result.get("schema") == EVALUATION_SCHEMA else "S1",
         run=str(run),
         result_file=result_file,
         result_sha256=sha(result_path),
+        inherited_fit=result.get("inherited_fit"),
         interruption_summary_sha256=sha(result_path) if interruption_summary is not None else None,
         fit_result_sha256=sha(run / "fit_result.json")
         if interruption_summary is not None

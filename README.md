@@ -10,7 +10,7 @@ The [W1 width contrast](docs/student_width_w1_results.md) is also closed: wideni
 
 The [W2 update-budget contrast](docs/student_update_w2_results.md) confirmed that 2k checkpoints retain more controls and have lower complete cost than their continued 10k counterparts, across three fresh streams and a separate confirmation panel. Every endpoint still has **0/16 walking and full survival** on each panel. This is partial retention, not competent walking. W2 launched no follow-up.
 
-The [S1 source comparison](docs/student_source_s1_results.md) completed six matched fits, then the host rebooted during confirmation. Its original evidence is preserved; the full comparison remains incomplete. [S1.1](docs/student_source_s1_1_protocol.md) proposes fresh evaluation of the fixed actors after durability work, with no retraining or automatic launch. The preceding [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md) remains complete and audited.
+The [S1 source comparison](docs/student_source_s1_results.md) completed six matched fits, then the host rebooted during confirmation. Its original evidence is preserved; the full comparison remains incomplete. [S1.1](docs/student_source_s1_1_execution_protocol.md) is authorized for fresh evaluation of the fixed actors after durability validation, with no retraining. Its [historical proposal](docs/student_source_s1_1_protocol.md) remains preserved. The preceding [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md) remains complete and audited.
 
 ## Setup
 
@@ -40,6 +40,7 @@ uv run python scripts/train_mppi_gps.py study width --help
 uv run python scripts/train_mppi_gps.py study update-budget --help
 uv run python scripts/train_mppi_gps.py study transfer-diagnosis --help
 uv run python scripts/train_mppi_gps.py study source --help
+uv run python scripts/train_mppi_gps.py study source-evaluation --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 
