@@ -1,0 +1,2105 @@
+{
+  "schema": "walker-cio-source-v1",
+  "command": "teacher-proposal-h5.0",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "767b6065d8ce18f68f9a83648203af7fce3b731fa3934de47c0018c496474243"
+    },
+    {
+      "file": "assets/walker2d.xml",
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    {
+      "file": "configs/mppi_gps_walker.json",
+      "sha256": "8dbd655e8d28b675f58b980f5f3ac31418390a37b6b781e5a7cd32888062b7d1"
+    },
+    {
+      "file": "configs/studies/README.md",
+      "sha256": "7433f619be117605ac87c4f9c834254045569a8aa78c5a8ef90cc29a97f381e7"
+    },
+    {
+      "file": "configs/studies/action_compatibility.json",
+      "sha256": "5d66e5158fc1c67c11aabf6d275d55cc920a78041bb9ff9ccaa62ebbf1d8d6f8"
+    },
+    {
+      "file": "configs/studies/adaptive_coupling.json",
+      "sha256": "0b1d6c03ce3a44ee956d6ae6c64fc45a3389951e3ebd8fd437368c2dcad0efbc"
+    },
+    {
+      "file": "configs/studies/guided_data_comparison.json",
+      "sha256": "4873c0bd40fb3b15654b991cd4a2c09cee3d3e44aead14e553b492c4d3571b45"
+    },
+    {
+      "file": "configs/studies/motion_diagnosis.json",
+      "sha256": "6e01b7967906723e6c2af099472fefd8db8ceb93497116d4658f3f88af4b196f"
+    },
+    {
+      "file": "configs/studies/motion_inputs_k1_2.json",
+      "sha256": "31b64f1893b4e62f37cdac4db3eb40a2f65856ed815afbabad82e443cacf7d7c"
+    },
+    {
+      "file": "configs/studies/student_learnability.json",
+      "sha256": "f08673bf01cce8fa045e1576823add2f40685927388aaca1ffc93fdc706b7332"
+    },
+    {
+      "file": "configs/studies/student_source.json",
+      "sha256": "9848f9cb0a0cae94e23dc66cfce233f3fca379d26ddd6bc6819696bd6e0c95ea"
+    },
+    {
+      "file": "configs/studies/student_source_evaluation.json",
+      "sha256": "2fa20b855c44d0430c39b8a57c083b83450be5d248517490b5bdb1dc0f376c1d"
+    },
+    {
+      "file": "configs/studies/student_source_s1_1_proposal.json",
+      "sha256": "65a6468237ac788c9189b9b014b66b44a4068c0156e1e76dc7e9a9c3c0cd21c2"
+    },
+    {
+      "file": "configs/studies/student_source_s1_proposal.json",
+      "sha256": "685f649afe47b872589d85a87e42f5fee35dac95eb078ecb722abffafe886789"
+    },
+    {
+      "file": "configs/studies/student_update_budget.json",
+      "sha256": "5c0120141dab995e1821e8e440d6e9a785c7174dff4f563231ab96f252d5c8fe"
+    },
+    {
+      "file": "configs/studies/student_width.json",
+      "sha256": "957ada1cf34d4b8756c79a2437413f78add5534876d3c2d12cbdfc0335370930"
+    },
+    {
+      "file": "configs/studies/teacher_proposal_h5_0.json",
+      "sha256": "9a8a0bbd77327186e6984f67d68162c31c6b2292532cb82be27e005b7b221c16"
+    },
+    {
+      "file": "configs/studies/teacher_proposal_h5_0_round1.json",
+      "sha256": "5fe92168c331e433c3843a4ae4b319e279deec963cc7afb7f3a2a599b1c753ad"
+    },
+    {
+      "file": "configs/studies/trajectory_review.json",
+      "sha256": "0e45ee0095b58411f367cb057b0f118af09b183dc968980715acda9d7e5f78b0"
+    },
+    {
+      "file": "configs/studies/transfer_diagnosis.json",
+      "sha256": "a3eeec62a2ba5360b69d977d3b94ad40fc4769ea439a72a18fe390afbfd1b6ad"
+    },
+    {
+      "file": "configs/walker2d_best.json",
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6"
+    },
+    {
+      "file": "configs/walker2d_task.json",
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a"
+    },
+    {
+      "file": "docs/README.md",
+      "sha256": "b0df02f6ecf67aa63373d8daf3deb0f789a97016033d6dd08d1e547bcb656ba6"
+    },
+    {
+      "file": "docs/action_compatibility_k1_protocol.md",
+      "sha256": "79872b4de7f948c049575a014a4e1587b4717c317937219d59c13be50b1abbf8"
+    },
+    {
+      "file": "docs/action_compatibility_k1_results.md",
+      "sha256": "56978dcc2e85ff7f48d7e063776662f8ed7622d2a1d5853eac52d86c3e026e9f"
+    },
+    {
+      "file": "docs/adaptive_coupling_h4_1.md",
+      "sha256": "2f4f22ff03636a804033becaa94ed31e7c4d781cabaf07fd476adcc1ece77a76"
+    },
+    {
+      "file": "docs/adaptive_coupling_h4_2_hypothesis.md",
+      "sha256": "7ad318f750b4ec63cff7176614f2ed8400927dbdfaf35d767a376b5c57ce0bf5"
+    },
+    {
+      "file": "docs/adaptive_coupling_protocol_h4_1_001.md",
+      "sha256": "aa8f7b21631ec28ed04184dc8633d7cf086e8f7a0aa981c95be0e44c94ba8d6e"
+    },
+    {
+      "file": "docs/adaptive_coupling_review_v1.md",
+      "sha256": "19d173da2c4411a1586a5aac8f20d7d5b8fba40913f08e543727e4595998c866"
+    },
+    {
+      "file": "docs/algorithm.md",
+      "sha256": "0c1ac40bc640d691dfe59184e5d679d1a18bce48490750ad80e428ebc0a82b63"
+    },
+    {
+      "file": "docs/code_map.md",
+      "sha256": "fe0311a1567ef51e529fbe584fcd5089f958d9ee2b4055b0b17436393c3b7d1f"
+    },
+    {
+      "file": "docs/development.md",
+      "sha256": "ce339800389fe775df415d4f1cffe0b4ab44200283a237f840fe2fd19ce4760c"
+    },
+    {
+      "file": "docs/evidence_availability.md",
+      "sha256": "36a4175e96c0bb5f1b6393b9dde12be9744bcda3887047cff811eca707c076b5"
+    },
+    {
+      "file": "docs/evidence_index.json",
+      "sha256": "8c0a24e6338925ee5c6227798df879f4e21ef79025ca60a69b719f8493ff0df0"
+    },
+    {
+      "file": "docs/external_reference_index.json",
+      "sha256": "e987536247873f2843e1d5c473af20d6c2f838125a4a6b036f71ff4a4b48855e"
+    },
+    {
+      "file": "docs/figures/policy_diagnosis.png",
+      "sha256": "6eab30e4af8e89585867962fe3470994d0100da093d5a66ddc28d70809a6a2c9"
+    },
+    {
+      "file": "docs/figures/policy_learning_curves.png",
+      "sha256": "c6d4653d91250a98f4703c35e1c53dbaa06060cbec7be1f672ae7f050c191fc0"
+    },
+    {
+      "file": "docs/figures/walker_v2_summary.png",
+      "sha256": "d70fd35dd2ebb88b237e82ae81f2cb9dad6f02e83b0392c64413e5743cdc0d7b"
+    },
+    {
+      "file": "docs/history.md",
+      "sha256": "7462e3b08787240b02e7d3c2993a4f0bca588902f409a79edbffa73927dc75e2"
+    },
+    {
+      "file": "docs/k1_fixed_reference_spread.json",
+      "sha256": "d7731215c5ec7f681ade6c153753f2d6a2a602a78bfa8147e27f426af679748a"
+    },
+    {
+      "file": "docs/loop_v3_evidence_audit.md",
+      "sha256": "172ec04b670738679cf8023cc0dbdb8f1c02393991cf6ce48606793dbebf5228"
+    },
+    {
+      "file": "docs/loop_v3_formulation.md",
+      "sha256": "4f1fb833390dee23fe4a43fece7eb88e67297ca46f6752171eebfa9a6b8bdfad"
+    },
+    {
+      "file": "docs/loop_v3_next_hypothesis_v3_2.md",
+      "sha256": "eca34bdb572e79436d923277333607a160c86f7409600bc4080bf1fc45b12f97"
+    },
+    {
+      "file": "docs/loop_v3_prior_art.md",
+      "sha256": "c11ec57a8f284ed3602b8839cff76a4ed2a456185d3ebc8468a203ccd773a4ec"
+    },
+    {
+      "file": "docs/loop_v3_results.md",
+      "sha256": "ba1ea0ee68bdff7b5c429b5c7da51192c173ef1e4cb5a56088ca70f33cb488f3"
+    },
+    {
+      "file": "docs/loop_v3_saved_comparison_protocol.md",
+      "sha256": "55d248733fbb1c97cc6be863166005aefaf1a2d4d39192be5f9a66b20cb08d90"
+    },
+    {
+      "file": "docs/methods.md",
+      "sha256": "8836fcfc28afb72548dc7d62d040195940cfe6927c3452792fa65d2d136ada11"
+    },
+    {
+      "file": "docs/motion_diagnosis_k1_2_protocol.md",
+      "sha256": "dd833bdaa53caeccca201cd708380e79fabe522c7f8809f0f7a0366c45852784"
+    },
+    {
+      "file": "docs/motion_diagnosis_k1_2_results.md",
+      "sha256": "1fce786c9e300e01fae11175a6a62facd9a32b88075c8a0ff796e6cdc4b2efd2"
+    },
+    {
+      "file": "docs/paper_mapping.md",
+      "sha256": "43c03278301445e8e01ad9306089822fc328f1ec0ff457d0a551b885a0b39ed5"
+    },
+    {
+      "file": "docs/research_tracks.md",
+      "sha256": "7e8c9b7116f1ca50f0fbc8b06a8f6b2d8b8fb4175b7dbd91057a19c7c2a3ed90"
+    },
+    {
+      "file": "docs/results.md",
+      "sha256": "76fa39333fc33b87aa7c963266946afb9cf7a7076f9c5075b744d69518e2855c"
+    },
+    {
+      "file": "docs/student_learnability_l1_results.md",
+      "sha256": "cde7fe17f2879fbf9d64c6e6a967812513873d1e81d6984c1fd88274b7699310"
+    },
+    {
+      "file": "docs/student_learnability_protocol_l1_001.md",
+      "sha256": "eeb8c64ab230d0a8401b894f773e974ce85d7011d755eea185a13712a2390762"
+    },
+    {
+      "file": "docs/student_learnability_track_v1.md",
+      "sha256": "4b8bfa3b72023b06691f74a177dbc7596c580ca2325ca23b8cabe6bee1b05770"
+    },
+    {
+      "file": "docs/student_source_s1_1_execution_protocol.md",
+      "sha256": "4dbc626c4021102ccda05dbc36f8b4f7526da46218b1644897770aad17542863"
+    },
+    {
+      "file": "docs/student_source_s1_1_protocol.md",
+      "sha256": "224a6465f14b041d93ff35939fad042cd5e8b2c7ec5bfbc755ac7d1fbcc4a99e"
+    },
+    {
+      "file": "docs/student_source_s1_1_results.md",
+      "sha256": "21b37b74671492727e0f04576a5739bd9db94bea8f620c4b99c25e7781d95757"
+    },
+    {
+      "file": "docs/student_source_s1_execution_protocol.md",
+      "sha256": "a9750524059a86a4c6eb8a30bd9a46a70685f203bca1f1a2ec47049792e1f024"
+    },
+    {
+      "file": "docs/student_source_s1_protocol.md",
+      "sha256": "dc044ec9c4a844f6a27462253a60dba07c8d46ca578bfcce226094c54464cfee"
+    },
+    {
+      "file": "docs/student_source_s1_results.md",
+      "sha256": "a3eaf913c490e61ee981dc813a4062e9b8af68a1970130d2a3d8bff5e2fd5baa"
+    },
+    {
+      "file": "docs/student_update_w2_hypothesis.md",
+      "sha256": "c52b8d12a8f3e1e26c8336c610ba71b7fc08cfdb28326ad646cb961ef39aa23a"
+    },
+    {
+      "file": "docs/student_update_w2_protocol.md",
+      "sha256": "3ae6fae2ce1936a18adc2beb71e1bbb7f04fc4348d8fbc80a9cc0b5f6d37cddb"
+    },
+    {
+      "file": "docs/student_update_w2_results.md",
+      "sha256": "b65748b061182eafddb4af5563e1258b7f7fe63a73778f9a44f9036bbf39e83e"
+    },
+    {
+      "file": "docs/student_visitation_s1_2_hypothesis.md",
+      "sha256": "f31f8a0c13d73d248a3e29f514e841bcfda053f9b70a959a9f12d2dece89b512"
+    },
+    {
+      "file": "docs/student_width_w1_protocol.md",
+      "sha256": "9f5ba458b6b40bd39036d1d558ac33e208bce37630868ad9734caa00dd6fcd27"
+    },
+    {
+      "file": "docs/student_width_w1_results.md",
+      "sha256": "ff5b3563b880e2a6a91ee0be582757e342d83b9acdd33689cc261bc12874e36c"
+    },
+    {
+      "file": "docs/teacher_proposal_h5_0_execution_protocol.md",
+      "sha256": "728b01abf4dd991f99d6cb16066188f2d2f3739f007e0ccda5c538d82ae8dd07"
+    },
+    {
+      "file": "docs/teacher_proposal_h5_0_hypothesis.md",
+      "sha256": "439494500fdc5c006830974ed73338a95832afe45cadd0b703cc90eb70dde673"
+    },
+    {
+      "file": "docs/teacher_proposal_h5_0_metric_review.md",
+      "sha256": "7aef469766f129d94d6d122ec9e91762e796333269d7ff10f000b5c9158b739a"
+    },
+    {
+      "file": "docs/teacher_proposal_h5_0_round1_launch.md",
+      "sha256": "bce47eaf4e691aa34af062136ae95a3b28ec11c0efd04f8d5923d26a978fcec9"
+    },
+    {
+      "file": "docs/trajectory_review_k1_1_protocol.md",
+      "sha256": "5607a6c108681ac0792041ffb36a280bda5d089fbb42a0633293ad542aa12fa4"
+    },
+    {
+      "file": "docs/trajectory_review_k1_1_results.md",
+      "sha256": "6dc3b1db5ebeb7692a971f88c40d61c30403eadb0d1aea6174b082f69a7d7e12"
+    },
+    {
+      "file": "docs/transfer_diagnosis_d1d2_protocol.md",
+      "sha256": "7e8f142fbec7bccf6fca2ecf604bab19b24efd8d9a8b703a52ec053d9a3a951c"
+    },
+    {
+      "file": "docs/transfer_diagnosis_d1d2_results.md",
+      "sha256": "6eb6d534f45acc770e2616024e827572c4ee401f30b4e3b5ba51afdf485977bf"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/README.md",
+      "sha256": "34bf8be315d689720f985afa667c9c52b9169526fa55db939ef2200d7f658793"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/clean_export.txt",
+      "sha256": "64c93bfeb1a976a7ea2118bc1203c6ae4524eab66502e23c567c572482dd91c3"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/first_export_pytest.txt",
+      "sha256": "aef687abf1fb95793018e1651a06074cac10cda49eb8ff0d0be1176ec57430e1"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/h4_audit_receipt.json",
+      "sha256": "0a22f458e869c208e00554649e6e83aad11ea0af084df837e8000e1c31f2169e"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/headless_pytest.txt",
+      "sha256": "55665444e52cea5f2e6f27a056be548014078ac21e2288b39fe864f3924c3198"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/l1_audit_receipt.json",
+      "sha256": "1aa943998a16aa950382aca9c69e200c51f0c91891025651f6231bdbbf6d2439"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/pytest.txt",
+      "sha256": "06d58fb670b627331b4707bd8d2ffb32e897d41166ff266d02dc41471c653aae"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/v3_audit_receipt.json",
+      "sha256": "a82f9818b89cce41d874ad7dd25d71c06236b18396395155e18c6881dbed3e68"
+    },
+    {
+      "file": "docs/validation/cleanup_2026-10-30/validation.json",
+      "sha256": "5ab77269d6a6d18adae531fe6db426cdb00ca13dc25c1baee3e801bddcb457fa"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/README.md",
+      "sha256": "04f4c9a5b7651db5d1d72ec6a15c82ce7106a07b3e16dbc8686dd9f809f95f75"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/capsule_copy_hash_receipt.json",
+      "sha256": "f9bf6962b29eb59ada1210f667561159d40cffd27fa5cc4cff2a57203292bbc5"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/clean_export.json",
+      "sha256": "c2f3c4bcf9d4f02017e218680082c436d08a61df98d1a1f76e784ee9fb653c24"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/clean_export_pytest.txt",
+      "sha256": "0334e9a10ca8784369f3321d89e0e85920b9bd7b6d7fa2a62740a122180963f9"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/clean_export_repository_checks.json",
+      "sha256": "9738cd69a04bcaec9a5214ea3961e6d22695eb2bca1aeeeb7498c11b0fc7899f"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/receipt.json",
+      "sha256": "16bb1f589fe715ba571bd2408afb39c3052adaed03d330241efefcfd527971cc"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/repository_checks.json",
+      "sha256": "1267d0874d3dd94acd0743baf9e0a04a03e7ecfc8fe6f35adb22640ad9868e9c"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/ruff_check.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "file": "docs/validation/diagnostic_k1_2026-10-31/ruff_format.txt",
+      "sha256": "567cf9662cb4d79c3e23b3904f6b02d25d7ae3d1f3da6155dd946d1e871cad4e"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/README.md",
+      "sha256": "b44f98737fca107fd578671c1170316f19446affb05a11ae0011d0ced04b30fb"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/integrated_report_verification.json",
+      "sha256": "dee1948e63d4221104efa4639d67305112659f989cd28470f40bcbbffeb00427"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/integrated_report_verification_002.json",
+      "sha256": "766f3944ae821edf35020aecc52dbdc79a608ca399f47ea925e3179b146b0d71"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/mirror_catalog.py",
+      "sha256": "94b8bc75580903a4cb336d5ca96d7822bff4859b3e98dbb15d59e3528b724979"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/mirror_catalog_local_001.json",
+      "sha256": "38817afff1b7d630971a7b03744f5fabcfbb09ec6d0a97cec62f90d1b9d2e0ac"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/obsidian_update.json",
+      "sha256": "9c656ebca9f1236bdad0126aafda6177aa33de06328276a0f3c974249d1aadcd"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/portability_correction_002.json",
+      "sha256": "0533ffb806bf81ced9274e01962faa1df10a1983dd8431268bae7ea1902854c7"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/portability_correction_receipt_002.json",
+      "sha256": "be85fbf4cf71ddfc25a43a2c1815afd22fe7d515e633ff36771eba74bce51308"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/update_obsidian.py",
+      "sha256": "1167eedee5cb72fa7f31d20bc64e42fb166448197cdc847bf4508ad2962f732b"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/verify_integrated_report.py",
+      "sha256": "fdcf419df08164a9477e2329cf6545d855640958a82f09c63c5fab068136384f"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/verify_integrated_report_002.py",
+      "sha256": "ce529102811d634134ad59ad4cfc548969361cffdab362684bdf4739d05432e2"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/checks/verify_obsidian_update_002.py",
+      "sha256": "db5910289d4a72c48d803d41e30de8c65fc3c9bcf6335eff2dfeae9bc54ec2b8"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/README.md",
+      "sha256": "5341447d4c8b6c5f1c89e044808f391590e9ba232cb51ecb2ff06f2379c2fd78"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/043_ci_failed/decoded_job_logs.txt",
+      "sha256": "579ef1c0d746de1255771f9d04039ff5559bd6bc7c7ccb3092bd65ad421b0841"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/043_ci_failed/jobs.json",
+      "sha256": "be3cbca76a26b9c6660d72a3ba43648729625e32a77d73d7dafa3fb52b9131ae"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/043_ci_failed/run.json",
+      "sha256": "8347965228c8faa255f45ac7c6f26cb68bd813fdf347f44edb94233aa6705e46"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/044_linux_synthetic/receipt.json",
+      "sha256": "4279103657c7d0a02ef8787ae3f36793c7b951f7b41eda4eb8e8b929eba8358f"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/044_linux_synthetic/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/044_linux_synthetic/stdout.txt",
+      "sha256": "715a6413565e34fa2f72243516a87faf02d8497e68d0719a4a92079930283fdd"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/045_linux_rss_pressure/receipt.json",
+      "sha256": "87e0ef8d69052888842231fc3b2e325b540f05868524d362bff12974ef103138"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/045_linux_rss_pressure/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/045_linux_rss_pressure/stdout.txt",
+      "sha256": "83a648ab61fda6510e78cf62b3e764445b87f4f776672c79a57a03cf369a9d8e"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/046_linux_isolated_pressure/receipt.json",
+      "sha256": "6f1c690690c3a03574344e2ab7826e7a09056ccec5cf8e61f9b1624ea8359db2"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/046_linux_isolated_pressure/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/046_linux_isolated_pressure/stdout.txt",
+      "sha256": "a66524067c81acebf4b2620b3f442183821c1773c7ac096ea5a9980b1d0d8854"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/047_report_isolation_tests/receipt.json",
+      "sha256": "8a6ccfe9a32cbd7dec1f5fe1e3965f1bde82b863a4f9724abd93d3c8a894eab1"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/047_report_isolation_tests/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/047_report_isolation_tests/stdout.txt",
+      "sha256": "a1f2da9141b530631bba12001d576f66f923bc3c9a7113bab7f07dc03c809ec5"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/048_linux_receipt_retrieval/receipt.json",
+      "sha256": "1a87dd8dfc02b7e4707f62a696c3a7737c75f481b69a5fde2a3555180ce69508"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/048_linux_receipt_retrieval/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/048_linux_receipt_retrieval/stdout.txt",
+      "sha256": "e3e2ccdf27e2bad030e6c2f05cf244a997c7660d1b2168d825d87d6f8d89dfee"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/049_isolation_style/receipt.json",
+      "sha256": "bb99536f75b7fc4893e91093e4ad7c8998bc63b95eb908b866e6f52bf66a5286"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/049_isolation_style/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/049_isolation_style/stdout.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/050_isolation_format/receipt.json",
+      "sha256": "1dbe77cfdabd7606858e52b996d685012c7c6bf0fdb7953ecd89d29bfdc08e05"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/050_isolation_format/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/commands/050_isolation_format/stdout.txt",
+      "sha256": "153896926bf3e4ec851f2c60cd2d0fdf02482cf97243bf90f64c69d8375af150"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/receipt.json",
+      "sha256": "a8091514e42137f9d5396fc0604c6a66f7f43a89ffdc92d777f829166ca60535"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/sources/publish_ci_followup.py",
+      "sha256": "0d464756a71c53d6046c483c15949a10cf7a53e10242d22b054c95d45e1fdaf4"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/sources/reproduce_report_ci.py",
+      "sha256": "0465ae4eeaafe2160bb0114127ad3bf9685fa7c4c81a409f86c6a8ce484af06a"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/sources/reproduce_report_ci_002.py",
+      "sha256": "551137ac3f13735b88c0df94c7be09fbc19c225fe9508b77f31739abbe9cb077"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/sources/reproduce_report_ci_003.py",
+      "sha256": "bac2e6bdf9ac6b94a240b66f06aaaf338385b023fa7c8d6136fb4c4411c827c2"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/sources/retrieve_ci_synthetic_receipts.py",
+      "sha256": "3dc0598f791d49a1f02512eda82fa70caad04819c9c5fe56246b61369e2c5e01"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_001/receipt.json",
+      "sha256": "a159121110bdd6270475e7c7b599581b45d00780ecdf2657a8d140438bae0955"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_001/report/receipt.json",
+      "sha256": "610550d063efe18ea7c1cf0f5a8a939c197f89099353cb4b0e8832301e88e6f4"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_001/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_002/receipt.json",
+      "sha256": "28953af10a5c234ee449e08dd86cf24775a0337aa8eae75ad094faa3fc408661"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_002/report/receipt.json",
+      "sha256": "c9014d7b6031d84dbc20d7f82ad4d07c78ef95aa0f1073590f2b90c971aecc8e"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_002/stderr.txt",
+      "sha256": "0b6f9324fbf400d36fa6f5d1dce40b57fd9f0ae67954404b0a0f1a02785ca1cc"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_003/receipt.json",
+      "sha256": "94b1ab0e82660999c2e90a36bc8dd8620937e35a8369f4908aad7456d78ad8d0"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_003/report/receipt.json",
+      "sha256": "410124bb83556048588f32b2a3f5cf0b8f56da285feb982ffd215df4a4bf0647"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/synthetic/ci_synthetic_repro_003/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/025_integrated_numbers/receipt.json",
+      "sha256": "0631a33cbeb4d8691b6e6b161e913d20838bd0f8cf15456a8e12a79b3ca170ba"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/025_integrated_numbers/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/025_integrated_numbers/stdout.txt",
+      "sha256": "504a7d54ec389ce6966d535feb2970ff6d0ec28a1249e225cad2ef840d10bdab"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/026_results_export/receipt.json",
+      "sha256": "286878490a3a96e42693ba617da8a98e57494ff2d53dc6a53c21567b08f99e02"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/026_results_export/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/026_results_export/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/027_results_export_validation/receipt.json",
+      "sha256": "115678f8ee592582693848bd758a66612497d940cf641ec9be2bc14852b5c6c7"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/027_results_export_validation/stderr.txt",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/027_results_export_validation/stdout.txt",
+      "sha256": "ae7149f2e317987147032e8d53e7f6596789a49855aa692c2d467040e1061bb0"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/028_notes_preservation/receipt.json",
+      "sha256": "52f44cfc1ebb228f1edf3a0d456128ce825890512c04f82741271e8f5c077718"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/028_notes_preservation/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/028_notes_preservation/stdout.txt",
+      "sha256": "9c656ebca9f1236bdad0126aafda6177aa33de06328276a0f3c974249d1aadcd"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/029_portability_correction/receipt.json",
+      "sha256": "fb2e4366bf8b3038ae7c8145f56b30d1e7441269889718fb67b60842650ab5ba"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/029_portability_correction/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/029_portability_correction/stdout.txt",
+      "sha256": "be85fbf4cf71ddfc25a43a2c1815afd22fe7d515e633ff36771eba74bce51308"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/030_report_numbers_current/receipt.json",
+      "sha256": "770f165b50e819001e3262e06319de1b3b311a83c7ec7603e0975ca3bc6e25a4"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/030_report_numbers_current/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/030_report_numbers_current/stdout.txt",
+      "sha256": "13b5872fcc51b68f16ee0cefb1a8252654a2d41e29ad10a75fe358b4ab11d7c1"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/031_portable_export/receipt.json",
+      "sha256": "c4ca9e44370ede47d791b788d79402c756e6029b5ce60f48d812f4744d42f0ee"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/031_portable_export/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/031_portable_export/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/032_portable_export_validation/receipt.json",
+      "sha256": "af9f5d4baa103267863063420109abe706dac68852a813f3f64f310d68d7e881"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/032_portable_export_validation/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/032_portable_export_validation/stdout.txt",
+      "sha256": "6c1abe00671ad8cd2855b76844cd7f34a31fcb24a1426f5d88b0141f0c6ba67c"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/033_remote_create/receipt.json",
+      "sha256": "53df092aec5b953270c867556c35c2011ec329b99deb106476aea7c7b7b342c1"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/033_remote_create/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/033_remote_create/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/034_remote_copy/receipt.json",
+      "sha256": "f2638e0efdc32746e116500a3b1d9675c396ced7d9d384622dca6eb2e9db90e6"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/034_remote_copy/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/034_remote_copy/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/035_local_mirror_catalog/receipt.json",
+      "sha256": "ef49eae0d678bb3f93902f755fdbf3a16300cf551df278e528b4c730dd3fb7cd"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/035_local_mirror_catalog/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/035_local_mirror_catalog/stdout.txt",
+      "sha256": "2169d8f64bc67179900ab201f5b5bc6d66f5f363a3a682e7276e794e34054e85"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/036_remote_mirror_catalog/receipt.json",
+      "sha256": "90bb43a502bff1c3e706cc9f1b2dfb6e7f1178c39bf27737fdb7fd37183b7cf5"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/036_remote_mirror_catalog/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/commands/036_remote_mirror_catalog/stdout.txt",
+      "sha256": "a52486a512863ca729f2dd14e19ba67c9b071d04e5022ffbbd0cffb4801c69a0"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/offhost_verification.json",
+      "sha256": "118a56aa5d23192597778da95be9a20d9f4cf99c3f34b56e62cef540440db5a7"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/receipt.json",
+      "sha256": "63d29e0233af190ea3ee74cdd1f947339cba77540c6152994b1b106d43ac0196"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/sources/capture_command.py",
+      "sha256": "cdcb2cfcdc8248217b7f0b9e0a349099840260dba2efe4af3a4f8220fca4ccd8"
+    },
+    {
+      "file": "docs/validation/motion_diagnosis_k1_2_2026-11-01/sources/publish_validation.py",
+      "sha256": "2d937552e9b484bd72adaadcd38c5f4273b8324945a19fd717b11145f1123ad5"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/README.md",
+      "sha256": "79fc1cc115439a10891392b8b2d3910ac6d58b25c62da27ac1bb991da4db8bbc"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/capsule_copy_hash_receipt.json",
+      "sha256": "b9d48d055fc7834a8b11f173cc58cc1790ae0cc4289d611026ba29e007112907"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/final_clean_export.txt",
+      "sha256": "13f624252e2fd553f51ded5b204b35daa35768c7891ac2d7fff581556cedfa0b"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/final_clean_export_receipt.json",
+      "sha256": "570a1d977c02bb659109f71ee4997dd4321174e009cd97a3a1e31970c2a8af2b"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/final_validation.json",
+      "sha256": "68690ca9c2dfa2cc1e1ecd1d7f56be8713e9a9fbf0beeee4e087a9ba415e8d5b"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/prefreeze_full_pytest.txt",
+      "sha256": "951f1cbae348a920547aadd70ac383eb437a28687aab36f49682ad5dc43871da"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/prefreeze_full_pytest_receipt.json",
+      "sha256": "f7f729426444ac7c4e9681912ea2d9853049d9063d40cba49ba7851d746100e7"
+    },
+    {
+      "file": "docs/validation/student_update_w2_2026-10-31/prelaunch_environment.json",
+      "sha256": "a3a8a4a186f8b64a7babd5e5c0890a32bc0f22652492c1a44493290328d2f919"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/README.md",
+      "sha256": "d326e2f01f2e5730d5adc0f53b5fcace9643364fe90abfe0ad030a2875f3affe"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/capsule_copy_hash_receipt.json",
+      "sha256": "c51c887460382715ddd42842b056bf6009cff6bbf329f01a6144051768f29145"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/ci_portability_fix.json",
+      "sha256": "d6b2d8d54ef507861a927144b974b98442e2104738bcb48133ce6d9de400084e"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/final_clean_export.txt",
+      "sha256": "3780dba57dda8b850d1041a7b59996507233ec347af50e747b9e73146876e383"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/final_clean_export_receipt.json",
+      "sha256": "b3c2480c11797ab92c059ed90bf49dece4e102803d0fc7b5578b7447f0628f92"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/final_validation.json",
+      "sha256": "2adb0d17f2d671a67abe1a4e5443dade3352bd8ce23cbca75f30ddbfef0e3d19"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/intermediate_ci_failed_log.txt",
+      "sha256": "516b5b5a4e303aee78ef3284d958088cdce0a2295ddbabb922981c4df3b41a40"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/prefreeze_full_pytest.txt",
+      "sha256": "d7c05b0fdf53deaa5d1bb967a26463e403d9ee264f20ff5093d934e766671746"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/prefreeze_full_pytest_receipt.json",
+      "sha256": "c68038141c36a9010cf69bfd7c9534f1b7385a6c41882606846b9b7fc39494f9"
+    },
+    {
+      "file": "docs/validation/student_width_w1_2026-10-31/prelaunch_environment.json",
+      "sha256": "345c5b02c3bb65d31e8f3f38c7227f9670bba3f5258dea52b77fde8a7ff14f65"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/README.md",
+      "sha256": "0b8886bf1db2b4396850b8e839880321059ae7795fa51bc78f34c446c9aeb1a1"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/README.md",
+      "sha256": "78669b6cbd7c4bf80e725c9447a089d7638fc1513a155c732f1a89f0b27f95f1"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/command/receipt.json",
+      "sha256": "97f78ab9b9252f4d3595f3b931ea3eabc50aae8d3b4db47a28194602965f821d"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/command/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/command/stdout.txt",
+      "sha256": "8c053943019a2ea0e6fcdc4500e917c605ad8cc70494913c8454e38b81749b3e"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/independent_review.json",
+      "sha256": "fbd8f0768d6691ae1c921f14ae272a4e5bd577ac83bd698dc92a152d1253b0e1"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/mirror_preparation.py",
+      "sha256": "d2dd8bae8c6f17d4bb31e6911e8726d03a5c04902cd496d4e07a47b082db8f00"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/original/local_catalog.json",
+      "sha256": "a7604c486a5f6773fda1e281e55937917785a9158fccc9a770bf44d1e837bdef"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/original/receipt.json",
+      "sha256": "8c053943019a2ea0e6fcdc4500e917c605ad8cc70494913c8454e38b81749b3e"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/original/remote_catalog.json",
+      "sha256": "a7604c486a5f6773fda1e281e55937917785a9158fccc9a770bf44d1e837bdef"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/original/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/publish_backup.py",
+      "sha256": "17e0354a687fc2b3a845b9ce17bcf3e3cb272f4a09ab54dafa8e9d1ca3dbb3f4"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/backup_001/verified_backup.json",
+      "sha256": "8e787cf4942da265720401b8d0bfd10d37af5f8a3b180d7ac641ac918a00f738"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/023_capsule_navigation/receipt.json",
+      "sha256": "6d0b042621fbd50d8b8a1540118f3bc55bf8e53402679662f659074612b75a47"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/023_capsule_navigation/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/023_capsule_navigation/stdout.txt",
+      "sha256": "b3cf3b55232fc7fd25f500ddddf1c664772b1763381c765df5c0b62f384fe38d"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/024_style_publication/receipt.json",
+      "sha256": "c6c73a00d7d99717eb09b41b9a2d969885e5c50f303d527b347961afb3091d47"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/024_style_publication/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/024_style_publication/stdout.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/025_clean_export/receipt.json",
+      "sha256": "201d592f15f5f94a6677cd840bfc2a0f9abea2e1170c811279924a58d9b7d309"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/025_clean_export/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/commands/025_clean_export/stdout.txt",
+      "sha256": "7707422837de978908c221a75a62ff7937aedb3fb155c4a02eb9afc12f842ac1"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_commands/00.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_commands/00.stdout.txt",
+      "sha256": "76197aa53822af93229e5433377cf3ba21d358d7bf41db392de198f8fb7fb5d3"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_commands/01.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_commands/01.stdout.txt",
+      "sha256": "e7426bf62e387f1290b024612f31c302251e9b24127b94f22790a7c5f2ef49c5"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_commands/36.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_commands/36.stdout.txt",
+      "sha256": "5a990403168038a56202c65d0b376a01d992bfca11acf67de4444d5c265369c3"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_location.json",
+      "sha256": "4efa3594c69211d4cd538588f204860f2c428f2fe0bf5652d6bef36f9d827e20"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_report/receipt.json",
+      "sha256": "5a990403168038a56202c65d0b376a01d992bfca11acf67de4444d5c265369c3"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/export_report/report.md",
+      "sha256": "3a3ced83cc4ab6c73c24111fc5f2e9468b06f283c0b2aa308f3ed39005985d27"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_2026-11-01/receipt.json",
+      "sha256": "50b00f3b94c848cb9ee474d352f3066b70fbce707e212554fe4e6526ed0d29db"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/README.md",
+      "sha256": "785c2365f3c6a863d7996aa719a470f74571ffe0cad084f01e7245a8c1ac9ab2"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/001_runtime_probe/receipt.json",
+      "sha256": "0955e7a248f027e807971c58088d855dbb07b1e5bcd6417aa9370c99f60b219b"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/001_runtime_probe/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/001_runtime_probe/stdout.txt",
+      "sha256": "2abc7699bd1a8426804e83c773aa42d9c37b3c13f287718351db660a51fd6a32"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/002_authorized_recipe_tests/receipt.json",
+      "sha256": "e7b9b1d8d04ff5df2731777779c52d1d0c37a169c16eebb06c39ca936035d827"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/002_authorized_recipe_tests/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/002_authorized_recipe_tests/stdout.txt",
+      "sha256": "44ef119620fcc28a5d0384910ac3680651c300ce975a7d8ed6b67342875aae31"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/003_full_prelaunch_suite/receipt.json",
+      "sha256": "1bc0431a5a7ec49356df98fbb0fb418dd2b749fd9a3a6952265c1efa752e3ee0"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/003_full_prelaunch_suite/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/003_full_prelaunch_suite/stdout.txt",
+      "sha256": "f255070a25f2ea32ce6f36f38e8720bcfe14c9cba82d8bc00c379ca978af846b"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/004_cli_recipe_census/receipt.json",
+      "sha256": "163962d4865a5b2f2d5a2c86e405e6bcfde93dce3322396b906a052f145907c1"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/004_cli_recipe_census/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/commands/004_cli_recipe_census/stdout.txt",
+      "sha256": "b623f3b21af9522e8b5bbaa8926d33afd71c5008d1556fd6a947d2826375fecc"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/receipt.json",
+      "sha256": "90cd32b6b1f0b66ab8c777f88fca6158a309ec964c0518b522b368292a04b0b1"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/runtime_probe.py",
+      "sha256": "ead4349328960ad59c74779224b90ab22f20183c00daf9fad9aabfa62c25212f"
+    },
+    {
+      "file": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/seed_unspent_review.json",
+      "sha256": "603160e886741847548965150490e90b41dd75af515583a04f0ee88b9173f943"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/README.md",
+      "sha256": "559fdf6538d1213afeeecc0b557ef6cb8de4bb0d9869bfbbe47d61ade845e47e"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/checks/obsidian_update.json",
+      "sha256": "d411486b6dfb4a25eb13f8f171d00b47580970d51b84a676717db11cf7f4bf4b"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/checks/report_number_verification.json",
+      "sha256": "be6e8b87f50a46f7a9adf00cf98d1fba3b208a79adebc681a5ce0b4cdcd2d4a1"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/checks/verify_report_numbers.py",
+      "sha256": "8943e200556d4bce73b1f1dfd3ebbc9f2e9b8853ed437e8873ed7ebcc813f6be"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/checks/verify_report_numbers_002.py",
+      "sha256": "dadc97ee1dfa2fda7796c740ef941099aaa7166233a75a23ccaa81be530f4c8e"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/017_publication_inspection/receipt.json",
+      "sha256": "4f4542cdb46e5481b385f7bb65c5ebd59d5221975eabcd396d817dd497dc3c92"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/017_publication_inspection/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/017_publication_inspection/stdout.txt",
+      "sha256": "648cb4c365de87e9dbeed6a2568ead72222d6a0bb1605ee9ba239e4c73e7e04e"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/018_publication_integrity/receipt.json",
+      "sha256": "00ce7aa8033a4a467b198c1cb67110e0d8b4685db82cb444ce5a65455da78508"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/018_publication_integrity/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/018_publication_integrity/stdout.txt",
+      "sha256": "0a4dbf7468bb2201381daff1ed510961437eb32755af6325ec116b2347e49aaf"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/019_document_numbers/receipt.json",
+      "sha256": "ecd19b26b501c57343597944b035091f1129c87c0d68836315b11e1d0d317478"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/019_document_numbers/stderr.txt",
+      "sha256": "d0fc7be804802edf6424d5b14cafe8a7ddfa0564b4f20ae3c4620ec7acfba326"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/019_document_numbers/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/020_document_numbers_corrected/receipt.json",
+      "sha256": "c779f1b54d02e21a2241035df609bd857c24000d5eb14cf45a938bcc1c1cd3d2"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/020_document_numbers_corrected/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/020_document_numbers_corrected/stdout.txt",
+      "sha256": "d6fd474dee8ed1801b1dcc2f3a6089c2d18a99891164ab044e54a1f44db4396b"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/021_results_export/receipt.json",
+      "sha256": "f1fe1ae5ef06957be4a8c132dd61ae2e0d60d274f8408c38d2a6743343c420c1"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/021_results_export/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/021_results_export/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/022_results_export_validation/receipt.json",
+      "sha256": "f916f943118166daa4ba30c04e83e7b57cd6f3f6ce74bf609b4614e226b4879d"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/022_results_export_validation/stderr.txt",
+      "sha256": "09526cbb18f6a516a06d0b4322e40b9ecc34d10a6f1c91209a47b5d14ea29344"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/022_results_export_validation/stdout.txt",
+      "sha256": "843bdbc932af1382b717482310b32cc16787afb5d2d1b51a249471b12412fd34"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/023_export_path_regression/receipt.json",
+      "sha256": "0b397d3a55f90aaf7aed74ea99f2da55bdfea269184a7cbc6dd207665fc1c5b8"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/023_export_path_regression/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/023_export_path_regression/stdout.txt",
+      "sha256": "b6c51b401d65a9c69435f8b86cecab752d65ded7188228aab3de3eb010990b60"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/024_final_export/receipt.json",
+      "sha256": "8752ad67c9c24b596fc717c0c54d75999462cde7f3f210bcee2aa45b1fb53881"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/024_final_export/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/024_final_export/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/025_final_export_validation/receipt.json",
+      "sha256": "5de0dfd916cd7e1de73d8923befc8ede9ccb647433b5772d58ab85e3fd8843e2"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/025_final_export_validation/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/025_final_export_validation/stdout.txt",
+      "sha256": "1868c8e1789dbcad7fabe71072dda7fb8147f348b55fbdf982311f85c86ad8cf"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/026_export_fixture_consistency/receipt.json",
+      "sha256": "b404783c39390d013d82653c4fd240c69cbc8cb1087a2dbba8269e68f3bb1c1e"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/026_export_fixture_consistency/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/026_export_fixture_consistency/stdout.txt",
+      "sha256": "a0ba7f2fb96adfb2c2564a1053a85160f60c5f008ba0c8c06a58a8cb23d1fc2b"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/027_final_style/receipt.json",
+      "sha256": "da31e55f04f80730743c1ad65a5666bca82d8b52d0ceabe0a3a607bfcec980cc"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/027_final_style/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/027_final_style/stdout.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/028_final_format/receipt.json",
+      "sha256": "0ea43078e6def22dff8b6a97b83b9c3bc18f971821750682bbef41a4a81de648"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/028_final_format/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/commands/028_final_format/stdout.txt",
+      "sha256": "fca2e7d68e05a6e985d8714320189112a186ee2f3b4b51d59b23ca4c386499b8"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/receipt.json",
+      "sha256": "7b71062b40247150a3f1bc465c978dc227385165db5cd05d8a9eeb621137e7bd"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/sources/capture_command.py",
+      "sha256": "30b5bd9165d7cc28a5dea982aa2cb937a999274d37debeeaf7d274aac100747b"
+    },
+    {
+      "file": "docs/validation/trajectory_review_k1_1_2026-11-01/sources/publish_validation.py",
+      "sha256": "8a5361f6b872f8f4ad8c3ee821235f18726e957245f67961e27b9e232b759a19"
+    },
+    {
+      "file": "docs/validation/transfer_diagnosis_d1d2_2026-10-31/README.md",
+      "sha256": "e2be08f73690589f85e1b0f145e8900bedef32bac28e609db586d07155f78728"
+    },
+    {
+      "file": "docs/walker_experiments_l1_h4_results.md",
+      "sha256": "bcde0a8558c25de13fcb4f77a9a8e630c83a73cf8435f35f21b5714080f6c469"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "7fbd17ad0f9e98c12e31d30c8d53e282c06f3bd1725d8a9124b56d64aa1ca0a9"
+    },
+    {
+      "file": "scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/audits/__init__.py",
+      "sha256": "4a3aa5e520ddcaac72dce9b4ab8fe482aaa9a87a8f9133dac5e735f8e34e665d"
+    },
+    {
+      "file": "scripts/audits/compatibility.py",
+      "sha256": "727aee889242483c989dad4e534fbbb0297ed4bf3a166a0652569682747a81b6"
+    },
+    {
+      "file": "scripts/audits/coupling.py",
+      "sha256": "674c372a13ec5c0944893b80a3041b5175b636b9cbcbeb0a5a6e116b1db719d4"
+    },
+    {
+      "file": "scripts/audits/coupling_detail.py",
+      "sha256": "c585a49f1129dc65580c63ddc654f88f4d2d061942de847f4d511b9046ace206"
+    },
+    {
+      "file": "scripts/audits/guided_data.py",
+      "sha256": "7cab20d3aad1747efdb282319e03360719a4b90514f470e2aa1084950d7e4192"
+    },
+    {
+      "file": "scripts/audits/learnability.py",
+      "sha256": "632cf23c6dd848adb04d6071fccb553a7313b7da340153ac2504a67154fcc684"
+    },
+    {
+      "file": "scripts/audits/motion_diagnosis.py",
+      "sha256": "b67ecb77ffa6200c6e6ce36d49dc7203d763e6bda25d33d46ab711abb7f0c2a8"
+    },
+    {
+      "file": "scripts/audits/outcome_detail.py",
+      "sha256": "adab7d9adccd35a8a64aee4a1984aaa124ccbfec4d93428bced793c0d12fcb40"
+    },
+    {
+      "file": "scripts/audits/student_source.py",
+      "sha256": "bb6a1af21f95cfe63624e80dda4766d20dca36c1e518223e68f30264ccdf0577"
+    },
+    {
+      "file": "scripts/audits/student_source_evaluation.py",
+      "sha256": "441a35ff79757922b9eceb2771e8ff264e84e95326ba448379635b61c1b71add"
+    },
+    {
+      "file": "scripts/audits/student_source_interruption.py",
+      "sha256": "7e55550df2ea7f21fa0ecf8a80a26ffc02269999caea70f4c1bd92ec2a938f80"
+    },
+    {
+      "file": "scripts/audits/teacher_proposal.py",
+      "sha256": "5664e68492a065651bacae5e8e839de10df3f92b5f0d7bfcbbf9f573d5c35656"
+    },
+    {
+      "file": "scripts/audits/trajectory_review.py",
+      "sha256": "4a55d9d53a471830d9fbdd9652628f67f61552d5b91d13f1d7c5cbff9a05e875"
+    },
+    {
+      "file": "scripts/audits/transfer_diagnosis.py",
+      "sha256": "df0fd9b1747cfb521604eeb3ea3b2026d6985b9e014283f8571e233199ac0375"
+    },
+    {
+      "file": "scripts/audits/update_budget.py",
+      "sha256": "777626fba813bbd0a516f0189693d39accfcd94ac27844a55d193523aaf25ad7"
+    },
+    {
+      "file": "scripts/audits/width.py",
+      "sha256": "c028e3db5045463ef9d293aed1a47226fd8f387538951ac5dd62dc6b873fdc89"
+    },
+    {
+      "file": "scripts/check_repository.py",
+      "sha256": "ccf9ea670582d4c05a9ed1ef2a655775d4f7daf20ac8be980e7c29b93bcaf740"
+    },
+    {
+      "file": "scripts/diagnostics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/diagnostics/action_compatibility.py",
+      "sha256": "ebed5337f1cb987f7dcc0e82677b235f87e848ddc7200474b57741d67eef3f3c"
+    },
+    {
+      "file": "scripts/diagnostics/adaptive_coupling.py",
+      "sha256": "faa9ebe594d99053a565227699a61956995e1deb14f249484d3f4abe1e0e7afc"
+    },
+    {
+      "file": "scripts/diagnostics/coordinator_student_source_evaluation.py",
+      "sha256": "1a785c11a5e439095907f9ac3f13a2bf82e4e8edbf80fc2ce1a5a93f92bcbb86"
+    },
+    {
+      "file": "scripts/diagnostics/guided_data_comparison.py",
+      "sha256": "2abbc08e93aa3683e899c7e17ebafdbc5e598bcabcfa66b769e2e9ab4ddefd37"
+    },
+    {
+      "file": "scripts/diagnostics/launch_student_source.py",
+      "sha256": "c7a177d53d45aa5daea4b5422ebf9e5dce930b320bea8437ce9cade018286d1d"
+    },
+    {
+      "file": "scripts/diagnostics/launch_student_source_evaluation.py",
+      "sha256": "10d175abfa828c41392affe7aecd70b3403225bf2841614cff2259efe11ca84f"
+    },
+    {
+      "file": "scripts/diagnostics/replay_walker.py",
+      "sha256": "063a7ddf052f8e03daf89bb3dc9afbd3a795badb8ac7f89ffd430437fb5e7c0a"
+    },
+    {
+      "file": "scripts/diagnostics/report_action_compatibility.py",
+      "sha256": "6360e0a28e10e69d396cc803090b09cd1638980c9a3a2c41f95a378f38be9747"
+    },
+    {
+      "file": "scripts/diagnostics/report_guided_data_comparison.py",
+      "sha256": "0de726ab51a985ed42b39b51206051e6cb3df6714e27768f2ccda18def296e5a"
+    },
+    {
+      "file": "scripts/diagnostics/report_motion_diagnosis.py",
+      "sha256": "fa93d7ca9b928a513f7a82acb2f90880027f1290ff2d08b4cf03180543d38e22"
+    },
+    {
+      "file": "scripts/diagnostics/report_student_source.py",
+      "sha256": "102c6360f3e36434bf9c10e87566e340ae85a2d92e72d05d5fca75acd68b89da"
+    },
+    {
+      "file": "scripts/diagnostics/report_student_source_s1_1.py",
+      "sha256": "5e8b560b6b16e047fb5ebf7243f1bfbe60dfffb1dc01ec50b2ae3b538fd2e257"
+    },
+    {
+      "file": "scripts/diagnostics/report_teacher_proposal.py",
+      "sha256": "f2f523fc0eda2ee3d5439481895e1290bcf2feb0174355ff98ba7bdf1d8e68d2"
+    },
+    {
+      "file": "scripts/diagnostics/report_trajectory_review.py",
+      "sha256": "96c9e0a7a569cd7281daaa7ad2b633f30845d00883c36a964e999557b2d56a9d"
+    },
+    {
+      "file": "scripts/diagnostics/report_transfer_diagnosis.py",
+      "sha256": "63deacc26fe0af9ad9cca968da5922af121bcbe4d0c7f455f010072d8e75c463"
+    },
+    {
+      "file": "scripts/diagnostics/report_update_budget.py",
+      "sha256": "0ddef357f080be590656377d7b8e1bb2ec1558683810646af4579d7d6673cdc3"
+    },
+    {
+      "file": "scripts/diagnostics/report_walker_experiments.py",
+      "sha256": "229229e6a33262d143540cd8bf2bee5c0a83a045518db5150e148b8d4243ce7a"
+    },
+    {
+      "file": "scripts/diagnostics/report_width.py",
+      "sha256": "389df8bbf3e5694197c5dcd7219adfe03648f940a4df2ac8eb4ecb083eb6e81f"
+    },
+    {
+      "file": "scripts/diagnostics/student_learnability.py",
+      "sha256": "507fb3fd302cb5096cd6bb92f8f9de5f17fcd040f64df5944dbdf2ae67a37cc4"
+    },
+    {
+      "file": "scripts/diagnostics/student_source.py",
+      "sha256": "da13ff9d0ea2943181177ebc16a67c0145ff8be9c3c00e436bbd30cf1f7a2e43"
+    },
+    {
+      "file": "scripts/diagnostics/student_update_budget.py",
+      "sha256": "634428788e16ff8e965b3a1b376a3f76efb729a836d612f391ab3295385b8a91"
+    },
+    {
+      "file": "scripts/diagnostics/student_width.py",
+      "sha256": "7c0dae2422d4458425fb9db7fd4edc578c4a422664c4cb0ed97b9f1f588ebb98"
+    },
+    {
+      "file": "scripts/diagnostics/transfer_diagnosis.py",
+      "sha256": "7747ecf2899162fef10009cf7040365f971c4267bbae9b5e82921ace5678f6e4"
+    },
+    {
+      "file": "scripts/runners/__init__.py",
+      "sha256": "af7aa3fff74e0de760dcc3ccefae1cf8603bb7116d35b0a593ebfc1fb1d6cf76"
+    },
+    {
+      "file": "scripts/runners/run_walker2d.py",
+      "sha256": "b78aa4dfad62b38f14091547a1feceeec4d1985192571df8607a18dc3353e1ec"
+    },
+    {
+      "file": "scripts/train_mppi_gps.py",
+      "sha256": "c50936731c83b789832a59e5189e98a8ed6bfd2be2567a322a01aace39211099"
+    },
+    {
+      "file": "scripts/validate_export.py",
+      "sha256": "9ead75ee44dd6c2bcc7ae9069260ad9d0ed18d4f72bd26ce24ece8e725b3cc77"
+    },
+    {
+      "file": "src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/envs/base.py",
+      "sha256": "76e99e1cab088ac78dc1ffb3d17473afe40aa284db0136d3e372f47b037c38e3"
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "sha256": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a"
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6"
+    },
+    {
+      "file": "src/gps/__init__.py",
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8"
+    },
+    {
+      "file": "src/gps/mppi_gps/__init__.py",
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/__init__.py",
+      "sha256": "8bf2e9870f41f29beaf1c0ea96a9a7b396722411cd730c2991e2d53f9258fbb8"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/common.py",
+      "sha256": "bbb90fcc1a6731da30bc5744002da3dda994005e5abb83f5049a8504f68f09e6"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/compatibility.py",
+      "sha256": "da20dc15f518c9542c495c6bfb5e693486587ff0c8cb38d263297d9b3b34f7f2"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/coupling.py",
+      "sha256": "dfbccea7bca2b33a58bbdac9e7c8b3a683c7558527e7c7894dc407d6c9dbd076"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/coupling_detail.py",
+      "sha256": "d73809437d8f8df4b88f11c0349692a5fb6be510ccf0cb1cbb393db0686ad7bb"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/guided_data.py",
+      "sha256": "8814e24d4ea7c06d3d262a7963bcc0d68582320559d48ede82d0d351a8055d8c"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/learnability.py",
+      "sha256": "30f86fdaf57e5e89e199734cde5f606080937153f542e311e0374d23b67b1151"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/motion_diagnosis.py",
+      "sha256": "ab3e4d4df7fbaa4f9f9aab205a9aa8621377850eb12a45d05ef2dfc02a226f62"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/native.py",
+      "sha256": "2c5aac2407a2501e311d7c1dde10b390408de3ac9775b71e7ada46fde4d63694"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/outcome_detail.py",
+      "sha256": "20316910eced0daa8933b214cd2343ced45a6c6272cd8551df5b1ec627d0b521"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/source.py",
+      "sha256": "5a1af1b3def86cd8a15faab54b92a2f0eda3be5f20041da3e4759e0106e5af06"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/source_evaluation.py",
+      "sha256": "e706c2c30c962e2ca33168534ea3cc9223791f78c5e642616ba864c40f841d8a"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/source_interruption.py",
+      "sha256": "99387de1d883cff79ccbe2c674842739bc94fe55416796a56948349e96352c4a"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/teacher_proposal.py",
+      "sha256": "59dfaddaa9bca7160d72caa196b0ce0fc28dc185ab2a340321fc3df7a1b85703"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/trajectory_review.py",
+      "sha256": "5378e7dea986dcc52110fe9c468971a6f30f8352ac43cc8882124b519e5d16fe"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/transfer.py",
+      "sha256": "c58b77ecb09ea85290643de05aece3c84a943d4bdfb67af7f90bd94280cafb29"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/update_budget.py",
+      "sha256": "e4710b5b6d7eb64cacf3ab79571a01ca5e6469e3700329326527bd5d967c999f"
+    },
+    {
+      "file": "src/gps/mppi_gps/audits/width.py",
+      "sha256": "0fc37fc351673b2a9c90f705928440e5ecf95d64beaab0b1480c972d7a860aa7"
+    },
+    {
+      "file": "src/gps/mppi_gps/compatibility_inputs.py",
+      "sha256": "2343e8fffcf690c23ad9d8f018860b7527066d560cbcaed9650620cb22830c58"
+    },
+    {
+      "file": "src/gps/mppi_gps/compatibility_metrics.py",
+      "sha256": "fbcca99cbc02f733d2f532f288e741b2fa6920bc89fc98f3012b774ce7f0cdd9"
+    },
+    {
+      "file": "src/gps/mppi_gps/coupling_backoff.py",
+      "sha256": "5b3c2b9cc1b26aa68c6f4bb599764831884d30b6d377295dbd43479dd1d045bc"
+    },
+    {
+      "file": "src/gps/mppi_gps/diagnostic_policies.py",
+      "sha256": "c322c020a5a5bfce3db32372c928babdce797eade4c736ad9afc0033982112b6"
+    },
+    {
+      "file": "src/gps/mppi_gps/diagnostics.py",
+      "sha256": "a88d661cb517348efe50940166f56fe7c62c75ea07f3cd547380a228e30ae7ec"
+    },
+    {
+      "file": "src/gps/mppi_gps/durability.py",
+      "sha256": "d8900cf4341a40cbc7e3fb872ea6fa66e0b26fa066813177f653871bfbc12a0f"
+    },
+    {
+      "file": "src/gps/mppi_gps/evaluation_exchange.py",
+      "sha256": "a7f96c18f9a1cbacca9abbb3ff75fbb0488b9634b1e3f599ebd572f299d56493"
+    },
+    {
+      "file": "src/gps/mppi_gps/execution.py",
+      "sha256": "c88973e23fbde5b23e97ffdd236036d610aad50a4d8c478ab04f47c58c1ee940"
+    },
+    {
+      "file": "src/gps/mppi_gps/experience.py",
+      "sha256": "9f03a96006a0928b86a81eb1e90bc6f75cf810461cdf02c1b817df26df9b0b17"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/__init__.py",
+      "sha256": "0314d38c11af4a34624c74ae38d88f8cba2dd7f12ff23ac220044891d62e05dc"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/action_compatibility.py",
+      "sha256": "eb2999c6fa18dcfd7586d070ae6d4b92407e304754bb858abe8c1005eb544abb"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/adaptive_coupling.py",
+      "sha256": "4d804baf68d0884edb4e5b40bc537623ffaa1fc3d55bcdeef3281631dcb0861a"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/guided_data_comparison.py",
+      "sha256": "bd346f2f3a4b8ea8e55d952465714f88e46078c7b973acf3688e760fa89dab8c"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/motion_diagnosis.py",
+      "sha256": "60b1255120455f77842537ed3d5180abf3c10a675c1922433e6c0b14850e0028"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/student_learnability.py",
+      "sha256": "144172e231fc27c8ee1c41bafcb164fd3009f9a9f78f3d7e86b31b900503cfe8"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/student_source.py",
+      "sha256": "95bae23dfb63ae51f6b607e2e3f0e8c6461a9b138cc6212aed2717d38d526f25"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/student_source_evaluation.py",
+      "sha256": "db7f7eca61d819101bd82b62fe334e61f6a3b1088c22d2a202a02f999018b508"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/student_update_budget.py",
+      "sha256": "38ae6569e39840f71aeb54dcbaadd218bf40ea95812b3c145d38ce3d7d28db00"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/student_width.py",
+      "sha256": "4f9e327ca91c28adcd73ea8263c05b4b1c3e55d52bb730a440cb43543c7eb725"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/teacher_proposal.py",
+      "sha256": "e7db493da839241f238af897da3a2c4e7a1eea7f01f60ac3037af0c3827dc508"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/trajectory_review.py",
+      "sha256": "0f9c9504fc09f7c11a47d20d6fd0fddf6410130667d8fbbfa285860300e6ec63"
+    },
+    {
+      "file": "src/gps/mppi_gps/experiments/transfer_diagnosis.py",
+      "sha256": "a17c187feacda701186955e7d75329a886c79067867997b651156916ac32c6de"
+    },
+    {
+      "file": "src/gps/mppi_gps/guided_proposals.py",
+      "sha256": "39149c31c586ca3415891c656e6fe3460d9074c43b54c62cb99608f09a93e3c6"
+    },
+    {
+      "file": "src/gps/mppi_gps/inspection.py",
+      "sha256": "231983781d8f01b1ff1126438bdd26b584d9888c1d9473242fcbfdbc96848de7"
+    },
+    {
+      "file": "src/gps/mppi_gps/lifecycle.py",
+      "sha256": "ef25cec96db99c7ed329ec42bee9c897ab4f6b01a7e469e567b3f4fe889a0b5f"
+    },
+    {
+      "file": "src/gps/mppi_gps/loop.py",
+      "sha256": "1894c1881e97693837be1e0de52a8129f414adbeb69a33c823d8c1b788fe5430"
+    },
+    {
+      "file": "src/gps/mppi_gps/metrics.py",
+      "sha256": "f2e8f143a73e4a1c8b8c3bc6411f1d1d8f27aab3096f3f08724b1a4586e7c890"
+    },
+    {
+      "file": "src/gps/mppi_gps/motion_diagnosis.py",
+      "sha256": "d57c8b997e4e23f001431f2beb1d0e6dbceaca093a7d5d318b0ca6b2c419583a"
+    },
+    {
+      "file": "src/gps/mppi_gps/motion_inputs.py",
+      "sha256": "08c98976d111692217344e369b40e7bc9abc2abe5805409b523b600715b81016"
+    },
+    {
+      "file": "src/gps/mppi_gps/policy.py",
+      "sha256": "7a876d5f58874f71d9e5260a7e97f63003aa86b0fd2dbe4c6418b68be5abe26e"
+    },
+    {
+      "file": "src/gps/mppi_gps/post_update.py",
+      "sha256": "590cd8dafbb1b577eb23f54f6f7ba828a7ad637456d1c234155d35e877a33e6c"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_budget.py",
+      "sha256": "19e3b6d0dc65a3b5485421e2bb2ea20c034cfcefecc2e7bc3c7649414db002cd"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_evidence.py",
+      "sha256": "4d83e58988eb8f947af297a0f68a98987459867088c3c9926ba8334b21fded0c"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_execution.py",
+      "sha256": "da7fdf5cf79c4c5eb894b37cbe4544b571a74aecf56b6cd59d1dc771bbed8c57"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_launch.py",
+      "sha256": "0282b36ba5a9593b5751b66519362b3241babcd6af35e1e45c861852b5622fe9"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_native.py",
+      "sha256": "e061f37fc13d44a9edaac0b635d599f4651179d005da7e01dc7137c3f1a2c78b"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_round.py",
+      "sha256": "ad285823d24406c94273ad40fb0d726c3f3a1139e50ceb29dfee77f52d85f611"
+    },
+    {
+      "file": "src/gps/mppi_gps/proposal_storage.py",
+      "sha256": "1d60a58f53908f7c9b87868179400a677f49d9cec80268c03e8919a2405d74c1"
+    },
+    {
+      "file": "src/gps/mppi_gps/provenance.py",
+      "sha256": "afe07b1860731267e3c4777e4a0cf18dbad0209e02429b82f70b2526c3e80b99"
+    },
+    {
+      "file": "src/gps/mppi_gps/recipes.py",
+      "sha256": "96a09e010ea4e6bd3e5fb0472e9f8372b91561c3a5bf87daf4931e31f957b685"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/__init__.py",
+      "sha256": "cffae4650008a6b00a8ace134bb9f8a8774434c16a4a028716e47d3ed0e309fb"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/action_compatibility.py",
+      "sha256": "cef418f6825706827a76698fd75d6460dec23be218fa6e462f0cf8e08c9fb632"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/guided_data_comparison.py",
+      "sha256": "51aef0e9a90fde1befaa0e3de160ee1c591ed56195a69d3bb520f21af5edfb2a"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/motion_diagnosis.py",
+      "sha256": "eb0b97c3b1b7764dd24ebcc8f88db6bbc00c1f7c4e894832ef8b253e27086b75"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/source.py",
+      "sha256": "ed05b89ae3d5c56eba33a7eead1ab53a36682a943d4e18188017174218275bbf"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/teacher_proposal.py",
+      "sha256": "b38d28b830ea7ac677739413520f073c26b501fd99ed3a31b09e94027addccbd"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/trajectory_review.py",
+      "sha256": "55222025cb1d717dd007408d303de73af03c27e0808dc9754ebc8ab62eb509e1"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/transfer.py",
+      "sha256": "eae254d5365fc5df1302193d456cea84a94798b0ab50a758bd5757298fdec6a7"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/update_budget.py",
+      "sha256": "b793e9ab06786db2babd74b9a728568c3d0d0c9e1ac848a300fcaef57e7791df"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/walker_experiments.py",
+      "sha256": "5a2a11ff7be978f78be69c09e607b38c77b03da1aa676c6e293a1c54b6698fb5"
+    },
+    {
+      "file": "src/gps/mppi_gps/reporting/width.py",
+      "sha256": "841cc15418b1c8c597990cfe7938615d5f041a6050bfdc29eaec65e48ed4e827"
+    },
+    {
+      "file": "src/gps/mppi_gps/runtime.py",
+      "sha256": "3f6a0308cfa5911c4146d39c81b7ca9a345a65e469d734ecabfba914318fc83d"
+    },
+    {
+      "file": "src/gps/mppi_gps/search.py",
+      "sha256": "c47f77f56b8085be074811f8d49f873f925e4f853263f750d06b664bf1f644bd"
+    },
+    {
+      "file": "src/gps/mppi_gps/source_evaluation_coordinator.py",
+      "sha256": "fb43c01e75f5a8d21e48a0671847da493738acf292be622f9a6104b7b850e76c"
+    },
+    {
+      "file": "src/gps/mppi_gps/source_evaluation_inputs.py",
+      "sha256": "363befe835e786045485de695417f55268c183bb6f89076c21b0838f926309df"
+    },
+    {
+      "file": "src/gps/mppi_gps/source_evaluation_launch.py",
+      "sha256": "b44a37472a672a5a731e1d1f686bfb8f77cab7a93936117c7de9399386d98ccb"
+    },
+    {
+      "file": "src/gps/mppi_gps/source_inputs.py",
+      "sha256": "54dff5d8f9a1035300603066393b82a64a96b3b5f5a4c4ca0174273fede4f6e0"
+    },
+    {
+      "file": "src/gps/mppi_gps/source_launch.py",
+      "sha256": "748b26adebe85b425337b104c3fe37906a6998cc6c7a51156e1a4a85f2f7633c"
+    },
+    {
+      "file": "src/gps/mppi_gps/source_outcomes.py",
+      "sha256": "71b2647ed9cdb41f1f87755116f62f0df8982cf5a7f317c1dd770e9cd45b5b32"
+    },
+    {
+      "file": "src/gps/mppi_gps/trajectory_review.py",
+      "sha256": "7dd323d6a1be1d0ee69b0284793a11492387dc6fdcd81741e357a523ac9f2485"
+    },
+    {
+      "file": "src/gps/mppi_gps/transfer_inputs.py",
+      "sha256": "29e88446f2800e2d0e6ffea36acc4d6f53180d89411d950687ed14045896bb9c"
+    },
+    {
+      "file": "src/gps/mppi_gps/transfer_metrics.py",
+      "sha256": "7b90730efa110416a7e267890542035e989cccf4b3bc13c61072d2931f5418ba"
+    },
+    {
+      "file": "src/gps/mppi_gps/update_inputs.py",
+      "sha256": "e2170b88ca35b048a0a5a9a72adad4c1f2cc6600cff050054e0bedf9902ac33c"
+    },
+    {
+      "file": "src/gps/mppi_gps/width_inputs.py",
+      "sha256": "e78ac2d37ff88f8d32622505377e013170590642dbe6d6b7903387a8bc4e90aa"
+    },
+    {
+      "file": "src/mppi/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/mppi/mppi.py",
+      "sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99"
+    },
+    {
+      "file": "src/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/utils/config.py",
+      "sha256": "3cefbed0d66ded796971b7995b3d1be0a3dcb7e1210de26980d7420b0a515bb7"
+    },
+    {
+      "file": "src/utils/gait.py",
+      "sha256": "29183f91070ba595ea21469b79d3b32bee4bba2bf4ffecea18303543e5dc1d9a"
+    },
+    {
+      "file": "src/utils/math.py",
+      "sha256": "fb50fb821540a52f727b906e7d6b05ffd231ce9764dffeb49f3599cd431038bd"
+    },
+    {
+      "file": "src/utils/rollout_data.py",
+      "sha256": "c6f698644a33a1177aaff87436b412803cd3434b12f1c6f04558ca6459ae03f5"
+    },
+    {
+      "file": "src/utils/stats.py",
+      "sha256": "e36963f0ce04c7082543e318cb8a037566db46c54f6fc4090616cd4d39c443d5"
+    },
+    {
+      "file": "src/utils/trace_replay.py",
+      "sha256": "1da5fbfb0763c6f7cc811e69713be4ccbe9a3d5421c94429d7cc5f540cab267b"
+    },
+    {
+      "file": "tests/test_action_compatibility.py",
+      "sha256": "51a390d9cd066886941d1987e0bc09e0c91bfa70c076cf9485183372e0ca6bef"
+    },
+    {
+      "file": "tests/test_action_compatibility_inputs_integration.py",
+      "sha256": "9db0f91f79e12e4d3a9695e514b0a7473754fd83ed12878b42dfb68a41fbd6d3"
+    },
+    {
+      "file": "tests/test_action_compatibility_report.py",
+      "sha256": "4892c216c500175a8d171865bdcb75a5064b7f4e9f2b3a61a677e05a79b13201"
+    },
+    {
+      "file": "tests/test_adaptive_coupling.py",
+      "sha256": "c358364a709a7b701d87d16e4bfb081d554172f0cef9dd4099f7c70d1cff78fd"
+    },
+    {
+      "file": "tests/test_audits_cli.py",
+      "sha256": "3dded265531a7c7005290f6e8407826f269d0fdc6bb0cc1d1ccbdeac06f1cbed"
+    },
+    {
+      "file": "tests/test_audits_native.py",
+      "sha256": "fef0e84132d6be500166031e21dec7e9131c9f3462e326c5c7f4cb20c4575497"
+    },
+    {
+      "file": "tests/test_compatibility_audit.py",
+      "sha256": "6749c5c3e71dc11c7b7a635f5ce4199d42cb1f397e144aa85b2de5cd11512cb4"
+    },
+    {
+      "file": "tests/test_compatibility_inputs.py",
+      "sha256": "f2c2df099a860e4d056094e51e30700ebcdff022266b14e5bcba68e69cc593b1"
+    },
+    {
+      "file": "tests/test_compatibility_metrics.py",
+      "sha256": "93b461b50bc99a252cf7f3523f2b2f34dc867c69309ccf4faaf4f9ba3a6c25b7"
+    },
+    {
+      "file": "tests/test_coupling_backoff.py",
+      "sha256": "872d83fec759751944bf1a15fafc4ff218125c234becf36d07e79ba147a202d7"
+    },
+    {
+      "file": "tests/test_diagnostic_policies.py",
+      "sha256": "073c062408a826bbdabcccdd0dd1f29deb9766213ca6ebb7b30f29f3fc971db9"
+    },
+    {
+      "file": "tests/test_durability.py",
+      "sha256": "7d365e5524f3ec6be7781eb0cf75e5e6eb68862d826fdb8d463c8f9a8fb55c6a"
+    },
+    {
+      "file": "tests/test_evaluation_coordinator.py",
+      "sha256": "decb50e3bceb1ed4efbd13e0d29b9134b51571d7592690e136db644ecc0901e2"
+    },
+    {
+      "file": "tests/test_evaluation_exchange.py",
+      "sha256": "c5e52f33b72cee6f77c99d4cdc525b83812a9b2252b2046284fe92c03c54f9ef"
+    },
+    {
+      "file": "tests/test_export_validation.py",
+      "sha256": "9c115497879d28f4cad310d4411a4c74c90a7fd6ab093f8bfd9b15707cd4b93f"
+    },
+    {
+      "file": "tests/test_gait.py",
+      "sha256": "29232b38b2bd94890558b19379da142511cd3c5ba86f69c111b2ce5bed817032"
+    },
+    {
+      "file": "tests/test_gps_diagnostics.py",
+      "sha256": "26c0db5e6ddf8b9159b374c4c7039b877770c9c883a1e503527333e4276e9ea2"
+    },
+    {
+      "file": "tests/test_gps_experience.py",
+      "sha256": "5e8f06f24475b7694cf982c25f95d965c9117aced8b1b3fe514738f187f0516b"
+    },
+    {
+      "file": "tests/test_gps_policy.py",
+      "sha256": "9c2f341b931151bff2024ac0b946aa87aa9fa6db6ffacf90aaa54360e2d11528"
+    },
+    {
+      "file": "tests/test_gps_runtime.py",
+      "sha256": "46ccaafcfc43e30f038b53ebc3406d72d71fc78142756e5684ccef46467965dd"
+    },
+    {
+      "file": "tests/test_gps_search.py",
+      "sha256": "805a0950c23d6055de82738b6785f3b2c002777aa1e27ee4cf2ddb1384a03b04"
+    },
+    {
+      "file": "tests/test_gps_v2.py",
+      "sha256": "80928faa7b8a56a1d5f69d90d58bccef082dd34113f08231c147d542801b0860"
+    },
+    {
+      "file": "tests/test_gps_workflow.py",
+      "sha256": "cb51b9962abbbf20cc4cb5e65f3adfb050837512beccc6cd362a2fac29432020"
+    },
+    {
+      "file": "tests/test_guided_data_comparison.py",
+      "sha256": "d1b4ea3a9a761e0efdc45751d33feab8f363fce5097195922fa83cb3eedc62a7"
+    },
+    {
+      "file": "tests/test_guided_proposals.py",
+      "sha256": "d089e8a0835ca76f76aa0b6b49366e80fe05fdaffc33a355f7121dfda655356b"
+    },
+    {
+      "file": "tests/test_math_hypothesis.py",
+      "sha256": "655958d952b9a72f86ba2ae2bdf324ea85d734421ee737b8b879ab07a595eeb9"
+    },
+    {
+      "file": "tests/test_math_properties.py",
+      "sha256": "326df7f7759ebb291706bfdd5512ad9e589f13a5ddd3e7f12c1786c2a537eb8d"
+    },
+    {
+      "file": "tests/test_motion_diagnosis.py",
+      "sha256": "04b77c6f3a515ef1c8b08f37c59db9a9722767a773f2bc03cabb9756fda80219"
+    },
+    {
+      "file": "tests/test_motion_diagnosis_audit.py",
+      "sha256": "170632d98ada79ed0e67db66da6add0126035426b0c89e12cf02413f0b6ceb91"
+    },
+    {
+      "file": "tests/test_motion_diagnosis_report.py",
+      "sha256": "32170e5ed21d7232c52264226775de8e23e4fcb0b85f5759628cc653fc25cdce"
+    },
+    {
+      "file": "tests/test_motion_execution.py",
+      "sha256": "7ab845b2f0f056332abfe1a4b9551190ae96068ce44545dc12aaa819d678fc4e"
+    },
+    {
+      "file": "tests/test_policy_width.py",
+      "sha256": "e96e78e0124fe84778857ac09d77aefca546639201a39aca77b05996dd50cd96"
+    },
+    {
+      "file": "tests/test_post_update_feedback.py",
+      "sha256": "324ea3c72b9fa1244db79e8355ba27aa15d62fa55fb2b55dcb060b89a7c9088d"
+    },
+    {
+      "file": "tests/test_proposal_budget.py",
+      "sha256": "69f7bfc78f0dc6d9b13169e96c3fce0f1625edd51e1c8856ab5c29225c3a1ab1"
+    },
+    {
+      "file": "tests/test_proposal_evidence.py",
+      "sha256": "07a018a1f59a8bed29ec4baf225542ab8f74ba4226779f8a9e3a744b380b6cbc"
+    },
+    {
+      "file": "tests/test_proposal_execution.py",
+      "sha256": "830cff4b005fb439a2be69202140c6795aa85e40ba9730092aeba2e6334b27fd"
+    },
+    {
+      "file": "tests/test_proposal_launch.py",
+      "sha256": "c585441b9c6cfb3da1c815f9652e0e51c05aa8dbcc13545c3cf332ddbeda6c72"
+    },
+    {
+      "file": "tests/test_proposal_round.py",
+      "sha256": "03b3420eae74a7dc403db9bd7b3c36e3103e08fa6fcc772683223bb7b398ec92"
+    },
+    {
+      "file": "tests/test_proposal_storage.py",
+      "sha256": "f57b5918e360b8a8117068c4f707a9bb0fd33dcd83ce474b5e44c7e9a3b9e622"
+    },
+    {
+      "file": "tests/test_research_cli.py",
+      "sha256": "4750ccdfe8a31c5261436aacfb7b3bdf860527cdbe7641229793e00cf69e5b93"
+    },
+    {
+      "file": "tests/test_research_layout.py",
+      "sha256": "a06d6b4f85b667cb2a4d7a2295e3619d519015f310fb584dd4712982357e9fed"
+    },
+    {
+      "file": "tests/test_rollout_data.py",
+      "sha256": "9c148d85c8db429fcdc3f0623928991080ebb706266b96825ece0306e49a349a"
+    },
+    {
+      "file": "tests/test_source_audit.py",
+      "sha256": "d5d7f6535b5d1ec85509ff92c9c1495d6ec5ea34a58834e3ad8b50b7c767c4a6"
+    },
+    {
+      "file": "tests/test_source_evaluation_audit.py",
+      "sha256": "1da8bb43e5d8433e95c0b2f6c7a92c30cceee391e528bc2ac99ff8444d879d53"
+    },
+    {
+      "file": "tests/test_source_evaluation_inputs.py",
+      "sha256": "9ccc7998a2b1afba02ea88183b4aedf94d9bd954b0b873130443fa79de0349c6"
+    },
+    {
+      "file": "tests/test_source_evaluation_launch.py",
+      "sha256": "c249945f4067873dff50e37eeca11a86f4b10acef728fdf3aeaf6a7ddf9699f3"
+    },
+    {
+      "file": "tests/test_source_evaluation_prepare.py",
+      "sha256": "fa527b057fe7380192c71707b17b3bd30b6fb2942ee4d24947fa8311079549aa"
+    },
+    {
+      "file": "tests/test_source_evaluation_recipe.py",
+      "sha256": "922e1c22c60b1c8554ec7e6a2eb0808d4f2204ed9d9792992cf99b374692529e"
+    },
+    {
+      "file": "tests/test_source_evaluation_worker.py",
+      "sha256": "e1ca75a7a2eab3e7214173fb7c97ab5eb4ade551c69dcb294f790bfa4cc45d1e"
+    },
+    {
+      "file": "tests/test_source_inputs.py",
+      "sha256": "5150d68e7bc1e0aab235e6ff6d603b2fe804c021a924f18346dd76c729e3395b"
+    },
+    {
+      "file": "tests/test_source_interruption_audit.py",
+      "sha256": "d2e93cb617dbe165c8f2a715fddb0b50ec69c55a2af87901094350a82d84a7a2"
+    },
+    {
+      "file": "tests/test_source_launch.py",
+      "sha256": "ac4730b545abca51fc8a36957ed5ff7867f27d138f0b929f7cf5c095284bf967"
+    },
+    {
+      "file": "tests/test_source_report.py",
+      "sha256": "fcfaf0c75b38fb895a85b3631625ecfb07cb307e2c97b3fe6e4d930b15c429cb"
+    },
+    {
+      "file": "tests/test_stats.py",
+      "sha256": "8ae43cd1e222b000479647ce792563537e565541ebae2c48dde8eb2a2307671f"
+    },
+    {
+      "file": "tests/test_student_learnability.py",
+      "sha256": "0695c4fd3dcaa85501657d554aa39c198eec61bc6b107aecf48f83f46ea04c57"
+    },
+    {
+      "file": "tests/test_student_source.py",
+      "sha256": "f8bb0f904c69ade7484cdb3b022985fa7d355ffa06fb1d0c81316c0ff623f434"
+    },
+    {
+      "file": "tests/test_student_update_budget.py",
+      "sha256": "cd6e9f2a44f2cca398ec24c9efed29c53ebe35c0773595b1e53e4490d625b1c3"
+    },
+    {
+      "file": "tests/test_student_width.py",
+      "sha256": "a47ce92d6c1392f60d3ca7fa9528ca44522e36dc635c4c2c15fbd22c2f819c16"
+    },
+    {
+      "file": "tests/test_teacher_proposal_audit.py",
+      "sha256": "30148f1492630861fbaad8574b3a8c34f97d7a2b010ad676a7d651869d8f081d"
+    },
+    {
+      "file": "tests/test_teacher_proposal_preparation.py",
+      "sha256": "7caf5d87dbdebdda2665c66e1d04aa527b6d1b43ab7ea7c532dae280f8eceabc"
+    },
+    {
+      "file": "tests/test_trajectory_review.py",
+      "sha256": "72ee5aa4644d072eac8b93a7f76e2ca6a921101dad9b24a0a0dff775cd421dc3"
+    },
+    {
+      "file": "tests/test_trajectory_review_audit.py",
+      "sha256": "bff5908addaa0b9ce021fb5fa5ae34fde46102a2f01f942896a5e2f0182f4eb9"
+    },
+    {
+      "file": "tests/test_trajectory_review_execution.py",
+      "sha256": "86cf3f1d74a6d339a5e084bfebb3414a3ea780ac0f0c29c64d68f51a13bee4a9"
+    },
+    {
+      "file": "tests/test_trajectory_review_report.py",
+      "sha256": "e2f9a090564062cd17f85bb1e9bd66cfebd51afcfa59d19c1393b30a815784e9"
+    },
+    {
+      "file": "tests/test_transfer_audit.py",
+      "sha256": "272fea4963d0ac5f4e29425b14e7596e1109194b41a1e39978b4d8430f24c32a"
+    },
+    {
+      "file": "tests/test_transfer_diagnosis.py",
+      "sha256": "73025ad797274e34b3abbfd74013c25e3cac80721fe70f35492cb3ede677ae10"
+    },
+    {
+      "file": "tests/test_transfer_inputs.py",
+      "sha256": "ca4b58f92969961be1dad08513ae32f5375dbe28b654af98449f26f9c6d4878e"
+    },
+    {
+      "file": "tests/test_transfer_metrics.py",
+      "sha256": "4c87fe8e67f30b9df16751bee713817849d79f2c81ee60c836f3690e13b36861"
+    },
+    {
+      "file": "tests/test_transfer_report.py",
+      "sha256": "232b7095ee3ffeca79061d4f47ce9433bd6d7f88ec4f60b3e752f941350e0f92"
+    },
+    {
+      "file": "tests/test_update_budget_audit.py",
+      "sha256": "d344b46d3fbf4d3005df5141c8efbf18eb1b1f602ce43ab04a623189003ffe8b"
+    },
+    {
+      "file": "tests/test_update_budget_report.py",
+      "sha256": "87d6166b3917d0a4d242465d7275e51d45868a5c90a684b5250abe01ac98583d"
+    },
+    {
+      "file": "tests/test_update_inputs.py",
+      "sha256": "815798e441e0b77861fef7ef05af31da8351c26b551a51e8cad4eeae3e7d67b5"
+    },
+    {
+      "file": "tests/test_walker2d_cli.py",
+      "sha256": "bf9ac8bf4b8ef9b150701d56df13951d815b4f9c69c4cc9f5a848cff94989228"
+    },
+    {
+      "file": "tests/test_walker2d_replay.py",
+      "sha256": "914a82de4fff1b7e199eea095a2da79821a4dab91b975f1ae3d2700144db1416"
+    },
+    {
+      "file": "tests/test_walker2d_rollout.py",
+      "sha256": "0877d0c9ae5ff58d42a15949b30f97cf2a643a5ac81a81f8cbb560e6594d50e4"
+    },
+    {
+      "file": "tests/test_walker_gymnasium_differential.py",
+      "sha256": "c4d4636cf84368ff3f5a56c4dd9aa9082a23e906c3be2f2675551d554de07c27"
+    },
+    {
+      "file": "tests/test_warp_rollout.py",
+      "sha256": "9d7a63edfb25be4c0d0633fb8ad99c9bab6feca81b66407142a328f6c37aa317"
+    },
+    {
+      "file": "tests/test_width_audit.py",
+      "sha256": "9122b0b1dc70d1127bde8a3ab9ba80881068899248574871b2fa5b2bf796a2b4"
+    },
+    {
+      "file": "tests/test_width_inputs.py",
+      "sha256": "d75f8d196bd83ae598c56418720421afb64c1ce47c8afc07a82cc8ccddce6c9e"
+    },
+    {
+      "file": "tests/test_width_report.py",
+      "sha256": "3eede17a8a1dbf5aafb7c0c3b2e7e54df9dfe9029b14c8161c9c370f92c93dd4"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "5a969b4d08ca03bbb535d482cc339e5e87ac50fe33014999d9be9bfc569fb636"
+    }
+  ],
+  "config_sha256": "5fe92168c331e433c3843a4ae4b319e279deec963cc7afb7f3a2a599b1c753ad",
+  "input_sha256": null,
+  "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "source_root": "/Users/jaisel/Documents/mppi-gps",
+  "policy_action_fitting": true,
+  "raw_search_protected": true
+}

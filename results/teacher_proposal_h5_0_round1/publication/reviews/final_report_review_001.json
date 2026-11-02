@@ -1,0 +1,48 @@
+{
+  "schema": "walker-h5-final-report-independent-review-v1",
+  "passed": true,
+  "blockers": [],
+  "report_source_sha256": "de1ad2c0048ed64f5627a955c737dd79f94f46c6b0b929148f8be36643e66318",
+  "frozen_auditor_sha256": "59dfaddaa9bca7160d72caa196b0ce0fc28dc185ab2a340321fc3df7a1b85703",
+  "scientific_source_commit": "ff67495dae33ee43952677d0c0165a43f8d469b0",
+  "packet_files": 28,
+  "packet_bytes": 3976815,
+  "report_table_rows": {
+    "full_data_metrics.csv": 12,
+    "teacher_action_agreement.csv": 36,
+    "episode_outcomes.csv": 36,
+    "teacher_outcomes.csv": 9,
+    "student_outcomes.csv": 0,
+    "paired_gap.csv": 0,
+    "learning_curves.csv": 6000,
+    "mechanism_summary.csv": 9
+  },
+  "learning_curve_points_verified": 6000,
+  "all_curve_values_equal_saved_evidence": true,
+  "diagnostic_scalar_events_verified": 84,
+  "mechanism_rows_verified": 9,
+  "mechanism_decisions_verified": 34400,
+  "teacher_controls_verified": 34400,
+  "unmeasured_child_and_gap_tables_empty": true,
+  "audited_prediction_rows": 1085983492,
+  "audited_checkpoint_loads": 6,
+  "collector_and_report_source_joins_match": true,
+  "publisher_packet_and_report_dry_preflight_passed": true,
+  "publisher_planned_payloads": 43,
+  "publisher_read_bytes_by_role": {
+    "json_preflight": 1047189,
+    "payload_preflight_hash": 5542213
+  },
+  "review_read_bytes_by_role": {
+    "compact_metadata": 2265125,
+    "compact_payload_hash": 8546774,
+    "report_csv": 972296,
+    "report_markdown": 15390
+  },
+  "review_read_bytes": 11799585,
+  "wall_seconds": 0.04819625001982786,
+  "scientific_calls": 0,
+  "SSH_commands": 0,
+  "actual_packet_report_or_publication_modified": false,
+  "scope": "Only compact received files/CSV/JSON/figure hashes and publisher verification methods were read. No publish/copy method, inference, raw array/checkpoint/ledger decoding or remote operation. Native cost recomputation remains the full frozen audit claim; this review reconciles saved compact values and all provenance chains."
+}

@@ -1,0 +1,904 @@
+{
+  "directory": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/clean_export_code_001/export/results/adaptive_coupling_h4_1",
+  "kind": "result_capsule",
+  "run_id": "2026-10-30_adaptive_coupling_h4_1_r1_001",
+  "config": {
+    "schema": "walker-adaptive-coupling-h4.1-r1",
+    "round": 1,
+    "hypothesis": "Outcome-triggered half weight improves the next fixed-update student compared with fixed high and independent acquisition.",
+    "comparison_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001",
+    "parent_hash": "7bf162f6e8c9bb63718e44f8392838503528a6669e7553088a07f13be6036916",
+    "execution_platform": {
+      "platform": "macOS-27.0.1-arm64-arm-64bit",
+      "machine": "arm64",
+      "processor": "arm",
+      "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+      "cpu_count": 18,
+      "dependency_versions": {
+        "numpy": "2.4.3",
+        "scipy": "1.17.1",
+        "mujoco": "3.6.0",
+        "torch": "2.10.0",
+        "h5py": "3.16.0"
+      }
+    },
+    "platform_scope": "Local native MuJoCo3.6 on macOSarm64; all new arms share this platform. Historical trigger/checkpoint were produced on Linuxx86; no cross-host bitwise inference/physics or causal-effect comparison is claimed.",
+    "common_rows": 6096,
+    "teacher_rows": 2000,
+    "episode_steps": 1000,
+    "task": {
+      "frame_skip": 4,
+      "cost_style": "target_velocity",
+      "target_velocity": 1.5,
+      "vel_cost_weight": 2.0,
+      "vertical_velocity_cost_weight": 0.5,
+      "angle_cost_weight": 0.1,
+      "unhealthy_cost_weight": 5.0,
+      "ctrl_cost_weight": 0.001,
+      "terminal_unhealthy_weight": 20.0,
+      "apply_terminal_cost_on_done": true,
+      "nthread": 16
+    },
+    "mppi": {
+      "K": 256,
+      "H": 48,
+      "lam": 3.0,
+      "noise_sigma": 0.3,
+      "noise_lowpass_cutoff_hz": 23.4375,
+      "noise_lowpass_sample_rate_hz": 125.0,
+      "noise_lowpass_order": 2,
+      "use_is_correction": false,
+      "initial_iterations": 2
+    },
+    "policy": {
+      "hidden": 128,
+      "device": "cpu"
+    },
+    "coupling": {
+      "eta_u": 0.01
+    },
+    "gates": {
+      "velocity_mae": 0.3,
+      "action_change_atol": 1e-06
+    },
+    "weights": {
+      "independent": 0.0,
+      "fixed_high": 0.1199341983507337,
+      "backoff": 0.05996709917536685
+    },
+    "learning": {
+      "updates": 2000,
+      "batch_size": 256,
+      "lr": 0.0003,
+      "eta_theta": 0.01,
+      "prox_reduction": "mean",
+      "anchor_refresh": 250,
+      "seed": 910001000
+    },
+    "fit_checkpoints": [
+      500,
+      1000,
+      2000
+    ],
+    "torch_threads": 4,
+    "roots": {
+      "acquisition": 952000000,
+      "planner": 952100000,
+      "primary": 952200000,
+      "confirmation": 952300000
+    },
+    "reserved_second_round_roots": {
+      "acquisition": 954000000,
+      "planner": 954100000,
+      "primary": 954200000,
+      "confirmation": 954300000
+    },
+    "teacher_episodes": 2,
+    "cohort_episodes": 16,
+    "teacher_guard": {
+      "all_full_task_success": true,
+      "aggregate_cost_tolerance": 0.05,
+      "action_agreement_gate": false,
+      "substitute_failed_slots": false
+    },
+    "child_guard": {
+      "minimum_task_successes": 1,
+      "more_successes_than_fixed": true,
+      "success_nonregression": true,
+      "survival_nonregression": true,
+      "mean_controls_nonregression": true,
+      "minimum_cost_gain_vs_children": 0.05,
+      "cost_nonregression_vs_parent": true
+    },
+    "budgets": {
+      "requested_controls": 80000000,
+      "neural_rows": 60000000,
+      "backward_rows": 1536000,
+      "optimizer_steps": 6000
+    },
+    "stopping_rule": "Acquire all six complete attempts. Any failed required teacher task/cost guard stops child fitting while retaining incoming-parent primary and acquisition-start evaluations. Otherwise exactly three fixed 2k fits, paired primary and acquisition-start diagnostics, confirmation only on primary benefit. No data substitution, rho retry, representation change or fit extension. Round2 requires its own frozen confirmed-parent inputs.",
+    "claim_scope": "One prospective feedback-selected weight reduction at a fixed updated learner. Not a test against fixed-half/open-loop schedules and not convergence.",
+    "historical_execution_platform": {
+      "python": "3.11.16 (main, Sep  1 2026, 14:18:37) [Clang 22.1.3 ]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_count": 32,
+      "dependencies": {
+        "numpy": "2.4.3",
+        "torch": "2.10.0+cpu",
+        "mujoco": "3.6.0",
+        "h5py": "3.16.0"
+      }
+    }
+  },
+  "provenance": {
+    "manifest": {
+      "schema": "walker-cio-source-v1",
+      "command": "adaptive-coupling-h4.1",
+      "config_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+      "input_sha256": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+      "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+      "platform": "macOS-27.0.1-arm64-arm-64bit",
+      "source_root": "/Users/jaisel/Documents/mppi-gps",
+      "policy_action_fitting": true,
+      "raw_search_protected": true
+    },
+    "input_manifest": {
+      "config_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+      "source_manifest_sha256": "914fa5b21fdac252f2b0ac716078db9dd8966d5a5e6129b0edb52a18b4dce998",
+      "input_checkpoint_sha256": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+      "planned_work": {
+        "requested_controls": 74711728,
+        "model_controls": 74569728,
+        "live_controls": 142000,
+        "neural_rows": 51311152,
+        "backward_rows": 1536000,
+        "optimizer_steps": 6000,
+        "full_mse_rows": 97152,
+        "guidance_forward_rows": 49536000
+      },
+      "historical_files": {
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/result.json": "8b817667969ad3dcb87e3256635cac0aa291b3ce4ba79d82c8075d47cf2193ec",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/config.json": "d7ec5ee6a57c42e5bd5d3d05b67af1fc7eb1b622dc7a614e8f8a9875e34f90a4",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/manifest.json": "ab38ef1f771c67fd43ec34870ebb861715438d53a7bab77ca9c20f97594e273a",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/input_manifest.json": "e087f8f06495ab4df0235d118eca75a4d0e51f3f1ce7c5d3b6febbabbfa448e1",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/checkpoints/guided_2000.pt": "72e401f3d4145ab7dec4c9217810d09708c37a64e114b49fe0093a9ab4376181",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_guided_data_comparison_v3_001/launch_receipt.json": "98d392669c72041bea3af28937f8441ba4095d7dae69096346a8f300d4f13175"
+      }
+    },
+    "source_file_count": 87,
+    "source_present": false,
+    "launch": {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/scripts/diagnostics/adaptive_coupling.py",
+        "worker",
+        "--out",
+        "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001"
+      ],
+      "returncode": 0,
+      "started_utc": "2026-10-30T21:38:13.621804+00:00",
+      "ended_utc": "2026-10-30T21:53:23.021840+00:00",
+      "external_wall_seconds": 909.402364249996,
+      "hardware": {
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "machine": "arm64",
+        "processor": "arm",
+        "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+        "cpu_count": 18,
+        "dependency_versions": {
+          "numpy": "2.4.3",
+          "scipy": "1.17.1",
+          "mujoco": "3.6.0",
+          "torch": "2.10.0",
+          "h5py": "3.16.0"
+        }
+      },
+      "platform_scope": "Local native MuJoCo3.6 on macOSarm64; all new arms share this platform. Historical trigger/checkpoint were produced on Linuxx86; no cross-host bitwise inference/physics or causal-effect comparison is claimed."
+    }
+  },
+  "outcomes": {
+    "schema": "walker-adaptive-coupling-h4.1-r1",
+    "passed": true,
+    "status": "primary_negative",
+    "error": null,
+    "loop_closed": false,
+    "confirmed_benefit": false,
+    "next_round_eligible": false
+  },
+  "teacher_outcomes": {
+    "independent": {
+      "episodes": 2,
+      "successes": 2,
+      "survived": 2,
+      "mean_cost": 382.4917679045561,
+      "mean_steps": 1000.0,
+      "mean_velocity_mae": 0.14840576404469497
+    },
+    "fixed_high": {
+      "episodes": 2,
+      "successes": 2,
+      "survived": 2,
+      "mean_cost": 371.5745036314738,
+      "mean_steps": 1000.0,
+      "mean_velocity_mae": 0.14395464414600168
+    },
+    "backoff": {
+      "episodes": 2,
+      "successes": 2,
+      "survived": 2,
+      "mean_cost": 379.4791448599315,
+      "mean_steps": 1000.0,
+      "mean_velocity_mae": 0.1473702973810364
+    }
+  },
+  "student_outcomes": {
+    "primary": {
+      "parent": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4289.545693831557,
+        "mean_steps": 235.3125,
+        "mean_velocity_mae": 0.8303686473143581
+      },
+      "independent": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4850.449783248188,
+        "mean_steps": 125.8125,
+        "mean_velocity_mae": 1.8395266362872182
+      },
+      "fixed_high": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4957.6059088631355,
+        "mean_steps": 169.25,
+        "mean_velocity_mae": 2.204888819221786
+      },
+      "backoff": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4843.232105924087,
+        "mean_steps": 155.75,
+        "mean_velocity_mae": 1.8692038558928465
+      }
+    },
+    "acquisition_starts": {
+      "parent": {
+        "episodes": 2,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4306.214877585453,
+        "mean_steps": 227.0,
+        "mean_velocity_mae": 0.8080874623046925
+      },
+      "independent": {
+        "episodes": 2,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4913.054802472773,
+        "mean_steps": 139.0,
+        "mean_velocity_mae": 2.0383605425215903
+      },
+      "fixed_high": {
+        "episodes": 2,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4952.06162567904,
+        "mean_steps": 173.5,
+        "mean_velocity_mae": 2.213695883875861
+      },
+      "backoff": {
+        "episodes": 2,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4679.8092019702835,
+        "mean_steps": 174.0,
+        "mean_velocity_mae": 1.4591528490955012
+      }
+    }
+  },
+  "teacher_student_gap": {
+    "independent": {
+      "teacher_costs": [
+        372.7086518178426,
+        392.2748839912696
+      ],
+      "student_costs": [
+        4913.443186052206,
+        4912.66641889334
+      ],
+      "costs": [
+        4540.734534234363,
+        4520.391534902071
+      ],
+      "teacher_successes": 2,
+      "student_successes": 0,
+      "scope": "Same two reset contexts as acquisition, diagnostic training starts; not fresh held generalization."
+    },
+    "fixed_high": {
+      "teacher_costs": [
+        387.52113947530415,
+        355.6278677876435
+      ],
+      "student_costs": [
+        4919.651878562555,
+        4984.471372795526
+      ],
+      "costs": [
+        4532.130739087251,
+        4628.843505007882
+      ],
+      "teacher_successes": 2,
+      "student_successes": 0,
+      "scope": "Same two reset contexts as acquisition, diagnostic training starts; not fresh held generalization."
+    },
+    "backoff": {
+      "teacher_costs": [
+        346.8846733445676,
+        412.07361637529544
+      ],
+      "student_costs": [
+        4416.9947985623085,
+        4942.623605378258
+      ],
+      "costs": [
+        4070.110125217741,
+        4530.549989002962
+      ],
+      "teacher_successes": 2,
+      "student_successes": 0,
+      "scope": "Same two reset contexts as acquisition, diagnostic training starts; not fresh held generalization."
+    }
+  },
+  "gates": {
+    "primary_gate": {
+      "passed": false,
+      "checks": {
+        "minimum_walking_successes": false,
+        "more_walking_than_fixed": false
+      },
+      "comparisons": {
+        "parent": {
+          "checks": {
+            "success_nonregression": true,
+            "survival_nonregression": true,
+            "mean_controls_nonregression": false,
+            "complete_cost": false
+          },
+          "relative_cost_gain": -0.12907810094871822,
+          "passed": false,
+          "paired_cost_deltas": [
+            701.4642611045092,
+            72.57396520416114,
+            619.7371979722684,
+            586.4148367965054,
+            771.4398629261195,
+            547.4914862316182,
+            635.9175240555805,
+            577.9443391153645,
+            687.906833209995,
+            278.9530336401067,
+            582.2454059123302,
+            572.2336406955592,
+            608.1564398689707,
+            612.556479468878,
+            415.42555851324414,
+            588.5217287652549
+          ],
+          "paired_control_deltas": [
+            -96,
+            -23,
+            -98,
+            -88,
+            -124,
+            -78,
+            -62,
+            -69,
+            -129,
+            -31,
+            -90,
+            -82,
+            -81,
+            -85,
+            -58,
+            -79
+          ]
+        },
+        "independent": {
+          "checks": {
+            "success_nonregression": true,
+            "survival_nonregression": true,
+            "mean_controls_nonregression": true,
+            "complete_cost": false
+          },
+          "relative_cost_gain": 0.0014880428922342684,
+          "passed": false,
+          "paired_cost_deltas": [
+            -14.955697846492512,
+            -530.769866291681,
+            -32.081919992783696,
+            -5.130589320148829,
+            -24.266287803874548,
+            -48.35869599858688,
+            83.59620510379682,
+            551.235702159488,
+            -31.605229882529784,
+            -59.65102639658198,
+            -40.037974960782776,
+            -37.89656942270176,
+            -59.276430553736645,
+            -26.791635072631834,
+            165.34529762295097,
+            -4.838118529342864
+          ],
+          "paired_control_deltas": [
+            95,
+            117,
+            62,
+            -25,
+            99,
+            58,
+            43,
+            -128,
+            57,
+            -36,
+            51,
+            55,
+            84,
+            65,
+            -105,
+            -13
+          ]
+        },
+        "fixed_high": {
+          "checks": {
+            "success_nonregression": true,
+            "survival_nonregression": true,
+            "mean_controls_nonregression": false,
+            "complete_cost": false
+          },
+          "relative_cost_gain": 0.023070370062003714,
+          "passed": false,
+          "paired_cost_deltas": [
+            -91.11788379709469,
+            -469.8451050583162,
+            -75.10519934542572,
+            -120.70676173668744,
+            -68.55324207617832,
+            46.73139912809529,
+            50.47899111284187,
+            -87.1735783233189,
+            -3.720113839145597,
+            -365.29861192133467,
+            -94.05637461887727,
+            -90.29444849736956,
+            -70.9568545962311,
+            -74.96059406404675,
+            -226.92020687903278,
+            -88.4822625126535
+          ],
+          "paired_control_deltas": [
+            32,
+            -7,
+            -12,
+            -11,
+            24,
+            -6,
+            -42,
+            0,
+            -30,
+            15,
+            -20,
+            -122,
+            -16,
+            -11,
+            -5,
+            -5
+          ]
+        }
+      }
+    },
+    "teacher_admission": {
+      "passed": true,
+      "checks": {
+        "independent_task_success": true,
+        "fixed_high_task_success": true,
+        "backoff_task_success": true,
+        "fixed_high_cost_guard": true,
+        "backoff_cost_guard": true
+      },
+      "agreement_used": false,
+      "per_slot_substitution": false
+    }
+  },
+  "costs": {
+    "work": {
+      "requested_controls": 74588133,
+      "completed_controls": 74588133,
+      "requested_model_controls": 74569728,
+      "completed_model_controls": 74569728,
+      "requested_live_controls": 18405,
+      "completed_live_controls": 18405,
+      "requested_physics_substeps": 298352532,
+      "completed_physics_substeps": 298352532,
+      "unknown_partial_controls": 0,
+      "unknown_partial_physics_substeps": 0,
+      "model_queries": 22006,
+      "live_queries": 18405,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "measurement_requests": 38508,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "requested_neural_rows": 45735401,
+      "completed_neural_rows": 45735401,
+      "unknown_partial_neural_rows": 0,
+      "requested_backward_rows": 1536000,
+      "completed_backward_rows": 1536000,
+      "unknown_partial_backward_rows": 0,
+      "requested_optimizer_steps": 6000,
+      "completed_optimizer_steps": 6000,
+      "unknown_partial_optimizer_steps": 0,
+      "resets": 78,
+      "reset_errors": 0,
+      "restores": 0,
+      "snapshots": 136115,
+      "episodes": 78,
+      "requested_checkpoint_loads": 1,
+      "completed_checkpoint_loads": 1,
+      "unknown_partial_checkpoint_loads": 0,
+      "neural_rows": 45735401,
+      "backward_rows": 1536000,
+      "optimizer_steps": 6000,
+      "queries": 40411,
+      "physics_frames": 298352532,
+      "wall_seconds": 908.4950794169999
+    },
+    "phase_work": {},
+    "inherited_work": {},
+    "wall_seconds": 908.5268987910022,
+    "accounting": {}
+  },
+  "result_file": "result.json",
+  "files": [
+    {
+      "file": "run/config.json",
+      "available": true,
+      "expected_sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+      "expected_bytes": 4164,
+      "bytes": 4164,
+      "sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113",
+      "verified": true
+    },
+    {
+      "file": "run/result.json",
+      "available": true,
+      "expected_sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+      "expected_bytes": 1591016,
+      "bytes": 1591016,
+      "sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca",
+      "verified": true
+    },
+    {
+      "file": "run/manifest.json",
+      "available": true,
+      "expected_sha256": "914fa5b21fdac252f2b0ac716078db9dd8966d5a5e6129b0edb52a18b4dce998",
+      "expected_bytes": 12786,
+      "bytes": 12786,
+      "sha256": "914fa5b21fdac252f2b0ac716078db9dd8966d5a5e6129b0edb52a18b4dce998",
+      "verified": true
+    },
+    {
+      "file": "run/input_manifest.json",
+      "available": true,
+      "expected_sha256": "0833f5291bdfccbeb55c6be85478aab095c583e29634d3b33823a1f6603c1c2b",
+      "expected_bytes": 2375,
+      "bytes": 2375,
+      "sha256": "0833f5291bdfccbeb55c6be85478aab095c583e29634d3b33823a1f6603c1c2b",
+      "verified": true
+    },
+    {
+      "file": "run/launch_receipt.json",
+      "available": true,
+      "expected_sha256": "d20da2281ce13eb3f236f229a0b00ae61f80c679fe144a5f318ac9fcae3866df",
+      "expected_bytes": 1102,
+      "bytes": 1102,
+      "sha256": "d20da2281ce13eb3f236f229a0b00ae61f80c679fe144a5f318ac9fcae3866df",
+      "verified": true
+    },
+    {
+      "file": "run/learning_curves.csv",
+      "available": true,
+      "expected_sha256": "4e597b4fbd7043ba9e38b69b724ac40b8cf042e0dfb737ac66026812622cdd2f",
+      "expected_bytes": 619154,
+      "bytes": 619154,
+      "sha256": "4e597b4fbd7043ba9e38b69b724ac40b8cf042e0dfb737ac66026812622cdd2f",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/feedback.json",
+      "available": true,
+      "expected_sha256": "860e99b548c815bbe47ba739cd26bbc21a1f41044ca0c0929cf6dce8c7033966",
+      "expected_bytes": 1159,
+      "bytes": 1159,
+      "sha256": "860e99b548c815bbe47ba739cd26bbc21a1f41044ca0c0929cf6dce8c7033966",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/parent_inspection.json",
+      "available": true,
+      "expected_sha256": "5a02eaa0dca79f9cd344ef555cf14918aec5e318f2d27ba02f9454db2921ca0e",
+      "expected_bytes": 812,
+      "bytes": 812,
+      "sha256": "5a02eaa0dca79f9cd344ef555cf14918aec5e318f2d27ba02f9454db2921ca0e",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/seed_audit.json",
+      "available": true,
+      "expected_sha256": "155adf311bd2c21becb8863b25d681f663fefe8dd22df790e9f57ccf78ebd571",
+      "expected_bytes": 941459,
+      "bytes": 941459,
+      "sha256": "155adf311bd2c21becb8863b25d681f663fefe8dd22df790e9f57ccf78ebd571",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/supplemental_canonical_seed_audit.json",
+      "available": true,
+      "expected_sha256": "e81f8f71f2815091de44af3e97e658302552247d1e714393738e079e4b627ed5",
+      "expected_bytes": 1184,
+      "bytes": 1184,
+      "sha256": "e81f8f71f2815091de44af3e97e658302552247d1e714393738e079e4b627ed5",
+      "verified": true
+    },
+    {
+      "file": "figures/learning_and_outcomes.png",
+      "available": true,
+      "expected_sha256": "b305b88d861a144774b006eedc7ca81e79f19f4014057e76d41aeb4d91dd3828",
+      "expected_bytes": 267483,
+      "bytes": 267483,
+      "sha256": "b305b88d861a144774b006eedc7ca81e79f19f4014057e76d41aeb4d91dd3828",
+      "verified": true
+    },
+    {
+      "file": "figures/learning_and_outcomes.pdf",
+      "available": true,
+      "expected_sha256": "858b078d4f3fe99aec59519cb4185efa7347bd78174dfd4043a1dd0b78fa639e",
+      "expected_bytes": 32953,
+      "bytes": 32953,
+      "sha256": "858b078d4f3fe99aec59519cb4185efa7347bd78174dfd4043a1dd0b78fa639e",
+      "verified": true
+    },
+    {
+      "file": "report/plotted_data.json",
+      "available": true,
+      "expected_sha256": "8a03daeec9d724849a391f83ec45a14e006cb09439e6be2da99afbf2735eac4f",
+      "expected_bytes": 9462,
+      "bytes": 9462,
+      "sha256": "8a03daeec9d724849a391f83ec45a14e006cb09439e6be2da99afbf2735eac4f",
+      "verified": true
+    },
+    {
+      "file": "report/standalone_episodes.csv",
+      "available": true,
+      "expected_sha256": "b3a67c5747a32591ce7d34da4ed13b558ba84563e6cf928f2d63a10e8d7aa651",
+      "expected_bytes": 4821,
+      "bytes": 4821,
+      "sha256": "b3a67c5747a32591ce7d34da4ed13b558ba84563e6cf928f2d63a10e8d7aa651",
+      "verified": true
+    },
+    {
+      "file": "report/cost_accounting.json",
+      "available": true,
+      "expected_sha256": "d91417aea3b60f55be2a72783a56aab973eca29d09eb8d3823fd4472e74cad0f",
+      "expected_bytes": 3189,
+      "bytes": 3189,
+      "sha256": "d91417aea3b60f55be2a72783a56aab973eca29d09eb8d3823fd4472e74cad0f",
+      "verified": true
+    },
+    {
+      "file": "report/receipt.json",
+      "available": true,
+      "expected_sha256": "2b770c095f3cfa73f2699c6158fafba660e5d06772860fb08228027984688d03",
+      "expected_bytes": 855,
+      "bytes": 855,
+      "sha256": "2b770c095f3cfa73f2699c6158fafba660e5d06772860fb08228027984688d03",
+      "verified": true
+    },
+    {
+      "file": "report/visual_qa.json",
+      "available": true,
+      "expected_sha256": "692213b0d994eb1c09c8a90ede8c52dccce1927d554bd2c3828e1f4e90d693b2",
+      "expected_bytes": 417,
+      "bytes": 417,
+      "sha256": "692213b0d994eb1c09c8a90ede8c52dccce1927d554bd2c3828e1f4e90d693b2",
+      "verified": true
+    },
+    {
+      "file": "audit/receipt.json",
+      "available": true,
+      "expected_sha256": "568d93f34a97e94fd3c6c7b29ff239a9d99dcb38f5d2c58af3b803f29aa07688",
+      "expected_bytes": 589,
+      "bytes": 589,
+      "sha256": "568d93f34a97e94fd3c6c7b29ff239a9d99dcb38f5d2c58af3b803f29aa07688",
+      "verified": true
+    },
+    {
+      "file": "audit/findings.json",
+      "available": true,
+      "expected_sha256": "4924fcec12ebe05ec6a73654591918e7fe4ecf6f936e4ef9e1d95c74626be263",
+      "expected_bytes": 18656,
+      "bytes": 18656,
+      "sha256": "4924fcec12ebe05ec6a73654591918e7fe4ecf6f936e4ef9e1d95c74626be263",
+      "verified": true
+    },
+    {
+      "file": "audit/file_bindings.json",
+      "available": true,
+      "expected_sha256": "710389fc730aae59bbf058df9564d21a8befad2f78cd6fb4de03e097f04a12e6",
+      "expected_bytes": 28628,
+      "bytes": 28628,
+      "sha256": "710389fc730aae59bbf058df9564d21a8befad2f78cd6fb4de03e097f04a12e6",
+      "verified": true
+    },
+    {
+      "file": "audit/array_bindings.json",
+      "available": true,
+      "expected_sha256": "373dbe2eab8adc9affca3d367c62f94ab7ea62f6377fe05d185eb60a8af3d68e",
+      "expected_bytes": 490525,
+      "bytes": 490525,
+      "sha256": "373dbe2eab8adc9affca3d367c62f94ab7ea62f6377fe05d185eb60a8af3d68e",
+      "verified": true
+    },
+    {
+      "file": "audit/report.md",
+      "available": true,
+      "expected_sha256": "80b689f89b7dd31270614a41c07d4224f7a2417e49f99cbd8fb6503e695b78db",
+      "expected_bytes": 7666,
+      "bytes": 7666,
+      "sha256": "80b689f89b7dd31270614a41c07d4224f7a2417e49f99cbd8fb6503e695b78db",
+      "verified": true
+    },
+    {
+      "file": "audit/report_v2.md",
+      "available": true,
+      "expected_sha256": "330a7d47ee12d2aae15d19660c5c517ba29a8d5e61d985e69c7afffc5376ec4b",
+      "expected_bytes": 7705,
+      "bytes": 7705,
+      "sha256": "330a7d47ee12d2aae15d19660c5c517ba29a8d5e61d985e69c7afffc5376ec4b",
+      "verified": true
+    },
+    {
+      "file": "audit/report_revision.json",
+      "available": true,
+      "expected_sha256": "6c52fb1aad455bdc51c351f2675e53cf7e0f722ab7357283705b19cd4472f591",
+      "expected_bytes": 334,
+      "bytes": 334,
+      "sha256": "6c52fb1aad455bdc51c351f2675e53cf7e0f722ab7357283705b19cd4472f591",
+      "verified": true
+    },
+    {
+      "file": "audit/supplemental_native_detail.json",
+      "available": true,
+      "expected_sha256": "670afb0d564cc62361911f2591cb4f03a7e19a576570dbd8c1c3c014dc6c93e0",
+      "expected_bytes": 6386,
+      "bytes": 6386,
+      "sha256": "670afb0d564cc62361911f2591cb4f03a7e19a576570dbd8c1c3c014dc6c93e0",
+      "verified": true
+    },
+    {
+      "file": "audit_source/audit.py",
+      "available": true,
+      "expected_sha256": "9d896faa880289b00d8ba0e0ae8a2865844ccfda6674d6bd1b45136073fd0211",
+      "expected_bytes": 42345,
+      "bytes": 42345,
+      "sha256": "9d896faa880289b00d8ba0e0ae8a2865844ccfda6674d6bd1b45136073fd0211",
+      "verified": true
+    },
+    {
+      "file": "audit_source/native_checker.py",
+      "available": true,
+      "expected_sha256": "c9aec1622d94a53c2e0322af34e8579ed46eae5a87ae93f810909b570da11f12",
+      "expected_bytes": 32076,
+      "bytes": 32076,
+      "sha256": "c9aec1622d94a53c2e0322af34e8579ed46eae5a87ae93f810909b570da11f12",
+      "verified": true
+    },
+    {
+      "file": "audit_source/supplement.py",
+      "available": true,
+      "expected_sha256": "b08d7a3c1205c3cf1e7fdb7ec5546d51bec12fd6b43226c43f9beafe279e8240",
+      "expected_bytes": 7039,
+      "bytes": 7039,
+      "sha256": "b08d7a3c1205c3cf1e7fdb7ec5546d51bec12fd6b43226c43f9beafe279e8240",
+      "verified": true
+    },
+    {
+      "file": "external/full_local_evidence_locator.json",
+      "available": true,
+      "expected_sha256": "2e204cb68d67469285184ceb58eb72924c49b7a7b0dfb9428f421cc8af1d9436",
+      "expected_bytes": 7945,
+      "bytes": 7945,
+      "sha256": "2e204cb68d67469285184ceb58eb72924c49b7a7b0dfb9428f421cc8af1d9436",
+      "verified": true
+    },
+    {
+      "file": "accounting/combined_lineage.json",
+      "available": true,
+      "expected_sha256": "0f6b53b49e5b69a9fa638d8ef25f197c3265926f6afde67cc2b51aabd8a6cb0f",
+      "expected_bytes": 29106,
+      "bytes": 29106,
+      "sha256": "0f6b53b49e5b69a9fa638d8ef25f197c3265926f6afde67cc2b51aabd8a6cb0f",
+      "verified": true
+    },
+    {
+      "file": "audit/full_validation.json",
+      "available": true,
+      "expected_sha256": "144ab739fcc091d14e90d9e5c60e14ea6157f10a378e2d2a31a42a8467ed6783",
+      "expected_bytes": 940,
+      "bytes": 940,
+      "sha256": "144ab739fcc091d14e90d9e5c60e14ea6157f10a378e2d2a31a42a8467ed6783",
+      "verified": true
+    },
+    {
+      "file": "external/execution_receipt.json",
+      "available": true,
+      "expected_sha256": "413ec4578f576afcdee8b41c98af3ebb1fc690f96c64f0afda7b972e263f8f34",
+      "expected_bytes": 7102,
+      "bytes": 7102,
+      "sha256": "413ec4578f576afcdee8b41c98af3ebb1fc690f96c64f0afda7b972e263f8f34",
+      "verified": true
+    },
+    {
+      "file": "audit/validation_receipt.json",
+      "available": true,
+      "expected_sha256": "7c8238c29b1de75f1623b35e914c71b36a4c031648cb045cd89b7fe7977d20b9",
+      "expected_bytes": 774,
+      "bytes": 774,
+      "sha256": "7c8238c29b1de75f1623b35e914c71b36a4c031648cb045cd89b7fe7977d20b9",
+      "verified": true
+    }
+  ],
+  "source_files": [],
+  "policy_hashes": {
+    "parent": "7bf162f6e8c9bb63718e44f8392838503528a6669e7553088a07f13be6036916",
+    "independent": "04138d35f78955b20eec82d53af2d0852d0c6bfcc1b5064fbc76659a3443d559",
+    "fixed_high": "f63a37ad3dacb2bf0385b00ce873fd568ac75fc770ab12112c79b1581c73534b",
+    "backoff": "e4b653584dded180622186b80edaa9fc2fbb87a3533c05e166b438a1da648a5c"
+  },
+  "bulk_evidence": {
+    "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001",
+    "remote_directory": null,
+    "remote_host": null,
+    "remote_copy_verified": false,
+    "omitted": [
+      "source snapshots",
+      "full HDF model and executed arrays",
+      "ledgers",
+      "checkpoints",
+      "NPZ training inputs",
+      "videos",
+      "worker logs"
+    ]
+  },
+  "missing_evidence": [],
+  "omitted_bulk_evidence": [
+    "source snapshots",
+    "full HDF model and executed arrays",
+    "ledgers",
+    "checkpoints",
+    "NPZ training inputs",
+    "videos",
+    "worker logs"
+  ],
+  "hash_mismatches": [],
+  "errors": [],
+  "verification_requested": true,
+  "verification_scope": "copied capsule bytes"
+}

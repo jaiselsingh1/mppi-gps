@@ -29,9 +29,13 @@ not launchable; it proposes no automatic learning or coupling follow-up.
 all 34 saved physical state/action histories, 561 cross-trajectory pairs and full
 motion atlases are retained. The finite probe and visual review do not establish
 a transfer cause, stable cycle or teachability. No new inference, integration,
-training or acquisition ran. The next [H5.0 guided-proposal hypothesis](teacher_proposal_h5_0_hypothesis.md)
-requires a separate frozen protocol; it is unimplemented and unlaunched. Repeated
-gait remains a possible Walker-specific factor rather than a requirement.
+training or acquisition ran. Its H5.0 recommendation subsequently received a separate frozen
+[round-one test](teacher_proposal_h5_0_round1_results.md): independent teachers walked 12/12;
+selector-only and proposal guidance each walked 11/12. The teacher-competence stop prevented
+all child fits and standalone panels. The complete audit passed; useful learning and feedback
+remain unmeasured in this round. Repeated gait remains a possible Walker-specific factor
+rather than a requirement. The one next recommendation is [C1.0](student_consequence_c1_protocol.md),
+a fixed fitting-loss contrast for review only, with launch disabled.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 
@@ -47,9 +51,10 @@ change a weight or acquire with an updated policy. H4.1 has now done both.
 
 | Track | Question | Current status |
 |---|---|---|
+| [Next learning hypothesis C1.0](student_consequence_c1_protocol.md) | Do weights from fixed-tape action-cost effects improve walking after 2,000 updates beyond uniform and shuffled weights? | Recommended for review; source outcomes/audit pass, but extraction, replay, continuation, seed and capacity gates remain pending. No implementation, launch or coupling. |
 | [Student learnability L1](student_learnability_track_v1.md) | Can this torque student learn competent walking from successful teacher data? | Fresh clipped/full-velocity 10k training both scored 0/16 walking and survival; nearly identical final MSE. The broader question remains open. |
 | [Coupling H4.1](adaptive_coupling_h4_1.md) | Does an outcome-triggered reduction of agreement pressure improve the next acquisition–learning outcome? | Actual changed-weight acquisition executed; all six teachers walked, all three matched children trained, all regressed against their incoming parent. |
-| [Next coupling hypothesis H4.2](adaptive_coupling_h4_2_hypothesis.md) | Does parent-relative learner-response utility improve teaching-weight selection over relative count feedback? | Untested and unlaunched; all three current candidates violate parent nonregression. A better metric alone does not establish walking. |
+| [Preserved coupling hypothesis H4.2](adaptive_coupling_h4_2_hypothesis.md) | Does parent-relative learner-response utility improve teaching-weight selection over relative count feedback? | Untested and unlaunched; all three current candidates violate parent nonregression. A better metric alone does not establish walking. |
 
 The H4.1 rule halves the agreement weight if the fixed-update guided child loses
 task success **or** full survival against its matched independent-data child;

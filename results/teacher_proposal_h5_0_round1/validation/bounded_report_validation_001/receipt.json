@@ -1,0 +1,75 @@
+{
+  "schema": "walker-h5-bounded-report-synthetic-validation-v1",
+  "passed": true,
+  "synthetic_tests": 5,
+  "genuine_saved_matplotlib_fixture": {
+    "learning_curve_points": 2,
+    "peak_rss_bytes": 88834048,
+    "report_directory_bytes": 315646,
+    "scientific_calls": 0,
+    "synthetic_real_plot": true,
+    "writable_paths_reserved": 14
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_bounded_saved_report.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 8.436174333008239,
+      "stdout_sha256": "b8cd92e0cf7b6824a2a2f5ab592e1228bffc037228cfa3a7448743c4f73ee5e1",
+      "stderr_sha256": "e21e1fe109225d4222bb0b80496e3273349bd2dd66294b588e7e0ca9db49b9a7"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--no-force-exclude",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/render_saved_report_bounded.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_bounded_saved_report.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.02410525002051145,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "--no-force-exclude",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/render_saved_report_bounded.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_bounded_saved_report.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.022701290989061818,
+      "stdout_sha256": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "files": {
+    "render_saved_report_bounded.py": {
+      "bytes": 17925,
+      "sha256": "05746886a049620b96fd6adcf7d798734070cc8db57dfa101503e47ce521e63d"
+    },
+    "test_bounded_saved_report.py": {
+      "bytes": 10194,
+      "sha256": "b8de2662a9b05940a8354d5586d12ef4df567830d5ef7b834ff65419c1f683f1"
+    }
+  },
+  "actual_collection_or_scientific_audit_executed": false,
+  "SSH_commands": 0,
+  "scientific_calls": 0,
+  "source_scope": "Pinned report source and frozen provenance code only; all inputs/collection/audit flags and curves are private temporary synthetic JSON. The genuine Matplotlib PNG/PDF test rendered two saved scalar points under output guards and authenticated child ownership. Linux outer watchdog/RSS implementation is reused unchanged from frozen source; this macOS fixture checks the child plotting/writeguard path, not Linux /proc polling.",
+  "resource_proof": "27 child writable paths at16MiB each +64MiB outerstdout +4MiB operator controls =500MiB <512MiB. Actual fixture14paths in initial run; receipt stores latest observed count. No row truncation/smoothing.",
+  "overhead_scope": "Enclosing test timings overlap child/render timers. Initial syntax/format iterations and extra uncaptured test passes, library/font/cache IO, editing and tool overhead are not fully metered."
+}

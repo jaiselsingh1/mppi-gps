@@ -1,0 +1,439 @@
+{
+  "status": "pending_independent_scientific_audit",
+  "metadata_arithmetic_consistent": true,
+  "scientific_audit_passed": false,
+  "source": {
+    "file": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/engineering/028_closed_worker_probe/stdout.txt",
+    "bytes": 15427,
+    "sha256": "dd8fd6e27927816857cea6c5e1ed3192302204a60f2571398498980fbace6e35"
+  },
+  "review_source": {
+    "file": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/publication/review_closed_worker_probe_001.py",
+    "bytes": 16426,
+    "sha256": "e80dc0093f525c0b696bd07b2df8a21155f2921187f7e9e8b88529d54edbe079"
+  },
+  "source_review_read_bytes": 31853,
+  "inherited_probe": {
+    "read_bytes": 42442,
+    "wall_seconds": 0.00020247000065864995,
+    "scientific_calls": 0,
+    "remote_file_bindings": {
+      "worker_result.json": {
+        "bytes": 41813,
+        "sha256": "95bc15a36a561ab6b9a4b0f9fbca9977209e32ba2315fcc35f223f762aa079eb"
+      },
+      "worker_exit.json": {
+        "bytes": 629,
+        "sha256": "37b5f7ccb028abefc5bdb8c52c291061660a439eede48cc45e178c4fbb6145ff"
+      }
+    }
+  },
+  "teacher_aggregate_by_arm": {
+    "independent": {
+      "episodes": 12,
+      "walking": 12,
+      "full_survival": 12,
+      "controls": 12000,
+      "complete_cost_sum": 4374.959944168778,
+      "mean_complete_cost": 364.57999534739815,
+      "complete_costs": [
+        353.5363530342355,
+        361.6763650692577,
+        357.6175668105228,
+        366.08546009420877,
+        362.0190144749737,
+        376.03627487090444,
+        389.9281137563751,
+        369.1877639331241,
+        358.0111614300241,
+        343.8443743496991,
+        370.8569336686098,
+        366.16056267684246
+      ],
+      "aggregation": "Episode equal, three streams by four reset slots. These are three shared-parent streams, not twelve independent trained learners."
+    },
+    "selector_only": {
+      "episodes": 12,
+      "walking": 11,
+      "full_survival": 11,
+      "controls": 11201,
+      "complete_cost_sum": 8344.438325385718,
+      "mean_complete_cost": 695.3698604488098,
+      "complete_costs": [
+        373.1287702067204,
+        395.69901360837264,
+        349.3283849740727,
+        384.9807878395861,
+        4230.693172233047,
+        371.18596651395455,
+        379.21453281834715,
+        351.59386593977354,
+        364.1746758991956,
+        394.5979833181575,
+        378.8058213992539,
+        371.035350635236
+      ],
+      "aggregation": "Episode equal, three streams by four reset slots. These are three shared-parent streams, not twelve independent trained learners."
+    },
+    "proposal_guided": {
+      "episodes": 12,
+      "walking": 11,
+      "full_survival": 11,
+      "controls": 11199,
+      "complete_cost_sum": 8305.643745342404,
+      "mean_complete_cost": 692.1369787785337,
+      "complete_costs": [
+        359.1655638137338,
+        359.1247611947443,
+        365.8937951414064,
+        360.3456424159763,
+        377.6519396589498,
+        384.4544563772101,
+        370.24641491103785,
+        376.3127354439198,
+        4231.0474344209015,
+        360.07088831515466,
+        415.9956698899924,
+        345.33444375937705
+      ],
+      "aggregation": "Episode equal, three streams by four reset slots. These are three shared-parent streams, not twelve independent trained learners."
+    }
+  },
+  "teacher_per_stream": [
+    {
+      "stream": 0,
+      "arm": "independent",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 359.7289362520562,
+      "cost_ratio_to_paired_independent": 1.0,
+      "cost_change_percent": 0.0,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 1,
+      "arm": "independent",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 374.2927917588444,
+      "cost_ratio_to_paired_independent": 1.0,
+      "cost_change_percent": 0.0,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 2,
+      "arm": "independent",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 359.7182580312939,
+      "cost_ratio_to_paired_independent": 1.0,
+      "cost_change_percent": 0.0,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 0,
+      "arm": "selector_only",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 375.784239157188,
+      "cost_ratio_to_paired_independent": 1.044631669257438,
+      "cost_change_percent": 4.4631669257438,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 1,
+      "arm": "selector_only",
+      "episodes": 4,
+      "walking": 3,
+      "full_survival": 3,
+      "controls": 3201,
+      "mean_complete_cost": 1333.1718843762806,
+      "cost_ratio_to_paired_independent": 3.56184226287542,
+      "cost_change_percent": 256.184226287542,
+      "walking_gate": false,
+      "five_percent_cost_gate": false
+    },
+    {
+      "stream": 2,
+      "arm": "selector_only",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 377.15345781296077,
+      "cost_ratio_to_paired_independent": 1.048469043181428,
+      "cost_change_percent": 4.846904318142808,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 0,
+      "arm": "proposal_guided",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 361.13244064146517,
+      "cost_ratio_to_paired_independent": 1.0039015610032147,
+      "cost_change_percent": 0.3901561003214704,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 1,
+      "arm": "proposal_guided",
+      "episodes": 4,
+      "walking": 4,
+      "full_survival": 4,
+      "controls": 4000,
+      "mean_complete_cost": 377.16638659777936,
+      "cost_ratio_to_paired_independent": 1.0076773982887344,
+      "cost_change_percent": 0.7677398288734372,
+      "walking_gate": true,
+      "five_percent_cost_gate": true
+    },
+    {
+      "stream": 2,
+      "arm": "proposal_guided",
+      "episodes": 4,
+      "walking": 3,
+      "full_survival": 3,
+      "controls": 3199,
+      "mean_complete_cost": 1338.1121090963563,
+      "cost_ratio_to_paired_independent": 3.7198893278860106,
+      "cost_change_percent": 271.98893278860106,
+      "walking_gate": false,
+      "five_percent_cost_gate": false
+    }
+  ],
+  "paired_complete_cost_comparisons": [
+    {
+      "stream": 0,
+      "contrast": "selector_only_minus_independent",
+      "mean_complete_cost_difference": 16.055302905131782,
+      "ratio_of_mean_complete_cost": 1.044631669257438,
+      "cost_change_percent": 4.4631669257438,
+      "reset_order_cost_differences": [
+        19.592417172484886,
+        34.022648539114925,
+        -8.289181836450098,
+        18.895327745377358
+      ],
+      "pairing_scope": "Declared matched acquisition-reset order; exact simulator reset-context equality awaits the independent raw audit."
+    },
+    {
+      "stream": 1,
+      "contrast": "selector_only_minus_independent",
+      "mean_complete_cost_difference": 958.8790926174362,
+      "ratio_of_mean_complete_cost": 3.56184226287542,
+      "cost_change_percent": 256.184226287542,
+      "reset_order_cost_differences": [
+        3868.6741577580738,
+        -4.850308356949881,
+        -10.713580938027974,
+        -17.593897993350538
+      ],
+      "pairing_scope": "Declared matched acquisition-reset order; exact simulator reset-context equality awaits the independent raw audit."
+    },
+    {
+      "stream": 2,
+      "contrast": "selector_only_minus_independent",
+      "mean_complete_cost_difference": 17.43519978166688,
+      "ratio_of_mean_complete_cost": 1.048469043181428,
+      "cost_change_percent": 4.846904318142808,
+      "reset_order_cost_differences": [
+        6.163514469171503,
+        50.75360896845842,
+        7.94888773064406,
+        4.87478795839354
+      ],
+      "pairing_scope": "Declared matched acquisition-reset order; exact simulator reset-context equality awaits the independent raw audit."
+    },
+    {
+      "stream": 0,
+      "contrast": "proposal_guided_minus_independent",
+      "mean_complete_cost_difference": 1.4035043894089654,
+      "ratio_of_mean_complete_cost": 1.0039015610032147,
+      "cost_change_percent": 0.3901561003214704,
+      "reset_order_cost_differences": [
+        5.629210779498294,
+        -2.5516038745134324,
+        8.276228330883555,
+        -5.739817678232498
+      ],
+      "pairing_scope": "Declared matched acquisition-reset order; exact simulator reset-context equality awaits the independent raw audit."
+    },
+    {
+      "stream": 1,
+      "contrast": "proposal_guided_minus_independent",
+      "mean_complete_cost_difference": 2.8735948389349915,
+      "ratio_of_mean_complete_cost": 1.0076773982887344,
+      "cost_change_percent": 0.7677398288734372,
+      "reset_order_cost_differences": [
+        15.632925183976113,
+        8.418181506305643,
+        -19.68169884533728,
+        7.124971510795717
+      ],
+      "pairing_scope": "Declared matched acquisition-reset order; exact simulator reset-context equality awaits the independent raw audit."
+    },
+    {
+      "stream": 2,
+      "contrast": "proposal_guided_minus_independent",
+      "mean_complete_cost_difference": 978.3938510650624,
+      "ratio_of_mean_complete_cost": 3.7198893278860106,
+      "cost_change_percent": 271.98893278860106,
+      "reset_order_cost_differences": [
+        3873.0362729908775,
+        16.22651396545558,
+        45.1387362213826,
+        -20.826118917465408
+      ],
+      "pairing_scope": "Declared matched acquisition-reset order; exact simulator reset-context equality awaits the independent raw audit."
+    }
+  ],
+  "teacher_totals": {
+    "episodes": 36,
+    "walking": 34,
+    "full_survival": 34,
+    "controls": 34400
+  },
+  "expected_and_reported_work": {
+    "requested_controls": 852938336,
+    "model_controls": 852903936,
+    "live_controls": 34400,
+    "physics_substeps": 3411753344,
+    "model_queries": 206472,
+    "live_queries": 34400,
+    "episodes": 36,
+    "backward_rows": 1536000,
+    "optimizer_steps": 6000,
+    "checkpoint_loads": 3
+  },
+  "per_arm_work": {
+    "independent": {
+      "model_controls": 297510912,
+      "live_controls": 12000,
+      "requested_native_controls": 297522912,
+      "physics_substeps": 1190091648,
+      "model_queries": 72024,
+      "reported_neural_rows": 375664537,
+      "posthoc_teacher_rows": 12000,
+      "inferred_guidance_rows": 375652537,
+      "reported_forward_calls": 36024,
+      "inferred_guidance_forward_calls": 36012,
+      "posthoc_teacher_forward_calls": 12
+    },
+    "selector_only": {
+      "model_controls": 277721280,
+      "live_controls": 11201,
+      "requested_native_controls": 277732481,
+      "physics_substeps": 1110929924,
+      "model_queries": 67230,
+      "reported_neural_rows": 354620997,
+      "posthoc_teacher_rows": 11201,
+      "inferred_guidance_rows": 354609796,
+      "reported_forward_calls": 33627,
+      "inferred_guidance_forward_calls": 33615,
+      "posthoc_teacher_forward_calls": 12
+    },
+    "proposal_guided": {
+      "model_controls": 277671744,
+      "live_controls": 11199,
+      "requested_native_controls": 277682943,
+      "physics_substeps": 1110731772,
+      "model_queries": 67218,
+      "reported_neural_rows": 355661958,
+      "posthoc_teacher_rows": 11199,
+      "inferred_guidance_rows": 355650759,
+      "reported_forward_calls": 33621,
+      "inferred_guidance_forward_calls": 33609,
+      "posthoc_teacher_forward_calls": 12
+    }
+  },
+  "parent_warmup": {
+    "fits_expected_by_protocol": 3,
+    "updates_per_fit_expected_by_protocol": 2000,
+    "reported_total_optimizer_steps": 6000,
+    "reported_forward_rows": 1536000,
+    "reported_backward_rows": 1536000,
+    "inferred_full_data_metric_rows": 36000,
+    "inferred_full_data_metric_forward_calls": 36,
+    "expected_metric_events": 12,
+    "expected_checkpoint_files": 6,
+    "reported_checkpoint_loads": 3,
+    "ownership_limit": "Per-fit tapes, Adam/RNG/normalization and file roster require the independent audit; this scalar probe does not contain all fit/checkpoint records."
+  },
+  "neural_accounting": {
+    "reported_worker_forward_rows": 1087519492,
+    "reported_worker_forward_calls": 109308,
+    "parent_fitting_forward_rows": 1536000,
+    "parent_fitting_forward_calls": 6000,
+    "teacher_posthoc_rows": 34400,
+    "teacher_posthoc_calls": 36,
+    "inferred_guidance_rows": 1085913092,
+    "inferred_guidance_calls": 103236,
+    "expected_full_prediction_audit_rows": 1085983492,
+    "expected_full_prediction_audit_calls": 103308,
+    "expected_audit_checkpoint_loads": 6,
+    "not_the_full_roster_checkpoint_load_ceiling": 15,
+    "training_forward_or_gradient_reproduction_in_audit": false,
+    "audit_status": "Expected paid audit roster from the closed worker; not yet claimed completed."
+  },
+  "unmeasured": {
+    "child_fits": {
+      "count": 0,
+      "reason": "Frozen normal-teacher-competence stop"
+    },
+    "standalone_policy_walking": null,
+    "standalone_policy_survival": null,
+    "student_cost": null,
+    "teacher_student_gap": null,
+    "child_reconstruction": null,
+    "child_held_error": null,
+    "primary_panel": null,
+    "confirmation_panel": null,
+    "useful_learning": null,
+    "scope": "No child, standalone parent/student panels or paired gap episodes executed; missing outcomes are not zero-performance measurements."
+  },
+  "closure": {
+    "worker_status": "teacher_competence_negative_no_child_fits",
+    "worker_execution_complete": true,
+    "learning_comparison_complete": false,
+    "confirmed_benefit": false,
+    "next_round_eligible": false,
+    "no_automatic_followup": true
+  },
+  "reported_resource_accounting": {
+    "meter_wall_seconds": 8684.198369992002,
+    "worker_wall_seconds": 8684.200319212,
+    "outer_worker_wall_seconds": 8684.602899826,
+    "outer_observed_peak_rss_bytes": 684109824,
+    "meter_evidence_storage_bytes": 206888153082,
+    "external_files_and_full_run_size": "Not supplied by this probe; wait for audited external catalog.",
+    "allocation_core_wall_hours_upper": 38.59823511033778,
+    "scope": "Nested wall times must not be added. Sixteen-core allocation times elapsed wall is an allocation upper bound, not measured CPU core-hours. Billing, energy and engineering overhead remain separate/unknown."
+  },
+  "causal_limits": [
+    "The scalar worker declarations and arithmetic await the full independently recomputed raw-source/query/prediction/checkpoint/outcome audit.",
+    "I passed its declared acquisition roster; S and P each lost one complete walking episode in different parent/reset contexts. This is a teacher-competence gate failure for this fixed placement recipe.",
+    "P versus S is not a measured student-usefulness contrast because no child was fitted. Neither failed cloning, a bad agreement metric, nor a benefit from another representation or temporal objective follows.",
+    "The local native-cost guard did not guarantee full-episode competence. Different competent motions were allowed; matching a reference path was not required.",
+    "The guide stayed fixed within round one; no updated policy participated in another acquisition round, and no adaptive loop or convergence was measured."
+  ],
+  "review_wall_seconds": 0.0001880000054370612,
+  "review_scientific_calls": 0,
+  "read_accounting_scope": "Only the saved scalar probe and this helper source were read; no raw arrays, ledgers, original checkpoints or remote files were opened. Library/import/stat work is unmetered; JSON/Markdown writes follow the inner timer."
+}

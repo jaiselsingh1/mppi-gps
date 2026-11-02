@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -87,6 +88,166 @@ def _summaries(value: Any) -> Any:
             if key in value
         }
     return {key: _summaries(item) for key, item in value.items() if isinstance(item, dict)}
+
+
+def _h5_compact_metadata(
+    root: Path, name: str, bindings: dict[str, Any], *, verify: bool
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Read one optional copied JSON, bounded independently of external evidence."""
+    descriptor: dict[str, Any] = dict(file=name, available=False, binding_verified=None)
+    try:
+        path = _contained_path(root, name)
+        if not path.is_file():
+            return {}, descriptor
+        before = path.stat()
+        descriptor.update(available=True, bytes=before.st_size)
+        limit = 4 * 1024**2
+        if before.st_size > limit:
+            raise ValueError("Optional compact audit JSON exceeds its 4 MiB read limit")
+        with path.open("rb") as stream:
+            payload = stream.read(limit + 1)
+        descriptor["read_bytes"] = len(payload)
+        after = path.stat()
+        if len(payload) > limit or (before.st_size, before.st_mtime_ns) != (
+            after.st_size,
+            after.st_mtime_ns,
+        ):
+            raise ValueError("Optional compact audit JSON changed during bounded read")
+        binding = bindings.get(name)
+        digest = binding if isinstance(binding, str) else (binding or {}).get("sha256")
+        size = binding.get("bytes") if isinstance(binding, dict) else None
+        descriptor["bound_in_capsule"] = digest is not None
+        if verify:
+            descriptor["sha256"] = hashlib.sha256(payload).hexdigest()
+            descriptor["binding_verified"] = digest is not None and (
+                descriptor["sha256"] == digest and (size is None or len(payload) == size)
+            )
+
+        def finite_float(value: str) -> float:
+            result = float(value)
+            if not math.isfinite(result):
+                raise ValueError("Nonfinite compact audit JSON number")
+            return result
+
+        def reject(value: str) -> None:
+            raise ValueError("Nonfinite compact audit JSON constant: " + value)
+
+        value = json.loads(payload, parse_constant=reject, parse_float=finite_float)
+        if not isinstance(value, dict):
+            raise ValueError("Optional compact audit metadata must be a JSON object")
+        return value, descriptor
+    except (OSError, TypeError, ValueError) as error:
+        descriptor["error"] = str(error)
+        return {}, descriptor
+
+
+def _h5_capsule_audit(root: Path, capsule: dict[str, Any], *, verify: bool) -> dict[str, Any]:
+    """Expose recorded audit closure without claiming a repeated scientific audit."""
+    bindings = capsule.get("files", {})
+    receipt, receipt_file = _h5_compact_metadata(
+        root, "audit/result/receipt.json", bindings, verify=verify
+    )
+    outer, outer_file = _h5_compact_metadata(root, "audit/exit.json", bindings, verify=verify)
+    descriptors = [receipt_file, outer_file]
+    readable = bool(receipt) and bool(outer) and not any(row.get("error") for row in descriptors)
+    recorded_closed = readable and (
+        receipt.get("schema") == "walker-h5.0-round-audit-v1"
+        and receipt.get("scientific_round_audit_complete") is True
+        and receipt.get("prediction_replay_complete") is True
+        and type(outer.get("exit_code")) is int
+        and outer.get("exit_code") == 0
+        and "stopping_reason" in outer
+        and outer.get("stopping_reason") is None
+        and outer.get("unknown_partial_work_possible") is False
+    )
+    metadata_verified = all(row["binding_verified"] is True for row in descriptors)
+    if any(row.get("error") for row in descriptors):
+        status = "optional_compact_audit_missing_or_unreadable"
+    elif not any(row["available"] for row in descriptors):
+        status = "optional_compact_audit_unavailable"
+    elif not readable:
+        status = "optional_compact_audit_missing_or_unreadable"
+    elif not recorded_closed:
+        status = "reported_audit_failed_or_incomplete"
+    elif verify and not metadata_verified:
+        status = "reported_complete_audit_metadata_unverified"
+    else:
+        status = (
+            "reported_complete_audit_metadata_verified" if verify else "reported_complete_audit"
+        )
+    work_keys = (
+        "audit_neural_rows",
+        "audit_completed_neural_rows",
+        "audit_unknown_partial_neural_rows",
+        "audit_prediction_calls",
+        "audit_checkpoint_loads",
+        "source_read_bytes",
+        "checkpoint_read_bytes",
+        "frozen_input_read_bytes",
+        "peak_rss_bytes",
+        "wall_seconds",
+        "new_native_controls",
+        "new_optimizer_steps",
+    )
+    reported_work = {key: receipt.get(key) for key in work_keys}
+    preparation = receipt.get("preparation")
+    reported_work["preparation_source_read_bytes"] = (
+        preparation.get("source_read_bytes") if isinstance(preparation, dict) else None
+    )
+    return dict(
+        status=status,
+        capsule_reported_integrity_status=capsule.get("integrity_status"),
+        capsule_reported_scientific_audit_complete=capsule.get("scientific_round_audit_complete"),
+        reported_scientific_round_audit_complete=receipt.get("scientific_round_audit_complete"),
+        reported_prediction_replay_complete=receipt.get("prediction_replay_complete"),
+        recorded_outer_audit_closed=recorded_closed,
+        copied_metadata_verified=metadata_verified if verify else None,
+        metadata_files=descriptors,
+        inspector_metadata_read_bytes=sum(row.get("read_bytes", 0) for row in descriptors),
+        reported_work=reported_work,
+        reported_outer_closure={
+            key: outer.get(key)
+            for key in (
+                "exit_code",
+                "stopping_reason",
+                "unknown_partial_work_possible",
+                "wall_seconds",
+                "observed_peak_rss_bytes",
+                "retries",
+            )
+        },
+        reported_outcome_scope=receipt.get("outcomes", {}),
+        verification_scope="Recorded compact audit metadata and, with --verify, copied JSON bytes against capsule hashes. No external raw evidence, checkpoints or predictions are reopened or recomputed; audit cost counters are saved declarations. Nested audit/outer wall times must not be added.",
+    )
+
+
+def _h5_measurement_scope(capsule: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    """Keep an unexecuted learning contrast distinct from zero policy successes."""
+    negative = result.get("status") == "teacher_competence_negative_no_child_fits"
+    keys = ("learning_contrast_measured", "standalone_panels_measured", "paired_gap_measured")
+    flags = {}
+    for key in keys:
+        if negative:
+            flags[key] = False
+        else:
+            declared = capsule.get(key)
+            flags[key] = declared if type(declared) is bool else None
+    return dict(
+        **flags,
+        outcome_availability={
+            key: "not_measured"
+            if value is False
+            else "reported_measured"
+            if value is True
+            else "not_recorded"
+            for key, value in flags.items()
+        },
+        capsule_reported_flags={key: capsule.get(key) for key in keys},
+        metadata_conflicts=[key for key in keys if negative and capsule.get(key) is True],
+        basis="Normal teacher-competence stop declared by the worker; no child, standalone or gap outcomes were measured."
+        if negative
+        else "Optional capsule declarations; missing flags remain unknown, not zero performance.",
+    )
 
 
 def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
@@ -289,6 +450,14 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         if capsule
         else "source snapshot and sealed inputs",
     }
+    if capsule and h5_preparation:
+        report["h5_compact_audit"] = _h5_capsule_audit(root, capsule, verify=verify)
+        report["h5_measurement_scope"] = _h5_measurement_scope(capsule, result)
+        report["costs"]["independent_audit"] = {
+            "work": report["h5_compact_audit"]["reported_work"],
+            "outer_closure": report["h5_compact_audit"]["reported_outer_closure"],
+            "scope": "Reported independent audit work, separate from worker work. Inspection verifies compact copied metadata only; missing counters remain unavailable.",
+        }
     if result.get("schema") == "walker-transfer-diagnosis-result-v1":
         d1, d2 = result.get("d1", {}), result.get("d2", {})
         report["diagnostics"] = {
@@ -366,6 +535,9 @@ def format_inspection(report: dict[str, Any]) -> str:
     )
     for label in ("teacher_outcomes", "student_outcomes", "teacher_student_gap", "gates", "costs"):
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
+    for label in ("h5_compact_audit", "h5_measurement_scope"):
+        if label in report:
+            lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
     if "diagnostics" in report:
         lines.append(f"diagnostics: {json.dumps(report['diagnostics'], sort_keys=True)}")
     if "segmented_evidence" in report:

@@ -1,0 +1,28 @@
+{
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=15",
+    "-o",
+    "ServerAliveInterval=15",
+    "-o",
+    "ServerAliveCountMax=3",
+    "robopil5090",
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "-B",
+    "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collect_saved_evidence.py",
+    "--run",
+    "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+    "--audit",
+    "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_round_001",
+    "--out",
+    "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collection_001"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 0,
+  "wall_seconds": 10.305392874986865,
+  "stdout_sha256": "5a383c696bc42c97118653f1ad18321ed4d992575f7487031b0b52e4522be14b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

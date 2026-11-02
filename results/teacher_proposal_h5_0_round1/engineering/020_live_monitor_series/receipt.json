@@ -1,0 +1,22 @@
+{
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=15",
+    "-o",
+    "ServerAliveInterval=15",
+    "-o",
+    "ServerAliveCountMax=3",
+    "robopil5090",
+    "python3",
+    "-B",
+    "-"
+  ],
+  "cwd": "/Users/jaisel/Documents/mppi-gps",
+  "exit_code": 0,
+  "wall_seconds": 8055.532432000007,
+  "stdout_sha256": "0977d25071fbc6eab5133af1fc0adcf75dd71d8391efe58eddaa461552a9523c",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

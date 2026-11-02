@@ -1,0 +1,14 @@
+usage: trajectory_review.py [-h] --run RUN --out OUT --config-sha CONFIG_SHA
+                            --seal-sha SEAL_SHA
+
+Independent, saved-JSON/CSV-only audit of the K1.1 temporal review. No
+production metric, worker, report, policy, checkpoint or simulator code is
+imported. Saved squared-error bin means can establish aggregation identities;
+they cannot reconstruct predictions or prove causal action consequences.
+
+options:
+  -h, --help            show this help message and exit
+  --run RUN
+  --out OUT
+  --config-sha CONFIG_SHA
+  --seal-sha SEAL_SHA

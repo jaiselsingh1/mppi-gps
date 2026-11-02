@@ -1,0 +1,3856 @@
+{
+  "directory": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/clean_export_code_001/export/results/student_source_s1",
+  "kind": "result_capsule",
+  "run_id": "2026-10-31_student_source_s1_001",
+  "config": {
+    "schema": "walker-student-source-s1-v1",
+    "status": "authorized_execution_protocol",
+    "hypothesis": "With the current 128-tanh student and a fixed 2k update budget, an equal-sized corpus of successful independently trained reference behavior produces a better standalone child than the original successful MPPI corpus. This is a whole-corpus source contrast, not an isolation of multimodality or a coupling experiment.",
+    "source_runs": {
+      "k1": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001",
+      "w2": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001",
+      "diagnostic": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001"
+    },
+    "source_bindings": {
+      "k1_input_manifest_sha256": "5303607bba11f3c26f51646ba02da489bb537e64da83ab1ab6724ed7b26a2f99",
+      "w2_input_manifest_sha256": "c9ebdeac1ab7fa1a252176d271513c27c98a79bcb9fab87dacf14ed5e1c1c19e",
+      "reference_checkpoint_sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f",
+      "reference_policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba",
+      "diagnostic_config_sha256": "be462b70ac7b5a0b420b1b137c998f6a78f3a52c198cbbffaf06609f9aa0031a",
+      "diagnostic_input_manifest_sha256": "bf93b0a479b073bfe32d8d05e92b207506fda9398d5e82e83d15c40cc3c12033",
+      "diagnostic_result_sha256": "757cf6a0961ed7879865b0dfa1bf137f3fce7c5f26b53468068e19424adbb119"
+    },
+    "arms": {
+      "mppi": {
+        "training_episodes": [
+          "discovery_00",
+          "discovery_01",
+          "discovery_02",
+          "discovery_03"
+        ],
+        "held_episodes": [
+          "v2_r0_trial_raw_0",
+          "v2_r0_trial_raw_1"
+        ],
+        "container_rule": "Exact W2 train.npz and validation.npz container bytes; no auxiliary, recovery or hypothetical rows."
+      },
+      "sac_reference": {
+        "training_episodes": [
+          "k1_primary_reference_00",
+          "k1_primary_reference_01",
+          "k1_primary_reference_02",
+          "k1_primary_reference_03"
+        ],
+        "held_episodes": [
+          "k1_primary_reference_04",
+          "k1_primary_reference_05"
+        ],
+        "container_rule": "Original executed pre-action observations and applied torques from the named complete successful K1 episodes; preserve stored dtypes and source raw-array hashes; concatenate episode IDs then controls 0..999. Never relabel MPPI observations using reference predictions."
+      }
+    },
+    "training_rows_per_arm": 4000,
+    "held_rows_per_arm": 2000,
+    "feature_map": "Native17 clipped observations; concat(state[2:10],clip(state[10:19],-10,10)).",
+    "normalization": "Exact shared W2 normalization.npz buffers, fitted only on the 4,000 original MPPI training observations. No per-source refit or use of held observations.",
+    "policy": {
+      "obs_dim": 17,
+      "hidden_dim": 128,
+      "action_dim": 6,
+      "activation": "tanh",
+      "execution": "Direct bounded torque each0.008s, native CPU, no teacher prefix or fallback."
+    },
+    "seed_pairs": [
+      {
+        "policy_seed": 20261111001,
+        "fit_seed": 1240001000
+      },
+      {
+        "policy_seed": 20261111002,
+        "fit_seed": 1240001001
+      },
+      {
+        "policy_seed": 20261111003,
+        "fit_seed": 1240001002
+      }
+    ],
+    "learning": {
+      "updates": 2000,
+      "batch_size": 256,
+      "lr": 0.0003,
+      "gradient_clip": 0.5,
+      "eta_theta": 0.0,
+      "prox_reduction": "mean",
+      "anchor_refresh": 0,
+      "initial_adam": "zero",
+      "minibatches": "Same private PCG64 index tape within each source pair; with replacement; preserve all tapes.",
+      "checkpoints": [
+        0,
+        2000
+      ]
+    },
+    "platform": {
+      "host": "robopil5090",
+      "fit_device": "cuda:0",
+      "gpu": "NVIDIA GeForce RTX 5090 with 32 GiB",
+      "torch": "2.10.0+cu128",
+      "precision": "float32",
+      "allow_tf32": false,
+      "deterministic_algorithms": true,
+      "cublas_workspace_config": ":4096:8",
+      "torch_cpu_threads": 1,
+      "adam_foreach": false,
+      "adam_fused": false,
+      "physics": "Pinned D1/D2 native CPU runtime and XML; no Warp/GPU physics",
+      "historical_comparison": "Both source arms are new fits on the same CUDA runtime; historical CPU W2 policies are not matched controls.",
+      "fit_interpreter": "/home/jaisel/mppi-gps-venvs/cuda/bin/python",
+      "native_interpreter": "/home/jaisel/mppi-gps/.venv/bin/python"
+    },
+    "episode_steps": 1000,
+    "primary_seeds": [
+      1250000000,
+      1250000001,
+      1250000002,
+      1250000003,
+      1250000004,
+      1250000005,
+      1250000006,
+      1250000007,
+      1250000008,
+      1250000009,
+      1250000010,
+      1250000011,
+      1250000012,
+      1250000013,
+      1250000014,
+      1250000015
+    ],
+    "confirmation_seeds": [
+      1260000000,
+      1260000001,
+      1260000002,
+      1260000003,
+      1260000004,
+      1260000005,
+      1260000006,
+      1260000007,
+      1260000008,
+      1260000009,
+      1260000010,
+      1260000011,
+      1260000012,
+      1260000013,
+      1260000014,
+      1260000015
+    ],
+    "evaluation_order": [
+      "reference",
+      "incoming_s0",
+      "mppi_s0",
+      "sac_reference_s0",
+      "incoming_s1",
+      "mppi_s1",
+      "sac_reference_s1",
+      "incoming_s2",
+      "mppi_s2",
+      "sac_reference_s2"
+    ],
+    "confirmation": "Both complete 16-reset panels run for all 10 fixed actors regardless of primary outcomes; no favorable seed selection.",
+    "diagnostics": "All 9 student/incoming actors predict both arms\u2019 4,000 training and 2,000 held rows once each: 108,000 rows. The reference reuses its existing K1 predictions/logged actions. Fit curves use already computed minibatch losses; no extra checkpoint evaluation.",
+    "walking_screen": {
+      "minimum_additional_successes": 2,
+      "minimum_positive_pairs": 2,
+      "walking_nonregression_every_pair": true,
+      "survival_nonregression_every_pair": true,
+      "confirmed_benefit": "The same walking screen passes separately on primary and confirmation."
+    },
+    "competence": {
+      "minimum_walking_successes_per_panel": 15,
+      "panels_required": [
+        "primary",
+        "confirmation"
+      ],
+      "scope": "Report every individual actor and all three training pairs; one competent seed is not seed-robust fitting."
+    },
+    "budgets": {
+      "optimizer_steps": 12000,
+      "backward_rows": 3072000,
+      "neural_rows": 3500000,
+      "diagnostic_forward_rows": 108000,
+      "live_controls": 320000,
+      "physics_substeps": 1280000,
+      "episodes": 320,
+      "checkpoint_loads": 10,
+      "new_teacher_episodes": 0,
+      "model_controls": 0,
+      "wall_seconds": 3600,
+      "storage_bytes": 17179869184
+    },
+    "bootstrap": {
+      "seed": 2026111199,
+      "draws": 2000,
+      "unit": "Paired training seeds crossed with shared reset contexts; descriptive only, no frame independence or population coverage claim."
+    },
+    "stopping": "Exactly six paired fixed2kfits, then all10actors on both16-reset panels. No primary-conditioned roster, retries, replacement seeds/corpora, extra updates, selected checkpoints or automatic follow-up. Stop on provenance/interface/normalization/deterministic-runtime/numeric/budget/wall/storage/ownership error, preserving partial work.",
+    "claim_scope": "A whole demonstrated-behavior source intervention conditional on these corpora, student, normalization, update budget and CUDA runtime. No inference that trajectory diversity caused failure, that reference actions are uniquely correct, or that SAC 256 competence proves 128-tanh competence. Reference-clone walking alone does not authorize MPPI coupling or establish loop closure.",
+    "authorization": "User: Based on this result, continue with the next steps. Proceed with the concrete published S1 proposal after D1/D2; six matched2kfits and both declared panels. No automatic follow-up.",
+    "prediction_batch_size": 1024,
+    "fit_arms": [
+      "mppi",
+      "sac_reference"
+    ],
+    "expected_runtime": {
+      "python": "3.11.16",
+      "fit": {
+        "torch": "2.10.0+cu128",
+        "cuda": "12.8",
+        "numpy": "2.4.3",
+        "scipy": "1.17.1",
+        "h5py": "3.16.0"
+      },
+      "eval": {
+        "torch": "2.10.0+cpu",
+        "numpy": "2.4.3",
+        "scipy": "1.17.1",
+        "h5py": "3.16.0",
+        "mujoco": "3.6.0"
+      }
+    },
+    "diagnostic_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001",
+    "task": {
+      "frame_skip": 4,
+      "cost_style": "target_velocity",
+      "target_velocity": 1.5,
+      "vel_cost_weight": 2.0,
+      "vertical_velocity_cost_weight": 0.5,
+      "angle_cost_weight": 0.1,
+      "unhealthy_cost_weight": 5.0,
+      "ctrl_cost_weight": 0.001,
+      "terminal_unhealthy_weight": 20.0,
+      "apply_terminal_cost_on_done": true,
+      "nthread": 16
+    },
+    "xml_sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+  },
+  "provenance": {
+    "manifest": {
+      "schema": "walker-cio-source-v1",
+      "command": "student-source-s1",
+      "config_sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+      "input_sha256": null,
+      "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+      "platform": "macOS-27.0.1-arm64-arm-64bit",
+      "source_root": "/Users/jaisel/Documents/mppi-gps",
+      "policy_action_fitting": true,
+      "raw_search_protected": true
+    },
+    "input_manifest": {
+      "config_sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+      "source_manifest_sha256": "31cb7f3556247181590842c5fc16133dad4707492ce5bbbee7c20f8f87b0d4d5",
+      "planned_work": {
+        "optimizer_steps": 12000,
+        "backward_rows": 3072000,
+        "neural_rows": 3500000,
+        "diagnostic_forward_rows": 108000,
+        "live_controls": 320000,
+        "episodes": 320,
+        "checkpoint_loads": 10,
+        "model_controls": 0
+      }
+    },
+    "source_file_count": 250,
+    "source_present": false,
+    "launch": {
+      "schema": "walker-student-source-s1-launch-v1",
+      "host": "robopil5090-Lambda-Vector",
+      "pid": 421377,
+      "started_utc": "2026-11-01T02:00:50.752321+00:00",
+      "deadline_monotonic": 55076.964889228,
+      "config_sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+      "input_manifest_sha256": "fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10",
+      "source_manifest_sha256": "31cb7f3556247181590842c5fc16133dad4707492ce5bbbee7c20f8f87b0d4d5",
+      "platform": {
+        "host": "robopil5090",
+        "fit_device": "cuda:0",
+        "gpu": "NVIDIA GeForce RTX 5090 with 32 GiB",
+        "torch": "2.10.0+cu128",
+        "precision": "float32",
+        "allow_tf32": false,
+        "deterministic_algorithms": true,
+        "cublas_workspace_config": ":4096:8",
+        "torch_cpu_threads": 1,
+        "adam_foreach": false,
+        "adam_fused": false,
+        "physics": "Pinned D1/D2 native CPU runtime and XML; no Warp/GPU physics",
+        "historical_comparison": "Both source arms are new fits on the same CUDA runtime; historical CPU W2 policies are not matched controls.",
+        "fit_interpreter": "/home/jaisel/mppi-gps-venvs/cuda/bin/python",
+        "native_interpreter": "/home/jaisel/mppi-gps/.venv/bin/python"
+      },
+      "budget": {
+        "optimizer_steps": 12000,
+        "backward_rows": 3072000,
+        "neural_rows": 3500000,
+        "diagnostic_forward_rows": 108000,
+        "live_controls": 320000,
+        "physics_substeps": 1280000,
+        "episodes": 320,
+        "checkpoint_loads": 10,
+        "new_teacher_episodes": 0,
+        "model_controls": 0,
+        "wall_seconds": 3600,
+        "storage_bytes": 17179869184
+      },
+      "retry_permitted": false
+    },
+    "interruption_audit": {
+      "schema": "walker-student-source-s1-interruption-audit-v1",
+      "passed": false,
+      "error": {
+        "type": "AssertionError",
+        "message": "At least one declared complete episode is not fully hash/native verified",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_student_source_s1_001/analysis_source_001/src/gps/mppi_gps/audits/source_interruption.py\", line 714, in main\n    raise AssertionError(\nAssertionError: At least one declared complete episode is not fully hash/native verified\n"
+      },
+      "comparison_complete": false,
+      "summary_sha256": "b9ffd9f76fddcb0c68c08e41295fb542c8ad34456072bcf133abc4515a5f6e3f",
+      "checks": 2727164,
+      "bound_files": 333,
+      "hashed_arrays": 2403,
+      "wall_seconds": 7.638701792006032,
+      "wall_ceiling_seconds": 1800,
+      "new_controls": 0,
+      "new_neural_rows": 0,
+      "new_backward_rows": 0,
+      "new_optimizer_steps": 0,
+      "scope": "Separate infrastructure-interruption postmortem: original source/input/fit proofs, durable unclosed evaluation prefix, hash-verified complete native episodes through a separate zero-extended recovery copy, censored partial attempt and unresolved work tail. No full S1 gate/competence result; no network, optimizer or simulator arithmetic; no original evidence repair."
+    }
+  },
+  "outcomes": {
+    "schema": "walker-student-source-s1-interrupted-summary-v1",
+    "execution_complete": false,
+    "status": "interrupted_infrastructure",
+    "error": {
+      "type": "ExternalHostReboot",
+      "message": "The original owner and evaluation ended without final exits or result. This derived postmortem does not resume or complete S1."
+    },
+    "comparison_complete": false,
+    "audit_complete": true,
+    "integrity_status": "incomplete_retained_evidence",
+    "scope": "interrupted_prefix_only",
+    "audit_passed": false
+  },
+  "teacher_outcomes": {
+    "discovery_00": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "cost": 456.71619732851303,
+        "mae": 0.16572706139006163
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {},
+          "actions": {},
+          "costs": {},
+          "infos": {},
+          "integrations": {},
+          "observations": {},
+          "states": {},
+          "terminal_adjustment": {},
+          "terminal_cost": {},
+          "velocities": {},
+          "warmstarts": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "discovery_01": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "cost": 409.80047138514806,
+        "mae": 0.15968683879030787
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {},
+          "actions": {},
+          "costs": {},
+          "infos": {},
+          "integrations": {},
+          "observations": {},
+          "states": {},
+          "terminal_adjustment": {},
+          "terminal_cost": {},
+          "velocities": {},
+          "warmstarts": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "discovery_02": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "cost": 360.1578944381712,
+        "mae": 0.14029689547473187
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {},
+          "actions": {},
+          "costs": {},
+          "infos": {},
+          "integrations": {},
+          "observations": {},
+          "states": {},
+          "terminal_adjustment": {},
+          "terminal_cost": {},
+          "velocities": {},
+          "warmstarts": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "discovery_03": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "cost": 381.13544166546285,
+        "mae": 0.14846506094356426
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {},
+          "actions": {},
+          "costs": {},
+          "infos": {},
+          "integrations": {},
+          "observations": {},
+          "states": {},
+          "terminal_adjustment": {},
+          "terminal_cost": {},
+          "velocities": {},
+          "warmstarts": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "v2_r0_trial_raw_0": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "cost": 338.55120227246425,
+        "mae": 0.12797575782985363
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {},
+          "actions": {},
+          "costs": {},
+          "infos": {},
+          "integrations": {},
+          "observations": {},
+          "states": {},
+          "terminal_adjustment": {},
+          "terminal_cost": {},
+          "velocities": {},
+          "warmstarts": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "v2_r0_trial_raw_1": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "cost": 421.16713436735336,
+        "mae": 0.1609133776651603
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {},
+          "actions": {},
+          "costs": {},
+          "infos": {},
+          "integrations": {},
+          "observations": {},
+          "states": {},
+          "terminal_adjustment": {},
+          "terminal_cost": {},
+          "velocities": {},
+          "warmstarts": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "k1_primary_reference_00": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "steps": 1000,
+        "cost": 545.7482689405566,
+        "mae": 0.24053023180854088
+      },
+      "source_raw": {
+        "arrays": {
+          "observations": {},
+          "actions": {},
+          "states": {},
+          "warmstarts": {},
+          "integrations": {},
+          "costs": {},
+          "velocities": {},
+          "infos": {},
+          "terminal_cost": {},
+          "terminal_adjustment": {},
+          "absorbing_cost": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "k1_primary_reference_01": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "steps": 1000,
+        "cost": 463.7867917188095,
+        "mae": 0.19772268388704903
+      },
+      "source_raw": {
+        "arrays": {
+          "observations": {},
+          "actions": {},
+          "states": {},
+          "warmstarts": {},
+          "integrations": {},
+          "costs": {},
+          "velocities": {},
+          "infos": {},
+          "terminal_cost": {},
+          "terminal_adjustment": {},
+          "absorbing_cost": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "k1_primary_reference_02": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "steps": 1000,
+        "cost": 584.0663237704881,
+        "mae": 0.2613461039322606
+      },
+      "source_raw": {
+        "arrays": {
+          "observations": {},
+          "actions": {},
+          "states": {},
+          "warmstarts": {},
+          "integrations": {},
+          "costs": {},
+          "velocities": {},
+          "infos": {},
+          "terminal_cost": {},
+          "terminal_adjustment": {},
+          "absorbing_cost": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "k1_primary_reference_03": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "steps": 1000,
+        "cost": 556.7348662516664,
+        "mae": 0.2454331745543007
+      },
+      "source_raw": {
+        "arrays": {
+          "observations": {},
+          "actions": {},
+          "states": {},
+          "warmstarts": {},
+          "integrations": {},
+          "costs": {},
+          "velocities": {},
+          "infos": {},
+          "terminal_cost": {},
+          "terminal_adjustment": {},
+          "absorbing_cost": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "k1_primary_reference_04": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "steps": 1000,
+        "cost": 468.03387813070685,
+        "mae": 0.19705996526319416
+      },
+      "source_raw": {
+        "arrays": {
+          "observations": {},
+          "actions": {},
+          "states": {},
+          "warmstarts": {},
+          "integrations": {},
+          "costs": {},
+          "velocities": {},
+          "infos": {},
+          "terminal_cost": {},
+          "terminal_adjustment": {},
+          "absorbing_cost": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    },
+    "k1_primary_reference_05": {
+      "outcome": {
+        "complete": true,
+        "success": true,
+        "survived": true,
+        "steps": 1000,
+        "cost": 474.87135135146843,
+        "mae": 0.2026851958355311
+      },
+      "source_raw": {
+        "arrays": {
+          "observations": {},
+          "actions": {},
+          "states": {},
+          "warmstarts": {},
+          "integrations": {},
+          "costs": {},
+          "velocities": {},
+          "infos": {},
+          "terminal_cost": {},
+          "terminal_adjustment": {},
+          "absorbing_cost": {}
+        }
+      },
+      "array_bindings": {
+        "states": {},
+        "observations": {},
+        "actions": {}
+      }
+    }
+  },
+  "student_outcomes": {
+    "primary": {
+      "reference": {
+        "episodes": 16,
+        "successes": 16,
+        "survived": 16,
+        "mean_cost": 540.623783219689,
+        "mean_steps": 1000.0,
+        "mean_velocity_mae": 0.23728274809541444
+      },
+      "incoming_s0": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 5025.640798787646,
+        "mean_steps": 135.3125,
+        "mean_velocity_mae": 2.3591831260173697
+      },
+      "mppi_s0": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4528.390062018452,
+        "mean_steps": 287.5625,
+        "mean_velocity_mae": 1.6287385106521615
+      },
+      "sac_reference_s0": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4554.486117127728,
+        "mean_steps": 160.6875,
+        "mean_velocity_mae": 0.8889371622843114
+      },
+      "incoming_s1": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 5062.740542560199,
+        "mean_steps": 9.0,
+        "mean_velocity_mae": 2.7197728386303566
+      },
+      "mppi_s1": {
+        "episodes": 15,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4520.540789943496,
+        "mean_steps": 163.8,
+        "mean_velocity_mae": 0.8541818959838842
+      },
+      "sac_reference_s1": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4650.12205364114,
+        "mean_steps": 124.625,
+        "mean_velocity_mae": 0.846309094723342
+      },
+      "incoming_s2": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 5015.1865554492115,
+        "mean_steps": 24.0,
+        "mean_velocity_mae": 2.072333331857784
+      },
+      "mppi_s2": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4564.0399476924695,
+        "mean_steps": 147.5,
+        "mean_velocity_mae": 0.815602655332188
+      },
+      "sac_reference_s2": {
+        "episodes": 11,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4615.391148062661,
+        "mean_steps": 123.0,
+        "mean_velocity_mae": 0.7035848844156616
+      }
+    },
+    "confirmation": {
+      "reference": {
+        "episodes": 14,
+        "successes": 14,
+        "survived": 14,
+        "mean_cost": 533.6846298750191,
+        "mean_steps": 1000.0,
+        "mean_velocity_mae": 0.23395035704292674
+      },
+      "incoming_s0": {
+        "episodes": 16,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 5024.341160590011,
+        "mean_steps": 135.5625,
+        "mean_velocity_mae": 2.3562107782512625
+      },
+      "mppi_s0": {
+        "episodes": 3,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": 4562.3447765457595,
+        "mean_steps": 280.0,
+        "mean_velocity_mae": 1.6963942150770783
+      },
+      "sac_reference_s0": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      },
+      "incoming_s1": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      },
+      "mppi_s1": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      },
+      "sac_reference_s1": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      },
+      "incoming_s2": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      },
+      "mppi_s2": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      },
+      "sac_reference_s2": {
+        "episodes": 0,
+        "successes": 0,
+        "survived": 0,
+        "mean_cost": null,
+        "mean_steps": null,
+        "mean_velocity_mae": null
+      }
+    }
+  },
+  "teacher_student_gap": {},
+  "gates": {
+    "withheld": true,
+    "reason": "The required unconditional two-panel 320-attempt comparison did not finish. Missing attempts are not failures, and no full S1 source-benefit or child-competence conclusion is assigned."
+  },
+  "costs": {
+    "work": {
+      "known_durable_prefix": {
+        "neural_rows": 3235608,
+        "completed_checkpoint_loads": 10,
+        "completed_controls": 55607,
+        "completed_physics_substeps": 222428,
+        "requested_controls": 55607,
+        "requested_optimizer_steps": 12000,
+        "live_queries": 55607,
+        "requested_physics_substeps": 222428,
+        "queries": 55607,
+        "episodes": 195,
+        "completed_live_controls": 55607,
+        "requested_neural_rows": 3235608,
+        "requested_live_controls": 55607,
+        "measurement_requests": 91726,
+        "completed_neural_rows": 3235608,
+        "backward_rows": 3072000,
+        "resets": 196,
+        "requested_checkpoint_loads": 10,
+        "optimizer_steps": 12000,
+        "completed_optimizer_steps": 12000,
+        "physics_frames": 222428,
+        "completed_backward_rows": 3072000,
+        "requested_backward_rows": 3072000,
+        "snapshots": null,
+        "wall_seconds": null,
+        "wall_seconds_lower_bound": 1097.3096642070086
+      },
+      "unknown_unrecorded_tail": {
+        "status": "unresolved_not_zero",
+        "explanation": "An abrupt reboot prevented final counters and exits. Pending registered operations are listed separately; even an empty pending set does not certify that the durable prefix captures all pre-reboot work."
+      }
+    },
+    "phase_work": {
+      "fit": {
+        "requested_controls": 0,
+        "completed_controls": 0,
+        "requested_model_controls": 0,
+        "completed_model_controls": 0,
+        "requested_live_controls": 0,
+        "completed_live_controls": 0,
+        "requested_physics_substeps": 0,
+        "completed_physics_substeps": 0,
+        "unknown_partial_controls": 0,
+        "unknown_partial_physics_substeps": 0,
+        "model_queries": 0,
+        "live_queries": 0,
+        "failed_queries": 0,
+        "rejected_queries": 0,
+        "measurement_requests": 36108,
+        "failed_measurements": 0,
+        "rejected_measurements": 0,
+        "requested_neural_rows": 3180000,
+        "completed_neural_rows": 3180000,
+        "unknown_partial_neural_rows": 0,
+        "requested_backward_rows": 3072000,
+        "completed_backward_rows": 3072000,
+        "unknown_partial_backward_rows": 0,
+        "requested_optimizer_steps": 12000,
+        "completed_optimizer_steps": 12000,
+        "unknown_partial_optimizer_steps": 0,
+        "resets": 0,
+        "reset_errors": 0,
+        "restores": 0,
+        "snapshots": 0,
+        "episodes": 0,
+        "neural_rows": 3180000,
+        "backward_rows": 3072000,
+        "optimizer_steps": 12000,
+        "queries": 0,
+        "physics_frames": 0,
+        "wall_seconds": 91.31227392599976
+      },
+      "eval_known_durable_prefix": {
+        "measurement_requests": 55618,
+        "requested_checkpoint_loads": 10,
+        "completed_checkpoint_loads": 10,
+        "resets": 196,
+        "requested_neural_rows": 55608,
+        "completed_neural_rows": 55608,
+        "requested_controls": 55607,
+        "requested_live_controls": 55607,
+        "requested_physics_substeps": 222428,
+        "live_queries": 55607,
+        "completed_controls": 55607,
+        "completed_live_controls": 55607,
+        "completed_physics_substeps": 222428,
+        "episodes": 195,
+        "queries": 55607,
+        "physics_frames": 222428,
+        "neural_rows": 55608,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "snapshots": null,
+        "wall_seconds": null,
+        "last_durable_wall_seconds": 1006.001209398004
+      }
+    },
+    "inherited_work": {},
+    "wall_seconds": null,
+    "accounting": {}
+  },
+  "result_file": "interruption_summary.json",
+  "files": [
+    {
+      "file": "run/config.json",
+      "available": true,
+      "expected_sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+      "expected_bytes": 8648,
+      "bytes": 8648,
+      "sha256": "e2925d34f24f81d1f2cb33a17b41b20a3f927bce5c598f62d913311e4ab8a877",
+      "verified": true
+    },
+    {
+      "file": "run/manifest.json",
+      "available": true,
+      "expected_sha256": "31cb7f3556247181590842c5fc16133dad4707492ce5bbbee7c20f8f87b0d4d5",
+      "expected_bytes": 38087,
+      "bytes": 38087,
+      "sha256": "31cb7f3556247181590842c5fc16133dad4707492ce5bbbee7c20f8f87b0d4d5",
+      "verified": true
+    },
+    {
+      "file": "run/input_manifest.json",
+      "available": true,
+      "expected_sha256": "fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10",
+      "expected_bytes": 6071,
+      "bytes": 6071,
+      "sha256": "fbeedbbea78a02806b442f1c61f6369694b8bc7613a64d0fe2c81af35c8a0e10",
+      "verified": true
+    },
+    {
+      "file": "run/fit_result.json",
+      "available": true,
+      "expected_sha256": "545f7f3a6c267aef3fbdffa5e36353324eb26bb283733be167dc94b92947222b",
+      "expected_bytes": 957249,
+      "bytes": 957249,
+      "sha256": "545f7f3a6c267aef3fbdffa5e36353324eb26bb283733be167dc94b92947222b",
+      "verified": true
+    },
+    {
+      "file": "run/prelaunch_receipt.json",
+      "available": true,
+      "expected_sha256": "63d37734bf6a5125729c7849af98f05fc6b1e61ca285e201a64e441936e4ec96",
+      "expected_bytes": 817,
+      "bytes": 817,
+      "sha256": "63d37734bf6a5125729c7849af98f05fc6b1e61ca285e201a64e441936e4ec96",
+      "verified": true
+    },
+    {
+      "file": "run/launch_receipt.json",
+      "available": true,
+      "expected_sha256": "0d380f8f33893dbda2d00cbe92d74033dff91b3c895090a1fcb6f75fd81ea26f",
+      "expected_bytes": 1606,
+      "bytes": 1606,
+      "sha256": "0d380f8f33893dbda2d00cbe92d74033dff91b3c895090a1fcb6f75fd81ea26f",
+      "verified": true
+    },
+    {
+      "file": "run/fit_start.json",
+      "available": true,
+      "expected_sha256": "27ba37098b0b2a8a5566f09e69fd515ccbb9889907d3b220f6df97309cec5245",
+      "expected_bytes": 411,
+      "bytes": 411,
+      "sha256": "27ba37098b0b2a8a5566f09e69fd515ccbb9889907d3b220f6df97309cec5245",
+      "verified": true
+    },
+    {
+      "file": "run/fit_exit.json",
+      "available": true,
+      "expected_sha256": "bb98ec04d1caf6d2b84bc7a6ff4109f6002a6605d72527c350903738a2fd19e6",
+      "expected_bytes": 807,
+      "bytes": 807,
+      "sha256": "bb98ec04d1caf6d2b84bc7a6ff4109f6002a6605d72527c350903738a2fd19e6",
+      "verified": true
+    },
+    {
+      "file": "run/eval_start.json",
+      "available": true,
+      "expected_sha256": "c3604def8991ca665352a80d0b934235141e724afc07b974632b6756df8dc38c",
+      "expected_bytes": 411,
+      "bytes": 411,
+      "sha256": "c3604def8991ca665352a80d0b934235141e724afc07b974632b6756df8dc38c",
+      "verified": true
+    },
+    {
+      "file": "run/owner_started.json",
+      "available": true,
+      "expected_sha256": "286413c9e8cab485bf50df8f01d6cfc89ef18d5446363b769da02e3a4ba134f5",
+      "expected_bytes": 367,
+      "bytes": 367,
+      "sha256": "286413c9e8cab485bf50df8f01d6cfc89ef18d5446363b769da02e3a4ba134f5",
+      "verified": true
+    },
+    {
+      "file": "run/fit.stdout",
+      "available": true,
+      "expected_sha256": "bdc2107566f2920991ed2c5a3c15306900d81b5536054188503cf70eda616cc8",
+      "expected_bytes": 3412,
+      "bytes": 3412,
+      "sha256": "bdc2107566f2920991ed2c5a3c15306900d81b5536054188503cf70eda616cc8",
+      "verified": true
+    },
+    {
+      "file": "run/fit.stderr",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "run/eval.stdout",
+      "available": true,
+      "expected_sha256": "c806917fb6d91bf80a72f090ba6b4ab6d6561affe7d900883fc0b674e32d94ea",
+      "expected_bytes": 757760,
+      "bytes": 757760,
+      "sha256": "c806917fb6d91bf80a72f090ba6b4ab6d6561affe7d900883fc0b674e32d94ea",
+      "verified": true
+    },
+    {
+      "file": "run/eval.stderr",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "run/owner.stdout",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "run/owner.stderr",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/inventory.json",
+      "available": true,
+      "expected_sha256": "5194b63d8b2b78e67bdb1a2c5244503b5ed69b1985cd372086e76985f584f060",
+      "expected_bytes": 100196,
+      "bytes": 100196,
+      "sha256": "5194b63d8b2b78e67bdb1a2c5244503b5ed69b1985cd372086e76985f584f060",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/task.json",
+      "available": true,
+      "expected_sha256": "2da5a7a34fd6fdd9e69165ed6b1bf5345ab893f7570c5dee03e577d92093921a",
+      "expected_bytes": 453,
+      "bytes": 453,
+      "sha256": "2da5a7a34fd6fdd9e69165ed6b1bf5345ab893f7570c5dee03e577d92093921a",
+      "verified": true
+    },
+    {
+      "file": "run/inputs/seed_audit.json",
+      "available": true,
+      "expected_sha256": "57f24b40a9dd9e8b66d806b55639e78c53bad21d09a10a64ae3bb0574520cf68",
+      "expected_bytes": 47839,
+      "bytes": 47839,
+      "sha256": "57f24b40a9dd9e8b66d806b55639e78c53bad21d09a10a64ae3bb0574520cf68",
+      "verified": true
+    },
+    {
+      "file": "run/interruption_summary.json",
+      "available": true,
+      "expected_sha256": "b9ffd9f76fddcb0c68c08e41295fb542c8ad34456072bcf133abc4515a5f6e3f",
+      "expected_bytes": 1767933,
+      "bytes": 1767933,
+      "sha256": "b9ffd9f76fddcb0c68c08e41295fb542c8ad34456072bcf133abc4515a5f6e3f",
+      "verified": true
+    },
+    {
+      "file": "run/receipt.json",
+      "available": true,
+      "expected_sha256": "b5589b920e36805f59f2488a3d12e56aa1cf33cb18801e99478522de3c50a7cb",
+      "expected_bytes": 1308,
+      "bytes": 1308,
+      "sha256": "b5589b920e36805f59f2488a3d12e56aa1cf33cb18801e99478522de3c50a7cb",
+      "verified": true
+    },
+    {
+      "file": "run/ledger_claims.json",
+      "available": true,
+      "expected_sha256": "3386a521d33a40b8e9c7b80ddec29455b8302d1c6f261fc50a52f4094e260ee5",
+      "expected_bytes": 673021,
+      "bytes": 673021,
+      "sha256": "3386a521d33a40b8e9c7b80ddec29455b8302d1c6f261fc50a52f4094e260ee5",
+      "verified": true
+    },
+    {
+      "file": "run/full_run_file_manifest.json",
+      "available": true,
+      "expected_sha256": "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44",
+      "expected_bytes": 57551,
+      "bytes": 57551,
+      "sha256": "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44",
+      "verified": true
+    },
+    {
+      "file": "report/actuator_errors.csv",
+      "available": true,
+      "expected_sha256": "2b1443b6a2df827457c15ced790b21d9e86e4dbb131b14b82f6b5a31076a544d",
+      "expected_bytes": 56331,
+      "bytes": 56331,
+      "sha256": "2b1443b6a2df827457c15ced790b21d9e86e4dbb131b14b82f6b5a31076a544d",
+      "verified": true
+    },
+    {
+      "file": "report/competence.csv",
+      "available": true,
+      "expected_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "expected_bytes": 2,
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "verified": true
+    },
+    {
+      "file": "report/cost_accounting.json",
+      "available": true,
+      "expected_sha256": "506cb48268a5aad5b0987c504bb5936591ef00192726613d26160396dce63155",
+      "expected_bytes": 10965,
+      "bytes": 10965,
+      "sha256": "506cb48268a5aad5b0987c504bb5936591ef00192726613d26160396dce63155",
+      "verified": true
+    },
+    {
+      "file": "report/cost_components.csv",
+      "available": true,
+      "expected_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "expected_bytes": 2,
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "verified": true
+    },
+    {
+      "file": "report/cost_components.pdf",
+      "available": true,
+      "expected_sha256": "d984b742a17b9b5752a6fd2c5e8262759daf3236599c556635e109216b7f738f",
+      "expected_bytes": 11126,
+      "bytes": 11126,
+      "sha256": "d984b742a17b9b5752a6fd2c5e8262759daf3236599c556635e109216b7f738f",
+      "verified": true
+    },
+    {
+      "file": "report/cost_components.png",
+      "available": true,
+      "expected_sha256": "4fdba66ecf7d5cd0743565a5bebcbeab18e4295851060a68ac415f53877b75d0",
+      "expected_bytes": 45659,
+      "bytes": 45659,
+      "sha256": "4fdba66ecf7d5cd0743565a5bebcbeab18e4295851060a68ac415f53877b75d0",
+      "verified": true
+    },
+    {
+      "file": "report/descriptive_bootstrap.json",
+      "available": true,
+      "expected_sha256": "43ac8ff334c9f9819e996b0c37b1dc9df227a3bb2e921e81cc03b0c5473ffd4f",
+      "expected_bytes": 693,
+      "bytes": 693,
+      "sha256": "43ac8ff334c9f9819e996b0c37b1dc9df227a3bb2e921e81cc03b0c5473ffd4f",
+      "verified": true
+    },
+    {
+      "file": "report/episodes.csv",
+      "available": true,
+      "expected_sha256": "8735110874509871826525b5404603023580c0be868e92c94bc2fa1824b8ec85",
+      "expected_bytes": 46285,
+      "bytes": 46285,
+      "sha256": "8735110874509871826525b5404603023580c0be868e92c94bc2fa1824b8ec85",
+      "verified": true
+    },
+    {
+      "file": "report/fitting.csv",
+      "available": true,
+      "expected_sha256": "8b215e83a45bd21a161c68e178075970bd3fdd36ad22e78d2c1d757526d0b865",
+      "expected_bytes": 2417,
+      "bytes": 2417,
+      "sha256": "8b215e83a45bd21a161c68e178075970bd3fdd36ad22e78d2c1d757526d0b865",
+      "verified": true
+    },
+    {
+      "file": "report/gates.json",
+      "available": true,
+      "expected_sha256": "b146a1799041daccd9ccd259f52bca0e37c9120454585a0ab3902799b3308ccf",
+      "expected_bytes": 223,
+      "bytes": 223,
+      "sha256": "b146a1799041daccd9ccd259f52bca0e37c9120454585a0ab3902799b3308ccf",
+      "verified": true
+    },
+    {
+      "file": "report/learning_bins.csv",
+      "available": true,
+      "expected_sha256": "afae13355a05c3d925091c04c6ed3b14786dab69628635186ce025d31061cdc5",
+      "expected_bytes": 28033,
+      "bytes": 28033,
+      "sha256": "afae13355a05c3d925091c04c6ed3b14786dab69628635186ce025d31061cdc5",
+      "verified": true
+    },
+    {
+      "file": "report/learning_bins_manifest.json",
+      "available": true,
+      "expected_sha256": "dac8bda1ca5115d236ca03ff5050b14fd4711d88eed966d17a0556d153ce9aef",
+      "expected_bytes": 2502,
+      "bytes": 2502,
+      "sha256": "dac8bda1ca5115d236ca03ff5050b14fd4711d88eed966d17a0556d153ce9aef",
+      "verified": true
+    },
+    {
+      "file": "report/learning_curves.pdf",
+      "available": true,
+      "expected_sha256": "3d7fbb4666cd5913b765bda99c0fe98d0ec1246c2070b7c268b95e514a6f0dc2",
+      "expected_bytes": 22315,
+      "bytes": 22315,
+      "sha256": "3d7fbb4666cd5913b765bda99c0fe98d0ec1246c2070b7c268b95e514a6f0dc2",
+      "verified": true
+    },
+    {
+      "file": "report/learning_curves.png",
+      "available": true,
+      "expected_sha256": "3eb6a803a790eda191b1063f1e986cde6d05a4a77933b495708eac9aa77b1bc5",
+      "expected_bytes": 151627,
+      "bytes": 151627,
+      "sha256": "3eb6a803a790eda191b1063f1e986cde6d05a4a77933b495708eac9aa77b1bc5",
+      "verified": true
+    },
+    {
+      "file": "report/ledger_episode_claims.csv",
+      "available": true,
+      "expected_sha256": "224e433b651d989701e4b3fa38102f70fdde3cdff467fa5a5073579aa7c74af7",
+      "expected_bytes": 52546,
+      "bytes": 52546,
+      "sha256": "224e433b651d989701e4b3fa38102f70fdde3cdff467fa5a5073579aa7c74af7",
+      "verified": true
+    },
+    {
+      "file": "report/matched_reference_gap_status.csv",
+      "available": true,
+      "expected_sha256": "d8ab3b464e3d6ca67f2e2b07ef5825b2f341e7d81cbbcaca054ac998cb622ad3",
+      "expected_bytes": 1025,
+      "bytes": 1025,
+      "sha256": "d8ab3b464e3d6ca67f2e2b07ef5825b2f341e7d81cbbcaca054ac998cb622ad3",
+      "verified": true
+    },
+    {
+      "file": "report/matched_reference_gaps.csv",
+      "available": true,
+      "expected_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "expected_bytes": 2,
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "verified": true
+    },
+    {
+      "file": "report/missing_roster.csv",
+      "available": true,
+      "expected_sha256": "62f0089d6c04e4cd3cb5a07b82ec6a3ded59f5a521e10c92af4f99e7a9b1a6f2",
+      "expected_bytes": 24275,
+      "bytes": 24275,
+      "sha256": "62f0089d6c04e4cd3cb5a07b82ec6a3ded59f5a521e10c92af4f99e7a9b1a6f2",
+      "verified": true
+    },
+    {
+      "file": "report/paired_cost_components.csv",
+      "available": true,
+      "expected_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "expected_bytes": 2,
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "verified": true
+    },
+    {
+      "file": "report/paired_sources.csv",
+      "available": true,
+      "expected_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "expected_bytes": 2,
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "verified": true
+    },
+    {
+      "file": "report/partial_attempts.csv",
+      "available": true,
+      "expected_sha256": "e450e7d2e9ba9e3ff18cfed8583e09901a9ac8033474e998fcd3002cd002d428",
+      "expected_bytes": 659,
+      "bytes": 659,
+      "sha256": "e450e7d2e9ba9e3ff18cfed8583e09901a9ac8033474e998fcd3002cd002d428",
+      "verified": true
+    },
+    {
+      "file": "report/receipt.json",
+      "available": true,
+      "expected_sha256": "66220e6baa1a7b699f3315e9db426c9c0f16abf097c43ffd26233564b033802f",
+      "expected_bytes": 6562,
+      "bytes": 6562,
+      "sha256": "66220e6baa1a7b699f3315e9db426c9c0f16abf097c43ffd26233564b033802f",
+      "verified": true
+    },
+    {
+      "file": "report/reconstruction.pdf",
+      "available": true,
+      "expected_sha256": "aeb0615306cf1d357c90e9c352a8a22c7c5225f6efc5226e35d34cbf586ce1ac",
+      "expected_bytes": 19316,
+      "bytes": 19316,
+      "sha256": "aeb0615306cf1d357c90e9c352a8a22c7c5225f6efc5226e35d34cbf586ce1ac",
+      "verified": true
+    },
+    {
+      "file": "report/reconstruction.png",
+      "available": true,
+      "expected_sha256": "218661822683c45d9e9fb8ce0c1b172dd3738114d628138a2d456f2f62da0808",
+      "expected_bytes": 89628,
+      "bytes": 89628,
+      "sha256": "218661822683c45d9e9fb8ce0c1b172dd3738114d628138a2d456f2f62da0808",
+      "verified": true
+    },
+    {
+      "file": "report/reconstruction_control_bins.csv",
+      "available": true,
+      "expected_sha256": "d71df082104bef4592f8bf18fb9b0d9bb26027d0b5e335a72c4b1e1ee894e8e0",
+      "expected_bytes": 241970,
+      "bytes": 241970,
+      "sha256": "d71df082104bef4592f8bf18fb9b0d9bb26027d0b5e335a72c4b1e1ee894e8e0",
+      "verified": true
+    },
+    {
+      "file": "report/report.md",
+      "available": true,
+      "expected_sha256": "68e0aa8e5eacd644e94f675a40e8118198915893418c750a47b715e008fc7292",
+      "expected_bytes": 5398,
+      "bytes": 5398,
+      "sha256": "68e0aa8e5eacd644e94f675a40e8118198915893418c750a47b715e008fc7292",
+      "verified": true
+    },
+    {
+      "file": "report/source_teacher_groups.csv",
+      "available": true,
+      "expected_sha256": "106b2ef238a26c7279a7385fed645e5e97ac459d537200588594145621b7e427",
+      "expected_bytes": 909,
+      "bytes": 909,
+      "sha256": "106b2ef238a26c7279a7385fed645e5e97ac459d537200588594145621b7e427",
+      "verified": true
+    },
+    {
+      "file": "report/source_teachers.csv",
+      "available": true,
+      "expected_sha256": "7da39e2c2fb8374cd136fde8871ac0860a70797148ce99fc17e34d4365ca0921",
+      "expected_bytes": 2048,
+      "bytes": 2048,
+      "sha256": "7da39e2c2fb8374cd136fde8871ac0860a70797148ce99fc17e34d4365ca0921",
+      "verified": true
+    },
+    {
+      "file": "report/standalone.csv",
+      "available": true,
+      "expected_sha256": "aa0255063226f750ce3f75ea1cfdde6616059ee0238e87c7d8a3f4a5d8f37441",
+      "expected_bytes": 1001,
+      "bytes": 1001,
+      "sha256": "aa0255063226f750ce3f75ea1cfdde6616059ee0238e87c7d8a3f4a5d8f37441",
+      "verified": true
+    },
+    {
+      "file": "report/standalone_outcomes.pdf",
+      "available": true,
+      "expected_sha256": "2d9b0c5b5c8b76f00f657d60c130dd6c3cb301a8ed5ec2c3907905fee8d625e8",
+      "expected_bytes": 15487,
+      "bytes": 15487,
+      "sha256": "2d9b0c5b5c8b76f00f657d60c130dd6c3cb301a8ed5ec2c3907905fee8d625e8",
+      "verified": true
+    },
+    {
+      "file": "report/standalone_outcomes.png",
+      "available": true,
+      "expected_sha256": "f5dd780f72438de0c4927d2054fee52cd463078c440c66103c1c0d1a49a045e1",
+      "expected_bytes": 63757,
+      "bytes": 63757,
+      "sha256": "f5dd780f72438de0c4927d2054fee52cd463078c440c66103c1c0d1a49a045e1",
+      "verified": true
+    },
+    {
+      "file": "report/teacher_outcomes.json",
+      "available": true,
+      "expected_sha256": "c2d080c5f8f9d357114e1ad0b80b0776cce436b1e42e917b19757053707e6980",
+      "expected_bytes": 47546,
+      "bytes": 47546,
+      "sha256": "c2d080c5f8f9d357114e1ad0b80b0776cce436b1e42e917b19757053707e6980",
+      "verified": true
+    },
+    {
+      "file": "report/teacher_student_gaps.csv",
+      "available": true,
+      "expected_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "expected_bytes": 2,
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "verified": true
+    },
+    {
+      "file": "report/trajectories.csv",
+      "available": true,
+      "expected_sha256": "13b797885a12c681092d20c7cc4945a1a8a4f82b5d26dbb2b39d53be8038cc8a",
+      "expected_bytes": 102263,
+      "bytes": 102263,
+      "sha256": "13b797885a12c681092d20c7cc4945a1a8a4f82b5d26dbb2b39d53be8038cc8a",
+      "verified": true
+    },
+    {
+      "file": "report/unverified_ledger_episode_claims.csv",
+      "available": true,
+      "expected_sha256": "fc09b15550ef56d00359fad8c5ea6336fda24213b954a5add4c545e6000180f5",
+      "expected_bytes": 2301,
+      "bytes": 2301,
+      "sha256": "fc09b15550ef56d00359fad8c5ea6336fda24213b954a5add4c545e6000180f5",
+      "verified": true
+    },
+    {
+      "file": "report/verified_native_subset.csv",
+      "available": true,
+      "expected_sha256": "8735110874509871826525b5404603023580c0be868e92c94bc2fa1824b8ec85",
+      "expected_bytes": 46285,
+      "bytes": 46285,
+      "sha256": "8735110874509871826525b5404603023580c0be868e92c94bc2fa1824b8ec85",
+      "verified": true
+    },
+    {
+      "file": "report/worker_actor_summary_claims.csv",
+      "available": true,
+      "expected_sha256": "a454d38ad0fa6c4ad7dbf1c8e1b5f5ba5beceb9633dc79d98e98c4d685b667be",
+      "expected_bytes": 12260,
+      "bytes": 12260,
+      "sha256": "a454d38ad0fa6c4ad7dbf1c8e1b5f5ba5beceb9633dc79d98e98c4d685b667be",
+      "verified": true
+    },
+    {
+      "file": "audit/receipt.json",
+      "available": true,
+      "expected_sha256": "b5589b920e36805f59f2488a3d12e56aa1cf33cb18801e99478522de3c50a7cb",
+      "expected_bytes": 1308,
+      "bytes": 1308,
+      "sha256": "b5589b920e36805f59f2488a3d12e56aa1cf33cb18801e99478522de3c50a7cb",
+      "verified": true
+    },
+    {
+      "file": "audit/findings.json",
+      "available": true,
+      "expected_sha256": "94883f9e5343ec7f7155ddf63242822b47ddc2ac57a58efb32a0bd4011b47cf0",
+      "expected_bytes": 2195,
+      "bytes": 2195,
+      "sha256": "94883f9e5343ec7f7155ddf63242822b47ddc2ac57a58efb32a0bd4011b47cf0",
+      "verified": true
+    },
+    {
+      "file": "audit/file_bindings.json",
+      "available": true,
+      "expected_sha256": "52d0e2d7d377924384f6fb43daa6584961e39cef9c6657ad158a907e01fd0188",
+      "expected_bytes": 74612,
+      "bytes": 74612,
+      "sha256": "52d0e2d7d377924384f6fb43daa6584961e39cef9c6657ad158a907e01fd0188",
+      "verified": true
+    },
+    {
+      "file": "full_audit/receipt.json",
+      "available": true,
+      "expected_sha256": "d1eb046a9f8354a27bf5fb48f5960e0bc0f70897a2ba1fe5a08ddc696493e0a0",
+      "expected_bytes": 2314,
+      "bytes": 2314,
+      "sha256": "d1eb046a9f8354a27bf5fb48f5960e0bc0f70897a2ba1fe5a08ddc696493e0a0",
+      "verified": true
+    },
+    {
+      "file": "full_audit/findings.json",
+      "available": true,
+      "expected_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "expected_bytes": 3,
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "verified": true
+    },
+    {
+      "file": "full_audit/file_bindings.json",
+      "available": true,
+      "expected_sha256": "399c16cb0d6eae0cf2d5357d772ed55d7ffddfa9747660539230a6a7dbd0e5ba",
+      "expected_bytes": 70566,
+      "bytes": 70566,
+      "sha256": "399c16cb0d6eae0cf2d5357d772ed55d7ffddfa9747660539230a6a7dbd0e5ba",
+      "verified": true
+    },
+    {
+      "file": "audit_source/source.py",
+      "available": true,
+      "expected_sha256": "5a1af1b3def86cd8a15faab54b92a2f0eda3be5f20041da3e4759e0106e5af06",
+      "expected_bytes": 48930,
+      "bytes": 48930,
+      "sha256": "5a1af1b3def86cd8a15faab54b92a2f0eda3be5f20041da3e4759e0106e5af06",
+      "verified": true
+    },
+    {
+      "file": "audit_source/native.py",
+      "available": true,
+      "expected_sha256": "2c5aac2407a2501e311d7c1dde10b390408de3ac9775b71e7ada46fde4d63694",
+      "expected_bytes": 19017,
+      "bytes": 19017,
+      "sha256": "2c5aac2407a2501e311d7c1dde10b390408de3ac9775b71e7ada46fde4d63694",
+      "verified": true
+    },
+    {
+      "file": "audit_source/width.py",
+      "available": true,
+      "expected_sha256": "0fc37fc351673b2a9c90f705928440e5ecf95d64beaab0b1480c972d7a860aa7",
+      "expected_bytes": 37047,
+      "bytes": 37047,
+      "sha256": "0fc37fc351673b2a9c90f705928440e5ecf95d64beaab0b1480c972d7a860aa7",
+      "verified": true
+    },
+    {
+      "file": "audit_source/common.py",
+      "available": true,
+      "expected_sha256": "bbb90fcc1a6731da30bc5744002da3dda994005e5abb83f5049a8504f68f09e6",
+      "expected_bytes": 12256,
+      "bytes": 12256,
+      "sha256": "bbb90fcc1a6731da30bc5744002da3dda994005e5abb83f5049a8504f68f09e6",
+      "verified": true
+    },
+    {
+      "file": "audit_source/compatibility.py",
+      "available": true,
+      "expected_sha256": "da20dc15f518c9542c495c6bfb5e693486587ff0c8cb38d263297d9b3b34f7f2",
+      "expected_bytes": 50500,
+      "bytes": 50500,
+      "sha256": "da20dc15f518c9542c495c6bfb5e693486587ff0c8cb38d263297d9b3b34f7f2",
+      "verified": true
+    },
+    {
+      "file": "audit_source/source_interruption.py",
+      "available": true,
+      "expected_sha256": "99387de1d883cff79ccbe2c674842739bc94fe55416796a56948349e96352c4a",
+      "expected_bytes": 34867,
+      "bytes": 34867,
+      "sha256": "99387de1d883cff79ccbe2c674842739bc94fe55416796a56948349e96352c4a",
+      "verified": true
+    },
+    {
+      "file": "report_source/source.py",
+      "available": true,
+      "expected_sha256": "a78f78ed854a598339fd86180c08133ef2ac14750b80691adc8b638d0c796191",
+      "expected_bytes": 73716,
+      "bytes": 73716,
+      "sha256": "a78f78ed854a598339fd86180c08133ef2ac14750b80691adc8b638d0c796191",
+      "verified": true
+    },
+    {
+      "file": "external/full_run_file_manifest.json",
+      "available": true,
+      "expected_sha256": "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44",
+      "expected_bytes": 57551,
+      "bytes": 57551,
+      "sha256": "576f04d36646ac8b75a0cc00c00955175964ca4320da11e1268be85ec33ebe44",
+      "verified": true
+    },
+    {
+      "file": "external/mirror_receipt.json",
+      "available": true,
+      "expected_sha256": "76898e7e0b0d29d81d0083974ff9c75f926b31286b26d05393a8d5ac2c4ce4df",
+      "expected_bytes": 552,
+      "bytes": 552,
+      "sha256": "76898e7e0b0d29d81d0083974ff9c75f926b31286b26d05393a8d5ac2c4ce4df",
+      "verified": true
+    },
+    {
+      "file": "recovery/direct_path_probe.json",
+      "available": true,
+      "expected_sha256": "5823280ceb3dea7081fce36e5cd5fe23a103494094cd45d5626dc56a6025c675",
+      "expected_bytes": 680,
+      "bytes": 680,
+      "sha256": "5823280ceb3dea7081fce36e5cd5fe23a103494094cd45d5626dc56a6025c675",
+      "verified": true
+    },
+    {
+      "file": "recovery/local_recovery_mirror.json",
+      "available": true,
+      "expected_sha256": "9b5801e19156c9fac15ce46ff2e8fb61c76078a5210b4b4854b1db15d77bdccd",
+      "expected_bytes": 389,
+      "bytes": 389,
+      "sha256": "9b5801e19156c9fac15ce46ff2e8fb61c76078a5210b4b4854b1db15d77bdccd",
+      "verified": true
+    },
+    {
+      "file": "recovery/recovery_receipt.json",
+      "available": true,
+      "expected_sha256": "b1050216ed8f91767626ebc453c832514edb6a29ba0acc6fed334a4338d1f2fb",
+      "expected_bytes": 1161,
+      "bytes": 1161,
+      "sha256": "b1050216ed8f91767626ebc453c832514edb6a29ba0acc6fed334a4338d1f2fb",
+      "verified": true
+    },
+    {
+      "file": "recovery/recovery_recipe.py",
+      "available": true,
+      "expected_sha256": "78808ea5597792cc81bd62356f7e58cbfa739c70e07ae44f12a19f7cbb88fcc0",
+      "expected_bytes": 2558,
+      "bytes": 2558,
+      "sha256": "78808ea5597792cc81bd62356f7e58cbfa739c70e07ae44f12a19f7cbb88fcc0",
+      "verified": true
+    },
+    {
+      "file": "interruption/observation_001.json",
+      "available": true,
+      "expected_sha256": "3a729285de048207e222b10413824c633530a7dd4a70c4fa2aa3139d239200dd",
+      "expected_bytes": 3240,
+      "bytes": 3240,
+      "sha256": "3a729285de048207e222b10413824c633530a7dd4a70c4fa2aa3139d239200dd",
+      "verified": true
+    },
+    {
+      "file": "interruption/observation_002.json",
+      "available": true,
+      "expected_sha256": "38838b1edf8738b7de0d4ebbd2e050c39dff3999a85a63d94592800c1acbaa65",
+      "expected_bytes": 271,
+      "bytes": 271,
+      "sha256": "38838b1edf8738b7de0d4ebbd2e050c39dff3999a85a63d94592800c1acbaa65",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering_accounting.json",
+      "available": true,
+      "expected_sha256": "6957e0f1cff3bdd20a872913321f7c72f1f02245f7dfd3aff3f91084e65609bf",
+      "expected_bytes": 21271,
+      "bytes": 21271,
+      "sha256": "6957e0f1cff3bdd20a872913321f7c72f1f02245f7dfd3aff3f91084e65609bf",
+      "verified": true
+    },
+    {
+      "file": "accounting/analysis_source_manifest.json",
+      "available": true,
+      "expected_sha256": "9b9330f0329c95fb10cf10a90e5e7d25cc97d0a9fd43a42e3091b04fcd764f45",
+      "expected_bytes": 43597,
+      "bytes": 43597,
+      "sha256": "9b9330f0329c95fb10cf10a90e5e7d25cc97d0a9fd43a42e3091b04fcd764f45",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/active_postlaunch_format/receipt.json",
+      "available": true,
+      "expected_sha256": "4deb6a8e657a67c6a91c2b4a42ab1961e416bc72c080324fd0ce09c6c41e3542",
+      "expected_bytes": 359,
+      "bytes": 359,
+      "sha256": "4deb6a8e657a67c6a91c2b4a42ab1961e416bc72c080324fd0ce09c6c41e3542",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/active_postlaunch_format/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/active_postlaunch_format/stdout.txt",
+      "available": true,
+      "expected_sha256": "2db62cbf405a23e5ee25cc14249179fe9c17f40a1b3b99d839d497ad879c7384",
+      "expected_bytes": 28,
+      "bytes": 28,
+      "sha256": "2db62cbf405a23e5ee25cc14249179fe9c17f40a1b3b99d839d497ad879c7384",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/active_postlaunch_ruff/receipt.json",
+      "available": true,
+      "expected_sha256": "029dbb1fad4b61c5ae48ea14464dcd612d8a52195bdb150725c63313bafcaf63",
+      "expected_bytes": 342,
+      "bytes": 342,
+      "sha256": "029dbb1fad4b61c5ae48ea14464dcd612d8a52195bdb150725c63313bafcaf63",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/active_postlaunch_ruff/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/active_postlaunch_ruff/stdout.txt",
+      "available": true,
+      "expected_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "expected_bytes": 19,
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/closed_fit_transfer/receipt.json",
+      "available": true,
+      "expected_sha256": "ea44bad9c0d6e4afc681b828c3c8c671c8db27f280ee1721e691c216c9b0eacf",
+      "expected_bytes": 740,
+      "bytes": 740,
+      "sha256": "ea44bad9c0d6e4afc681b828c3c8c671c8db27f280ee1721e691c216c9b0eacf",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/closed_fit_transfer/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/closed_fit_transfer/stdout.txt",
+      "available": true,
+      "expected_sha256": "9cc5a6d2fafa6fdc1a9fc22e4956db83fc5eb149f563cfb980040f6736ddeb49",
+      "expected_bytes": 337,
+      "bytes": 337,
+      "sha256": "9cc5a6d2fafa6fdc1a9fc22e4956db83fc5eb149f563cfb980040f6736ddeb49",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_figure_visual_check.json",
+      "available": true,
+      "expected_sha256": "9301d3abd1a193c0cc1192e1b16fbc4718b948a1d3db910957411326de9e3005",
+      "expected_bytes": 640,
+      "bytes": 640,
+      "sha256": "9301d3abd1a193c0cc1192e1b16fbc4718b948a1d3db910957411326de9e3005",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_format/receipt.json",
+      "available": true,
+      "expected_sha256": "84973cdd2d678665a94afea7d943e0814f7ae06d736a71a7e2c28cdfa7ac3a24",
+      "expected_bytes": 358,
+      "bytes": 358,
+      "sha256": "84973cdd2d678665a94afea7d943e0814f7ae06d736a71a7e2c28cdfa7ac3a24",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_format/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_format/stdout.txt",
+      "available": true,
+      "expected_sha256": "9eb349efea514fbeea8b0a7f956f42d873604e56d26fe39405bf2460fba15a65",
+      "expected_bytes": 28,
+      "bytes": 28,
+      "sha256": "9eb349efea514fbeea8b0a7f956f42d873604e56d26fe39405bf2460fba15a65",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_full_tests/receipt.json",
+      "available": true,
+      "expected_sha256": "d06e20a69118cc7776f9b24ca07d702e098c7c9febb5ae63a1c293ace20fef96",
+      "expected_bytes": 364,
+      "bytes": 364,
+      "sha256": "d06e20a69118cc7776f9b24ca07d702e098c7c9febb5ae63a1c293ace20fef96",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_full_tests/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_full_tests/stdout.txt",
+      "available": true,
+      "expected_sha256": "37a10b369671e1df14c9ef5d04aaeabded4d2da7d03b09cc8b1db569de61a26b",
+      "expected_bytes": 603,
+      "bytes": 603,
+      "sha256": "37a10b369671e1df14c9ef5d04aaeabded4d2da7d03b09cc8b1db569de61a26b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_ruff/receipt.json",
+      "available": true,
+      "expected_sha256": "59b46cc950f267d073c7224c54173d10314999dd4765f0a37a2982a8e9d7c285",
+      "expected_bytes": 342,
+      "bytes": 342,
+      "sha256": "59b46cc950f267d073c7224c54173d10314999dd4765f0a37a2982a8e9d7c285",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_ruff/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/final_ruff/stdout.txt",
+      "available": true,
+      "expected_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "expected_bytes": 19,
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/fit_curve_visual_check.json",
+      "available": true,
+      "expected_sha256": "ab9ca566cf761b4a2933954f0987fdf1558aca4a7d01792487a9ea5b2071aea9",
+      "expected_bytes": 414,
+      "bytes": 414,
+      "sha256": "ab9ca566cf761b4a2933954f0987fdf1558aca4a7d01792487a9ea5b2071aea9",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/fit_only_report/receipt.json",
+      "available": true,
+      "expected_sha256": "df94057c9f0c1e431790ebafe0c6e56fcd645daf3b4efcca0f0b4b3b574589e8",
+      "expected_bytes": 523,
+      "bytes": 523,
+      "sha256": "df94057c9f0c1e431790ebafe0c6e56fcd645daf3b4efcca0f0b4b3b574589e8",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/fit_only_report/stderr.txt",
+      "available": true,
+      "expected_sha256": "85e1da3e1b52c51c46dd212e5f190e69f1c535ab9ebddfb29762546a09bb615e",
+      "expected_bytes": 208,
+      "bytes": 208,
+      "sha256": "85e1da3e1b52c51c46dd212e5f190e69f1c535ab9ebddfb29762546a09bb615e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/fit_only_report/stdout.txt",
+      "available": true,
+      "expected_sha256": "2f65f5a514a09111888d606575f241b834a93fd87cdac525cc2dba083ec09a09",
+      "expected_bytes": 125,
+      "bytes": 125,
+      "sha256": "2f65f5a514a09111888d606575f241b834a93fd87cdac525cc2dba083ec09a09",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/forensic_report/receipt.json",
+      "available": true,
+      "expected_sha256": "e5f39bb2c7ffcec8d070887a0f80b35b08cdfacc3c479868d621b33922f45b09",
+      "expected_bytes": 769,
+      "bytes": 769,
+      "sha256": "e5f39bb2c7ffcec8d070887a0f80b35b08cdfacc3c479868d621b33922f45b09",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/forensic_report/stderr.txt",
+      "available": true,
+      "expected_sha256": "85e1da3e1b52c51c46dd212e5f190e69f1c535ab9ebddfb29762546a09bb615e",
+      "expected_bytes": 208,
+      "bytes": 208,
+      "sha256": "85e1da3e1b52c51c46dd212e5f190e69f1c535ab9ebddfb29762546a09bb615e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/forensic_report/stdout.txt",
+      "available": true,
+      "expected_sha256": "c3bfe78535465f4ab7500b370a1d088eb6cf06bd7564e43a2a0d3f5b2fd962d6",
+      "expected_bytes": 116,
+      "bytes": 116,
+      "sha256": "c3bfe78535465f4ab7500b370a1d088eb6cf06bd7564e43a2a0d3f5b2fd962d6",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/initial_transfer/receipt.json",
+      "available": true,
+      "expected_sha256": "2d5046c890256116b2418682f9296e2b9a1c9bd55c8c4c7b4f41311330287070",
+      "expected_bytes": 576,
+      "bytes": 576,
+      "sha256": "2d5046c890256116b2418682f9296e2b9a1c9bd55c8c4c7b4f41311330287070",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/initial_transfer/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/initial_transfer/stdout.txt",
+      "available": true,
+      "expected_sha256": "06667157ab26fd95d60ec8a2a093e17c58d58c4b28ec6bb8219ea4d3c5dbd7b3",
+      "expected_bytes": 418,
+      "bytes": 418,
+      "sha256": "06667157ab26fd95d60ec8a2a093e17c58d58c4b28ec6bb8219ea4d3c5dbd7b3",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/inspector_phase_scope_tests/receipt.json",
+      "available": true,
+      "expected_sha256": "b70e714d4d0af5dc5767ebee302aecf1178907ca2f02e7fe7a4b114be5f75bc3",
+      "expected_bytes": 435,
+      "bytes": 435,
+      "sha256": "b70e714d4d0af5dc5767ebee302aecf1178907ca2f02e7fe7a4b114be5f75bc3",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/inspector_phase_scope_tests/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/inspector_phase_scope_tests/stdout.txt",
+      "available": true,
+      "expected_sha256": "7e60905c94f7d8bcecbc1cbdf16371a8ab45bfbadbdbfbe2bb00af95a5db661f",
+      "expected_bytes": 99,
+      "bytes": 99,
+      "sha256": "7e60905c94f7d8bcecbc1cbdf16371a8ab45bfbadbdbfbe2bb00af95a5db661f",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_audit_execution/receipt.json",
+      "available": true,
+      "expected_sha256": "d1b90f16b6ad668631f0c2fe1ba2146f2fef0c1eb16257525d7634b9feed811a",
+      "expected_bytes": 1366,
+      "bytes": 1366,
+      "sha256": "d1b90f16b6ad668631f0c2fe1ba2146f2fef0c1eb16257525d7634b9feed811a",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_audit_execution/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_audit_execution/stdout.txt",
+      "available": true,
+      "expected_sha256": "9e2397606559aca347f8cba861c16952f12b7b0952192fefc8b9c7390a265ca8",
+      "expected_bytes": 1260,
+      "bytes": 1260,
+      "sha256": "9e2397606559aca347f8cba861c16952f12b7b0952192fefc8b9c7390a265ca8",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_evidence_preservation/receipt.json",
+      "available": true,
+      "expected_sha256": "0acbfcc88c734afbcc2ef88f390fa1bf3fa0a637fe0d425f00a4b4b16cc1245d",
+      "expected_bytes": 635,
+      "bytes": 635,
+      "sha256": "0acbfcc88c734afbcc2ef88f390fa1bf3fa0a637fe0d425f00a4b4b16cc1245d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_evidence_preservation/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_evidence_preservation/stdout.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_inspector_tests/receipt.json",
+      "available": true,
+      "expected_sha256": "b0b2d3a1c24c97d89b6f419504c7d64531bff1d11e2b5d487a62de3833ce5524",
+      "expected_bytes": 435,
+      "bytes": 435,
+      "sha256": "b0b2d3a1c24c97d89b6f419504c7d64531bff1d11e2b5d487a62de3833ce5524",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_inspector_tests/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_inspector_tests/stdout.txt",
+      "available": true,
+      "expected_sha256": "88fb557394be724cba8032ceaedd3490b404e8b3bfa5c383435e5580bd842434",
+      "expected_bytes": 99,
+      "bytes": 99,
+      "sha256": "88fb557394be724cba8032ceaedd3490b404e8b3bfa5c383435e5580bd842434",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_observation_001/receipt.json",
+      "available": true,
+      "expected_sha256": "bff2db6ee64700c618c9df66932c44c138b74e457441b7e39d145c837fa5caa0",
+      "expected_bytes": 479,
+      "bytes": 479,
+      "sha256": "bff2db6ee64700c618c9df66932c44c138b74e457441b7e39d145c837fa5caa0",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_observation_001/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_observation_001/stdout.txt",
+      "available": true,
+      "expected_sha256": "3a729285de048207e222b10413824c633530a7dd4a70c4fa2aa3139d239200dd",
+      "expected_bytes": 3240,
+      "bytes": 3240,
+      "sha256": "3a729285de048207e222b10413824c633530a7dd4a70c4fa2aa3139d239200dd",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_observation_002/receipt.json",
+      "available": true,
+      "expected_sha256": "df6f8c80edb5a77c9cb3cc6180a9558ce511cd4c148463c2548d2406b522448d",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "df6f8c80edb5a77c9cb3cc6180a9558ce511cd4c148463c2548d2406b522448d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_observation_002/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/interruption_observation_002/stdout.txt",
+      "available": true,
+      "expected_sha256": "38838b1edf8738b7de0d4ebbd2e050c39dff3999a85a63d94592800c1acbaa65",
+      "expected_bytes": 271,
+      "bytes": 271,
+      "sha256": "38838b1edf8738b7de0d4ebbd2e050c39dff3999a85a63d94592800c1acbaa65",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/launch_remote/receipt.json",
+      "available": true,
+      "expected_sha256": "b9de17f82c4560a59d909bff4a242c01b39f7bcd8a623bb05bacebe8a8a95f77",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "b9de17f82c4560a59d909bff4a242c01b39f7bcd8a623bb05bacebe8a8a95f77",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/launch_remote/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/launch_remote/stdout.txt",
+      "available": true,
+      "expected_sha256": "446015f457a18e034e99381219eb4f41d1f75d57543b56fca5662ac73fe62186",
+      "expected_bytes": 335,
+      "bytes": 335,
+      "sha256": "446015f457a18e034e99381219eb4f41d1f75d57543b56fca5662ac73fe62186",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/ledger_claims_extraction/receipt.json",
+      "available": true,
+      "expected_sha256": "045a78906848a7afcf38e682d280eb6bccc377d11be6b040b65d71031bf43e1a",
+      "expected_bytes": 340,
+      "bytes": 340,
+      "sha256": "045a78906848a7afcf38e682d280eb6bccc377d11be6b040b65d71031bf43e1a",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/ledger_claims_extraction/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/ledger_claims_extraction/stdout.txt",
+      "available": true,
+      "expected_sha256": "b411eec34427644f40a8a24697880258b3909a47cd3305eef045e668299760e1",
+      "expected_bytes": 130,
+      "bytes": 130,
+      "sha256": "b411eec34427644f40a8a24697880258b3909a47cd3305eef045e668299760e1",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_001/receipt.json",
+      "available": true,
+      "expected_sha256": "1c21a68e7dd48ec5ccfe041bcfec171beb1b34786932fc721bae2236df96623b",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "1c21a68e7dd48ec5ccfe041bcfec171beb1b34786932fc721bae2236df96623b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_001/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_001/stdout.txt",
+      "available": true,
+      "expected_sha256": "0f5c2262851c1f9d67fee10ca790882a665eb551101433210030791b4e2259eb",
+      "expected_bytes": 1228,
+      "bytes": 1228,
+      "sha256": "0f5c2262851c1f9d67fee10ca790882a665eb551101433210030791b4e2259eb",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_002/receipt.json",
+      "available": true,
+      "expected_sha256": "513b96b076a19f0eed0c777d683c9be69d97559de72454d0bb4be5c7d5289e5e",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "513b96b076a19f0eed0c777d683c9be69d97559de72454d0bb4be5c7d5289e5e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_002/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_002/stdout.txt",
+      "available": true,
+      "expected_sha256": "f694ddfe08f7445ee45fd4c62ef248591a179326f372788e4bf9fdb8bd3ab8f4",
+      "expected_bytes": 2187,
+      "bytes": 2187,
+      "sha256": "f694ddfe08f7445ee45fd4c62ef248591a179326f372788e4bf9fdb8bd3ab8f4",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_003/receipt.json",
+      "available": true,
+      "expected_sha256": "82819dfdc49ed643b506e5674e0d0c5ef114431667d5a86eda787a003d9129cf",
+      "expected_bytes": 446,
+      "bytes": 446,
+      "sha256": "82819dfdc49ed643b506e5674e0d0c5ef114431667d5a86eda787a003d9129cf",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_003/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_003/stdout.txt",
+      "available": true,
+      "expected_sha256": "c8fdc320a980ace81eb1b0c7c9da5c172c5c40531cbe82227e1158fed6e2a78f",
+      "expected_bytes": 298,
+      "bytes": 298,
+      "sha256": "c8fdc320a980ace81eb1b0c7c9da5c172c5c40531cbe82227e1158fed6e2a78f",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_004/receipt.json",
+      "available": true,
+      "expected_sha256": "5bcee95831f7eb185116120c35661f6938107b313d3b00249bbca3e984b39902",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "5bcee95831f7eb185116120c35661f6938107b313d3b00249bbca3e984b39902",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_004/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_004/stdout.txt",
+      "available": true,
+      "expected_sha256": "8832134df4ed704f5349c14495964f6e70f55d9c540e570c3b0c4e1abe9632bb",
+      "expected_bytes": 293,
+      "bytes": 293,
+      "sha256": "8832134df4ed704f5349c14495964f6e70f55d9c540e570c3b0c4e1abe9632bb",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_005/receipt.json",
+      "available": true,
+      "expected_sha256": "e4885f621d5a8aef28e2343ebe0ef7f9c393533ad7ad42c7786db43438e0ec71",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "e4885f621d5a8aef28e2343ebe0ef7f9c393533ad7ad42c7786db43438e0ec71",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_005/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_005/stdout.txt",
+      "available": true,
+      "expected_sha256": "72a1617687f9585ceaa22fc346b27f5f2c03f87ee0fa5f5bbc4547719ddafdeb",
+      "expected_bytes": 1315,
+      "bytes": 1315,
+      "sha256": "72a1617687f9585ceaa22fc346b27f5f2c03f87ee0fa5f5bbc4547719ddafdeb",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_006/receipt.json",
+      "available": true,
+      "expected_sha256": "3f4c7f59eb2f3fd63c79d8c5df7e4274b92619b87e02045c8b9d2e09275316aa",
+      "expected_bytes": 446,
+      "bytes": 446,
+      "sha256": "3f4c7f59eb2f3fd63c79d8c5df7e4274b92619b87e02045c8b9d2e09275316aa",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_006/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_006/stdout.txt",
+      "available": true,
+      "expected_sha256": "cf8daf241648f106e1f9b1b3d6fea9133d68abbe2f98b62a78e59f0e87ada909",
+      "expected_bytes": 633,
+      "bytes": 633,
+      "sha256": "cf8daf241648f106e1f9b1b3d6fea9133d68abbe2f98b62a78e59f0e87ada909",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_007/receipt.json",
+      "available": true,
+      "expected_sha256": "5a7c740a376d1cdfe7c8de0ef09b1c5f7e7b1c1e07be256687a1486f79dc9e9c",
+      "expected_bytes": 446,
+      "bytes": 446,
+      "sha256": "5a7c740a376d1cdfe7c8de0ef09b1c5f7e7b1c1e07be256687a1486f79dc9e9c",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_007/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_007/stdout.txt",
+      "available": true,
+      "expected_sha256": "8bf033e65b8640a097efdf29bc590f0e53360c2e33c18dcaa0bd43e3240f1e03",
+      "expected_bytes": 633,
+      "bytes": 633,
+      "sha256": "8bf033e65b8640a097efdf29bc590f0e53360c2e33c18dcaa0bd43e3240f1e03",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_008/receipt.json",
+      "available": true,
+      "expected_sha256": "9b3c4d368d0c11e61c4ac0e3823ed261abb822c992e0ca2bf75f2134351771c6",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "9b3c4d368d0c11e61c4ac0e3823ed261abb822c992e0ca2bf75f2134351771c6",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_008/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_008/stdout.txt",
+      "available": true,
+      "expected_sha256": "18fc72d5078d745d9db638a5bb446f63064c3e4b96c0ee53d8848b42a5d7b341",
+      "expected_bytes": 638,
+      "bytes": 638,
+      "sha256": "18fc72d5078d745d9db638a5bb446f63064c3e4b96c0ee53d8848b42a5d7b341",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_009/receipt.json",
+      "available": true,
+      "expected_sha256": "49dd879fe01aaaa729b51790904a624892b509c6f5e2316c83764bfd220d4995",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "49dd879fe01aaaa729b51790904a624892b509c6f5e2316c83764bfd220d4995",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_009/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_009/stdout.txt",
+      "available": true,
+      "expected_sha256": "266f8fbee978642dd5a4749f0ee33d6ef34fa774cfbf3346d6aedc3855f186d1",
+      "expected_bytes": 1151,
+      "bytes": 1151,
+      "sha256": "266f8fbee978642dd5a4749f0ee33d6ef34fa774cfbf3346d6aedc3855f186d1",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_010/receipt.json",
+      "available": true,
+      "expected_sha256": "557c6fe92438148aeb91170faa40b29621ae0a694c496b66ad900284a1cbe5f1",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "557c6fe92438148aeb91170faa40b29621ae0a694c496b66ad900284a1cbe5f1",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_010/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_010/stdout.txt",
+      "available": true,
+      "expected_sha256": "2e6766528a381ad5688a35dc1e8147d14499cf5712e9a8206a0857e39a1f450d",
+      "expected_bytes": 1343,
+      "bytes": 1343,
+      "sha256": "2e6766528a381ad5688a35dc1e8147d14499cf5712e9a8206a0857e39a1f450d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_011/receipt.json",
+      "available": true,
+      "expected_sha256": "b764e468f6fe8801171b0c76be4cf83c8a6d2a661069fa4e98d9fb6837829cc8",
+      "expected_bytes": 444,
+      "bytes": 444,
+      "sha256": "b764e468f6fe8801171b0c76be4cf83c8a6d2a661069fa4e98d9fb6837829cc8",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_011/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_011/stdout.txt",
+      "available": true,
+      "expected_sha256": "55865415c319661040eb1a5711b173aca35a563681a80220762283c90c50ce57",
+      "expected_bytes": 1509,
+      "bytes": 1509,
+      "sha256": "55865415c319661040eb1a5711b173aca35a563681a80220762283c90c50ce57",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_012/receipt.json",
+      "available": true,
+      "expected_sha256": "a183b310d88851ad25ffd2114b7e0245215598e118aa0c5afb3f4c9ace0b15eb",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "a183b310d88851ad25ffd2114b7e0245215598e118aa0c5afb3f4c9ace0b15eb",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_012/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_012/stdout.txt",
+      "available": true,
+      "expected_sha256": "96a5fe9e0766531dcdc0d56059391553f158df7b5d9f90c3e546bae37bf78361",
+      "expected_bytes": 1489,
+      "bytes": 1489,
+      "sha256": "96a5fe9e0766531dcdc0d56059391553f158df7b5d9f90c3e546bae37bf78361",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_013/receipt.json",
+      "available": true,
+      "expected_sha256": "88b294c983afbb05a62133f7f67fdd3385f7290dc2f1d98f5f7eb06f927c30ab",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "88b294c983afbb05a62133f7f67fdd3385f7290dc2f1d98f5f7eb06f927c30ab",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_013/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_013/stdout.txt",
+      "available": true,
+      "expected_sha256": "f7fffdf309c70c201085b7b78de078c6193cb85fd0f4bc0cd59427636d5fd1f3",
+      "expected_bytes": 1482,
+      "bytes": 1482,
+      "sha256": "f7fffdf309c70c201085b7b78de078c6193cb85fd0f4bc0cd59427636d5fd1f3",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_014/receipt.json",
+      "available": true,
+      "expected_sha256": "16043f72ee3a3e6284a0c0ebfc4b7882b90ae9e0263dd518acc1de5b617c48d6",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "16043f72ee3a3e6284a0c0ebfc4b7882b90ae9e0263dd518acc1de5b617c48d6",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_014/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_014/stdout.txt",
+      "available": true,
+      "expected_sha256": "83ac7fd3d6f15bbd0887463ebf234d05f7aacba0b7ef16e48cc524395e223694",
+      "expected_bytes": 1622,
+      "bytes": 1622,
+      "sha256": "83ac7fd3d6f15bbd0887463ebf234d05f7aacba0b7ef16e48cc524395e223694",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_015/receipt.json",
+      "available": true,
+      "expected_sha256": "62c01be929576215a34072f7a4b30db4b82cfd297875c74de88f72e2e075d444",
+      "expected_bytes": 444,
+      "bytes": 444,
+      "sha256": "62c01be929576215a34072f7a4b30db4b82cfd297875c74de88f72e2e075d444",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_015/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_015/stdout.txt",
+      "available": true,
+      "expected_sha256": "8b0c0b1b94ee759db42748e7c83bc3c45a13e427b787fb35f03b9bafcf144da2",
+      "expected_bytes": 1622,
+      "bytes": 1622,
+      "sha256": "8b0c0b1b94ee759db42748e7c83bc3c45a13e427b787fb35f03b9bafcf144da2",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_016/receipt.json",
+      "available": true,
+      "expected_sha256": "01aa97a2059e10d393204dc52c170b0fd624fde8fabc0b47dd2cdb16c5c8962e",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "01aa97a2059e10d393204dc52c170b0fd624fde8fabc0b47dd2cdb16c5c8962e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_016/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_016/stdout.txt",
+      "available": true,
+      "expected_sha256": "b1d8f9424783361117173c461d874231291d07d8e0b0470938c66f8c88252da1",
+      "expected_bytes": 1617,
+      "bytes": 1617,
+      "sha256": "b1d8f9424783361117173c461d874231291d07d8e0b0470938c66f8c88252da1",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_017/receipt.json",
+      "available": true,
+      "expected_sha256": "48d80e5adec55f45b6d0726831988bb3f4198cfa0a32027bed8de38fc765aec8",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "48d80e5adec55f45b6d0726831988bb3f4198cfa0a32027bed8de38fc765aec8",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_017/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_017/stdout.txt",
+      "available": true,
+      "expected_sha256": "36c0451aa3d9bc1220b8966a855ff4d934309bc7ffa3c89ba4126d0c99517016",
+      "expected_bytes": 1622,
+      "bytes": 1622,
+      "sha256": "36c0451aa3d9bc1220b8966a855ff4d934309bc7ffa3c89ba4126d0c99517016",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_018/receipt.json",
+      "available": true,
+      "expected_sha256": "6d6ddb9c8773441e1b57baa52c34390d7fefb4412f773a486976ef0b05c81d2d",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "6d6ddb9c8773441e1b57baa52c34390d7fefb4412f773a486976ef0b05c81d2d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_018/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_018/stdout.txt",
+      "available": true,
+      "expected_sha256": "76e27014e39d450e581a86fb7179bc721a2478dbac9b50f000a470380dff4252",
+      "expected_bytes": 447,
+      "bytes": 447,
+      "sha256": "76e27014e39d450e581a86fb7179bc721a2478dbac9b50f000a470380dff4252",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_019/receipt.json",
+      "available": true,
+      "expected_sha256": "d4a465a986ad5342a0b2018eaeb131ccd72357c2dba61ef5fe35a8a478d303d9",
+      "expected_bytes": 447,
+      "bytes": 447,
+      "sha256": "d4a465a986ad5342a0b2018eaeb131ccd72357c2dba61ef5fe35a8a478d303d9",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_019/stderr.txt",
+      "available": true,
+      "expected_sha256": "814b2ce32df62a71e31cf4cb3f95d7c20619db489036c66cce807b244bd10d1c",
+      "expected_bytes": 64,
+      "bytes": 64,
+      "sha256": "814b2ce32df62a71e31cf4cb3f95d7c20619db489036c66cce807b244bd10d1c",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_019/stdout.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_020/receipt.json",
+      "available": true,
+      "expected_sha256": "e3339fb631e9f403ee4ab85d9b86625400b626f06dfa63a6fa421b2ebd485564",
+      "expected_bytes": 445,
+      "bytes": 445,
+      "sha256": "e3339fb631e9f403ee4ab85d9b86625400b626f06dfa63a6fa421b2ebd485564",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_020/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_020/stdout.txt",
+      "available": true,
+      "expected_sha256": "ef7257fbf2422d89a01226ac3d146de311ee0b8da0efa4f0a12921753024ebea",
+      "expected_bytes": 277,
+      "bytes": 277,
+      "sha256": "ef7257fbf2422d89a01226ac3d146de311ee0b8da0efa4f0a12921753024ebea",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_process_check/receipt.json",
+      "available": true,
+      "expected_sha256": "9ada7c85a49110a6c6cec99cc5cbc1cff4450723691657d76fc57338749260b7",
+      "expected_bytes": 446,
+      "bytes": 446,
+      "sha256": "9ada7c85a49110a6c6cec99cc5cbc1cff4450723691657d76fc57338749260b7",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_process_check/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/monitor_process_check/stdout.txt",
+      "available": true,
+      "expected_sha256": "fb2db54edf8aeeffa9754540c4c5543e159ea3e318f2a3fa4524c9f5977a7bc5",
+      "expected_bytes": 372,
+      "bytes": 372,
+      "sha256": "fb2db54edf8aeeffa9754540c4c5543e159ea3e318f2a3fa4524c9f5977a7bc5",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/obsidian_update.json",
+      "available": true,
+      "expected_sha256": "c52efe91f697d723847028c06eb41f9ab616984123fd13d33aea30d12dce179b",
+      "expected_bytes": 615,
+      "bytes": 615,
+      "sha256": "c52efe91f697d723847028c06eb41f9ab616984123fd13d33aea30d12dce179b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_full_audit/receipt.json",
+      "available": true,
+      "expected_sha256": "7b40dec6f85266aedd549ce5e63a1bc1888e4e68987959391f00e42512600abf",
+      "expected_bytes": 912,
+      "bytes": 912,
+      "sha256": "7b40dec6f85266aedd549ce5e63a1bc1888e4e68987959391f00e42512600abf",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_full_audit/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_full_audit/stdout.txt",
+      "available": true,
+      "expected_sha256": "93a9541bf16e92e9ae03b2d450b1534a0490efdcf1f80ae7379b1878f636b0e3",
+      "expected_bytes": 2272,
+      "bytes": 2272,
+      "sha256": "93a9541bf16e92e9ae03b2d450b1534a0490efdcf1f80ae7379b1878f636b0e3",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_full_audit_transfer/receipt.json",
+      "available": true,
+      "expected_sha256": "a60a570c8536f583bca72d77c446ca44f09feef6bfa6f065a95282f767a5c304",
+      "expected_bytes": 616,
+      "bytes": 616,
+      "sha256": "a60a570c8536f583bca72d77c446ca44f09feef6bfa6f065a95282f767a5c304",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_full_audit_transfer/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_full_audit_transfer/stdout.txt",
+      "available": true,
+      "expected_sha256": "ed15596f9bfb54562819a5e3dd99be0d03d9c0277f6a680ff26c8832ec59e3db",
+      "expected_bytes": 321,
+      "bytes": 321,
+      "sha256": "ed15596f9bfb54562819a5e3dd99be0d03d9c0277f6a680ff26c8832ec59e3db",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_interrupted_transfer/receipt.json",
+      "available": true,
+      "expected_sha256": "5a541c09a68d0b8bd64de4c5f2ffa543c40de75157bca9b4ec8d2fa8b354496b",
+      "expected_bytes": 576,
+      "bytes": 576,
+      "sha256": "5a541c09a68d0b8bd64de4c5f2ffa543c40de75157bca9b4ec8d2fa8b354496b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_interrupted_transfer/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_interrupted_transfer/stdout.txt",
+      "available": true,
+      "expected_sha256": "bf986e343be9f1919a677750d0b194ec13dcdc2f4e8adcb8798305805f9e15ce",
+      "expected_bytes": 354,
+      "bytes": 354,
+      "sha256": "bf986e343be9f1919a677750d0b194ec13dcdc2f4e8adcb8798305805f9e15ce",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_local_manifest/receipt.json",
+      "available": true,
+      "expected_sha256": "8b22902add936f5e2b9983065df425689d4586a1290bc5853ad9209a47fab67d",
+      "expected_bytes": 497,
+      "bytes": 497,
+      "sha256": "8b22902add936f5e2b9983065df425689d4586a1290bc5853ad9209a47fab67d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_local_manifest/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_local_manifest/stdout.txt",
+      "available": true,
+      "expected_sha256": "d5687abbba5936c0e977a1d0ec3e9cc980f2c661e2355e718d32b284217d8bb7",
+      "expected_bytes": 169,
+      "bytes": 169,
+      "sha256": "d5687abbba5936c0e977a1d0ec3e9cc980f2c661e2355e718d32b284217d8bb7",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_manifest_transfer/receipt.json",
+      "available": true,
+      "expected_sha256": "6cb65d07815697eaba87067448d2d321d3b5681cc9a7143b6d37be3be7f70d28",
+      "expected_bytes": 663,
+      "bytes": 663,
+      "sha256": "6cb65d07815697eaba87067448d2d321d3b5681cc9a7143b6d37be3be7f70d28",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_manifest_transfer/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/original_manifest_transfer/stdout.txt",
+      "available": true,
+      "expected_sha256": "5f605e851185b619659959958d11e47388a1f23d72a7113114c4c5e0db750e7b",
+      "expected_bytes": 311,
+      "bytes": 311,
+      "sha256": "5f605e851185b619659959958d11e47388a1f23d72a7113114c4c5e0db750e7b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_ci_final/receipt.json",
+      "available": true,
+      "expected_sha256": "e1618ce872c22bb7148f50110a25a916f1ca62fddaf09ae92893c1975dc61b7f",
+      "expected_bytes": 401,
+      "bytes": 401,
+      "sha256": "e1618ce872c22bb7148f50110a25a916f1ca62fddaf09ae92893c1975dc61b7f",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_ci_final/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_ci_final/stdout.txt",
+      "available": true,
+      "expected_sha256": "e97d4284b378b7293e282d633cbcddeb0fb4298f7ec087a5a32d3d31f6b4a676",
+      "expected_bytes": 173,
+      "bytes": 173,
+      "sha256": "e97d4284b378b7293e282d633cbcddeb0fb4298f7ec087a5a32d3d31f6b4a676",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_ci_query/receipt.json",
+      "available": true,
+      "expected_sha256": "d8fb69daa65ef992b487f8843cb3dbd3f42145ee2fa958fc020522d5472e77ff",
+      "expected_bytes": 484,
+      "bytes": 484,
+      "sha256": "d8fb69daa65ef992b487f8843cb3dbd3f42145ee2fa958fc020522d5472e77ff",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_ci_query/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_ci_query/stdout.txt",
+      "available": true,
+      "expected_sha256": "894617dfa7438e22099df1ecf9c16f778e4e0f06bd7fee0f979892dd317b263c",
+      "expected_bytes": 195,
+      "bytes": 195,
+      "sha256": "894617dfa7438e22099df1ecf9c16f778e4e0f06bd7fee0f979892dd317b263c",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/audit_help.result.json",
+      "available": true,
+      "expected_sha256": "e8df05dcb94d39fda72b17587549296af1a0d17688d531891f8c2713c0209ca0",
+      "expected_bytes": 402,
+      "bytes": 402,
+      "sha256": "e8df05dcb94d39fda72b17587549296af1a0d17688d531891f8c2713c0209ca0",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/audit_help.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/audit_help.stdout.txt",
+      "available": true,
+      "expected_sha256": "f4e98276c31f331258261aaea7c1a7adef372248737ae6816c8e371309c44573",
+      "expected_bytes": 462,
+      "bytes": 462,
+      "sha256": "f4e98276c31f331258261aaea7c1a7adef372248737ae6816c8e371309c44573",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/check_repository.result.json",
+      "available": true,
+      "expected_sha256": "123f150f823c9cbee6a0e04fb563daa6e88abc05a6e56e7a6164d41eae200bef",
+      "expected_bytes": 402,
+      "bytes": 402,
+      "sha256": "123f150f823c9cbee6a0e04fb563daa6e88abc05a6e56e7a6164d41eae200bef",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/check_repository.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/check_repository.stdout.txt",
+      "available": true,
+      "expected_sha256": "511e770c31bc5b7b4a34390f19204eca62b1129c16cc94ffe3479b96d6efe80e",
+      "expected_bytes": 139,
+      "bytes": 139,
+      "sha256": "511e770c31bc5b7b4a34390f19204eca62b1129c16cc94ffe3479b96d6efe80e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/commands.json",
+      "available": true,
+      "expected_sha256": "c8e31d8a2d41fcdce078e091ba7ff7a300b35b2ea2badb89daf025920befa47d",
+      "expected_bytes": 2392,
+      "bytes": 2392,
+      "sha256": "c8e31d8a2d41fcdce078e091ba7ff7a300b35b2ea2badb89daf025920befa47d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/export_manifest.json",
+      "available": true,
+      "expected_sha256": "aa7671a954aac1e9cd902e7218472946a12268d0c5fc28a7ee3b042030f22d0e",
+      "expected_bytes": 323098,
+      "bytes": 323098,
+      "sha256": "aa7671a954aac1e9cd902e7218472946a12268d0c5fc28a7ee3b042030f22d0e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/check_repository.result.json",
+      "available": true,
+      "expected_sha256": "dcf1fab3eb8dd9e8b87b04cfa02de1669398d6f56c7f6be433002fd610f68095",
+      "expected_bytes": 385,
+      "bytes": 385,
+      "sha256": "dcf1fab3eb8dd9e8b87b04cfa02de1669398d6f56c7f6be433002fd610f68095",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/check_repository.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/check_repository.stdout.txt",
+      "available": true,
+      "expected_sha256": "511e770c31bc5b7b4a34390f19204eca62b1129c16cc94ffe3479b96d6efe80e",
+      "expected_bytes": 139,
+      "bytes": 139,
+      "sha256": "511e770c31bc5b7b4a34390f19204eca62b1129c16cc94ffe3479b96d6efe80e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/final_export_manifest.json",
+      "available": true,
+      "expected_sha256": "7e66512f782dbbe06e96ae9665ea4687ccb3d444c4c9653a4159ddf3d9234290",
+      "expected_bytes": 323592,
+      "bytes": 323592,
+      "sha256": "7e66512f782dbbe06e96ae9665ea4687ccb3d444c4c9653a4159ddf3d9234290",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/focused_final_audit_launch.result.json",
+      "available": true,
+      "expected_sha256": "b342ae4a358284938bd2a66c77fb184d5684fc6b40ee3ee8520509ab6a40344d",
+      "expected_bytes": 482,
+      "bytes": 482,
+      "sha256": "b342ae4a358284938bd2a66c77fb184d5684fc6b40ee3ee8520509ab6a40344d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/focused_final_audit_launch.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/focused_final_audit_launch.stdout.txt",
+      "available": true,
+      "expected_sha256": "4d6c083db2365efe4880d85717ae4e2f5c1f90af6d9bdbd7d84c95312b9fef54",
+      "expected_bytes": 99,
+      "bytes": 99,
+      "sha256": "4d6c083db2365efe4880d85717ae4e2f5c1f90af6d9bdbd7d84c95312b9fef54",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/inspect_portable_d1.result.json",
+      "available": true,
+      "expected_sha256": "e60ef21944e5297716313e2686fe96f933d8007ee4dc22a4513b77561622452c",
+      "expected_bytes": 551,
+      "bytes": 551,
+      "sha256": "e60ef21944e5297716313e2686fe96f933d8007ee4dc22a4513b77561622452c",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/inspect_portable_d1.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/inspect_portable_d1.stdout.txt",
+      "available": true,
+      "expected_sha256": "9d20be3f94b3c08ba50536b6508e4f0a911f7c491a6b5591246fe01a809df79b",
+      "expected_bytes": 29431,
+      "bytes": 29431,
+      "sha256": "9d20be3f94b3c08ba50536b6508e4f0a911f7c491a6b5591246fe01a809df79b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/ruff_check.result.json",
+      "available": true,
+      "expected_sha256": "ce1a3031d9bd732fbfe6110eb7bd2e17d7f2be17d1e55656d4a65a771de6262a",
+      "expected_bytes": 342,
+      "bytes": 342,
+      "sha256": "ce1a3031d9bd732fbfe6110eb7bd2e17d7f2be17d1e55656d4a65a771de6262a",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/ruff_check.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/ruff_check.stdout.txt",
+      "available": true,
+      "expected_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "expected_bytes": 19,
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/ruff_format_check.result.json",
+      "available": true,
+      "expected_sha256": "06661449193f7fda372bc768a1375f08f47184018a991f222179d063303f3f5d",
+      "expected_bytes": 380,
+      "bytes": 380,
+      "sha256": "06661449193f7fda372bc768a1375f08f47184018a991f222179d063303f3f5d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/ruff_format_check.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_refresh/ruff_format_check.stdout.txt",
+      "available": true,
+      "expected_sha256": "2db62cbf405a23e5ee25cc14249179fe9c17f40a1b3b99d839d497ad879c7384",
+      "expected_bytes": 28,
+      "bytes": 28,
+      "sha256": "2db62cbf405a23e5ee25cc14249179fe9c17f40a1b3b99d839d497ad879c7384",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/final_summary.json",
+      "available": true,
+      "expected_sha256": "bf965208a378a036a3e4a4bc422ce7ca9371bbbc7d9e0859283c444f89f8eb4a",
+      "expected_bytes": 5262,
+      "bytes": 5262,
+      "sha256": "bf965208a378a036a3e4a4bc422ce7ca9371bbbc7d9e0859283c444f89f8eb4a",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/full_pytest.result.json",
+      "available": true,
+      "expected_sha256": "4c6fd6809bf08edaf163b50438511e1bd646813d7da50b7c20da4670fa866238",
+      "expected_bytes": 384,
+      "bytes": 384,
+      "sha256": "4c6fd6809bf08edaf163b50438511e1bd646813d7da50b7c20da4670fa866238",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/full_pytest.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/full_pytest.stdout.txt",
+      "available": true,
+      "expected_sha256": "e1d317955c90caac2c7d6736214fe92845ac8e2b664faac7ec2b07dfa2a7c772",
+      "expected_bytes": 603,
+      "bytes": 603,
+      "sha256": "e1d317955c90caac2c7d6736214fe92845ac8e2b664faac7ec2b07dfa2a7c772",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/import_origin.result.json",
+      "available": true,
+      "expected_sha256": "b88b69de01e802d193f9f1e7e5370510cc938f46d7100765333b29680ce11141",
+      "expected_bytes": 543,
+      "bytes": 543,
+      "sha256": "b88b69de01e802d193f9f1e7e5370510cc938f46d7100765333b29680ce11141",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/import_origin.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/import_origin.stdout.txt",
+      "available": true,
+      "expected_sha256": "ea5399e6c938a3de183dd4d8839df9626afd24a3f72f46c5291660f0d6e53d5e",
+      "expected_bytes": 118,
+      "bytes": 118,
+      "sha256": "ea5399e6c938a3de183dd4d8839df9626afd24a3f72f46c5291660f0d6e53d5e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/inspect_portable_d1.result.json",
+      "available": true,
+      "expected_sha256": "bd7b2916b9f04afaca5efa86465dde540a6035f166a4ff0dbff81fdf9d93e1db",
+      "expected_bytes": 556,
+      "bytes": 556,
+      "sha256": "bd7b2916b9f04afaca5efa86465dde540a6035f166a4ff0dbff81fdf9d93e1db",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/inspect_portable_d1.stderr.txt",
+      "available": true,
+      "expected_sha256": "f74384fe4457d17e4512cca8bb9da276780ed0dcd6bb222b13c9508151ee327e",
+      "expected_bytes": 146,
+      "bytes": 146,
+      "sha256": "f74384fe4457d17e4512cca8bb9da276780ed0dcd6bb222b13c9508151ee327e",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/inspect_portable_d1.stdout.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/launch_help.result.json",
+      "available": true,
+      "expected_sha256": "18e05e0f6275debddcb72c8dece1af457b4499492c3bd173e939a0883f167203",
+      "expected_bytes": 418,
+      "bytes": 418,
+      "sha256": "18e05e0f6275debddcb72c8dece1af457b4499492c3bd173e939a0883f167203",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/launch_help.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/launch_help.stdout.txt",
+      "available": true,
+      "expected_sha256": "72b618a30491f9a54abf456ecb9356bb63c10682771486bfa4f28d996d0196e5",
+      "expected_bytes": 333,
+      "bytes": 333,
+      "sha256": "72b618a30491f9a54abf456ecb9356bb63c10682771486bfa4f28d996d0196e5",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/report_help.result.json",
+      "available": true,
+      "expected_sha256": "24ed8f4849877597f03c32035d88a477356089b3daf52b509194ef45246e4fbc",
+      "expected_bytes": 418,
+      "bytes": 418,
+      "sha256": "24ed8f4849877597f03c32035d88a477356089b3daf52b509194ef45246e4fbc",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/report_help.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/report_help.stdout.txt",
+      "available": true,
+      "expected_sha256": "d45cfd4343679975914dfe74c95c38613295018418527beb7f3d3c3319a8b7a2",
+      "expected_bytes": 219,
+      "bytes": 219,
+      "sha256": "d45cfd4343679975914dfe74c95c38613295018418527beb7f3d3c3319a8b7a2",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/ruff_check.result.json",
+      "available": true,
+      "expected_sha256": "0f997730643a74b7fab571b4c496c39fedf83f784845921288da670efb48161c",
+      "expected_bytes": 359,
+      "bytes": 359,
+      "sha256": "0f997730643a74b7fab571b4c496c39fedf83f784845921288da670efb48161c",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/ruff_check.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/ruff_check.stdout.txt",
+      "available": true,
+      "expected_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "expected_bytes": 19,
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/ruff_format_check.result.json",
+      "available": true,
+      "expected_sha256": "77bb1de05d6e1807d150bbbd44a91fcd72124784dcfea533c34f9a2b640064b4",
+      "expected_bytes": 396,
+      "bytes": 396,
+      "sha256": "77bb1de05d6e1807d150bbbd44a91fcd72124784dcfea533c34f9a2b640064b4",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/ruff_format_check.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/ruff_format_check.stdout.txt",
+      "available": true,
+      "expected_sha256": "2db62cbf405a23e5ee25cc14249179fe9c17f40a1b3b99d839d497ad879c7384",
+      "expected_bytes": 28,
+      "bytes": 28,
+      "sha256": "2db62cbf405a23e5ee25cc14249179fe9c17f40a1b3b99d839d497ad879c7384",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/study_source_help.result.json",
+      "available": true,
+      "expected_sha256": "aa93ff962e06145cb436f33e0a48270eff9c90b3356c52c4712ed499abafe34f",
+      "expected_bytes": 444,
+      "bytes": 444,
+      "sha256": "aa93ff962e06145cb436f33e0a48270eff9c90b3356c52c4712ed499abafe34f",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/study_source_help.stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/study_source_help.stdout.txt",
+      "available": true,
+      "expected_sha256": "fd51465cdf36cf8163bfaf1ecdeacb4a10e91144e8a8abc2463faae27078e40b",
+      "expected_bytes": 480,
+      "bytes": 480,
+      "sha256": "fd51465cdf36cf8163bfaf1ecdeacb4a10e91144e8a8abc2463faae27078e40b",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_clean_export/summary.json",
+      "available": true,
+      "expected_sha256": "d3da27251085a7f66940768d1a0bf17604671fa2cd813fde05b0236f48e2898d",
+      "expected_bytes": 5375,
+      "bytes": 5375,
+      "sha256": "d3da27251085a7f66940768d1a0bf17604671fa2cd813fde05b0236f48e2898d",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_inspection/receipt.json",
+      "available": true,
+      "expected_sha256": "43859c567f3c515c1e63079b78f80ccad90fa8a66c75d30c9e3e8464b64aa4ea",
+      "expected_bytes": 462,
+      "bytes": 462,
+      "sha256": "43859c567f3c515c1e63079b78f80ccad90fa8a66c75d30c9e3e8464b64aa4ea",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_inspection/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_inspection/stdout.txt",
+      "available": true,
+      "expected_sha256": "5371fa4631e6d8d2f6b168419e4a3cc119baf5941117a883152f5e3e480999c8",
+      "expected_bytes": 38340,
+      "bytes": 38340,
+      "sha256": "5371fa4631e6d8d2f6b168419e4a3cc119baf5941117a883152f5e3e480999c8",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_push/receipt.json",
+      "available": true,
+      "expected_sha256": "3994f7db88620442e2fd865e926e3f23c4f42094240bb08c5245704fbe6c5ae6",
+      "expected_bytes": 346,
+      "bytes": 346,
+      "sha256": "3994f7db88620442e2fd865e926e3f23c4f42094240bb08c5245704fbe6c5ae6",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_push/stderr.txt",
+      "available": true,
+      "expected_sha256": "a12a6af5a3669b41825652ac4a23e3023084a5ccbba8f47546aeafa924a91db2",
+      "expected_bytes": 74,
+      "bytes": 74,
+      "sha256": "a12a6af5a3669b41825652ac4a23e3023084a5ccbba8f47546aeafa924a91db2",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_push/stdout.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_remote_head/receipt.json",
+      "available": true,
+      "expected_sha256": "0048710b6103409b8f4bd2c3e56e9deba3d65a0a78e35ed0b8059ecdee24e3c4",
+      "expected_bytes": 363,
+      "bytes": 363,
+      "sha256": "0048710b6103409b8f4bd2c3e56e9deba3d65a0a78e35ed0b8059ecdee24e3c4",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_remote_head/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prelaunch_remote_head/stdout.txt",
+      "available": true,
+      "expected_sha256": "46add735fe49f8849e225eb5082890e54e959820f559d83706778d51306f4b09",
+      "expected_bytes": 57,
+      "bytes": 57,
+      "sha256": "46add735fe49f8849e225eb5082890e54e959820f559d83706778d51306f4b09",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prepare/receipt.json",
+      "available": true,
+      "expected_sha256": "22db789221cff1b9dc81475185c6a930b21963c466da91f9ded6ab6c1a68a1db",
+      "expected_bytes": 535,
+      "bytes": 535,
+      "sha256": "22db789221cff1b9dc81475185c6a930b21963c466da91f9ded6ab6c1a68a1db",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prepare/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prepare/stdout.txt",
+      "available": true,
+      "expected_sha256": "c5b87ec5568c2c9fb77de03f9065a1f7d40e56409f208c1069bc61ecb85b0bc9",
+      "expected_bytes": 353,
+      "bytes": 353,
+      "sha256": "c5b87ec5568c2c9fb77de03f9065a1f7d40e56409f208c1069bc61ecb85b0bc9",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prepared_inspection/receipt.json",
+      "available": true,
+      "expected_sha256": "7839fe359250c9c87e40b53c5f4c7522f1ddbdea9c4db9dde8db57fd1b934e28",
+      "expected_bytes": 432,
+      "bytes": 432,
+      "sha256": "7839fe359250c9c87e40b53c5f4c7522f1ddbdea9c4db9dde8db57fd1b934e28",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prepared_inspection/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/prepared_inspection/stdout.txt",
+      "available": true,
+      "expected_sha256": "57535c1fa48c2d1ef67fd266530881f6b4b3c81ba2724da13e9e05c8fcbb0a0f",
+      "expected_bytes": 141,
+      "bytes": 141,
+      "sha256": "57535c1fa48c2d1ef67fd266530881f6b4b3c81ba2724da13e9e05c8fcbb0a0f",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/preserve_remote_original_manifest/receipt.json",
+      "available": true,
+      "expected_sha256": "63d085e60103eb70f7ff677e320d1b60cc7aceb3f4871f4a93cd24d088707aef",
+      "expected_bytes": 479,
+      "bytes": 479,
+      "sha256": "63d085e60103eb70f7ff677e320d1b60cc7aceb3f4871f4a93cd24d088707aef",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/preserve_remote_original_manifest/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/preserve_remote_original_manifest/stdout.txt",
+      "available": true,
+      "expected_sha256": "92196f106343cb0e1bbeb75390addb001b2859b56cbb5c59fb00bd1115d28a55",
+      "expected_bytes": 169,
+      "bytes": 169,
+      "sha256": "92196f106343cb0e1bbeb75390addb001b2859b56cbb5c59fb00bd1115d28a55",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/reconstruction_feasibility_001/attempt_000_import_error.txt",
+      "available": true,
+      "expected_sha256": "310219814ba4ef3aa6b5cd612844d4ab2f8acc21fb53283ec00f1fd8b65abbb2",
+      "expected_bytes": 199,
+      "bytes": 199,
+      "sha256": "310219814ba4ef3aa6b5cd612844d4ab2f8acc21fb53283ec00f1fd8b65abbb2",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/reconstruction_feasibility_001/attempt_001.stdout.json",
+      "available": true,
+      "expected_sha256": "6a3ac6dd8f9b72cc21f22bd4d035ea1ffcdb78435d8ddcc9edf2929739441aba",
+      "expected_bytes": 886,
+      "bytes": 886,
+      "sha256": "6a3ac6dd8f9b72cc21f22bd4d035ea1ffcdb78435d8ddcc9edf2929739441aba",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/reconstruction_feasibility_001/file_manifest.json",
+      "available": true,
+      "expected_sha256": "70716edb067ad54219914c057d168746a045cc67ac55ea7677ab4adc80d461a4",
+      "expected_bytes": 682,
+      "bytes": 682,
+      "sha256": "70716edb067ad54219914c057d168746a045cc67ac55ea7677ab4adc80d461a4",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/reconstruction_feasibility_001/receipt.json",
+      "available": true,
+      "expected_sha256": "ec4227713736eacb17305a84c91ca4b73ad4d53274a7a99bc7d3d2b473f5b919",
+      "expected_bytes": 2832,
+      "bytes": 2832,
+      "sha256": "ec4227713736eacb17305a84c91ca4b73ad4d53274a7a99bc7d3d2b473f5b919",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_copy_001/receipt.json",
+      "available": true,
+      "expected_sha256": "aca9ae0ee88936ce15d2b2a3242762538cc95226e79b09e9b8045b9db31d9421",
+      "expected_bytes": 585,
+      "bytes": 585,
+      "sha256": "aca9ae0ee88936ce15d2b2a3242762538cc95226e79b09e9b8045b9db31d9421",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_copy_001/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_copy_001/stdout.txt",
+      "available": true,
+      "expected_sha256": "b1050216ed8f91767626ebc453c832514edb6a29ba0acc6fed334a4338d1f2fb",
+      "expected_bytes": 1161,
+      "bytes": 1161,
+      "sha256": "b1050216ed8f91767626ebc453c832514edb6a29ba0acc6fed334a4338d1f2fb",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_direct_path_probe/receipt.json",
+      "available": true,
+      "expected_sha256": "54308d34a28948c4633e82a01796a3fdd81ced4889769220c52e3bba6b9fc262",
+      "expected_bytes": 479,
+      "bytes": 479,
+      "sha256": "54308d34a28948c4633e82a01796a3fdd81ced4889769220c52e3bba6b9fc262",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_direct_path_probe/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_direct_path_probe/stdout.txt",
+      "available": true,
+      "expected_sha256": "5823280ceb3dea7081fce36e5cd5fe23a103494094cd45d5626dc56a6025c675",
+      "expected_bytes": 680,
+      "bytes": 680,
+      "sha256": "5823280ceb3dea7081fce36e5cd5fe23a103494094cd45d5626dc56a6025c675",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_metadata_transfer/receipt.json",
+      "available": true,
+      "expected_sha256": "5ff070659e1ab2b60067d22c40d8525d17d03b3d2a837be6784e4522248b4864",
+      "expected_bytes": 633,
+      "bytes": 633,
+      "sha256": "5ff070659e1ab2b60067d22c40d8525d17d03b3d2a837be6784e4522248b4864",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_metadata_transfer/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/recovery_metadata_transfer/stdout.txt",
+      "available": true,
+      "expected_sha256": "cbb3aec80f6324461681a3abd1c54cd5540a861f4caf5476aa6384d76685a31a",
+      "expected_bytes": 306,
+      "bytes": 306,
+      "sha256": "cbb3aec80f6324461681a3abd1c54cd5540a861f4caf5476aa6384d76685a31a",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/upload_recovery_recipe/receipt.json",
+      "available": true,
+      "expected_sha256": "8e9414cdc8569b7c5bda1be58595137e0620f6ad3906bc05d60e059fd3e331ed",
+      "expected_bytes": 644,
+      "bytes": 644,
+      "sha256": "8e9414cdc8569b7c5bda1be58595137e0620f6ad3906bc05d60e059fd3e331ed",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/upload_recovery_recipe/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/engineering/upload_recovery_recipe/stdout.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_recipe.py",
+      "available": true,
+      "expected_sha256": "a3f93473d35ca4ec90f1a35aa37f2690a06e5ff9aae356ab23ebce03b9e870f7",
+      "expected_bytes": 13231,
+      "bytes": 13231,
+      "sha256": "a3f93473d35ca4ec90f1a35aa37f2690a06e5ff9aae356ab23ebce03b9e870f7",
+      "verified": true
+    },
+    {
+      "file": "accounting/manifest_recipe.py",
+      "available": true,
+      "expected_sha256": "3d0a9b3740b42d24cf71f5af97e65cc88d2278f447945e2caf92661214283037",
+      "expected_bytes": 896,
+      "bytes": 896,
+      "sha256": "3d0a9b3740b42d24cf71f5af97e65cc88d2278f447945e2caf92661214283037",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_validation/receipt.json",
+      "available": true,
+      "expected_sha256": "56a76c77a63ee51b397d8ddebdbedcd3caf7dfce4622f9d1375391bb17b1db28",
+      "expected_bytes": 424,
+      "bytes": 424,
+      "sha256": "56a76c77a63ee51b397d8ddebdbedcd3caf7dfce4622f9d1375391bb17b1db28",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_validation/stdout.txt",
+      "available": true,
+      "expected_sha256": "d28e6af01d7587f7d25403d12e283589a8a0123e82cd9c2d0007d73112112c1c",
+      "expected_bytes": 1760,
+      "bytes": 1760,
+      "sha256": "d28e6af01d7587f7d25403d12e283589a8a0123e82cd9c2d0007d73112112c1c",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_validation/stderr.txt",
+      "available": true,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_bytes": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_validation/portable_render_parity.json",
+      "available": true,
+      "expected_sha256": "c6f0750d5e3105a2e6e3ff3cac9baa0466ac303071c15f0e4ba2f61326f970e9",
+      "expected_bytes": 1094,
+      "bytes": 1094,
+      "sha256": "c6f0750d5e3105a2e6e3ff3cac9baa0466ac303071c15f0e4ba2f61326f970e9",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_validation/recipe.py",
+      "available": true,
+      "expected_sha256": "238ceb5fc3f37ba1c3ea2a8093b0bf3429a86a20ae7cf5c537bdb62b223756de",
+      "expected_bytes": 1922,
+      "bytes": 1922,
+      "sha256": "238ceb5fc3f37ba1c3ea2a8093b0bf3429a86a20ae7cf5c537bdb62b223756de",
+      "verified": true
+    },
+    {
+      "file": "accounting/publication_validation/validate_export.py",
+      "available": true,
+      "expected_sha256": "8074df87470a44bbf76f643d02ea6bafed82784553deddd4f36b6ba194f7583a",
+      "expected_bytes": 6181,
+      "bytes": 6181,
+      "sha256": "8074df87470a44bbf76f643d02ea6bafed82784553deddd4f36b6ba194f7583a",
+      "verified": true
+    },
+    {
+      "file": "external/artifact_evidence_manifest.json",
+      "available": true,
+      "expected_sha256": "6ad48941d4940c554e2d30f1c00aefa32a264e53d8ecad3a7931df64c395ad95",
+      "expected_bytes": 69872,
+      "bytes": 69872,
+      "sha256": "6ad48941d4940c554e2d30f1c00aefa32a264e53d8ecad3a7931df64c395ad95",
+      "verified": true
+    },
+    {
+      "file": "external/artifact_mirror_receipt.json",
+      "available": true,
+      "expected_sha256": "b93cc711e30a09d27eb9e0ec4828b0159abb4cd80b8bbe0df4d3c655faecd4aa",
+      "expected_bytes": 444,
+      "bytes": 444,
+      "sha256": "b93cc711e30a09d27eb9e0ec4828b0159abb4cd80b8bbe0df4d3c655faecd4aa",
+      "verified": true
+    }
+  ],
+  "source_files": [],
+  "policy_hashes": {},
+  "bulk_evidence": {
+    "local_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_source_s1_001",
+    "remote_host": "robopil5090",
+    "remote_run": "/home/jaisel/mppi-gps-workspace/runs/2026-10-31_student_source_s1_001",
+    "local_artifacts": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-10-31_student_source_s1_001",
+    "full_run_files": 328,
+    "full_run_bytes": 2067119147,
+    "original_raw_readable": false,
+    "recovery": "Separately preserved zero-extended container; accepted scientific arrays require saved SHA256 verification.",
+    "omitted": [
+      "evidence/fit/raw.h5",
+      "evidence/fit/ledger.jsonl",
+      "evidence/eval/raw.h5",
+      "evidence/eval/ledger.jsonl",
+      "source/",
+      "inputs/*.npz",
+      "inputs/reference.pt",
+      "inputs/teachers/",
+      "checkpoints/",
+      "learning/",
+      "recovery_001/eval_recovered_container.h5",
+      "audit_interruption_001/array_bindings.json"
+    ]
+  },
+  "missing_evidence": [
+    "result.json"
+  ],
+  "omitted_bulk_evidence": [
+    "evidence/fit/raw.h5",
+    "evidence/fit/ledger.jsonl",
+    "evidence/eval/raw.h5",
+    "evidence/eval/ledger.jsonl",
+    "source/",
+    "inputs/*.npz",
+    "inputs/reference.pt",
+    "inputs/teachers/",
+    "checkpoints/",
+    "learning/",
+    "recovery_001/eval_recovered_container.h5",
+    "audit_interruption_001/array_bindings.json"
+  ],
+  "hash_mismatches": [],
+  "errors": [],
+  "verification_requested": true,
+  "verification_scope": "copied capsule bytes"
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "walker-h5-audit-operator-synthetic-validation-v1",
+  "passed": true,
+  "operator_synthetic_tests": 5,
+  "collector_synthetic_tests": 8,
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_audit_operator_helpers.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.06111120799323544,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b9703f8f5629ca01b6d6191561d4fa91f2472a36c38d2f6b7687f91c27831dbc"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_collect_saved_evidence.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.14436004098388366,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "37cb2d12bbc482e8f7f946f364424b2064ac50810535df4f6b6421ade018c437"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--no-force-exclude",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_bootstrap.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_monitor.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_audit_operator_helpers.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collect_saved_evidence.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_collect_saved_evidence.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.026313292008126155,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "--no-force-exclude",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_bootstrap.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_monitor.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_audit_operator_helpers.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collect_saved_evidence.py",
+        "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/test_collect_saved_evidence.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.022867374995257705,
+      "stdout_sha256": "f114d83b30c5c657ee43a847a45bafccaea255d82673feb87c26d252c61e29c1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "files": {
+    "audit_bootstrap.py": {
+      "bytes": 11856,
+      "sha256": "e221d771bd60c670b387111180c2ad67545b0c12f0bf098a4042f1d872ccf001"
+    },
+    "audit_monitor.py": {
+      "bytes": 9563,
+      "sha256": "b8a2a8f0cb6824ba836eb7f8950b0e92e8e20a8d7a9b7fba61de790849b960e0"
+    },
+    "test_audit_operator_helpers.py": {
+      "bytes": 9621,
+      "sha256": "181c7413d6cbf17d3d513561d77130cf43acdebafb5208d27fc8b52861d5b60a"
+    },
+    "collect_saved_evidence.py": {
+      "bytes": 26741,
+      "sha256": "8f92b5b4eaa5d09b3e01a32ac0ab0ff3b11d25b282397ab08d11389c5a3ff48b"
+    },
+    "test_collect_saved_evidence.py": {
+      "bytes": 18230,
+      "sha256": "59372da36541ede7c8906998f19fde1af06a780804692dd83a4316b78959ccb9"
+    }
+  },
+  "no_audit_or_scientific_launch": true,
+  "no_remote_commands": true,
+  "scientific_calls": 0,
+  "scope": "Private temporary synthetic metadata only; actual operator state and initial local frozen source/config pins were inspected read-only. Full tests include no numerical stack, native simulation or real audit inputs. Enclosing wall times overlap nested timers; other editing/tool/read overhead is not fully instrumented.",
+  "collector_negative_closure_review": "Compatible with actual normalteacherstop schema: completed worker/exit, six checkpoint records (legitimate hash aliases retained), three parent fits,12 fullmetrics+36 episode+36 teacherposthoc scalar events; per-episode selection count uses actual executed201/199 prefixes, not1000 padding. No children, panels or gaps required."
+}

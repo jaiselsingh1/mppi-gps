@@ -183,15 +183,47 @@ Two files are omitted from the new run copy: `evidence/motion.npz` (**6,064,785 
 
 [Publication v2](../results/motion_diagnosis_k1_2/publication/portability_correction_002.json) corrects a Git-export packaging error: the global journal ignore rule excluded `work.jsonl` despite the v1 manifest binding. The exact [v1 manifest](../results/motion_diagnosis_k1_2/historical/publication_001/capsule.json) and [v1 navigation](../results/motion_diagnosis_k1_2/historical/publication_001/README.md) remain preserved. The unchanged accounting file describes the original 495-file v1 publication snapshot; the current manifest defines v2. No scientific run, source, result, audit or report bytes changed.
 
-The [independent audit](../results/motion_diagnosis_k1_2/audit_001/receipt.json) passed 380,112 checks, reopening original arrays and verifying all compact arrays. The worker and audit performed **2,942,449,292 logical file-read bytes**; the report separately read 12,129,596 compact-archive bytes. Decoded heap bytes are not added to file IO. [Accounting](../results/motion_diagnosis_k1_2/accounting/accounting.json) uses the final audit receipt, retains its earlier findings snapshot, separates nested elapsed times, and preserves preflight failures, the failed deadline test and unknown overhead. No new network inference, physics controls, fitting, checkpoint loads or acquisition ran. The next [H5.0 guided-proposal hypothesis](teacher_proposal_h5_0_hypothesis.md) now has a validated implementation and [frozen first-round preparation](../results/teacher_proposal_h5_0_preparation/README.md); research execution remains unapproved.
+The [independent audit](../results/motion_diagnosis_k1_2/audit_001/receipt.json) passed 380,112 checks, reopening original arrays and verifying all compact arrays. The worker and audit performed **2,942,449,292 logical file-read bytes**; the report separately read 12,129,596 compact-archive bytes. Decoded heap bytes are not added to file IO. [Accounting](../results/motion_diagnosis_k1_2/accounting/accounting.json) uses the final audit receipt, retains its earlier findings snapshot, separates nested elapsed times, and preserves preflight failures, the failed deadline test and unknown overhead. No new network inference, physics controls, fitting, checkpoint loads or acquisition ran. The historical [H5.0 preparation](../results/teacher_proposal_h5_0_preparation/README.md) remains unchanged. A separately authorized [round-one experiment](teacher_proposal_h5_0_round1_results.md) has since completed and passed its full audit; the original preparation was never executed.
 
 ### H5.0 unlaunched preparation
 
 The complete preparation lives at `/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_teacher_proposal_h5_0_preparation_001`. The [catalog](../results/teacher_proposal_h5_0_preparation/external/full_preparation_catalog.json) binds every file, including the original W2 benchmark bytes and exact source at `a19ad4ca31c07d393497f610f228810289839eb2`. The [490-check metadata audit](../results/teacher_proposal_h5_0_preparation/audit/receipt.json) decodes no arrays and performs no inference, physics or fitting. This is preparation validation, not the future scientific audit or evidence that the mechanism helps. The [accounting](../results/teacher_proposal_h5_0_preparation/accounting/accounting.json) separates prospective budgets from executed engineering work and preserves failures and unknown overhead.
 
-Automatic approval review initially rejected the optional full backup before execution because it would export W2 inputs and metadata. Following the user's explicit approval, the complete preparation was copied to `/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_preparation_001` on `robopil5090`. All **489 files /10,332,583 bytes** match the [backup catalogs and receipt](validation/teacher_proposal_h5_0_2026-11-01/backup_001/README.md). The original capsule and validation availability fields preserve their earlier publication snapshot. This backup includes the sealed W2 benchmark copies within the new preparation; it does not mirror the complete inherited W2/H4/K1 raw runs. The launch flag remains false, the weak-learner exception remains pending, and useful learning remains unestablished. The existing four-note Obsidian structure is unchanged because no new research result exists.
+Automatic approval review initially rejected the optional full backup before execution because it would export W2 inputs and metadata. Following the user's explicit approval, the complete preparation was copied to `/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_preparation_001` on `robopil5090`. All **489 files /10,332,583 bytes** match the [backup catalogs and receipt](validation/teacher_proposal_h5_0_2026-11-01/backup_001/README.md). The original capsule and validation availability fields preserve their earlier publication snapshot. This backup includes the sealed W2 benchmark copies within the new preparation; it does not mirror the complete inherited W2/H4/K1 raw runs. That preparation retains its false launch flag and original pending-exception metadata. It is distinct from the subsequently authorized round-one run below; useful learning remains unestablished. The four-note Obsidian structure is retained, with only a brief later result/link update.
 
 A later [off-host verification](validation/motion_diagnosis_k1_2_2026-11-01/offhost_verification.json) proves all **373 files / 26,248,760 bytes** on `robopil5090` at `/home/jaisel/mppi-gps-workspace/runs/2026-11-01_motion_diagnosis_k1_2_001`, including the compact raw archive and full work journal. Local and remote catalog SHA-256 agree: `38817afff1b7d630971a7b03744f5fabcfbb09ec6d0a97cec62f90d1b9d2e0ac`. No remote scientific worker ran. The immutable capsule's earlier `remote_copy_verified=false` remains a truthful publication snapshot. [Final publication validation](validation/motion_diagnosis_k1_2_2026-11-01/receipt.json) records the portable export at `1983140`: **814 passed, one skip, one expected failure and 31 commands**, with retained failures and later backup costs.
+
+### H5.0 round one: completed, audited, remote raw evidence
+
+[H5.0r1](teacher_proposal_h5_0_round1_results.md) completed all 36 acquisitions and stopped
+normally at teacher competence: I walked 12/12, S and P 11/12 each. No child fits, standalone
+panels or paired-gap episodes ran. Its [capsule](../results/teacher_proposal_h5_0_round1/README.md)
+preserves original configurations/manifests, results, all 6,000 parent learning points,
+report assets, accounting and the successful full audit. Its [external catalog](../results/teacher_proposal_h5_0_round1/external_catalog.json)
+binds 536 omitted source/input/checkpoint/raw files by size and SHA-256.
+
+The complete raw run is on `robopil5090` at
+`/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001`.
+The three closed evidence files total **206,888,154,706 bytes**:
+
+| File | Bytes | SHA-256 |
+|---|---:|---|
+| `evidence/arrays.bin` | 204,794,440,824 | `d6911d3c46a9ae64d60df1a5f902c10287b88b830a111b357a15acb87c22a149` |
+| `evidence/arrays.index.jsonl` | 756,745,809 | `f3d3c00966d88f5785d170c6653bc8c1d59af297a88234038f96604e7b3d4519` |
+| `evidence/ledger.jsonl` | 1,336,968,073 | `ee35cd7438a5b0bdaf441dd2b02a8a814f2709a8d78fded31cbd3f5578ece61c` |
+
+All six initial/parent checkpoints remain external (1,252,425 bytes total). Full raw hashes
+come from the [closed independent audit](../results/teacher_proposal_h5_0_round1/audit/result/receipt.json);
+the collector also rehashed the ledger during one scalar-extraction pass. Audit work files
+are separately located and hashed in the [audit-output catalog](../results/teacher_proposal_h5_0_round1/accounting/external_audit_outputs_catalog.json).
+No raw arrays/checkpoints/index/journal were downloaded into Git. The one compact result
+transfer was 1,066,760 bytes and was verified locally.
+
+There is **no complete local raw mirror**. The local same-name `runs/` directory is only the
+original 539-file/10,622,281-byte source/input export. The historical preparation's approved
+backup does not mirror this new run. The [closure receipts](validation/teacher_proposal_h5_0_round1_2026-11-01/closure/README.md)
+retain publication, validation and short Obsidian-update accounting. [C1.0](student_consequence_c1_protocol.md)
+is a separate review protocol with execution disabled.
 
 ### Legacy evidence
 

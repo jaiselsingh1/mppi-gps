@@ -1,0 +1,62 @@
+{
+  "utc_epoch": 1793572736.0847802,
+  "coordinator_pid": 166160,
+  "same_coordinator_alive": true,
+  "process_state": "S",
+  "elapsed_seconds": 160.88226580619812,
+  "files": {
+    "evidence/arrays.bin": 2654257133,
+    "evidence/arrays.index.jsonl": 9670871,
+    "evidence/ledger.jsonl": 38645259,
+    "worker_stdout.txt": 3186
+  },
+  "learning_files": [
+    "s0_parent.json",
+    "s1_parent.json",
+    "s2_parent.json"
+  ],
+  "checkpoints": [
+    "s0_parent.pt",
+    "s0_parent_initial.pt",
+    "s1_parent.pt",
+    "s1_parent_initial.pt",
+    "s2_parent.pt",
+    "s2_parent_initial.pt"
+  ],
+  "recent_events": [
+    {
+      "amount": 9480,
+      "arm": "independent",
+      "episode": "teacher_s0_independent_00",
+      "event": "measurement_requested",
+      "id": "event-000055418",
+      "measure_kind": "neural_rows",
+      "phase": "worker",
+      "purpose": "policy_predict",
+      "role": "teacher",
+      "step": 443,
+      "stream": 0,
+      "wall_seconds": 160.69615994500055
+    },
+    {
+      "amount": 9480,
+      "arm": "independent",
+      "episode": "teacher_s0_independent_00",
+      "event": "measurement_complete",
+      "id": "event-000055419",
+      "measure_kind": "neural_rows",
+      "phase": "worker",
+      "purpose": "policy_predict",
+      "role": "teacher",
+      "step": 443,
+      "stream": 0,
+      "wall_seconds": 160.70435565300068
+    },
+    {
+      "event": "proposal_pass_scored",
+      "id": "event-000055420",
+      "wall_seconds": 160.70696143299938
+    }
+  ],
+  "monitor_read_bytes": 66985
+}

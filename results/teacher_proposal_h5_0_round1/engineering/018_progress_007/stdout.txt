@@ -1,0 +1,63 @@
+{
+  "utc_epoch": 1793573024.70942,
+  "coordinator_pid": 166160,
+  "same_coordinator_alive": true,
+  "process_state": "S",
+  "elapsed_seconds": 449.5069055557251,
+  "files": {
+    "evidence/arrays.bin": 9671482516,
+    "evidence/arrays.index.jsonl": 35380830,
+    "evidence/ledger.jsonl": 83429124,
+    "worker_stdout.txt": 22444
+  },
+  "learning_files": [
+    "s0_parent.json",
+    "s1_parent.json",
+    "s2_parent.json"
+  ],
+  "checkpoints": [
+    "s0_parent.pt",
+    "s0_parent_initial.pt",
+    "s1_parent.pt",
+    "s1_parent_initial.pt",
+    "s2_parent.pt",
+    "s2_parent_initial.pt"
+  ],
+  "recent_events": [
+    {
+      "arm": "selector_only",
+      "episode": "teacher_s0_selector_only_00",
+      "event": "query_complete",
+      "id": "event-000090765",
+      "mode": "model",
+      "phase": "worker",
+      "query_id": "q000011348",
+      "role": "teacher",
+      "step": 620,
+      "stream": 0,
+      "wall_seconds": 449.32999459200073
+    },
+    {
+      "arm": "selector_only",
+      "episode": "teacher_s0_selector_only_00",
+      "event": "query_requested",
+      "id": "event-000090766",
+      "mode": "model",
+      "phase": "worker",
+      "query_id": "q000011349",
+      "role": "teacher",
+      "step": 620,
+      "stream": 0,
+      "wall_seconds": 449.3341292320001
+    }
+  ],
+  "last_execution_context": {
+    "arm": "selector_only",
+    "episode": "teacher_s0_selector_only_00",
+    "role": "teacher",
+    "step": 620,
+    "stream": 0,
+    "wall_seconds": 449.3341292320001
+  },
+  "monitor_read_bytes": 66985
+}

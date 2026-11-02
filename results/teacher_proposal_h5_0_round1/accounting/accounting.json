@@ -1,0 +1,1592 @@
+{
+  "schema": "walker-h5-round1-complete-accounting-v1",
+  "source_commit": "ff67495dae33ee43952677d0c0165a43f8d469b0",
+  "config_sha256": "5fe92168c331e433c3843a4ae4b319e279deec963cc7afb7f3a2a599b1c753ad",
+  "worker_result_sha256": "95bc15a36a561ab6b9a4b0f9fbca9977209e32ba2315fcc35f223f762aa079eb",
+  "audit_receipt_sha256": "87c99b040b0ab1e6df1153ab537d3e44a4ed2b29db6c9293a8a8eacea0a625ea",
+  "scientific_status": "teacher_competence_negative_no_child_fits",
+  "execution_complete": true,
+  "comparison_complete": false,
+  "child_fits": 0,
+  "standalone_panels_measured": false,
+  "paired_teacher_student_gap_measured": false,
+  "worker": {
+    "reported_work": {
+      "requested_controls": 852938336,
+      "completed_controls": 852938336,
+      "requested_model_controls": 852903936,
+      "completed_model_controls": 852903936,
+      "requested_live_controls": 34400,
+      "completed_live_controls": 34400,
+      "requested_physics_substeps": 3411753344,
+      "completed_physics_substeps": 3411753344,
+      "unknown_partial_controls": 0,
+      "unknown_partial_physics_substeps": 0,
+      "model_queries": 206472,
+      "live_queries": 34400,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "measurement_requests": 121311,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "requested_neural_rows": 1087519492,
+      "completed_neural_rows": 1087519492,
+      "unknown_partial_neural_rows": 0,
+      "requested_backward_rows": 1536000,
+      "completed_backward_rows": 1536000,
+      "unknown_partial_backward_rows": 0,
+      "requested_optimizer_steps": 6000,
+      "completed_optimizer_steps": 6000,
+      "unknown_partial_optimizer_steps": 0,
+      "resets": 36,
+      "reset_errors": 0,
+      "restores": 0,
+      "snapshots": 584980,
+      "episodes": 36,
+      "requested_checkpoint_loads": 3,
+      "completed_checkpoint_loads": 3,
+      "unknown_partial_checkpoint_loads": 0,
+      "neural_rows": 1087519492,
+      "backward_rows": 1536000,
+      "optimizer_steps": 6000,
+      "queries": 240872,
+      "physics_frames": 3411753344,
+      "wall_seconds": 8684.198369992002,
+      "array_format": "walker-array-stream-v1",
+      "storage_bytes": 206888153082,
+      "storage_limit_bytes": 532575944704,
+      "reserved_external_bytes": 17179869184,
+      "emergency_reserved_bytes": 131072,
+      "evidence_poisoned": false,
+      "reservation_integrity": {
+        "stopped": false,
+        "errors": {
+          "input_errors": 0,
+          "budget_errors": 0,
+          "import_errors": 0,
+          "external_errors": 0
+        },
+        "pending": [],
+        "native_validation_failed": false
+      }
+    },
+    "outer_exit": {
+      "command": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001/source/scripts/train_mppi_gps.py",
+        "study",
+        "teacher-proposal",
+        "worker",
+        "--out",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001"
+      ],
+      "pid": 166203,
+      "exit_code": 0,
+      "stopping_reason": null,
+      "wall_seconds": 8684.602899826,
+      "stdout_bytes": 561462,
+      "leader_reaped": true,
+      "process_group_kill_requested": false,
+      "retries": 0,
+      "unknown_partial_work_possible": false,
+      "observed_peak_rss_bytes": 684109824
+    },
+    "inner_wall_seconds": 8684.200319212,
+    "elapsed_allocated_core_wall_upper_hours": 38.59823511033778,
+    "CPU_core_hours_measured": null,
+    "training": {
+      "parent_fits": 3,
+      "updates_per_parent": 2000,
+      "adam_updates": 6000,
+      "forward_rows": 1536000,
+      "backward_rows": 1536000,
+      "checkpoint_files": 6,
+      "endpoint_checkpoint_loads": 3,
+      "child_updates": 0
+    },
+    "neural_rows_by_purpose": {
+      "parent_training": 1536000,
+      "parent_initial_and_final_W1_and_held": 36000,
+      "teacher_posthoc": 34400,
+      "guidance": 1085913092
+    },
+    "auxiliary_random_work": {
+      "planner_standard_normal_draws_inferred_from_verified_reconstruction": 5077794816,
+      "training_minibatch_indices": 1536000,
+      "scope": "Planner draw count is the full auditor recreation count under the verified source/RNG ownership. Other initializer RNG draws are not separately metered."
+    },
+    "native_setup": {
+      "resets": 36,
+      "snapshot_restores": 0,
+      "snapshots": 584980,
+      "explicit_reset_mj_forward_calls_source_derived": 72,
+      "scope": "Two explicit forward calls per recorded Walker reset. MuJoCo rollout-internal dynamics/forward work and model/data construction are included in elapsed time but not separately instrumented."
+    }
+  },
+  "audit": {
+    "audit_neural_rows": 1085983492,
+    "audit_completed_neural_rows": 1085983492,
+    "audit_unknown_partial_neural_rows": 0,
+    "audit_prediction_calls": 103308,
+    "audit_checkpoint_loads": 6,
+    "source_read_bytes": 773033347886,
+    "checkpoint_read_bytes": 1252425,
+    "frozen_input_read_bytes": 3483672,
+    "journal_bytes": 41167444,
+    "journal_events": 206616,
+    "peak_rss_bytes": 423645184,
+    "new_native_controls": 0,
+    "new_optimizer_steps": 0,
+    "wall_seconds": 2355.4475599840007,
+    "preparation_source_read_bytes": 10795627,
+    "outer_exit": {
+      "command": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001/source/scripts/audits/teacher_proposal.py",
+        "--mode",
+        "round",
+        "--worker",
+        "--run",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+        "--out",
+        "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_round_001"
+      ],
+      "pid": 236341,
+      "exit_code": 0,
+      "stopping_reason": null,
+      "wall_seconds": 2355.706334325001,
+      "stdout_bytes": 75,
+      "leader_reaped": true,
+      "process_group_kill_requested": false,
+      "retries": 0,
+      "unknown_partial_work_possible": false,
+      "observed_peak_rss_bytes": 425480192
+    },
+    "elapsed_allocated_core_wall_upper_hours": 10.469805930333338,
+    "independently_recreated_standard_normal_draws": 5077794816,
+    "replayed_minibatch_indices": 1536000,
+    "native_trajectory_cost_checks": 17768832,
+    "native_replay_controls": 0,
+    "adam_updates_reproduced": 0
+  },
+  "evidence": {
+    "closed_raw_files": {
+      "evidence/arrays.bin": {
+        "bytes": 204794440824,
+        "sha256": "d6911d3c46a9ae64d60df1a5f902c10287b88b830a111b357a15acb87c22a149",
+        "verified_by": "closed_scientific_audit",
+        "collector_rehashed": false
+      },
+      "evidence/arrays.index.jsonl": {
+        "bytes": 756745809,
+        "sha256": "f3d3c00966d88f5785d170c6653bc8c1d59af297a88234038f96604e7b3d4519",
+        "verified_by": "closed_scientific_audit",
+        "collector_rehashed": false
+      },
+      "evidence/ledger.jsonl": {
+        "bytes": 1336968073,
+        "sha256": "ee35cd7438a5b0bdaf441dd2b02a8a814f2709a8d78fded31cbd3f5578ece61c",
+        "verified_by": "closed_scientific_audit",
+        "collector_rehashed": true,
+        "collector_hash_scope": "single_scalar_extraction_pass"
+      }
+    },
+    "closed_raw_file_count": 3,
+    "closed_raw_bytes": 206888154706,
+    "reported_meter_bytes_before_final_runtime_close": 206888153082,
+    "closing_record_bytes_source_and_metadata_deduction": 1624,
+    "payload_bytes": 204794440824,
+    "external_catalog_file_count": 536,
+    "external_catalog_bytes": 206898886891,
+    "checkpoint_bytes": 1252425,
+    "external_audit_outputs": {
+      "schema": "walker-h5-external-audit-output-catalog-v1",
+      "ssh_host": "robopil5090",
+      "audit_directory": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_round_001",
+      "files": {
+        "result/work.jsonl": {
+          "bytes": 41167444,
+          "sha256": "369c39866b529e7b4fa956e62ec1886f36229bd874f2cc70fb08bf757d54280e"
+        },
+        "result/array-index.sqlite": {
+          "bytes": 94531584,
+          "sha256": "f3bebe384e29fe971ac5dd7176db0116e63cc15385987186137e299f1c853d99"
+        }
+      },
+      "scope": "Closed external audit work outputs; hashed separately after successful audit, no native arrays/checkpoints or predictions decoded."
+    },
+    "ssh_host": "robopil5090",
+    "remote_run": "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+    "local_complete_raw_mirror": false,
+    "raw_bulk_transfer": false
+  },
+  "collection": {
+    "packet_bytes": 3976815,
+    "packet_file_count": 28,
+    "archive": {
+      "file": "packet.tar.gz",
+      "bytes": 438993,
+      "sha256": "c22c7276c76bdf43db0bfa5bbb6570407aebb50a55f9055c4d8c86bfba4bb5cf"
+    },
+    "scalar_event_count": 84,
+    "selection_metadata_count": 34400,
+    "ledger_lines": 1074992,
+    "source_read_bytes_by_role": {
+      "small_metadata": 3321196,
+      "ledger_single_pass": 1336968073,
+      "packet_archive_source": 3976815,
+      "archive_output_hash": 438993
+    },
+    "source_read_bytes": 1344705077,
+    "wall_seconds": 9.704289227000118,
+    "scientific_work": {
+      "array_decodes": 0,
+      "checkpoint_loads": 0,
+      "network_forwards": 0,
+      "physics_controls": 0,
+      "optimizer_steps": 0,
+      "mppi_queries": 0
+    }
+  },
+  "reporting": {
+    "outer": {
+      "command": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/render_saved_report_bounded.py",
+        "--render-only",
+        "--collection",
+        "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collection_001",
+        "--ownership",
+        "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/report_render_001/ownership.json"
+      ],
+      "pid": 256548,
+      "exit_code": 0,
+      "stopping_reason": null,
+      "wall_seconds": 1.2970289820004837,
+      "stdout_bytes": 267,
+      "leader_reaped": true,
+      "process_group_kill_requested": false,
+      "retries": 0,
+      "unknown_partial_work_possible": false,
+      "observed_peak_rss_bytes": 108822528
+    },
+    "operator_wall_seconds": 1.340095654999459,
+    "operator_read_bytes": 6399482,
+    "child_peak_rss_bytes": 107429888,
+    "renderer": {
+      "source_read_bytes": 1909237,
+      "code_hash_read_bytes": 32216,
+      "output_hash_read_bytes": 1410015,
+      "wall_seconds": 1.2109200990016689,
+      "table_rows": {
+        "full_data_metrics.csv": 12,
+        "teacher_action_agreement.csv": 36,
+        "episode_outcomes.csv": 36,
+        "teacher_outcomes.csv": 9,
+        "student_outcomes.csv": 0,
+        "paired_gap.csv": 0,
+        "learning_curves.csv": 6000,
+        "mechanism_summary.csv": 9
+      },
+      "network_forwards": 0,
+      "physics_controls": 0,
+      "optimizer_steps": 0,
+      "raw_arrays_decoded": 0,
+      "checkpoints_loaded": 0
+    },
+    "bytes_before_operator_receipt": 1573213
+  },
+  "transfer": {
+    "compact_attempts": 1,
+    "downloaded_file_bytes": 1066760,
+    "bundle_archive": {
+      "file": "bundle.tar.gz",
+      "bytes": 1061286,
+      "sha256": "186eb4763fac4443c4deb5e65cd83e49023badcad890a6c5437fdb1d204fee44"
+    },
+    "bundle_preparation_source_read_bytes": 141222004,
+    "bundle_preparation_wall_seconds": 0.17151619699870935,
+    "local_verification": {
+      "schema": "walker-h5-local-compact-transfer-verification-v1",
+      "passed": true,
+      "compact_transfer_attempts": 1,
+      "transferred_file_bytes": 1066760,
+      "packet_files": 28,
+      "packet_bytes": 3976815,
+      "bundle_members": 31,
+      "report_outputs": 11,
+      "source_read_bytes": 8991241,
+      "wall_seconds": 0.03411779200541787,
+      "scientific_calls": 0,
+      "raw_arrays_or_checkpoints_downloaded": false,
+      "unpacked": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/received_bundle_001/unpacked"
+    },
+    "initial_export_bytes": 10622281,
+    "helper_upload_bytes": 98301,
+    "source_scope": "Initial source/input export and helper copies precede the one compact result download. Bounded SSH metadata-monitor/probe traffic is separately described in their receipts; transport framing and encrypted wire bytes are not metered."
+  },
+  "engineering": {
+    "commands_through_snapshot": [
+      {
+        "id": "001_runtime_probe",
+        "receipt": "engineering/001_runtime_probe/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.4651168749842327,
+        "stdout_sha256": "2abc7699bd1a8426804e83c773aa42d9c37b3c13f287718351db660a51fd6a32",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 2752,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "002_authorized_recipe_tests",
+        "receipt": "engineering/002_authorized_recipe_tests/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/test_teacher_proposal_preparation.py",
+          "tests/test_teacher_proposal_audit.py",
+          "tests/test_proposal_budget.py",
+          "tests/test_proposal_storage.py",
+          "tests/test_export_validation.py"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 2.3550284579978324,
+        "stdout_sha256": "44ef119620fcc28a5d0384910ac3680651c300ce975a7d8ed6b67342875aae31",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 180,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "003_full_prelaunch_suite",
+        "receipt": "engineering/003_full_prelaunch_suite/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 57.43415229098173,
+        "stdout_sha256": "f255070a25f2ea32ce6f36f38e8720bcfe14c9cba82d8bc00c379ca978af846b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1163,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "004_cli_recipe_census",
+        "receipt": "engineering/004_cli_recipe_census/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "teacher-proposal",
+          "census",
+          "--recipe",
+          "teacher_proposal_h5_0_round1"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.047722916991915554,
+        "stdout_sha256": "b623f3b21af9522e8b5bbaa8926d33afd71c5008d1556fd6a947d2826375fecc",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 2214,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "005_prelaunch_repository",
+        "receipt": "engineering/005_prelaunch_repository/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/check_repository.py",
+          "--frozen-run",
+          "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.6490848750108853,
+        "stdout_sha256": "7513f86fba32627d60b6e89f55bc5fb03f462cdf7f427c068b8e2e5305d2f405",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 143,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "006_freeze_authorized_run",
+        "receipt": "engineering/006_freeze_authorized_run/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "teacher-proposal",
+          "prepare",
+          "--recipe",
+          "teacher_proposal_h5_0_round1",
+          "--source-run",
+          "runs/2026-10-31_student_update_w2_001",
+          "--runtime-probe",
+          "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/engineering/001_runtime_probe/stdout.txt",
+          "--seed-review",
+          "artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/seed_review.json",
+          "--out",
+          "runs/2026-11-01_teacher_proposal_h5_0_r1_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.23796795899397694,
+        "stdout_sha256": "e746eb116b0c55b16b059067f00ac734b905384da92722694228110607635b06",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 2811,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "007_authorized_preparation_audit",
+        "receipt": "engineering/007_authorized_preparation_audit/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/audits/teacher_proposal.py",
+          "--mode",
+          "preparation",
+          "--run",
+          "runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+          "--out",
+          "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_preparation_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.12262812501285225,
+        "stdout_sha256": "bb8bc884ef7995f8f18005c9d1ade92a5d68224bd55364c51a164e66c92f45bc",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 417,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "008_authorized_launch_gate",
+        "receipt": "engineering/008_authorized_launch_gate/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "teacher-proposal",
+          "check-launch",
+          "--out",
+          "runs/2026-11-01_teacher_proposal_h5_0_r1_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.05731437497888692,
+        "stdout_sha256": "791148d20c7737f85d5825913d9166962efcebb5993afda7760850e64d22cc56",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 48,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "009_frozen_bindings",
+        "receipt": "engineering/009_frozen_bindings/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/check_repository.py",
+          "--frozen-run",
+          "runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+          "--frozen-run",
+          "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.4065948330098763,
+        "stdout_sha256": "43b531520a8a6fa05a26bdc4bc84b19bd97e00a60a0ee7106cf783c472eca363",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 144,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "010_export_authorized_run",
+        "receipt": "engineering/010_export_authorized_run/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "/tmp/h50_r1_export.py"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 1.87352241599001,
+        "stdout_sha256": "0ce40fcd36c70d26fdd526ce2ad89064b4046c88c68b9cc58817b185df56e523",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 746,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "011_scientific_launch",
+        "receipt": "engineering/011_scientific_launch/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.3322170829924289,
+        "stdout_sha256": "0973070aa6e6ec592da8170b4ba78da3f255177f42f1da6d520a1e98ccd0074b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1123,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "012_progress_001",
+        "receipt": "engineering/012_progress_001/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.17936570799793117,
+        "stdout_sha256": "380e4024110878711a9ba41a1b6b26666c2666253a28a5f0bd7ee208fbc1bb04",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 2018,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "013_progress_002",
+        "receipt": "engineering/013_progress_002/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.21862079098355025,
+        "stdout_sha256": "e71949cdc785da691cb0c2f292b78ce5685e7e5598782a6d32497c29b43a9c6e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 4772,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "014_progress_003",
+        "receipt": "engineering/014_progress_003/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.20031975000165403,
+        "stdout_sha256": "80ac464e2deba74e826cdbe4d9e3b31448e2d2a378456d8e452ee3ad80707a09",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1536,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "015_progress_004",
+        "receipt": "engineering/015_progress_004/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.25138191602309234,
+        "stdout_sha256": "46d88539c2fa98742193cf0d9126e5db9e51e2d8ff44826c2fef72e7a675aed6",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1062,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "016_progress_005",
+        "receipt": "engineering/016_progress_005/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.18601599999237806,
+        "stdout_sha256": "3c60ab265b98ef3b02f3ab7062ed35549627a0d23d37d9f6382b85d39c2a2073",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1108,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "017_progress_006",
+        "receipt": "engineering/017_progress_006/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.2083209170086775,
+        "stdout_sha256": "63652d647112533536eb9605ca98ddd302b4ef9e47c4536383d3ac2f7bd3464e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1535,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "018_progress_007",
+        "receipt": "engineering/018_progress_007/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.19709737502853386,
+        "stdout_sha256": "1a61920118d4ebb204cfb9c3af0ee9947d614e32a5507d44ade5bdb5716404ec",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1532,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "019_progress_008",
+        "receipt": "engineering/019_progress_008/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.2296793750138022,
+        "stdout_sha256": "00bcf164de084fc30e5ef7490b725e5c0b51bd862820172ef2ad90fa67c55834",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1541,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "020_live_monitor_series",
+        "receipt": "engineering/020_live_monitor_series/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "-o",
+          "ServerAliveInterval=15",
+          "-o",
+          "ServerAliveCountMax=3",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 8055.532432000007,
+        "stdout_sha256": "0977d25071fbc6eab5133af1fc0adcf75dd71d8391efe58eddaa461552a9523c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 249953,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "021_report_integrated_suite",
+        "receipt": "engineering/021_report_integrated_suite/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 55.203136333002476,
+        "stdout_sha256": "237aa4ffae81f2adf04b514c09224ad90ca814440ebcfa294c8569a681d31602",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1164,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "022_running_publication_checks",
+        "receipt": "engineering/022_running_publication_checks/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/check_repository.py",
+          "--frozen-run",
+          "runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+          "--frozen-run",
+          "runs/2026-11-01_teacher_proposal_h5_0_preparation_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.45141804101876915,
+        "stdout_sha256": "deb09ea09ef0019e70df3467f70650077f18250c5f818cbdcd67a17a91c63d8f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 144,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "023_live_source_integrity",
+        "receipt": "engineering/023_live_source_integrity/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.3414036249741912,
+        "stdout_sha256": "586ea267456db81b0639163abffcfac694b1ca4131602c3a2e65aaf090b171d2",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 4600,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "024_teacher_termination_check",
+        "receipt": "engineering/024_teacher_termination_check/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.21456070902058855,
+        "stdout_sha256": "69442b1c772d8ea9833cb6999cd46426fc12f27d70dfd81b602d5ed51f308180",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 537,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "025_teacher_termination_check",
+        "receipt": "engineering/025_teacher_termination_check/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "python3",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.1988017910043709,
+        "stdout_sha256": "4eff152efde05e1fb16057fb1b77b5ed7067590c59c789367c173e41efff79eb",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 537,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "026_postprocessor_helper_transfer",
+        "receipt": "engineering/026_postprocessor_helper_transfer/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.41504470800282434,
+        "stdout_sha256": "f21d471df5282d054ca924928dd346d4a6fe22f99b9f493b995d55385dcba1c6",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 827,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "027_bounded_report_helper_transfer",
+        "receipt": "engineering/027_bounded_report_helper_transfer/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.22070974999223836,
+        "stdout_sha256": "4dd36fae234d2d174be4baab2c68973fa0ad40d415c19c65d0efbf0b147d13fa",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 311,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "028_closed_worker_probe",
+        "receipt": "engineering/028_closed_worker_probe/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.3200339160102885,
+        "stdout_sha256": "dd8fd6e27927816857cea6c5e1ed3192302204a60f2571398498980fbace6e35",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 15427,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "029_scientific_audit_launch",
+        "receipt": "engineering/029_scientific_audit_launch/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_bootstrap.py",
+          "--expected-worker-result-sha256",
+          "95bc15a36a561ab6b9a4b0f9fbca9977209e32ba2315fcc35f223f762aa079eb"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.23897170898271725,
+        "stdout_sha256": "127ac399a24ffd1f84f28469bf02d16819bbbfbf7198191420fe6963b60ec951",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 3916,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "030_audit_monitor_series",
+        "receipt": "engineering/030_audit_monitor_series/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "-o",
+          "ServerAliveInterval=15",
+          "-o",
+          "ServerAliveCountMax=3",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_monitor.py",
+          "--samples",
+          "160",
+          "--interval-seconds",
+          "45"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 2385.266538583004,
+        "stdout_sha256": "760d8616aa122110747e7a338088c7076a30f051ff1d39cd6f91726ff37a0d8a",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 82257,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "031_candidate_clean_export_validation",
+        "receipt": "engineering/031_candidate_clean_export_validation/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/validate_export.py",
+          "--export",
+          "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/clean_export_code_001/export"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 80.64793333300622,
+        "stdout_sha256": "f73e552f02718decfd1af6c46a5e7a2a70be4c4bf8a914a5bb5a325ce28c969f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 3252,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "032_active_ruff_check",
+        "receipt": "engineering/032_active_ruff_check/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "-m",
+          "ruff",
+          "check",
+          "."
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.06266924997908063,
+        "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 19,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "033_active_format_check",
+        "receipt": "engineering/033_active_format_check/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.06266829199739732,
+        "stdout_sha256": "3e6bbe034e40875b9b7286a7f199e7d7d569a665a75f824425516bfba75c530f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 28,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "034_active_diff_check",
+        "receipt": "engineering/034_active_diff_check/receipt.json",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.023138249991461635,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "035_compact_evidence_collection",
+        "receipt": "engineering/035_compact_evidence_collection/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "-o",
+          "ServerAliveInterval=15",
+          "-o",
+          "ServerAliveCountMax=3",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collect_saved_evidence.py",
+          "--run",
+          "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+          "--audit",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_round_001",
+          "--out",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collection_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 10.305392874986865,
+        "stdout_sha256": "5a383c696bc42c97118653f1ad18321ed4d992575f7487031b0b52e4522be14b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 116773,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "036_saved_report_render",
+        "receipt": "engineering/036_saved_report_render/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "-o",
+          "ServerAliveInterval=15",
+          "-o",
+          "ServerAliveCountMax=3",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/render_saved_report_bounded.py",
+          "--collection",
+          "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/collection_001"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 1.8239119169884361,
+        "stdout_sha256": "a8f046b2401e5844e0ff2feb7995a43ec1823e5020eb0ac4c69f30a61054a813",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 174,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "037_publication_bundle",
+        "receipt": "engineering/037_publication_bundle/receipt.json",
+        "command": [
+          "ssh",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090",
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "-"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.4910262499761302,
+        "stdout_sha256": "a18ac4b9cc623bfe07a58e66e7b77e13c581dd48c4c4035602cfdf951f4dbb81",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 389,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "038_compact_transfer",
+        "receipt": "engineering/038_compact_transfer/receipt.json",
+        "command": [
+          "scp",
+          "-p",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "ConnectTimeout=15",
+          "robopil5090:/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/publication_bundle_001/bundle.tar.gz",
+          "robopil5090:/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/publication_bundle_001/receipt.json",
+          "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/received_bundle_001/"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.6713843750185333,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "id": "039_local_transfer_verification",
+        "receipt": "engineering/039_local_transfer_verification/receipt.json",
+        "command": [
+          ".venv/bin/python",
+          "-B",
+          "artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/verify_received_bundle.py"
+        ],
+        "cwd": "/Users/jaisel/Documents/mppi-gps",
+        "exit_code": 0,
+        "wall_seconds": 0.05970612497185357,
+        "stdout_sha256": "67069f389cf8d9c3a612d020e21db72149ce6b8fc166cdb4b7687d7ff7db203c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 527,
+        "stderr_bytes": 0
+      }
+    ],
+    "clean_code_export": {
+      "schema": "walker-h5-candidate-clean-code-export-v1",
+      "head": "edc0d9a788b0b380dc3f97224c066e197be63959",
+      "archive_bytes": 160256000,
+      "archive_sha256": "8cc3754d550ab9ef12e288810d0063ce48001d94d7f977f9d8cef4caca2dc582",
+      "overlays": {
+        "scripts/validate_export.py": {
+          "bytes": 16824,
+          "sha256": "108fbf21bca263f742784293566751ac9e411fb9ff8312d18e4cc05c4456c165"
+        },
+        "src/gps/mppi_gps/inspection.py": {
+          "bytes": 26002,
+          "sha256": "a901a47e9bb441ef22f18c1d2bbde5ee54d1eeefa5a957f2f3a2dd9118ebef7f"
+        },
+        "tests/test_export_validation.py": {
+          "bytes": 4990,
+          "sha256": "c9210b5d9d11fdb94cce9275ff4f36aff5945598edfeb44893f760ac507df8d4"
+        },
+        "tests/test_h5_capsule_inspection.py": {
+          "bytes": 7608,
+          "sha256": "f48ed117a61b4cfd3958a58fd586e53dc507ed01fcecaafa40713837e1181b87"
+        }
+      },
+      "scope": "Candidate export of current code. No ignored evidence. Actual round1 capsule unavailable pending audit; its two extra CLI/report checks must follow after publication; final pushed Git export CI covers final tree.",
+      "out": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/clean_export_code_001/export",
+      "wall_seconds": 1.4090054169937503
+    },
+    "clean_export_log_preservation": {
+      "schema": "walker-h5-clean-export-logs-preservation-v1",
+      "validation_commands": 37,
+      "tests": {
+        "passed": 1015,
+        "skipped": 1,
+        "xfailed": 1
+      },
+      "files": {
+        "00.stdout.txt": {
+          "bytes": 1244,
+          "sha256": "9a4d1e5bc59157a9bdf7c001ac1dda7bdd809ed9cc531a37f4689f612436332f"
+        },
+        "01.stdout.txt": {
+          "bytes": 141,
+          "sha256": "b865c5e5c08634c371162968fa58b529cf6edb9505d6a735d1ee4892d50c4d0c"
+        },
+        "02.stdout.txt": {
+          "bytes": 180,
+          "sha256": "28cdc42e883e2e073a9eeaa2ab6d21f657f8a87edd91b87cad75326f8ea6b303"
+        },
+        "03.stdout.txt": {
+          "bytes": 112,
+          "sha256": "8c96af393ae614c0277af56a21b753d14b260ef12582246b9e454ef75359f3ce"
+        },
+        "04.stdout.txt": {
+          "bytes": 561,
+          "sha256": "81da5d9aea224a1b92dac221567fe1363c1600e04e030c920b3203b3c62b9ce6"
+        },
+        "05.stdout.txt": {
+          "bytes": 220,
+          "sha256": "44afdffbcab0243f94c37aa252994331d86af5f45bf1d3c3f823062d935f8e9c"
+        },
+        "06.stdout.txt": {
+          "bytes": 249,
+          "sha256": "368c956ec911016f13ef648d9d2d1865cfb085598baebb7fc4f0e97b9a5c2109"
+        },
+        "07.stdout.txt": {
+          "bytes": 557,
+          "sha256": "e6bcc03823d173753813e25c70be6eb8f1e8515d87fcae7f6382f4c97a37399f"
+        },
+        "08.stdout.txt": {
+          "bytes": 219,
+          "sha256": "1cb6744d4ecc10f137eb1a5387a83f043afa71e199b2bf9261e86060451361cd"
+        },
+        "09.stdout.txt": {
+          "bytes": 972,
+          "sha256": "10f535077a186c650ec8cc032cd9c966f84a57fbb7ebf43f81230c1863d7ad9f"
+        },
+        "10.stdout.txt": {
+          "bytes": 2214,
+          "sha256": "b623f3b21af9522e8b5bbaa8926d33afd71c5008d1556fd6a947d2826375fecc"
+        },
+        "11.stdout.txt": {
+          "bytes": 612,
+          "sha256": "25eed49b03dafd0adc13be3fc21c0610a0aa62668edc8a6270bda5b4d69201d4"
+        },
+        "12.stdout.txt": {
+          "bytes": 571,
+          "sha256": "f56935110dcf0d357108bffe582dfce1d0f5a19b62fbb66dac4913d46ab4053e"
+        },
+        "13.stdout.txt": {
+          "bytes": 21284,
+          "sha256": "ff018c59433c8462092a67c9b50f11e753afcae886d1bd4479d1f8291a50750c"
+        },
+        "14.stdout.txt": {
+          "bytes": 18599,
+          "sha256": "cb6f342144245713d1bff2db24dc83132afa084f15f234767ba2073ca82df910"
+        },
+        "15.stdout.txt": {
+          "bytes": 30273,
+          "sha256": "5a3462d68e5af84f4165b9a7fc393338219f2775d664e7a17214c07c5de8635d"
+        },
+        "16.stdout.txt": {
+          "bytes": 757190,
+          "sha256": "c626b390ec68d897145f4d7fef65b2ae09bf8f71d8dfe869ec885498b6450b5f"
+        },
+        "17.stdout.txt": {
+          "bytes": 37380,
+          "sha256": "7670f5db946a14ef07ac4e73675b050e5a5ef8ed16d09894e50b8f9c1fb00c24"
+        },
+        "18.stdout.txt": {
+          "bytes": 40873,
+          "sha256": "81230fd654a8281e7525dfb0b9f58fa428fc252de70320fddce0dabbaa7dcc42"
+        },
+        "19.stdout.txt": {
+          "bytes": 38467,
+          "sha256": "cff73da8397d03731430fe90f70ff1a96b2a3f96b825af1cf341fbf05554a0c5"
+        },
+        "20.stdout.txt": {
+          "bytes": 143828,
+          "sha256": "b336808fa3dcee5f55d37f1ab89b9099f19dcf5f0d57f8875908deccaa25f444"
+        },
+        "21.stdout.txt": {
+          "bytes": 563315,
+          "sha256": "3b07f8ebeebb264fc4706f44da71e2a0d3d59f034aa9b9f194a01a22618efcb3"
+        },
+        "22.stdout.txt": {
+          "bytes": 253270,
+          "sha256": "a62aeb1e26e3b3236375f206910700627dec7b89da0a1908cbdb04d741feeb95"
+        },
+        "23.stdout.txt": {
+          "bytes": 191567,
+          "sha256": "15cf4cb681e5a7efeda8d2af9df7fef4ab31a57057ae83f7ab3247571d08bd26"
+        },
+        "24.stdout.txt": {
+          "bytes": 66158,
+          "sha256": "de5c617f50ff37f0e57c36e63b9bf4cd80c15b3957c694d39db96f7ba2a70ba0"
+        },
+        "25.stdout.txt": {
+          "bytes": 3231,
+          "sha256": "f0191ec9c2d7e961eb6a64a5a61b7db8914c77970ff3e7ba542957cbc5ceed28"
+        },
+        "26.stdout.txt": {
+          "bytes": 182,
+          "sha256": "2aad43d1506974cea78948a90d2234b667f2a9855b23106db0b21c453f5d8968"
+        },
+        "27.stdout.txt": {
+          "bytes": 164,
+          "sha256": "f11ae2258651b7f52369709660aa9a7f051af29a6e14a1790af4cc9b2a224462"
+        },
+        "28.stdout.txt": {
+          "bytes": 134,
+          "sha256": "3a2adc2a07cf2ff06d766f39f2347d62a912ec903ae0fd139eab195a7843e334"
+        },
+        "29.stdout.txt": {
+          "bytes": 126,
+          "sha256": "da3ec9899a2fcc4e26a571cb5b850a72ee52e3d14793ae819d59d43087c81723"
+        },
+        "30.stdout.txt": {
+          "bytes": 134,
+          "sha256": "6e70f1fe837aca908e7d981972bb6c6ef1fd7c538f611b9e83c62da7077b47a5"
+        },
+        "31.stdout.txt": {
+          "bytes": 139,
+          "sha256": "095a9a9b84f89bec89742e5db4cb677bb6e78fccea0ec4e6b7159191850517f1"
+        },
+        "32.stdout.txt": {
+          "bytes": 135,
+          "sha256": "b93f66094616ae44179adcf1358e5396e92133489e885526d750159e812b7a54"
+        },
+        "33.stdout.txt": {
+          "bytes": 140,
+          "sha256": "afc681de1fb37ab7463b9b530bb7c36b5bc8018b856bc0921aab5d5cbf01d09e"
+        },
+        "34.stdout.txt": {
+          "bytes": 130,
+          "sha256": "1ee1020c9ae9dfc1da79cf0c44fd40da7bd0b54ec8ace3be61bda36ed535c7a8"
+        },
+        "35.stdout.txt": {
+          "bytes": 142,
+          "sha256": "510e4a60222d057e0c9ae53a6305bec457c6406514aaf3892c5c52c8de5bd5f1"
+        },
+        "36.stdout.txt": {
+          "bytes": 3554,
+          "sha256": "e24198b141c6bb6b132c833b4da3a703d23c0c58d905195b8f5eba05cc2551e0"
+        },
+        "00.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "01.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "02.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "03.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "04.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "05.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "06.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "07.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "08.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "09.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "10.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "11.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "12.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "13.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "14.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "15.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "16.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "17.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "18.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "19.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "20.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "21.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "22.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "23.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "24.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "25.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "26.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "27.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "28.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "29.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "30.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "31.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "32.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "33.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "34.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "35.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "36.stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "bytes": 2178267,
+      "source": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-export-validation-snxp7ad5",
+      "source_read_bytes": 2178267,
+      "wall_seconds": 0.009949667000910267,
+      "no_research_experiments": true,
+      "scope": "Exact stdout/stderr for37 closed export validation commands. Generated old-study figures remain reproducible from existing capsules; fresh actualH5 round1 supplementalchecks pending audit."
+    },
+    "tests": {
+      "passed": 1015,
+      "skipped": 1,
+      "xfailed": 1,
+      "CLI_report_checks": 37,
+      "actual_round1_supplemental_checks_pending_at_this_snapshot": true
+    },
+    "scope": "Each enclosing command wall time is retained. Tests/report/monitor/bootstrap timers overlap nested phases and must not be summed into scientific elapsed time. Software fixtures include small numerical/native operations whose complete NN/physics/RNG census is not instrumented; these are engineering overhead, not another research experiment."
+  },
+  "frozen_reservations": {
+    "worker_wall_seconds": 21600,
+    "worker_core_hours": 96,
+    "peak_rss_bytes": 17179869184,
+    "storage_bytes": 549755813888,
+    "per_arm_model_control_ceiling": 2000000000,
+    "per_arm_neural_row_ceiling": 2000000000,
+    "model_controls": 1338799104,
+    "live_controls": 456000,
+    "requested_controls": 1339255104,
+    "physics_substeps": 5357020416,
+    "neural_rows": 2005857552,
+    "backward_rows": 6144000,
+    "optimizer_steps": 24000,
+    "checkpoint_loads": 12,
+    "episodes": 456,
+    "acquisition_episodes": 36,
+    "teacher_gap_episodes": 18,
+    "standalone_panel_episodes": 384,
+    "standalone_gap_episodes": 18,
+    "preparation_wall_seconds": 600,
+    "preparation_peak_rss_bytes": 536870912,
+    "preparation_storage_bytes": 1073741824,
+    "audit_wall_seconds": 7200,
+    "audit_peak_rss_bytes": 4294967296,
+    "audit_output_storage_bytes": 4294967296,
+    "report_wall_seconds": 1800,
+    "report_peak_rss_bytes": 2147483648,
+    "report_storage_bytes": 536870912,
+    "compact_transfer_bytes": 134217728,
+    "transfer_attempts": 2,
+    "worker_and_audit_wall_seconds": 28800,
+    "worker_and_audit_reserved_core_hours": 128,
+    "audit_neural_rows": 1999713552,
+    "total_worker_and_audit_neural_rows": 4005571104,
+    "audit_model_controls": 0,
+    "audit_optimizer_steps": 0,
+    "worker_neural_queries": 588270,
+    "audit_neural_queries": 564270,
+    "total_neural_rows_including_audit": 4005571104,
+    "per_arm_neural_ceiling_scope": "all paid worker plus independent audit rows; shared parent prefix counted once separately",
+    "audit_checkpoint_loads": 15
+  },
+  "not_measured_or_unmetered": {
+    "student_usefulness": "No child fit, standalone panel or paired gap after teacher stop. Missing outcomes are not zeros.",
+    "CPU_time": "No true worker/auditor CPU-core-hours were recorded; allocated core-wall upper bounds and wall times are provided.",
+    "library_IO": "Import/font/library/kernel/cache/filesystem-stat IO is not completely instrumented; read counters cover stated logical payload passes.",
+    "interactive_overhead": "Editing, code-inspection, orchestration, tool/agent work, temporary validation assets and peak engineering RAM are not fully metered.",
+    "billing_and_energy": "No billed dollars or energy measurement is available.",
+    "later_closure": "Publication, final capsule/export checks, Git/CI and Obsidian updates follow this immutable accounting snapshot. Their exact receipts are preserved under docs/validation/teacher_proposal_h5_0_round1_2026-11-01/closure; the original capsule is never rewritten to add later costs.",
+    "inherited_work": "Historical W1/W2/H4.1 and unlaunched H5 preparation/backup costs remain linked in their original reports/capsules; they are not silently counted as new R1 work."
+  },
+  "accounting_builder": {
+    "consumed_JSON_bytes": 505113,
+    "wall_seconds": 0.009177166008157656,
+    "scientific_calls": 0,
+    "scope": "Builder JSON reads only; ref hashes are extra small-file passes, not included in this consumed counter."
+  }
+}

@@ -3364,8 +3364,8 @@
     },
     "teacher_proposal_h5_0_round1": {
       "run_id": "2026-11-01_teacher_proposal_h5_0_r1_001",
-      "status": "running_one_bounded_round",
-      "status_scope": "Launch-publication snapshot; scientific outcomes and independent outcome audit pending.",
+      "status": "teacher_competence_negative_audited",
+      "status_scope": "Completed fixed acquisition roster and normal frozen teacher stop; full scientific audit passed. Child learning and standalone/gap panels were not measured.",
       "research_execution_authorized": true,
       "research_rounds_authorized": 1,
       "useful_learning_prerequisite_satisfied": false,
@@ -3376,15 +3376,15 @@
       "launch_record": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/launch/manifest.json",
       "launch_record_sha256": "4ad27dd06940614970b0a8576bb0f385888bc58d10de9bcb1f32f8c4300042d8",
       "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
-      "local_availability": "Initial source/config/input export only; no local mirror of newly generated scientific evidence.",
+      "local_availability": "Initial 539-file source/input export plus a separately verified compact result capsule; no complete local raw/checkpoint mirror.",
       "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
-      "remote_availability": "Current scientific checkpoints, learning evidence and raw streams are remote only.",
+      "remote_availability": "Closed primary scientific arrays, index, ledger, checkpoints and source/inputs remain on robopil5090 and were independently audited.",
       "initial_export": {
         "files": 539,
         "bytes": 10622281,
         "catalog_sha256": "2a0957df57e3e7e080474cc0852ddb2d200d9d1bc2b80090477e86d358e67178",
         "remote_copy_verified_before_launch": true,
-        "scope": "539-file initial export only; current growing remote run has additional evidence."
+        "scope": "539-file initial export only; never modified into a purported completed-run mirror."
       },
       "coordinator_pid": 166160,
       "worker_wall_seconds": 21600,
@@ -3392,18 +3392,118 @@
         "checks": 540,
         "scientific_round_audit_complete": false
       },
-      "scientific_outcomes": "pending",
-      "scientific_round_audit_complete": false,
+      "scientific_outcomes": {
+        "teacher": {
+          "independent": {
+            "episodes": 12,
+            "walking": 12,
+            "full_survival": 12,
+            "executed_controls": 12000,
+            "mean_complete_cost": 364.57999534739815
+          },
+          "selector_only": {
+            "episodes": 12,
+            "walking": 11,
+            "full_survival": 11,
+            "executed_controls": 11201,
+            "mean_complete_cost": 695.3698604488098
+          },
+          "proposal_guided": {
+            "episodes": 12,
+            "walking": 11,
+            "full_survival": 11,
+            "executed_controls": 11199,
+            "mean_complete_cost": 692.1369787785337
+          }
+        },
+        "child_learning": "not_measured",
+        "standalone_panels": "not_measured",
+        "paired_gaps": "not_measured"
+      },
+      "scientific_round_audit_complete": true,
       "raw_evidence": {
         "files": [
           "evidence/arrays.bin",
           "evidence/arrays.index.jsonl",
           "evidence/ledger.jsonl"
         ],
-        "status": "growing_on_remote_host",
-        "final_bytes": null,
-        "sha256": null,
-        "scope": "No final size/hash claimed while the writer is running; full raw files remain outside Git."
+        "status": "closed_external_primary_full_audit_passed",
+        "final_bytes": 206888154706,
+        "bindings": {
+          "evidence/arrays.bin": {
+            "bytes": 204794440824,
+            "sha256": "d6911d3c46a9ae64d60df1a5f902c10287b88b830a111b357a15acb87c22a149",
+            "verified_by": "closed_scientific_audit",
+            "collector_rehashed": false
+          },
+          "evidence/arrays.index.jsonl": {
+            "bytes": 756745809,
+            "sha256": "f3d3c00966d88f5785d170c6653bc8c1d59af297a88234038f96604e7b3d4519",
+            "verified_by": "closed_scientific_audit",
+            "collector_rehashed": false
+          },
+          "evidence/ledger.jsonl": {
+            "bytes": 1336968073,
+            "sha256": "ee35cd7438a5b0bdaf441dd2b02a8a814f2709a8d78fded31cbd3f5578ece61c",
+            "verified_by": "closed_scientific_audit",
+            "collector_rehashed": true,
+            "collector_hash_scope": "single_scalar_extraction_pass"
+          }
+        },
+        "scope": "Full raw files remain outside Git on robopil5090; whole-file hashes come from the closed full audit, and the ledger was also rehashed once by the scalar collector. No complete local raw mirror."
+      },
+      "capsule": "results/teacher_proposal_h5_0_round1",
+      "capsule_files": 295,
+      "capsule_bytes": 9040110,
+      "capsule_sha256": "b900caee01282cacf7ebc5efa6a1a3fc5efc3c4bf9931ea538ac0ec7ffda1a5f",
+      "result_report": "docs/teacher_proposal_h5_0_round1_results.md",
+      "learning_contrast_measured": false,
+      "standalone_panels_measured": false,
+      "paired_gap_measured": false,
+      "confirmed_benefit": false,
+      "loop_closed": false,
+      "remote_primary_evidence_verified": true,
+      "remote_copy_verified": false,
+      "external_catalog": {
+        "file": "results/teacher_proposal_h5_0_round1/external_catalog.json",
+        "bytes": 149579,
+        "sha256": "ef960dbcc5b93fe8269f6898160f84c17323bbb33cfda0a1ee77b32f49e9bc74"
+      },
+      "audit": {
+        "file": "results/teacher_proposal_h5_0_round1/audit/result/receipt.json",
+        "bytes": 106733,
+        "sha256": "87c99b040b0ab1e6df1153ab537d3e44a4ed2b29db6c9293a8a8eacea0a625ea",
+        "neural_rows": 1085983492,
+        "prediction_calls": 103308,
+        "checkpoint_loads": 6,
+        "new_native_controls": 0,
+        "new_optimizer_steps": 0,
+        "wall_seconds": 2355.4475599840007
+      },
+      "actual_worker_wall_seconds": 8684.200319212,
+      "worker_wall_seconds_scope": "21600-second frozen reservation, not measured elapsed time.",
+      "accounting": {
+        "file": "results/teacher_proposal_h5_0_round1/accounting/accounting.json",
+        "bytes": 59269,
+        "sha256": "1df3107352e1adee65449d2ce44107981e39c51600ba49a4d2dac23fdaf22bbd"
+      },
+      "closure_validation": "docs/validation/teacher_proposal_h5_0_round1_2026-11-01/closure/README.md",
+      "next_protocol": {
+        "file": "docs/student_consequence_c1_protocol.md",
+        "bytes": 14263,
+        "sha256": "4d22b39338fc104f9fe234db7cc3712d467062d220b97043e530f0d30fc19ef5",
+        "status": "for_review_only_unimplemented_unlaunched",
+        "launch_enabled": false,
+        "census": {
+          "file": "docs/proposals/student_consequence_c1_census.json",
+          "bytes": 10045,
+          "sha256": "9e4db0d698dac7bcf480b50f002069d0f2e09dd40b708d4ef7c478f969361760"
+        },
+        "source_bindings": {
+          "file": "docs/proposals/student_consequence_c1_sources.json",
+          "bytes": 200016,
+          "sha256": "0121d322be5c0e48ad66b89284eb0aa78b53e53d3a7bec3677581e8cf4629bf8"
+        }
       }
     }
   },

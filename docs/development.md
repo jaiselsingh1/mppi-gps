@@ -184,7 +184,7 @@ python -B scripts/train_mppi_gps.py study teacher-proposal check-launch \
 
 The current `check-launch` exit code 2 means that launch and the weak-learner ordering exception remain unapproved. Preparation does not clear either. Existing directories are never reused or edited. A future authorized launch needs a new frozen authorization/configuration and its outer watchdog; invoking the native worker directly cannot bypass that owner.
 
-The completed [preparation validation](validation/teacher_proposal_h5_0_2026-11-01/README.md) preserves clean-export results, metadata auditing and engineering costs. The full preparation is local only; its compact capsule supports inspection and report rendering from a clean clone.
+The completed [preparation validation](validation/teacher_proposal_h5_0_2026-11-01/README.md) preserves clean-export results, metadata auditing and engineering costs. The full preparation has an approved, byte-verified [remote backup](validation/teacher_proposal_h5_0_2026-11-01/backup_001/README.md); its original launch flag remains false. Its compact capsule supports inspection and reporting from a clean clone.
 
 Use the VS Code **H5 synthetic proposal and budget checks** configuration, or:
 
@@ -195,3 +195,31 @@ python -B -m pdb -m pytest -q tests/test_guided_proposals.py -k full_geometry -x
 Useful breakpoints are `GuidedProposalMPPI.propose` (pre-action alignment and inner scores), `TwoStreamMPPI.decide` (protected/guided state and verified means), `NativeMeter._query` (reservations before native calls), `NativeOperations._fit` (actual incoming tensors/Adam/RNG and index tapes) and the independent `RoundChecks` methods (source/query/step joins). The synthetic geometry fixtures use fake dynamics and a deterministic array-valued actor; they do not construct Walker or run a research fit.
 
 H5 uses a separately versioned append-only array stream because duplicating the complete selector banks would exceed its storage envelope. `arrays.bin` holds exact C bytes; `arrays.index.jsonl` owns dtype/shape/offset/length/hash, and `ledger.jsonl` owns intent/completion and provenance. Historical HDF5 formats stay unchanged. Full planner cache state resolves through canonical query IDs and saved weights/nominals/RNG, rather than a large repeated JSON object. The read-only inspector exposes preparation and incomplete-worker status without loading these arrays. An interrupted launch never inherits preparation's zero-work claim.
+
+
+## Inspect the completed H5.0 round without rerunning it
+
+The separate [H5.0r1 result](teacher_proposal_h5_0_round1_results.md) is complete and audited.
+The teacher gate stopped before child learning or standalone panels. Use the portable capsule:
+
+```sh
+python -B scripts/train_mppi_gps.py inspect \
+  --run results/teacher_proposal_h5_0_round1 --verify --json
+python -B scripts/diagnostics/report_teacher_proposal.py \
+  --run results/teacher_proposal_h5_0_round1 \
+  --saved-diagnostics results/teacher_proposal_h5_0_round1/diagnostics.json \
+  --out /tmp/walker-h5-report-debug-001
+```
+
+Choose a new report directory. Inspection checks copied metadata and exposes reported audit
+costs separately from worker work; it does not reopen external arrays or replay predictions.
+Child/standalone/gap outcomes remain `not_measured`. Reporting reads saved JSON and produces
+all parent curve points without inference, physics or fitting. Break at `inspect_run`,
+`_h5_capsule_audit` or `reporting.teacher_proposal.render` to follow these read-only paths.
+
+The scientific worker used frozen commit `ff67495dae33ee43952677d0c0165a43f8d469b0` on
+`robopil5090`. The later report implementation is separately hash-bound and cannot change
+that worker. The local same-name `runs/` directory contains the initial source/input export,
+not a complete remote-run mirror. Read the external catalog for actual raw/checkpoint locations.
+[C1.0](student_consequence_c1_protocol.md) is a review protocol with launch disabled; these
+inspection commands authorize no new replay, fit or experiment.

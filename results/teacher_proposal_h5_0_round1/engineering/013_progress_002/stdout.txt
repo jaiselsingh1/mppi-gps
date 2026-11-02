@@ -1,0 +1,162 @@
+{
+  "utc_epoch": 1793572653.515001,
+  "coordinator_pid": 166160,
+  "same_coordinator_alive": true,
+  "process_state": "S",
+  "elapsed_seconds": 78.31248664855957,
+  "files": {
+    "evidence/arrays.bin": 659678846,
+    "evidence/arrays.index.jsonl": 2317587,
+    "evidence/ledger.jsonl": 25873319,
+    "worker_stdout.txt": 0
+  },
+  "learning_files": [
+    "s0_parent.json",
+    "s1_parent.json",
+    "s2_parent.json"
+  ],
+  "checkpoints": [
+    "s0_parent.pt",
+    "s0_parent_initial.pt",
+    "s1_parent.pt",
+    "s1_parent_initial.pt",
+    "s2_parent.pt",
+    "s2_parent_initial.pt"
+  ],
+  "recent_events": [
+    {
+      "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+      "arm": "independent",
+      "context": {
+        "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+        "arm": "independent",
+        "episode": "teacher_s0_independent_00",
+        "phase": "worker",
+        "role": "teacher",
+        "step": 106,
+        "stream": 0
+      },
+      "episode": "teacher_s0_independent_00",
+      "event": "query_requested",
+      "frame_skip": 4,
+      "id": "event-000045300",
+      "kind": "query_requested",
+      "mode": "model",
+      "phase": "worker",
+      "query_id": "q000000745",
+      "requested_controls": 48,
+      "requested_physics_substeps": 192,
+      "role": "teacher",
+      "step": 106,
+      "stream": 0,
+      "wall_seconds": 78.1049837770006
+    },
+    {
+      "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+      "arm": "independent",
+      "call_wall_seconds": 0.005465792997711105,
+      "completed_controls": 48,
+      "completed_physics_substeps": 192,
+      "context": {
+        "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+        "arm": "independent",
+        "episode": "teacher_s0_independent_00",
+        "phase": "worker",
+        "role": "teacher",
+        "step": 106,
+        "stream": 0
+      },
+      "episode": "teacher_s0_independent_00",
+      "event": "query_complete",
+      "id": "event-000045301",
+      "kind": "query_complete",
+      "mode": "model",
+      "phase": "worker",
+      "query_id": "q000000745",
+      "request_id": "event-000045300",
+      "result": {
+        "arrays": {
+          "raw_scores": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 659087946,
+            "sha256": "4b23c1ac149a673a4edd28da1c74d7449ed1495c0c97f3a459a8adb283b1f937",
+            "shape": [
+              1
+            ]
+          },
+          "sensordata": {
+            "byte_length": 0,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 659087954,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "shape": [
+              1,
+              48,
+              0
+            ]
+          },
+          "states": {
+            "byte_length": 7296,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 659080650,
+            "sha256": "5ccde4f377bc12d821421d601d50261479e3bc075f7b33b9c0364c63e1f870c4",
+            "shape": [
+              1,
+              48,
+              19
+            ]
+          },
+          "terminal_role": {
+            "byte_length": 116,
+            "dtype": "<U29",
+            "encoding": "array",
+            "offset": 659087954,
+            "sha256": "fb76ca2936500301ed4dfc7d4c1ce0a303c789a0c58e5bf16a58c5532956db49",
+            "shape": []
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000001820_q000000745_result",
+        "index": "arrays.index.jsonl",
+        "tag": "q000000745_result"
+      },
+      "role": "teacher",
+      "step": 106,
+      "stream": 0,
+      "wall_seconds": 78.11144302100001
+    },
+    {
+      "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+      "arm": "independent",
+      "context": {
+        "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+        "arm": "independent",
+        "episode": "teacher_s0_independent_00",
+        "phase": "worker",
+        "role": "teacher",
+        "step": 106,
+        "stream": 0
+      },
+      "episode": "teacher_s0_independent_00",
+      "event": "query_requested",
+      "frame_skip": 4,
+      "id": "event-000045302",
+      "kind": "query_requested",
+      "mode": "model",
+      "phase": "worker",
+      "query_id": "q000000746",
+      "requested_controls": 12288,
+      "requested_physics_substeps": 49152,
+      "role": "teacher",
+      "step": 106,
+      "stream": 0,
+      "wall_seconds": 78.1183447149997
+    }
+  ],
+  "monitor_read_bytes": 66985
+}
