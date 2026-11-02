@@ -1,6 +1,6 @@
 # SAC continuation map: can the oracle carry on from MPPI's walks?
 
-**Status: frozen 2026-11-02, before the full run.** Only the pipeline smoke test had run when this was frozen, and it used SAC's own rollouts posing as teachers, so no MPPI result had been seen.
+**Status: frozen 2026-11-02, before the full run.** Only the pipeline smoke test had run when this was frozen, and it used SAC's own rollouts posing as teachers, so no MPPI result had been seen. The run and its reading are in [the results](sac_continuation_results.md).
 
 ## Question
 

@@ -17,6 +17,7 @@ These small evidence capsules make the completed Walker studies and explicitly u
 | K1.2 actual saved-motion diagnosis | [motion_diagnosis_k1_2](motion_diagnosis_k1_2/README.md) | All 34 motions, 561 pairs and both 34-page atlases retained; independent audit passed. No new inference, physics, fitting or acquisition; no transfer cause or useful coupling established. |
 | H5.0 historical preparation | [teacher_proposal_h5_0_preparation](teacher_proposal_h5_0_preparation/README.md) | Preserved preparation: 979 engineering tests and 490 metadata checks; separate authorized run below. |
 | H5.0r1 proposal guidance | [teacher_proposal_h5_0_round1](teacher_proposal_h5_0_round1/README.md) | Audited teacher-competence stop: I walked 12/12, S/P each 11/12. No child fits, standalone panels or paired gaps; useful learning unmeasured. |
+| SAC continuation map | [sac_continuation_001](sac_continuation_001/README.md) | SAC kept walking from 534/560 MPPI states (own states 640/640) and pulled them into its own gait; one MPPI action moved its cost no more than a random one. No independent audit. |
 
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.
 
