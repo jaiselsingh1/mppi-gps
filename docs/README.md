@@ -33,6 +33,8 @@ Its [original proposal](student_source_s1_protocol.md) and
 
 Read the [evidence guide](evidence_availability.md) before attempting a bulk-data audit. Capsules support reading, plotting and metadata inspection in a clean checkout. Their original manifests describe full runs that also contain evidence excluded from Git.
 
+S1.2 V was authorized, but its [first preparation attempt](validation/student_visitation_s1_2_v_2026-11-02/README.md) stopped at an SSH timeout before remote execution. No reference behavior or learning result exists; the stopped source, costs and evidence remain preserved.
+
 ## Formulations and open hypotheses
 
 [Primary sources](loop_v3_prior_art.md) and the [adaptive-coupling review](adaptive_coupling_review_v1.md) explain what alternating optimization, post-learning evaluation and GPS already establish. [Paper mapping](paper_mapping.md) states the departures of this direct torque policy from the original state-to-state formulation. Current finite candidate reweighting has no inherited convergence guarantee.

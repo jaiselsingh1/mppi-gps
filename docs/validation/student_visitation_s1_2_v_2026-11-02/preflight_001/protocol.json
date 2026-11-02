@@ -1,0 +1,39 @@
+{
+  "schema": "walker-s1.2-v-preparation-attempt-v1",
+  "stage": "V_only",
+  "authority": "User requested continuing the next experimental stage after reviewing S1.2 v2. This authorizes V preparation and execution only if all frozen prerequisites pass; L remains separately review-gated.",
+  "review_recipe": {
+    "file": "configs/studies/student_visitation_s1_2_review_v2.json",
+    "bytes": 81259,
+    "sha256": "1268b15b6501f8094caef6a470c74ca3790839bc11ed232938be48931d26d381"
+  },
+  "source_commit": "ada1d1e9c267f5dd623203ef198e252f6c38325c",
+  "limits": {
+    "wall_seconds": 600,
+    "peak_rss_bytes": 536870912,
+    "input_read_bytes": 536870912,
+    "output_bytes": 536870912
+  },
+  "first_check": {
+    "purpose": "Single bounded read-only remote connection/runtime/chosen-input availability and hash preflight; no simulator or network construction.",
+    "ssh_connect_timeout_seconds": 8,
+    "command_wall_seconds": 45,
+    "max_stdout_bytes": 65536,
+    "max_read_bytes": 33554432,
+    "attempts": 1,
+    "remote_writes": false
+  },
+  "stopping": "Any connection, runtime, binding, capacity or preparation-budget failure stops and preserves this attempt. No automatic retry, input replacement, local fallback, physics, inference or fitting before prerequisite completion.",
+  "new_scientific_work": {
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "neural_rows": 0,
+    "prediction_calls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "resets": 0,
+    "restores": 0,
+    "mppi_queries": 0
+  },
+  "created_unix": 1793662939.370325
+}

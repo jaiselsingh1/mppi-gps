@@ -1,0 +1,26 @@
+{
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=8",
+    "-o",
+    "ConnectionAttempts=1",
+    "robopil5090",
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "-"
+  ],
+  "exit_code": 255,
+  "wall_seconds": 8.013397000031546,
+  "child_user_seconds": 0.0018319999999999999,
+  "child_system_seconds": 0.002496,
+  "stdout_bytes": 0,
+  "stderr_bytes": 63,
+  "attempts": 1,
+  "retries": 0,
+  "program_sha256": "b10ee37ddff564585de4310dc3448fffde456ec201b27f8d0f97563413f59935",
+  "scientific_work": 0,
+  "max_read_bytes": 33554432,
+  "remote_source_written": false
+}
