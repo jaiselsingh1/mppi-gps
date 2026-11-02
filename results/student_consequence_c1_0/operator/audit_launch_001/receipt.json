@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-v",
+    "-o",
+    "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_consequence_c1_001/audit_launch_001/time.txt",
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001/source/scripts/train_mppi_gps.py",
+    "study",
+    "student-consequence",
+    "audit",
+    "--run",
+    "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001",
+    "--out",
+    "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_consequence_c1_001/audit_001"
+  ],
+  "wrapper_pid": 388795,
+  "launched_unix": 1793651928.5266924,
+  "source_commit": "56b737413884c031bb65bcc331b48ed700e59540",
+  "wall_seconds": 7200,
+  "peak_rss_bytes": 4294967296,
+  "retries": 0
+}

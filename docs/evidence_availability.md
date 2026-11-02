@@ -223,7 +223,25 @@ There is **no complete local raw mirror**. The local same-name `runs/` directory
 original 539-file/10,622,281-byte source/input export. The historical preparation's approved
 backup does not mirror this new run. The [closure receipts](validation/teacher_proposal_h5_0_round1_2026-11-01/closure/README.md)
 retain publication, validation and short Obsidian-update accounting. [C1.0](student_consequence_c1_execution.md)
-is a separate implemented diagnostic with authorized finite limits and mandatory prelaunch gates; its actual evidence is pending.
+subsequently completed its fixed roster; the following entry separates its saved scientific receipt from its failed coordinator closure.
+
+### C1.0 completed worker, failed audit coordinator
+
+The [C1.0 findings](student_consequence_c1_results.md) and [fault-preservation capsule](../results/student_consequence_c1_0/README.md) retain all 18,000 learning points, all 432 standalone outcomes, 12,000 checked assay scalar rows, the original scientific receipt and the launcher failure. Every actor group failed walking/full survival. The saved scientific checks report passing; **overall audit closure failed**, its original child exit remains unknown and no original `audit/exit.json` was manufactured. No audit or research retry ran.
+
+The capsule binds 109 payload files / 28,226,428 bytes. The result archive was 5,852,889 bytes, SHA-256 `b26d78b121ef29443a7533904c28bade58d3e72a34d8e587224340355d24982e`, verified on download. The original scientific receipt is 144,582 bytes, SHA-256 `85881f410ee85944b7edd2c5643437de801d327294189533480f6673f87cd7d9`; its passing flags do not repair the failed process boundary.
+
+Full raw evidence remains at `/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001` on robopil5090; postprocessing/audit outputs are in the same-name `artifacts/` directory. The remote run has 765 files / 2,526,299,818 logical bytes. No complete local raw/checkpoint mirror exists.
+
+| External primary file | Bytes | SHA-256 from saved stream audit |
+|---|---:|---|
+| `worker/evidence/arrays.bin` | 1,426,695,198 | `24f27bbd02c5c33293d44b8791aff98da2bfd5510947ea4ebf32a73f6a9b46cb` |
+| `worker/evidence/arrays.index.jsonl` | 33,437,408 | `34eca6c7efcbd6f4244a137e04198ff62e70475404f305d5993f6461c27aa781` |
+| `worker/evidence/ledger.jsonl` | 819,636,376 | `56b7bca0d663224cd88d7592cd23034856ba89d6686d643cf696446ad2d70f6e` |
+
+The [external catalog](../results/student_consequence_c1_0/external_catalog.json) binds the incoming/child checkpoints, arrays, tapes and source inputs without copying them into Git. It preserves its original verification scope. Its generated-audit checksum-unavailable declarations are supplemented by the later [exact output catalog](../results/student_consequence_c1_0/operator/audit_output_catalog_failure_001.json), covering all seven generated audit files / 47,916,431 bytes within the remaining original read/time/output envelope. This is output hashing, not an audit rerun or successful outer receipt.
+
+The [closure record](validation/student_consequence_c1_0_2026-11-02/closure/README.md) separates worker, independent inference, saved-only output processing, inherited H5 work, engineering, transfer and storage accounting. All known retained local and remote C1 copies plus a further 1 GiB final-validation reservation remain below 16 GiB. The historical review protocol/source bindings are unchanged; the active watchdog/report/inspector repairs are explicitly later code.
 
 ### Legacy evidence
 

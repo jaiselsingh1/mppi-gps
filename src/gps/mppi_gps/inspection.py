@@ -250,6 +250,83 @@ def _h5_measurement_scope(capsule: dict[str, Any], result: dict[str, Any]) -> di
     )
 
 
+def _c1_capsule_audit(root: Path, capsule: dict[str, Any], *, verify: bool) -> dict[str, Any]:
+    """Expose C1's failed outer closure separately from its saved scientific checks."""
+    bindings = capsule.get("files", {})
+    receipt_name = "audit/audit.json"
+    receipt, receipt_file = _h5_compact_metadata(root, receipt_name, bindings, verify=verify)
+    failure, failure_file = _h5_compact_metadata(
+        root, "accounting/audit_launcher_failure.json", bindings, verify=verify
+    )
+    expected = dict(
+        schema="walker-c1-audit-launcher-failure-v1",
+        overall_audit_closure_passed=False,
+        audit_coordinator_failed=True,
+        original_audit_exit_exists=False,
+        original_child_exit_code=None,
+        coordinator_exit_code=1,
+    )
+    conflicts = [
+        key
+        for key, value in expected.items()
+        if key not in failure or type(failure[key]) is not type(value) or failure[key] != value
+    ]
+    declared = failure.get("scientific_receipt", {})
+    bound = bindings.get(receipt_name, {})
+    recorded_digest = bound if isinstance(bound, str) else bound.get("sha256")
+    observed_digest = receipt_file.get("sha256") if verify else recorded_digest
+    associated = isinstance(declared, dict) and (
+        type(declared.get("bytes")) is int
+        and declared["bytes"] == receipt_file.get("bytes")
+        and declared.get("sha256") is not None
+        and declared["sha256"] == observed_digest
+    )
+    if not associated:
+        conflicts.append("scientific_receipt_binding")
+    if (root / "audit/exit.json").exists():
+        conflicts.append("unexpected_copied_outer_exit_receipt")
+    descriptors = [receipt_file, failure_file]
+    verified = all(row.get("binding_verified") is True for row in descriptors)
+    readable = bool(receipt) and bool(failure) and not any(row.get("error") for row in descriptors)
+    return dict(
+        status="AUDIT_COORDINATOR_FAILED"
+        if readable and not conflicts
+        else "C1_AUDIT_CLOSURE_METADATA_INCOMPLETE_OR_CONFLICTING",
+        scientific_receipt_checks_passed=receipt.get("full_scientific_audit_passed"),
+        overall_audit_closure_passed=failure.get("overall_audit_closure_passed"),
+        audit_coordinator_failed=failure.get("audit_coordinator_failed"),
+        original_audit_exit_exists=failure.get("original_audit_exit_exists"),
+        original_outer_exit_receipt_missing=failure.get("original_audit_exit_exists") is False,
+        original_child_exit_code=failure.get("original_child_exit_code"),
+        original_child_exit_unknown="original_child_exit_code" in failure
+        and failure["original_child_exit_code"] is None,
+        coordinator_exit_code=failure.get("coordinator_exit_code"),
+        scientific_receipt_binding_matches=associated,
+        copied_metadata_verified=verified if verify else None,
+        metadata_conflicts=conflicts,
+        metadata_files=descriptors,
+        inspector_metadata_read_bytes=sum(row.get("read_bytes", 0) for row in descriptors),
+        reported_work={
+            key: receipt.get(key)
+            for key in (
+                "prediction_rows",
+                "completed_prediction_rows",
+                "unknown_partial_prediction_rows",
+                "prediction_calls",
+                "checkpoint_loads",
+                "checkpoint_read_bytes",
+                "source_read_bytes_total",
+                "wall_seconds",
+                "peak_rss_bytes",
+                "physics_controls",
+                "optimizer_steps",
+                "backward_rows",
+            )
+        },
+        verification_scope="Recorded compact scientific receipt and failure companion only; --verify checks copied JSON bytes against capsule hashes. No external raw evidence, checkpoints, predictions, physics or learning are reopened or recomputed. Passing saved scientific checks does not complete the failed outer audit closure. Missing exit metadata is not reconstructed.",
+    )
+
+
 def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     """Describe a full frozen run or a portable result capsule, read only.
 
@@ -487,6 +564,18 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             standalone_measured=result.get("standalone_measured", False),
             scope="C1 fixed-suffix consequence-weighted fitting; walking and fitting are separate. Inspection does not independently audit science.",
         )
+        if capsule and (
+            "accounting/audit_launcher_failure.json" in capsule.get("files", {})
+            or (root / "accounting/audit_launcher_failure.json").is_file()
+        ):
+            report["c1_compact_audit"] = _c1_capsule_audit(root, capsule, verify=verify)
+            report["costs"]["independent_audit"] = dict(
+                work=report["c1_compact_audit"]["reported_work"],
+                overall_audit_closure_passed=report["c1_compact_audit"][
+                    "overall_audit_closure_passed"
+                ],
+                scope="Saved audit counters, separate from worker work; inspector metadata reads are additional. The original outer audit closure failed; these counters are declarations, not a new audit.",
+            )
         if not capsule:
             prepared = _read_json(run / "prepared/prepared_input_manifest.json", errors)
             bindings = {row["file"]: row for row in prepared.get("files", [])}
@@ -578,7 +667,7 @@ def format_inspection(report: dict[str, Any]) -> str:
     )
     for label in ("teacher_outcomes", "student_outcomes", "teacher_student_gap", "gates", "costs"):
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
-    for label in ("h5_compact_audit", "h5_measurement_scope"):
+    for label in ("h5_compact_audit", "h5_measurement_scope", "c1_compact_audit"):
         if label in report:
             lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
     if "diagnostics" in report:

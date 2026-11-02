@@ -3505,6 +3505,181 @@
           "sha256": "0121d322be5c0e48ad66b89284eb0aa78b53e53d3a7bec3677581e8cf4629bf8"
         }
       }
+    },
+    "student_consequence_c1_0": {
+      "status": "COMPLETED_WORKER_AUDIT_COORDINATOR_FAILED",
+      "source_commit": "56b737413884c031bb65bcc331b48ed700e59540",
+      "recipe": {
+        "file": "configs/studies/student_consequence_c1_0.json",
+        "bytes": 13573,
+        "sha256": "ed3a6363ab3698357ed4fbaf289db311e58fab7a14e91d7474cea9b291c825bb"
+      },
+      "frozen_config": {
+        "file": "results/student_consequence_c1_0/run/config.json",
+        "bytes": 13852,
+        "sha256": "d8cc203d19470a3df92395a5094948f527c87b2c00cccc3fb4653fbd322cd33c"
+      },
+      "frozen_manifest": {
+        "file": "results/student_consequence_c1_0/run/manifest.json",
+        "bytes": 111133,
+        "sha256": "ae6be7a4fd15363080618ca58df163ea2abc150238893ecafec6c76cfc006464"
+      },
+      "prerequisites": {
+        "file": "results/student_consequence_c1_0/run/prerequisites.json",
+        "bytes": 11550,
+        "sha256": "e3deddea103f7ec559080c53b2c72193e118c8acc283181fd8a4e444f636d666"
+      },
+      "capsule": "results/student_consequence_c1_0",
+      "capsule_files": 109,
+      "capsule_bytes": 28226428,
+      "capsule_manifest": {
+        "file": "results/student_consequence_c1_0/capsule.json",
+        "bytes": 18053,
+        "sha256": "40b861253cb096b14c4e626cbf992636cbe926918abdc44483ca447b92333843"
+      },
+      "result_report": "docs/student_consequence_c1_results.md",
+      "scientific_receipt": {
+        "file": "results/student_consequence_c1_0/audit/audit.json",
+        "bytes": 144582,
+        "sha256": "85881f410ee85944b7edd2c5643437de801d327294189533480f6673f87cd7d9"
+      },
+      "scientific_receipt_checks_passed": true,
+      "overall_audit_closure_passed": false,
+      "audit_coordinator_failed": true,
+      "original_child_exit_code": null,
+      "original_audit_exit_exists": false,
+      "failure_companion": {
+        "file": "results/student_consequence_c1_0/accounting/audit_launcher_failure.json",
+        "bytes": 1458,
+        "sha256": "8b363d084e99d46f746e7b59b2a9cf470ff0a7854cbe59ad30020c7cc5da79f6"
+      },
+      "worker_roster": {
+        "teacher_replays": 12,
+        "substitutions": 12000,
+        "fits": 9,
+        "updates_each": 2000,
+        "fresh_evaluations": 384,
+        "source_context_evaluations": 48
+      },
+      "outcomes": {
+        "teacher_walking": 12,
+        "teacher_full_survival": 12,
+        "recorded_student_walking": 0,
+        "recorded_student_full_survival": 0,
+        "recorded_student_episodes": 432,
+        "weighting_confirmed": false,
+        "uniform_parent_confirmed": false
+      },
+      "worker_work": {
+        "environment_constructions": 1,
+        "restores": 12012,
+        "external_mj_forward_calls": 12876,
+        "snapshot_reads": 2326904,
+        "native_controls": 1157230,
+        "physics_substeps": 4628920,
+        "shuffle_calls": 624,
+        "shuffle_entries": 12000,
+        "policy_constructions": 21,
+        "checkpoint_loads": 12,
+        "expected_index_draws": 1536000,
+        "actual_index_draws": 4608000,
+        "neural_rows": 4795806,
+        "prediction_calls": 115896,
+        "backward_rows": 4608000,
+        "optimizer_steps": 18000,
+        "endpoint_saves": 9,
+        "resets": 432
+      },
+      "worker_wall_seconds": 6667.104353843999,
+      "audit_work": {
+        "neural_rows": 187806,
+        "calls": 97896,
+        "checkpoint_loads": 12,
+        "source_read_bytes": 4008491429,
+        "new_native_controls": 0,
+        "new_backward_rows": 0,
+        "new_optimizer_steps": 0
+      },
+      "audit_coordinator_wall_seconds": 233.98,
+      "external_run_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001",
+      "external_artifact_directory": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_consequence_c1_001",
+      "external_catalog": {
+        "file": "results/student_consequence_c1_0/external_catalog.json",
+        "bytes": 38636,
+        "sha256": "2a285764e5e1b29ced25ac55850a2dad62daddab0f875bdaea2329af3a76970e"
+      },
+      "external_raw": {
+        "worker/evidence/arrays.bin": {
+          "actual_bytes": 1426695198,
+          "available": true,
+          "bytes": 1426695198,
+          "collector_rehashed": false,
+          "external_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001/worker/evidence/arrays.bin",
+          "sha256": "24f27bbd02c5c33293d44b8791aff98da2bfd5510947ea4ebf32a73f6a9b46cb",
+          "verified_by": "closed_stream_audit"
+        },
+        "worker/evidence/arrays.index.jsonl": {
+          "actual_bytes": 33437408,
+          "available": true,
+          "bytes": 33437408,
+          "collector_rehashed": false,
+          "external_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001/worker/evidence/arrays.index.jsonl",
+          "sha256": "34eca6c7efcbd6f4244a137e04198ff62e70475404f305d5993f6461c27aa781",
+          "verified_by": "closed_stream_audit"
+        },
+        "worker/evidence/ledger.jsonl": {
+          "actual_bytes": 819636376,
+          "available": true,
+          "bytes": 819636376,
+          "collector_rehashed": false,
+          "external_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001/worker/evidence/ledger.jsonl",
+          "sha256": "56b7bca0d663224cd88d7592cd23034856ba89d6686d643cf696446ad2d70f6e",
+          "verified_by": "closed_stream_audit"
+        }
+      },
+      "audit_output_hashes": {
+        "file": "results/student_consequence_c1_0/operator/audit_output_catalog_failure_001.json",
+        "bytes": 2359,
+        "sha256": "84ef36d000372069968e1f7e17999fd5e9a89d941d1eb305c95d312f7e052870"
+      },
+      "audit_output_hash_scope": "Exact companion hashes of all generated audit outputs; original external_catalog retains its earlier narrower checksum-unavailable declarations unchanged.",
+      "raw_local_availability": "No complete local raw/checkpoint mirror; only compact exact capsule and verified5,852,889-byte archive.",
+      "archive": {
+        "bytes": 5852889,
+        "sha256": "b26d78b121ef29443a7533904c28bade58d3e72a34d8e587224340355d24982e"
+      },
+      "storage_accounting": {
+        "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/storage_accounting.json",
+        "bytes": 1468,
+        "sha256": "6e982bbb2f4ff2312911526a52e2cf6d1cdc505f40d336c8fc7d5fc5a8d2a59d"
+      },
+      "followup_launched": false,
+      "closure_validation": "docs/validation/student_consequence_c1_0_2026-11-02/closure/README.md",
+      "final_storage_accounting": {
+        "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/final_storage_accounting.json",
+        "bytes": 1501,
+        "sha256": "5ec17737110c540e26467c7c2c2f294b565e29cab88292ef2af1abc097935c54"
+      },
+      "closure_validation_passed": {
+        "passed": true,
+        "tests": {
+          "passed": 1211,
+          "skipped": 1,
+          "xfailed": 1,
+          "wall_seconds": 91.25
+        },
+        "clean_export_commands": 47,
+        "ruff_check_passed": true,
+        "ruff_format_files": 249,
+        "repository": {
+          "capsule_files": 3647,
+          "historical_files": 162,
+          "local_links": 1240,
+          "errors": []
+        },
+        "scientific_rerun": false,
+        "overall_original_audit_closure_passed": false
+      }
     }
   },
   "saved_analyses": {

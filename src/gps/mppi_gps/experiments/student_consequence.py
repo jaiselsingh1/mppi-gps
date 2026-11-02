@@ -334,27 +334,44 @@ def launch_audit(run: Path, out: Path) -> int:
         ),
     )
     environment["C1_AUDIT_NONCE"] = nonce
+    command = [
+        sys.executable,
+        str(run / "source/scripts/train_mppi_gps.py"),
+        "study",
+        "student-consequence",
+        "audit-worker",
+        "--run",
+        str(run),
+        "--out",
+        str(out / "result"),
+    ]
     os.sched_setaffinity(0, config["runtime"]["cpu_affinity"])
     try:
-        receipt = bounded_process(
-            [
-                sys.executable,
-                str(run / "source/scripts/train_mppi_gps.py"),
-                "study",
-                "student-consequence",
-                "audit-worker",
-                "--run",
-                str(run),
-                "--out",
-                str(out / "result"),
-            ],
-            cwd=run / "source",
-            environment=environment,
-            output=out / "stdout.txt",
-            wall_seconds=config["limits"]["audit_wall_seconds"],
-            stdout_bytes=8 * 1024**2,
-            peak_rss_bytes=config["limits"]["audit_peak_rss_bytes"],
-        )
+        try:
+            receipt = bounded_process(
+                command,
+                cwd=run / "source",
+                environment=environment,
+                output=out / "stdout.txt",
+                wall_seconds=config["limits"]["audit_wall_seconds"],
+                stdout_bytes=8 * 1024**2,
+                peak_rss_bytes=config["limits"]["audit_peak_rss_bytes"],
+            )
+        except BaseException as error:
+            write(
+                out / "exit.json",
+                getattr(
+                    error,
+                    "process_receipt",
+                    dict(
+                        command=command,
+                        process_started=None,
+                        unknown_partial_work_possible=True,
+                        error=dict(type=type(error).__name__, message=str(error)),
+                    ),
+                ),
+            )
+            raise
     finally:
         os.sched_setaffinity(0, old)
     write(out / "exit.json", receipt)

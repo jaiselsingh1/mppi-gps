@@ -79,3 +79,7 @@ every software fixture; never restart a retained paid prefix. Audit receipts
 separate evidence integrity, completed scientific contrast and confirmed
 walking benefit. Publication follows that audit. No outcome launches a
 follow-up automatically.
+
+## Recorded execution and stop
+
+The [C1.0 result](student_consequence_c1_results.md) now records completion of the fixed worker roster after all prerequisites passed. All parents and children failed walking and full survival. The saved independent scientific receipt reports passing checks, but its launcher failed during process-exit RSS sampling and did not persist its outer exit receipt. That original closure remains incomplete. Current-source watchdog and receipt fixes are independently reviewed and synthetically tested; they do not alter the frozen source or admit a retry. The fault-preservation capsule and closure-aware report retain this distinction. No research/audit rerun or automatic follow-up was launched.

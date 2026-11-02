@@ -1,0 +1,5668 @@
+{
+  "authenticated_audit_cache": {
+    "bytes": 94531584,
+    "deserialized_into_memory": true,
+    "file": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-01_teacher_proposal_h5_0_r1_001/audit_round_001/result/array-index.sqlite",
+    "original_read_only": true,
+    "sha256": "f3bebe384e29fe971ac5dd7176db0116e63cc15385987186137e299f1c853d99"
+  },
+  "dimensions": [
+    9,
+    9,
+    6
+  ],
+  "episodes": {
+    "teacher_s0_independent_00": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "36947e10809819dfa26c87e95f3ae14588d5da4b39e48c8f47ed68b0913248d4",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "c7ac4ae4797e072b027086c2868350e3c91e67a0d04d2fc4f2205b6b76734d36",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "c86208c3e2daae7fc7addb1f616e0acd317f15ae29ffb4a8ac3720e11c3d8d47",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "58846fb4ab6b3a7dbd34f94c544498623774383397a224bba548e671f1feacf7",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "0e995cfe2cf6c267185ddfb879823f0dea1abca47916b75eeb158ef4105bb3a5",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "571dacd7ff806d0bf3cb5bcb4866e8eaec25628a010db90b929d628a4a3751d3",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "02cdf07b1fec57b6bd3444dd274cc2bb6f540fff3016720d4596ca5ac209d927",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "8b605808183fa196dbab190c3d1921d72a0875ff3fb011c4089898c832a675cd",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "f2148f4a0a9b275f0ccd86899075c9c717b36fef199a6a4b207aad4e54828cb2",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "f61430644ccbd274750be748de17fe5469ceddb3f833adfeb850b31ec645d9b7",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 0,
+      "file": "episodes/teacher_s0_independent_00.npz",
+      "seed": 2700000000,
+      "sha256": "779d843409f7e3b7d8185d7ae373526a8b441859552ebe5befea9541322b7d52",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 5951967296,
+              "sha256": "0e995cfe2cf6c267185ddfb879823f0dea1abca47916b75eeb158ef4105bb3a5",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5951991296,
+              "sha256": "02cdf07b1fec57b6bd3444dd274cc2bb6f540fff3016720d4596ca5ac209d927",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000017015_teacher_s0_independent_00_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_00_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5951967288,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5948715392,
+            "sha256": "36947e10809819dfa26c87e95f3ae14588d5da4b39e48c8f47ed68b0913248d4",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5949716344,
+            "sha256": "c7ac4ae4797e072b027086c2868350e3c91e67a0d04d2fc4f2205b6b76734d36",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2234928,
+            "dtype": "<U558732",
+            "encoding": "json",
+            "offset": 5949732344,
+            "sha256": "1a63ac6bbf52495bacc8723ea0e34001ff6393fda21d89243f58138ebe5e8177",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5948987616,
+            "sha256": "c86208c3e2daae7fc7addb1f616e0acd317f15ae29ffb4a8ac3720e11c3d8d47",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5948579392,
+            "sha256": "568f6a69e42c0ed7a6bdb1193d4e0e0afb0140db4d0c065dbb5b7da71c80683d",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5948763392,
+            "sha256": "8b605808183fa196dbab190c3d1921d72a0875ff3fb011c4089898c832a675cd",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5951967280,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5951967272,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5949724344,
+            "sha256": "f2148f4a0a9b275f0ccd86899075c9c717b36fef199a6a4b207aad4e54828cb2",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 5948915544,
+            "sha256": "f61430644ccbd274750be748de17fe5469ceddb3f833adfeb850b31ec645d9b7",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000017014_episode_teacher_s0_independent_00",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s0_independent_00"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 5951967296,
+              "sha256": "0e995cfe2cf6c267185ddfb879823f0dea1abca47916b75eeb158ef4105bb3a5",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5951991296,
+              "sha256": "02cdf07b1fec57b6bd3444dd274cc2bb6f540fff3016720d4596ca5ac209d927",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000017015_teacher_s0_independent_00_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_00_agreement"
+        }
+      },
+      "stream": 0,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948575967,
+              "sha256": "abd16f45ebfbc5f2913b84ad5c82d081a99180bad5c609b4926ac3bca3b7de26",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 5948576975,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948576239,
+              "sha256": "997190f14c27a1a7c8efcf6fa8ace09817eb52d0d8f6e2e3eb9cd69c240aa171",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 5948576967,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948576015,
+              "sha256": "c276b1ca5d5b5809d139dca1ee186d02eff93422aaf31caaf579101e0f174a15",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948576167,
+              "sha256": "2b22d07d67d11e390350c4281501ab92b08ee5af09a35177f7f7bdf234ad0315",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000017012_q000007001_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000007001_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948577135,
+              "sha256": "6b8d16fd875cdb889498767e4664ad6e803e5aaada7e208cbfde18c30af0bb73",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 5948577143,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1296,
+              "dtype": "<U324",
+              "encoding": "json",
+              "offset": 5948578096,
+              "sha256": "9fe52faff4690c8c720e000de34281030aeb7391ad92a25572b538e2b1e8223b",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948577368,
+              "sha256": "76c3df87530db89c89d32cbdbd04b82dc424e00d090349691b9f9e0d90ba8ce4",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948576999,
+              "sha256": "14d0493a417065ccb0e00ebfb814984c6f267e7b440b4af9a223734f974a9a0d",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948577144,
+              "sha256": "bac52661c0cd817fe2da0cff5c718c9bfc61e78402c798ecd6138c9cc6d8b4fc",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 5948577296,
+              "sha256": "4651649c24a1b5906a21e93d7ff06a79750aec82ab0a1d445e8cad322bebb899",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000017013_q000007001_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000007001_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s0_independent_01": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "0626d268af1d3b8bb2d28e0b54bbe74fa1be2ff5c1225a8871c9ebdc321c7b9b",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "33a6d9118120166ffa028a5e6b473b731dcf1262a3da270455bd0edd172f0f79",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "68e7fc9d1678f005a4e633f525575278440a03ffc393f67b1401e961074356ae",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "1b7d379fb237c6f5539745727938e15ba1f9cb5f99b7ae513d352d9aba933b7d",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "cbfe5b01c13cacd2588b73d6e5cb6e6a18c2cc3f2e372bc6406b7ce2fadda8c2",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "cb9f231024fe6709c7dd4793af829dd111589d84cbb0b19d914c35f5921720b9",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "96347856403e03080e4b7e93dde60c8c14fdaa368802aa7bc1a23c5c58895333",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "17bf195a80c0ff1be87eb2417925935286c9b64c800947ae6d24fd46e733c9d6",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "debe386fb07bec849cfaad537535912c20eeee93530a3ebc678a5ef0d01fa26e",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "450f2c98a7655dfb55e738067f1bc05c7e8d28e58fd0c38eece9813805e0a0cf",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 1,
+      "file": "episodes/teacher_s0_independent_01.npz",
+      "seed": 2700000001,
+      "sha256": "bbb2325007ea1043d14a63c7ee5c2ca0f85d2185ae64a923d900318aac9106d9",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 23824780712,
+              "sha256": "cbfe5b01c13cacd2588b73d6e5cb6e6a18c2cc3f2e372bc6406b7ce2fadda8c2",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23824804712,
+              "sha256": "96347856403e03080e4b7e93dde60c8c14fdaa368802aa7bc1a23c5c58895333",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000068036_teacher_s0_independent_01_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_01_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23824780704,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23821529004,
+            "sha256": "0626d268af1d3b8bb2d28e0b54bbe74fa1be2ff5c1225a8871c9ebdc321c7b9b",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23822529956,
+            "sha256": "33a6d9118120166ffa028a5e6b473b731dcf1262a3da270455bd0edd172f0f79",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2234732,
+            "dtype": "<U558683",
+            "encoding": "json",
+            "offset": 23822545956,
+            "sha256": "67b4ad7b4cdd3391e183e58bb373e1ff419e9d403a438656427f4660fc16f4e9",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23821801228,
+            "sha256": "68e7fc9d1678f005a4e633f525575278440a03ffc393f67b1401e961074356ae",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23821393004,
+            "sha256": "109ac54376a8d3cd661ecbf04d25997f66cecb75de31df96a14778e453e02d89",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23821577004,
+            "sha256": "17bf195a80c0ff1be87eb2417925935286c9b64c800947ae6d24fd46e733c9d6",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23824780696,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23824780688,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23822537956,
+            "sha256": "debe386fb07bec849cfaad537535912c20eeee93530a3ebc678a5ef0d01fa26e",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 23821729156,
+            "sha256": "450f2c98a7655dfb55e738067f1bc05c7e8d28e58fd0c38eece9813805e0a0cf",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000068035_episode_teacher_s0_independent_01",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s0_independent_01"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 23824780712,
+              "sha256": "cbfe5b01c13cacd2588b73d6e5cb6e6a18c2cc3f2e372bc6406b7ce2fadda8c2",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23824804712,
+              "sha256": "96347856403e03080e4b7e93dde60c8c14fdaa368802aa7bc1a23c5c58895333",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000068036_teacher_s0_independent_01_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_01_agreement"
+        }
+      },
+      "stream": 0,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821389575,
+              "sha256": "62425b30c15ad5f5287823d901fba1a7ac760f3a3d3b61735d819c78e96b9f93",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 23821390583,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821389847,
+              "sha256": "52cde58254067cae0c8e48c045850b0c56c3bca90948fc6c90fd36003b9b88a5",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 23821390575,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821389623,
+              "sha256": "a9da1547a1ae3265ac5d64686335791db655012a76673ed7e68d93c829924e4d",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821389775,
+              "sha256": "2eb5c819feacd79a0770ddbf83b80b32b23115d85d112f5ddecf02a2955c2107",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000068033_q000028007_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000028007_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821390743,
+              "sha256": "2ea142d847b696d0c1d4c5026c988da1c37a113ba3b3abfd482ecc7db2ac74ff",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 23821390751,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1300,
+              "dtype": "<U325",
+              "encoding": "json",
+              "offset": 23821391704,
+              "sha256": "35e05f8f384637fca627dba4b4cd90df1a1c5175e33ce72cbf9544bfe18f5149",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821390976,
+              "sha256": "c4207acac5e87b1b95959b83e4f8a45605dcbf0d74850a31b60f592b83f8ae0a",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821390607,
+              "sha256": "9ad2bed7945ad513779cb9af2ea72ad4136b51ff9c4a9a02c3bb7145c92710e8",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821390752,
+              "sha256": "88d901b6f3b9f5850f9bf14f246b9d6f63320c20c28b497eb97c3112d4b88161",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 23821390904,
+              "sha256": "535dd1a89941f2907d5f5e20e7cb0acf4b38adf04e2db2046fb449f4a52ebe79",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000068034_q000028007_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000028007_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s0_independent_02": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "2c2a554e125e1455fb8c4c352da78899505ab4493bf55d0876e5c5b6b983bc23",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "5c1128b46a2b76260f0e645cd5175d8ec9be6e94d27feb5240d27df11bdffe35",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "f2067a5660576b7553ec7ec35e503f1f49355a6855f2ed1bdff8f7914cfdb75a",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "bbe93ff99c82b7f439aeb913719f029f9b9608d2628f6ec58c082252652c1046",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "1792e40dca3ef4dd0227e2373b754b1f79da952d8bf96af6133c1d21250deed4",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "319bce0a54ac848f9ce62c4d57d7d54fb1440a977c52a3ff1a2b5c00f9c918b1",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "201edfa61a2a89f3016273a9aa02a846c4baf1ef76eb516ce7dc78c6d725bb33",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "18136fe25a88b9c8d9d80eaba10c55f3d7cc4219df4ae963c71d01a83c8bc3b7",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "0da730cd3f739439a82a1ca847b1548472c7de4cc948cbd5f24bb28c1f987705",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "7815a8c0db41e9e46486c64a7c806d6366b93c05ec330a5acf588d61d24e4994",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 2,
+      "file": "episodes/teacher_s0_independent_02.npz",
+      "seed": 2700000002,
+      "sha256": "5fd0a29a17fb45dbcf01a0806aab0a06a4966315a0423455a09ff2375fb5dfa3",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 41740014532,
+              "sha256": "1792e40dca3ef4dd0227e2373b754b1f79da952d8bf96af6133c1d21250deed4",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41740038532,
+              "sha256": "201edfa61a2a89f3016273a9aa02a846c4baf1ef76eb516ce7dc78c6d725bb33",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000119057_teacher_s0_independent_02_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_02_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41740014524,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41736762124,
+            "sha256": "2c2a554e125e1455fb8c4c352da78899505ab4493bf55d0876e5c5b6b983bc23",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41737763076,
+            "sha256": "5c1128b46a2b76260f0e645cd5175d8ec9be6e94d27feb5240d27df11bdffe35",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235432,
+            "dtype": "<U558858",
+            "encoding": "json",
+            "offset": 41737779076,
+            "sha256": "869bb88d39ef7151ddb8df992211220c7c8b9f269a236d2a30f19d03d42f3a4b",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41737034348,
+            "sha256": "f2067a5660576b7553ec7ec35e503f1f49355a6855f2ed1bdff8f7914cfdb75a",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41736626124,
+            "sha256": "870dfcda3a8d2bc99f2d135e5a468fbc7aaddf5391b033157871f14f37b5e7a0",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41736810124,
+            "sha256": "18136fe25a88b9c8d9d80eaba10c55f3d7cc4219df4ae963c71d01a83c8bc3b7",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41740014516,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41740014508,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41737771076,
+            "sha256": "0da730cd3f739439a82a1ca847b1548472c7de4cc948cbd5f24bb28c1f987705",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 41736962276,
+            "sha256": "7815a8c0db41e9e46486c64a7c806d6366b93c05ec330a5acf588d61d24e4994",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000119056_episode_teacher_s0_independent_02",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s0_independent_02"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 41740014532,
+              "sha256": "1792e40dca3ef4dd0227e2373b754b1f79da952d8bf96af6133c1d21250deed4",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41740038532,
+              "sha256": "201edfa61a2a89f3016273a9aa02a846c4baf1ef76eb516ce7dc78c6d725bb33",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000119057_teacher_s0_independent_02_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_02_agreement"
+        }
+      },
+      "stream": 0,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736622707,
+              "sha256": "05ee870e7c11fac6fdf1f6dde3c709c2c195474f0b54ebd52d5dc69b49edbb45",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 41736623715,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736622979,
+              "sha256": "82f1852a4345d105d1c12e0338d25fbeb224df4d1203ed09e6631c06d67e5e90",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 41736623707,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736622755,
+              "sha256": "07c8bd04d5356b6ff170cdb485e352d7df96ffe2922877538a96b909a19f7c82",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736622907,
+              "sha256": "19ad8eabaddb40df9d989a48519483b91266a9de9a6920f11e346f7e00cb5187",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000119054_q000049013_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000049013_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736623875,
+              "sha256": "45f4b4f25ea74f2507c8e33a93cdfa9a7770a23d63a135ece81e418cddbeebe3",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 41736623883,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1288,
+              "dtype": "<U322",
+              "encoding": "json",
+              "offset": 41736624836,
+              "sha256": "eca81b3a8ad618316b58e7924fcd13c251e041495bcc11c4dc1ba62633f69d26",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736624108,
+              "sha256": "692842f72bb6a0eac07dad9e872ff94de6b05ee7b3034db984f243577e536977",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736623739,
+              "sha256": "41112cf2e333fc6630a96b3865fb22630d441f59dd60af5b4bb5929ea4e5c466",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736623884,
+              "sha256": "ab1646b015e74061615a9c5a36b2eb38d94c87079eccea059f962454dbb0546a",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 41736624036,
+              "sha256": "82f343f93d9bfef604f7642df63dacff21761a1d1e9d67c4bc916e1b0f22265a",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000119055_q000049013_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000049013_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s0_independent_03": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "9745ea0fd620d7981c3103bff457e810e8e9a9b2c9ceb431fc1a9b4e52be8980",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "eba0a37cbb5fd729b8e01ea9ff1f255367be0510772344830bca304af8d034cb",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "b259b87dd2ebe4da5f255e7a7a7a491c1172f39e74737eca1fd58fe9fc510555",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "b97261ae6c41314d2412d38c82c994ed0005b00b47f2a60da5e0e427a4a182b5",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "e526c76c53bbb07824df57276da8103fe007fe7f716c72c3509b085ce085d66e",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "6a2c5206cba205daf1f264f6821d2c36d3b2373a02a7ed2a04502d780e8b5fb8",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "38c4ed72d4049200405b8d1ffcee3308b199977803fb7b813cc7317fa36e94c2",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "2b5cd8c834ded62867f3f96df288f0f6261113d27daadb37fac4b43121c1836d",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "ca33d8340cc685f57b01468b7d3708bc07907269a9a8d43402109daea5a36ec8",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "2ad0ce1b0c51d611d5318208c7c726f5169d5694ceb827aab1cbd6407b6f9772",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 3,
+      "file": "episodes/teacher_s0_independent_03.npz",
+      "seed": 2700000003,
+      "sha256": "102a9150f0091f2122bb51ed59005959605e5b0f343067bdd37a7a012eff5dba",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 59569666520,
+              "sha256": "e526c76c53bbb07824df57276da8103fe007fe7f716c72c3509b085ce085d66e",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59569690520,
+              "sha256": "38c4ed72d4049200405b8d1ffcee3308b199977803fb7b813cc7317fa36e94c2",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000170078_teacher_s0_independent_03_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_03_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59569666512,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59566414120,
+            "sha256": "9745ea0fd620d7981c3103bff457e810e8e9a9b2c9ceb431fc1a9b4e52be8980",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59567415072,
+            "sha256": "eba0a37cbb5fd729b8e01ea9ff1f255367be0510772344830bca304af8d034cb",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235424,
+            "dtype": "<U558856",
+            "encoding": "json",
+            "offset": 59567431072,
+            "sha256": "96e9316f994a464cc24ab79d944ef93c31796e21d69524de5415109489e03b85",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59566686344,
+            "sha256": "b259b87dd2ebe4da5f255e7a7a7a491c1172f39e74737eca1fd58fe9fc510555",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59566278120,
+            "sha256": "95ab4d7bab210399a4e9e990213896940afc609b57b7b2f11c4e155d2396d3c2",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59566462120,
+            "sha256": "2b5cd8c834ded62867f3f96df288f0f6261113d27daadb37fac4b43121c1836d",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59569666504,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59569666496,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59567423072,
+            "sha256": "ca33d8340cc685f57b01468b7d3708bc07907269a9a8d43402109daea5a36ec8",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 59566614272,
+            "sha256": "2ad0ce1b0c51d611d5318208c7c726f5169d5694ceb827aab1cbd6407b6f9772",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000170077_episode_teacher_s0_independent_03",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s0_independent_03"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 59569666520,
+              "sha256": "e526c76c53bbb07824df57276da8103fe007fe7f716c72c3509b085ce085d66e",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59569690520,
+              "sha256": "38c4ed72d4049200405b8d1ffcee3308b199977803fb7b813cc7317fa36e94c2",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000170078_teacher_s0_independent_03_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s0_independent_03_agreement"
+        }
+      },
+      "stream": 0,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566274699,
+              "sha256": "0e020a798ea0aa5bca346176d2458b815fde29f563a711afced115d67d2b861b",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 59566275707,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566274971,
+              "sha256": "00748d6c894fba75485d172ca83ccd11af0c1d74d0ff316d67867bc2428287e3",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 59566275699,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566274747,
+              "sha256": "10a56913f0b6a9d942d0759139064bd8ca9ac6abc6fdd25f9f99fa63ae500715",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566274899,
+              "sha256": "8b2d0fcf049603f5fd3e9e724fdf366644e110e4b37d3857fe7752d2a3c63dd7",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000170075_q000070019_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000070019_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566275867,
+              "sha256": "803f50603e8ecef398c76f8cbbb6da9c5bb09a5833860842c88e0b0686d233aa",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 59566275875,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1292,
+              "dtype": "<U323",
+              "encoding": "json",
+              "offset": 59566276828,
+              "sha256": "2016485a93472c190f9f2f81ca6f26116f705141088a5849b32a3e43f47a181f",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566276100,
+              "sha256": "574295fd156c40377ce4032b71dfb4f2fddc74f12e767dccdcce86e8f58f8fec",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566275731,
+              "sha256": "23e2c43bdc732f7d22ef164f81097b5b4c27dc159124ec4d51c886001eea6286",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566275876,
+              "sha256": "23abb4eeadf6e880513d737ca849a7042dfe60d89c7a19950d389ecafd5c4487",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 59566276028,
+              "sha256": "4fd1dd16e4cd7cafc2cfd0b8f30bac36c57f7f89beb03dd3188c49cc3ce6b7b5",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000170076_q000070019_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000070019_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s1_independent_00": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "46b6feca6f6646b54ce1d375e577723690867e3c00bbe740ed6fc4837ea22d64",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "5815bfb743df04d811df7238a30266f4439405f67385c66f5e72731d70faf839",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "d4878b4981d86edf2175513f6713366e3a8ac2d857447093c4658e938aa7c258",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "98aa4ba3b36d6453853d53d9c79936d8e035041e8d03d851b9eb15111c8301fe",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "f6f42805c8586002a7536d1d62a111b16256ccc7c9a15b12c4a75551e4adf035",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "4505c69aec4e0f9e99225355a98b8d1082f2d42cc98ab4132d9d9a28148207c3",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "f428bd57b4d2c07d17abaf4b8ec204b7b2c35451d1bcf37fa96d41817affbc2c",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "b2bcc74482a50002f08290fd13772f95469f73b5dbb32008e8c081e7a0686598",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "c1de66595f302970b46a82c58448230c08afc8e010cfe280b2297119707b1a81",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "a3b17b84ad33ac483073b0026b4fb6f64b78adfa079c7c6110d818209b829d53",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 0,
+      "file": "episodes/teacher_s1_independent_00.npz",
+      "seed": 2700000100,
+      "sha256": "39e5a14f12b20501e656a2cec9a7d445d13929cbb80e6dcd47ced7cfb39e4e8e",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 77412716556,
+              "sha256": "f6f42805c8586002a7536d1d62a111b16256ccc7c9a15b12c4a75551e4adf035",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77412740556,
+              "sha256": "f428bd57b4d2c07d17abaf4b8ec204b7b2c35451d1bcf37fa96d41817affbc2c",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000221099_teacher_s1_independent_00_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_00_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77412716548,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77409464152,
+            "sha256": "46b6feca6f6646b54ce1d375e577723690867e3c00bbe740ed6fc4837ea22d64",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77410465104,
+            "sha256": "5815bfb743df04d811df7238a30266f4439405f67385c66f5e72731d70faf839",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235428,
+            "dtype": "<U558857",
+            "encoding": "json",
+            "offset": 77410481104,
+            "sha256": "56bd479a776ae132caef9baecc1afc4b388558e7b9801167d3d260907202409d",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77409736376,
+            "sha256": "d4878b4981d86edf2175513f6713366e3a8ac2d857447093c4658e938aa7c258",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77409328152,
+            "sha256": "4f3980b6bfce2f10abc7e6fdbb7ba6038a09ca101e0f7f98b7d6b67314ee3e89",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77409512152,
+            "sha256": "b2bcc74482a50002f08290fd13772f95469f73b5dbb32008e8c081e7a0686598",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77412716540,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77412716532,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77410473104,
+            "sha256": "c1de66595f302970b46a82c58448230c08afc8e010cfe280b2297119707b1a81",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 77409664304,
+            "sha256": "a3b17b84ad33ac483073b0026b4fb6f64b78adfa079c7c6110d818209b829d53",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000221098_episode_teacher_s1_independent_00",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s1_independent_00"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 77412716556,
+              "sha256": "f6f42805c8586002a7536d1d62a111b16256ccc7c9a15b12c4a75551e4adf035",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77412740556,
+              "sha256": "f428bd57b4d2c07d17abaf4b8ec204b7b2c35451d1bcf37fa96d41817affbc2c",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000221099_teacher_s1_independent_00_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_00_agreement"
+        }
+      },
+      "stream": 1,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409324723,
+              "sha256": "7d4090b1bf046e47a24ab8e16d7d61bbd4f210d1da7e8ce282269bdc993f336a",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 77409325731,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409324995,
+              "sha256": "6490cccd31ea4d0e4695c56527a54390366de08826ba4287bbc8471a1427c9b4",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 77409325723,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409324771,
+              "sha256": "91a7a3d71c02cc05ca34b0c961de06068c00f3b7dde22a0646ff4716bc6f8f4b",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409324923,
+              "sha256": "93923a1aaad8a0536247f58b4c3169a40d0eec092cbd35226c6ccfc9c6bdb68d",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000221096_q000091025_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000091025_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409325891,
+              "sha256": "86ff89e84bf1cd89239c033cb0cce94bdb33548fec4e370e5a36202bc9e9a2b9",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 77409325899,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1300,
+              "dtype": "<U325",
+              "encoding": "json",
+              "offset": 77409326852,
+              "sha256": "8de34a7e9baf0984e4ff966c54761340d42dfd71bbc2b1fac90ae0dcaf159831",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409326124,
+              "sha256": "f32ae80c52d01f0b973e290aee41a6ad572e5d378ff56ca862deb176c74b2ebf",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409325755,
+              "sha256": "0fe1e4883b37e50faca0d367abeb41d6a8aff5cfb3926b204cd73a90bb6bc938",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409325900,
+              "sha256": "afd5a0ac84d4a40fa1772d899c84b0f9abf011cea41fe38ef5040f6696559a72",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 77409326052,
+              "sha256": "19a5abcce6e2575a6a80033d0019a850ce628ec58a956a15cdb811ec0c6e46d4",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000221097_q000091025_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000091025_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s1_independent_01": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "d3761cf8aace4903a7e64bb911749fe4fc4101c94727ab81475bf2f25b89b5e3",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "bd65de03e8838b116e3bcfce28df650ded5f698abb9e1ec50f36723fe5c7ba04",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "1959f0b0b6642c3116d1de7c209663eb903cfe47897e0ae68dbdba325f6dc79a",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "768008de369c9be09ffe3729462bcd38cc81516e2dbbe60352c49faf2833927b",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "b254cc6a0ddd97b3bdaa2320d5c252e6238e1dbb104ecb83f53460c8d9c12294",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "bd416943b3c1db93a6801308ee83f67fcf1f00775badfb1169c22ce0bcc4aad4",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "1586e21aee3f3d61182df097ac4ba8c002a7d407cdec214010ec90a92e2c56cc",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "9557a8b9075d234099762e8d4d068f5add2728acbaf46acb754132ea5b942ce8",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "3ae6fd941200458a3b9298cdc513a3c8cea038d696113041ab38a6a5b6fe3f14",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "55b24ab39036fb2cc5962b0a05b587020a8096943fe47a5fffde6bace92aa75a",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 1,
+      "file": "episodes/teacher_s1_independent_01.npz",
+      "seed": 2700000101,
+      "sha256": "9b9157ffe0af146fb852e028d5a6021801babfd05f35a10c032084e0832de333",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 90501942243,
+              "sha256": "b254cc6a0ddd97b3bdaa2320d5c252e6238e1dbb104ecb83f53460c8d9c12294",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90501966243,
+              "sha256": "1586e21aee3f3d61182df097ac4ba8c002a7d407cdec214010ec90a92e2c56cc",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000258537_teacher_s1_independent_01_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_01_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90501942235,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90498690019,
+            "sha256": "d3761cf8aace4903a7e64bb911749fe4fc4101c94727ab81475bf2f25b89b5e3",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90499690971,
+            "sha256": "bd65de03e8838b116e3bcfce28df650ded5f698abb9e1ec50f36723fe5c7ba04",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235248,
+            "dtype": "<U558812",
+            "encoding": "json",
+            "offset": 90499706971,
+            "sha256": "3c3f7ac5b4b128a8a0475f2ea2fe5f9d4bc93e75186cdf17f832e86028f74006",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90498962243,
+            "sha256": "1959f0b0b6642c3116d1de7c209663eb903cfe47897e0ae68dbdba325f6dc79a",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90498554019,
+            "sha256": "3e3740598b126cbfa4b1662692804e28f003dbfd4e18954fd40524cf03d7b448",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90498738019,
+            "sha256": "9557a8b9075d234099762e8d4d068f5add2728acbaf46acb754132ea5b942ce8",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90501942227,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90501942219,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90499698971,
+            "sha256": "3ae6fd941200458a3b9298cdc513a3c8cea038d696113041ab38a6a5b6fe3f14",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 90498890171,
+            "sha256": "55b24ab39036fb2cc5962b0a05b587020a8096943fe47a5fffde6bace92aa75a",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000258536_episode_teacher_s1_independent_01",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s1_independent_01"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 90501942243,
+              "sha256": "b254cc6a0ddd97b3bdaa2320d5c252e6238e1dbb104ecb83f53460c8d9c12294",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90501966243,
+              "sha256": "1586e21aee3f3d61182df097ac4ba8c002a7d407cdec214010ec90a92e2c56cc",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000258537_teacher_s1_independent_01_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_01_agreement"
+        }
+      },
+      "stream": 1,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498550594,
+              "sha256": "8d48b22a80181449f67fc367f067cb0ffd9c97f98d5c06880ec22c5f381475d4",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 90498551602,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498550866,
+              "sha256": "b369421d15f29bc003974f87d9a0d7f7bdb494753b8bb85aa14189b42ad48ac4",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 90498551594,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498550642,
+              "sha256": "b4cb7548df8fc467627016afbc1602d8f1cfbc943bdd81e80d288fcad492e9ee",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498550794,
+              "sha256": "4af9c5ab8f044d42fd522d7832e7889f4bf4162f82593e84fbac233b4ba4d753",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000258534_q000106438_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000106438_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498551762,
+              "sha256": "6e2c1bbc6485a9432e5617b045a86019b55f0e7f8e0038a064adbe95a870801b",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 90498551770,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1296,
+              "dtype": "<U324",
+              "encoding": "json",
+              "offset": 90498552723,
+              "sha256": "2a33e8735d320b82f3bf540a81acd0e36bef39c4630bdb2358e2fa04170bf1df",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498551995,
+              "sha256": "fa1c5f5488165a8b4696ae2b86ff4d8f2ac6fa181eac47a3689060d61963fbd2",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498551626,
+              "sha256": "c471dfbe841f814b053c8eddd081e07ed333f9840e2237f1d55205439abb5364",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498551771,
+              "sha256": "8d854d5eb1b8cf560e66a75f4f9b50648c4e39a6cd08cd84f04c9caedd7e2e66",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 90498551923,
+              "sha256": "a3da2d36c6ba3dd713466a43f0d383634ea279626d6df5d01fba4e99c65a09b0",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000258535_q000106438_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000106438_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s1_independent_02": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "7dfd2808657aa78dfc65a998c8fcdb778c96209682552c8a314644d88228cbc6",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "c23d0acd5c9ceacd855c6246e98ad5da80af92fd34f409db1aa352b7bab3d374",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "f2d9637f1423e83a9d9fab135034723223e07f65627dbe3b9e16d016a5198756",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "65633429172862b2614c3e7fc31aa7a15d509ef6bcac6cc1b567d1e9b9e93775",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "7e956fdb589083d929c79e292550a74fd35c6af738c288f0e1a8607b21bb12ad",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "31ec2123dec443dd362b221f52d6701c74bf8e99adac40bd8569923329750396",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "dca5fd3880533aa46e3c2b502451579abf9a6b1eb6c789c8abd866f0422fbeba",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "b74b7fb89ac83b589c0f87dcecbc9465f4c65b22b47c66e25c2c02618ee5c37a",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "8a162d71db6205f5e02ab8d06c0f156554b0d328093a88bb7fa8c06188f05c2a",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "045173db696dc88c82335cbe651a31cfeba687da7620cf6d56ab8eec18c99de2",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 2,
+      "file": "episodes/teacher_s1_independent_02.npz",
+      "seed": 2700000102,
+      "sha256": "b8515edd2c7fbc06fbfa7bc0acd1d41306be0475890a8d7880a828e69c0ced50",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 108388219819,
+              "sha256": "7e956fdb589083d929c79e292550a74fd35c6af738c288f0e1a8607b21bb12ad",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108388243819,
+              "sha256": "dca5fd3880533aa46e3c2b502451579abf9a6b1eb6c789c8abd866f0422fbeba",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000309558_teacher_s1_independent_02_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_02_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108388219811,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108384968143,
+            "sha256": "7dfd2808657aa78dfc65a998c8fcdb778c96209682552c8a314644d88228cbc6",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108385969095,
+            "sha256": "c23d0acd5c9ceacd855c6246e98ad5da80af92fd34f409db1aa352b7bab3d374",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2234700,
+            "dtype": "<U558675",
+            "encoding": "json",
+            "offset": 108385985095,
+            "sha256": "a832a0a666ff03a4ec3f4fc5dbe0471a5fd53010b90e9c96e530b978e1c15583",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108385240367,
+            "sha256": "f2d9637f1423e83a9d9fab135034723223e07f65627dbe3b9e16d016a5198756",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108384832143,
+            "sha256": "a246f4d20c0e12202c9713c2025fbbad4faa6a8c8bc27fcace83b8787cb4026e",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108385016143,
+            "sha256": "b74b7fb89ac83b589c0f87dcecbc9465f4c65b22b47c66e25c2c02618ee5c37a",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108388219803,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108388219795,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108385977095,
+            "sha256": "8a162d71db6205f5e02ab8d06c0f156554b0d328093a88bb7fa8c06188f05c2a",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 108385168295,
+            "sha256": "045173db696dc88c82335cbe651a31cfeba687da7620cf6d56ab8eec18c99de2",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000309557_episode_teacher_s1_independent_02",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s1_independent_02"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 108388219819,
+              "sha256": "7e956fdb589083d929c79e292550a74fd35c6af738c288f0e1a8607b21bb12ad",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108388243819,
+              "sha256": "dca5fd3880533aa46e3c2b502451579abf9a6b1eb6c789c8abd866f0422fbeba",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000309558_teacher_s1_independent_02_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_02_agreement"
+        }
+      },
+      "stream": 1,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384828698,
+              "sha256": "e5744fc326611898950017f14eb44347fe42faa6e9355044e6a77999317701f5",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 108384829706,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384828970,
+              "sha256": "5f44aa114e2e7cbc4e6ef9eb345a9de7c94314594c33669a1b0faa57d887b125",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 108384829698,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384828746,
+              "sha256": "71d337239300995faa282035577ee51630de48161d0007bbe4dcbe5c6b03941a",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384828898,
+              "sha256": "eb30ff999f3023a9112e0df4af77ad812faad2a3d0692fca524b350f731ae3f3",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000309555_q000127444_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000127444_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384829866,
+              "sha256": "6a80f6068ef0609223f4adb18b2f18cd5490e9dce879bd9345bfe71fd7114a54",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 108384829874,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1316,
+              "dtype": "<U329",
+              "encoding": "json",
+              "offset": 108384830827,
+              "sha256": "f7acfc4c6b48e7c7887f3570c87d9f13e970c6d1f5427a5e914f21442c94eb78",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384830099,
+              "sha256": "f4fc9deaf14311f1b282fa0c8e8bf159d77c0544b8f62f364d2bbfa7c068a24e",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384829730,
+              "sha256": "6d8458dbf9ab9c47198aa160e581fcd9e2c0ea4986df9a73c295e66d5b8fddce",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384829875,
+              "sha256": "23f03a4f420da10be07fdc265f91dc1fafa010aff340ef3f0a9127a06fbdb319",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 108384830027,
+              "sha256": "db8544207432b5925358aec4730135fce3e211745f08780cc564870ccea84147",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000309556_q000127444_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000127444_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s1_independent_03": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "c0df9409ab0d5842c000063cb0702e98c2fd29e6d73f549ac67355df0a307c64",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "1dc80187262fef06d5a1151d0aee4e3166785f1e1fa95c23e88d194af2df3b54",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "6bbbac7aa5c39caa4eb2d08fa11783df65cb135661972f8daf49beaba00f7d37",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "7fc2e315109f2f7e3f74ca85009a6276fa22bfbc75bf72c11af86463daa7019c",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "11942fe873db7d4c99f71f1882cd7ad860c3ed51dd2144dca4af19ca4b2a1a6e",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "0f7d4941d6b9365f55baa0aa5d7ccdac24e4d6a199c4d0cb31c200360900d8db",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "620a500757e7ea3773ab4fa4e4e57601a534d28bbb6d929bc2d16d637c5b3f5a",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "edf7e0a09376aa3212baa4f23ef541eab8dc5da07c18edf510c706370d6874a0",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "8e4e0db4696051399da25dc6421c0b080706c2540f90282f455d46d81d4bbd74",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "45527aedf30db8afd30d707ec8a9c17b2f9dfe9705eedf17c09117a3e1243d7a",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 3,
+      "file": "episodes/teacher_s1_independent_03.npz",
+      "seed": 2700000103,
+      "sha256": "a3d590afe4091691baa97171219d1cd6a8e2a34a2834213d71fabfa02ec4644e",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 126283265843,
+              "sha256": "11942fe873db7d4c99f71f1882cd7ad860c3ed51dd2144dca4af19ca4b2a1a6e",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126283289843,
+              "sha256": "620a500757e7ea3773ab4fa4e4e57601a534d28bbb6d929bc2d16d637c5b3f5a",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000360579_teacher_s1_independent_03_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_03_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126283265835,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126280013431,
+            "sha256": "c0df9409ab0d5842c000063cb0702e98c2fd29e6d73f549ac67355df0a307c64",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126281014383,
+            "sha256": "1dc80187262fef06d5a1151d0aee4e3166785f1e1fa95c23e88d194af2df3b54",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235436,
+            "dtype": "<U558859",
+            "encoding": "json",
+            "offset": 126281030383,
+            "sha256": "10cd98511353c026425051b46519527d3d64bf4b5af99444af3e846e7b6387ad",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126280285655,
+            "sha256": "6bbbac7aa5c39caa4eb2d08fa11783df65cb135661972f8daf49beaba00f7d37",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126279877431,
+            "sha256": "152ddd62d12e8c104db0c6635b9b0b7e1b410be7bfd76ef490c0cd9ae57ff18a",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126280061431,
+            "sha256": "edf7e0a09376aa3212baa4f23ef541eab8dc5da07c18edf510c706370d6874a0",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126283265827,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126283265819,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126281022383,
+            "sha256": "8e4e0db4696051399da25dc6421c0b080706c2540f90282f455d46d81d4bbd74",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 126280213583,
+            "sha256": "45527aedf30db8afd30d707ec8a9c17b2f9dfe9705eedf17c09117a3e1243d7a",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000360578_episode_teacher_s1_independent_03",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s1_independent_03"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 126283265843,
+              "sha256": "11942fe873db7d4c99f71f1882cd7ad860c3ed51dd2144dca4af19ca4b2a1a6e",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126283289843,
+              "sha256": "620a500757e7ea3773ab4fa4e4e57601a534d28bbb6d929bc2d16d637c5b3f5a",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000360579_teacher_s1_independent_03_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s1_independent_03_agreement"
+        }
+      },
+      "stream": 1,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279874018,
+              "sha256": "d4109d93f0f32b047fc77c9d02a91414c2087d8397fdbb26e5b780335bfd5ce1",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 126279875026,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279874290,
+              "sha256": "33f8e35eef4bd39c8862c4fe70007acb3579112d3a1739f00e389a4abb72deed",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 126279875018,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279874066,
+              "sha256": "d5026cf6a30dfdb827b2cc8da748e3cb33589c74bdd255d736ccc5a97acb5674",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279874218,
+              "sha256": "36ab7ed521056ad50ee548174abf93fd55743a7973390b492204d921214e90fe",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000360576_q000148450_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000148450_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279875186,
+              "sha256": "ef4491e0fb5ee6d90a53e1c29dab3068013c2c638cd84165d79834d92fe7ba1a",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 126279875194,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1284,
+              "dtype": "<U321",
+              "encoding": "json",
+              "offset": 126279876147,
+              "sha256": "8d1674fde8ea7c09e5508456932ede70b09970d84d70e19915225a2b119dc2e8",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279875419,
+              "sha256": "578bdb1133a579365f021fc0ecfa7d2a8a3ffece2e921ed1fc5c7a53d2a25985",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279875050,
+              "sha256": "e1a0c4424255f7843aedfcf4ddfff4d4709eae93cf25e40027c5dc14a2ad836d",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279875195,
+              "sha256": "e4990397388a717108682f1e114570b9fb6b5336c09853b101cd298b163cdee8",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 126279875347,
+              "sha256": "7aa12b36c085169bb4386bbb44f80eccb1745ea07c2a261bc3fb405d7f6a7be6",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000360577_q000148450_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000148450_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s2_independent_00": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "b145a44c67cd9d874e829b85728b746c23ae5196d1688c3c3df0bed562d1cfc4",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "3c89c9be8d5858b4556cd4d1ec1e6b899b7cc5a754ec3b9f199d920666cbeba1",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "2b8e3de327e98975461a4458fcbfdde35ad1de5bb58a5f0c14b873e915e0329a",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "b54d7fbba921f67877d68901c8a21cd2b7bd0be4ea6ab1b754c2e63b2bf02c4c",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "9e62beae82621ace02d66bc8c7984441fbe1810ed530ec55b1aac594720fcc06",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "c98ef6fea030a745d55e6d18e2e96d849c07d861ac5e786fded2f5dec2cdd9a1",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "24762d07ce3fc96bdb68dc5951d6494b2a48631272d5fde45d283b149e4ec1aa",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "adb93a90e0e528241e74d3efe49982c6290a3fce8c476ed099b9ecd4844cdb3a",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "32514744ad52bf337013ff6ac7a51c578179693ff008a2131da6bfa8d2bef9cc",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "6e21837f210efa5e3c380f6d1e6bebb660f5be2b418a034051f537f7421c3103",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 0,
+      "file": "episodes/teacher_s2_independent_00.npz",
+      "seed": 2700000200,
+      "sha256": "86f5afd9061ed4476d66a8cf1b587f38d9debdb3050c959a8dc92e72bb62af12",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 144098285091,
+              "sha256": "9e62beae82621ace02d66bc8c7984441fbe1810ed530ec55b1aac594720fcc06",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144098309091,
+              "sha256": "24762d07ce3fc96bdb68dc5951d6494b2a48631272d5fde45d283b149e4ec1aa",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000411600_teacher_s2_independent_00_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_00_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144098285083,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144095033063,
+            "sha256": "b145a44c67cd9d874e829b85728b746c23ae5196d1688c3c3df0bed562d1cfc4",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144096034015,
+            "sha256": "3c89c9be8d5858b4556cd4d1ec1e6b899b7cc5a754ec3b9f199d920666cbeba1",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235052,
+            "dtype": "<U558763",
+            "encoding": "json",
+            "offset": 144096050015,
+            "sha256": "3c0b70e876efecc3baa4c0583ce0b947d42294581d9ad62cde1df780aa659e0d",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144095305287,
+            "sha256": "2b8e3de327e98975461a4458fcbfdde35ad1de5bb58a5f0c14b873e915e0329a",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144094897063,
+            "sha256": "e641dbb310efa729c0d4894c0e5cce5805762ca63eedb4f9b96908d0ec6507cc",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144095081063,
+            "sha256": "adb93a90e0e528241e74d3efe49982c6290a3fce8c476ed099b9ecd4844cdb3a",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144098285075,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144098285067,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144096042015,
+            "sha256": "32514744ad52bf337013ff6ac7a51c578179693ff008a2131da6bfa8d2bef9cc",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 144095233215,
+            "sha256": "6e21837f210efa5e3c380f6d1e6bebb660f5be2b418a034051f537f7421c3103",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000411599_episode_teacher_s2_independent_00",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s2_independent_00"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 144098285091,
+              "sha256": "9e62beae82621ace02d66bc8c7984441fbe1810ed530ec55b1aac594720fcc06",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144098309091,
+              "sha256": "24762d07ce3fc96bdb68dc5951d6494b2a48631272d5fde45d283b149e4ec1aa",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000411600_teacher_s2_independent_00_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_00_agreement"
+        }
+      },
+      "stream": 2,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094893646,
+              "sha256": "b01535cf0d1cf89d4148682ee277af32ee9a6d7f9b28ab7072de77957c81201c",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 144094894654,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094893918,
+              "sha256": "722cc53042c0a8b78457df5cab79cefc3c14324d57a62367242172be6b947e09",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 144094894646,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094893694,
+              "sha256": "9ca5decf6ffb0745c474a7cfe2399e990bdb0f3e19c919128d763820cd59572e",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094893846,
+              "sha256": "ca7163a918ddfe10ec49ded6082fb15ce50e766bf27cda15e13e44f5a73666e6",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000411597_q000169456_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000169456_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094894814,
+              "sha256": "90ff31a965d4e213ffbb7979cc7bd56a5f441777b1d785d5e20b8afad2bed022",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 144094894822,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1288,
+              "dtype": "<U322",
+              "encoding": "json",
+              "offset": 144094895775,
+              "sha256": "997a3c87a909ea8c2f96c13f62a934d8f7cba3e0f71b65fb4c0c77a72239aa0d",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094895047,
+              "sha256": "f03c6e328353b58f37d37db6695801043020c34c2c7290fb0116fdf7fe9149b3",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094894678,
+              "sha256": "e96d6705896ce9f9ee7c5ae42eadf9b08a139995bc7c76d75c2bcd5d049aa22d",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094894823,
+              "sha256": "c00b1fcd935baa3376c05e8420d6090f78bde3038c3e89c7a1b328fd9f38a309",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 144094894975,
+              "sha256": "f4cd70f47c6a4e8914e60dc286eceef52699f1b60509ab37851952f2c3f60f74",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000411598_q000169456_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000169456_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s2_independent_01": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "b158e2efdba67876e69fbdce83a4eff3a422f21230a5a0677c0f98437eb221ef",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "db66ee2d2b9d4d9eb2ef2de85dabde53bc438b1d04f6ec807496a8fb72ddcd81",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "b89c644a5a05ee4ad99137729e631d0fef1929703b743e448bfe30f38131887f",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "97f49d3b2079b627e86e1f713364432a31d273fbafeec201b8b3826442753143",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "a99ec2cd6beab300c8a28e6c6a61d4507c66ce72d4f92991d8e41c10034b842a",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "dbd4b96f9396682a6183f33602b4f3b07f4bf2797105177f8543025799007edf",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "de954e307abd0264998d3b663dfb5253d0894dfd15bce01f71e7afc21ef23825",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "def26952400db60d143af54805838dd2eb45b475bbae04fe07225336bd877ef6",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "d1df8fcd0cb49554c09fbb468e2c5126aa5e923322080cda09ad94cd5d1b05d0",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "b7bb18a8f6d6a85a77d7f1552268c5ee4587d9eb30123d0d676a1f5c970e35eb",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 1,
+      "file": "episodes/teacher_s2_independent_01.npz",
+      "seed": 2700000201,
+      "sha256": "b2bb66446fff5bc17426686972811205eeced4077d2cc5322ffd24b252c24559",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 157175181444,
+              "sha256": "a99ec2cd6beab300c8a28e6c6a61d4507c66ce72d4f92991d8e41c10034b842a",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157175205444,
+              "sha256": "de954e307abd0264998d3b663dfb5253d0894dfd15bce01f71e7afc21ef23825",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000449004_teacher_s2_independent_01_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_01_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157175181436,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157171928692,
+            "sha256": "b158e2efdba67876e69fbdce83a4eff3a422f21230a5a0677c0f98437eb221ef",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157172929644,
+            "sha256": "db66ee2d2b9d4d9eb2ef2de85dabde53bc438b1d04f6ec807496a8fb72ddcd81",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235776,
+            "dtype": "<U558944",
+            "encoding": "json",
+            "offset": 157172945644,
+            "sha256": "d0dd16ab638784b98d44ec6594a449e19945b0ee30d3d5662567f306d2afd32b",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157172200916,
+            "sha256": "b89c644a5a05ee4ad99137729e631d0fef1929703b743e448bfe30f38131887f",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157171792692,
+            "sha256": "60d1c4b77ee820a7fcbe0992f7cb6621aa5cbf26ef3c0b50ec782acd82a2d9cd",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157171976692,
+            "sha256": "def26952400db60d143af54805838dd2eb45b475bbae04fe07225336bd877ef6",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157175181428,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157175181420,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157172937644,
+            "sha256": "d1df8fcd0cb49554c09fbb468e2c5126aa5e923322080cda09ad94cd5d1b05d0",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 157172128844,
+            "sha256": "b7bb18a8f6d6a85a77d7f1552268c5ee4587d9eb30123d0d676a1f5c970e35eb",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000449003_episode_teacher_s2_independent_01",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s2_independent_01"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 157175181444,
+              "sha256": "a99ec2cd6beab300c8a28e6c6a61d4507c66ce72d4f92991d8e41c10034b842a",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157175205444,
+              "sha256": "de954e307abd0264998d3b663dfb5253d0894dfd15bce01f71e7afc21ef23825",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000449004_teacher_s2_independent_01_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_01_agreement"
+        }
+      },
+      "stream": 2,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171789295,
+              "sha256": "5b3d7832169babf75467de7a6f6921e0dd7d7d82b6632a80ecbb5357b9c50970",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 157171790303,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171789567,
+              "sha256": "4646219c59e180d7d5a0b04dba58e18e72a61fb0906ca39b9aff813085250ab8",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 157171790295,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171789343,
+              "sha256": "dac870ed59621ceb94de4c8adc4f79027c7c5ecd0d98545466fcf6104f1ef2c1",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171789495,
+              "sha256": "623953ab3e2ede509962bcd71ecee40ba8d906e2585d707a5556fcf43696d5a4",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000449001_q000184855_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000184855_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171790463,
+              "sha256": "44a29126ad6d679d129cf210aefbc28cf30c2df273b98f48a998697601fa18ea",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 157171790471,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1268,
+              "dtype": "<U317",
+              "encoding": "json",
+              "offset": 157171791424,
+              "sha256": "4edaa8c0bb43cf43309ba4e86b7eb233be61326f81f6fbec205bc758712af837",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171790696,
+              "sha256": "2e15de4b8085b7b5989d7436d33df13bda62da839630195eaf8d43b1fb978d43",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171790327,
+              "sha256": "1644e70236360d922f2c8ea7662bdb48e3304b82d67867a29b6b8cb9b2964cfc",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171790472,
+              "sha256": "470032b466b8dbecb733ecade783ffe4835e545a932e1370e6b9c6a96f771141",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 157171790624,
+              "sha256": "b302b3d21f3acd813a58ab747cbd4b551b15f1fa870a3e0d446be5edf027d631",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000449002_q000184855_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000184855_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s2_independent_02": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "8df5ffbb50bd10453b598d30462b9d6c17e07846baf18fecc6bc3ce832795417",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "6f880bec0c9b6e39f4df795289db07c4d50ba29a2572dbd526261d04fe74c456",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "0a3c6b81a4d0ca3b290736facccaea4d399944d13df220b1f40c0ba38662d72d",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "8cc5fa966990601d3deb3ad4a36f22c412fd578366b37e52cbe2d93de593b922",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "d8e583350e9ef48719345d14342e3ed481c255c951bbf3f8cc8243bf3e7aaa0a",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "a64848964b24f8e923ad6e7f95de5d727bcceeb98852f061eb056b059b6b487c",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "2dff77a4ba44d006ced79d09188988e2c3572b012f85ce07642d059ae56e939e",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "3d6f71178062e2fc246ea62d06a6bddf18192e59f7a70a08d77282c51d64b06f",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "a8e390d091439d384ca1afe80bb55009170534b20503f2b14e4f86c1127da7b4",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "2c3d061883e2666c7b1b26a10b444efe94678dd6efd51878ea605b9d60292166",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 2,
+      "file": "episodes/teacher_s2_independent_02.npz",
+      "seed": 2700000202,
+      "sha256": "aa169e87f839dc95672fca5bdda4caff13ad14ddcc4aaa16cb43349b39d52b02",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 175005848596,
+              "sha256": "d8e583350e9ef48719345d14342e3ed481c255c951bbf3f8cc8243bf3e7aaa0a",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175005872596,
+              "sha256": "2dff77a4ba44d006ced79d09188988e2c3572b012f85ce07642d059ae56e939e",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000500025_teacher_s2_independent_02_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_02_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175005848588,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175002596700,
+            "sha256": "8df5ffbb50bd10453b598d30462b9d6c17e07846baf18fecc6bc3ce832795417",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175003597652,
+            "sha256": "6f880bec0c9b6e39f4df795289db07c4d50ba29a2572dbd526261d04fe74c456",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2234920,
+            "dtype": "<U558730",
+            "encoding": "json",
+            "offset": 175003613652,
+            "sha256": "bcdc35fafee8a9ac718a84759ea989397813bcaf8745dd625f1eda1d8aac3298",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175002868924,
+            "sha256": "0a3c6b81a4d0ca3b290736facccaea4d399944d13df220b1f40c0ba38662d72d",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175002460700,
+            "sha256": "efa1dbbe4931808aa0fddc1758532c283e9af17726b69a441aa8113f5370270a",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175002644700,
+            "sha256": "3d6f71178062e2fc246ea62d06a6bddf18192e59f7a70a08d77282c51d64b06f",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175005848580,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175005848572,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175003605652,
+            "sha256": "a8e390d091439d384ca1afe80bb55009170534b20503f2b14e4f86c1127da7b4",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 175002796852,
+            "sha256": "2c3d061883e2666c7b1b26a10b444efe94678dd6efd51878ea605b9d60292166",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000500024_episode_teacher_s2_independent_02",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s2_independent_02"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 175005848596,
+              "sha256": "d8e583350e9ef48719345d14342e3ed481c255c951bbf3f8cc8243bf3e7aaa0a",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175005872596,
+              "sha256": "2dff77a4ba44d006ced79d09188988e2c3572b012f85ce07642d059ae56e939e",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000500025_teacher_s2_independent_02_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_02_agreement"
+        }
+      },
+      "stream": 2,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002457287,
+              "sha256": "30a4dcfcf2915d0a20606f6e6c37402c7e2a0b6350ad1a8affc3d71232108f5a",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 175002458295,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002457559,
+              "sha256": "f48e472112a125c6298a812d7bdedfe1c7d82d29ed3e1dc329288fbc1a0c8ff8",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 175002458287,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002457335,
+              "sha256": "8426e1f72df1b30009538d474d9f35749fe18ec0b66121a8174a9e0ab46b3fed",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002457487,
+              "sha256": "55cf280c81710a514ca82c271748da405c9c598a7911e6a90f0f7e659b4f0479",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000500022_q000205861_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000205861_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002458455,
+              "sha256": "03a98ef86424e579570a327db300a06053aad33dd6d91b26daa25ca2ef9905f6",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 175002458463,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1284,
+              "dtype": "<U321",
+              "encoding": "json",
+              "offset": 175002459416,
+              "sha256": "a640b8cfce6fd4c367db8a1673f0d41e6f9fe70653d31c6634c88a010607ebf9",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002458688,
+              "sha256": "090e01b820a007c748fa56259530644e044b9bdfdc59cc53f527f0fbe76bd37b",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002458319,
+              "sha256": "b233d59ef9ebb30805738fbb1a047e040933f26a4d1c2d01bb9d3973d2d65571",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002458464,
+              "sha256": "3d4256e5c3685dd69d545abaa7cea1575b1177178e0ba3f6b5f9a5fcc92fc2ad",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 175002458616,
+              "sha256": "924ee13a03cb7662a9b1e91071c76c394cb0d9cb99b20db425533024cb12806d",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000500023_q000205861_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000205861_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    },
+    "teacher_s2_independent_03": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f8",
+          "sha256": "34cda2be0da0e6023166ccbc1457d3165dd82dced389d9e606793d4f4ac9e99b",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "costs": {
+          "dtype": "<f8",
+          "sha256": "d2bddc3af0f46b033717da8068efef1209ddfff11edf1455a4ad2a02ea2f8210",
+          "shape": [
+            1000
+          ]
+        },
+        "dimensions": {
+          "dtype": "<i8",
+          "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+          "shape": [
+            3
+          ]
+        },
+        "fall_costs": {
+          "dtype": "<f8",
+          "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+          "shape": [
+            1000
+          ]
+        },
+        "integration_spec": {
+          "dtype": "<i8",
+          "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+          "shape": []
+        },
+        "integrations": {
+          "dtype": "<f8",
+          "sha256": "98908cf499a4f13d51335046c0eec714e7c94d59e9546433bb559db720b3582e",
+          "shape": [
+            1001,
+            91
+          ]
+        },
+        "observations": {
+          "dtype": "<f8",
+          "sha256": "923f7037f3d7c99f8ac80ad7f5be827eca6fb916acc177f8592d9270319e0575",
+          "shape": [
+            1001,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "42e9a9cb20d4f651e77548b6aeabb944889757df7821a594876ba23aed20ab61",
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "seed": {
+          "dtype": "<i8",
+          "sha256": "c0445593b64459aa30de4fcae86316d9be1632ef1e8f8b22d24081f7fd65077f",
+          "shape": []
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "f532633d9888b02b0bce4d5b2c3feb8757950a76ee29b1dde17a530b768bc1c9",
+          "shape": [
+            1000
+          ]
+        },
+        "states": {
+          "dtype": "<f8",
+          "sha256": "c94c650fefcdd0448ceef16b79b6229afeb8cf484bd83020e006783ca2d68103",
+          "shape": [
+            1001,
+            19
+          ]
+        },
+        "velocities": {
+          "dtype": "<f8",
+          "sha256": "c9574a390055068fa68429e67a6c48750f78eebbb82719525b4990631b1722cc",
+          "shape": [
+            1000
+          ]
+        },
+        "warmstarts": {
+          "dtype": "<f8",
+          "sha256": "953ed508443d420eac948a341bf14c7462acb8b797d2e6a4aa646495f455043b",
+          "shape": [
+            1001,
+            9
+          ]
+        }
+      },
+      "bytes": 1196438,
+      "case": 3,
+      "file": "episodes/teacher_s2_independent_03.npz",
+      "seed": 2700000203,
+      "sha256": "2fb1f461bc08b9839fff310464ae0f6b4d5a559170e5a61c174da0380d834165",
+      "source_predictions": {
+        "key": "policy_actions",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 192874906572,
+              "sha256": "42e9a9cb20d4f651e77548b6aeabb944889757df7821a594876ba23aed20ab61",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192874930572,
+              "sha256": "f532633d9888b02b0bce4d5b2c3feb8757950a76ee29b1dde17a530b768bc1c9",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000551046_teacher_s2_independent_03_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_03_agreement"
+        }
+      },
+      "source_raw": {
+        "arrays": {
+          "absorbing_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192874906564,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "actions": {
+            "byte_length": 48000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192871654224,
+            "sha256": "34cda2be0da0e6023166ccbc1457d3165dd82dced389d9e606793d4f4ac9e99b",
+            "shape": [
+              1000,
+              6
+            ]
+          },
+          "costs": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192872655176,
+            "sha256": "d2bddc3af0f46b033717da8068efef1209ddfff11edf1455a4ad2a02ea2f8210",
+            "shape": [
+              1000
+            ]
+          },
+          "infos": {
+            "byte_length": 2235372,
+            "dtype": "<U558843",
+            "encoding": "json",
+            "offset": 192872671176,
+            "sha256": "d02117ebb7552b260ac22333fd1812f0e233b6c002ffdba7a180da4869dff7d1",
+            "shape": []
+          },
+          "integrations": {
+            "byte_length": 728728,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192871926448,
+            "sha256": "98908cf499a4f13d51335046c0eec714e7c94d59e9546433bb559db720b3582e",
+            "shape": [
+              1001,
+              91
+            ]
+          },
+          "observations": {
+            "byte_length": 136000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192871518224,
+            "sha256": "3ea28a43a936d5ba1f2839ea6dc1384bad7b69b9a7c2adcdfb88833234ab9a38",
+            "shape": [
+              1000,
+              17
+            ]
+          },
+          "states": {
+            "byte_length": 152152,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192871702224,
+            "sha256": "c94c650fefcdd0448ceef16b79b6229afeb8cf484bd83020e006783ca2d68103",
+            "shape": [
+              1001,
+              19
+            ]
+          },
+          "terminal_adjustment": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192874906556,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "terminal_cost": {
+            "byte_length": 8,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192874906548,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+            "shape": []
+          },
+          "velocities": {
+            "byte_length": 8000,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192872663176,
+            "sha256": "c9574a390055068fa68429e67a6c48750f78eebbb82719525b4990631b1722cc",
+            "shape": [
+              1000
+            ]
+          },
+          "warmstarts": {
+            "byte_length": 72072,
+            "dtype": "<f8",
+            "encoding": "array",
+            "offset": 192871854376,
+            "sha256": "953ed508443d420eac948a341bf14c7462acb8b797d2e6a4aa646495f455043b",
+            "shape": [
+              1001,
+              9
+            ]
+          }
+        },
+        "file": "arrays.bin",
+        "format": "walker-array-stream-v1",
+        "group": "arrays/a000551045_episode_teacher_s2_independent_03",
+        "index": "arrays.index.jsonl",
+        "tag": "episode_teacher_s2_independent_03"
+      },
+      "source_squared_disagreement": {
+        "key": "squared_disagreement",
+        "reference": {
+          "arrays": {
+            "policy_actions": {
+              "byte_length": 24000,
+              "dtype": "<f4",
+              "encoding": "array",
+              "offset": 192874906572,
+              "sha256": "42e9a9cb20d4f651e77548b6aeabb944889757df7821a594876ba23aed20ab61",
+              "shape": [
+                1000,
+                6
+              ]
+            },
+            "squared_disagreement": {
+              "byte_length": 8000,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192874930572,
+              "sha256": "f532633d9888b02b0bce4d5b2c3feb8757950a76ee29b1dde17a530b768bc1c9",
+              "shape": [
+                1000
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000551046_teacher_s2_independent_03_agreement",
+          "index": "arrays.index.jsonl",
+          "tag": "teacher_s2_independent_03_agreement"
+        }
+      },
+      "stream": 2,
+      "terminal_binding": {
+        "dimensions_key": "dimensions",
+        "integration_spec_key": "spec",
+        "last_live_inputs": {
+          "arrays": {
+            "action": {
+              "byte_length": 48,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871514791,
+              "sha256": "f143e06a760ed7bad29c93198c2d46dfa297f19333b9c5959751fae64bbfbeef",
+              "shape": [
+                6
+              ]
+            },
+            "dimensions": {
+              "byte_length": 24,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 192871515799,
+              "sha256": "5fdb8f41b67451b9d119b337ba995899c9f9c1e58986269593fe2e48b94980ad",
+              "shape": [
+                3
+              ]
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871515063,
+              "sha256": "4caae8558b4cd7ef0cd6e3dff852005efd8874e46d1690151725be6124800e54",
+              "shape": [
+                91
+              ]
+            },
+            "spec": {
+              "byte_length": 8,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 192871515791,
+              "sha256": "4718ca1b4ade42a97b4d1d57c651b50224cebaea4ee6d199d0d6eaeed9044494",
+              "shape": []
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871514839,
+              "sha256": "9357a9475d3143e609df107c211cc1b99ab900b7c04c91148f1fc4a8008ec926",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871514991,
+              "sha256": "0dffbd028754126e45b1617ad1b8e2d720a832030fcad71cd08e580d49e33713",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000551043_q000226867_inputs",
+          "index": "arrays.index.jsonl",
+          "tag": "q000226867_inputs"
+        },
+        "last_live_result": {
+          "arrays": {
+            "cost": {
+              "byte_length": 8,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871515959,
+              "sha256": "04687da1009c75dc9bd71bce7123ae7e967c61e71a6ac2427159567a62cd2a84",
+              "shape": []
+            },
+            "done": {
+              "byte_length": 1,
+              "dtype": "|b1",
+              "encoding": "array",
+              "offset": 192871515967,
+              "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+              "shape": []
+            },
+            "info": {
+              "byte_length": 1304,
+              "dtype": "<U326",
+              "encoding": "json",
+              "offset": 192871516920,
+              "sha256": "6a4d77a60d0d64867868d95e1935d0ea07e59ded60bc6bfcf1883c40d015775a",
+              "shape": []
+            },
+            "integration": {
+              "byte_length": 728,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871516192,
+              "sha256": "7bb74ed679b16872fac89665f988ff4db1d6fdea1608b1f7a112fabbce056a75",
+              "shape": [
+                91
+              ]
+            },
+            "observation": {
+              "byte_length": 136,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871515823,
+              "sha256": "1b20ffc62abed718e0030a7277c528387693dfd89830b8f17303337146ca90d6",
+              "shape": [
+                17
+              ]
+            },
+            "state": {
+              "byte_length": 152,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871515968,
+              "sha256": "dd28020b155464a126a4c26fd4d4ccce447e378f2aebc97de40bc5072f1635a1",
+              "shape": [
+                19
+              ]
+            },
+            "warmstart": {
+              "byte_length": 72,
+              "dtype": "<f8",
+              "encoding": "array",
+              "offset": 192871516120,
+              "sha256": "9d7fda203dd5323ceac0c40aa0952ee346f43d616721c48ed8b2dab067bc722f",
+              "shape": [
+                9
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000551044_q000226867_result",
+          "index": "arrays.index.jsonl",
+          "tag": "q000226867_result"
+        },
+        "terminal_observation_key": "observation"
+      }
+    }
+  },
+  "inputs": {
+    "normalization": {
+      "bytes": 636,
+      "file": "inputs/normalization.npz",
+      "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+    },
+    "task": {
+      "bytes": 453,
+      "file": "inputs/task.json",
+      "sha256": "2da5a7a34fd6fdd9e69165ed6b1bf5345ab893f7570c5dee03e577d92093921a"
+    },
+    "train": {
+      "bytes": 2321518,
+      "file": "inputs/train.npz",
+      "sha256": "2c53be793fb4b213dd9edb63195fb6b83d355c05f4eff0df8ed2cb44ee77ce6e"
+    },
+    "validation": {
+      "bytes": 1161518,
+      "file": "inputs/validation.npz",
+      "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6"
+    }
+  },
+  "integration_spec": 16383,
+  "normalization": {
+    "arrays": {
+      "mean": {
+        "dtype": "float32",
+        "sha256": "36254115c3c083be0429e2ad2656c1af9410b8a4edf1060a7469826183a73907",
+        "shape": [
+          17
+        ]
+      },
+      "std": {
+        "dtype": "float32",
+        "sha256": "139293150ef9f839cf201dfc53f79f389a1f9e0658f1c2c337b683f9640cba2d",
+        "shape": [
+          17
+        ]
+      }
+    },
+    "bytes": 636,
+    "file": "inputs/normalization.npz",
+    "refit": false,
+    "rule": "float64 train mean -> float32; maximum(float64 train population std,0.05) -> float32",
+    "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+  },
+  "parents": {
+    "0": {
+      "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+      "bytes": 330298,
+      "file": "parents/s0_parent.pt",
+      "global_torch_rng": {
+        "arrays": {
+          "state": {
+            "dtype": "|u1",
+            "sha256": "2a00760532a845a28c34f09a4c9a37aa4004ae6d54935ca805b9363e3b56cd10",
+            "shape": [
+              5056
+            ]
+          }
+        },
+        "bytes": 5184,
+        "file": "parents/s0_global_torch_rng.npy",
+        "sha256": "61a154d90ebd142cf3fdae075b403ea85bcdc69e8eb3eb062fb4d7b3a12a8465"
+      },
+      "incoming_optimizer_sha256": "280f69ab7fcf4f4bc6e372c401205f37d7a72498100c3ab0cdddf5af836c0e8a",
+      "original_checkpoint_record": {
+        "actor_hash": "8d01dd29e1324770d188a7fa87c9f4961974e7bbe98b380acec4f46d5bd8ce50",
+        "bytes": 330298,
+        "file": "checkpoints/s0_parent.pt",
+        "fit_tape": {
+          "arrays": {
+            "indices": {
+              "byte_length": 4096000,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 5056,
+              "sha256": "63a799b114be2b1ead92d0c7eb6182566557888688cb1feba67b80136e69dd9a",
+              "shape": [
+                2000,
+                256
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000000001_s0_parent_expected_minibatch_tape",
+          "index": "arrays.index.jsonl",
+          "tag": "s0_parent_expected_minibatch_tape"
+        },
+        "fitting_evidence": "learning/s0_parent.json",
+        "global_rng": {
+          "key": "state",
+          "reference": {
+            "arrays": {
+              "state": {
+                "byte_length": 5056,
+                "dtype": "|u1",
+                "encoding": "array",
+                "offset": 4101056,
+                "sha256": "2a00760532a845a28c34f09a4c9a37aa4004ae6d54935ca805b9363e3b56cd10",
+                "shape": [
+                  5056
+                ]
+              }
+            },
+            "file": "arrays.bin",
+            "format": "walker-array-stream-v1",
+            "group": "arrays/a000000002_s0_parent_global_torch_rng",
+            "index": "arrays.index.jsonl",
+            "tag": "s0_parent_global_torch_rng"
+          }
+        },
+        "name": "s0_parent",
+        "optimizer_sha256": "280f69ab7fcf4f4bc6e372c401205f37d7a72498100c3ab0cdddf5af836c0e8a",
+        "sha256": "f76ff22c816f0554517355721b2ad1c92e89cf3e58b5751eb0b79211a22594c2"
+      },
+      "sha256": "f76ff22c816f0554517355721b2ad1c92e89cf3e58b5751eb0b79211a22594c2"
+    },
+    "1": {
+      "actor_hash": "93ed85d1ec60e98325bcabaf116774f1655cccc6f49da60d94793b537f98724d",
+      "bytes": 330298,
+      "file": "parents/s1_parent.pt",
+      "global_torch_rng": {
+        "arrays": {
+          "state": {
+            "dtype": "|u1",
+            "sha256": "2a00760532a845a28c34f09a4c9a37aa4004ae6d54935ca805b9363e3b56cd10",
+            "shape": [
+              5056
+            ]
+          }
+        },
+        "bytes": 5184,
+        "file": "parents/s1_global_torch_rng.npy",
+        "sha256": "61a154d90ebd142cf3fdae075b403ea85bcdc69e8eb3eb062fb4d7b3a12a8465"
+      },
+      "incoming_optimizer_sha256": "cc5f05dc4268719c346dbec5a602bd4ce095adf59375b03d2bfc724c6911f938",
+      "original_checkpoint_record": {
+        "actor_hash": "93ed85d1ec60e98325bcabaf116774f1655cccc6f49da60d94793b537f98724d",
+        "bytes": 330298,
+        "file": "checkpoints/s1_parent.pt",
+        "fit_tape": {
+          "arrays": {
+            "indices": {
+              "byte_length": 4096000,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 4111168,
+              "sha256": "b31ed2fa274e138459cd1be93304c7f4426a73173bcaef7cd51467bc7ab8b8a4",
+              "shape": [
+                2000,
+                256
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000000004_s1_parent_expected_minibatch_tape",
+          "index": "arrays.index.jsonl",
+          "tag": "s1_parent_expected_minibatch_tape"
+        },
+        "fitting_evidence": "learning/s1_parent.json",
+        "global_rng": {
+          "key": "state",
+          "reference": {
+            "arrays": {
+              "state": {
+                "byte_length": 5056,
+                "dtype": "|u1",
+                "encoding": "array",
+                "offset": 8207168,
+                "sha256": "2a00760532a845a28c34f09a4c9a37aa4004ae6d54935ca805b9363e3b56cd10",
+                "shape": [
+                  5056
+                ]
+              }
+            },
+            "file": "arrays.bin",
+            "format": "walker-array-stream-v1",
+            "group": "arrays/a000000005_s1_parent_global_torch_rng",
+            "index": "arrays.index.jsonl",
+            "tag": "s1_parent_global_torch_rng"
+          }
+        },
+        "name": "s1_parent",
+        "optimizer_sha256": "cc5f05dc4268719c346dbec5a602bd4ce095adf59375b03d2bfc724c6911f938",
+        "sha256": "dfff0bf7b76f775bebef892a0c058df65faec6d68078d2e7039886b80e18dfa5"
+      },
+      "sha256": "dfff0bf7b76f775bebef892a0c058df65faec6d68078d2e7039886b80e18dfa5"
+    },
+    "2": {
+      "actor_hash": "1cde667a9fb4d287ac8b60dcebeedab3b4c517d37169e0b24af20f1bd7236639",
+      "bytes": 330298,
+      "file": "parents/s2_parent.pt",
+      "global_torch_rng": {
+        "arrays": {
+          "state": {
+            "dtype": "|u1",
+            "sha256": "2a00760532a845a28c34f09a4c9a37aa4004ae6d54935ca805b9363e3b56cd10",
+            "shape": [
+              5056
+            ]
+          }
+        },
+        "bytes": 5184,
+        "file": "parents/s2_global_torch_rng.npy",
+        "sha256": "61a154d90ebd142cf3fdae075b403ea85bcdc69e8eb3eb062fb4d7b3a12a8465"
+      },
+      "incoming_optimizer_sha256": "a3d46d1b98876b4a4719acfd2913c5dcfab5167d9379865057ba80f826d1adb1",
+      "original_checkpoint_record": {
+        "actor_hash": "1cde667a9fb4d287ac8b60dcebeedab3b4c517d37169e0b24af20f1bd7236639",
+        "bytes": 330298,
+        "file": "checkpoints/s2_parent.pt",
+        "fit_tape": {
+          "arrays": {
+            "indices": {
+              "byte_length": 4096000,
+              "dtype": "<i8",
+              "encoding": "array",
+              "offset": 8217280,
+              "sha256": "fb1de0ef6a59b367c744f90061dd0936c028f2d76b7fca59dfa22e59dcee349c",
+              "shape": [
+                2000,
+                256
+              ]
+            }
+          },
+          "file": "arrays.bin",
+          "format": "walker-array-stream-v1",
+          "group": "arrays/a000000007_s2_parent_expected_minibatch_tape",
+          "index": "arrays.index.jsonl",
+          "tag": "s2_parent_expected_minibatch_tape"
+        },
+        "fitting_evidence": "learning/s2_parent.json",
+        "global_rng": {
+          "key": "state",
+          "reference": {
+            "arrays": {
+              "state": {
+                "byte_length": 5056,
+                "dtype": "|u1",
+                "encoding": "array",
+                "offset": 12313280,
+                "sha256": "2a00760532a845a28c34f09a4c9a37aa4004ae6d54935ca805b9363e3b56cd10",
+                "shape": [
+                  5056
+                ]
+              }
+            },
+            "file": "arrays.bin",
+            "format": "walker-array-stream-v1",
+            "group": "arrays/a000000008_s2_parent_global_torch_rng",
+            "index": "arrays.index.jsonl",
+            "tag": "s2_parent_global_torch_rng"
+          }
+        },
+        "name": "s2_parent",
+        "optimizer_sha256": "a3d46d1b98876b4a4719acfd2913c5dcfab5167d9379865057ba80f826d1adb1",
+        "sha256": "c7c42a8365d936df18eed06f15572ebcc420b6688ad3a53ad1b863d161a9a55f"
+      },
+      "sha256": "c7c42a8365d936df18eed06f15572ebcc420b6688ad3a53ad1b863d161a9a55f"
+    }
+  },
+  "schema": "walker-consequence-inputs-v1",
+  "selected_groups_verified": 303,
+  "source_bindings": {
+    "bytes": 200016,
+    "file": "metadata/source_bindings.json",
+    "sha256": "0121d322be5c0e48ad66b89284eb0aa78b53e53d3a7bec3677581e8cf4629bf8"
+  },
+  "source_run": "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_r1_001",
+  "source_run_metadata": {
+    "config.json": {
+      "bytes": 26345,
+      "file": "metadata/h5_source/config.json",
+      "sha256": "5fe92168c331e433c3843a4ae4b319e279deec963cc7afb7f3a2a599b1c753ad"
+    },
+    "input_manifest.json": {
+      "bytes": 1929,
+      "file": "metadata/h5_source/input_manifest.json",
+      "sha256": "cdd3f31e513745f8dbc6da986958953fa350a09d5573b8d9424ea426f46b4808"
+    },
+    "manifest.json": {
+      "bytes": 89571,
+      "file": "metadata/h5_source/manifest.json",
+      "sha256": "c45de63fe2d7f133fa9cbc2f806e3d038792a56d01cecb5bdb10721664d10a80"
+    },
+    "worker_result.json": {
+      "bytes": 41813,
+      "file": "metadata/h5_source/worker_result.json",
+      "sha256": "95bc15a36a561ab6b9a4b0f9fbca9977209e32ba2315fcc35f223f762aa079eb"
+    }
+  },
+  "status": "complete",
+  "streams": {
+    "0": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f4",
+          "sha256": "0e63d253d395dcdaf48873501f3dc1a6166ca76f57a67a22ea88a50568f57460",
+          "shape": [
+            4000,
+            6
+          ]
+        },
+        "control_index": {
+          "dtype": "<i8",
+          "sha256": "7eb1f148e846ca4e14182618fc9b1920be5677f2a7147ab452cedee15adde7fa",
+          "shape": [
+            4000
+          ]
+        },
+        "episode_index": {
+          "dtype": "<i8",
+          "sha256": "4b6afba6e009a2b75e16b5ade87dbb7028b48c3394ebe7ad0f537fcb64fc9f3c",
+          "shape": [
+            4000
+          ]
+        },
+        "observations": {
+          "dtype": "<f4",
+          "sha256": "1bb878a3ba09928bfdf660776b8e37e955481117a8da2576f1cadc75642f84fd",
+          "shape": [
+            4000,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "5927d1295e4b4e6274febbe7324ff3bf36ac263f9b085705e81672b09331ddf3",
+          "shape": [
+            4000,
+            6
+          ]
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "4b65b701e7a85eddbe4c5012f32d89e7fe19f20e15196b4930aa3f7c2087aced",
+          "shape": [
+            4000
+          ]
+        }
+      },
+      "bytes": 561572,
+      "episode_tags": [
+        "teacher_s0_independent_00",
+        "teacher_s0_independent_01",
+        "teacher_s0_independent_02",
+        "teacher_s0_independent_03"
+      ],
+      "file": "streams/s0_corpus.npz",
+      "rows": 4000,
+      "sha256": "1390c85df1c1734231c98516425220637996e26b1bd5b9fb9b2d8adc3ebdb18b"
+    },
+    "1": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f4",
+          "sha256": "464859a9ab396465add50fa599a954b930e76cbbadb82c0a2b72a1f5c94c0bd5",
+          "shape": [
+            4000,
+            6
+          ]
+        },
+        "control_index": {
+          "dtype": "<i8",
+          "sha256": "7eb1f148e846ca4e14182618fc9b1920be5677f2a7147ab452cedee15adde7fa",
+          "shape": [
+            4000
+          ]
+        },
+        "episode_index": {
+          "dtype": "<i8",
+          "sha256": "4b6afba6e009a2b75e16b5ade87dbb7028b48c3394ebe7ad0f537fcb64fc9f3c",
+          "shape": [
+            4000
+          ]
+        },
+        "observations": {
+          "dtype": "<f4",
+          "sha256": "96d7b43613065166d17e3184123cf645a5243371891f746be8fd0b7ccf5489ae",
+          "shape": [
+            4000,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "85b2b92183176964c3c9cbac12e7d22f78e05bd033e125119530086d8c82380b",
+          "shape": [
+            4000,
+            6
+          ]
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "fc99a13b8729a4990172bd49b4b6a9823d18625be45b0a2c97a50d89bcd69cde",
+          "shape": [
+            4000
+          ]
+        }
+      },
+      "bytes": 561572,
+      "episode_tags": [
+        "teacher_s1_independent_00",
+        "teacher_s1_independent_01",
+        "teacher_s1_independent_02",
+        "teacher_s1_independent_03"
+      ],
+      "file": "streams/s1_corpus.npz",
+      "rows": 4000,
+      "sha256": "6a0814871626669d1a42cff1493b8e0f4a8b5b4cc02ad1b18d6860c09818bf19"
+    },
+    "2": {
+      "arrays": {
+        "actions": {
+          "dtype": "<f4",
+          "sha256": "b8fe034ae868747ba7196f4d0077795fc0202e07df3cb73f5262499701b93af4",
+          "shape": [
+            4000,
+            6
+          ]
+        },
+        "control_index": {
+          "dtype": "<i8",
+          "sha256": "7eb1f148e846ca4e14182618fc9b1920be5677f2a7147ab452cedee15adde7fa",
+          "shape": [
+            4000
+          ]
+        },
+        "episode_index": {
+          "dtype": "<i8",
+          "sha256": "4b6afba6e009a2b75e16b5ade87dbb7028b48c3394ebe7ad0f537fcb64fc9f3c",
+          "shape": [
+            4000
+          ]
+        },
+        "observations": {
+          "dtype": "<f4",
+          "sha256": "bbe021dac0c744bd90e8651af288b45030a29d35d05acb1e6840ef19e2c7f972",
+          "shape": [
+            4000,
+            17
+          ]
+        },
+        "policy_actions": {
+          "dtype": "<f4",
+          "sha256": "27deb103f941ee8b2832e735bc067394e9cbf34e7ce1278291200a8d3e205c39",
+          "shape": [
+            4000,
+            6
+          ]
+        },
+        "squared_disagreement": {
+          "dtype": "<f8",
+          "sha256": "6c7e04ae29d5bba68ce5ef616e6fd4a63dd29d52be9f0b3b7391b5dcb773292e",
+          "shape": [
+            4000
+          ]
+        }
+      },
+      "bytes": 561572,
+      "episode_tags": [
+        "teacher_s2_independent_00",
+        "teacher_s2_independent_01",
+        "teacher_s2_independent_02",
+        "teacher_s2_independent_03"
+      ],
+      "file": "streams/s2_corpus.npz",
+      "rows": 4000,
+      "sha256": "2a57d2ca3e5d3d8b8becae709e2b8c5bd454dd8d41e8268bd46de58e594cb1e5"
+    }
+  },
+  "work": {
+    "new_native_controls": 0,
+    "new_neural_rows": 0,
+    "new_optimizer_steps": 0,
+    "output_reserved_bytes": 22752037,
+    "peak_rss_bytes": 230014976,
+    "source_read_bytes": 157690145,
+    "source_read_bytes_by_kind": {
+      "bound_run_JSON": 159658,
+      "closed_audit_SQLite": 94531584,
+      "copied_source_files": 4834693,
+      "prepared_output_verification": 16057524,
+      "selected_array_C_bytes": 41098104,
+      "selected_index": 808566,
+      "source_binding_JSON": 200016
+    },
+    "wall_seconds": 0.4346192599987262
+  }
+}

@@ -104,6 +104,8 @@ first; never restart a paid run, reuse its mirror path or edit its frozen source
 
 Checkpoint tensor hashes, whole-file SHA-256, raw-array hashes, fitting-array hashes and typed optimizer fingerprints have different byte contracts. They are not interchangeable. A checkpoint continuation includes normalization, optimizer state, private fitting RNG and proximal-anchor state as specified by the protocol; copying policy weights alone is not a matched child.
 
+C1's [fault-preservation result](student_consequence_c1_results.md) separates a passed saved scientific receipt from a failed audit coordinator. Its original `audit/exit.json` was never written; do not create a replacement or infer the child's exit code from GNU time's coordinator exit 1. The current watchdog accepts absent VmRSS only for disappeared or explicit terminal Linux process states; live missing-RSS still fails. The current C1 launcher persists exception receipts. Debug these boundaries with `tests/test_proposal_launch.py` and `tests/test_consequence_launch.py`, without reopening the paid worker. The saved report accepts `--closure` and the capsule inspector exposes the failure companion; neither closes the original gate or authorizes a retry.
+
 ## Reports and independent audits
 
 The [capsules](../results/README.md) contain complete saved result JSON, curves and the inputs required by report rendering. Report scripts are compatibility wrappers over library modules:

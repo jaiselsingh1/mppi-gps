@@ -416,7 +416,37 @@ def _figures(out: Path, curves: list[dict], outcomes: list[dict], reader: _Reade
                 os.environ["MPLCONFIGDIR"] = previous
 
 
-def render(run: Path, out: Path, audit: Path | None = None) -> dict[str, Any]:
+def _closure_failure(reader: _Reader, path: Path, audit_path: Path | None) -> dict[str, Any]:
+    """Bind an explicit failed coordinator closure without reconstructing its exit."""
+    value = reader.load(path)
+    expected = dict(
+        schema="walker-c1-audit-launcher-failure-v1",
+        overall_audit_closure_passed=False,
+        audit_coordinator_failed=True,
+        original_audit_exit_exists=False,
+        original_child_exit_code=None,
+        coordinator_exit_code=1,
+    )
+    for key, required in expected.items():
+        actual = value.get(key)
+        if key not in value or type(actual) is not type(required) or actual != required:
+            raise ValueError("C1 audit closure failure field differs: " + key)
+    binding = value.get("scientific_receipt")
+    if audit_path is None or not isinstance(binding, dict):
+        raise ValueError("C1 audit closure failure requires its saved scientific receipt")
+    actual_binding = reader.inputs[str(audit_path)]
+    if (
+        type(binding.get("bytes")) is not int
+        or binding["bytes"] != actual_binding["bytes"]
+        or binding.get("sha256") != actual_binding["sha256"]
+    ):
+        raise ValueError("C1 audit closure failure binds a different scientific receipt")
+    return value
+
+
+def render(
+    run: Path, out: Path, audit: Path | None = None, closure: Path | None = None
+) -> dict[str, Any]:
     """Create a bounded saved-only report; missing measurements stay missing."""
     run, out = Path(run), Path(out)
     if out.exists():
@@ -490,6 +520,13 @@ def render(run: Path, out: Path, audit: Path | None = None) -> dict[str, Any]:
         ):
             raise ValueError("C1 audit receipt binds a different configuration")
         config_association = "config_sha256_verified"
+    if closure is None:
+        candidate = run / "accounting/audit_launcher_failure.json"
+        if candidate.is_file():
+            closure = candidate
+    closure_value = (
+        _closure_failure(reader, Path(closure), audit_path) if closure is not None else None
+    )
     status = result.get("status", "NO_WORKER_RESULT_INCOMPLETE")
     complete = status == "COMPLETED_FIXED_C1_ROSTER"
     degenerate = status == "STOPPED_DEGENERATE_PLANNED_CONTRAST"
@@ -504,7 +541,20 @@ def render(run: Path, out: Path, audit: Path | None = None) -> dict[str, Any]:
     )
     if reader.partial_lines:
         complete = audited = False
-    if degenerate:
+    if closure_value is not None:
+        checks_status = (
+            "saved scientific receipt reports passing checks"
+            if audited
+            else "saved scientific receipt does not certify passing checks"
+        )
+        verdict = (
+            "AUDIT_COORDINATOR_FAILED; outer closure incomplete; "
+            + checks_status
+            + ". The original audit exit receipt is missing and the child exit code is unknown. "
+            "This is not a completed overall audit or an admitted benefit claim. "
+            "Recorded outcomes and the original scientific receipt are preserved separately."
+        )
+    elif degenerate:
         verdict = "The planned weighting contrast was degenerate. No child fitting or standalone learning comparison was measured; this is not a failed-learning result."
     elif not complete:
         verdict = "Execution is incomplete or stopped at a prerequisite/infrastructure gate. Available prefixes are retained; absent child or standalone measurements are missing, not zero or evidence of failed learning."
@@ -545,6 +595,7 @@ def render(run: Path, out: Path, audit: Path | None = None) -> dict[str, Any]:
         worker_process_lifetime_io=result.get("process_lifetime_io"),
         prerequisites=documents.get("prerequisites.json"),
         audit=audit_value or None,
+        audit_launcher_failure=closure_value,
         report_scope="Saved JSON, figures and scalar arithmetic only; zero neural, physics or optimizer work. Missing accounting is not zero.",
     )
     _save(out / "costs.json", (json.dumps(cost, indent=2, allow_nan=False) + "\n").encode())
@@ -552,8 +603,11 @@ def render(run: Path, out: Path, audit: Path | None = None) -> dict[str, Any]:
     teachers = [row for row in outcomes if row["panel"] == "teacher_replay"]
     text = [
         "# C1.0: cost-effect-weighted fitting",
-        f"Status: `{status}`. Completed C1 audit bound: **{audited}**.",
+        f"Status: `{status}`. Saved scientific audit receipt bound: **{audited}**.",
         verdict,
+        "Overall audit closure passed: **False**. Saved scientific checks and failed coordinator closure are distinct."
+        if closure_value is not None
+        else "",
         "An incomplete final JSONL fragment is retained by hash; only complete saved lines are shown. The current evidence is incomplete."
         if reader.partial_lines
         else "",
@@ -647,6 +701,14 @@ def render(run: Path, out: Path, audit: Path | None = None) -> dict[str, Any]:
         schema="walker-c1-saved-report-receipt-v1",
         saved_status=status,
         C1_audit_bound=audited,
+        C1_audit_bound_scope="Scientific receipt and config/result association only; not outer coordinator closure.",
+        scientific_receipt_checks_passed=audited,
+        overall_audit_closure_passed=False if closure_value is not None else None,
+        audit_closure_status=(
+            "AUDIT_COORDINATOR_FAILED"
+            if closure_value is not None
+            else "NOT_SEPARATELY_ASSESSED_BY_SAVED_REPORT"
+        ),
         C1_audit_association=association,
         C1_config_association=config_association,
         inputs=reader.inputs,
@@ -681,8 +743,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--audit", type=Path)
+    parser.add_argument("--closure", type=Path)
     args = parser.parse_args(argv)
-    render(args.run, args.out, args.audit)
+    render(args.run, args.out, args.audit, args.closure)
     return 0
 
 

@@ -34,8 +34,7 @@ training or acquisition ran. Its H5.0 recommendation subsequently received a sep
 selector-only and proposal guidance each walked 11/12. The teacher-competence stop prevented
 all child fits and standalone panels. The complete audit passed; useful learning and feedback
 remain unmeasured in this round. Repeated gait remains a possible Walker-specific factor
-rather than a requirement. The one next recommendation is [C1.0](student_consequence_c1_protocol.md),
-a fixed fitting-loss contrast for review only, with launch disabled.
+rather than a requirement. The subsequent [C1.0 contrast](student_consequence_c1_results.md) completed twelve exact replays, all 12,000 effects, nine fits and 432 evaluations. Every parent and child failed walking and full survival. Its saved scientific receipt reports passing checks; the coordinator then failed during exit/RSS sampling, so outer audit closure remains incomplete. This fault is preserved and no audit or science retry ran. An explicit audit-only closure decision precedes further research; the fixed-label visitation draft remains untested.
 
 [W2](student_update_w2_results.md) is closed: fixed 2k checkpoints improve held-trajectory error, retention and complete cost relative to their exactly continued 10k counterparts. Retention/cost benefits repeat on the disjoint confirmation panel, while all endpoints have zero walking and full-survival successes. It is a student update-budget result, not adaptive coupling or competent control. No follow-up was launched.
 
@@ -51,7 +50,7 @@ change a weight or acquire with an updated policy. H4.1 has now done both.
 
 | Track | Question | Current status |
 |---|---|---|
-| [Next learning hypothesis C1.0](student_consequence_c1_protocol.md) | Do weights from fixed-tape action-cost effects improve walking after 2,000 updates beyond uniform and shuffled weights? | Recommended for review; source outcomes/audit pass, but extraction, replay, continuation, seed and capacity gates remain pending. No implementation, launch or coupling. |
+| [C1.0 findings](student_consequence_c1_results.md) | Do fixed-tape cost-effect weights improve walking beyond uniform and shuffled fitting? | Fixed roster complete; every actor failed walking/full survival. Saved scientific checks passed, but the audit coordinator failed and outer closure remains incomplete. No retry, reacquisition or coupling. |
 | [Student learnability L1](student_learnability_track_v1.md) | Can this torque student learn competent walking from successful teacher data? | Fresh clipped/full-velocity 10k training both scored 0/16 walking and survival; nearly identical final MSE. The broader question remains open. |
 | [Coupling H4.1](adaptive_coupling_h4_1.md) | Does an outcome-triggered reduction of agreement pressure improve the next acquisition–learning outcome? | Actual changed-weight acquisition executed; all six teachers walked, all three matched children trained, all regressed against their incoming parent. |
 | [Preserved coupling hypothesis H4.2](adaptive_coupling_h4_2_hypothesis.md) | Does parent-relative learner-response utility improve teaching-weight selection over relative count feedback? | Untested and unlaunched; all three current candidates violate parent nonregression. A better metric alone does not establish walking. |

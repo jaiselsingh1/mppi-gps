@@ -19,12 +19,23 @@ from .provenance import sha, write
 
 
 def _rss_bytes(pid: int) -> int:
-    try:
-        for line in Path(f"/proc/{pid}/status").read_text().splitlines():
+    # Linux removes VmRSS when a task has released its address space but its
+    # zombie/dead status still exists. Re-read once for the exit race; absence
+    # of RSS in a live task remains a watchdog failure, never a zero sample.
+    for _ in range(2):
+        try:
+            lines = Path(f"/proc/{pid}/status").read_text().splitlines()
+        except (FileNotFoundError, ProcessLookupError):
+            return 0
+        state = None
+        for line in lines:
             if line.startswith("VmRSS:"):
                 return int(line.split()[1]) * 1024
-    except FileNotFoundError:
-        return 0
+            if line.startswith("State:"):
+                fields = line.split()
+                state = fields[1] if len(fields) > 1 else None
+        if state in {"Z", "X", "x"}:
+            return 0
     raise RuntimeError("Pinned Linux worker RSS could not be measured")
 
 

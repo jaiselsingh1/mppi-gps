@@ -371,3 +371,133 @@ def test_saved_curve_figures_and_create_only_cli(tmp_path):
         check=True,
     )
     assert (tmp_path / "cli/report.md").is_file()
+
+
+def failed_audit_closure(tmp_path):
+    run = source(
+        tmp_path,
+        dict(
+            status="COMPLETED_FIXED_C1_ROSTER",
+            gates=dict(confirmed=True, uniform_parent_confirmed=True),
+            costs=dict(completed=dict(native_controls=17)),
+            metrics={"s0_uniform": dict(own=dict(action_mse=0.125, rows=4000))},
+        ),
+    )
+    audit = tmp_path / "audit.json"
+    save(
+        audit,
+        dict(
+            schema="walker-c1-round-audit-v1",
+            full_scientific_audit_passed=True,
+            worker_result_sha256=module._sha(run / "worker_result.json"),
+            config_sha256=module._sha(run / "config.json"),
+        ),
+    )
+    closure = tmp_path / "failure.json"
+    save(
+        closure,
+        dict(
+            schema="walker-c1-audit-launcher-failure-v1",
+            scientific_receipt=dict(bytes=audit.stat().st_size, sha256=module._sha(audit)),
+            overall_audit_closure_passed=False,
+            audit_coordinator_failed=True,
+            original_audit_exit_exists=False,
+            original_child_exit_code=None,
+            coordinator_exit_code=1,
+        ),
+    )
+    return run, audit, closure
+
+
+def test_failed_outer_closure_cannot_admit_passed_scientific_receipt(tmp_path):
+    run, audit, closure = failed_audit_closure(tmp_path)
+    original_audit = audit.read_bytes()
+    original_result = (run / "worker_result.json").read_bytes()
+    out = tmp_path / "report"
+    receipt = module.render(run, out, audit, closure)
+    assert receipt["C1_audit_bound"] is True
+    assert receipt["scientific_receipt_checks_passed"] is True
+    assert receipt["overall_audit_closure_passed"] is False
+    assert receipt["audit_closure_status"] == "AUDIT_COORDINATOR_FAILED"
+    assert receipt["inputs"][str(closure)]["sha256"] == module._sha(closure)
+    text = (out / "report.md").read_text()
+    assert "AUDIT_COORDINATOR_FAILED; outer closure incomplete" in text
+    assert "saved scientific receipt reports passing checks" in text
+    assert "confirm the declared weighting walking gain" not in text
+    assert "Uniform teaching produced" not in text
+    costs = json.loads((out / "costs.json").read_text())
+    assert costs["audit_launcher_failure"] == json.loads(closure.read_text())
+    assert costs["worker"]["completed"]["native_controls"] == 17
+    assert audit.read_bytes() == original_audit
+    assert (run / "worker_result.json").read_bytes() == original_result
+    assert not (audit.parent / "exit.json").exists()
+
+
+def test_capsule_failure_companion_is_detected_and_numerical_tables_unchanged(tmp_path):
+    run, audit, closure = failed_audit_closure(tmp_path)
+    clean = tmp_path / "clean"
+    clean_receipt = module.render(run, clean, audit)
+    assert "confirm the declared weighting walking gain" in (clean / "report.md").read_text()
+    assert clean_receipt["overall_audit_closure_passed"] is None
+    capsule_closure = run / "accounting/audit_launcher_failure.json"
+    save(capsule_closure, json.loads(closure.read_text()))
+    failed = tmp_path / "failed"
+    receipt = module.render(run, failed, audit)
+    assert receipt["overall_audit_closure_passed"] is False
+    assert str(capsule_closure) in receipt["inputs"]
+    for name in ("curves.csv", "outcomes.csv", "metrics.csv"):
+        assert (clean / name).read_bytes() == (failed / name).read_bytes()
+
+
+@pytest.mark.parametrize("field", ("sha256", "bytes"))
+def test_failure_companion_must_bind_exact_scientific_receipt(tmp_path, field):
+    run, audit, closure = failed_audit_closure(tmp_path)
+    value = json.loads(closure.read_text())
+    value["scientific_receipt"][field] = "0" * 64 if field == "sha256" else 1
+    save(closure, value)
+    with pytest.raises(ValueError, match="different scientific receipt"):
+        module.render(run, tmp_path / "report", audit, closure)
+    assert not (tmp_path / "report").exists()
+
+
+@pytest.mark.parametrize(
+    ("field", "invalid"),
+    (
+        ("schema", "not-a-c1-closure"),
+        ("overall_audit_closure_passed", True),
+        ("audit_coordinator_failed", False),
+        ("original_audit_exit_exists", True),
+        ("original_child_exit_code", 0),
+        ("coordinator_exit_code", 0),
+        ("overall_audit_closure_passed", 0),
+    ),
+)
+def test_failure_companion_cannot_relax_original_closure_fields(tmp_path, field, invalid):
+    run, audit, closure = failed_audit_closure(tmp_path)
+    value = json.loads(closure.read_text())
+    value[field] = invalid
+    save(closure, value)
+    with pytest.raises(ValueError, match="closure failure field differs"):
+        module.render(run, tmp_path / "report", audit, closure)
+
+
+def test_saved_report_cli_accepts_explicit_failed_closure(tmp_path):
+    run, audit, closure = failed_audit_closure(tmp_path)
+    out = tmp_path / "report"
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "src.gps.mppi_gps.reporting.student_consequence",
+            "--run",
+            str(run),
+            "--out",
+            str(out),
+            "--audit",
+            str(audit),
+            "--closure",
+            str(closure),
+        ],
+        check=True,
+    )
+    assert json.loads((out / "receipt.json").read_text())["overall_audit_closure_passed"] is False

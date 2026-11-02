@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import sys
+from pathlib import Path
 
 import pytest
 
@@ -66,3 +67,60 @@ def test_invalid_limits_reject_before_process_or_file_creation(tmp_path):
     with pytest.raises(ValueError):
         run(tmp_path, "raise RuntimeError('must not start')", stdout_bytes=0)
     assert not (tmp_path / "stdout.txt").exists()
+
+
+@pytest.mark.parametrize("state", ("Z (zombie)", "X (dead)", "x (dead)"))
+def test_missing_rss_is_zero_only_for_terminal_linux_states(monkeypatch, state):
+    monkeypatch.setattr(Path, "read_text", lambda self: f"Name:\tworker\nState:\t{state}\n")
+    assert module._rss_bytes(123) == 0
+
+
+def test_live_worker_retains_actual_rss_measurement(monkeypatch):
+    monkeypatch.setattr(Path, "read_text", lambda self: "State:\tR (running)\nVmRSS:\t123 kB\n")
+    assert module._rss_bytes(123) == 123 * 1024
+
+
+@pytest.mark.parametrize("state", ("R (running)", "S (sleeping)", "D (disk sleep)", ""))
+def test_missing_rss_for_a_live_or_unidentified_worker_still_fails(monkeypatch, state):
+    reads = []
+
+    def read(path):
+        reads.append(path)
+        return f"State:\t{state}\n"
+
+    monkeypatch.setattr(Path, "read_text", read)
+    with pytest.raises(RuntimeError, match="RSS could not be measured"):
+        module._rss_bytes(123)
+    assert len(reads) == 2
+
+
+@pytest.mark.parametrize("terminal", ("zombie", "disappeared"))
+def test_missing_rss_exit_race_is_resolved_by_one_bounded_reread(monkeypatch, terminal):
+    reads = []
+
+    def read(path):
+        reads.append(path)
+        if len(reads) == 1:
+            return "State:\tR (running)\n"
+        if terminal == "disappeared":
+            raise FileNotFoundError(path)
+        return "State:\tZ (zombie)\n"
+
+    monkeypatch.setattr(Path, "read_text", read)
+    assert module._rss_bytes(123) == 0 and len(reads) == 2
+
+
+def test_exited_child_stdout_is_drained_with_rss_guard_enabled(tmp_path, monkeypatch):
+    # Deterministic Linux status boundary, portable to non-Linux test hosts.
+    original = Path.read_text
+
+    def read(path, *args, **kwargs):
+        if str(path).startswith("/proc/"):
+            return "State:\tZ (zombie)\n"
+        return original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read)
+    result = run(tmp_path, "print('closed synthetic child')", peak_rss_bytes=1024**3)
+    assert result["exit_code"] == 0 and result["leader_reaped"]
+    assert result["stopping_reason"] is None and not result["unknown_partial_work_possible"]
+    assert (tmp_path / "stdout.txt").read_text() == "closed synthetic child\n"

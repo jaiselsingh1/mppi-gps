@@ -1,0 +1,232 @@
+{
+  "schema": "walker-c1-fault-publication-accounting-v1",
+  "scope": "Actual scientific work and saved-only processing references; nested process/stage times are not additive. No rates/invoice or efficiency claim.",
+  "worker": {
+    "completed": {
+      "environment_constructions": 1,
+      "restores": 12012,
+      "external_mj_forward_calls": 12876,
+      "snapshot_reads": 2326904,
+      "native_controls": 1157230,
+      "physics_substeps": 4628920,
+      "shuffle_calls": 624,
+      "shuffle_entries": 12000,
+      "policy_constructions": 21,
+      "checkpoint_loads": 12,
+      "expected_index_draws": 1536000,
+      "actual_index_draws": 4608000,
+      "neural_rows": 4795806,
+      "prediction_calls": 115896,
+      "backward_rows": 4608000,
+      "optimizer_steps": 18000,
+      "endpoint_saves": 9,
+      "resets": 432
+    },
+    "unknown_partial": {},
+    "returned_unpersisted": {},
+    "wall_seconds": 6667.104353843999,
+    "cpu": {
+      "user_seconds": 262.66887,
+      "system_seconds": 42.621545,
+      "peak_rss_bytes": 387383296,
+      "reserved_cpu_cores": 16,
+      "billing": "No provider invoice/rate available; no dollar estimate inferred"
+    },
+    "process_io": {
+      "counters": {
+        "rchar": 345441591,
+        "wchar": 2339130528,
+        "syscr": 9634,
+        "syscw": 2956010,
+        "read_bytes": 63479808,
+        "write_bytes": 41760448512,
+        "cancelled_write_bytes": 4096
+      },
+      "scope": "Linux process counters through closure; includes code/input reads and durable/temporary writes. Final JSON write follows this snapshot; physical and logical IO differ."
+    },
+    "source": {
+      "file": "results/student_consequence_c1_0/run/worker_result.json",
+      "bytes": 5775412,
+      "sha256": "247c31ca58332f38336cb92513467882bb7dfb3188d59d1fd91c391664f0e46b"
+    }
+  },
+  "independent_scientific_audit": {
+    "saved_checks_passed": true,
+    "overall_audit_closure_passed": false,
+    "coordinator_exit_code": 1,
+    "child_exit_code": null,
+    "neural_rows": 187806,
+    "prediction_calls": 97896,
+    "checkpoint_loads": 12,
+    "new_native_controls": 0,
+    "new_backward_rows": 0,
+    "new_optimizer_steps": 0,
+    "unknown_prediction_rows": 0,
+    "source_read_bytes": 4008491429,
+    "scientific_receipt_wall_seconds": 233.6823478869992,
+    "failed_coordinator_wall_seconds": 233.98,
+    "source": {
+      "file": "results/student_consequence_c1_0/audit/audit.json",
+      "bytes": 144582,
+      "sha256": "85881f410ee85944b7edd2c5643437de801d327294189533480f6673f87cd7d9"
+    },
+    "failure": {
+      "file": "results/student_consequence_c1_0/accounting/audit_launcher_failure.json",
+      "bytes": 1458,
+      "sha256": "8b363d084e99d46f746e7b59b2a9cf470ff0a7854cbe59ad30020c7cc5da79f6"
+    }
+  },
+  "output_hashing": {
+    "source": {
+      "file": "results/student_consequence_c1_0/operator/audit_output_catalog_failure_001.json",
+      "bytes": 2359,
+      "sha256": "84ef36d000372069968e1f7e17999fd5e9a89d941d1eb305c95d312f7e052870"
+    },
+    "cumulative_audit_read_bytes": 4056556568,
+    "helper_outer_wall_seconds": 0.06352429300022777,
+    "not_a_scientific_audit_rerun": true
+  },
+  "saved_report": {
+    "file": "results/student_consequence_c1_0/report/receipt.json",
+    "bytes": 10405,
+    "sha256": "28c6376bff32be8b8d2e6a0f86b8dfdd92c886caf8fd2d12dc66d458b82cf9f9"
+  },
+  "collection": {
+    "file": "results/student_consequence_c1_0/collection_receipt.json",
+    "bytes": 528,
+    "sha256": "12dade3e4ce0c751388c012f868440918a0cdc62d8b515fa2c31189a3b2b2738"
+  },
+  "transfer": {
+    "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/result_transfer.json",
+    "bytes": 589,
+    "sha256": "da44fd098ab283c350856853845bec6008bcb2de86b73b464ea3c940fd7954bf"
+  },
+  "local_publication": {
+    "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/local_publication.json",
+    "bytes": 590,
+    "sha256": "76bece383446ec4c1b29af70bd46bb98037f859889e239170bd4d11c97109447"
+  },
+  "preparation": {
+    "file": "results/student_consequence_c1_0/run/prepared/preparation_receipt.json",
+    "bytes": 970,
+    "sha256": "a6fa6735b92d6f429beadd8806762d1ea4684a3e50ed9c0d01f4493a0cdfc19d"
+  },
+  "prerequisites": {
+    "file": "results/student_consequence_c1_0/run/prerequisites.json",
+    "bytes": 11550,
+    "sha256": "e3deddea103f7ec559080c53b2c72193e118c8acc283181fd8a4e444f636d666"
+  },
+  "inherited_work": {
+    "H5_worker": {
+      "requested_controls": 852938336,
+      "completed_controls": 852938336,
+      "requested_model_controls": 852903936,
+      "completed_model_controls": 852903936,
+      "requested_live_controls": 34400,
+      "completed_live_controls": 34400,
+      "requested_physics_substeps": 3411753344,
+      "completed_physics_substeps": 3411753344,
+      "unknown_partial_controls": 0,
+      "unknown_partial_physics_substeps": 0,
+      "model_queries": 206472,
+      "live_queries": 34400,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "measurement_requests": 121311,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "requested_neural_rows": 1087519492,
+      "completed_neural_rows": 1087519492,
+      "unknown_partial_neural_rows": 0,
+      "requested_backward_rows": 1536000,
+      "completed_backward_rows": 1536000,
+      "unknown_partial_backward_rows": 0,
+      "requested_optimizer_steps": 6000,
+      "completed_optimizer_steps": 6000,
+      "unknown_partial_optimizer_steps": 0,
+      "resets": 36,
+      "reset_errors": 0,
+      "restores": 0,
+      "snapshots": 584980,
+      "episodes": 36,
+      "requested_checkpoint_loads": 3,
+      "completed_checkpoint_loads": 3,
+      "unknown_partial_checkpoint_loads": 0,
+      "neural_rows": 1087519492,
+      "backward_rows": 1536000,
+      "optimizer_steps": 6000,
+      "queries": 240872,
+      "physics_frames": 3411753344,
+      "wall_seconds": 8684.198369992002,
+      "array_format": "walker-array-stream-v1",
+      "storage_bytes": 206888153082,
+      "storage_limit_bytes": 532575944704,
+      "reserved_external_bytes": 17179869184,
+      "emergency_reserved_bytes": 131072,
+      "evidence_poisoned": false,
+      "reservation_integrity": {
+        "stopped": false,
+        "errors": {
+          "input_errors": 0,
+          "budget_errors": 0,
+          "import_errors": 0,
+          "external_errors": 0
+        },
+        "pending": [],
+        "native_validation_failed": false
+      }
+    },
+    "H5_worker_wall_seconds": 8684.200319212,
+    "H5_independent_audit": {
+      "source_read_bytes": 773033347886,
+      "checkpoint_read_bytes": 1252425,
+      "frozen_input_read_bytes": 3483672,
+      "audit_neural_rows": 1085983492,
+      "audit_prediction_calls": 103308,
+      "audit_checkpoint_loads": 6,
+      "audit_unknown_partial_neural_rows": 0,
+      "wall_seconds": 2355.4475599840007
+    },
+    "scope": "Previously paid H5 work, including parent preparation and all acquisition arms; not charged again to C1 worker limits",
+    "source_worker_result_sha256": "95bc15a36a561ab6b9a4b0f9fbca9977209e32ba2315fcc35f223f762aa079eb"
+  },
+  "storage": {
+    "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/storage_accounting.json",
+    "bytes": 1468,
+    "sha256": "6e982bbb2f4ff2312911526a52e2cf6d1cdc505f40d336c8fc7d5fc5a8d2a59d"
+  },
+  "engineering": {
+    "prelaunch_validation_directory": "docs/validation/student_consequence_c1_0_2026-11-02/prelaunch",
+    "worker_monitor": {
+      "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/monitor_worker.json",
+      "bytes": 14364,
+      "sha256": "24ac9cb8cfda6594230f6a1945da6176322415deed98773c00df70f8f1d5abb7"
+    },
+    "audit_monitor": {
+      "file": "docs/validation/student_consequence_c1_0_2026-11-02/closure/monitor_audit.json",
+      "bytes": 2178,
+      "sha256": "049dbf69d8b6e87f2bb9f787af6732aa27a4caa388926373e9c154c8e8d19b87"
+    },
+    "postfailure_tests": {
+      "report": {
+        "passed": 24,
+        "wall_seconds": 10.09
+      },
+      "watchdog_launch_export": {
+        "passed": 41,
+        "wall_seconds": 13.33
+      },
+      "inspector": {
+        "passed": 12,
+        "wall_seconds": 0.18
+      },
+      "publication_kit_v3": {
+        "passed": 26
+      }
+    },
+    "counter_scope": "Engineering tests include synthetic network/physics work and are separate from experimental counters. Their total NN/Adam/physics census and reasoning/review time were not globally instrumented; not reported as zero. Raw command/CPU/wall receipts are retained where available. Final portable validation is separately recorded.",
+    "frozen_source_changed": false,
+    "scientific_retry": false
+  },
+  "automatic_followup_launched": false
+}
