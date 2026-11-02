@@ -264,8 +264,12 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     capsule = _read_json(root / "capsule.json", errors)
     run = root / "run" if capsule else root
     config = _read_json(run / "config.json", errors)
+    c1 = config.get("schema") == "walker-student-consequence-c1.0-executable-recipe-v1"
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
+    if c1:
+        result = _read_json(run / "worker_result.json", errors)
+        result_file = "worker_result.json"
     h5_attempt_without_result = False
     if (
         config.get("schema") == "walker-teacher-proposal-h5.0-r1"
@@ -307,7 +311,12 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         files = _files(run, bindings, verify, errors)
         source_bindings = {item["file"]: item["sha256"] for item in manifest.get("files", [])}
         source_files = _files(run / "source", source_bindings, verify, errors)
-    required = ("config.json", "result.json", "manifest.json", "input_manifest.json")
+    required = (
+        "config.json",
+        result_file if c1 else "result.json",
+        "manifest.json",
+        "input_manifest.json",
+    )
     missing = [name for name in required if not (run / name).is_file()]
     if h5_attempt_without_result:
         missing.append("worker_result.json")
@@ -319,6 +328,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     ]
     omitted = capsule.get("bulk_evidence", {}).get("omitted", [])
     evidence_names = ("evidence/raw.h5", "evidence/ledger.jsonl")
+    if c1:
+        evidence_names = tuple(
+            "worker/evidence/" + name
+            for name in ("arrays.bin", "arrays.index.jsonl", "ledger.jsonl")
+        )
     saved_metric_review = config.get("schema") == "walker-trajectory-review-config-v1"
     if saved_metric_review:
         evidence_names = ()
@@ -365,6 +379,8 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         missing += [f"source/{item['file']}" for item in source_files if not item["available"]]
         missing += [name for name in evidence_names if not (run / name).is_file()]
     student_outcomes = result.get("cases", {})
+    if c1:
+        student_outcomes = result.get("student_outcomes", {})
     if "evaluations" in result:
         student_outcomes = {
             cohort: {name: record["summary"] for name, record in panel.items()}
@@ -458,6 +474,33 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             "outer_closure": report["h5_compact_audit"]["reported_outer_closure"],
             "scope": "Reported independent audit work, separate from worker work. Inspection verifies compact copied metadata only; missing counters remain unavailable.",
         }
+    if c1:
+        report["costs"] = dict(
+            worker=result.get("costs", {}),
+            worker_wall_seconds=result.get("worker_wall_seconds"),
+            limits=config.get("limits", {}),
+        )
+        report["diagnostics"] = dict(
+            replay_gate=result.get("replay_gate", {}),
+            contrast_gate=result.get("contrast_gate", {}),
+            learning_measured=result.get("learning_measured", False),
+            standalone_measured=result.get("standalone_measured", False),
+            scope="C1 fixed-suffix consequence-weighted fitting; walking and fitting are separate. Inspection does not independently audit science.",
+        )
+        if not capsule:
+            prepared = _read_json(run / "prepared/prepared_input_manifest.json", errors)
+            bindings = {row["file"]: row for row in prepared.get("files", [])}
+            report["prepared_inputs"] = _files(run / "prepared", bindings, verify, errors)
+            report["missing_evidence"] += [
+                "prepared/" + row["file"]
+                for row in report["prepared_inputs"]
+                if not row["available"]
+            ]
+            report["hash_mismatches"] += [
+                "prepared/" + row["file"]
+                for row in report["prepared_inputs"]
+                if row.get("verified") is False and row["available"]
+            ]
     if result.get("schema") == "walker-transfer-diagnosis-result-v1":
         d1, d2 = result.get("d1", {}), result.get("d2", {})
         report["diagnostics"] = {

@@ -16,7 +16,9 @@ The [S1 source comparison](docs/student_source_s1_results.md) completed six matc
 
 [K1.2 is complete and independently audited](docs/motion_diagnosis_k1_2_results.md): all 34 actual motions and 561 cross-trajectory pairs are preserved with full and first-100-control views. The [capsule](results/motion_diagnosis_k1_2/README.md) contains both 34-page motion atlases, complete tables and costs. No new inference, integration, fitting or acquisition ran; this diagnosis does not establish a transfer cause or useful coupling.
 
-[H5.0r1 is complete and independently audited](docs/teacher_proposal_h5_0_round1_results.md). Independent teachers walked 12/12; selector-only and proposal-guided teachers each walked 11/12. The frozen competence stop ended acquisition before any child fit, standalone panel or paired-gap episode, so fixed-update learning remains unmeasured. The [result capsule](results/teacher_proposal_h5_0_round1/README.md) preserves the evidence and costs. Current code passes 1,015 tests; the [frozen launched source](docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/README.md) passed 987, both with the existing skip and expected failure. The useful-learning prerequisite remains unmet, with no loop or second round. [C1.0 cost-effect weighting](docs/student_consequence_c1_protocol.md) is the next protocol for review; it is unimplemented and unlaunched.
+[H5.0r1 is complete and independently audited](docs/teacher_proposal_h5_0_round1_results.md). Independent teachers walked 12/12; selector-only and proposal-guided teachers each walked 11/12. The frozen competence stop ended acquisition before any child fit, standalone panel or paired-gap episode, so fixed-update learning remains unmeasured. The [result capsule](results/teacher_proposal_h5_0_round1/README.md) preserves the evidence and costs. The [frozen launched source](docs/validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/README.md) passed 987 tests with the existing skip and expected failure. The useful-learning prerequisite remains unmet, with no loop or second round.
+
+[C1.0 is implemented for one authorized bounded execution](docs/student_consequence_c1_execution.md): consequence-weighted fitting against uniform and stratum-shuffled controls. Software validation passes, including exact 2,000-update continuation. Source, seed, capacity and native replay prerequisites must pass before learning. The six-hour worker, two-hour audit and 16 GiB output ceilings are fixed; no research outcome is available yet.
 
 ## Setup
 
@@ -51,6 +53,7 @@ uv run python scripts/train_mppi_gps.py study trajectory-review --help
 uv run python scripts/train_mppi_gps.py study motion-diagnosis --help
 uv run python scripts/train_mppi_gps.py study teacher-proposal --help
 uv run python scripts/train_mppi_gps.py study teacher-proposal census
+uv run python scripts/train_mppi_gps.py study student-consequence --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 
@@ -61,7 +64,7 @@ K1.1's [prepare/run/audit/report commands](docs/development.md#saved-only-k11-re
 ## Reading order
 
 1. [Research status and document map](docs/README.md), then [methods and interfaces](docs/methods.md).
-2. [H5.0r1 result](docs/teacher_proposal_h5_0_round1_results.md), [C1.0 protocol for review](docs/student_consequence_c1_protocol.md), [K1.2 actual-motion diagnosis](docs/motion_diagnosis_k1_2_results.md), [K1.1 audited review](docs/trajectory_review_k1_1_results.md), [S1.1 fresh evaluation](docs/student_source_s1_1_results.md), [S1 interrupted comparison](docs/student_source_s1_results.md), [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](docs/student_update_w2_results.md), [W1 width result](docs/student_width_w1_results.md), [K1 comparison and verdict](docs/action_compatibility_k1_results.md), [L1/H4.1 results](docs/walker_experiments_l1_h4_results.md) and [v3.1 comparison](docs/loop_v3_results.md).
+2. [H5.0r1 result](docs/teacher_proposal_h5_0_round1_results.md), [C1.0 execution contract](docs/student_consequence_c1_execution.md), [K1.2 actual-motion diagnosis](docs/motion_diagnosis_k1_2_results.md), [K1.1 audited review](docs/trajectory_review_k1_1_results.md), [S1.1 fresh evaluation](docs/student_source_s1_1_results.md), [S1 interrupted comparison](docs/student_source_s1_results.md), [D1/D2 diagnosis](docs/transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](docs/student_update_w2_results.md), [W1 width result](docs/student_width_w1_results.md), [K1 comparison and verdict](docs/action_compatibility_k1_results.md), [L1/H4.1 results](docs/walker_experiments_l1_h4_results.md) and [v3.1 comparison](docs/loop_v3_results.md).
 3. [Exact result capsules](results/README.md), [evidence availability](docs/evidence_availability.md) and [machine-readable index](docs/evidence_index.json).
 4. [Code map](docs/code_map.md), [debugging guide](docs/development.md), [primary-source review](docs/loop_v3_prior_art.md) and [historical record](docs/history.md).
 

@@ -1,0 +1,54 @@
+{
+  "schema": "walker-c1-source-helper-engineering-receipt-v1",
+  "phase": "synthetic implementation validation before actual preparation",
+  "files": {
+    "src/gps/mppi_gps/consequence_inputs.py": {
+      "bytes": 33563,
+      "sha256": "05a6fa078d258763d6dc9bd0daaa82d05af3e4063b78286e287969dfbc44ab21"
+    },
+    "tests/test_consequence_inputs.py": {
+      "bytes": 16693,
+      "sha256": "3ecbe43194bf81410401f304992e5fbcc45bd235255718cbe6f128ce073f54fa"
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_consequence_inputs.py",
+      "result": "1 failed, 9 passed in 0.47s",
+      "retained_failure": "Synthetic lifecycle found _GuardedOutput lacked read attribute required by NumPy zipfile_factory. Added explicit write-only read method; no scientific input or code was run."
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_consequence_inputs.py",
+      "result": "10 passed in 0.70s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_consequence_inputs.py",
+      "result": "12 passed in 0.69s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_consequence_inputs.py tests/test_proposal_evidence.py",
+      "result": "29 passed in 1.47s"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/gps/mppi_gps/consequence_inputs.py tests/test_consequence_inputs.py",
+      "result": "All checks passed"
+    },
+    {
+      "command": "Direct importlib.util.spec_from_file_location import of consequence_inputs.py",
+      "result": "Passed; no torch, mujoco or simulator module imported"
+    }
+  ],
+  "scope": "Only temporary synthetic existing-format groups/cache, selected-array fixtures, immutable-byte checks and source inspection. No actual H5 arrays, checkpoints or remote resources read. No source edits after the recorded handoff.",
+  "new_neural_rows": 0,
+  "new_native_controls": 0,
+  "new_optimizer_steps": 0,
+  "remote_actions": false,
+  "engineering_accounting_limit": "Command outcomes and pytest-reported elapsed times captured from tool returns. Total filesystem IO, repeated source reads, process peak RSS and all engineering overhead were not instrumented; these are not presented as experiment costs.",
+  "read_only_integration_review_findings": [
+    "Promote actual selected native action to float64 before step, matching old instrumented native cost arithmetic.",
+    "Use fresh actual pre-step context, avoiding duplicate restored initial snapshot so declared snapshot cap remains sufficient.",
+    "Separate known returned native/NN work from post-return persistence failures.",
+    "Check source-panel initial reset contexts explicitly.",
+    "Keep native cost, terminal contribution, raw cost and absorbing tail distinct."
+  ]
+}

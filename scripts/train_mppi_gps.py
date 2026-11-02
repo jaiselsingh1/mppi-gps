@@ -29,6 +29,7 @@ STUDIES = {
     "trajectory-review": "src.gps.mppi_gps.experiments.trajectory_review",
     "motion-diagnosis": "src.gps.mppi_gps.experiments.motion_diagnosis",
     "teacher-proposal": "src.gps.mppi_gps.experiments.teacher_proposal",
+    "student-consequence": "src.gps.mppi_gps.experiments.student_consequence",
 }
 
 

@@ -321,6 +321,9 @@ def fit_policy(
     anchor_refresh=0,
     initial_observer=None,
     update_observer=None,
+    row_weights=None,
+    index_observer=None,
+    index_request_observer=None,
 ):
     """Clone parent/Adam; fit MSE plus .5*eta times summed/mean parameter change.
 
@@ -329,6 +332,13 @@ def fit_policy(
     so splitting a block reproduces its Adam and private minibatch RNG exactly.
     Positive anchor_refresh refreshes before updates K+1, 2K+1, ... of a block.
     No additional inference is performed just to populate the returned curve.
+    Optional positive row_weights multiply each row's six squared residuals
+    before the global mean. Their provenance belongs to the caller; weighted
+    fitting starts a new block and does not extend the checkpoint schema.
+    index_observer receives copied row indices and private RNG states after
+    sampling and before the paid forward call; a failed write can stop fitting.
+    index_request_observer receives the copied pre-draw private RNG state before
+    sampling, so callers can durably reserve and journal the draw itself.
     """
     started = time.perf_counter()
     if not isinstance(parent, Policy) or type(resume_fit) is not bool:
@@ -337,6 +347,10 @@ def fit_policy(
         raise TypeError("initial_observer must be callable or None")
     if update_observer is not None and not callable(update_observer):
         raise TypeError("update_observer must be callable or None")
+    if index_observer is not None and not callable(index_observer):
+        raise TypeError("index_observer must be callable or None")
+    if index_request_observer is not None and not callable(index_request_observer):
+        raise TypeError("index_request_observer must be callable or None")
     updates = _integer(updates, "updates")
     batch_size = _integer(batch_size, "batch_size", 1)
     seed = _integer(seed, "seed")
@@ -349,6 +363,25 @@ def fit_policy(
     y = _array(actions, "executed actions", ACTIONS, matrix=True)
     if len(x) != len(y) or np.any(np.abs(y) > 1):
         raise ValueError("Aligned observation/action rows and actions in [-1,1] required")
+    weights = None
+    if row_weights is not None:
+        raw_weights = np.asarray(row_weights)
+        if (
+            raw_weights.dtype.kind not in "fiu"
+            or raw_weights.shape != (len(x),)
+            or not np.isfinite(raw_weights).all()
+            or np.any(raw_weights <= 0)
+        ):
+            raise ValueError("row_weights must be a finite strictly positive (N,) vector")
+        try:
+            with np.errstate(over="raise", invalid="raise"):
+                weights = raw_weights.astype(np.float32, copy=True)
+        except FloatingPointError as error:
+            raise ValueError("row_weights must be representable positive float32 values") from error
+        if not np.isfinite(weights).all() or np.any(weights <= 0):
+            raise ValueError("row_weights must be representable positive float32 values")
+        if resume_fit:
+            raise ValueError("Weighted fitting requires a new externally bound block")
     if resume_fit and optimizer_state is None:
         raise ValueError("resume_fit requires optimizer, RNG and anchor state")
     config = dict(
@@ -402,6 +435,7 @@ def fit_policy(
     divisor = parameter_count if prox_reduction == "mean" else 1
     xt = torch.as_tensor(x, device=child.device)
     yt = torch.as_tensor(y, device=child.device)
+    wt = None if weights is None else torch.as_tensor(weights, device=child.device)
     work = {
         kind: dict(requested=0, completed=0, unknown_partial=0)
         for kind in ("neural_rows", "backward_rows", "optimizer_steps")
@@ -472,12 +506,41 @@ def fit_policy(
                         anchor_policy_hash=_hash_state(anchor),
                     )
                 )
+            rng_before = (
+                deepcopy(rng.bit_generator.state)
+                if index_observer is not None or index_request_observer is not None
+                else None
+            )
+            if index_request_observer is not None:
+                index_request_observer(
+                    dict(
+                        update=cumulative + index + 1,
+                        fit_update=fit_updates + index + 1,
+                        rng_before=deepcopy(rng_before),
+                    )
+                )
             rows = torch.as_tensor(rng.integers(0, len(x), size=batch_size), device=child.device)
+            if index_observer is not None:
+                index_observer(
+                    dict(
+                        update=cumulative + index + 1,
+                        fit_update=fit_updates + index + 1,
+                        indices=rows.detach().cpu().numpy().copy(),
+                        rng_before=rng_before,
+                        rng_after=deepcopy(rng.bit_generator.state),
+                    )
+                )
             optimizer.zero_grad(set_to_none=True)
             prediction = measure(
                 "neural_rows", batch_size, lambda: child(xt[rows]), f"{tag}/forward"
             )
-            mse = torch.mean((prediction - yt[rows]) ** 2)
+            if wt is None:
+                mse = torch.mean((prediction - yt[rows]) ** 2)
+                fitting_mse = mse
+            else:
+                squared_residual = (prediction - yt[rows]) ** 2
+                mse = torch.mean(squared_residual)
+                fitting_mse = torch.mean(squared_residual * wt[rows, None])
             proximal = (
                 0.5
                 * eta_theta
@@ -488,7 +551,7 @@ def fit_policy(
                 )
                 / divisor
             )
-            loss = mse + proximal
+            loss = fitting_mse + proximal
             if not torch.isfinite(loss):
                 raise FloatingPointError("Nonfinite fitting loss")
 
@@ -513,6 +576,8 @@ def fit_policy(
                     unclipped_gradient_norm=norm,
                 )
             )
+            if wt is not None:
+                curve[-1]["weighted_action_mse"] = float(fitting_mse.detach().cpu())
             if update_observer is not None:
                 # Scalar/row-index copies only; no model tensors are exposed.
                 # The numerical update and RNG draw order stay unchanged.

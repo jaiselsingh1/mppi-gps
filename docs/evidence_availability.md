@@ -222,8 +222,8 @@ transfer was 1,066,760 bytes and was verified locally.
 There is **no complete local raw mirror**. The local same-name `runs/` directory is only the
 original 539-file/10,622,281-byte source/input export. The historical preparation's approved
 backup does not mirror this new run. The [closure receipts](validation/teacher_proposal_h5_0_round1_2026-11-01/closure/README.md)
-retain publication, validation and short Obsidian-update accounting. [C1.0](student_consequence_c1_protocol.md)
-is a separate review protocol with execution disabled.
+retain publication, validation and short Obsidian-update accounting. [C1.0](student_consequence_c1_execution.md)
+is a separate implemented diagnostic with authorized finite limits and mandatory prelaunch gates; its actual evidence is pending.
 
 ### Legacy evidence
 

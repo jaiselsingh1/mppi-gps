@@ -149,6 +149,12 @@ def main(argv: list[str] | None = None) -> int:
         ["scripts/train_mppi_gps.py", "study", "teacher-proposal", "census"],
         ["scripts/audits/teacher_proposal.py", "--help"],
         ["scripts/diagnostics/report_teacher_proposal.py", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "student-consequence", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "student-consequence", "preparation", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "student-consequence", "freeze", "--help"],
+        ["scripts/train_mppi_gps.py", "study", "student-consequence", "launch", "--help"],
+        ["scripts/audits/student_consequence.py", "--help"],
+        ["scripts/diagnostics/report_student_consequence.py", "--help"],
     ]
     capsules = (
         "guided_data_v3_1",
@@ -171,6 +177,8 @@ def main(argv: list[str] | None = None) -> int:
         capsules += ("teacher_proposal_h5_0_preparation",)
     if (root / "results/teacher_proposal_h5_0_round1/capsule.json").is_file():
         capsules += ("teacher_proposal_h5_0_round1",)
+    if (root / "results/student_consequence_c1_0/capsule.json").is_file():
+        capsules += ("student_consequence_c1_0",)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
