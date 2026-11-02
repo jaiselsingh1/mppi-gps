@@ -497,6 +497,364 @@ def _consequence_recovery_metadata(
     )
 
 
+def _certificate_inspection(
+    root: Path, run: Path, *, verify: bool, detection_read_bytes: int = 0
+) -> dict[str, Any]:
+    """Inspect A2's tiny certificates, retaining both failed predecessor histories."""
+    prefix = "run/" if root != run else ""
+    capsule, capsule_descriptor = _h5_compact_metadata(root, "capsule.json", {}, verify=True)
+    bindings = capsule.get("files", {})
+    errors: list[str] = []
+    conflicts: list[str] = []
+    if prefix and (not isinstance(bindings, dict) or not capsule):
+        errors.append("A2 capsule metadata is missing or invalid")
+        bindings = {}
+    if capsule_descriptor.get("error"):
+        errors.append(capsule_descriptor["error"])
+    names = dict(
+        protocol="protocol.json",
+        source_manifest="source_manifest.json",
+        result="result/certificate_result.json",
+        worker_exit="worker_exit.json",
+        coordinator_exit="coordinator_exit.json",
+        finalizer_exit="finalizer_exit.json",
+        candidate="admission_candidate.json",
+        admission="admission.json",
+    )
+    values, descriptors = {}, {}
+    for key, name in names.items():
+        value, descriptor = _h5_compact_metadata(root, prefix + name, bindings, verify=True)
+        values[key], descriptors[key] = value, descriptor
+    for row in descriptors.values():
+        if row.get("error"):
+            errors.append(row["file"] + ": " + row["error"])
+    protocol, result, admission = (values[k] for k in ("protocol", "result", "admission"))
+    source_manifest = values["source_manifest"]
+
+    def require(document: dict, expected: dict, label: str) -> None:
+        for key, value in expected.items():
+            if (
+                key not in document
+                or type(document[key]) is not type(value)
+                or document[key] != value
+            ):
+                conflicts.append(label + "." + key)
+
+    retained = dict(
+        certificate_checks_passed=True,
+        retained_A1_integrity_certification=True,
+        retained_original_numerical_certification=True,
+        original_A1_admission_failed=True,
+        original_C1_coordinator_failed=True,
+        original_C1_child_exit_code=None,
+        original_A1_failure_flags_preserved=True,
+    )
+    require(
+        protocol,
+        dict(
+            schema="walker-c1-certificate-closure-protocol-v1",
+            study="C1.0-A2",
+            user_authorized=True,
+            automatic_followup=False,
+        ),
+        "protocol",
+    )
+    require(result, dict(schema="walker-c1-certificate-closure-result-v1", **retained), "result")
+    require(
+        admission,
+        dict(schema="walker-c1-certificate-admission-v1", audit_recovery_resolved=True, **retained),
+        "admission",
+    )
+    require(
+        values["candidate"],
+        dict(
+            schema="walker-c1-certificate-candidate-v1", audit_recovery_resolved=False, **retained
+        ),
+        "candidate",
+    )
+    science_keys = (
+        "neural_rows",
+        "prediction_calls",
+        "checkpoint_tensor_loads",
+        "native_controls",
+        "physics_substeps",
+        "backward_rows",
+        "optimizer_steps",
+        "resets",
+        "restores",
+        "mppi_queries",
+    )
+    for key in ("protocol", "result", "candidate", "admission"):
+        science = values[key].get("new_scientific_work", {})
+        if not isinstance(science, dict) or set(science) != set(science_keys):
+            conflicts.append(key + ".new_scientific_work_schema")
+        require(
+            science if isinstance(science, dict) else {},
+            dict.fromkeys(science_keys, 0),
+            key + ".work",
+        )
+    limits = protocol.get("limits", {})
+    for key, limit_key, cap in (
+        ("worker_exit", "wall_seconds", 30),
+        ("coordinator_exit", "coordinator_wall_seconds", 45),
+        ("finalizer_exit", "finalization_wall_seconds", 15),
+    ):
+        outer = values[key]
+        require(
+            outer,
+            dict(
+                exit_code=0,
+                leader_reaped=True,
+                stopping_reason=None,
+                process_group_kill_requested=False,
+                unknown_partial_work_possible=False,
+            ),
+            key,
+        )
+        elapsed, maximum = outer.get("wall_seconds"), limits.get(limit_key)
+        if not (
+            type(maximum) is int
+            and 0 < maximum <= cap
+            and type(elapsed) in (int, float)
+            and math.isfinite(elapsed)
+            and 0 <= elapsed <= maximum
+        ):
+            conflicts.append(key + ".wall_seconds")
+    coordinator = values["coordinator_exit"]
+    if (
+        type(coordinator.get("pid")) is not int
+        or coordinator["pid"] < 1
+        or type(admission.get("coordinator_pid")) is not int
+        or admission.get("coordinator_pid") != coordinator["pid"]
+    ):
+        conflicts.append("admission.coordinator_pid")
+
+    def associated(binding: Any, key: str) -> bool:
+        observed = descriptors[key]
+        return (
+            isinstance(binding, dict)
+            and binding.get("file") == names[key]
+            and type(binding.get("bytes")) is int
+            and binding["bytes"] == observed.get("bytes")
+            and isinstance(binding.get("sha256"), str)
+            and binding["sha256"] == observed.get("sha256")
+        )
+
+    if not isinstance(admission.get("bindings"), dict) or set(admission["bindings"]) != {
+        "result",
+        "protocol",
+        "source_manifest",
+        "worker_exit",
+        "coordinator_exit",
+    }:
+        conflicts.append("admission.binding_schema")
+    if not isinstance(values["candidate"].get("bindings"), dict) or set(
+        values["candidate"]["bindings"]
+    ) != {"result", "protocol", "source_manifest", "worker_exit"}:
+        conflicts.append("candidate.binding_schema")
+    for key in ("result", "protocol", "source_manifest", "worker_exit", "coordinator_exit"):
+        declared = admission.get("bindings", {})
+        if not associated(declared.get(key) if isinstance(declared, dict) else None, key):
+            conflicts.append("admission.binding." + key)
+    if not associated(admission.get("admission_candidate"), "candidate"):
+        conflicts.append("admission.candidate_binding")
+    for key in ("result", "protocol", "source_manifest", "worker_exit"):
+        declared = values["candidate"].get("bindings", {})
+        if not associated(declared.get(key) if isinstance(declared, dict) else None, key):
+            conflicts.append("candidate.binding." + key)
+    canonical_protocol = hashlib.sha256(
+        json.dumps(protocol, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+    ).hexdigest()
+    if result.get("protocol_sha256") != canonical_protocol:
+        conflicts.append("result.protocol_binding")
+    if source_manifest.get("protocol_sha256") != descriptors["protocol"].get("sha256"):
+        conflicts.append("source_manifest.protocol_binding")
+    if source_manifest.get("schema") != "walker-c1-certificate-source-v1":
+        conflicts.append("source_manifest.schema")
+    source_commit = source_manifest.get("source_commit")
+    if (
+        not isinstance(source_commit, str)
+        or len(source_commit) != 40
+        or any(c not in "0123456789abcdef" for c in source_commit)
+    ):
+        conflicts.append("source_manifest.source_commit")
+
+    def valid_binding(value: Any) -> bool:
+        return (
+            isinstance(value, dict)
+            and type(value.get("bytes")) is int
+            and value["bytes"] >= 0
+            and isinstance(value.get("sha256"), str)
+            and len(value["sha256"]) == 64
+            and all(c in "0123456789abcdef" for c in value["sha256"])
+        )
+
+    source_bindings = source_manifest.get("files", {})
+    source_files = []
+    expected_sources = {"observer.py", "closure_checks.py", "watchdog.py"}
+    if (
+        not isinstance(source_bindings, dict)
+        or set(source_bindings) != expected_sources
+        or any(not valid_binding(value) for value in source_bindings.values())
+    ):
+        conflicts.append("source_manifest.files")
+    elif (run / "source").is_symlink():
+        errors.append("A2 source directory cannot be a symlink")
+    else:
+        total = 0
+        eligible = {}
+        for name, binding in source_bindings.items():
+            path = run / "source" / name
+            if path.is_symlink() or (path.is_file() and path.stat().st_size > 4 * 1024**2):
+                errors.append("Invalid or oversized A2 source: " + name)
+                continue
+            total += path.stat().st_size if path.is_file() else 0
+            eligible[name] = binding
+        if total > 4 * 1024**2:
+            errors.append("A2 source verification exceeds4MiB")
+        elif not errors:
+            # Only these three tiny source files are hashed, never predecessor payloads.
+            source_files = _files(run / "source", eligible, True, errors)
+            if any(row.get("verified") is not True for row in source_files):
+                conflicts.append("source_manifest.source_bytes")
+    files = []
+    if prefix and isinstance(bindings, dict):
+        eligible, total = {}, 0
+        if len(bindings) > 128:
+            errors.append("A2 capsule has excessive compact files")
+        else:
+            for name, binding in bindings.items():
+                try:
+                    path = _contained_path(root, name)
+                    size = path.stat().st_size if path.is_file() else 0
+                    if (
+                        not valid_binding(binding)
+                        or path.is_symlink()
+                        or path.suffix not in {".json", ".py", ".txt", ".md"}
+                        or size > 4 * 1024**2
+                    ):
+                        raise ValueError("Invalid or oversized A2 compact file: " + name)
+                    total += size
+                    eligible[name] = binding
+                except (OSError, ValueError) as error:
+                    errors.append(str(error))
+            if total > 32 * 1024**2:
+                errors.append("A2 compact verification exceeds32MiB")
+            elif not errors:
+                files = _files(root, eligible, verify, errors)
+    else:
+        files = [
+            dict(
+                file=names[key],
+                available=row["available"],
+                bytes=row.get("bytes"),
+                sha256=row.get("sha256"),
+                verified=bool(values[key]) and not row.get("error"),
+            )
+            for key, row in descriptors.items()
+        ]
+    missing = [names[key] for key, row in descriptors.items() if not row["available"]]
+    missing += ["source/" + row["file"] for row in source_files if not row["available"]]
+    missing += [row["file"] for row in files if not row["available"]]
+    mismatches = [
+        row["file"]
+        for row in files + source_files
+        if row["available"] and row.get("verified") is False
+    ]
+    copied_verified = bool(prefix) and all(
+        row.get("binding_verified") is True for row in descriptors.values()
+    )
+    if verify and prefix and not copied_verified:
+        conflicts.append("copied_metadata_bindings")
+    readable = all(values.values()) and not any(row.get("error") for row in descriptors.values())
+    accepted = bool(readable and not conflicts and not errors and not missing and not mismatches)
+    status = (
+        "REPORTED_CERTIFICATE_RECOVERY_ACCEPTED_METADATA_VERIFIED"
+        if accepted and verify
+        else "REPORTED_CERTIFICATE_RECOVERY_ACCEPTED"
+        if accepted
+        else "CERTIFICATE_RECOVERY_METADATA_INCOMPLETE_OR_CONFLICTING"
+    )
+    recovery = dict(
+        status=status,
+        audit_recovery_resolved=accepted,
+        recorded_recovery_resolved=admission.get("audit_recovery_resolved"),
+        **{key: result.get(key) for key in retained},
+        original_C1_child_exit_unknown="original_C1_child_exit_code" in result
+        and result["original_C1_child_exit_code"] is None,
+        admission_bindings_match=not any("binding" in item for item in conflicts),
+        copied_metadata_verified=copied_verified if verify and prefix else None,
+        metadata_conflicts=conflicts,
+        metadata_files=list(descriptors.values()),
+        inspector_metadata_read_bytes=detection_read_bytes
+        + capsule_descriptor.get("read_bytes", 0)
+        + sum(row.get("read_bytes", 0) for row in descriptors.values()),
+        inspector_source_hash_read_bytes=sum(
+            row.get("bytes", 0) for row in source_files if "sha256" in row
+        ),
+        inspector_capsule_hash_read_bytes=sum(
+            row.get("bytes", 0) for row in files if row.get("available")
+        )
+        if verify and prefix
+        else 0,
+        reported_new_scientific_work=result.get("new_scientific_work", {}),
+        reported_accounting=result.get("accounting", {}),
+        recorded_recovery_exit_codes={
+            key: values[key].get("exit_code")
+            for key in ("worker_exit", "coordinator_exit", "finalizer_exit")
+        },
+        verification_scope="Bounded A2 certificate/admission/clean-exit associations and three tiny source files only; --verify also checks copied compact capsule bytes. A1 integrity/accounting certification is retained as of its recorded verification time, not a fresh hash pass over765 predecessor payloads. Original C1 and A1 launcher failures remain failed; no inference, physics, fitting or evaluations are executed.",
+    )
+    return dict(
+        kind="result_capsule" if prefix else "frozen_run",
+        directory=str(root),
+        run_id=capsule.get("run_id", root.name),
+        config=protocol,
+        provenance=dict(
+            manifest={key: value for key, value in source_manifest.items() if key != "files"},
+            input_manifest=dict(
+                scope="Retained point-in-time certificates; no predecessor payload scan"
+            ),
+            source_file_count=len(source_bindings) if isinstance(source_bindings, dict) else 0,
+            source_present=(run / "source").is_dir(),
+            launch={},
+        ),
+        outcomes={
+            key: recovery[key]
+            for key in (
+                "status",
+                "audit_recovery_resolved",
+                "retained_A1_integrity_certification",
+                "retained_original_numerical_certification",
+                "original_A1_admission_failed",
+                "original_C1_coordinator_failed",
+                "original_C1_child_exit_code",
+            )
+        },
+        teacher_outcomes={},
+        student_outcomes={},
+        teacher_student_gap={},
+        gates={},
+        costs=dict(
+            new_scientific_work=result.get("new_scientific_work", {}),
+            certificate_accounting=result.get("accounting", {}),
+            limits=limits,
+            scope="A2 certificate work only; original and A1 work remains retained lineage cost, not zero.",
+        ),
+        result_file=names["result"] if result else None,
+        files=files,
+        source_files=source_files,
+        bulk_evidence={},
+        missing_evidence=sorted(set(missing)),
+        omitted_bulk_evidence=[],
+        hash_mismatches=mismatches,
+        errors=errors,
+        verification_requested=verify,
+        verification_scope=recovery["verification_scope"],
+        audit_recovery=recovery,
+    )
+
+
 def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     """Describe a full frozen run or a portable result capsule, read only.
 
@@ -507,6 +865,21 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     root = path.resolve()
     if not root.is_dir():
         raise ValueError(f"run directory does not exist: {root}")
+    # A2 deliberately has a tiny protocol/source bundle, not generic config/input files.
+    detection_read_bytes = 0
+    for candidate in (root / "run", root):
+        for name, schema in (
+            ("protocol.json", "walker-c1-certificate-closure-protocol-v1"),
+            ("source_manifest.json", "walker-c1-certificate-source-v1"),
+            ("result/certificate_result.json", "walker-c1-certificate-closure-result-v1"),
+        ):
+            if (candidate / name).is_file():
+                value, descriptor = _h5_compact_metadata(candidate, name, {}, verify=False)
+                detection_read_bytes += descriptor.get("read_bytes", 0)
+                if value.get("schema") == schema or name == "result/certificate_result.json":
+                    return _certificate_inspection(
+                        root, candidate, verify=verify, detection_read_bytes=detection_read_bytes
+                    )
     errors: list[str] = []
     capsule = _read_json(root / "capsule.json", errors)
     run = root / "run" if capsule else root

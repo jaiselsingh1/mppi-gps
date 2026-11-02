@@ -73,20 +73,42 @@ def bounded_process(
         )
         reason = None
         observed_rss = 0
+        rss_exit_observations = 0
         selector = None
         try:
             selector = selectors.DefaultSelector()
             assert process.stdout is not None
             selector.register(process.stdout, selectors.EVENT_READ)
-            while selector.get_map() or process.poll() is None:
-                if peak_rss_bytes is not None:
-                    observed_rss = max(observed_rss, _rss_bytes(process.pid))
-                    if observed_rss > peak_rss_bytes:
-                        reason = "rss_limit"
-                        break
+            while True:
+                # Poll even while stdout is registered. A dead leader can
+                # retain unread output, but no longer has RSS to measure.
+                return_code = process.poll()
+                if return_code is not None and not selector.get_map():
+                    break
                 if time.monotonic() - started >= wall_seconds:
                     reason = "wall_limit"
                     break
+                if peak_rss_bytes is not None and return_code is None:
+                    try:
+                        observed_rss = max(observed_rss, _rss_bytes(process.pid))
+                    except Exception as rss_error:
+                        # Linux can clear mm before publishing a terminal task
+                        # state. Missing RSS alone never establishes exit: wait
+                        # briefly for the actual child status, within the same
+                        # deadline. A still-live child remains a hard failure.
+                        if process.poll() is None:
+                            remaining = wall_seconds - (time.monotonic() - started)
+                            if remaining <= 0:
+                                reason = "wall_limit"
+                                break
+                            try:
+                                process.wait(timeout=min(0.05, remaining))
+                            except subprocess.TimeoutExpired:
+                                raise rss_error
+                        rss_exit_observations += 1
+                    if observed_rss > peak_rss_bytes:
+                        reason = "rss_limit"
+                        break
                 for key, _ in selector.select(min(0.1, max(wall_seconds / 10, 0.001))):
                     data = os.read(key.fileobj.fileno(), 65536)
                     if not data:
@@ -121,6 +143,7 @@ def bounded_process(
                 wall_seconds=time.monotonic() - started,
                 error=dict(type=type(error).__name__, message=str(error)),
                 unknown_partial_work_possible=True,
+                rss_unavailable_confirmed_exit_observations=rss_exit_observations,
             )
             raise
         finally:
@@ -141,6 +164,7 @@ def bounded_process(
         retries=0,
         unknown_partial_work_possible=reason is not None or exit_code != 0,
         observed_peak_rss_bytes=observed_rss if peak_rss_bytes is not None else None,
+        rss_unavailable_confirmed_exit_observations=rss_exit_observations,
     )
 
 

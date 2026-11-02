@@ -124,3 +124,99 @@ def test_exited_child_stdout_is_drained_with_rss_guard_enabled(tmp_path, monkeyp
     assert result["exit_code"] == 0 and result["leader_reaped"]
     assert result["stopping_reason"] is None and not result["unknown_partial_work_possible"]
     assert (tmp_path / "stdout.txt").read_text() == "closed synthetic child\n"
+
+
+def test_child_is_polled_before_each_live_rss_sample_with_stdout_registered(tmp_path, monkeypatch):
+    original = module.subprocess.Popen
+    polls, samples = [], []
+
+    def popen(*args, **kwargs):
+        process = original(*args, **kwargs)
+        poll = process.poll
+
+        def record_poll():
+            polls.append(True)
+            return poll()
+
+        process.poll = record_poll
+        return process
+
+    def rss(pid):
+        assert len(polls) > (samples[-1] if samples else 0)
+        samples.append(len(polls))
+        return 1024
+
+    monkeypatch.setattr(module.subprocess, "Popen", popen)
+    monkeypatch.setattr(module, "_rss_bytes", rss)
+    result = run(tmp_path, "import time; time.sleep(.02); print('done')", peak_rss_bytes=1024**3)
+    assert samples and result["exit_code"] == 0
+    assert result["stopping_reason"] is None
+
+
+def test_running_state_without_rss_is_accepted_only_after_actual_child_exit(tmp_path, monkeypatch):
+    # Coordinate the exit so this exercises the mm-released/nonterminal-status
+    # window without depending on the child interpreter's startup duration.
+    ready, release = tmp_path / "ready", tmp_path / "release"
+    original = Path.read_text
+
+    def read(path, *args, **kwargs):
+        if str(path).startswith("/proc/"):
+            if ready.exists():
+                release.write_text("exit now")
+                return "State:\tR (running)\n"
+            return "State:\tR (running)\nVmRSS:\t123 kB\n"
+        return original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read)
+    code = (
+        "from pathlib import Path\nimport os,time\n"
+        f"ready=Path({str(ready)!r}); release=Path({str(release)!r})\n"
+        "ready.write_text('ready')\n"
+        "while not release.exists(): time.sleep(.001)\n"
+        "print('last synthetic output',flush=True)\nos._exit(0)\n"
+    )
+    result = run(tmp_path, code, peak_rss_bytes=1024**3)
+    assert result["exit_code"] == 0 and result["leader_reaped"]
+    assert result["stopping_reason"] is None
+    assert not result["unknown_partial_work_possible"]
+    assert result["rss_unavailable_confirmed_exit_observations"] == 1
+    assert (tmp_path / "stdout.txt").read_text() == "last synthetic output\n"
+
+
+def test_missing_rss_still_fails_for_child_that_remains_alive(tmp_path, monkeypatch):
+    original = Path.read_text
+
+    def read(path, *args, **kwargs):
+        if str(path).startswith("/proc/"):
+            return "State:\tR (running)\n"
+        return original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read)
+    with pytest.raises(RuntimeError, match="RSS could not be measured") as failure:
+        run(tmp_path, "import time; time.sleep(30)", peak_rss_bytes=1024**3)
+    receipt = failure.value.process_receipt
+    assert receipt["leader_reaped"] and receipt["process_group_kill_requested"]
+    assert receipt["stopping_reason"] == "coordinator_exception"
+    assert receipt["unknown_partial_work_possible"]
+    assert receipt["rss_unavailable_confirmed_exit_observations"] == 0
+
+
+def test_reaped_child_output_is_drained_without_reading_rss_again(tmp_path, monkeypatch):
+    original = module.subprocess.Popen
+    calls = []
+
+    def popen(*args, **kwargs):
+        process = original(*args, **kwargs)
+        process.wait(timeout=2)
+        return process
+
+    def unexpected_rss(pid):
+        calls.append(pid)
+        raise AssertionError("RSS must not be sampled after a confirmed exit")
+
+    monkeypatch.setattr(module.subprocess, "Popen", popen)
+    monkeypatch.setattr(module, "_rss_bytes", unexpected_rss)
+    result = run(tmp_path, "print('saved stdout after exit')", peak_rss_bytes=1024**3)
+    assert result["exit_code"] == 0 and result["leader_reaped"]
+    assert calls == []
+    assert (tmp_path / "stdout.txt").read_text() == "saved stdout after exit\n"

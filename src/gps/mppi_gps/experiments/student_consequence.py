@@ -384,9 +384,14 @@ def main(argv: list[str] | None = None) -> int:
         from .consequence_recovery import main as recovery_main
 
         return recovery_main(arguments[1:])
+    if arguments and arguments[0] == "audit-certificate-closure":
+        from .consequence_certificate_closure import main as certificate_main
+
+        return certificate_main(arguments[1:])
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("audit-recovery", help="Compensating saved-output audit closure; zero science")
+    sub.add_parser("audit-certificate-closure", help="A2 certificate-only closing observer")
     item = sub.add_parser("prepare", help="Saved-only bounded source extraction")
     item.add_argument("--recipe", type=Path, default=RECIPE)
     item.add_argument("--out", type=Path, required=True)
