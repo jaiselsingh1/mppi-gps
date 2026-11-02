@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import signal
 import subprocess
 import sys
 from pathlib import Path
@@ -323,10 +325,34 @@ def test_symlink_and_escape_cannot_change_certificate_root(tmp_path):
     assert "Symlink" in result["error"]["message"]
 
 
-def test_import_and_cli_are_standalone_without_science_libraries(tmp_path):
-    protocol, _ = fixture(tmp_path)
-    path = tmp_path / "protocol.json"
-    path.write_bytes(encode(protocol))
+# A small intermediary prevents Linux from charging an unrelated pytest peak to
+# the measured CLI. Its own child is still subject to the unchanged 512 MiB cap.
+_COLD_LAUNCHER = (
+    "import subprocess,sys; raise SystemExit(subprocess.run(sys.argv[1:], timeout=20).returncode)"
+)
+
+
+def run_owned_process(command: list[str], *, timeout: float) -> subprocess.CompletedProcess[str]:
+    """Bound and reap the complete synthetic process tree, including on failure."""
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        start_new_session=True,
+    )
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+        return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+    finally:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        process.communicate()
+
+
+def standalone_cli_command(protocol_path: Path, output_path: Path) -> list[str]:
     module = Path(__file__).resolve().parents[1] / "src/gps/mppi_gps/audits/consequence_closure.py"
     code = (
         """import builtins,runpy,sys
@@ -339,13 +365,88 @@ builtins.__import__=guard
 sys.argv=[MODULE,'--protocol',PROTOCOL,'--out',OUT]
 runpy.run_path(MODULE,run_name='__main__')
 """.replace("MODULE", repr(str(module)))
-        .replace("PROTOCOL", repr(str(path)))
-        .replace("OUT", repr(str(tmp_path / "new")))
+        .replace("PROTOCOL", repr(str(protocol_path)))
+        .replace("OUT", repr(str(output_path)))
     )
-    process = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True)
-    assert process.returncode == 0, process.stderr
-    actual = json.loads(process.stdout)
+    return [sys.executable, "-I", "-c", code]
+
+
+def test_import_and_cli_are_standalone_without_science_libraries(tmp_path):
+    protocol, _ = fixture(tmp_path)
+    path = tmp_path / "protocol.json"
+    path.write_bytes(encode(protocol))
+    out = tmp_path / "new"
+    command = standalone_cli_command(path, out)
+    process = run_owned_process(
+        [sys.executable, "-I", "-c", _COLD_LAUNCHER, *command],
+        timeout=25,
+    )
+    receipt = out / "certificate_result.json"
+    assert process.returncode == 0, (
+        f"CLI exited {process.returncode}\nstdout: {process.stdout}"
+        f"\nstderr: {process.stderr}\nreceipt: "
+        + (receipt.read_text() if receipt.is_file() else "missing")
+    )
+    actual = json.loads(receipt.read_text())
+    assert json.loads(process.stdout) == dict(
+        certificate_checks_passed=actual["certificate_checks_passed"], work=actual["work"]
+    )
+    assert actual["certificate_checks_passed"] is True
+    assert actual["new_scientific_work"] == protocol["new_scientific_work"]
     assert 0 < actual["work"]["peak_rss_bytes"] < 512 * 1024**2
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux exec peak-RSS inheritance regression")
+def test_cold_intermediary_isolates_cli_from_heavy_parent(tmp_path):
+    protocol, _ = fixture(tmp_path)
+    path = tmp_path / "protocol.json"
+    path.write_bytes(encode(protocol))
+    direct = standalone_cli_command(path, tmp_path / "direct")
+    cold = [
+        sys.executable,
+        "-I",
+        "-c",
+        _COLD_LAUNCHER,
+        *standalone_cli_command(path, tmp_path / "cold"),
+    ]
+    # Only this dedicated synthetic parent allocates memory. No policy, arrays,
+    # checkpoint or simulator is imported. Both children see identical tiny data.
+    pressure = """import json,resource,subprocess,sys
+allocation=bytearray(580*1024**2)
+results=[]
+for command in json.loads(sys.argv[1]):
+ process=subprocess.run(command,capture_output=True,text=True,timeout=22)
+ results.append(dict(returncode=process.returncode,stdout=process.stdout,stderr=process.stderr))
+print(json.dumps(dict(parent_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
+                     children=results)))
+"""
+    process = run_owned_process(
+        [sys.executable, "-I", "-c", pressure, json.dumps([direct, cold])],
+        timeout=28,
+    )
+    (tmp_path / "pressure_parent_stdout.txt").write_text(process.stdout)
+    (tmp_path / "pressure_parent_stderr.txt").write_text(process.stderr)
+    assert process.returncode == 0, f"stdout: {process.stdout}\nstderr: {process.stderr}"
+    measured = json.loads(process.stdout)
+    assert 512 * 1024**2 < measured["parent_peak_rss_bytes"] < 1024**3
+    direct, cold = measured["children"]
+    assert direct["returncode"] == 1, direct
+    failed = json.loads((tmp_path / "direct/certificate_result.json").read_text())
+    assert json.loads(direct["stdout"]) == dict(
+        certificate_checks_passed=failed["certificate_checks_passed"], work=failed["work"]
+    )
+    assert failed["certificate_checks_passed"] is False
+    assert failed["error"]["message"] == "Closure RSS limit exhausted"
+    assert failed["work"]["peak_rss_bytes"] > 512 * 1024**2
+    assert cold["returncode"] == 0, cold
+    passed = json.loads((tmp_path / "cold/certificate_result.json").read_text())
+    assert json.loads(cold["stdout"]) == dict(
+        certificate_checks_passed=passed["certificate_checks_passed"], work=passed["work"]
+    )
+    assert passed["certificate_checks_passed"] is True
+    assert 0 < passed["work"]["peak_rss_bytes"] < 512 * 1024**2
+    assert failed["new_scientific_work"] == passed["new_scientific_work"]
+    assert passed["new_scientific_work"] == protocol["new_scientific_work"]
 
 
 def test_real_memory_limit_contract_still_rejects_an_overflow(tmp_path, monkeypatch):
