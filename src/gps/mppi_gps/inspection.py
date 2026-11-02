@@ -327,6 +327,176 @@ def _c1_capsule_audit(root: Path, capsule: dict[str, Any], *, verify: bool) -> d
     )
 
 
+def _consequence_recovery_metadata(
+    root: Path, run: Path, capsule: dict[str, Any], *, verify: bool
+) -> dict[str, Any]:
+    """Describe a new recovery admission without repairing the original audit."""
+    prefix = "run/" if root != run else ""
+    bindings = capsule.get("files", {})
+    names = {
+        "result": "result/recovery.json",
+        "config": "config.json",
+        "manifest": "manifest.json",
+        "exit": "exit.json",
+        "coordinator_exit": "coordinator_exit.json",
+        "finalizer_exit": "finalizer_exit.json",
+        "admission": "admission.json",
+    }
+    values, descriptors = {}, {}
+    for key, name in names.items():
+        # Association checks need the actual compact JSON hashes even when
+        # capsule-wide --verify was not requested.
+        value, descriptor = _h5_compact_metadata(root, prefix + name, bindings, verify=True)
+        values[key], descriptors[key] = value, descriptor
+    result, admission, outer = (values[key] for key in ("result", "admission", "exit"))
+    conflicts = []
+
+    def require(document: dict, expected: dict, label: str) -> None:
+        for key, value in expected.items():
+            if (
+                key not in document
+                or type(document[key]) is not type(value)
+                or document[key] != value
+            ):
+                conflicts.append(label + "." + key)
+
+    require(
+        result,
+        dict(
+            schema="walker-c1-audit-recovery-result-v1",
+            recovery_checks_passed=True,
+            admitted_original_scientific_checks=True,
+            retained_numerical_certification=True,
+            original_overall_audit_closure_passed=False,
+            original_child_exit_code=None,
+            original_audit_coordinator_failed=True,
+        ),
+        "result",
+    )
+    require(
+        admission,
+        dict(
+            schema="walker-c1-audit-recovery-admission-v1",
+            audit_recovery_resolved=True,
+            original_overall_audit_closure_passed=False,
+            original_child_exit_code=None,
+            retained_numerical_certification=True,
+        ),
+        "admission",
+    )
+    require(
+        outer,
+        dict(
+            exit_code=0,
+            leader_reaped=True,
+            stopping_reason=None,
+            process_group_kill_requested=False,
+            unknown_partial_work_possible=False,
+        ),
+        "exit",
+    )
+    coordinator = values["coordinator_exit"]
+    require(
+        coordinator,
+        dict(
+            exit_code=0,
+            leader_reaped=True,
+            stopping_reason=None,
+            process_group_kill_requested=False,
+            unknown_partial_work_possible=False,
+        ),
+        "coordinator_exit",
+    )
+    require(
+        values["finalizer_exit"],
+        dict(
+            exit_code=0,
+            leader_reaped=True,
+            stopping_reason=None,
+            process_group_kill_requested=False,
+            unknown_partial_work_possible=False,
+        ),
+        "finalizer_exit",
+    )
+    if (
+        type(coordinator.get("pid")) is not int
+        or coordinator["pid"] < 1
+        or admission.get("coordinator_pid") != coordinator["pid"]
+    ):
+        conflicts.append("admission.coordinator_pid")
+    science = result.get("new_scientific_work", {})
+    science_keys = (
+        "neural_rows",
+        "prediction_calls",
+        "checkpoint_tensor_loads",
+        "native_controls",
+        "physics_substeps",
+        "backward_rows",
+        "optimizer_steps",
+        "resets",
+        "restores",
+        "mppi_queries",
+    )
+    require(science if isinstance(science, dict) else {}, dict.fromkeys(science_keys, 0), "work")
+    if isinstance(science, dict) and set(science) != set(science_keys):
+        conflicts.append("work.counter_schema")
+    declared = admission.get("bindings", {})
+    for key in ("result", "config", "manifest", "exit", "coordinator_exit"):
+        expected = declared.get(key, {}) if isinstance(declared, dict) else {}
+        actual = descriptors[key]
+        if not (
+            isinstance(expected, dict)
+            and expected.get("file") == names[key]
+            and type(expected.get("bytes")) is int
+            and expected["bytes"] == actual.get("bytes")
+            and isinstance(expected.get("sha256"), str)
+            and expected["sha256"] == actual.get("sha256")
+        ):
+            conflicts.append("admission.binding." + key)
+    if values["manifest"].get("config_sha256") != descriptors["config"].get("sha256"):
+        conflicts.append("manifest.config_binding")
+    readable = all(values.values()) and not any(row.get("error") for row in descriptors.values())
+    copied_verified = bool(capsule) and all(
+        row.get("binding_verified") is True for row in descriptors.values()
+    )
+    if verify and capsule and not copied_verified:
+        conflicts.append("copied_metadata_bindings")
+    accepted = bool(readable and not conflicts)
+    return dict(
+        status=(
+            "REPORTED_RECOVERY_ACCEPTED_METADATA_VERIFIED"
+            if accepted and verify
+            else "REPORTED_RECOVERY_ACCEPTED"
+            if accepted
+            else "RECOVERY_METADATA_INCOMPLETE_OR_CONFLICTING"
+        ),
+        audit_recovery_resolved=accepted,
+        recorded_recovery_resolved=admission.get("audit_recovery_resolved"),
+        recovery_checks_passed=result.get("recovery_checks_passed"),
+        admitted_original_scientific_checks=result.get("admitted_original_scientific_checks"),
+        retained_numerical_certification=result.get("retained_numerical_certification"),
+        original_overall_audit_closure_passed=result.get("original_overall_audit_closure_passed"),
+        original_child_exit_code=result.get("original_child_exit_code"),
+        original_child_exit_unknown="original_child_exit_code" in result
+        and result["original_child_exit_code"] is None,
+        original_audit_coordinator_failed=result.get("original_audit_coordinator_failed"),
+        recorded_recovery_outer_exit_code=outer.get("exit_code"),
+        recorded_recovery_coordinator_exit_code=coordinator.get("exit_code"),
+        recorded_recovery_finalizer_exit_code=values["finalizer_exit"].get("exit_code"),
+        admission_bindings_match=not any(
+            item.startswith("admission.binding.") for item in conflicts
+        ),
+        copied_metadata_verified=copied_verified if verify and capsule else None,
+        metadata_conflicts=conflicts,
+        metadata_files=list(descriptors.values()),
+        inspector_metadata_read_bytes=sum(row.get("read_bytes", 0) for row in descriptors.values()),
+        reported_new_scientific_work=science,
+        reported_accounting=result.get("accounting", {}),
+        verified_file_count=result.get("verified_file_count"),
+        verification_scope="Recorded recovery result, admission and clean outer exit associations only; --verify also checks copied capsule metadata or frozen source/input bytes. This inspector neither rehashes external scientific evidence nor reruns inference, physics, fitting or evaluations. Numerical certification is retained from the original completed scientific checks. The original audit closure remains failed and its child exit remains unknown.",
+    )
+
+
 def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     """Describe a full frozen run or a portable result capsule, read only.
 
@@ -342,11 +512,15 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     run = root / "run" if capsule else root
     config = _read_json(run / "config.json", errors)
     c1 = config.get("schema") == "walker-student-consequence-c1.0-executable-recipe-v1"
+    c1_recovery = config.get("schema") == "walker-c1-audit-recovery-protocol-v1"
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
     if c1:
         result = _read_json(run / "worker_result.json", errors)
         result_file = "worker_result.json"
+    if c1_recovery:
+        result_file = "result/recovery.json"
+        result = _read_json(run / result_file, errors)
     h5_attempt_without_result = False
     if (
         config.get("schema") == "walker-teacher-proposal-h5.0-r1"
@@ -390,7 +564,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         source_files = _files(run / "source", source_bindings, verify, errors)
     required = (
         "config.json",
-        result_file if c1 else "result.json",
+        result_file if c1 or c1_recovery else "result.json",
         "manifest.json",
         "input_manifest.json",
     )
@@ -405,6 +579,18 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     ]
     omitted = capsule.get("bulk_evidence", {}).get("omitted", [])
     evidence_names = ("evidence/raw.h5", "evidence/ledger.jsonl")
+    if c1_recovery:
+        evidence_names = ()
+        missing += [
+            name
+            for name in (
+                "exit.json",
+                "coordinator_exit.json",
+                "finalizer_exit.json",
+                "admission.json",
+            )
+            if not (run / name).is_file()
+        ]
     if c1:
         evidence_names = tuple(
             "worker/evidence/" + name
@@ -590,6 +776,30 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
                 for row in report["prepared_inputs"]
                 if row.get("verified") is False and row["available"]
             ]
+    if c1_recovery:
+        recovery = _consequence_recovery_metadata(root, run, capsule, verify=verify)
+        if verify and (report["hash_mismatches"] or report["errors"]):
+            recovery["audit_recovery_resolved"] = False
+            recovery["status"] = "RECOVERY_METADATA_INCOMPLETE_OR_CONFLICTING"
+            recovery["metadata_conflicts"].append("source_or_capsule_verification")
+        report["audit_recovery"] = recovery
+        report["outcomes"] = {
+            key: recovery[key]
+            for key in (
+                "status",
+                "audit_recovery_resolved",
+                "admitted_original_scientific_checks",
+                "retained_numerical_certification",
+                "original_overall_audit_closure_passed",
+                "original_child_exit_code",
+            )
+        }
+        report["costs"] = dict(
+            new_scientific_work=result.get("new_scientific_work", {}),
+            recovery_accounting=result.get("accounting", {}),
+            limits=config.get("limits", {}),
+            scope="Recovery work only. Previously paid scientific checks are retained, not repeated or charged as zero lineage cost.",
+        )
     if result.get("schema") == "walker-transfer-diagnosis-result-v1":
         d1, d2 = result.get("d1", {}), result.get("d2", {})
         report["diagnostics"] = {
@@ -667,7 +877,7 @@ def format_inspection(report: dict[str, Any]) -> str:
     )
     for label in ("teacher_outcomes", "student_outcomes", "teacher_student_gap", "gates", "costs"):
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
-    for label in ("h5_compact_audit", "h5_measurement_scope", "c1_compact_audit"):
+    for label in ("h5_compact_audit", "h5_measurement_scope", "c1_compact_audit", "audit_recovery"):
         if label in report:
             lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
     if "diagnostics" in report:

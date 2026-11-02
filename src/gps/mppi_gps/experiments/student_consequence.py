@@ -379,8 +379,14 @@ def launch_audit(run: Path, out: Path) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    arguments = sys.argv[1:] if argv is None else argv
+    if arguments and arguments[0] == "audit-recovery":
+        from .consequence_recovery import main as recovery_main
+
+        return recovery_main(arguments[1:])
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("audit-recovery", help="Compensating saved-output audit closure; zero science")
     item = sub.add_parser("prepare", help="Saved-only bounded source extraction")
     item.add_argument("--recipe", type=Path, default=RECIPE)
     item.add_argument("--out", type=Path, required=True)

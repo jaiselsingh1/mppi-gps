@@ -61,6 +61,7 @@ def freeze(
                 "trajectory-review-k1.1",
                 "motion-diagnosis-k1.2",
                 "teacher-proposal-h5.0-preparation",
+                "student-consequence-audit-recovery-c1.0-a1",
             ),
             raw_search_protected=True,
         ),
