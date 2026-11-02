@@ -1,0 +1,86 @@
+{
+  "schema": "walker-h5-approved-preparation-backup-v1",
+  "exit_code": 0,
+  "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+  "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-01_teacher_proposal_h5_0_preparation_001",
+  "research_worker_started": false,
+  "files": {
+    "original/local_catalog.json": {
+      "bytes": 84004,
+      "sha256": "a7604c486a5f6773fda1e281e55937917785a9158fccc9a770bf44d1e837bdef",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/mirror_001/local_catalog.json"
+    },
+    "original/remote_catalog.json": {
+      "bytes": 84004,
+      "sha256": "a7604c486a5f6773fda1e281e55937917785a9158fccc9a770bf44d1e837bdef",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/mirror_001/remote_catalog.json"
+    },
+    "original/receipt.json": {
+      "bytes": 761,
+      "sha256": "8c053943019a2ea0e6fcdc4500e917c605ad8cc70494913c8454e38b81749b3e",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/mirror_001/receipt.json"
+    },
+    "original/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/mirror_001/stderr.txt"
+    },
+    "command/receipt.json": {
+      "bytes": 369,
+      "sha256": "97f78ab9b9252f4d3595f3b931ea3eabc50aae8d3b4db47a28194602965f821d",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/027_approved_backup/receipt.json"
+    },
+    "command/stdout.txt": {
+      "bytes": 761,
+      "sha256": "8c053943019a2ea0e6fcdc4500e917c605ad8cc70494913c8454e38b81749b3e",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/027_approved_backup/stdout.txt"
+    },
+    "command/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-01_teacher_proposal_h5_0_preparation_001/engineering/027_approved_backup/stderr.txt"
+    },
+    "mirror_preparation.py": {
+      "bytes": 3159,
+      "sha256": "d2dd8bae8c6f17d4bb31e6911e8726d03a5c04902cd496d4e07a47b082db8f00",
+      "source": "/tmp/h50_mirror_preparation.py"
+    },
+    "publish_backup.py": {
+      "bytes": 6056,
+      "sha256": "17e0354a687fc2b3a845b9ce17bcf3e3cb272f4a09ab54dafa8e9d1ca3dbb3f4",
+      "source": "/tmp/h50_publish_backup.py"
+    }
+  },
+  "uncompressed_bytes": 10332583,
+  "archive_bytes": 4031472,
+  "archive_sha256": "ddc26c55409a5523fcf48f19efad9cb0cb9bd2ac94615108f005dc7692585582",
+  "exact_catalog_match": true,
+  "attempt": 1,
+  "attempt_limit": 2,
+  "transfer_byte_limit": 134217728,
+  "wall_seconds": 1.5448718749976251,
+  "local_catalog_sha256": "a7604c486a5f6773fda1e281e55937917785a9158fccc9a770bf44d1e837bdef",
+  "authorization": "User explicitly approved copying the frozen H5 preparation, including W2 inputs and metadata, to robopil5090; research execution remains blocked.",
+  "preparation_backup_only": true,
+  "includes_frozen_benchmark_inputs": true,
+  "raw_receipt_field_correction": "Original metadata_backup_only is an imprecise field name. This was a full preparation backup including the sealed W2 NPZ inputs, not metadata alone. Raw receipt and executed helper are preserved unchanged.",
+  "remote_catalog_sha256": "a7604c486a5f6773fda1e281e55937917785a9158fccc9a770bf44d1e837bdef",
+  "launch_authorized": false,
+  "eligibility_decision": "pending_explicit_review",
+  "useful_learning_prerequisite_satisfied": false,
+  "scientific_work": {
+    "network_forwards": 0,
+    "physics_controls": 0,
+    "optimizer_steps": 0,
+    "mppi_queries": 0
+  },
+  "archive_payload_bytes": 4031472,
+  "file_pass_accounting": {
+    "local_pretransfer_catalog_hash_bytes": 10332583,
+    "local_archive_payload_read_bytes": 10332583,
+    "remote_decompressed_file_write_bytes": 10332583,
+    "remote_verification_hash_bytes": 10332583,
+    "scope": "Named helper passes only. Preflight, independent verification and publication hashing are additional; SSH protocol overhead, peak RAM, editing time and billing are not measured."
+  },
+  "cost_scope": "One successful transfer attempt within128MiB payload and120s deadline. Enclosing command wall time includes the inner backup timer; do not add them. Previous automatic-review rejection occurred before execution and transferred zero bytes."
+}

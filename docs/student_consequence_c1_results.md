@@ -1,4 +1,6 @@
-# C1.0: failed walking transfer, with incomplete audit process closure
+# C1.0: failed walking transfer; original audit process failure preserved
+
+**2026-11-02 recovery addendum:** [Audit-only recovery is resolved through A2 certificate closure](student_consequence_c1_audit_recovery_results.md). The original record below and its capsule remain preserved; original outer closure is still failed and its child exit remains unknown. No scientific work was repeated. The separate recovery admits retained certifications with clean new closing receipts.
 
 C1 completed its fixed worker roster: 12 validated teacher replays, 12,000 first-action substitutions, nine 2,000-update child fits and 432 standalone evaluations. **Every parent and child failed walking and full survival.** The preserved independent scientific receipt reports all measurement, binding and accounting checks passed. The audit coordinator then failed during process-exit RSS sampling, so the mandatory outer closure is incomplete. This is a fault-preservation publication, not a fully closed audited study.
 

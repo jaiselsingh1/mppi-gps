@@ -1,0 +1,61 @@
+{
+  "schema": "walker-c1-certificate-admission-v1",
+  "audit_recovery_resolved": true,
+  "certificate_checks_passed": true,
+  "retained_A1_integrity_certification": true,
+  "retained_original_numerical_certification": true,
+  "original_A1_admission_failed": true,
+  "original_C1_coordinator_failed": true,
+  "original_C1_child_exit_code": null,
+  "original_A1_failure_flags_preserved": true,
+  "new_scientific_work": {
+    "neural_rows": 0,
+    "prediction_calls": 0,
+    "checkpoint_tensor_loads": 0,
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "resets": 0,
+    "restores": 0,
+    "mppi_queries": 0
+  },
+  "bindings": {
+    "result": {
+      "file": "result/certificate_result.json",
+      "bytes": 5095,
+      "sha256": "2bbfbc85a1e97dd13332c1d4477f839b4636eded0d2ac99445700ed666ddfe77"
+    },
+    "protocol": {
+      "file": "protocol.json",
+      "bytes": 7188,
+      "sha256": "c6cea814cc023e9995a2d0922449793ff92e7e96d8cc18776b09a6dc4747ffb5"
+    },
+    "source_manifest": {
+      "file": "source_manifest.json",
+      "bytes": 623,
+      "sha256": "a7af3450a7a5553614acc07bdcf575e83f0974d15437a5d1c745d7f60cd0a5b3"
+    },
+    "worker_exit": {
+      "file": "worker_exit.json",
+      "bytes": 621,
+      "sha256": "e245c8df0544b51a38d50ce31cb5610684176968576313a8bab6ebc6097c68c2"
+    },
+    "coordinator_exit": {
+      "file": "coordinator_exit.json",
+      "bytes": 625,
+      "sha256": "0b4dcffe6a6787c442c9af6e448b1c0386f4df255d65c9520def68c1d45697ac"
+    }
+  },
+  "coordinator_pid": 431474,
+  "admission_candidate": {
+    "file": "admission_candidate.json",
+    "bytes": 1363,
+    "sha256": "d3e1629ab7fdfb383eb5a4f4672f51afe187124062ac7e87aae8d2687560900d"
+  },
+  "finalization_accounting": {
+    "read_bytes": 72820,
+    "source_read_bytes": 57009,
+    "scope": "Metadata checks through pre-write; admission write and external finalizer exit follow."
+  }
+}

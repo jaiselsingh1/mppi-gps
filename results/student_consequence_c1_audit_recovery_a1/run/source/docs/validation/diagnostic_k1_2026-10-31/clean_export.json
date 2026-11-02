@@ -1,0 +1,71 @@
+{
+  "schema": "walker-k1-clean-export-validation-v1",
+  "export": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-clean-export-sjzzm1bj",
+  "outputs": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-export-checks-u_1dp9of",
+  "copied_files": 1470,
+  "commands": [
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-export-checks-u_1dp9of/pytest",
+        "tests/test_action_compatibility.py",
+        "tests/test_action_compatibility_inputs_integration.py",
+        "tests/test_action_compatibility_report.py",
+        "tests/test_compatibility_audit.py",
+        "tests/test_compatibility_inputs.py",
+        "tests/test_compatibility_metrics.py",
+        "tests/test_diagnostic_policies.py",
+        "tests/test_research_cli.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 12.175982375003514
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.0756783329998143
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "results/action_compatibility_k1",
+        "--verify",
+        "--json"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.05659962500794791
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/diagnostics/report_action_compatibility.py",
+        "--run",
+        "results/action_compatibility_k1/run",
+        "--out",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-export-checks-u_1dp9of/report"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.693309624999529
+    }
+  ],
+  "scope": "Only focused synthetic/inference-only tests, read-only metadata, capsule/archive/link checks and saved-result rendering. No real roster forwards, physics, backwards or optimizer updates. Full fitting/physics suite deliberately excluded.",
+  "canonical_scientific_csv_bytes_equal": true,
+  "new_roster_forward_rows": 0,
+  "physics_controls": 0,
+  "backward_rows": 0,
+  "optimizer_steps": 0
+}

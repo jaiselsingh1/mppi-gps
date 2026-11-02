@@ -10,7 +10,13 @@
     "bytes": 6918,
     "sha256": "f31f8a0c13d73d248a3e29f514e841bcfda053f9b70a959a9f12d2dece89b512"
   },
-  "c1_recovery_receipt": null,
+  "c1_recovery_receipt": {
+    "file": "results/student_consequence_c1_certificate_closure_a2/run/admission.json",
+    "bytes": 1933,
+    "sha256": "13e0985a1004cbbbe55788f06d6b97eccfee3375b5d4de47f2de580924011538",
+    "source_commit": "a8998d2d2aad508175be2960230c38d0709bb39d",
+    "audit_recovery_resolved": true
+  },
   "c1_recovery_receipt_required_before_any_launch": true,
   "input_bindings": {
     "c1_config": {
@@ -2255,7 +2261,6 @@
     "allocation_and_reserved_headroom_bytes": 2684354560
   },
   "unresolved_prelaunch_requirements": [
-    "Successful exact C1 recovery receipt binding; original failure retained.",
     "Verify chosen reference path and exact full-file/actor hashes; no substitute if unavailable.",
     "Extract/hash selected source arrays, explicit terminal context, complete native integration spec and row-to-checkpoint joins.",
     "Freeze implementation source export and independent exact work/storage-bound proof; test replay/restoration, matched continuation and hard-stop journals.",
@@ -2263,5 +2268,46 @@
     "Before conditional fitting: separately review validityresults and seal actual reference rollouts, labels,training/held row tables,dataset hashes and complete incoming/tape fingerprints."
   ],
   "stopping": "Any missing binding/replay/continuation/numeric/ownership/budget/capacity/durability failure stops and retains paid work. No retry/replacement/extra updates/selectedcheckpoint/architecturechange/automaticcoupling.",
-  "claim_scope": "One distribution intervention under fixed reference labels, studentinterface and updatebudget; no claim that coverage uniquelycausedfailure or that successfulreferencehandovercertifiesteachability. Not iterativeDAgger,notMPPIteaching/coupling,notCIO-GPSreproduction."
+  "claim_scope": "One distribution intervention under fixed reference labels, studentinterface and updatebudget; no claim that coverage uniquelycausedfailure or that successfulreferencehandovercertifiesteachability. Not iterativeDAgger,notMPPIteaching/coupling,notCIO-GPSreproduction.",
+  "c1_recovery_evidence": {
+    "capsule_manifest": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/capsule.json",
+      "bytes": 7147,
+      "sha256": "1afcaa0e966406b034c8555985892e81678a836d0b09ed675f130f493269b222"
+    },
+    "protocol": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/run/protocol.json",
+      "bytes": 7188,
+      "sha256": "c6cea814cc023e9995a2d0922449793ff92e7e96d8cc18776b09a6dc4747ffb5"
+    },
+    "source_manifest": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/run/source_manifest.json",
+      "bytes": 623,
+      "sha256": "a7af3450a7a5553614acc07bdcf575e83f0974d15437a5d1c745d7f60cd0a5b3"
+    },
+    "certificate_result": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/run/result/certificate_result.json",
+      "bytes": 5095,
+      "sha256": "2bbfbc85a1e97dd13332c1d4477f839b4636eded0d2ac99445700ed666ddfe77"
+    },
+    "worker_exit": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/run/worker_exit.json",
+      "bytes": 621,
+      "sha256": "e245c8df0544b51a38d50ce31cb5610684176968576313a8bab6ebc6097c68c2"
+    },
+    "coordinator_exit": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/run/coordinator_exit.json",
+      "bytes": 625,
+      "sha256": "0b4dcffe6a6787c442c9af6e448b1c0386f4df255d65c9520def68c1d45697ac"
+    },
+    "finalizer_exit": {
+      "file": "results/student_consequence_c1_certificate_closure_a2/run/finalizer_exit.json",
+      "bytes": 623,
+      "sha256": "78780f0b6494d9f841e186e7b2f66e7bcdb00e05c5ba5e5d5685ac7ab1a54de8"
+    },
+    "scope": "A2compensatingadmissionretainsoriginalnumericalchecksandA1point-in-timeintegrity/accountingcertification. Itdoesnotrepeat765payloadhashesortheirscientificmeasurements. OriginalC1/A1launcherfailuresremainfailed;originalC1childexitunknown. ThisbindingdoesnotauthorizeS1.2execution."
+  },
+  "resolved_prelaunch_requirements": [
+    "C1A2compensatingadmission,allthreecleanclosingreceiptsandseparatecapsuleareboundbyactualbytes/SHA;originalC1/A1failurehistoriesretained."
+  ]
 }

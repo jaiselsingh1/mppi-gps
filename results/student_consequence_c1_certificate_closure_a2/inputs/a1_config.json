@@ -1,0 +1,143 @@
+{
+  "schema": "walker-c1-audit-recovery-protocol-v1",
+  "study": "C1.0-A1",
+  "version": "1.0",
+  "user_authorized": true,
+  "automatic_followup": false,
+  "authorization_scope": "Audit-only recovery by integrity/accounting/closure verification of preserved completed checks; no new inference, physics, fitting or task evaluations.",
+  "original_publication_commit": "a0ce4f5e5ae539f28cd2747432bd328ab76224c9",
+  "original_scientific_worker_commit": "56b737413884c031bb65bcc331b48ed700e59540",
+  "locations": {
+    "original_run": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_consequence_c1_001",
+    "original_artifacts": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_consequence_c1_001",
+    "remote_host": "robopil5090",
+    "remote_interpreter": "/home/jaisel/mppi-gps/.venv/bin/python",
+    "recovery_run": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001"
+  },
+  "anchors": {
+    "scientific_receipt": {
+      "root": "artifacts",
+      "file": "audit_001/result/audit.json",
+      "bytes": 144582,
+      "sha256": "85881f410ee85944b7edd2c5643437de801d327294189533480f6673f87cd7d9"
+    },
+    "failure": {
+      "root": "artifacts",
+      "file": "audit_launcher_failure.json",
+      "bytes": 1458,
+      "sha256": "8b363d084e99d46f746e7b59b2a9cf470ff0a7854cbe59ad30020c7cc5da79f6"
+    },
+    "audit_output_catalog": {
+      "root": "artifacts",
+      "file": "audit_output_catalog_failure_001.json",
+      "bytes": 2359,
+      "sha256": "84ef36d000372069968e1f7e17999fd5e9a89d941d1eb305c95d312f7e052870"
+    },
+    "config": {
+      "root": "run",
+      "file": "config.json",
+      "bytes": 13852,
+      "sha256": "d8cc203d19470a3df92395a5094948f527c87b2c00cccc3fb4653fbd322cd33c"
+    },
+    "manifest": {
+      "root": "run",
+      "file": "manifest.json",
+      "bytes": 111133,
+      "sha256": "ae6be7a4fd15363080618ca58df163ea2abc150238893ecafec6c76cfc006464"
+    },
+    "worker_result": {
+      "root": "run",
+      "file": "worker_result.json",
+      "bytes": 5775412,
+      "sha256": "247c31ca58332f38336cb92513467882bb7dfb3188d59d1fd91c391664f0e46b"
+    },
+    "worker_exit": {
+      "root": "run",
+      "file": "worker_exit.json",
+      "bytes": 616,
+      "sha256": "ecd2b2cad4f4c34cefea83714e2ee69170e8be3eb39d10d44368dc370a92d27c"
+    }
+  },
+  "limits": {
+    "wall_seconds": 800,
+    "rss_bytes": 1073741824,
+    "read_bytes": 7516192768,
+    "output_bytes": 67108864,
+    "max_files": 2000,
+    "max_json_bytes": 16777216,
+    "max_journal_line_bytes": 512,
+    "max_lifecycle_line_bytes": 2048,
+    "stdout_bytes": 8388608,
+    "source_export_bytes": 67108864,
+    "all_recovery_output_bytes": 1073741824,
+    "coordinator_preflight_wall_seconds": 60,
+    "total_stage_wall_seconds": 900,
+    "source_verification_read_bytes": 1073741824,
+    "total_stage_read_bytes": 8589934592,
+    "external_coordinator_wall_seconds": 860,
+    "finalization_wall_seconds": 40,
+    "archive_transfer_attempts": 2,
+    "archive_transfer_bytes": 16777216
+  },
+  "cumulative": {
+    "prior_wall_upper_seconds": 300,
+    "prior_read_upper_bytes": 8589934592,
+    "audit_wall_limit_seconds": 7200,
+    "audit_read_limit_bytes": 68719476736
+  },
+  "runtime": {
+    "cpu_affinity": [
+      0
+    ],
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "MUJOCO_GL": "disable"
+  },
+  "expected_counts": {
+    "input_files": 741,
+    "actors": 12,
+    "teacher_replays": 12,
+    "assays": 12000,
+    "fit_blocks": 9,
+    "curve_rows": 18000,
+    "standalone": 432,
+    "prediction_calls": 97896,
+    "prediction_rows": 187806,
+    "prediction_events": 195792
+  },
+  "new_scientific_work": {
+    "neural_rows": 0,
+    "prediction_calls": 0,
+    "checkpoint_tensor_loads": 0,
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "resets": 0,
+    "restores": 0,
+    "mppi_queries": 0
+  },
+  "acceptance": {
+    "exact_original_anchors": true,
+    "all_bound_inputs_and_checkpoint_bytes_unchanged": true,
+    "all_audit_outputs_unchanged": true,
+    "complete_prediction_and_worker_journals": true,
+    "scalar_rosters_gates_and_accounting_reconcile": true,
+    "new_worker_exit_zero_reaped_and_no_stop": true,
+    "retain_original_failure": true,
+    "original_child_exit_code_remains_unknown": true,
+    "new_external_coordinator_exit_zero_reaped_and_no_stop": true,
+    "admission_binds_result_config_manifest_inner_and_coordinator_exits": true,
+    "new_finalizer_exit_zero_reaped_and_no_stop": true
+  },
+  "stopping": {
+    "on_any_missing_tampered_unclosed_unknown_or_budget_exhausted": "Stop and retain paid prefix; no replacement inputs, relaxed gates or automatic retry.",
+    "success_does_not_authorize": "Any reference rollout, labels, architecture change, policy fit, evaluation, teacher acquisition or coupling experiment."
+  },
+  "scope": {
+    "retained_numerical_certification": "The completed original scientific receipt and its frozen verifier source retain the numerical certification. Recovery verifies unchanged bytes, journals, accounting and fresh process closure; it does not independently recompute network outputs or gradients.",
+    "original_failure": "Original overall_audit_closure_passed remains false and original child exit remains null. A separate recovery admission can resolve acceptance without inventing an original exit receipt.",
+    "storage": "Recovery output <=1GiB; known prior retained output ~4.76GB plus existing1GiB reserve leaves the original16GiB study ceiling intact. Engineering export/test scratch is tracked separately and must remain within original global ceiling."
+  }
+}

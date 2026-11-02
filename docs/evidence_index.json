@@ -3679,6 +3679,135 @@
         },
         "scientific_rerun": false,
         "overall_original_audit_closure_passed": false
+      },
+      "separate_recovery": {
+        "resolved": true,
+        "admission": {
+          "file": "results/student_consequence_c1_certificate_closure_a2/run/admission.json",
+          "bytes": 1933,
+          "sha256": "13e0985a1004cbbbe55788f06d6b97eccfee3375b5d4de47f2de580924011538"
+        },
+        "original_overall_audit_closure_passed": false,
+        "original_child_exit_code": null,
+        "report": "docs/student_consequence_c1_audit_recovery_results.md",
+        "publication_storage_exception_preserved": true
+      }
+    },
+    "student_consequence_c1_audit_recovery_a1": {
+      "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001",
+      "source_commit": "a5418a5c8285f27bda9eb9e0f9a7b085aadd3c4a",
+      "capsule": {
+        "file": "results/student_consequence_c1_audit_recovery_a1/capsule.json",
+        "bytes": 141227,
+        "sha256": "94d91d0f4100d953e4439c4f92e09bc5d8ddb9e0fe2541a3abf113f5dc028fc8"
+      },
+      "capsule_bound_files": 716,
+      "capsule_bound_bytes": 8272206,
+      "local_availability": "Exact compact capsule/source; no original scientific bulk mirror.",
+      "remote_availability": "Complete new metadata/source run and operator artifacts on robopil5090.",
+      "audit_recovery_resolved": false,
+      "original_C1_outer_closure_remains_failed": true,
+      "original_C1_child_exit_code": null,
+      "new_scientific_work": {
+        "backward_rows": 0,
+        "checkpoint_tensor_loads": 0,
+        "mppi_queries": 0,
+        "native_controls": 0,
+        "neural_rows": 0,
+        "optimizer_steps": 0,
+        "physics_substeps": 0,
+        "prediction_calls": 0,
+        "resets": 0,
+        "restores": 0
+      },
+      "result_report": "docs/student_consequence_c1_audit_recovery_results.md",
+      "packet_archive": {
+        "bytes": 2726722,
+        "sha256": "e823a2760f06647c6b4d9306390f9ff21406c5a61c0d7e1f8db2ffa21d8c82eb"
+      },
+      "result": {
+        "file": "results/student_consequence_c1_audit_recovery_a1/run/result/recovery.json",
+        "bytes": 3587,
+        "sha256": "4147d6a65c873a29802c6657a388859d5ae56658ecbd02cb0ab848b80ff9c667"
+      },
+      "worker_exit": {
+        "file": "results/student_consequence_c1_audit_recovery_a1/run/exit.json",
+        "bytes": 694,
+        "sha256": "c7a3c3f0d1544ee468ca76bb3b197a6fe34897ac6229c160d743462f35967aa4"
+      },
+      "admission_missing": true,
+      "coordinator_exit_missing": true,
+      "finalizer_exit_missing": true,
+      "omitted_generated_interpreter_caches": {
+        "files": 5,
+        "bytes": 22131,
+        "bindings": "results/student_consequence_c1_audit_recovery_a1/publication/interpreter_cache_omissions.json",
+        "availability": "Exact remote originals and verified local result packet/cache-retention directory."
+      },
+      "recovery_storage_accounting": {
+        "file": "docs/validation/student_consequence_c1_audit_recovery_2026-11-02/publication_001/storage_accounting.json",
+        "bytes": 2422,
+        "sha256": "bfffb1c5cfe55a0054b95c20209cbb40519597f292df08b82144ec1917debb30"
+      }
+    },
+    "student_consequence_c1_certificate_closure_a2": {
+      "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_certificate_closure_a2_001",
+      "source_commit": "a8998d2d2aad508175be2960230c38d0709bb39d",
+      "capsule": {
+        "file": "results/student_consequence_c1_certificate_closure_a2/capsule.json",
+        "bytes": 7147,
+        "sha256": "1afcaa0e966406b034c8555985892e81678a836d0b09ed675f130f493269b222"
+      },
+      "capsule_bound_files": 42,
+      "capsule_bound_bytes": 905544,
+      "local_availability": "Exact compact capsule/source; no original scientific bulk mirror.",
+      "remote_availability": "Complete new metadata/source run and operator artifacts on robopil5090.",
+      "audit_recovery_resolved": true,
+      "original_C1_outer_closure_remains_failed": true,
+      "original_C1_child_exit_code": null,
+      "new_scientific_work": {
+        "backward_rows": 0,
+        "checkpoint_tensor_loads": 0,
+        "mppi_queries": 0,
+        "native_controls": 0,
+        "neural_rows": 0,
+        "optimizer_steps": 0,
+        "physics_substeps": 0,
+        "prediction_calls": 0,
+        "resets": 0,
+        "restores": 0
+      },
+      "result_report": "docs/student_consequence_c1_audit_recovery_results.md",
+      "packet_archive": {
+        "bytes": 2726722,
+        "sha256": "e823a2760f06647c6b4d9306390f9ff21406c5a61c0d7e1f8db2ffa21d8c82eb"
+      },
+      "admission": {
+        "file": "results/student_consequence_c1_certificate_closure_a2/run/admission.json",
+        "bytes": 1933,
+        "sha256": "13e0985a1004cbbbe55788f06d6b97eccfee3375b5d4de47f2de580924011538"
+      },
+      "worker_exit": {
+        "file": "results/student_consequence_c1_certificate_closure_a2/run/worker_exit.json",
+        "bytes": 621,
+        "sha256": "e245c8df0544b51a38d50ce31cb5610684176968576313a8bab6ebc6097c68c2"
+      },
+      "coordinator_exit": {
+        "file": "results/student_consequence_c1_certificate_closure_a2/run/coordinator_exit.json",
+        "bytes": 625,
+        "sha256": "0b4dcffe6a6787c442c9af6e448b1c0386f4df255d65c9520def68c1d45697ac"
+      },
+      "finalizer_exit": {
+        "file": "results/student_consequence_c1_certificate_closure_a2/run/finalizer_exit.json",
+        "bytes": 623,
+        "sha256": "78780f0b6494d9f841e186e7b2f66e7bcdb00e05c5ba5e5d5685ac7ab1a54de8"
+      },
+      "retained_certification_scope": "Original numerical certification plus A1 point-in-time 765-binding saved-output integrity/accounting certification; A2 checks 17 small certificates, not a new raw audit.",
+      "original_A1_admission_remains_failed": true,
+      "recovery_storage_accounting": {
+        "file": "docs/validation/student_consequence_c1_audit_recovery_2026-11-02/publication_001/storage_accounting.json",
+        "bytes": 2422,
+        "sha256": "bfffb1c5cfe55a0054b95c20209cbb40519597f292df08b82144ec1917debb30"
       }
     }
   },

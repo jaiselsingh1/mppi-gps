@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/scripts/train_mppi_gps.py", line 144, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/scripts/train_mppi_gps.py", line 41, in main
+    return int(module.main(arguments[2:]) or 0)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/experiments/student_consequence.py", line 386, in main
+    return recovery_main(arguments[1:])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/experiments/consequence_recovery.py", line 670, in main
+    return launch(args.run.resolve()) if args.command == "launch" else worker(args.run.resolve())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/experiments/consequence_recovery.py", line 586, in launch
+    outer = bounded_process(
+            ^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/proposal_launch.py", line 83, in bounded_process
+    observed_rss = max(observed_rss, _rss_bytes(process.pid))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/proposal_launch.py", line 39, in _rss_bytes
+    raise RuntimeError("Pinned Linux worker RSS could not be measured")
+RuntimeError: Pinned Linux worker RSS could not be measured

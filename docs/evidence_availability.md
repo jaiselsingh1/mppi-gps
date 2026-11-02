@@ -1,6 +1,6 @@
 # Evidence availability
 
-A clean checkout contains active source, tests, recipes, historical source archives, reports and eleven evidence capsules, including the interrupted S1 record and completed S1.1/K1.1/K1.2 studies. Raw arrays, checkpoints, ledgers, NPZ training inputs, videos and most full frozen run trees remain outside Git. K1.1 includes its entire new metadata-only run; K1.2 includes its new run except the compact raw archive and work journal. No historical evidence was deleted.
+A clean checkout contains active source, tests, recipes, historical source archives, reports and exact evidence capsules, including interrupted studies and the separate C1 fault/recovery records. Raw arrays, checkpoints, ledgers, NPZ training inputs, videos and most full frozen run trees remain outside Git. K1.1 includes its entire new metadata-only run; K1.2 includes its new run except the compact raw archive and work journal. No historical evidence was deleted.
 
 ## What a clean checkout can do
 
@@ -466,3 +466,9 @@ Links labeled “external evidence” in active reports point here. Paths below 
 <a id="external-bf2922342a3a"></a>
 
 **`runs/2026-10-30_student_learnability_l1_001/evidence/raw.h5`** — [storage context](#l1-evidence).
+
+### C1 audit-only recovery
+
+The original [C1 fault-preservation capsule](../results/student_consequence_c1_0/README.md) is unchanged. The separate [A1 capsule](../results/student_consequence_c1_audit_recovery_a1/README.md) includes its entire frozen source export, saved-output certification, genuine zero worker exit with failed coordinator flags, and external failure observations. Its missing admission/closing receipts remain missing. The [A2 capsule](../results/student_consequence_c1_certificate_closure_a2/README.md) includes the minimal frozen source, all 17 small certificate inputs, admission chain and three clean exits. Recovery is resolved through A2, while both predecessor failures remain historical facts.
+
+The [combined result](student_consequence_c1_audit_recovery_results.md) states the retained-certification scope and costs. Each new capsule has a byte/hash manifest; the shared packet manifest maps every transferred payload to its remote source. The two full recovery runs remain on `robopil5090` at `/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001` and `/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_certificate_closure_a2_001`. Original C1 bulk evidence remains remote; no raw arrays, checkpoints or journals were mirrored locally. No physics, inference, fitting or evaluations were repeated.

@@ -1,0 +1,159 @@
+{
+  "schema": "walker-k1-final-validation-v1",
+  "completed_utc": "2026-10-31 05:46:29 UTC",
+  "post_accounting_engineering_interval": {
+    "start_utc": "2026-10-31 05:43:49 UTC",
+    "end_utc": "2026-10-31 05:46:29 UTC",
+    "elapsed_seconds": 160.492382,
+    "scope": "Overlapping packaging, read-only scientific/notes review, documentation edits, clean export, lint/hash/link checks through this receipt; not total CPU time. Later Git publication and receipt writing are unmetered engineering overhead, explicitly unknown."
+  },
+  "checks": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "wall_seconds": 0.01247037498978898,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "wall_seconds": 0.01081145899661351,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_repository.py",
+        "--frozen-run",
+        "runs/2026-10-31_action_compatibility_k1_001"
+      ],
+      "wall_seconds": 0.11616133300412912,
+      "exit_code": 0
+    }
+  ],
+  "clean_export": {
+    "schema": "walker-k1-clean-export-validation-v1",
+    "export": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-clean-export-sjzzm1bj",
+    "outputs": "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-export-checks-u_1dp9of",
+    "copied_files": 1470,
+    "commands": [
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "--basetemp",
+          "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-export-checks-u_1dp9of/pytest",
+          "tests/test_action_compatibility.py",
+          "tests/test_action_compatibility_inputs_integration.py",
+          "tests/test_action_compatibility_report.py",
+          "tests/test_compatibility_audit.py",
+          "tests/test_compatibility_inputs.py",
+          "tests/test_compatibility_metrics.py",
+          "tests/test_diagnostic_policies.py",
+          "tests/test_research_cli.py"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 12.175982375003514
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/check_repository.py"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.0756783329998143
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "inspect",
+          "--run",
+          "results/action_compatibility_k1",
+          "--verify",
+          "--json"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.05659962500794791
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/diagnostics/report_action_compatibility.py",
+          "--run",
+          "results/action_compatibility_k1/run",
+          "--out",
+          "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-k1-export-checks-u_1dp9of/report"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 5.693309624999529
+      }
+    ],
+    "scope": "Only focused synthetic/inference-only tests, read-only metadata, capsule/archive/link checks and saved-result rendering. No real roster forwards, physics, backwards or optimizer updates. Full fitting/physics suite deliberately excluded.",
+    "canonical_scientific_csv_bytes_equal": true,
+    "new_roster_forward_rows": 0,
+    "physics_controls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0
+  },
+  "notes_validation": {
+    "maintained_pages": 19,
+    "wiki_and_heading_links": 146,
+    "absolute_evidence_links": 8,
+    "exact_dated_backups": 13,
+    "math_and_code_fences_balanced": true,
+    "engineering_accounting_link_was_pending_and_now_resolves": true
+  },
+  "scientific_research_added_by_final_validation": {
+    "actual_roster_forward_rows": 0,
+    "physics_controls": 0,
+    "model_controls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0
+  },
+  "synthetic_fixture_forward_counts": "Not globally instrumented; unknown, not zero. No synthetic backward or optimizer updates.",
+  "ci": "This push deliberately uses [skip ci] to avoid launching unrelated full-suite fitting/physics fixtures outside the focused zero-training protocol. It is not a full-suite or CI pass. Existing historical cleanup validation remains separate.",
+  "file_bindings": {
+    "capsule_copy_hash_receipt.json": {
+      "bytes": 1897,
+      "sha256": "f9bf6962b29eb59ada1210f667561159d40cffd27fa5cc4cff2a57203292bbc5"
+    },
+    "clean_export.json": {
+      "bytes": 2396,
+      "sha256": "c2f3c4bcf9d4f02017e218680082c436d08a61df98d1a1f76e784ee9fb653c24"
+    },
+    "clean_export_pytest.txt": {
+      "bytes": 100,
+      "sha256": "0334e9a10ca8784369f3321d89e0e85920b9bd7b6d7fa2a62740a122180963f9"
+    },
+    "clean_export_repository_checks.json": {
+      "bytes": 139,
+      "sha256": "9738cd69a04bcaec9a5214ea3961e6d22695eb2bca1aeeeb7498c11b0fc7899f"
+    },
+    "repository_checks.json": {
+      "bytes": 141,
+      "sha256": "1267d0874d3dd94acd0743baf9e0a04a03e7ecfc8fe6f35adb22640ad9868e9c"
+    },
+    "ruff_check.txt": {
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "ruff_format.txt": {
+      "bytes": 28,
+      "sha256": "567cf9662cb4d79c3e23b3904f6b02d25d7ae3d1f3da6155dd946d1e871cad4e"
+    }
+  }
+}

@@ -332,6 +332,304 @@ def verify_student_consequence_report(root: Path, capsule: Path, report: Path) -
         raise ValueError("Rendered C1 closure accounting copy differs")
 
 
+CLOSURE_SCIENCE_KEYS = (
+    "neural_rows",
+    "prediction_calls",
+    "checkpoint_tensor_loads",
+    "native_controls",
+    "physics_substeps",
+    "backward_rows",
+    "optimizer_steps",
+    "resets",
+    "restores",
+    "mppi_queries",
+)
+
+
+def _closure_payload(capsule: Path, relative: str) -> tuple[bytes, dict]:
+    path = (capsule / relative).resolve()
+    if (
+        not path.is_relative_to(capsule.resolve())
+        or not path.is_file()
+        or (capsule / relative).is_symlink()
+        or path.stat().st_size > 4 * 1024**2
+    ):
+        raise ValueError("Invalid compact closure input: " + relative)
+    payload = path.read_bytes()
+    return payload, dict(bytes=len(payload), sha256=hashlib.sha256(payload).hexdigest())
+
+
+def _closure_json(capsule: Path, relative: str) -> dict:
+    return json.loads(_closure_payload(capsule, relative)[0])
+
+
+def _closure_require(document: dict, expected: dict, label: str) -> None:
+    if not isinstance(document, dict) or any(
+        key not in document or type(document[key]) is not type(value) or document[key] != value
+        for key, value in expected.items()
+    ):
+        raise ValueError("Closure metadata differs: " + label)
+
+
+def _closure_zero(document: dict) -> None:
+    work = document.get("new_scientific_work", {})
+    if (
+        not isinstance(work, dict)
+        or set(work) != set(CLOSURE_SCIENCE_KEYS)
+        or any(type(value) is not int or value != 0 for value in work.values())
+    ):
+        raise ValueError("Closure smoke test cannot admit new scientific work")
+
+
+def _closure_binding(
+    capsule: Path, binding: dict, relative: str, *, declared_file: str | None = None
+) -> None:
+    actual = _closure_payload(capsule, "run/" + relative)[1]
+    if (
+        not isinstance(binding, dict)
+        or binding.get("file") != (relative if declared_file is None else declared_file)
+        or type(binding.get("bytes")) is not int
+        or {key: binding.get(key) for key in actual} != actual
+    ):
+        raise ValueError("Closure receipt binding differs: " + relative)
+
+
+def verify_consequence_recovery_capsules(root: Path, inspections: dict[str, dict]) -> None:
+    """Check portable A1 failure/A2 admission certificates, never predecessor payloads."""
+    a1_name = "student_consequence_c1_audit_recovery_a1"
+    a2_name = "student_consequence_c1_certificate_closure_a2"
+    for name in (a1_name, a2_name):
+        capsule = root / "results" / name
+        if not (capsule / "capsule.json").is_file():
+            continue
+        view = inspections.get(name, {})
+        if (
+            view.get("verification_requested") is not True
+            or view.get("errors") != []
+            or view.get("hash_mismatches") != []
+        ):
+            raise ValueError("Closure capsule lacks its actual verified inspector smoke: " + name)
+        recovery = view.get("audit_recovery", {})
+        if name == a1_name:
+            result = _closure_json(capsule, "run/result/recovery.json")
+            _closure_require(
+                result,
+                dict(
+                    schema="walker-c1-audit-recovery-result-v1",
+                    recovery_checks_passed=True,
+                    admitted_original_scientific_checks=True,
+                    retained_numerical_certification=True,
+                    original_overall_audit_closure_passed=False,
+                    original_child_exit_code=None,
+                    original_audit_coordinator_failed=True,
+                    verified_file_count=765,
+                ),
+                "preserved A1 checks",
+            )
+            _closure_zero(result)
+            outer = _closure_json(capsule, "run/exit.json")
+            _closure_require(
+                outer,
+                dict(
+                    exit_code=0,
+                    stopping_reason="coordinator_exception",
+                    leader_reaped=True,
+                    process_group_kill_requested=True,
+                    unknown_partial_work_possible=True,
+                ),
+                "preserved A1 failure",
+            )
+            _closure_require(
+                recovery,
+                dict(
+                    audit_recovery_resolved=False,
+                    recovery_checks_passed=True,
+                    original_overall_audit_closure_passed=False,
+                    original_child_exit_code=None,
+                ),
+                "A1 inspector failure scope",
+            )
+            for absent in (
+                "admission.json",
+                "admission_candidate.json",
+                "coordinator_exit.json",
+                "finalizer_exit.json",
+            ):
+                if (capsule / "run" / absent).exists():
+                    raise ValueError("Historical A1 missing closure was replaced: " + absent)
+            _closure_binding(
+                capsule,
+                result["files_catalog"],
+                "result/verified_files.json",
+                declared_file="verified_files.json",
+            )
+            catalog = _closure_json(capsule, "run/result/verified_files.json")
+            if len(catalog.get("files", {})) != 765:
+                raise ValueError("Preserved A1 verified-file roster differs")
+            failure = _closure_json(capsule, "operator/postmortem_001/external_failure.json")
+            _closure_require(
+                failure,
+                dict(
+                    schema="walker-c1-a1-external-failure-v1",
+                    external_tool_exit_code=1,
+                    original_coordinator_exit_available=False,
+                    original_candidate_exists=False,
+                    original_admission_exists=False,
+                    worker_exit_recorded_zero=True,
+                    worker_coordinator_exception_flags_preserved=True,
+                ),
+                "A1 external failure",
+            )
+        else:
+            _closure_require(
+                recovery,
+                dict(
+                    audit_recovery_resolved=True,
+                    status="REPORTED_CERTIFICATE_RECOVERY_ACCEPTED_METADATA_VERIFIED",
+                    retained_A1_integrity_certification=True,
+                    retained_original_numerical_certification=True,
+                    original_A1_admission_failed=True,
+                    original_C1_coordinator_failed=True,
+                    original_C1_child_exit_code=None,
+                    original_A1_failure_flags_preserved=True,
+                ),
+                "A2 inspector admission",
+            )
+            protocol = _closure_json(capsule, "run/protocol.json")
+            result = _closure_json(capsule, "run/result/certificate_result.json")
+            admission = _closure_json(capsule, "run/admission.json")
+            candidate = _closure_json(capsule, "run/admission_candidate.json")
+            retained = dict(
+                certificate_checks_passed=True,
+                retained_A1_integrity_certification=True,
+                retained_original_numerical_certification=True,
+                original_A1_admission_failed=True,
+                original_C1_coordinator_failed=True,
+                original_C1_child_exit_code=None,
+                original_A1_failure_flags_preserved=True,
+            )
+            _closure_require(
+                result,
+                dict(schema="walker-c1-certificate-closure-result-v1", **retained),
+                "A2 result",
+            )
+            _closure_require(
+                admission,
+                dict(
+                    schema="walker-c1-certificate-admission-v1",
+                    audit_recovery_resolved=True,
+                    **retained,
+                ),
+                "A2 admission",
+            )
+            _closure_require(
+                candidate,
+                dict(
+                    schema="walker-c1-certificate-candidate-v1",
+                    audit_recovery_resolved=False,
+                    **retained,
+                ),
+                "A2 candidate",
+            )
+            names = dict(
+                result="result/certificate_result.json",
+                protocol="protocol.json",
+                source_manifest="source_manifest.json",
+                worker_exit="worker_exit.json",
+                coordinator_exit="coordinator_exit.json",
+            )
+            if set(admission.get("bindings", {})) != set(names) or set(
+                candidate.get("bindings", {})
+            ) != set(names) - {"coordinator_exit"}:
+                raise ValueError("A2 admission binding roster differs")
+            for key, relative in names.items():
+                _closure_binding(capsule, admission["bindings"][key], relative)
+                if key != "coordinator_exit":
+                    _closure_binding(capsule, candidate["bindings"][key], relative)
+            _closure_binding(capsule, admission["admission_candidate"], "admission_candidate.json")
+            for document in (protocol, result, candidate, admission):
+                _closure_zero(document)
+            for name, limit in (
+                ("worker_exit.json", 30),
+                ("coordinator_exit.json", 45),
+                ("finalizer_exit.json", 15),
+            ):
+                outer = _closure_json(capsule, "run/" + name)
+                _closure_require(
+                    outer,
+                    dict(
+                        exit_code=0,
+                        leader_reaped=True,
+                        stopping_reason=None,
+                        process_group_kill_requested=False,
+                        unknown_partial_work_possible=False,
+                    ),
+                    name,
+                )
+                if (
+                    type(outer.get("wall_seconds")) not in (int, float)
+                    or not 0 <= outer["wall_seconds"] <= limit
+                ):
+                    raise ValueError("A2 closing time differs: " + name)
+            canonical = hashlib.sha256(
+                json.dumps(
+                    protocol, sort_keys=True, separators=(",", ":"), allow_nan=False
+                ).encode()
+            ).hexdigest()
+            source_manifest = _closure_json(capsule, "run/source_manifest.json")
+            if (
+                result.get("protocol_sha256") != canonical
+                or source_manifest.get("protocol_sha256")
+                != _closure_payload(capsule, "run/protocol.json")[1]["sha256"]
+            ):
+                raise ValueError("A2 protocol hash contracts differ")
+            anchors, verified = protocol.get("anchors", {}), result.get("verified_certificates", {})
+            if (
+                not anchors
+                or anchors != verified
+                or result.get("work", {}).get("checked_certificates") != len(anchors)
+            ):
+                raise ValueError("A2 retained certificate roster differs")
+            for key, anchor in anchors.items():
+                suffix = Path(anchor["file"]).suffix
+                actual = _closure_payload(capsule, "inputs/" + key + suffix)[1]
+                if {field: anchor.get(field) for field in actual} != actual:
+                    raise ValueError("A2 copied certificate differs: " + key)
+            operator = _closure_json(capsule, "operator/launch_001/receipt.json")
+            _closure_require(
+                operator,
+                dict(
+                    audit_recovery_resolved=True,
+                    original_C1_failure_retained=True,
+                    original_A1_admission_remains_failed=True,
+                    admission_sha256=_closure_payload(capsule, "run/admission.json")[1]["sha256"],
+                    source_commit=source_manifest["source_commit"],
+                    certificate_result=result,
+                ),
+                "A2 external receipt/admission association",
+            )
+            if json.dumps(
+                operator["certificate_result"], sort_keys=True, allow_nan=False
+            ) != json.dumps(result, sort_keys=True, allow_nan=False):
+                raise ValueError("A2 external receipt copied result differs in JSON value or type")
+            _closure_zero(operator)
+            if (
+                type(operator.get("stage_wall_seconds")) not in (int, float)
+                or not 0 <= operator["stage_wall_seconds"] <= 60
+            ):
+                raise ValueError("A2 external receipt exceeds the whole-stage budget")
+            a1 = root / "results" / a1_name
+            if (a1 / "capsule.json").is_file():
+                for key, relative in (
+                    ("a1_result", "run/result/recovery.json"),
+                    ("a1_worker_exit", "run/exit.json"),
+                    ("a1_verified_files", "run/result/verified_files.json"),
+                ):
+                    actual = _closure_payload(a1, relative)[1]
+                    if {field: anchors[key].get(field) for field in actual} != actual:
+                        raise ValueError("A2 changes its preserved A1 certificate: " + key)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--export", type=Path, required=True)
@@ -394,6 +692,12 @@ def main(argv: list[str] | None = None) -> int:
         capsules += ("teacher_proposal_h5_0_round1",)
     if (root / "results/student_consequence_c1_0/capsule.json").is_file():
         capsules += ("student_consequence_c1_0",)
+    for name in (
+        "student_consequence_c1_audit_recovery_a1",
+        "student_consequence_c1_certificate_closure_a2",
+    ):
+        if (root / "results" / name / "capsule.json").is_file():
+            capsules += (name,)
     commands += [
         ["scripts/train_mppi_gps.py", "inspect", "--run", f"results/{name}", "--verify", "--json"]
         for name in capsules
@@ -537,6 +841,7 @@ def main(argv: list[str] | None = None) -> int:
         if (root / closure).is_file():
             consequence_report.extend(["--closure", closure])
         commands.append(consequence_report)
+    inspections = {}
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
         process = subprocess.run(
@@ -555,6 +860,8 @@ def main(argv: list[str] | None = None) -> int:
             return process.returncode
         if index < 2:
             print(process.stdout.strip())
+        if command[:3] == ["scripts/train_mppi_gps.py", "inspect", "--run"]:
+            inspections[Path(command[3]).name] = json.loads(process.stdout)
     for name in ("guided", "student", "coupling"):
         for extension in ("png", "pdf"):
             figure = outputs / name / f"learning_and_outcomes.{extension}"
@@ -645,6 +952,7 @@ def main(argv: list[str] | None = None) -> int:
         verify_student_consequence_report(
             root, root / "results/student_consequence_c1_0", outputs / "student_consequence"
         )
+    verify_consequence_recovery_capsules(root, inspections)
     print(
         json.dumps(
             dict(

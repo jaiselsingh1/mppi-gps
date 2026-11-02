@@ -1,0 +1,51 @@
+{
+  "schema": "walker-c1-audit-recovery-inputs-v1",
+  "protocol_sha256": "ca9e6a8c6c12d8ec93f22b8f303cfabc2f539714ab34dce24eb43f85d35895f4",
+  "source_commit": "a5418a5c8285f27bda9eb9e0f9a7b085aadd3c4a",
+  "source_bytes": 7662589,
+  "anchors": {
+    "scientific_receipt": {
+      "root": "artifacts",
+      "file": "audit_001/result/audit.json",
+      "bytes": 144582,
+      "sha256": "85881f410ee85944b7edd2c5643437de801d327294189533480f6673f87cd7d9"
+    },
+    "failure": {
+      "root": "artifacts",
+      "file": "audit_launcher_failure.json",
+      "bytes": 1458,
+      "sha256": "8b363d084e99d46f746e7b59b2a9cf470ff0a7854cbe59ad30020c7cc5da79f6"
+    },
+    "audit_output_catalog": {
+      "root": "artifacts",
+      "file": "audit_output_catalog_failure_001.json",
+      "bytes": 2359,
+      "sha256": "84ef36d000372069968e1f7e17999fd5e9a89d941d1eb305c95d312f7e052870"
+    },
+    "config": {
+      "root": "run",
+      "file": "config.json",
+      "bytes": 13852,
+      "sha256": "d8cc203d19470a3df92395a5094948f527c87b2c00cccc3fb4653fbd322cd33c"
+    },
+    "manifest": {
+      "root": "run",
+      "file": "manifest.json",
+      "bytes": 111133,
+      "sha256": "ae6be7a4fd15363080618ca58df163ea2abc150238893ecafec6c76cfc006464"
+    },
+    "worker_result": {
+      "root": "run",
+      "file": "worker_result.json",
+      "bytes": 5775412,
+      "sha256": "247c31ca58332f38336cb92513467882bb7dfb3188d59d1fd91c391664f0e46b"
+    },
+    "worker_exit": {
+      "root": "run",
+      "file": "worker_exit.json",
+      "bytes": 616,
+      "sha256": "ecd2b2cad4f4c34cefea83714e2ee69170e8be3eb39d10d44368dc370a92d27c"
+    }
+  },
+  "original_inputs_are_read_only": true
+}

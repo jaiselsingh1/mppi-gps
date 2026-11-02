@@ -1,0 +1,28 @@
+{
+  "schema": "walker-c1-inspection-closure-validation-v1",
+  "scope": "Read-only bounded compact metadata inspection; synthetic tests only, no actual study science/NN/physics/learning.",
+  "files": {
+    "src/gps/mppi_gps/inspection.py": {
+      "bytes": 32616,
+      "sha256": "855eaa8880a68bd11ebeaf908bbd40055b33a0cd545a19f55128b0d6f62bf6cd"
+    },
+    "tests/test_c1_capsule_inspection.py": {
+      "bytes": 5514,
+      "sha256": "8596f2e6f7e09ca331800ffcea0d53aae283917271df35a20d6882199431f5c4"
+    }
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q tests/test_c1_capsule_inspection.py tests/test_h5_capsule_inspection.py",
+    "exit_code": 0,
+    "passed": 12,
+    "reported_wall_seconds": 0.18,
+    "process_lifetime_cpu_seconds": null
+  },
+  "ruff_check": {
+    "exit_code": 0
+  },
+  "ruff_format": {
+    "applied_to_active_inspection_module": true
+  },
+  "committed": false
+}

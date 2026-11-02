@@ -1,0 +1,72 @@
+{
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.038092250004410744,
+      "user_seconds": 0.008058,
+      "system_seconds": 0.027202
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.012291541963350028,
+      "user_seconds": 0.007312000000000001,
+      "system_seconds": 0.014275
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_consequence_recovery.py",
+        "tests/test_consequence_recovery_launch.py",
+        "tests/test_consequence_recovery_inspection.py",
+        "tests/test_c1_capsule_inspection.py",
+        "tests/test_h5_capsule_inspection.py",
+        "tests/test_consequence_launch.py",
+        "tests/test_proposal_launch.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 4.411300916981418,
+      "user_seconds": 0.424504,
+      "system_seconds": 0.369259
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.7717917499830946,
+      "user_seconds": 0.211067,
+      "system_seconds": 0.25377099999999997
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "student-consequence",
+        "audit-recovery",
+        "--help"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.05664762499509379,
+      "user_seconds": 0.04038299999999995,
+      "system_seconds": 0.012597999999999998
+    }
+  ],
+  "research_execution": false,
+  "original_failure_preserved": true
+}

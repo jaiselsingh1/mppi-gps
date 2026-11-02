@@ -1,0 +1,73 @@
+{
+  "schema": "walker-h5-authorized-prelaunch-validation-v1",
+  "scope": "One authorized first round with explicit weak-learner ordering exception; useful-learning prerequisite false; no secondround. No H5 scientific work executed in this validation.",
+  "tests": {
+    "passed": 987,
+    "skipped": 1,
+    "xfailed": 1
+  },
+  "focused_tests_passed": 110,
+  "call_census_unchanged": true,
+  "metadata_seed_review_passed": true,
+  "runtime_metadata_matches": true,
+  "native_path_reviews": "Two independent read-only reviews; corrected new authorized-recipe audit binding before launch.",
+  "files": {
+    "seed_unspent_review.json": {
+      "bytes": 828,
+      "sha256": "603160e886741847548965150490e90b41dd75af515583a04f0ee88b9173f943"
+    },
+    "runtime_probe.py": {
+      "bytes": 973,
+      "sha256": "ead4349328960ad59c74779224b90ab22f20183c00daf9fad9aabfa62c25212f"
+    },
+    "commands/001_runtime_probe/receipt.json": {
+      "bytes": 458,
+      "sha256": "0955e7a248f027e807971c58088d855dbb07b1e5bcd6417aa9370c99f60b219b"
+    },
+    "commands/001_runtime_probe/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "commands/001_runtime_probe/stdout.txt": {
+      "bytes": 2752,
+      "sha256": "2abc7699bd1a8426804e83c773aa42d9c37b3c13f287718351db660a51fd6a32"
+    },
+    "commands/002_authorized_recipe_tests/receipt.json": {
+      "bytes": 573,
+      "sha256": "e7b9b1d8d04ff5df2731777779c52d1d0c37a169c16eebb06c39ca936035d827"
+    },
+    "commands/002_authorized_recipe_tests/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "commands/002_authorized_recipe_tests/stdout.txt": {
+      "bytes": 180,
+      "sha256": "44ef119620fcc28a5d0384910ac3680651c300ce975a7d8ed6b67342875aae31"
+    },
+    "commands/003_full_prelaunch_suite/receipt.json": {
+      "bytes": 364,
+      "sha256": "1bc0431a5a7ec49356df98fbb0fb418dd2b749fd9a3a6952265c1efa752e3ee0"
+    },
+    "commands/003_full_prelaunch_suite/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "commands/003_full_prelaunch_suite/stdout.txt": {
+      "bytes": 1163,
+      "sha256": "f255070a25f2ea32ce6f36f38e8720bcfe14c9cba82d8bc00c379ca978af846b"
+    },
+    "commands/004_cli_recipe_census/receipt.json": {
+      "bytes": 469,
+      "sha256": "163962d4865a5b2f2d5a2c86e405e6bcfde93dce3322396b906a052f145907c1"
+    },
+    "commands/004_cli_recipe_census/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "commands/004_cli_recipe_census/stdout.txt": {
+      "bytes": 2214,
+      "sha256": "b623f3b21af9522e8b5bbaa8926d33afd71c5008d1556fd6a947d2826375fecc"
+    }
+  },
+  "engineering_caveat": "Baseline/synthetic tests include small native/NN/update work; aggregate test calls, tool/agent/editing overhead, peak RAM and billing are not globally metered. Do not report this entire phase as zero compute."
+}
