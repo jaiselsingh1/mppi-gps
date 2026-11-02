@@ -52,3 +52,17 @@ outputs. The local renderer emitted a nonfatal global Fontconfig-cache warning a
 using its Matplotlib cache; the exact stderr is retained. No frozen report image was changed.
 The earlier 37-command export plus these two capsule paths cover all 39 final workflow commands;
 final pushed CPU CI runs the complete final Git export.
+
+
+[Result publication](result_publication.json) confirms the normal push of `766b78c` and
+matching remote HEAD with jaisel as author/committer and no attribution trailer.
+[Obsidian update](obsidian_update.json) records one shorter paragraph in `Research ideas.md`,
+an exact four-note backup, and unchanged bytes for all other notes. Core ideas, Kendall/Ben
+points and OT scratch text were preserved; no new note or detailed result duplication was added.
+
+
+[Locked CPU CI](ci_result_publication.json) passed on the published research commit
+[`766b78c`](https://github.com/jaiselsingh1/mppi-gps/actions/runs/41375142500): the actual
+Git export completed the full suite and all 39 workflow paths. The clean-export job took
+192 seconds; this is CI elapsed engineering time, not measured CPU time or another experiment.
+The final publication-receipt commit changes only this closure record.
