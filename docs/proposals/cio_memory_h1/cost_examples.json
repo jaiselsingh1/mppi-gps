@@ -1,0 +1,35 @@
+{
+  "status": "ILLUSTRATIVE_NOT_A_FROZEN_PROTOCOL",
+  "assumptions": [
+    "All scheduled slots complete without fall/retry; one perturbation at controls0,4,...",
+    "Two passes at each original first decision and its perturbed re-solve, one elsewhere",
+    "K256,H48,frame_skip4",
+    "100outerupdates+round0; no early futility termination",
+    "Excludes evaluation, policy-state shadow queries, fitting, host transfers, audit and engineering; no wall-time conversion without new implementation timing",
+    "These are NOT approved training rosters or reserved compute"
+  ],
+  "examples": [
+    {
+      "roster": "Historical full-size",
+      "rounds_after_round0": 100,
+      "slots": 40,
+      "executed_controls_per_acquisition": 16000,
+      "noisy_resolves_per_acquisition": 4016,
+      "mppi_passes_per_acquisition": 20096,
+      "total_mppi_passes": 2029696,
+      "model_controls_before_evaluation": 24940904448,
+      "physics_substep_request_ceiling": 99763617792
+    },
+    {
+      "roster": "Historical pilot-size",
+      "rounds_after_round0": 100,
+      "slots": 8,
+      "executed_controls_per_acquisition": 3000,
+      "noisy_resolves_per_acquisition": 752,
+      "mppi_passes_per_acquisition": 3768,
+      "total_mppi_passes": 380568,
+      "model_controls_before_evaluation": 4676419584,
+      "physics_substep_request_ceiling": 18705678336
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-B",
+    "-c",
+    "import builtins, sys\noriginal = builtins.__import__\ndef guarded(name, *args, **kwargs):\n    if name.split('.')[0] in {'mujoco', 'torch'} or name.startswith('src.ciogps'):\n        raise RuntimeError('Forbidden scientific runtime import: ' + name)\n    return original(name, *args, **kwargs)\nbuiltins.__import__ = guarded\nfrom src.gps.mppi_gps.reporting.cio_history import main\nraise SystemExit(main(sys.argv[1:]))\n",
+    "--config",
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/configs/reviews/cio_history.json",
+    "--out",
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001"
+  ],
+  "cwd": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001",
+  "source_manifest_sha256": "c7a5db342a8069344917021a0787461b459dc7101c14107a1423ce5268b3f8f3",
+  "hard_wall_seconds": 1200,
+  "science_calls_allowed": 0
+}

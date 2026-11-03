@@ -1,0 +1,368 @@
+{
+  "schema": "walker-cio-history-audit-1",
+  "status": "PASS",
+  "failure": null,
+  "config_sha256": "0734b9d2ca2a48e3c19e42f69f4750fdf45383ae8be9377009daa8714d8257e1",
+  "runs": {
+    "full": {
+      "rounds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "recorded_loop_counters": {
+        "executed_controls": 88178,
+        "mppi_passes": 93074,
+        "simulated_controls": 1143693312,
+        "seconds": 8590.687926127925
+      },
+      "development_controls_from_saved_means": 33062,
+      "trace_export": {
+        "traces": 40,
+        "states": 16040,
+        "sampled_traces": 3,
+        "headers": {
+          "elapsed_seconds": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              16040
+            ]
+          },
+          "joint_angles_radians": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              16040,
+              6
+            ]
+          }
+        }
+      },
+      "gap_change_fraction_first_to_last_update": -0.791444105476249,
+      "teacher_cost_change_fraction_round0_to_last": 0.0,
+      "fresh_evaluation": {
+        "episodes": 100,
+        "survived": 0,
+        "controls": 16046
+      }
+    },
+    "refine": {
+      "rounds": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "recorded_loop_counters": {
+        "executed_controls": 10176,
+        "mppi_passes": 10968,
+        "simulated_controls": 134774784,
+        "seconds": 1564.2340361670358
+      },
+      "development_controls_from_saved_means": 5598,
+      "trace_export": {
+        "traces": 8,
+        "states": 3008,
+        "sampled_traces": 3,
+        "headers": {
+          "elapsed_seconds": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              3008
+            ]
+          },
+          "joint_angles_radians": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              3008,
+              6
+            ]
+          }
+        }
+      },
+      "gap_change_fraction_first_to_last_update": -0.407672033537804,
+      "teacher_cost_change_fraction_round0_to_last": 0.0
+    },
+    "always": {
+      "rounds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "recorded_loop_counters": {
+        "executed_controls": 20640,
+        "mppi_passes": 25890,
+        "simulated_controls": 318136320,
+        "seconds": 3010.1562630000026
+      },
+      "development_controls_from_saved_means": 12273,
+      "trace_export": {
+        "traces": 8,
+        "states": 3008,
+        "sampled_traces": 3,
+        "headers": {
+          "elapsed_seconds": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              3008
+            ]
+          },
+          "joint_angles_radians": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              3008,
+              6
+            ]
+          }
+        }
+      },
+      "gap_change_fraction_first_to_last_update": -0.007323396194712561,
+      "teacher_cost_change_fraction_round0_to_last": 0.4141132207699256
+    }
+  },
+  "round_rows": 32,
+  "original_source_hash_bytes": 24516269,
+  "frozen_source_files": 7,
+  "auditor_source_files": 2,
+  "derived_report_files": 19,
+  "renderer_accounting": {
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "mppi_queries": 0,
+    "checkpoint_loads": 0,
+    "wall_seconds": 10.427650082972832,
+    "cpu_seconds": 2.078841,
+    "source_hash_bytes": 24516269,
+    "logical_source_read_bytes": 24516269,
+    "decoded_array_bytes": 20012664,
+    "output_bytes": 6307495,
+    "peak_process_rss_bytes": 205193216,
+    "physical_disk_read_bytes": null,
+    "config_read_and_hash_bytes": 5277,
+    "peak_rss_scope": "RUSAGE_SELF process-lifetime high-water, including startup and any prior work in this process; not current RSS or incremental analysis RSS",
+    "timing_scope": "Measured immediately before final receipt serialization/write"
+  },
+  "files": {
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_source_001/cio_history.py": {
+      "bytes": 21005,
+      "sha256": "5b64e8109be39c3ed12b91992e0b7233f53d05cfb29d9199ccb12aee6a7bcf60"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_source_001/test_cio_history_audit.py": {
+      "bytes": 9540,
+      "sha256": "f1af41b2fea895afc79b925a8582b166491bfca5f38ca73a9762fb833b0acba9"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/accounting.json": {
+      "bytes": 723,
+      "sha256": "3aaf671896e435ce36d6d142052cf3132314e40d77a951884dea554de1a9b0ed"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/always_teacher_100.png": {
+      "bytes": 386297,
+      "sha256": "8a62c60287aad19e1bd0b5f7beeeb71f9b545fc9dcf4d95fa4c899036cdaa0fb"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/always_teacher_angles.npz": {
+      "bytes": 145363,
+      "sha256": "9ef522bb348d0a31edc58b2e6f256dbdf37fa1f6f3317d17b13d2e0193f92bc9"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/always_teacher_full.png": {
+      "bytes": 618954,
+      "sha256": "79433f358149828cb6b1994337d277898a6f07a93e38f5b81b117f3c63756096"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/config.json": {
+      "bytes": 5277,
+      "sha256": "3782ef7047fd29131bc754208a4192bc5a8ebd575d236685f6a088820f660d74"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/full_teacher_100.png": {
+      "bytes": 1126884,
+      "sha256": "98eb11dc622d22f8dccb4549ede8ce03d8f0d348016cbb8036086be285f9ecdd"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/full_teacher_angles.npz": {
+      "bytes": 754882,
+      "sha256": "2e3fd60c4319824fe9cdad231234fd67f65401ca368482b7dfda9dc4e4c70fbf"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/full_teacher_full.png": {
+      "bytes": 1133693,
+      "sha256": "84e117f0f76743f41b328f0f87183f5a27ed5c49d6fd5c0b8da8286632f7f77e"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/inventory.json": {
+      "bytes": 6245,
+      "sha256": "ccf04bc6c846c4a5141775fd7cf9ae1504d51f31af23ffe564c59f7ed86976cf"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/refine_teacher_100.png": {
+      "bytes": 409395,
+      "sha256": "f7ba094272bbddd5a60e241095a56f697df84173e51d060696c5d5790ca2429c"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/refine_teacher_angles.npz": {
+      "bytes": 145347,
+      "sha256": "75fcbc640f2ca826340ccb8812ad69b93a5c6819730ed25743d7772f40a7d95a"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/refine_teacher_full.png": {
+      "bytes": 618145,
+      "sha256": "b2aa178bd55d6bdb841587608e498aad550fb534e8173845287e313c08ee5d6f"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/result.json": {
+      "bytes": 202968,
+      "sha256": "d91e141c7f73bbf34819ec4d3acb44da7c21fd9041fc962d8d4794d9dc0fd369"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/round_metrics.csv": {
+      "bytes": 9661,
+      "sha256": "39ea4c7516b864a70d490a4b15cb4e95fcb52c62b7c9196ae714632b6a3853de"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/round_metrics_01.png": {
+      "bytes": 122382,
+      "sha256": "c189765765a3c5f346eaa9e14ae4b3a2cfa729045992515e9a6c21ea28c2bb16"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/round_metrics_02.png": {
+      "bytes": 167564,
+      "sha256": "43b53f187f83ce84d8c5bee10630ff8e45b6293ce53f2a1859e59ea6a14aa5f4"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/round_metrics_03.png": {
+      "bytes": 136163,
+      "sha256": "ca299354dd5b053c59131a55d85481ad359f3661e18e84ff91eb9cb0dbd6a3b4"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/round_metrics_04.png": {
+      "bytes": 174876,
+      "sha256": "c04a75e299b864673b2e543866d2f69ac2a8daf7e02bb94c9d2eff8c2b834b99"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001/round_metrics_05.png": {
+      "bytes": 142676,
+      "sha256": "0e93471332e0c4799013392da0032eaa7f6d02eacc97dd1adcc8d116f2395fbd"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/manifest.json": {
+      "bytes": 1238,
+      "sha256": "c7a5db342a8069344917021a0787461b459dc7101c14107a1423ce5268b3f8f3"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/src/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/src/gps/__init__.py": {
+      "bytes": 79,
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/src/gps/mppi_gps/__init__.py": {
+      "bytes": 73,
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/src/gps/mppi_gps/reporting/__init__.py": {
+      "bytes": 70,
+      "sha256": "cffae4650008a6b00a8ace134bb9f8a8774434c16a4a028716e47d3ed0e309fb"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/src/gps/mppi_gps/reporting/cio_history.py": {
+      "bytes": 19182,
+      "sha256": "cec298e8b1414ef352f945de5ea63673b1197add3bb0715e891bc392d86a99dd"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/configs/reviews/cio_history.json": {
+      "bytes": 5277,
+      "sha256": "3782ef7047fd29131bc754208a4192bc5a8ebd575d236685f6a088820f660d74"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001/tests/test_cio_history.py": {
+      "bytes": 8314,
+      "sha256": "60228e44876dbcf58cc8d176a52d029b7bcdd9b79cd0482ddb484ba2e47fbc20"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/launch.json": {
+      "bytes": 1056,
+      "sha256": "43e0942a0e107734b4169c7dd917d76133f5330e777b14ddfab90e35736c5415"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/exit.json": {
+      "bytes": 88,
+      "sha256": "934798053a7a1270a182f53f47fba41dd613e899e8cb8c4cca7b47b5bff11d3d"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/run.json": {
+      "bytes": 1115,
+      "sha256": "73b23979c5e130a8c1ecbbd6cb56e62cbe2fc3d27c9b9ade57b1270dafd72795"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/metrics.jsonl": {
+      "bytes": 14828,
+      "sha256": "5240164fdfe0359e162fdbb227666bfc157a37dd2fc1ff76aa3c735582dc1dd6"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/state.pkl": {
+      "bytes": 16504340,
+      "sha256": "4f0fd2f3a4d10807895ca99797c57aa71442fcb366636f8a2e22d1d0f491a0f7"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/eval_fresh.json": {
+      "bytes": 88221,
+      "sha256": "c5934d78349c11d46a15d500ca4d81a1cd2b16e15bbf6ab0adfc9cca2300203c"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001/run.json": {
+      "bytes": 1155,
+      "sha256": "cc989babd3b1e189463e68c6621419cb3f05cd20754f90868cef8beab415c5c3"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001/metrics.jsonl": {
+      "bytes": 2440,
+      "sha256": "2ff4f83403ca879736a6850875bc4249aecc581c16f52965ee66d68e142acb56"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001/state.pkl": {
+      "bytes": 3949220,
+      "sha256": "dcf74ab5be14b48b75d6e19d76d70d9c57b53743a0dac880cee4540f43340e95"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001/run.json": {
+      "bytes": 1191,
+      "sha256": "22a6da6072d802449bc8a10eb9c8c3e988e54eaa32300cd695f3ed6fa2f997de"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001/metrics.jsonl": {
+      "bytes": 4680,
+      "sha256": "b91a0587ddfab36d9ddce426e30d2fb8b73a38b4759f587dcfebe8e74e621e8a"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001/state.pkl": {
+      "bytes": 3949079,
+      "sha256": "df79bf5c1d136be4225aeb4bacdbe6b8140f8e1487ed6cfdeebfcd8bd6e3c89d"
+    }
+  },
+  "checks": 1656,
+  "limitations": [
+    "No physics, inference, gradients, fitting, replay, pickle or checkpoint decoding",
+    "Source bindings and exported prefix joins checked; not original trace extraction equivalence",
+    "Availability claims limited to inventoried source directories",
+    "Historical loop counters exclude evaluation and lost/interrupted work"
+  ],
+  "accounting": {
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "mppi_queries": 0,
+    "checkpoint_loads": 0,
+    "pickle_decodes": 0,
+    "wall_seconds": 0.021981833036988974,
+    "cpu_seconds": 0.017474000000000003,
+    "peak_process_rss_bytes": 28803072,
+    "logical_read_and_hash_bytes": 30889686,
+    "unique_bound_files": 41,
+    "unique_bound_bytes": 30889686,
+    "trace_prefix_values": 189,
+    "output_bytes": 19310,
+    "physical_disk_read_bytes": null,
+    "peak_rss_scope": "Process-lifetime high-water, including startup"
+  }
+}

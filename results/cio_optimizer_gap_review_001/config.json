@@ -1,0 +1,126 @@
+{
+  "schema": "walker-cio-history-review-1",
+  "launch_ready": true,
+  "purpose": "Saved-only historical round metrics and actual retained teacher joint angles; no new scientific work",
+  "body": "MuJoCo Walker2d, 9 qpos / 9 qvel / 6 torques",
+  "state_layout": "mjSTATE_FULLPHYSICS: time, qpos[9], qvel[9]; six actuated joint angles are columns4:10 radians",
+  "trace_loader": "restricted_numpy_pickle_v1",
+  "allowed_pickle_globals": [
+    "src.ciogps.loop.Slot",
+    "src.ciogps.trajectory.Trajectory",
+    "numpy.ndarray",
+    "numpy.dtype",
+    "numpy._core.multiarray._reconstruct",
+    "numpy.core.multiarray._reconstruct",
+    "numpy._core.multiarray.scalar",
+    "numpy.core.multiarray.scalar",
+    "collections.OrderedDict",
+    "torch.storage._load_from_bytes",
+    "torch._utils._rebuild_tensor_v2"
+  ],
+  "runs": [
+    {
+      "id": "full",
+      "directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0",
+      "inputs": {
+        "run": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/run.json",
+          "bytes": 1115,
+          "sha256": "73b23979c5e130a8c1ecbbd6cb56e62cbe2fc3d27c9b9ade57b1270dafd72795"
+        },
+        "metrics": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/metrics.jsonl",
+          "bytes": 14828,
+          "sha256": "5240164fdfe0359e162fdbb227666bfc157a37dd2fc1ff76aa3c735582dc1dd6"
+        },
+        "teachers": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/state.pkl",
+          "bytes": 16504340,
+          "sha256": "4f0fd2f3a4d10807895ca99797c57aa71442fcb366636f8a2e22d1d0f491a0f7"
+        },
+        "fresh": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_full_seed0/eval_fresh.json",
+          "bytes": 88221,
+          "sha256": "c5934d78349c11d46a15d500ca4d81a1cd2b16e15bbf6ab0adfc9cca2300203c"
+        }
+      }
+    },
+    {
+      "id": "refine",
+      "directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001",
+      "inputs": {
+        "run": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001/run.json",
+          "bytes": 1155,
+          "sha256": "cc989babd3b1e189463e68c6621419cb3f05cd20754f90868cef8beab415c5c3"
+        },
+        "metrics": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001/metrics.jsonl",
+          "bytes": 2440,
+          "sha256": "2ff4f83403ca879736a6850875bc4249aecc581c16f52965ee66d68e142acb56"
+        },
+        "teachers": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-28_ciogps_refine_pilot_001/state.pkl",
+          "bytes": 3949220,
+          "sha256": "dcf74ab5be14b48b75d6e19d76d70d9c57b53743a0dac880cee4540f43340e95"
+        }
+      }
+    },
+    {
+      "id": "always",
+      "directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001",
+      "inputs": {
+        "run": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001/run.json",
+          "bytes": 1191,
+          "sha256": "22a6da6072d802449bc8a10eb9c8c3e988e54eaa32300cd695f3ed6fa2f997de"
+        },
+        "metrics": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001/metrics.jsonl",
+          "bytes": 4680,
+          "sha256": "b91a0587ddfab36d9ddce426e30d2fb8b73a38b4759f587dcfebe8e74e621e8a"
+        },
+        "teachers": {
+          "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_ciogps_always_pilot_001/state.pkl",
+          "bytes": 3949079,
+          "sha256": "df79bf5c1d136be4225aeb4bacdbe6b8140f8e1487ed6cfdeebfcd8bd6e3c89d"
+        }
+      }
+    }
+  ],
+  "limits": {
+    "wall_seconds": 1200,
+    "memory_bytes": 1073741824,
+    "output_bytes": 104857600,
+    "max_file_bytes": 67108864
+  },
+  "preparation_source_hash_bytes": 24516269,
+  "unavailable": [
+    "Original CIOGPS student joint-state traces",
+    "Earlier retained teacher arrays overwritten by later state.pkl"
+  ],
+  "distinct_existing_evidence": {
+    "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-29_standing_traces_001/mppigps_600k.npz",
+    "actor": "Later critic-based MPPI-GPS 1c, not original CIOGPS",
+    "use": "Availability note only; do not substitute as original student"
+  },
+  "stopping_rule": "Stop on changed/missing bindings, unknown pickle class, invalid trace, or any finite budget; preserve written output; no regeneration",
+  "zero_work": [
+    "physics",
+    "network inference",
+    "gradients",
+    "fitting",
+    "checkpoint loading",
+    "MPPI"
+  ],
+  "notes": [
+    "All reported rounds and numeric metrics; no interpolated missing values",
+    "Final retained teacher traces only; no student states regenerated",
+    "Every retained slot included; branched trajectories are dependent",
+    "Own elapsed simulator time; no phase/path alignment; first100 controls separate",
+    "No postfall fabrication",
+    "Physical disk IO unknown; record source hash bytes and logical reads separately"
+  ],
+  "review_version": "R0.0-saved-evidence-only",
+  "reviewed_scope": "No new gain, LQR, fitting, evaluation or acquisition experiments. Existing raw arrays/metrics only."
+}

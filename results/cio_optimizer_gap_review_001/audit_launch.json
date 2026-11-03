@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-B",
+    "-c",
+    "import builtins,runpy,sys\noriginal=builtins.__import__\ndef guarded(name,*args,**kwargs):\n    if name.split('.')[0] in {'torch','mujoco','numpy','pickle'} or name.startswith('src.gps.mppi_gps.reporting'):\n        raise RuntimeError('Forbidden audit runtime import: '+name)\n    return original(name,*args,**kwargs)\nbuiltins.__import__=guarded\nsys.argv=sys.argv[1:]\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_source_001/cio_history.py",
+    "--config",
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_protocol_001.json",
+    "--out",
+    "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_001"
+  ],
+  "cwd": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_source_001",
+  "hard_wall_seconds": 120,
+  "science_calls_allowed": 0,
+  "source_manifest_sha256": "943105a7b4ab44b71d5c210742b9ce1f58a0c3bf054e983b45507c5dc184c667"
+}

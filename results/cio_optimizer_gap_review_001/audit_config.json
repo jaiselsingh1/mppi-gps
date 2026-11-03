@@ -1,0 +1,128 @@
+{
+  "schema": "walker-cio-history-audit-1",
+  "launch_ready": true,
+  "scope": "Saved scalar/export consistency and availability only; no original source equivalence or simulator replay",
+  "limits": {
+    "wall_seconds": 120,
+    "memory_bytes": 268435456,
+    "read_bytes": 268435456,
+    "output_bytes": 16777216
+  },
+  "prefix_traces": 3,
+  "round_counts": {
+    "full": 21,
+    "refine": 4,
+    "always": 7
+  },
+  "trace_counts": {
+    "full": 40,
+    "refine": 8,
+    "always": 8
+  },
+  "report_directory": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/report_001",
+  "source_directory": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/source_001",
+  "source_manifest": {
+    "bytes": 1238,
+    "sha256": "c7a5db342a8069344917021a0787461b459dc7101c14107a1423ce5268b3f8f3"
+  },
+  "launch": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/launch.json",
+    "bytes": 1056,
+    "sha256": "43e0942a0e107734b4169c7dd917d76133f5330e777b14ddfab90e35736c5415"
+  },
+  "exit": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/exit.json",
+    "bytes": 88,
+    "sha256": "934798053a7a1270a182f53f47fba41dd613e899e8cb8c4cca7b47b5bff11d3d"
+  },
+  "auditor_sources": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_source_001/cio_history.py",
+      "bytes": 21005,
+      "sha256": "5b64e8109be39c3ed12b91992e0b7233f53d05cfb29d9199ccb12aee6a7bcf60"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-cio-gap/artifacts/2026-11-03_cio_history_001/audit_source_001/test_cio_history_audit.py",
+      "bytes": 9540,
+      "sha256": "f1af41b2fea895afc79b925a8582b166491bfca5f38ca73a9762fb833b0acba9"
+    }
+  ],
+  "report_files": {
+    "accounting.json": {
+      "bytes": 723,
+      "sha256": "3aaf671896e435ce36d6d142052cf3132314e40d77a951884dea554de1a9b0ed"
+    },
+    "always_teacher_100.png": {
+      "bytes": 386297,
+      "sha256": "8a62c60287aad19e1bd0b5f7beeeb71f9b545fc9dcf4d95fa4c899036cdaa0fb"
+    },
+    "always_teacher_angles.npz": {
+      "bytes": 145363,
+      "sha256": "9ef522bb348d0a31edc58b2e6f256dbdf37fa1f6f3317d17b13d2e0193f92bc9"
+    },
+    "always_teacher_full.png": {
+      "bytes": 618954,
+      "sha256": "79433f358149828cb6b1994337d277898a6f07a93e38f5b81b117f3c63756096"
+    },
+    "config.json": {
+      "bytes": 5277,
+      "sha256": "3782ef7047fd29131bc754208a4192bc5a8ebd575d236685f6a088820f660d74"
+    },
+    "full_teacher_100.png": {
+      "bytes": 1126884,
+      "sha256": "98eb11dc622d22f8dccb4549ede8ce03d8f0d348016cbb8036086be285f9ecdd"
+    },
+    "full_teacher_angles.npz": {
+      "bytes": 754882,
+      "sha256": "2e3fd60c4319824fe9cdad231234fd67f65401ca368482b7dfda9dc4e4c70fbf"
+    },
+    "full_teacher_full.png": {
+      "bytes": 1133693,
+      "sha256": "84e117f0f76743f41b328f0f87183f5a27ed5c49d6fd5c0b8da8286632f7f77e"
+    },
+    "inventory.json": {
+      "bytes": 6245,
+      "sha256": "ccf04bc6c846c4a5141775fd7cf9ae1504d51f31af23ffe564c59f7ed86976cf"
+    },
+    "refine_teacher_100.png": {
+      "bytes": 409395,
+      "sha256": "f7ba094272bbddd5a60e241095a56f697df84173e51d060696c5d5790ca2429c"
+    },
+    "refine_teacher_angles.npz": {
+      "bytes": 145347,
+      "sha256": "75fcbc640f2ca826340ccb8812ad69b93a5c6819730ed25743d7772f40a7d95a"
+    },
+    "refine_teacher_full.png": {
+      "bytes": 618145,
+      "sha256": "b2aa178bd55d6bdb841587608e498aad550fb534e8173845287e313c08ee5d6f"
+    },
+    "result.json": {
+      "bytes": 202968,
+      "sha256": "d91e141c7f73bbf34819ec4d3acb44da7c21fd9041fc962d8d4794d9dc0fd369"
+    },
+    "round_metrics.csv": {
+      "bytes": 9661,
+      "sha256": "39ea4c7516b864a70d490a4b15cb4e95fcb52c62b7c9196ae714632b6a3853de"
+    },
+    "round_metrics_01.png": {
+      "bytes": 122382,
+      "sha256": "c189765765a3c5f346eaa9e14ae4b3a2cfa729045992515e9a6c21ea28c2bb16"
+    },
+    "round_metrics_02.png": {
+      "bytes": 167564,
+      "sha256": "43b53f187f83ce84d8c5bee10630ff8e45b6293ce53f2a1859e59ea6a14aa5f4"
+    },
+    "round_metrics_03.png": {
+      "bytes": 136163,
+      "sha256": "ca299354dd5b053c59131a55d85481ad359f3661e18e84ff91eb9cb0dbd6a3b4"
+    },
+    "round_metrics_04.png": {
+      "bytes": 174876,
+      "sha256": "c04a75e299b864673b2e543866d2f69ac2a8daf7e02bb94c9d2eff8c2b834b99"
+    },
+    "round_metrics_05.png": {
+      "bytes": 142676,
+      "sha256": "0e93471332e0c4799013392da0032eaa7f6d02eacc97dd1adcc8d116f2395fbd"
+    }
+  }
+}
