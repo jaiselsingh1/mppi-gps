@@ -31,6 +31,7 @@ STUDIES = {
     "teacher-proposal": "src.gps.mppi_gps.experiments.teacher_proposal",
     "student-consequence": "src.gps.mppi_gps.experiments.student_consequence",
     "visitation": "src.gps.mppi_gps.experiments.student_visitation",
+    "similarity-investigation": "src.gps.mppi_gps.experiments.similarity_investigation",
 }
 
 

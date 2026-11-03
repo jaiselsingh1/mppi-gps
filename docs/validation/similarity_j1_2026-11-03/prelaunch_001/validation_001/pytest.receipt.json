@@ -1,0 +1,40 @@
+{
+  "schema": "walker-j1-engineering-stage-v1",
+  "stage": "pytest",
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q"
+  ],
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "MUJOCO_GL": "disable",
+    "MPLBACKEND": "Agg",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/mpl",
+    "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/cache"
+  },
+  "pid": 5841,
+  "parent_pid": 5837,
+  "exit_code": 0,
+  "child_reaped": true,
+  "killed": false,
+  "stopping_reason": null,
+  "wall_seconds": 99.53737820900278,
+  "wall_limit_seconds": 1800,
+  "user_seconds": 72.764125,
+  "system_seconds": 12.651871,
+  "peak_rss_bytes": 701841408,
+  "minor_page_faults": 1584807,
+  "major_page_faults": 20001,
+  "block_input_operations": 0,
+  "block_output_operations": 0,
+  "voluntary_context_switches": 56113,
+  "involuntary_context_switches": 104976,
+  "output_bytes_after_stage": 281714,
+  "new_research_experiments": 0,
+  "engineering_model_and_physics_calls": "not individually instrumented; existing tests only"
+}

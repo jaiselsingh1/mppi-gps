@@ -20,6 +20,8 @@ The [S1 source comparison](docs/student_source_s1_results.md) completed six matc
 
 [C1.0 completed its fixed worker roster](docs/student_consequence_c1_results.md): all twelve teachers replayed successfully, but parents and uniform, consequence-weighted and shuffled children all failed walking and full survival. [Audit-only recovery is now resolved](docs/student_consequence_c1_audit_recovery_results.md) through a separate certificate closure; both the original and first recovery coordinator failures remain recorded. No physics, fitting or evaluation was repeated. [S1.2 V is complete and independently audited](docs/student_visitation_s1_2_v_results.md): reference reset controls walked 32/32; noninitial takeovers walked 27/72 and fully survived 46/72, versus zero in parent replays. The fixed recovery screen passed in the same two streams on both panels. This supports useful reference behavior, not useful labels or learning. The [capsule](results/student_visitation_s1_2_v/README.md) preserves both preparation and publication failures; conditional learning remains review-gated.
 
+[J1.0](docs/similarity_j1_protocol.md) is the next authorized bounded investigation: five pre-update scores predict a shared set of fixed-update learning outcomes. It keeps walking, motion reproduction and survival separate, with disjoint development and protected groups. Its prospective protocol is frozen before execution; preparation and calibration alone are not a scientific result.
+
 ## Setup
 
 Use Python 3.11 or newer and [uv](https://docs.astral.sh/uv/). Run commands from the checkout root:
@@ -55,6 +57,7 @@ uv run python scripts/train_mppi_gps.py study teacher-proposal --help
 uv run python scripts/train_mppi_gps.py study teacher-proposal census
 uv run python scripts/train_mppi_gps.py study student-consequence --help
 uv run python scripts/train_mppi_gps.py study visitation --help
+uv run python scripts/train_mppi_gps.py study similarity-investigation --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 

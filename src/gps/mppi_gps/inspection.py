@@ -1002,10 +1002,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     config = _read_json(run / "config.json", errors)
     c1 = config.get("schema") == "walker-student-consequence-c1.0-executable-recipe-v1"
     visitation = config.get("schema") == "walker-student-visitation-v-execution-v1"
+    similarity = config.get("schema") == "walker-similarity-j1-execution-v1"
     c1_recovery = config.get("schema") == "walker-c1-audit-recovery-protocol-v1"
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
-    if c1 or visitation:
+    if c1 or visitation or similarity:
         result = _read_json(run / "worker_result.json", errors)
         result_file = "worker_result.json"
     if c1_recovery:
@@ -1054,7 +1055,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         source_files = _files(run / "source", source_bindings, verify, errors)
     required = (
         "config.json",
-        result_file if c1 or c1_recovery or visitation else "result.json",
+        result_file if c1 or c1_recovery or visitation or similarity else "result.json",
         "manifest.json",
         "input_manifest.json",
     )
@@ -1081,7 +1082,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             )
             if not (run / name).is_file()
         ]
-    if c1 or visitation:
+    if c1 or visitation or similarity:
         evidence_names = tuple(
             "worker/evidence/" + name
             for name in ("arrays.bin", "arrays.index.jsonl", "ledger.jsonl")
@@ -1266,6 +1267,26 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
                 for row in report["prepared_inputs"]
                 if row.get("verified") is False and row["available"]
             ]
+    if similarity:
+        report["teacher_outcomes"] = result.get("teacher_outcomes", {})
+        report["student_outcomes"] = dict(
+            measured_cases=result.get("cases"),
+            eligible_cases=result.get("eligible_cases"),
+            declared_source_groups=result.get("declared_source_groups"),
+            acquired_source_groups=result.get("acquired_source_groups"),
+        )
+        report["gates"] = dict(
+            objective_passed=result.get("objective_passed"),
+            protected_test_revealed=result.get("protected_test_revealed"),
+            automatic_followup=False,
+        )
+        report["costs"] = dict(worker=result.get("costs", {}), limits=config.get("limits", {}))
+        report["diagnostics"] = dict(
+            scope="Pre-update similarity and fixed-update learning cases; walking and reproduction are separate. No guidance experiment. Inspection checks recorded metadata, not scientific validity.",
+            protected_outcome_access="Only the closed worker result is shown; in-progress case outcomes are not opened.",
+            predictive_comparison_available=(run / "worker/predictive_comparison.json").is_file(),
+            source_banks="Full within-decision arrays retained for the frozen208-decision probe; acquisition banks otherwise have digests and explicit availability limits.",
+        )
     if visitation:
         _visitation_inspection(root, run, capsule, result, report, verify=verify)
     if c1_recovery:

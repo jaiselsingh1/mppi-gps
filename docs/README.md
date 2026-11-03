@@ -56,3 +56,5 @@ Use the [code map](code_map.md) to locate active responsibilities and the [devel
 [K1.2 publication validation](validation/motion_diagnosis_k1_2_2026-11-01/README.md) records the 814-test clean export, all 31 report/inspection checks, publication correction, notes preservation and verified off-host backup.
 
 The later [Linux report-fixture follow-up](validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/README.md) preserves the first final-CI failure and bounded memory-pressure reproductions. Its fix isolates test processes without changing scientific or report budgets.
+
+The authorized [J1.0 similarity investigation](similarity_j1_protocol.md) tests prospective prediction of fixed-update learning, separately from any use of a score inside MPPI. The [original request](proposals/similarity_j1_user_request.txt) and [complete finite recipe](../configs/studies/similarity_j1_0.json) are tracked.
