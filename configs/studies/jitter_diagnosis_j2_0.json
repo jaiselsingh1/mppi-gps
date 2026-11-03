@@ -12,7 +12,7 @@
     "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_jitter_diagnosis_j2_001",
     "artifacts": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_jitter_diagnosis_j2_001",
     "native_cpu_interpreter": "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
-    "source_export": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_jitter_diagnosis_j2_001/source_001"
+    "source_export": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_jitter_diagnosis_j2_001/source_002"
   },
   "conditions": [
     {
@@ -582,7 +582,9 @@
   "provenance": {
     "input_inventory_receipt": "artifacts/2026-11-03_jitter_diagnosis_j2_001/input_inventory_001/receipt.json",
     "old_evidence_role": "development only; none of the 39 old fits is confirmation",
-    "seed_scan_receipt": "artifacts/2026-11-03_jitter_diagnosis_j2_001/seed_scan_001/receipt.json"
+    "seed_scan_receipt": "artifacts/2026-11-03_jitter_diagnosis_j2_001/seed_scan_001/receipt.json",
+    "unused_first_source_commit": "a089d5d2caa5e28f3f8536e43145f0564ddc5d5b",
+    "prelaunch_correction": "Initial snapshot equality is checked by dtype, shape and raw bytes, including signed zero; numeric continuation tolerance and all scientific settings unchanged. No first-export execution occurred."
   },
   "seeds": {
     "training": [
@@ -765,8 +767,8 @@
       "sha256": "8814e24d4ea7c06d3d262a7963bcc0d68582320559d48ede82d0d351a8055d8c"
     },
     "src/gps/mppi_gps/audits/jitter_diagnosis.py": {
-      "bytes": 69509,
-      "sha256": "7bd121eec378c386f9b360bfaf4244ed4530b40b663f3d8d65d9b4994a530a32"
+      "bytes": 70050,
+      "sha256": "0e698ed34843366486e20616e6868e5506b2371a2ed50dd62ba8c7d1a2e05cc8"
     },
     "src/gps/mppi_gps/audits/learnability.py": {
       "bytes": 17152,
@@ -973,8 +975,8 @@
       "sha256": "5b19efa020d42e565604e535e81cbe3ac5e9c1453d2565c6376ce217a52f3328"
     },
     "src/gps/mppi_gps/jitter_diagnosis.py": {
-      "bytes": 41330,
-      "sha256": "31e518de07e962ff13ea3b15209bd74ef22edfbf0368ed7c14191f8ab62c3435"
+      "bytes": 42083,
+      "sha256": "0d009537843b3c5cc5be03e94264167d805f0252d7e14c902e6a50a12f2cb779"
     },
     "src/gps/mppi_gps/lifecycle.py": {
       "bytes": 2939,
@@ -1051,6 +1053,10 @@
     "src/gps/mppi_gps/reporting/guided_data_comparison.py": {
       "bytes": 11030,
       "sha256": "51aef0e9a90fde1befaa0e3de160ee1c591ed56195a69d3bb520f21af5edfb2a"
+    },
+    "src/gps/mppi_gps/reporting/jitter_diagnosis.py": {
+      "bytes": 28278,
+      "sha256": "dbce113235841c883a61bc7e39b59965247e500df78e184bd906b74fa72afe15"
     },
     "src/gps/mppi_gps/reporting/motion_diagnosis.py": {
       "bytes": 30689,
@@ -1233,12 +1239,16 @@
       "sha256": "1da5fbfb0763c6f7cc811e69713be4ccbe9a3d5421c94429d7cc5f540cab267b"
     },
     "tests/test_jitter_diagnosis.py": {
-      "bytes": 7372,
-      "sha256": "084edffdcce97461002478f9c24771fc3ad511d20e0817793bba6cb6d17a9630"
+      "bytes": 7946,
+      "sha256": "593e35bf761db233fb406bcb7466829936fc543e4b9f61acdcf8c761f9888763"
     },
     "tests/test_jitter_diagnosis_audit.py": {
-      "bytes": 23551,
-      "sha256": "e047a854feac8db771cd5330cbd501f316adc4f1f224817813d88160fa840a4b"
+      "bytes": 26390,
+      "sha256": "f89238fd4edd921aa77e79eb182cd040ecaff2bff6aa711e4529d439d6401545"
+    },
+    "tests/test_jitter_diagnosis_report.py": {
+      "bytes": 15482,
+      "sha256": "1eaa3444e01c246029f07fba0ea7ebb3edfac3a29c5219aa9772fa1b0943b72f"
     },
     "uv.lock": {
       "bytes": 277061,

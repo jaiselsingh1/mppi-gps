@@ -45,6 +45,11 @@ it binds the corpus, reference checkpoint, clean normalization, all 13 label
 arrays and the clean-data affine map. Its full bindings and source-file seals
 are in the configuration. The create-only source export must match those seals
 before execution; the inventory alone is not launch admission.
+The initial source export at `a089d5d` remains preserved and unused. A prelaunch
+correction makes initial replay and paired-reset comparisons check shape, dtype
+and raw bytes, including signed zero. It adds no snapshots or controls and
+changes no labels, seeds, budgets or numerical continuation tolerances. Execution
+uses the separately created `source_002` export.
 
 There are 13 conditions: clean labels once, then MPPI-derived, white and slow
 jitter at nominal signal shares 0.9, 0.75, 0.5 and 0.25. Preserve the earlier

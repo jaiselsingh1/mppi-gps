@@ -613,3 +613,79 @@ def test_reference_failure_is_a_complete_stopping_result_without_fits(
     assert result["primary_comparison_executed"] is False
     assert result["records"] == []
     assert result["new_neural_rows"] == result["new_optimizer_steps"] == 0
+
+
+def test_initial_replay_gate_rejects_signed_zero_despite_numeric_equality(tmp_path: Path) -> None:
+    import json
+
+    positive, negative = np.array([0.0]), np.array([-0.0])
+    assert np.array_equal(positive, negative)
+    assert audit._bytes_equal(positive, negative) is False
+    assert audit._bytes_equal(positive, positive.astype(np.float32)) is False
+    task = json.loads(
+        (Path(__file__).resolve().parents[1] / "configs/walker2d_task.json").read_text()
+    )
+    trace_file(tmp_path)
+    with np.load(tmp_path / "traces.npz", allow_pickle=False) as archive:
+        arrays = {key: archive[key] for key in archive.files}
+    arrays["episode_kinds"] = np.array(["replay"])
+    arrays["reference_actions"][:] = np.nan
+    arrays["has_reference"][:] = False
+    np.savez_compressed(tmp_path / "replay.npz", **arrays)
+    source = {
+        key: arrays[key].copy() for key in ("states", "warmstarts", "integrations", "actions")
+    }
+    source["costs"] = arrays["costs"].copy()
+    reader = audit.SavedReader(tmp_path, {})
+    actors = ActorFixture()
+    expected = [("replay", 123, 2)]
+    audit.verify_traces(
+        reader, actors, "replay.npz", task, expected, None, None, {}, replay_sources={123: source}
+    )
+    source["warmstarts"][0, 0] = -0.0
+    source["integrations"][0, 19] = -0.0
+    assert np.allclose(arrays["warmstarts"], source["warmstarts"], rtol=0, atol=1e-10)
+    with pytest.raises(AuditError, match="initial replay context is not byte-exact"):
+        audit.verify_traces(
+            reader,
+            actors,
+            "replay.npz",
+            task,
+            expected,
+            None,
+            None,
+            {},
+            replay_sources={123: source},
+        )
+    assert actors.verified_rows == 0
+
+
+def test_paired_initial_context_hashes_reject_signed_zero(tmp_path: Path) -> None:
+    import json
+
+    task = json.loads(
+        (Path(__file__).resolve().parents[1] / "configs/walker2d_task.json").read_text()
+    )
+    trace_file(tmp_path)
+    reader = audit.SavedReader(tmp_path, {})
+    actors = ActorFixture()
+    contexts = {}
+    audit.verify_traces(
+        reader, actors, "traces.npz", task, [("probe", 123, 2)], "student", "reference", contexts
+    )
+    with np.load(tmp_path / "traces.npz", allow_pickle=False) as archive:
+        arrays = {key: archive[key] for key in archive.files}
+    arrays["warmstarts"][0, 0] = -0.0
+    arrays["integrations"][0, 19] = -0.0
+    np.savez_compressed(tmp_path / "different_initial.npz", **arrays)
+    with pytest.raises(AuditError, match="paired reset initial simulator contexts differ"):
+        audit.verify_traces(
+            reader,
+            actors,
+            "different_initial.npz",
+            task,
+            [("probe", 123, 2)],
+            "student",
+            "reference",
+            contexts,
+        )

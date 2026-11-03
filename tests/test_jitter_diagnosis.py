@@ -116,6 +116,18 @@ def test_module_reload_keeps_native_import_lazy():
     assert importlib.reload(study).SCHEMA == "walker-jitter-diagnosis-j2-0"
 
 
+def test_snapshot_byte_contract_distinguishes_signed_zero_and_dtype():
+    positive = np.array([0.0, 1.0], dtype=np.float64)
+    negative = np.array([-0.0, 1.0], dtype=np.float64)
+    assert np.array_equal(positive, negative)
+    assert not study._same_bytes(positive, negative)
+    assert study._same_bytes(positive, positive.copy())
+    assert not study._same_bytes(positive, positive.astype(np.float32))
+    assert not study._same_bytes(positive, positive.reshape(1, 2))
+    strided = np.array([0.0, 9.0, 1.0, 9.0])[::2]
+    assert study._same_bytes(positive, strided)
+
+
 def test_launch_flag_closes_before_runtime_imports(tmp_path):
     config = dict(
         schema=study.SCHEMA,

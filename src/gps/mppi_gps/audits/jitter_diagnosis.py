@@ -37,6 +37,15 @@ def _need(condition: Any, message: str) -> None:
         raise AuditError(message)
 
 
+def _bytes_equal(left: np.ndarray, right: np.ndarray) -> bool:
+    """Initial-context equality includes signed zeros and the complete array type."""
+    return (
+        left.shape == right.shape
+        and left.dtype.str == right.dtype.str
+        and np.ascontiguousarray(left).tobytes() == np.ascontiguousarray(right).tobytes()
+    )
+
+
 def _ranks(values: list[float]) -> np.ndarray:
     array = np.asarray(values, dtype=np.float64)
     _need(array.ndim == 1 and np.isfinite(array).all(), "Nonfinite J2 rank observations")
@@ -1110,6 +1119,10 @@ def verify_traces(
         if replay_sources is not None:
             source = replay_sources[seed]
             for key in ("states", "warmstarts", "integrations"):
+                _need(
+                    _bytes_equal(arrays[key][state][0], np.asarray(source[key])[0]),
+                    "J2 initial replay context is not byte-exact: " + key,
+                )
                 _need(
                     np.allclose(arrays[key][state], source[key], rtol=0, atol=1e-10),
                     "J2 unchanged-action replay differs: " + key,

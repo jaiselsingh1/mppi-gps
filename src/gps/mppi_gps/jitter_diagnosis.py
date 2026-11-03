@@ -46,6 +46,16 @@ def array_hash(value: np.ndarray) -> str:
     return hashlib.sha256(np.ascontiguousarray(value).tobytes()).hexdigest()
 
 
+def _same_bytes(left: np.ndarray, right: np.ndarray) -> bool:
+    """Compare exact typed snapshots, including the sign bit of floating zero."""
+    left, right = np.asarray(left), np.asarray(right)
+    return (
+        left.shape == right.shape
+        and left.dtype.str == right.dtype.str
+        and np.ascontiguousarray(left).tobytes() == np.ascontiguousarray(right).tobytes()
+    )
+
+
 def global_numpy_state() -> dict:
     algorithm, keys, position, has_gauss, cached_gaussian = np.random.get_state()
     return dict(
@@ -474,6 +484,14 @@ def execute_episode(
         )
         observation = env._get_obs()
     current = meter.paid({"snapshot_reads": 1}, lambda: snapshot(env))
+    if replay is not None:
+        for current_key, saved_key in (
+            ("state", "states"),
+            ("warmstart", "warmstarts"),
+            ("integration", "integrations"),
+        ):
+            if not _same_bytes(current[current_key], replay[saved_key][0]):
+                raise ValueError(f"Held teacher replay initial {current_key} bytes mismatch")
     saved = {
         key: [np.asarray(value).copy()]
         for key, value in dict(
@@ -850,7 +868,7 @@ def run(config: dict, prepared: Path, out: Path) -> dict:
                         )
                         reference_episode = reference_traces.episodes[index_reset]
                         for key in ("states", "observations", "warmstarts", "integrations"):
-                            if not np.array_equal(episode[key][0], reference_episode[key][0]):
+                            if not _same_bytes(episode[key][0], reference_episode[key][0]):
                                 raise ValueError(
                                     "Paired evaluation initial simulator contexts differ"
                                 )
