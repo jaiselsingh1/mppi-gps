@@ -2,11 +2,11 @@
 
 The goal is a cheap standalone walking policy taught by competent MPPI search, with feedback from learning improving subsequent acquisition. The central open question is **pre-update teachability**: can a score predict what the student will execute after a fixed learning update?
 
-This branch focuses on the [whole-trajectory similarity formulation](docs/full_trajectory_pi_similarity.md): optimize a complete control sequence with PI under a fixed policy, then alternate with policy fitting. Recurrence preparation has stopped. The existing task-only full-PI prototype on `sac-continuation` is being reviewed before any duplicate experiment. Its source is not a result or a tested similarity function.
+This branch implements the [fixed-alpha full-trajectory PI comparison](docs/trajectory_pi_p1_protocol.md), reusing the existing task-only prototype. Its [P1 execution stopped at the replay prerequisite](docs/trajectory_pi_p1_result.md): the ARM-origin teacher diverged on the Linux worker despite matching initial context and controls. No PI solve or learning round ran; the similarity hypothesis remains untested. Recurrence stays stopped.
 
 Start with the [coordinated investigation map](docs/walker_coordination_review.md). MPPI-taught competent walking and beneficial coupling remain unestablished. [J1](docs/similarity_j1_results.md) lacked outcome variation for its protected prediction comparison. [J2](docs/jitter_diagnosis_j2_results.md) produced three competent clean-reference clones but stopped at its frozen qualification gate; its six-student post-fit association is exploratory. The `sac-continuation` prototypes and their missing controls/audits are reviewed separately. These torque-policy studies are not a reproduction of CIO–GPS’s state-to-state controller.
 
-Frozen runs, failed results, configurations, checkpoints and historical sources remain preserved. This branch currently adds formulation and read-only evidence review; no new experiment or merge has launched.
+Frozen runs, failed results, configurations, checkpoints and historical sources remain preserved. The failed P1 prerequisite and audited stop are published; no follow-up or branch merge has launched.
 
 ## Setup
 
@@ -26,11 +26,13 @@ CPU operation is sufficient for tests, saved-data fitting and metadata inspectio
 # Supported commands and study interfaces; help launches no experiment.
 uv run python scripts/train_mppi_gps.py --help
 uv run python scripts/train_mppi_gps.py study jitter-diagnosis --help
+uv run python scripts/train_mppi_gps.py study trajectory-pi --help
 uv run python scripts/train_mppi_gps.py walker-run --help
 uv run python scripts/train_mppi_gps.py walker-replay --help
 
 # Read-only provenance, source inventory and saved-bank headers.
 uv run python scripts/train_mppi_gps.py inspect --run results/jitter_diagnosis_j2_001 --verify
+uv run python scripts/train_mppi_gps.py inspect --run results/trajectory_pi_p1_001 --verify
 uv run python scripts/train_mppi_gps.py review inventory --root .
 uv run python scripts/train_mppi_gps.py review sample-bank --bank runs/2026-11-03_sample_bank_001
 

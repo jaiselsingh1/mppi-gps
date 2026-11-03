@@ -26,9 +26,14 @@ def inspect(root: Path, *, verify: bool = False) -> dict:
     config = _read(run / "config.json", {})
     result = _read(run / "result.json", {})
     launch = _read(run / "launch.json", {})
-    audit = _read(root / "audit" / "audit.json", {})
-    if not audit:
-        audit = _read(root / "audit" / "audit_result.json", {})
+    evidence = root if capsule or root.name != "worker" else root.parent
+    audit = {}
+    for name in ("findings.json", "audit.json", "audit_result.json"):
+        audit = _read(evidence / "audit" / name, {})
+        if audit:
+            break
+    prerequisite = _read(evidence / "preflight" / "preflight.json", {})
+    source_roster = _read(root / "frozen/source_manifest.json", {}) if capsule else {}
     files, missing, mismatches, errors = [], [], [], []
     declared = capsule.get("files", {})
     if isinstance(declared, list):
@@ -69,10 +74,14 @@ def inspect(root: Path, *, verify: bool = False) -> dict:
             completed_round=latest.get("round"),
             criteria=result.get("criteria"),
             saved_audit_status=audit.get("status"),
+            prerequisite_status=prerequisite.get("status"),
+            scientific_result=audit.get("scientific_result"),
+            similarity_test_executed=False if result.get("status") == "PRELAUNCH_STOPPED" else None,
             full_project_success=False,
         ),
         provenance=dict(
-            source_file_count=None,
+            source_file_count=len(source_roster["files"]) if "files" in source_roster else None,
+            source_commit=source_roster.get("git_commit"),
             source_present=Path(launch.get("source_directory", "/missing")).is_dir(),
             input_manifest=launch.get("prepared_manifest"),
             source_export=launch.get("source_directory"),
@@ -83,8 +92,19 @@ def inspect(root: Path, *, verify: bool = False) -> dict:
         },
         student_outcomes=latest.get("streams", {}),
         teacher_student_gap=result.get("criteria", {}),
-        gates=dict(saved_audit=audit.get("status"), automatic_followup=False),
-        costs=dict(recorded=result.get("accounting", {}), limits=config.get("limits", {})),
+        gates=dict(
+            saved_audit=audit.get("status"),
+            prerequisite=prerequisite.get("status"),
+            audit_scope="Saved stop/accounting certification; failed replay is not validated"
+            if audit.get("status") == "PASS_STOPPED"
+            else "Saved audit declaration; see its explicit coverage",
+            automatic_followup=False,
+        ),
+        costs=dict(
+            recorded=result.get("accounting", {}),
+            prerequisite=prerequisite.get("work", {}),
+            limits=config.get("limits", {}),
+        ),
         files=files,
         missing_evidence=missing,
         omitted_bulk_evidence=[],

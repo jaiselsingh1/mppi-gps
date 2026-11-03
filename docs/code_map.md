@@ -97,3 +97,28 @@ or reporting changes do not mutate its source.
 | SAC branch prototypes | All 34 former untracked one-off entry points are preserved in the [exact archive](../archive/coordination-2026-11-03/README.md), including their dependency inventory, original docstrings, failed results and scratchpad sources/logs. Removal occurred only after the existing worker exited and all 36 bindings matched the committed archive. The branch’s documented SAC continuation entry remains a facade; its implementation moves to a library on that branch. [Capture](../src/gps/mppi_gps/sample_capture.py) and [KNN metrics](../src/gps/mppi_gps/bank_metrics.py) are shared pure/capture helpers with preserved numerical and RNG contracts. |
 
 The remaining small compatibility wrappers are documented study/report/audit entry points and historical helper interfaces. No additional wrapper is retained for the retired 34 prototypes. Reusable fitting, checkpoint continuation, outcomes and independent audit remain in their existing libraries. The [coordination map](walker_coordination_review.md) records scientific limits; cleanup does not promote prototypes to validated experiments. Branch history, original `runs/` paths and all frozen capsule/source bytes remain intact.
+
+## P1 full-trajectory PI workflow
+
+The public entry is `study trajectory-pi`; [the protocol](trajectory_pi_p1_protocol.md)
+contains commands and the complete module map. [P1's actual result](trajectory_pi_p1_result.md)
+stopped in preflight. The executable source is the separate immutable `211891d`
+export, so publication fixes do not alter its observed behavior.
+
+| Responsibility | Canonical module |
+|---|---|
+| Frozen existing inputs and source export | `trajectory_pi_inputs`, `experiments.trajectory_pi` |
+| Required native replay/continuation gates | `trajectory_pi_preflight` |
+| Original full-PI update and fixed reconstruction | `trajectory_pi_optimizer` (reuses `MPPI._plan_iteration`) |
+| Existing W2 learner and exact stream packages | `trajectory_pi_student` |
+| Native jobs, complete traces and work reservations | `trajectory_pi_native`, `trajectory_pi_accounting` |
+| Fixed alternating schedule and external limits | `trajectory_pi_study`, `trajectory_pi_launch` |
+| Independently recomputed saved measurements | `audits.trajectory_pi` |
+| Metadata, loop figures and saved-only replay comparison | `reporting.trajectory_pi`, `reporting.trajectory_pi_replay` |
+
+`study trajectory-pi replay-report --source … --replay … --out …` reads saved
+arrays and renders the prerequisite discrepancy without physics or inference.
+The inspector exposes `PASS_STOPPED` separately from failed replay and an
+untested mechanism. The source prototype is preserved under
+`archive/prototype_sources`; neither `sac-continuation` nor `ciogps` was edited
+by this work. Core planner/policy interfaces and previous studies remain intact.

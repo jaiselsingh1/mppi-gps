@@ -8,6 +8,9 @@ The bounded comparison is specified in the
 [P1 protocol](trajectory_pi_p1_protocol.md); its launch remains conditional on
 frozen-input/source and executable prerequisite checks.
 
+P1 subsequently [stopped at its replay prerequisite](trajectory_pi_p1_result.md)
+before PI or learning. The failed source replay does not test this score.
+
 ## What already exists
 
 The historical `ciogps` full/refine/always runs repeatedly optimized H48,

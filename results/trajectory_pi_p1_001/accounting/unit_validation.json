@@ -1,0 +1,36 @@
+{
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_trajectory_pi_audit.py",
+    "tests/test_trajectory_pi_launch.py",
+    "tests/test_trajectory_pi_native.py",
+    "tests/test_trajectory_pi_optimizer.py",
+    "tests/test_trajectory_pi_preflight.py",
+    "tests/test_trajectory_pi_review.py",
+    "tests/test_trajectory_pi_student.py",
+    "tests/test_trajectory_pi_study.py"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 20.152382917003706,
+  "cpu_seconds": 17.201365,
+  "physics_scope": "Synthetic/unit engineering validation; no new research experiment or parent refit",
+  "full_suite_previous": {
+    "passed": 1899,
+    "skipped": 3,
+    "xfailed": 1,
+    "wall_seconds": 250.18
+  },
+  "sources": {
+    "src/gps/mppi_gps/trajectory_pi_accounting.py": "dfc610bec18327f2a9e44f9b8336ab3064efb8771032d26f658988be755904dd",
+    "src/gps/mppi_gps/trajectory_pi_inputs.py": "2dd3993c58a4e4a14b71b98e8833fad03c7f1bb576fb4059b974bb1c3cd58975",
+    "src/gps/mppi_gps/trajectory_pi_launch.py": "08a1f68cd265f1d2889282f535a00052b9b2f00c5745fa4299d8b346617ba4fb",
+    "src/gps/mppi_gps/trajectory_pi_native.py": "be715a1b9babe9357788265ab5cd9cd3481eb0467c801f53f40a90740ebcaff9",
+    "src/gps/mppi_gps/trajectory_pi_optimizer.py": "243aca969d1ac208f99915fa7cace835a4405251db60cb06240df3d56949206f",
+    "src/gps/mppi_gps/trajectory_pi_preflight.py": "4b28539829c4cf6f6cd5ce9d917ea31ede31288652ee9f5e8397a53a36fd0cae",
+    "src/gps/mppi_gps/trajectory_pi_student.py": "4b5e9c06423c3bc1217995c0a2426c106a42f03975fe16b69297af78a0798faa",
+    "src/gps/mppi_gps/trajectory_pi_study.py": "2afe00927c2895399efa56eddef66b289c8116d38fb29e8846a066a3f486a6ad"
+  }
+}

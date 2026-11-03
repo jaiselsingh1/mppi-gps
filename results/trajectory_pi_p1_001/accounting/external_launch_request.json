@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "-B",
+    "-m",
+    "src.gps.mppi_gps.trajectory_pi_launch",
+    "--root",
+    "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001"
+  ],
+  "cwd": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/source",
+  "settings": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "MPLBACKEND": "Agg",
+    "MPLCONFIGDIR": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/matplotlib"
+  },
+  "source_commit": "211891d4de2bce7703a3faf586fe324e40fb481b",
+  "requested_utc": "2026-11-03T22:29:54.993559+00:00",
+  "limits": {
+    "prerequisite_wall_seconds": 600,
+    "total_wall_seconds": 93600,
+    "total_cpu_seconds": 2851200,
+    "output_bytes": 68719476736
+  },
+  "no_retries": true
+}

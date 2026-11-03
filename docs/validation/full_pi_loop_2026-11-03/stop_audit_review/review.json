@@ -1,0 +1,254 @@
+{
+  "schema": "trajectory-pi-p1-stop-closure-read-only-review-1",
+  "status": "VERIFIED_STOPPED_SCOPE",
+  "source_run": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence",
+  "new_science_executed": 0,
+  "new_audit_head_rows": 0,
+  "original_audit_status": "PASS_STOPPED",
+  "original_scientific_prerequisite_status": "FAIL_STOPPED",
+  "original_worker_status": "PRELAUNCH_STOPPED",
+  "scientific_result": "NOT_LAUNCHED_PREREQUISITE_FAILED",
+  "failure": {
+    "check": "full_context_replay",
+    "comparison": "teacher0/states",
+    "rtol": 0,
+    "atol": 1e-10,
+    "maximum_absolute_error": 2.8782809078627594
+  },
+  "independently_reconciled_paid_counts": {
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_checkpoint_loads": 1,
+    "requested_numpy_constructions": 1,
+    "completed_checkpoint_loads": 1,
+    "completed_numpy_constructions": 1,
+    "requested_external_mj_forward_calls": 1,
+    "requested_restores": 1,
+    "completed_external_mj_forward_calls": 1,
+    "completed_restores": 1,
+    "requested_native_controls": 1000,
+    "requested_physics_substeps": 4000,
+    "completed_native_controls": 1000,
+    "completed_physics_substeps": 4000
+  },
+  "ledger_events": 2008,
+  "unresolved_requests": 0,
+  "failed_entered_work_calls": 0,
+  "rejected_work_calls": 0,
+  "original_work_receipt_status": "FAILED",
+  "raw_trace_dataset_shapes": {
+    "actions": [
+      1000,
+      6
+    ],
+    "costs": [
+      1000
+    ],
+    "integrations": [
+      1001,
+      91
+    ],
+    "native_fall_cost": [
+      1000
+    ],
+    "observations": [
+      1001,
+      17
+    ],
+    "states": [
+      1001,
+      19
+    ],
+    "warmstarts": [
+      1001,
+      9
+    ]
+  },
+  "not_run_checks": [
+    "pre_action_index",
+    "full_sequence_no_shift",
+    "score_formula",
+    "checkpoint_continuation",
+    "fall_accounting",
+    "budget_enforcement",
+    "zero_residual_reproduction"
+  ],
+  "phases": [
+    {
+      "phase": "preflight",
+      "exit_code": 1,
+      "wall_seconds": 6.21601477799959,
+      "process_tree_cpu_seconds": 2.2,
+      "waited_children_cpu_seconds": 1.981534,
+      "limit_error": null
+    },
+    {
+      "phase": "audit",
+      "exit_code": 0,
+      "wall_seconds": 2.1208706649995293,
+      "process_tree_cpu_seconds": 1.3399999999999999,
+      "waited_children_cpu_seconds": 1.231569,
+      "limit_error": null
+    },
+    {
+      "phase": "report",
+      "exit_code": 0,
+      "wall_seconds": 2.1283080870007325,
+      "process_tree_cpu_seconds": 0.4899999999999993,
+      "waited_children_cpu_seconds": 0.3619810000000001,
+      "limit_error": null
+    }
+  ],
+  "cpu_accounting": {
+    "p0_process_cpu_seconds": 1.7774479429999999,
+    "audit_process_cpu_seconds": 1.051246722,
+    "supervisor_total_process_tree_cpu_seconds": 4.029999999999999,
+    "supervisor_own_cpu_seconds": 0.46979166199999994,
+    "supervisor_wall_seconds": 10.763133166999978,
+    "scope": "Nested internal and external CPU receipts are alternative views, not additive measurements. Transfer/packaging and earlier engineering costs are separate."
+  },
+  "original_audit_check_count": 44627,
+  "original_audit_bound_files": 7485,
+  "original_audit_hashed_bytes": 287948278,
+  "bindings": [
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/audit/receipt.json",
+      "bytes": 544,
+      "sha256": "a7a5dbd7a4bdae77f2e49d4af685c07235162482d492ff44e3ac0d36d606fb18",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/audit/findings.json",
+      "bytes": 4234,
+      "sha256": "e959b66a2231f81dd1a06c9ed50a4d4f3c079b7a0d98517bd310a9f6846e1531",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/audit/file_bindings.json",
+      "bytes": 2163776,
+      "sha256": "134e85ea169debde2ec014c3b36cdc2bab0cf7298e81eed3e1199fed31cc5b2e",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/preflight.json",
+      "bytes": 4292,
+      "sha256": "58324c4be463dff215fbd3876d996b02d55a324f89d8bca80cf82cd2c73bcc9b",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/receipt.json",
+      "bytes": 786,
+      "sha256": "c61b0578910d91477dc05a8f99b89980a66295b3385c874b8cfe49b796cf8f9a",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/ledger.jsonl",
+      "bytes": 379400,
+      "sha256": "966af2cc8b26e51019ca116649da37357d1978e71d65f07610b999e498ea58b4",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/teacher_0_replay.h5",
+      "bytes": 1484464,
+      "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/worker/config.json",
+      "bytes": 72463,
+      "sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/worker/launch.json",
+      "bytes": 1427,
+      "sha256": "053d71c30842a4f5a5df49addf38f16b090c3e5f955aaf71fa49497911b48f2a",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/worker/result.json",
+      "bytes": 2015,
+      "sha256": "a95362bba3f55b220c14e760089bbf90f8d3f48d0aa1fbed6fe1fa05cba58070",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/worker/external_supervisor.json",
+      "bytes": 1711,
+      "sha256": "ae76e6f39cf36df2c9208a8229064b307daaa6b3fff29cac0ab3c1a60d6cb454",
+      "included_in_original_audit_bindings": true,
+      "matches_original_audit_binding": true
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/supervisor.json",
+      "bytes": 5396,
+      "sha256": "6f8a5195037dad74a51681520c94f401e12a7bc5c8d8dc1c2e5b54225c70a559",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/supervisor/preflight.json",
+      "bytes": 1291,
+      "sha256": "abbb4c669a74bb8ec04bee5394ac8e9fc9c3f75d074632ebf38cb3432b91e2ee",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/supervisor/audit.json",
+      "bytes": 1069,
+      "sha256": "665fb36503fcddb2dd0d38f17834b16cd5c2acec4736b0b0bd03eeb8e183cb0d",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/supervisor/report.json",
+      "bytes": 1059,
+      "sha256": "9c9ea2366c010f0cb32b79247f975d7bf015334fb997cef997204d5892850671",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/report/report.json",
+      "bytes": 376,
+      "sha256": "16ca737f2cd971fae9ea7d8e7f5461b6ded31e5fb8e91eb41f118211be837583",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/report/report.md",
+      "bytes": 667,
+      "sha256": "27011e28139438d64692341dc4507844fd44e832c3eaa3f24a36bb2493a58162",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/report/learning_curves.csv",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/report/fitting_progress.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "included_in_original_audit_bindings": false
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/report/optimization_progress.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "included_in_original_audit_bindings": false
+    }
+  ],
+  "established": [
+    "The first source teacher native replay completed its1000 controls, then failed the frozen saved-state comparison.",
+    "All entered paid calls have durable matching completions; the logical prerequisite failure is retained.",
+    "The main alternating comparison was never entered. The independent saved-evidence audit reconciled this stop and its accounting."
+  ],
+  "not_established": [
+    "That the source trajectory replays under the frozen execution contract.",
+    "Any effect of the similarity score, PI trajectory refinement, alternating convergence, learning, or standalone policy walking.",
+    "Which source, context or runtime difference caused the replay mismatch."
+  ],
+  "next_prerequisite_only": "Prepare a separately versioned source-replay diagnosis using the preserved teacher0 replay/source/context/version metadata; identify the earliest mismatch and reconcile source/config/runtime contracts before any newly authorized native replay. Do not relax tolerance, replace sources, or launch P1 automatically."
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "trajectory-pi-replay-report-1",
+  "status": "SAVED_ONLY_COMPLETE",
+  "source": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/prepared/teachers/slot0.npz",
+    "bytes": 664454,
+    "sha256": "1a9921c449c227825e802030cf5e7c78f7c1600e1e6acf578472efd1ee8cbcb2"
+  },
+  "replay": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/teacher_0_replay.h5",
+    "bytes": 1484464,
+    "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+  },
+  "outcomes": {
+    "source": {
+      "controls": 1000,
+      "requested_controls": 1000,
+      "raw_cost": 372.7086518178426,
+      "all_observed_controls_healthy": true,
+      "full_survival": true,
+      "walking": true,
+      "velocity_mae": 0.14545528445534656,
+      "first_unhealthy_control": null,
+      "recorded_fall_terminal_cost": null
+    },
+    "replay": {
+      "controls": 1000,
+      "requested_controls": 1000,
+      "raw_cost": 376.5714059963932,
+      "all_observed_controls_healthy": true,
+      "full_survival": true,
+      "walking": true,
+      "velocity_mae": 0.14734510928973157,
+      "first_unhealthy_control": null,
+      "recorded_fall_terminal_cost": 0.0
+    }
+  },
+  "initial_context_bytes_equal": {
+    "states": true,
+    "warmstarts": true,
+    "integrations": true
+  },
+  "compared_rows": {
+    "states": 1001,
+    "warmstarts": 1001,
+    "integrations": 1001,
+    "actions": 1000,
+    "costs": 1000
+  },
+  "maximum_absolute_error": {
+    "states": 2.8782809078627594,
+    "warmstarts": 1773.968955648963,
+    "integrations": 1773.968955648963,
+    "actions": 0.0,
+    "costs": 0.4093100415615373
+  },
+  "first_exceedance_index": {
+    "states": {
+      "0.0": 1,
+      "1e-12": 187,
+      "1e-10": 306,
+      "1e-08": 426,
+      "1e-06": 593,
+      "0.0001": 726,
+      "0.01": 888,
+      "1.0": 966
+    },
+    "warmstarts": {
+      "0.0": 1,
+      "1e-12": 1,
+      "1e-10": 222,
+      "1e-08": 312,
+      "1e-06": 428,
+      "0.0001": 593,
+      "0.01": 708,
+      "1.0": 888
+    },
+    "integrations": {
+      "0.0": 1,
+      "1e-12": 1,
+      "1e-10": 222,
+      "1e-08": 312,
+      "1e-06": 428,
+      "0.0001": 593,
+      "0.01": 708,
+      "1.0": 888
+    },
+    "actions": {
+      "0.0": null,
+      "1e-12": null,
+      "1e-10": null,
+      "1e-08": null,
+      "1e-06": null,
+      "0.0001": null,
+      "0.01": null,
+      "1.0": null
+    },
+    "costs": {
+      "0.0": 0,
+      "1e-12": 244,
+      "1e-10": 377,
+      "1e-08": 485,
+      "1e-06": 650,
+      "0.0001": 784,
+      "0.01": 928,
+      "1.0": null
+    }
+  },
+  "missing_tail_policy": "Unobserved rows stay blank; no interpolation or post-fall fabrication",
+  "wall_seconds": 12.948657959001139,
+  "cpu_seconds": 0.93784,
+  "input_read_bytes": 2148918,
+  "physical_disk_io_bytes": null,
+  "new_native_controls": 0,
+  "new_model_controls": 0,
+  "new_neural_rows": 0,
+  "new_gradients": 0,
+  "new_optimizer_updates": 0,
+  "output_bytes_before_receipt": 650804
+}

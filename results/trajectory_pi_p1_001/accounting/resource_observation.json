@@ -1,0 +1,47 @@
+{
+  "schema": "trajectory-pi-resource-observation-1",
+  "passed": false,
+  "observed_unix": 1793745001.5137937,
+  "external_stop": {
+    "schema": "trajectory-pi-external-stop-1",
+    "stage": "preflight",
+    "reason": "RuntimeError('P0 failed or lacked a closed PASS; no main attempt')",
+    "phase_receipt": {
+      "schema": "trajectory-pi-phase-1",
+      "phase": "preflight",
+      "argv": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "trajectory-pi",
+        "preflight",
+        "--config",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/source/configs/studies/trajectory_pi_p1.json",
+        "--prepared",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/prepared",
+        "--source-manifest",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/source_manifest.json",
+        "--out",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/preflight"
+      ],
+      "pid": 71206,
+      "exit_code": 1,
+      "limit_error": null,
+      "remaining_group_terminated": false,
+      "wall_seconds": 6.21601477799959,
+      "process_tree_cpu_seconds": 2.2,
+      "supervisor_cpu_seconds": 0.21577821700000002,
+      "waited_children_cpu_seconds": 1.981534,
+      "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+      "peak_sampled_tree_rss_bytes": 317202432,
+      "stdout": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/preflight.stdout.log",
+      "stderr": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/preflight.stderr.log"
+    },
+    "accounting_scope": "External receipts and preserved raw prefix; missing internal closure remains unknown",
+    "new_research_calls_after_stop": 0,
+    "preflight_status": "FAIL_STOPPED"
+  },
+  "config_sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f",
+  "source_manifest_sha256": "e007919763285ae7cd965d5f4c0d84391ed72de50861ca22b0fcf550e3b0a126",
+  "prepared_manifest_sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783"
+}

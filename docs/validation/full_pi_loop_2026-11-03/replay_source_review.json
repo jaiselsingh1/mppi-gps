@@ -1,0 +1,435 @@
+{
+  "schema": "trajectory-pi-replay-source-review-1",
+  "scope": "Saved-only comparison of original H4 evidence and already paid failed P0 replay; no rerun",
+  "frozen_commit": "211891d",
+  "bindings": {
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz": {
+      "bytes": 4007410,
+      "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/teacher_0_replay.h5": {
+      "bytes": 1484464,
+      "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/mujoco_env.py": {
+      "bytes": 10331,
+      "sha256": "93cb45af567831d501c7afb437f9f9e5da95acfac710fb7a6c62c02347f00044"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/mujoco_env.py": {
+      "bytes": 10288,
+      "sha256": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py": {
+      "bytes": 9171,
+      "sha256": "477c3d2d8735171825392c9fe011941bc26e386f2113b4dd54df8a8c1e03ebca"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py": {
+      "bytes": 9411,
+      "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/assets/walker2d.xml": {
+      "bytes": 4950,
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/assets/walker2d.xml": {
+      "bytes": 4950,
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/config.json": {
+      "bytes": 4164,
+      "sha256": "409bfb60d5b5563a5665c4105e4e211a7f8af4b21977b32ba828612a10c45113"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/configs/studies/trajectory_pi_p1.json": {
+      "bytes": 72463,
+      "sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/launch_receipt.json": {
+      "bytes": 1102,
+      "sha256": "d20da2281ce13eb3f236f229a0b00ae61f80c679fe144a5f318ac9fcae3866df"
+    },
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/preflight.json": {
+      "bytes": 4292,
+      "sha256": "58324c4be463dff215fbd3876d996b02d55a324f89d8bca80cf82cd2c73bcc9b"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_transfer_diagnosis_d1d2_001/config.json": {
+      "bytes": 3989,
+      "sha256": "be462b70ac7b5a0b420b1b137c998f6a78f3a52c198cbbffaf06609f9aa0031a"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/result.json": {
+      "bytes": 1591016,
+      "sha256": "f833ff60845fd8f885016e631f6283bf8a721dac398f8feebabadd5ab2f974ca"
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/data_audit.json": {
+      "bytes": 390891,
+      "sha256": "e63bdcb1b4bcb7d04008b98a1ba6a56d2ad9c113becf600d06ffe83b5380eb8b"
+    }
+  },
+  "initial_context_byte_exact": {
+    "states": true,
+    "warmstarts": true,
+    "integrations": true
+  },
+  "actions_byte_exact": true,
+  "original_actions_float32_rounding_maxabs": 2.9796995204556254e-08,
+  "original_and_replay_controls_match_integration_ctrl": true,
+  "all_external_force_entries_zero": true,
+  "xml_byte_exact": true,
+  "physics_functions_ast": [
+    {
+      "file": "src/envs/mujoco_env.py",
+      "function": "step",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/mujoco_env.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/mujoco_env.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "3eb9a3e2cf771228aa755b09d92ab0c33b53054df4ca5e1824320751d0888843",
+        "3eb9a3e2cf771228aa755b09d92ab0c33b53054df4ca5e1824320751d0888843"
+      ]
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "function": "get_state",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/mujoco_env.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/mujoco_env.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "3087d74177f096677c46e378f4c5fd78c48f7a3b141f7dfdfaf807002551a7b1",
+        "3087d74177f096677c46e378f4c5fd78c48f7a3b141f7dfdfaf807002551a7b1"
+      ]
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "function": "get_warmstart",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/mujoco_env.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/mujoco_env.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "e52a26824690bc5218937bcaead1159836307a4112d5ffe7aa23921418591163",
+        "e52a26824690bc5218937bcaead1159836307a4112d5ffe7aa23921418591163"
+      ]
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "function": "set_warmstart",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/mujoco_env.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/mujoco_env.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "be3c8a3c9fe805edf01b86909a8ab304e8b20dca340dd31ff7f41a5086f25d8d",
+        "be3c8a3c9fe805edf01b86909a8ab304e8b20dca340dd31ff7f41a5086f25d8d"
+      ]
+    },
+    {
+      "file": "src/envs/mujoco_env.py",
+      "function": "batch_rollout",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/mujoco_env.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/mujoco_env.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "b30994bc72a8a7bc0dadb4725d390dc8331c84da0a5740b2ce6a5666944c4089",
+        "b30994bc72a8a7bc0dadb4725d390dc8331c84da0a5740b2ce6a5666944c4089"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "step",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "3a1860fd900f11096d0b27ae6c76e8ab8c7eaa9b03ca966e4c7ae112fd69de15",
+        "3a1860fd900f11096d0b27ae6c76e8ab8c7eaa9b03ca966e4c7ae112fd69de15"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "running_cost",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "e93ccf48babc4911dff03dec5e3b0ed5b342dab2faeddb6ee96e6fffbc85642d",
+        "e93ccf48babc4911dff03dec5e3b0ed5b342dab2faeddb6ee96e6fffbc85642d"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "terminal_cost",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "b49ed5b6ecb4ffa59f9f6a4855aee322289dcdf901f395dca3b3fc02cc52e1bc",
+        "b49ed5b6ecb4ffa59f9f6a4855aee322289dcdf901f395dca3b3fc02cc52e1bc"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "rollout_cost",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "45d85138d52a19d0ec5255cc48aa830ddd86adf2a5a44225c5d638e6f754d43b",
+        "45d85138d52a19d0ec5255cc48aa830ddd86adf2a5a44225c5d638e6f754d43b"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "_is_healthy",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "a88a5491f1ff1381fd17b2c173b3bd094128edc4a9e9365aee92beec6f74df08",
+        "a88a5491f1ff1381fd17b2c173b3bd094128edc4a9e9365aee92beec6f74df08"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "rollout_states_to_obs",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "c31e056be182451251ca5dbb36ef1ee843cb9ee8fc70700b5231a43f40fc4091",
+        "c31e056be182451251ca5dbb36ef1ee843cb9ee8fc70700b5231a43f40fc4091"
+      ]
+    },
+    {
+      "file": "src/envs/walker2d.py",
+      "function": "_get_obs",
+      "old_path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/source/src/envs/walker2d.py",
+      "frozen_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/source/src/envs/walker2d.py",
+      "equal": true,
+      "normalized_ast_sha256": [
+        "430a57f7ccfe8093eee5bf5060a142cce9bc88159c5115055e0b6a7ed32739be",
+        "430a57f7ccfe8093eee5bf5060a142cce9bc88159c5115055e0b6a7ed32739be"
+      ]
+    }
+  ],
+  "task_equal_excluding_batch_threads": true,
+  "batch_threads": {
+    "source": 16,
+    "replay": 8
+  },
+  "source_execution": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "processor": "arm",
+    "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+    "cpu_count": 18,
+    "dependency_versions": {
+      "numpy": "2.4.3",
+      "scipy": "1.17.1",
+      "mujoco": "3.6.0",
+      "torch": "2.10.0",
+      "h5py": "3.16.0"
+    }
+  },
+  "replay_runtime": {
+    "python": "3.11.16",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "mujoco": "3.6.0",
+    "torch": "2.10.0+cpu",
+    "h5py": "3.16.0"
+  },
+  "first_exceedance_index": {
+    "states": {
+      "0": 1,
+      "1e-12": 187,
+      "1e-10": 306,
+      "1e-08": 426,
+      "1e-06": 593,
+      "0.0001": 726,
+      "0.01": 888,
+      "1": 966
+    },
+    "warmstarts": {
+      "0": 1,
+      "1e-12": 1,
+      "1e-10": 222,
+      "1e-08": 312,
+      "1e-06": 428,
+      "0.0001": 593,
+      "0.01": 708,
+      "1": 888
+    },
+    "integrations": {
+      "0": 1,
+      "1e-12": 1,
+      "1e-10": 222,
+      "1e-08": 312,
+      "1e-06": 428,
+      "0.0001": 593,
+      "0.01": 708,
+      "1": 888
+    },
+    "actions": {
+      "0": null,
+      "1e-12": null,
+      "1e-10": null,
+      "1e-08": null,
+      "1e-06": null,
+      "0.0001": null,
+      "0.01": null,
+      "1": null
+    },
+    "costs": {
+      "0": 0,
+      "1e-12": 244,
+      "1e-10": 377,
+      "1e-08": 485,
+      "1e-06": 650,
+      "0.0001": 784,
+      "0.01": 928,
+      "1": null
+    },
+    "observations": {
+      "0": 1,
+      "1e-12": 187,
+      "1e-10": 312,
+      "1e-08": 430,
+      "1e-06": 593,
+      "0.0001": 750,
+      "0.01": 888,
+      "1": 966
+    }
+  },
+  "index_contract": "States/warm/integration: boundary0 is initial; actions/costs/observations: control0 is first executed action/pre-action observation",
+  "maximum_absolute_error": {
+    "states": {
+      "value": 2.8782809078627594,
+      "index": [
+        968,
+        18
+      ]
+    },
+    "warmstarts": {
+      "value": 1773.968955648963,
+      "index": [
+        972,
+        5
+      ]
+    },
+    "integrations": {
+      "value": 1773.968955648963,
+      "index": [
+        972,
+        24
+      ]
+    },
+    "actions": {
+      "value": 0.0,
+      "index": [
+        0,
+        0
+      ]
+    },
+    "costs": {
+      "value": 0.4093100415615373,
+      "index": [
+        998
+      ]
+    },
+    "observations": {
+      "value": 1.412888162660398,
+      "index": [
+        993,
+        15
+      ]
+    }
+  },
+  "outcomes": {
+    "source": {
+      "controls": 1000,
+      "walking": true,
+      "full_survival": true,
+      "raw_cost": 372.7086518178426,
+      "velocity_mae": 0.14545528445534656
+    },
+    "replay": {
+      "controls": 1000,
+      "walking": true,
+      "full_survival": true,
+      "raw_cost": 376.5714059963932,
+      "velocity_mae": 0.14734510928973157
+    }
+  },
+  "raw_cost_relative_change": 0.01036400459101361,
+  "previous_d2_teacher_ids": [
+    "v2_r0_trial_raw_0",
+    "v2_r0_trial_raw_1"
+  ],
+  "causal_classification": {
+    "established": [
+      "Initial complete context and all executed controls match exact bytes.",
+      "The saved original was generated on macOS arm64; replay ran Linux x86_64 with the same declared MuJoCo3.6.0 version.",
+      "Model XML and the twelve inspected numeric/accessor method ASTs match.",
+      "Both saved trajectories complete1000 controls and meet the walking criterion.",
+      "The frozen1e-10 replay prerequisite fails and all subsequent mechanisms remain untested.",
+      "Completed D2 baselines used v2_r0_trial_raw_0/1, not these H4 sources."
+    ],
+    "supported_but_unconfirmed": [
+      "Initial state differences near5e-15 and their later growth are consistent with amplified platform/native numerical differences."
+    ],
+    "unresolved": [
+      "This evidence does not isolate native compiler/SIMD/wheel arithmetic or all derived model/default options.",
+      "No deterministic Python dynamics, action precision or indexing mismatch was identified in the inspected scope; this is not a proof that every native detail matches."
+    ]
+  },
+  "new_native_controls": 0,
+  "new_model_controls": 0,
+  "new_neural_rows": 0,
+  "new_gradients": 0,
+  "new_optimizer_updates": 0,
+  "logical_read_bytes": 5626985,
+  "wall_seconds": 0.037077208049595356,
+  "cpu_seconds": 0.03143900000000001,
+  "curation_lineage": {
+    "original_run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001",
+    "record": "teacher_records/h4_r1_independent_00/raw",
+    "original_raw_file": "raw.h5",
+    "original_raw_group": "arrays/a000009002_episode_h4_r1_independent_00",
+    "checks": {
+      "actions": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "fb1e5d2461d9a711ab6bec8caf1c9441abd469bc594b4ced689ff3122bbb4c4e"
+      },
+      "states": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "fe09e523271a921239d7b00db353b67b1b778eeb5edc7137a8b15394f8e28afd"
+      },
+      "warmstarts": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "ff009dda48fe127ddeda07d35e775b576829ff3175662bcab85c770070705064"
+      },
+      "integrations": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "76088bc3552b4b6bcd5998b3994e4a61988fae2e4068455ca53ecd1a91fd262e"
+      },
+      "costs": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "b179dfa28cbb16fee14c64a7e1df334b9db4ea83d06faa260d0affc8b38cbc95"
+      },
+      "observations": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "e7ee0e6602a12c4d7c9eb2ee054a32fe37fcf75384461f9707daaac396ae0c29"
+      },
+      "velocities": {
+        "matches_original_h4_array": true,
+        "raw_array_sha256": "45ac50f8f58dbf9a10793c34fc55974a0d00b0367456263c9d7d2d4d2131a7fd"
+      }
+    }
+  },
+  "lineage_review_work": {
+    "logical_read_bytes": 5989317,
+    "wall_seconds": 0.012505374965257943,
+    "cpu_seconds": 0.012069999999999997,
+    "new_native_controls": 0,
+    "new_model_controls": 0,
+    "new_neural_rows": 0,
+    "new_gradients": 0
+  }
+}

@@ -83,6 +83,10 @@ def main(argv: list[str] | None = None) -> int:
     item = commands.add_parser("report", help="render saved measurements and joint-angle traces")
     item.add_argument("--run", type=Path, required=True)
     item.add_argument("--out", type=Path, required=True)
+    item = commands.add_parser("replay-report", help="compare preserved source/replay arrays only")
+    item.add_argument("--source", type=Path, required=True)
+    item.add_argument("--replay", type=Path, required=True)
+    item.add_argument("--out", type=Path, required=True)
     item = commands.add_parser("inspect", help="read compact metadata, never reopen checkpoints")
     item.add_argument("--run", type=Path, required=True)
     item.add_argument("--verify", action="store_true")
@@ -110,6 +114,10 @@ def main(argv: list[str] | None = None) -> int:
         from ..reporting.trajectory_pi import render
 
         value = render(args.run, args.out)
+    elif args.command == "replay-report":
+        from ..reporting.trajectory_pi_replay import replay_report
+
+        value = replay_report(args.source, args.replay, args.out)
     else:
         from ..reporting.trajectory_pi import inspect
 

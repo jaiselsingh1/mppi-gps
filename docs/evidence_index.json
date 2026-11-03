@@ -4157,6 +4157,29 @@
         "limit_bytes": 17179869184,
         "scope": "Named retained roots, not all-filesystem transient peak; original engineering overrun preserved separately."
       }
+    },
+    "trajectory_pi_p1_001": {
+      "status": "PRELAUNCH_STOPPED",
+      "scientific_result": "NOT_LAUNCHED_PREREQUISITE_FAILED",
+      "capsule": "results/trajectory_pi_p1_001",
+      "result_report": "docs/trajectory_pi_p1_result.md",
+      "external_evidence": "results/trajectory_pi_p1_001/external_evidence.json",
+      "local_directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001",
+      "remote_directory": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001",
+      "source_commit": "211891d4de2bce7703a3faf586fe324e40fb481b",
+      "result_sha256": "a95362bba3f55b220c14e760089bbf90f8d3f48d0aa1fbed6fe1fa05cba58070",
+      "config_sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f",
+      "raw_replay_sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb",
+      "raw_availability": "PRESERVED_BOTH_HOSTS",
+      "remote_observed_bytes_before_storage_receipt": 402391999,
+      "work": {
+        "native_controls": 1000,
+        "physics_substeps": 4000,
+        "model_controls": 0,
+        "neural_rows": 0,
+        "optimizer_updates": 0
+      },
+      "audit_scope": "PASS_STOPPED: preserved failure/accounting only; replay invalid, similarity untested"
     }
   },
   "saved_analyses": {

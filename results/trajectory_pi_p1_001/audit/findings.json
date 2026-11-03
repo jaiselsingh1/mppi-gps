@@ -1,0 +1,112 @@
+{
+  "status": "PASS_STOPPED",
+  "original_status": "PRELAUNCH_STOPPED",
+  "original_prerequisite_status": "FAIL_STOPPED",
+  "prerequisites": {
+    "status": "FAIL_STOPPED",
+    "original_failure": "ValueError(\"Frozen P0 comparison failed: teacher0/states {'name': 'teacher0/states', 'passed': False, 'shape': [1001, 19], 'exact_bytes': False, 'rtol': 0, 'atol': 1e-10, 'maximum_absolute_error': 2.8782809078627594}\")",
+    "checks": [
+      {
+        "name": "full_context_replay",
+        "passed": false,
+        "status": "FAIL_STOPPED",
+        "error": "ValueError(\"Frozen P0 comparison failed: teacher0/states {'name': 'teacher0/states', 'passed': False, 'shape': [1001, 19], 'exact_bytes': False, 'rtol': 0, 'atol': 1e-10, 'maximum_absolute_error': 2.8782809078627594}\")"
+      },
+      {
+        "name": "pre_action_index",
+        "passed": false,
+        "status": "NOT_RUN"
+      },
+      {
+        "name": "full_sequence_no_shift",
+        "passed": false,
+        "status": "NOT_RUN"
+      },
+      {
+        "name": "score_formula",
+        "passed": false,
+        "status": "NOT_RUN"
+      },
+      {
+        "name": "checkpoint_continuation",
+        "passed": false,
+        "status": "NOT_RUN"
+      },
+      {
+        "name": "fall_accounting",
+        "passed": false,
+        "status": "NOT_RUN"
+      },
+      {
+        "name": "budget_enforcement",
+        "passed": false,
+        "status": "NOT_RUN"
+      },
+      {
+        "name": "zero_residual_reproduction",
+        "passed": false,
+        "status": "NOT_RUN"
+      }
+    ],
+    "work": {
+      "requested_environment_constructions": 1,
+      "completed_environment_constructions": 1,
+      "requested_checkpoint_loads": 1,
+      "requested_numpy_constructions": 1,
+      "completed_checkpoint_loads": 1,
+      "completed_numpy_constructions": 1,
+      "requested_external_mj_forward_calls": 1,
+      "requested_restores": 1,
+      "completed_external_mj_forward_calls": 1,
+      "completed_restores": 1,
+      "requested_native_controls": 1000,
+      "requested_physics_substeps": 4000,
+      "completed_native_controls": 1000,
+      "completed_physics_substeps": 4000
+    },
+    "accounting_complete": true,
+    "scope": "Bound preserved failed P0 outputs/accounting; no replay or relaxed gate"
+  },
+  "scientific_result": "NOT_LAUNCHED_PREREQUISITE_FAILED",
+  "criteria": null,
+  "new_research_calls_after_failed_prerequisite": 0,
+  "external_supervisor": {
+    "schema": "trajectory-pi-external-stop-1",
+    "stage": "preflight",
+    "reason": "RuntimeError('P0 failed or lacked a closed PASS; no main attempt')",
+    "phase_receipt": {
+      "schema": "trajectory-pi-phase-1",
+      "phase": "preflight",
+      "argv": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "trajectory-pi",
+        "preflight",
+        "--config",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/source/configs/studies/trajectory_pi_p1.json",
+        "--prepared",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/prepared",
+        "--source-manifest",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/source_manifest.json",
+        "--out",
+        "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/preflight"
+      ],
+      "pid": 71206,
+      "exit_code": 1,
+      "limit_error": null,
+      "remaining_group_terminated": false,
+      "wall_seconds": 6.21601477799959,
+      "process_tree_cpu_seconds": 2.2,
+      "supervisor_cpu_seconds": 0.21577821700000002,
+      "waited_children_cpu_seconds": 1.981534,
+      "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+      "peak_sampled_tree_rss_bytes": 317202432,
+      "stdout": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/preflight.stdout.log",
+      "stderr": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/preflight.stderr.log"
+    },
+    "accounting_scope": "External receipts and preserved raw prefix; missing internal closure remains unknown",
+    "new_research_calls_after_stop": 0,
+    "preflight_status": "FAIL_STOPPED"
+  }
+}

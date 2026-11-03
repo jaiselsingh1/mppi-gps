@@ -1,0 +1,199 @@
+{
+  "schema": "trajectory-pi-capsule-1",
+  "study": "P1.0 fixed-alpha full-trajectory PI alternating loop",
+  "run_id": "2026-11-03_trajectory_pi_p1_001",
+  "source_commit": "211891d4de2bce7703a3faf586fe324e40fb481b",
+  "status": "PRELAUNCH_STOPPED",
+  "source_replay_passed": false,
+  "main_comparison_executed": false,
+  "score_helped_finite_loop": null,
+  "stopping_accounting_audit_passed": true,
+  "audit_status": "PASS_STOPPED",
+  "full_project_success": false,
+  "copy_roots": {
+    "run": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/worker",
+    "preflight": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/preflight",
+    "audit": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/audit",
+    "report": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/report",
+    "analysis/replay": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/replay_review",
+    "analysis/stop_audit_review": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/docs/validation/full_pi_loop_2026-11-03/stop_audit_review",
+    "analysis/replay_source_review.json": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/docs/validation/full_pi_loop_2026-11-03/replay_source_review.json",
+    "analysis/replay_source_review.md": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/docs/validation/full_pi_loop_2026-11-03/replay_source_review.md",
+    "accounting/phases": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor",
+    "frozen/prepared_manifest.json": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/prepared/manifest.json",
+    "frozen/source_manifest.json": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/source_manifest.json"
+  },
+  "raw_evidence": "external_evidence.json",
+  "files": {
+    "README.md": {
+      "bytes": 1907,
+      "sha256": "e971fabfb8946f8e03fa6c872eef59ca45d89420472f7c8ee7729682ed287720"
+    },
+    "accounting/evidence_transfer_receipt.json": {
+      "bytes": 453,
+      "sha256": "7b5caa900ff5067afdb73dc4f32334b91c743dcdcf7d2bf9ffc868887f6de0d2"
+    },
+    "accounting/external_launch_request.json": {
+      "bytes": 845,
+      "sha256": "ca211e8c73321ce56fd836bed1cdbe933e757a3596cd31d8abe778b23247152d"
+    },
+    "accounting/launch.json": {
+      "bytes": 1427,
+      "sha256": "053d71c30842a4f5a5df49addf38f16b090c3e5f955aaf71fa49497911b48f2a"
+    },
+    "accounting/phases/audit.json": {
+      "bytes": 1069,
+      "sha256": "665fb36503fcddb2dd0d38f17834b16cd5c2acec4736b0b0bd03eeb8e183cb0d"
+    },
+    "accounting/phases/initial_capacity.json": {
+      "bytes": 284,
+      "sha256": "2203766458e714dedb965765873449080a96e596d3e7fe4281b35e9ee477026a"
+    },
+    "accounting/phases/preflight.json": {
+      "bytes": 1291,
+      "sha256": "abbb4c669a74bb8ec04bee5394ac8e9fc9c3f75d074632ebf38cb3432b91e2ee"
+    },
+    "accounting/phases/report.json": {
+      "bytes": 1059,
+      "sha256": "9c9ea2366c010f0cb32b79247f975d7bf015334fb997cef997204d5892850671"
+    },
+    "accounting/publication_storage_observation.json": {
+      "bytes": 1471,
+      "sha256": "c7c2d27e730bfd8fc7444d564fc451d3a9d74fca14d2632f5eec77ba8d0bf970"
+    },
+    "accounting/publication_tests.txt": {
+      "bytes": 261,
+      "sha256": "13a16f301f4f2b32099c997f58f7e80b7e66056276b3debe3cc8278befb016c4"
+    },
+    "accounting/publication_validation.json": {
+      "bytes": 3214,
+      "sha256": "836c25845a5a92b00f19c65111451a8a06c830e83c588a4d4a7a2d03ef2dfcfc"
+    },
+    "accounting/resource_observation.json": {
+      "bytes": 2201,
+      "sha256": "8bb794bc2e24e4cc88b759bfc6cb090bd88695a65c65fd0d7c51c0ccd1c0b60a"
+    },
+    "accounting/supervisor.json": {
+      "bytes": 5396,
+      "sha256": "6f8a5195037dad74a51681520c94f401e12a7bc5c8d8dc1c2e5b54225c70a559"
+    },
+    "accounting/transfer_receipt.json": {
+      "bytes": 935,
+      "sha256": "0fd4fca06a618b252acd0674db69d7f7de2bce72a5c0c4da43f2e24520f78826"
+    },
+    "accounting/unit_validation.json": {
+      "bytes": 1714,
+      "sha256": "7ddb0b964512ef95557dda0c2bc1948c69b798bc0701444b464830a9e56b0ed5"
+    },
+    "accounting/work_summary.json": {
+      "bytes": 14574,
+      "sha256": "199c70472055739bcce72c4780735b4d0c8b71abe4f54d0325bd94fab7a9589e"
+    },
+    "analysis/replay/boundary_differences.csv": {
+      "bytes": 143408,
+      "sha256": "adee65fe248019f9dab3d778e6ae934bac68187670eee3e7eec0b7bea765311a"
+    },
+    "analysis/replay/joint_angles.png": {
+      "bytes": 330511,
+      "sha256": "9dd36b09a6a069c2a4fdf5c8aeda922aef614e7f1dc4b4327a0b561d066d74ff"
+    },
+    "analysis/replay/replay_errors.png": {
+      "bytes": 176885,
+      "sha256": "0d3e67669138aea0fb038fb8df0979a6a5b251c00a2596e44f4078088fe32dea"
+    },
+    "analysis/replay/replay_report.json": {
+      "bytes": 3088,
+      "sha256": "8d732de426202ca1c633886fe956f118d659d462bfd5ad5d62b64b1fec824daf"
+    },
+    "analysis/replay_source_review.json": {
+      "bytes": 17150,
+      "sha256": "2e91fb7cc834e1ee8a39ade68704272ef9f7dfc7953d8ec07f5d8af11524f6df"
+    },
+    "analysis/replay_source_review.md": {
+      "bytes": 3158,
+      "sha256": "485589c951c5e51c8ec54af9f845fa674a2875156b80ba9a3e44f16ba4fd093b"
+    },
+    "analysis/stop_audit_review/review.json": {
+      "bytes": 9911,
+      "sha256": "18511e4635b425cc781db28fc001f01a8cb9528fbb193157369a84417503d006"
+    },
+    "analysis/stop_audit_review/review.md": {
+      "bytes": 1779,
+      "sha256": "67faa0240a27791a6607e99196523d291d6c73963e0a72ca9ac9912d7efc65ad"
+    },
+    "audit/file_bindings.json": {
+      "bytes": 2163776,
+      "sha256": "134e85ea169debde2ec014c3b36cdc2bab0cf7298e81eed3e1199fed31cc5b2e"
+    },
+    "audit/findings.json": {
+      "bytes": 4234,
+      "sha256": "e959b66a2231f81dd1a06c9ed50a4d4f3c079b7a0d98517bd310a9f6846e1531"
+    },
+    "audit/receipt.json": {
+      "bytes": 544,
+      "sha256": "a7a5dbd7a4bdae77f2e49d4af685c07235162482d492ff44e3ac0d36d606fb18"
+    },
+    "external_evidence.json": {
+      "bytes": 8742,
+      "sha256": "17b3d2c243bd260d2dcef506a2541b2b503b8d5493a3b8ef254e951bb18cf17c"
+    },
+    "frozen/prepared_manifest.json": {
+      "bytes": 5319,
+      "sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783"
+    },
+    "frozen/source_manifest.json": {
+      "bytes": 1591328,
+      "sha256": "e007919763285ae7cd965d5f4c0d84391ed72de50861ca22b0fcf550e3b0a126"
+    },
+    "measurement_availability.json": {
+      "bytes": 1403,
+      "sha256": "407760cb0d087f1cf0d9e4808580b7851eba9166740526b7fd241da9b365d363"
+    },
+    "preflight/preflight.json": {
+      "bytes": 4292,
+      "sha256": "58324c4be463dff215fbd3876d996b02d55a324f89d8bca80cf82cd2c73bcc9b"
+    },
+    "preflight/receipt.json": {
+      "bytes": 786,
+      "sha256": "c61b0578910d91477dc05a8f99b89980a66295b3385c874b8cfe49b796cf8f9a"
+    },
+    "report/fitting_progress.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "report/learning_curves.csv": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "report/optimization_progress.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "report/report.json": {
+      "bytes": 376,
+      "sha256": "16ca737f2cd971fae9ea7d8e7f5461b6ded31e5fb8e91eb41f118211be837583"
+    },
+    "report/report.md": {
+      "bytes": 667,
+      "sha256": "27011e28139438d64692341dc4507844fd44e832c3eaa3f24a36bb2493a58162"
+    },
+    "run/config.json": {
+      "bytes": 72463,
+      "sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f"
+    },
+    "run/external_supervisor.json": {
+      "bytes": 1711,
+      "sha256": "ae76e6f39cf36df2c9208a8229064b307daaa6b3fff29cac0ab3c1a60d6cb454"
+    },
+    "run/launch.json": {
+      "bytes": 1427,
+      "sha256": "053d71c30842a4f5a5df49addf38f16b090c3e5f955aaf71fa49497911b48f2a"
+    },
+    "run/result.json": {
+      "bytes": 2015,
+      "sha256": "a95362bba3f55b220c14e760089bbf90f8d3f48d0aa1fbed6fe1fa05cba58070"
+    }
+  },
+  "payload_bytes": 4583080,
+  "interpretation": "Preserved failed prerequisite and clean stop; no score, PI or learning outcome. Compact byte verification does not replay physics or reopen external raw evidence."
+}

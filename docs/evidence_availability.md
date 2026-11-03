@@ -540,3 +540,29 @@ missing raw calibration vectors. The [result](jitter_diagnosis_j2_results.md) an
 The [2026-11-03 coordination capsule](../results/walker_coordination_review_001/README.md) preserves 53 compact payloads from 42 prototype study directories and records checksums/sizes for 543,626,606 bytes of local external files at the initial observation. Its coupled-loop record is explicitly partial while the pre-existing worker finishes. The [source archive](../archive/coordination-2026-11-03/README.md) preserves all 34 untracked sources before cleanup, plus tracked dependencies and scratchpad artifacts. These preservation checks do not establish launch provenance, complete work accounting or an independent scientific audit.
 
 The [coordination closure](../results/walker_coordination_closure_001/README.md) separately seals the completed pre-existing loop’s summary/log, original harness exit receipts, final local-file census and saved-bank join. It does not overwrite the initial partial observation. All ten bank episodes join exactly to 9,624 recorded source controls at retained precision; source survival remains conditional metadata. No missing child checkpoints, acquired candidate banks or cost ledger were regenerated.
+
+## P1.0 stopped full-trajectory comparison
+
+The [portable P1 capsule](../results/trajectory_pi_p1_001/README.md) preserves
+the original configuration, prepared/source manifests, failed prerequisite,
+worker stop, independent `PASS_STOPPED` audit, phase receipts, source/replay
+curves and figures. The comparison itself did not launch; zero PI passes,
+policy forwards, fitting updates and standalone panels were performed.
+
+New raw trace and ledger copies are preserved locally at
+`/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/remote_evidence`
+and on `robopil5090` at
+`/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001`.
+The [per-file index](../results/trajectory_pi_p1_001/external_evidence.json)
+binds their sizes, SHA256, availability and the six prepared checkpoint/RNG
+files. Frozen executable source is commit `211891d`; the exact 7,461-file export
+remains on both hosts. The raw replay SHA256 is
+`64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb`.
+
+The [storage observation](../results/trajectory_pi_p1_001/accounting/publication_storage_observation.json)
+records 402,391,999 remote bytes before its own receipt, including the source
+export and 112,109,394-byte transfer archive. Only selected H4 episodes and W2
+parents were copied; this does not change the local-only availability of their
+full original studies. A clean export can inspect the capsule and rerender the
+empty comparison report; the saved-only raw replay renderer requires its
+explicit external NPZ/H5 inputs.

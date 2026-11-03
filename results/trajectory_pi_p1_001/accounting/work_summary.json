@@ -1,0 +1,405 @@
+{
+  "schema": "trajectory-pi-complete-work-summary-1",
+  "scientific_status": "NOT_LAUNCHED_PREREQUISITE_FAILED",
+  "prerequisite_actual": {
+    "requested_physics_substeps": 4000,
+    "completed_physics_substeps": 4000,
+    "unknown_partial_physics_substeps": 0,
+    "requested_backward_rows": 0,
+    "completed_backward_rows": 0,
+    "unknown_partial_backward_rows": 0,
+    "requested_policy_constructions": 0,
+    "completed_policy_constructions": 0,
+    "unknown_partial_policy_constructions": 0,
+    "requested_numpy_constructions": 1,
+    "completed_numpy_constructions": 1,
+    "unknown_partial_numpy_constructions": 0,
+    "requested_replay_sampling_controls": 0,
+    "completed_replay_sampling_controls": 0,
+    "unknown_partial_replay_sampling_controls": 0,
+    "requested_optimizer_steps": 0,
+    "completed_optimizer_steps": 0,
+    "unknown_partial_optimizer_steps": 0,
+    "requested_restores": 1,
+    "completed_restores": 1,
+    "unknown_partial_restores": 0,
+    "requested_external_mj_forward_calls": 1,
+    "completed_external_mj_forward_calls": 1,
+    "unknown_partial_external_mj_forward_calls": 0,
+    "requested_optimizer_constructions": 0,
+    "completed_optimizer_constructions": 0,
+    "unknown_partial_optimizer_constructions": 0,
+    "requested_stream_writes": 0,
+    "completed_stream_writes": 0,
+    "unknown_partial_stream_writes": 0,
+    "requested_pi_passes": 0,
+    "completed_pi_passes": 0,
+    "unknown_partial_pi_passes": 0,
+    "requested_replay_optimizer_passes": 0,
+    "completed_replay_optimizer_passes": 0,
+    "unknown_partial_replay_optimizer_passes": 0,
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "unknown_partial_environment_constructions": 0,
+    "requested_checkpoint_loads": 1,
+    "completed_checkpoint_loads": 1,
+    "unknown_partial_checkpoint_loads": 0,
+    "requested_native_controls": 1000,
+    "completed_native_controls": 1000,
+    "unknown_partial_native_controls": 0,
+    "requested_model_controls": 0,
+    "completed_model_controls": 0,
+    "unknown_partial_model_controls": 0,
+    "requested_neural_rows": 0,
+    "completed_neural_rows": 0,
+    "unknown_partial_neural_rows": 0,
+    "requested_model_queries": 0,
+    "completed_model_queries": 0,
+    "unknown_partial_model_queries": 0
+  },
+  "prerequisite_internal_process": {
+    "status": "FAILED",
+    "wall_seconds": 4.623642131000452,
+    "cpu_seconds": 1.7774479429999999,
+    "peak_process_rss_bytes": 280436736,
+    "output_bytes_before_receipt": 1863075,
+    "physical_disk_io_bytes": null
+  },
+  "remote_lifecycle": {
+    "cpu_seconds": 4.029999999999999,
+    "rss_bytes": 43470848,
+    "observed_pids": [
+      71192
+    ],
+    "peak_rss_bytes": 317202432
+  },
+  "remote_lifecycle_wall_seconds": 10.763133166999978,
+  "independent_audit": {
+    "schema": "trajectory-pi-p1-independent-audit-1",
+    "passed": true,
+    "status": "PASS_STOPPED",
+    "error": null,
+    "checks": 44627,
+    "bound_files": 7485,
+    "hashed_file_bytes": 287948278,
+    "requested_numpy_head_rows": 0,
+    "completed_numpy_head_rows": 0,
+    "unknown_partial_numpy_head_rows": 0,
+    "new_model_controls": 0,
+    "new_native_controls": 0,
+    "new_physics_substeps": 0,
+    "new_gradients": 0,
+    "new_optimizer_updates": 0,
+    "wall_seconds": 1.0530685189996802,
+    "cpu_seconds": 1.051246722,
+    "original_failure_preserved": true
+  },
+  "local_saved_only_analysis": {
+    "wall_seconds": 12.948657959001139,
+    "cpu_seconds": 0.93784,
+    "input_read_bytes": 2148918,
+    "new_native_controls": 0,
+    "new_model_controls": 0,
+    "new_neural_rows": 0,
+    "new_gradients": 0,
+    "new_optimizer_updates": 0
+  },
+  "source_transfer": {
+    "schema": "trajectory-pi-transfer-1",
+    "archive_bytes": 112109394,
+    "archive_sha256": "d89c0c0a802cfe78a361754d8f5d1404b1563dcce69b52faa4ba98dc08240a0f",
+    "packaging_wall_seconds": 4.908947542018723,
+    "packaging_cpu_seconds": 3.442021,
+    "source_manifest_sha256": "e007919763285ae7cd965d5f4c0d84391ed72de50861ca22b0fcf550e3b0a126",
+    "prepared_manifest_sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783",
+    "source_commit": "211891d4de2bce7703a3faf586fe324e40fb481b",
+    "physical_disk_io_bytes": null,
+    "transfer_wall_seconds": 7.440039290988352,
+    "exit_code": 0,
+    "remote_base": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001",
+    "remote_stdout": "{\"base\": \"/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001\", \"archive_bytes\": 112109394, \"archive_sha256\": \"d89c0c0a802cfe78a361754d8f5d1404b1563dcce69b52faa4ba98dc08240a0f\", \"source_files\": 7461}\n",
+    "remote_stderr": ""
+  },
+  "evidence_return_transfer": {
+    "schema": "trajectory-pi-evidence-transfer-1",
+    "bytes": 1164723,
+    "sha256": "b1626d98a74770a7e7c04ffe3d22ba2bf614b1b3713a174f431dc22364381d1f",
+    "wall_seconds": 1.5062311670044437,
+    "remote_base": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001",
+    "copy_to": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/remote_evidence",
+    "new_scientific_work": 0,
+    "physical_disk_io_bytes": null
+  },
+  "engineering_validation": {
+    "command": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_trajectory_pi_audit.py",
+      "tests/test_trajectory_pi_launch.py",
+      "tests/test_trajectory_pi_native.py",
+      "tests/test_trajectory_pi_optimizer.py",
+      "tests/test_trajectory_pi_preflight.py",
+      "tests/test_trajectory_pi_review.py",
+      "tests/test_trajectory_pi_student.py",
+      "tests/test_trajectory_pi_study.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 20.152382917003706,
+    "cpu_seconds": 17.201365,
+    "physics_scope": "Synthetic/unit engineering validation; no new research experiment or parent refit",
+    "full_suite_previous": {
+      "passed": 1899,
+      "skipped": 3,
+      "xfailed": 1,
+      "wall_seconds": 250.18
+    },
+    "sources": {
+      "src/gps/mppi_gps/trajectory_pi_accounting.py": "dfc610bec18327f2a9e44f9b8336ab3064efb8771032d26f658988be755904dd",
+      "src/gps/mppi_gps/trajectory_pi_inputs.py": "2dd3993c58a4e4a14b71b98e8833fad03c7f1bb576fb4059b974bb1c3cd58975",
+      "src/gps/mppi_gps/trajectory_pi_launch.py": "08a1f68cd265f1d2889282f535a00052b9b2f00c5745fa4299d8b346617ba4fb",
+      "src/gps/mppi_gps/trajectory_pi_native.py": "be715a1b9babe9357788265ab5cd9cd3481eb0467c801f53f40a90740ebcaff9",
+      "src/gps/mppi_gps/trajectory_pi_optimizer.py": "243aca969d1ac208f99915fa7cace835a4405251db60cb06240df3d56949206f",
+      "src/gps/mppi_gps/trajectory_pi_preflight.py": "4b28539829c4cf6f6cd5ce9d917ea31ede31288652ee9f5e8397a53a36fd0cae",
+      "src/gps/mppi_gps/trajectory_pi_student.py": "4b5e9c06423c3bc1217995c0a2426c106a42f03975fe16b69297af78a0798faa",
+      "src/gps/mppi_gps/trajectory_pi_study.py": "2afe00927c2895399efa56eddef66b289c8116d38fb29e8846a066a3f486a6ad"
+    }
+  },
+  "preparation": {
+    "checkpoint_loads": 3,
+    "policy_constructions": 3,
+    "neural_rows": 0,
+    "optimizer_updates": 0,
+    "source_freeze_and_preparation_cpu_seconds": null
+  },
+  "limits": {
+    "execution_wall_seconds": 86400,
+    "audit_wall_seconds": 7200,
+    "pool_wall_seconds": 93600,
+    "cpu_seconds": 2851200,
+    "worker_cpu_seconds": 2764800,
+    "coordinator_cpu_seconds": 86400,
+    "gpu_seconds": 0,
+    "output_bytes": 68719476736,
+    "execution_output_bytes": 60129542144,
+    "audit_output_bytes": 8589934592,
+    "model_controls": 8000000000,
+    "native_controls": 4000000,
+    "physics_substeps": 32016000000,
+    "study_optimizer_steps": 12000,
+    "prerequisite_optimizer_steps": 8,
+    "optimizer_steps": 12008,
+    "study_backward_rows": 3072000,
+    "prerequisite_backward_rows": 2048,
+    "backward_rows": 3074048,
+    "neural_rows": 4000000000,
+    "audit_numpy_head_rows": 140000000,
+    "audit_model_controls": 0,
+    "audit_native_controls": 0,
+    "audit_physics_substeps": 0,
+    "audit_backward_rows": 0,
+    "audit_optimizer_steps": 0
+  },
+  "unmeasured": {
+    "physical_disk_io_bytes": null,
+    "billed_money": null,
+    "cumulative_engineering_cpu_including_all_repeated_checks": null
+  },
+  "accounting_cautions": [
+    "Remote phase CPU/wall and P0/audit internal CPU/wall are nested; do not sum them.",
+    "The supervisor process-tree total already includes P0, audit, report and supervision.",
+    "Prior W2 fitting and H4 discovery are reused lineage costs, not new zero-cost achievements; see their original reports.",
+    "Broader unit/smoke validation is engineering work; aggregate CPU was not captured for every repeated check. No research fits, evaluations or acquisitions were hidden in it."
+  ],
+  "local_saved_only_source_review": {
+    "logical_read_bytes": 5626985,
+    "wall_seconds": 0.037077208049595356,
+    "cpu_seconds": 0.03143900000000001,
+    "new_native_controls": 0,
+    "new_model_controls": 0,
+    "new_neural_rows": 0,
+    "new_gradients": 0,
+    "new_optimizer_updates": 0,
+    "lineage_review_work": {
+      "logical_read_bytes": 5989317,
+      "wall_seconds": 0.012505374965257943,
+      "cpu_seconds": 0.012069999999999997,
+      "new_native_controls": 0,
+      "new_model_controls": 0,
+      "new_neural_rows": 0,
+      "new_gradients": 0
+    }
+  },
+  "storage_observation": {
+    "schema": "trajectory-pi-storage-observation-1",
+    "observed_utc": "2026-11-03T22:57:15.723318+00:00",
+    "groups": {
+      "source": {
+        "files": 7461,
+        "bytes": 274020424
+      },
+      "audit": {
+        "files": 3,
+        "bytes": 2168554
+      },
+      "launch.json": {
+        "files": 1,
+        "bytes": 1427
+      },
+      "supervisor.json": {
+        "files": 1,
+        "bytes": 5396
+      },
+      "external_launch_request.json": {
+        "files": 1,
+        "bytes": 845
+      },
+      "resource_observation.json": {
+        "files": 1,
+        "bytes": 2201
+      },
+      "transfer_bundle.tar.gz": {
+        "files": 1,
+        "bytes": 112109394
+      },
+      "preflight": {
+        "files": 4,
+        "bytes": 1868942
+      },
+      "prepared": {
+        "files": 14,
+        "bytes": 10387767
+      },
+      "source_manifest.json": {
+        "files": 1,
+        "bytes": 1591328
+      },
+      "launcher.stdout.log": {
+        "files": 1,
+        "bytes": 0
+      },
+      "supervisor": {
+        "files": 12,
+        "bytes": 156107
+      },
+      "worker": {
+        "files": 4,
+        "bytes": 77616
+      },
+      "transfer_receipt.json": {
+        "files": 1,
+        "bytes": 935
+      },
+      "report": {
+        "files": 5,
+        "bytes": 1049
+      },
+      "launcher_pid.json": {
+        "files": 1,
+        "bytes": 14
+      }
+    },
+    "files": 7512,
+    "bytes": 402391999,
+    "limit_bytes": 68719476736,
+    "cpu_seconds": 0.045006032,
+    "scope": "Post-closure metadata-only size observation; original receipts unchanged",
+    "new_scientific_work": 0
+  },
+  "publication_validation": {
+    "commands": [
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_trajectory_pi_review.py",
+          "tests/test_trajectory_pi_replay_report.py",
+          "tests/test_h5_capsule_inspection.py",
+          "tests/test_jitter_inspection.py",
+          "tests/test_similarity_inspection.py",
+          "tests/test_visitation_inspection.py",
+          "tests/test_c1_capsule_inspection.py",
+          "tests/test_consequence_recovery_inspection.py",
+          "tests/test_consequence_certificate_inspection.py",
+          "tests/test_research_cli.py"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 14.293639249983244,
+        "cpu_seconds": 13.845198
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/check_repository.py"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 1.3238498339778744,
+        "cpu_seconds": 0.9125630000000005
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "trajectory-pi",
+          "--help"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.07010816695401445,
+        "cpu_seconds": 0.0667030000000004
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "inspect",
+          "--run",
+          "results/trajectory_pi_p1_001",
+          "--verify",
+          "--json"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.09685362502932549,
+        "cpu_seconds": 0.08247199999999921
+      },
+      {
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-B",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "trajectory-pi",
+          "report",
+          "--run",
+          "results/trajectory_pi_p1_001/run",
+          "--out",
+          "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/publication_validation/report"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.25284275005105883,
+        "cpu_seconds": 0.23726800000000026
+      }
+    ],
+    "new_research_work": 0,
+    "scope": "Read-only publication modules, synthetic report fixtures, metadata and exact capsule bytes; no research physics, fitting or evaluations",
+    "tests": "157 passed in 13.99s in a clean tracked-file export",
+    "candidate_export_manifest_sha256": "4b4c598e4131827c2c6dad464fb977d7f64b8a777f3b91df2d8a29cd0c5e3959",
+    "scientific_implementation_unchanged_since_frozen_211891d": true,
+    "publication_only_source_files": {
+      "src/gps/mppi_gps/reporting/trajectory_pi.py": "2360042bc12c57538db52e686c064491ce30fbcf2971e0073718308d6dbc6434",
+      "src/gps/mppi_gps/reporting/trajectory_pi_replay.py": "d8e982b4ada20399aef1792ba85001fd2662aa8d00401e20fe4a325002e28c07",
+      "src/gps/mppi_gps/inspection.py": "de1da8ca51457823396efaf4cc3d79cb71ab73bb5fd0bd404282ecc7698c39a5",
+      "src/gps/mppi_gps/experiments/trajectory_pi.py": "a7f138b3e7779af1c811bd7827c1f6ea4f570aa7359d4a98e05b68bc662bac61"
+    }
+  },
+  "main_capacity_observation": "Not sampled because P0 failed; resource_observation.json is an explicitly labelled external-stop placeholder, not a second failed scientific cause."
+}

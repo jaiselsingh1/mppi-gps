@@ -4,6 +4,15 @@ Start with the [coordinated Walker investigation map](walker_coordination_review
 
 Start with the [C1 audit-only recovery result](student_consequence_c1_audit_recovery_results.md), [S1.2 v2 review protocol](student_visitation_s1_2_protocol_v2.md), and [C1.0 findings and original audit-closure failure](student_consequence_c1_results.md), [execution contract](student_consequence_c1_execution.md) and [H5.0r1 audited result](teacher_proposal_h5_0_round1_results.md), then the [K1.2 actual-motion diagnosis](motion_diagnosis_k1_2_results.md), [K1.1 along-trajectory review](trajectory_review_k1_1_results.md) and [S1.1 fresh evaluation](student_source_s1_1_results.md). Earlier evidence includes [K1 fixed-reference trajectory spread](action_compatibility_k1_results.md#fixed-reference-trajectory-spread-review), the [S1 interrupted comparison](student_source_s1_results.md), [D1/D2 diagnosis](transfer_diagnosis_d1d2_results.md), [W2 fixed-budget result](student_update_w2_results.md), [W1 width result](student_width_w1_results.md), [K1 comparison](action_compatibility_k1_results.md), [L1/H4.1 outcomes](walker_experiments_l1_h4_results.md) and [v3.1 recorded-data comparison](loop_v3_results.md). The [methods overview](methods.md) and [research tracks](research_tracks.md) distinguish student learnability from adaptation of trajectory optimization.
 
+## Full-trajectory PI comparison
+
+[P1.0 stopped at the first replay prerequisite](trajectory_pi_p1_result.md).
+Its [frozen protocol](trajectory_pi_p1_protocol.md), [exact capsule](../results/trajectory_pi_p1_001/README.md)
+and proposed [R0.1 origin-host diagnostic](trajectory_pi_replay_r0_1_proposal.md)
+distinguish replay validity, teacher walking and the entirely untested similarity
+contrast. No PI or learning round ran. The [conversation/PIGPS review](validation/full_pi_loop_2026-11-03/context_and_pigps.md)
+records the latest priors without adding interventions.
+
 ## Study evidence
 
 The [H5.0r1 acquisition result](teacher_proposal_h5_0_round1_results.md) is complete and independently audited: independent teachers walked 12/12; selector-only and proposal-guided teachers each walked 11/12. The frozen competence stop prevented every child fit, standalone panel and paired gap. Learning benefit remains unmeasured, the useful-learning prerequisite remains unmet, and no loop or second round is claimed. The [frozen launched source](validation/teacher_proposal_h5_0_round1_2026-11-01/prelaunch/README.md) passed 987 tests with one skip and one expected failure. Historical [preparation validation](validation/teacher_proposal_h5_0_2026-11-01/README.md) and the [launch snapshot](validation/teacher_proposal_h5_0_round1_2026-11-01/launch/README.md) remain unchanged.

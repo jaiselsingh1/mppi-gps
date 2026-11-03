@@ -1,0 +1,94 @@
+{
+  "commands": [
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_trajectory_pi_review.py",
+        "tests/test_trajectory_pi_replay_report.py",
+        "tests/test_h5_capsule_inspection.py",
+        "tests/test_jitter_inspection.py",
+        "tests/test_similarity_inspection.py",
+        "tests/test_visitation_inspection.py",
+        "tests/test_c1_capsule_inspection.py",
+        "tests/test_consequence_recovery_inspection.py",
+        "tests/test_consequence_certificate_inspection.py",
+        "tests/test_research_cli.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 14.293639249983244,
+      "cpu_seconds": 13.845198
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.3238498339778744,
+      "cpu_seconds": 0.9125630000000005
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "trajectory-pi",
+        "--help"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.07010816695401445,
+      "cpu_seconds": 0.0667030000000004
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "results/trajectory_pi_p1_001",
+        "--verify",
+        "--json"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.09685362502932549,
+      "cpu_seconds": 0.08247199999999921
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "trajectory-pi",
+        "report",
+        "--run",
+        "results/trajectory_pi_p1_001/run",
+        "--out",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/publication_validation/report"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.25284275005105883,
+      "cpu_seconds": 0.23726800000000026
+    }
+  ],
+  "new_research_work": 0,
+  "scope": "Read-only publication modules, synthetic report fixtures, metadata and exact capsule bytes; no research physics, fitting or evaluations",
+  "tests": "157 passed in 13.99s in a clean tracked-file export",
+  "candidate_export_manifest_sha256": "4b4c598e4131827c2c6dad464fb977d7f64b8a777f3b91df2d8a29cd0c5e3959",
+  "scientific_implementation_unchanged_since_frozen_211891d": true,
+  "publication_only_source_files": {
+    "src/gps/mppi_gps/reporting/trajectory_pi.py": "2360042bc12c57538db52e686c064491ce30fbcf2971e0073718308d6dbc6434",
+    "src/gps/mppi_gps/reporting/trajectory_pi_replay.py": "d8e982b4ada20399aef1792ba85001fd2662aa8d00401e20fe4a325002e28c07",
+    "src/gps/mppi_gps/inspection.py": "de1da8ca51457823396efaf4cc3d79cb71ab73bb5fd0bd404282ecc7698c39a5",
+    "src/gps/mppi_gps/experiments/trajectory_pi.py": "a7f138b3e7779af1c811bd7827c1f6ea4f570aa7359d4a98e05b68bc662bac61"
+  }
+}

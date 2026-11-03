@@ -1,5 +1,9 @@
 # P1.0 — fixed reconstruction in a finite full-trajectory PI loop
 
+Execution status: [stopped at the first source-replay prerequisite](trajectory_pi_p1_result.md).
+The scientific configuration below remains the original frozen recipe; no
+alternating comparison or follow-up ran.
+
 **Scientific comparison fixed; execution remains conditional.** The
 [configuration](../configs/studies/trajectory_pi_p1.json) has `launch_ready=true`
 so its exact bytes can bind preparation and prerequisites. This flag alone

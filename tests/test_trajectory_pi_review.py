@@ -51,6 +51,32 @@ def test_public_inspector_reads_stopped_metadata(tmp_path):
     assert json.loads(result.stdout)["kind"] == "full-trajectory-pi"
 
 
+def test_stopped_audit_does_not_validate_failed_replay(tmp_path):
+    worker = minimal_run(tmp_path / "worker")
+    (tmp_path / "audit").mkdir()
+    (tmp_path / "preflight").mkdir()
+    (tmp_path / "audit/findings.json").write_text(
+        json.dumps(
+            dict(status="PASS_STOPPED", scientific_result="NOT_LAUNCHED_PREREQUISITE_FAILED")
+        )
+    )
+    (tmp_path / "preflight/preflight.json").write_text(
+        json.dumps(dict(status="FAIL_STOPPED", work=dict(completed_native_controls=1000)))
+    )
+    value = inspect_run(worker)
+    assert value["outcomes"]["saved_audit_status"] == "PASS_STOPPED"
+    assert value["outcomes"]["prerequisite_status"] == "FAIL_STOPPED"
+    assert value["outcomes"]["similarity_test_executed"] is False
+    assert value["student_outcomes"] == {}
+    assert value["costs"]["prerequisite"]["completed_native_controls"] == 1000
+
+
+def test_other_studies_keep_structured_corrupt_metadata_errors(tmp_path):
+    run = minimal_run(tmp_path / "run")
+    (run / "config.json").write_text("{")
+    assert inspect_run(run)["errors"]
+
+
 def test_capsule_verification_and_missing_evidence(tmp_path):
     root = tmp_path / "capsule"
     root.mkdir()

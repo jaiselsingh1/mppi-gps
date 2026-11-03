@@ -4,6 +4,7 @@ These small evidence capsules make the completed Walker studies and explicitly u
 
 | Study | Capsule | Outcome |
 |---|---|---|
+| P1.0 fixed-alpha full-trajectory PI | [trajectory_pi_p1_001](trajectory_pi_p1_001/README.md) | First replay prerequisite failed; audited stop before PI, policy forwards, fitting or standalone evaluations. Similarity hypothesis remains untested. |
 | v3.1 fixed guided-data comparison | [guided_data_v3_1](guided_data_v3_1/README.md) | No walking student; guided lost independent survival benefit |
 | L1 fresh clipped/full inputs | [student_learnability_l1](student_learnability_l1/README.md) | Both final students 0/16 walking and survival |
 | H4.1 actual weight backoff | [adaptive_coupling_h4_1](adaptive_coupling_h4_1/README.md) | All six teachers walked; all matched children regressed |

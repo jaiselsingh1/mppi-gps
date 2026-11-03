@@ -1242,10 +1242,13 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         raise ValueError(f"run directory does not exist: {root}")
     for candidate in (root / "run", root):
         metadata = candidate / "config.json"
-        if (
-            metadata.is_file()
-            and json.loads(metadata.read_text()).get("schema") == "trajectory-pi-p1-1"
-        ):
+        try:
+            schema = json.loads(metadata.read_text()).get("schema") if metadata.is_file() else None
+        except (OSError, ValueError):
+            # The generic path below retains its established structured errors
+            # for damaged metadata instead of failing during schema detection.
+            continue
+        if schema == "trajectory-pi-p1-1":
             from .reporting.trajectory_pi import inspect
 
             return inspect(root, verify=verify)

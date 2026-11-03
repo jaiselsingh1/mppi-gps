@@ -1,0 +1,28 @@
+{
+  "schema": "trajectory-pi-phase-1",
+  "phase": "audit",
+  "argv": [
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "scripts/train_mppi_gps.py",
+    "study",
+    "trajectory-pi",
+    "audit",
+    "--run",
+    "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/worker",
+    "--out",
+    "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/audit",
+    "--stopped"
+  ],
+  "pid": 71272,
+  "exit_code": 0,
+  "limit_error": null,
+  "remaining_group_terminated": false,
+  "wall_seconds": 2.1208706649995293,
+  "process_tree_cpu_seconds": 1.3399999999999999,
+  "supervisor_cpu_seconds": 0.12069037199999999,
+  "waited_children_cpu_seconds": 1.231569,
+  "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+  "peak_sampled_tree_rss_bytes": 317202432,
+  "stdout": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/audit.stdout.log",
+  "stderr": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_001/supervisor/audit.stderr.log"
+}
