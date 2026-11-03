@@ -137,7 +137,98 @@ def test_rss_sensor_uses_actual_platform_units(monkeypatch):
     monkeypatch.setattr(decoder.sys, "platform", "darwin")
     assert decoder.rss_bytes() == 7
     monkeypatch.setattr(decoder.sys, "platform", "linux")
-    assert decoder.rss_bytes() == 7 * 1024
+    monkeypatch.setattr(
+        decoder,
+        "Path",
+        lambda *_: SimpleNamespace(read_text=lambda: "VmHWM:\t12 kB\nVmRSS:\t9 kB\n"),
+    )
+    assert decoder.rss_bytes() == 12 * 1024
+
+
+@pytest.mark.parametrize(
+    "status",
+    [
+        "VmRSS: 9 kB\n",
+        "VmHWM: 12 bytes\nVmRSS: 9 kB\n",
+        "VmHWM: 0 kB\nVmRSS: 9 kB\n",
+        "VmHWM: 12 kB\nVmHWM: 12 kB\nVmRSS: 9 kB\n",
+    ],
+)
+def test_linux_current_exec_sensor_fails_closed_without_valid_memory_metadata(monkeypatch, status):
+    monkeypatch.setattr(decoder.sys, "platform", "linux")
+    monkeypatch.setattr(decoder, "Path", lambda *_: SimpleNamespace(read_text=lambda: status))
+    with pytest.raises(RuntimeError, match="RSS metadata"):
+        decoder.rss_bytes()
+
+
+def test_unavailable_rss_sensor_keeps_a_failed_materialization_receipt(tmp_path, monkeypatch):
+    source = tmp_path / "capsule"
+    hashes = tiny_capsule(source)
+
+    def unavailable():
+        raise RuntimeError("Current-exec RSS metadata unavailable")
+
+    monkeypatch.setattr(decoder, "rss_bytes", unavailable)
+    result = decoder.materialize(
+        source, tmp_path / "replay", hashes["files_manifest.json"], hashes["collection_exit.json"]
+    )
+    assert result["passed"] is False and result["peak_rss_bytes"] is None
+    assert result["source_read_bytes"] == 0
+    assert result["rss_measurement_error"]["type"] == "RuntimeError"
+
+
+@pytest.mark.skipif(
+    sys.platform != "linux", reason="Linux fork/exec peak-RSS inheritance regression"
+)
+def test_linux_cli_uses_current_exec_memory_after_a_bounded_heavy_parent(tmp_path):
+    source = (tmp_path / "capsule").resolve()
+    hashes = tiny_capsule(source)
+    out = (tmp_path / "replay").resolve()
+    command = [
+        sys.executable,
+        "-B",
+        "-m",
+        "src.gps.mppi_gps.reporting.similarity_capsule",
+        "--capsule",
+        str(source),
+        "--out",
+        str(out),
+        "--manifest-sha256",
+        hashes["files_manifest.json"],
+        "--exit-sha256",
+        hashes["collection_exit.json"],
+    ]
+    pressure = """import json,resource,subprocess,sys
+resource.setrlimit(resource.RLIMIT_AS,(768*1024**2,768*1024**2))
+allocation=bytearray(580*1024**2)
+for index in range(0,len(allocation),4096): allocation[index]=1
+memory={}
+for line in open('/proc/self/status'):
+ key,_,value=line.partition(':')
+ if key in ('VmHWM','VmRSS'): memory[key]=int(value.split()[0])*1024
+child=subprocess.run(json.loads(sys.argv[1]),capture_output=True,text=True,timeout=20)
+print(json.dumps(dict(parent_current_exec_peak_rss_bytes=max(memory.values()),
+                     parent_resource_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
+                     child_returncode=child.returncode,stdout=child.stdout,stderr=child.stderr)))
+"""
+    process = subprocess.run(
+        [sys.executable, "-I", "-c", pressure, json.dumps(command)],
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+    (tmp_path / "memory_parent_stdout.txt").write_text(process.stdout)
+    (tmp_path / "memory_parent_stderr.txt").write_text(process.stderr)
+    assert process.returncode == 0, process.stderr
+    measured = json.loads(process.stdout)
+    assert 512 * 1024**2 < measured["parent_current_exec_peak_rss_bytes"] < 768 * 1024**2
+    assert measured["child_returncode"] == 0, measured
+    receipt = json.loads((out / "materialization_receipt.json").read_text())
+    assert receipt["passed"] and receipt["new_scientific_work"] == 0
+    assert 0 < receipt["peak_rss_bytes"] < 512 * 1024**2
+    assert receipt["resource_peak_rss_bytes"] > 512 * 1024**2
+    assert receipt["peak_rss_scope"] == "Current exec image VmHWM/VmRSS"
 
 
 def test_publication_cli_runs_in_fresh_process_without_scientific_imports(tmp_path):
@@ -163,7 +254,15 @@ def test_publication_cli_runs_in_fresh_process_without_scientific_imports(tmp_pa
         text=True,
         check=False,
     )
-    assert result.returncode == 0, result.stderr
+    assert result.returncode == 0, (
+        result.stderr
+        + result.stdout
+        + (
+            (out / "materialization_receipt.json").read_text()
+            if (out / "materialization_receipt.json").is_file()
+            else "No materialization receipt"
+        )
+    )
     receipt = json.loads((out / "materialization_receipt.json").read_text())
     assert receipt["passed"] and receipt["new_scientific_work"] == 0
     assert receipt["limit_enforcement"]["mode"] in {

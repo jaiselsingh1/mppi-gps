@@ -240,7 +240,7 @@ uv run python scripts/train_mppi_gps.py study similarity-investigation --help
 
 J1 inspector verification is explicitly **metadata only**. It lists skipped payloads and remote availability. Use `scripts/check_repository.py` for all tracked capsule hashes and the preserved transfer verifier for the complete closing manifest. The inspector does not rerun the independent scientific audit.
 
-For a read-only report replay, create a resolved fresh parent directory and two unused children. The canonical materializer verifies stored and original hashes before lossless gzip decoding. It retains 128-MiB input/output, 64-MiB per-file, 120-second wall and 512-MiB RSS bounds. Linux additionally enforces an address-space bound; macOS reports RSS/wall enforcement without claiming unsupported address-space enforcement. The original archived helper and its macOS prelude failure remain preserved.
+For a read-only report replay, create a resolved fresh parent directory and two unused children. The canonical materializer verifies stored and original hashes before lossless gzip decoding. It retains 128-MiB input/output, 64-MiB per-file, 120-second wall and 512-MiB RSS bounds. Linux additionally enforces an address-space bound; macOS reports RSS/wall enforcement without claiming unsupported address-space enforcement. Linux resident-memory enforcement uses the current executable’s `/proc/self/status` high-water mark; inherited `ru_maxrss` remains separate accounting. The original archived helper and its macOS prelude failure remain preserved.
 
 ```sh
 j1_debug_root="$(uv run python -c 'from pathlib import Path; import tempfile; print(Path(tempfile.mkdtemp(prefix="j1-report-")).resolve())')"

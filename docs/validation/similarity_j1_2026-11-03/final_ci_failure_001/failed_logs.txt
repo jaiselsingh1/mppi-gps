@@ -1,0 +1,82 @@
+clean-export	Validate clean Git export without ignored evidence	﻿2026-11-03T04:26:04.9500950Z ##[group]Run export_dir="$(mktemp -d)"
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9501404Z [36;1mexport_dir="$(mktemp -d)"[0m
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9501765Z [36;1mgit archive --format=tar HEAD | tar -x -C "$export_dir"[0m
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9502253Z [36;1m"$PWD/.venv/bin/python" scripts/validate_export.py --export "$export_dir"[0m
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9524764Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9525127Z env:
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9525344Z   CUDA_VISIBLE_DEVICES: 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9525578Z   MUJOCO_GL: disable
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9526062Z   MPLBACKEND: Agg
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9526287Z   OMP_NUM_THREADS: 1
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9526514Z   OPENBLAS_NUM_THREADS: 1
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9526747Z   UV_PYTHON: 3.11.15
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9527008Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:04.9527381Z ##[endgroup]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:26:06.1606601Z [1/55] -m
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3045212Z 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3046184Z ........................................................................ [  4%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3046968Z ........................................................................ [  8%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3047588Z ........................................................................ [ 12%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3048197Z ........................................................................ [ 16%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3048787Z ........................................................................ [ 21%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3049532Z ........................................................................ [ 25%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3077868Z ........................................................................ [ 29%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3078625Z ........................................................................ [ 33%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3079323Z ........................................................................ [ 38%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3079932Z ........................................................................ [ 42%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3080549Z ........................................................................ [ 46%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3081168Z ........................................................................ [ 50%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3081805Z ........................................................................ [ 55%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3082470Z .............s.s..........................................F............. [ 59%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3083129Z ........................................................................ [ 63%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3083774Z ........................................................................ [ 67%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3084408Z ........................................................................ [ 72%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3085052Z ........................................................................ [ 76%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3085683Z ........................................................................ [ 80%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3086702Z ........................................................................ [ 84%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3087382Z ........................................................................ [ 89%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3088036Z ........................................................................ [ 93%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3088662Z ........................................................................ [ 97%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3089328Z .........x................................                               [100%]
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3090309Z =================================== FAILURES ===================================
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3091123Z ____ test_publication_cli_runs_in_fresh_process_without_scientific_imports _____
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3091692Z 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3092244Z tmp_path = PosixPath('/tmp/walker-export-validation-nyad0sjy/pytest/test_publication_cli_runs_in_f0')
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3092978Z 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3093419Z     def test_publication_cli_runs_in_fresh_process_without_scientific_imports(tmp_path):
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3094573Z         source = (tmp_path / "capsule").resolve()
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3095125Z         hashes = tiny_capsule(source)
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3095655Z         out = (tmp_path / "replay").resolve()
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3096442Z         result = subprocess.run(
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3096881Z             [
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3097238Z                 sys.executable,
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3097686Z                 "-B",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3098076Z                 "-m",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3098573Z                 "src.gps.mppi_gps.reporting.similarity_capsule",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3099140Z                 "--capsule",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3099554Z                 str(source),
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3099940Z                 "--out",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3100315Z                 str(out),
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3100719Z                 "--manifest-sha256",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3101197Z                 hashes["files_manifest.json"],
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3101698Z                 "--exit-sha256",
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3102187Z                 hashes["collection_exit.json"],
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3102681Z             ],
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3103044Z             capture_output=True,
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3103481Z             text=True,
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3103845Z             check=False,
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3104224Z         )
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3104598Z >       assert result.returncode == 0, result.stderr
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3105134Z E       AssertionError: 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3105535Z E       assert 1 == 0
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3107473Z E        +  where 1 = CompletedProcess(args=['/home/runner/work/mppi-gps/mppi-gps/.venv/bin/python', '-B', '-m', 'src.gps.mppi_gps.reporting...tion-nyad0sjy/pytest/test_publication_cli_runs_in_f0/replay", "source_read_bytes": 0, "output_bytes": 0}\n', stderr='').returncode
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3109314Z 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3109554Z tests/test_similarity_export.py:166: AssertionError
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3110201Z =========================== short test summary info ============================
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3111447Z FAILED tests/test_similarity_export.py::test_publication_cli_runs_in_fresh_process_without_scientific_imports - AssertionError: 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3112531Z assert 1 == 0
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3114127Z  +  where 1 = CompletedProcess(args=['/home/runner/work/mppi-gps/mppi-gps/.venv/bin/python', '-B', '-m', 'src.gps.mppi_gps.reporting...tion-nyad0sjy/pytest/test_publication_cli_runs_in_f0/replay", "source_read_bytes": 0, "output_bytes": 0}\n', stderr='').returncode
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3116134Z 1 failed, 1694 passed, 3 skipped, 1 xfailed in 233.29s (0:03:53)
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3116569Z 
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3116826Z Validation logs: /tmp/walker-export-validation-nyad0sjy
+clean-export	Validate clean Git export without ignored evidence	2026-11-03T04:30:01.3144198Z ##[error]Process completed with exit code 1.

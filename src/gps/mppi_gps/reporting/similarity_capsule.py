@@ -44,7 +44,20 @@ def safe(root: Path, name: str) -> Path:
 
 
 def rss_bytes() -> int:
-    """Return the measured process peak RSS using each platform's native units."""
+    """Measure this exec image; Linux ru_maxrss may retain the fork parent's peak."""
+    if sys.platform == "linux":
+        fields = {}
+        for line in Path("/proc/self/status").read_text().splitlines():
+            name, separator, value = line.partition(":")
+            if not separator or name not in {"VmHWM", "VmRSS"}:
+                continue
+            words = value.split()
+            if name in fields or len(words) != 2 or not words[0].isdecimal() or words[1] != "kB":
+                raise RuntimeError("Linux current-exec RSS metadata is malformed")
+            fields[name] = int(words[0]) * 1024
+        if set(fields) != {"VmHWM", "VmRSS"} or min(fields.values()) <= 0:
+            raise RuntimeError("Linux current-exec RSS metadata is unavailable")
+        return max(fields.values())
     value = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     return int(value if sys.platform == "darwin" else value * 1024)
 
@@ -59,7 +72,7 @@ def install_limits() -> dict:
             mode="linux_address_space_rss_wall",
             address_space_enforced=True,
             address_space_bytes=ceiling,
-            rss_boundary="Measured peak RSS before/after each read, decode and write",
+            rss_boundary="Current-exec /proc/self/status VmHWM/VmRSS before/after each read, decode and write",
         )
     if sys.platform == "darwin":
         return dict(
@@ -209,6 +222,12 @@ def materialize(
         result["error"] = dict(type=type(error).__name__, message=str(error))
     finally:
         usage = resource.getrusage(resource.RUSAGE_SELF)
+        try:
+            measured_rss = rss_bytes()
+        except (OSError, RuntimeError, ValueError) as error:
+            measured_rss = None
+            result["passed"] = False
+            result["rss_measurement_error"] = dict(type=type(error).__name__, message=str(error))
         result.update(
             files=files,
             source_read_bytes=read_bytes,
@@ -216,7 +235,14 @@ def materialize(
             wall_seconds=time.monotonic() - started,
             user_seconds=usage.ru_utime,
             system_seconds=usage.ru_stime,
-            peak_rss_bytes=rss_bytes(),
+            peak_rss_bytes=measured_rss,
+            peak_rss_scope="Current exec image VmHWM/VmRSS"
+            if sys.platform == "linux"
+            else "Process ru_maxrss in platform-native units",
+            resource_peak_rss_bytes=int(
+                usage.ru_maxrss if sys.platform == "darwin" else usage.ru_maxrss * 1024
+            ),
+            resource_peak_rss_scope="Accounting only; Linux ru_maxrss may retain a pre-exec/fork-parent peak",
             limits=dict(
                 source_read_bytes=MAX_READ,
                 output_bytes=MAX_OUTPUT,
