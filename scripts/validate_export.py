@@ -394,6 +394,249 @@ def verify_student_visitation_report(capsule: Path, report: Path) -> None:
         raise ValueError("V saved report must retain both nonempty all-prefix figures")
 
 
+SIMILARITY_CLOSING_HASHES = {
+    "files_manifest.json": "65e0d63120b68e2fec6a88823e27503ce3d61839a032767f88994375b2f079c2",
+    "collection_exit.json": "18dab5ead75750458c64c617a038468818b8996db91d16940c89010d0f40ad80",
+}
+SIMILARITY_SCIENCE_KEYS = (
+    "neural_rows",
+    "prediction_calls",
+    "native_controls",
+    "model_controls",
+    "physics_substeps",
+    "checkpoint_tensor_loads",
+    "backward_rows",
+    "optimizer_steps",
+    "policy_constructions",
+)
+
+
+def similarity_export_commands(root: Path, outputs: Path) -> list[list[str]]:
+    """Add only saved-data J1 commands; older exports retain their existing roster."""
+    capsule = root / "results/similarity_j1"
+    if not (capsule / "capsule.json").is_file():
+        return []
+    materializer = capsule / "publication_tools/materialize.py"
+    if not materializer.is_file():
+        raise ValueError("J1 capsule is missing its sealed publication materializer")
+    replay = (outputs / "similarity_materialized").resolve()
+    report = (outputs / "similarity").resolve()
+    return [
+        ["scripts/train_mppi_gps.py", "study", "similarity-investigation", "--help"],
+        [
+            "-m",
+            "src.gps.mppi_gps.reporting.similarity_capsule",
+            "--capsule",
+            str(capsule.resolve()),
+            "--out",
+            str(replay),
+            "--manifest-sha256",
+            SIMILARITY_CLOSING_HASHES["files_manifest.json"],
+            "--exit-sha256",
+            SIMILARITY_CLOSING_HASHES["collection_exit.json"],
+        ],
+        [
+            "-m",
+            "src.gps.mppi_gps.reporting.similarity",
+            "--run",
+            str(replay),
+            "--out",
+            str(report),
+            "--audit",
+            str(replay / "audit/result"),
+            "--atlas",
+            str(replay / "atlas/result"),
+        ],
+    ]
+
+
+def verify_similarity_report(
+    root: Path,
+    capsule: Path,
+    replay: Path,
+    report: Path,
+    *,
+    expected_cases: int = 32,
+    expected_updates: int = 2000,
+    closing_hashes: dict[str, str] | None = None,
+) -> None:
+    """Check the saved-only J1 replay, every original curve and every rendered row."""
+    root, capsule, replay, report = (path.resolve() for path in (root, capsule, replay, report))
+    hashes = SIMILARITY_CLOSING_HASHES if closing_hashes is None else closing_hashes
+    for name, expected in hashes.items():
+        if hashlib.sha256((capsule / name).read_bytes()).hexdigest() != expected:
+            raise ValueError("J1 actual compact closing hash differs: " + name)
+    manifest = json.loads((capsule / "files_manifest.json").read_text())
+    verify_report_outputs(capsule, manifest["files"])
+    materialization = json.loads((replay / "materialization_receipt.json").read_text())
+    if (
+        materialization.get("passed") is not True
+        or materialization.get("new_scientific_work") != 0
+        or type(materialization.get("new_scientific_work")) is not int
+        or materialization.get("immutable_capsule_modified") is not False
+        or materialization.get("manifest_sha256") != hashes["files_manifest.json"]
+        or materialization.get("collection_exit_sha256") != hashes["collection_exit.json"]
+    ):
+        raise ValueError("J1 requires a verified fresh saved-only materialization")
+    verify_report_outputs(replay, materialization["files"])
+    compact = json.loads((capsule / "capsule.json").read_text())
+    original_bindings = {}
+    for name, binding in compact["files"].items():
+        compressed = binding.get("encoding") == "gzip_exact_original_bytes"
+        target = name[:-3] if compressed and name.endswith(".gz") else name
+        original_bindings[target] = dict(
+            bytes=binding["original_bytes"] if compressed else binding["bytes"],
+            sha256=binding["original_sha256"] if compressed else binding["sha256"],
+        )
+    verify_report_outputs(replay, original_bindings)
+    run = replay / "run"
+    config = json.loads((run / "config.json").read_text())
+    result = json.loads((run / "worker_result.json").read_text())
+    cases = json.loads((run / "worker/cases.json").read_text())
+    audit = json.loads((replay / "audit/result/audit.json").read_text())
+    receipt = json.loads((report / "report_receipt.json").read_text())
+    if (
+        len(cases) != expected_cases
+        or config.get("learning", {}).get("updates") != expected_updates
+        or len({case["case_id"] for case in cases}) != expected_cases
+        or receipt.get("actual_cases") != expected_cases
+        or receipt.get("completed_fits") != expected_cases
+        or receipt.get("learning_cases_with_curves") != expected_cases
+        or receipt.get("learning_points") != expected_cases * expected_updates
+    ):
+        raise ValueError("J1 completed case/learning-point roster differs")
+    if (
+        receipt.get("saved_only") is not True
+        or receipt.get("no_followup_launched") is not True
+        or receipt.get("audit_passed") is not True
+        or receipt.get("full_scientific_audit_passed") is not True
+        or receipt.get("audit_association_verified") is not True
+        or audit.get("passed") is not True
+        or audit.get("full_scientific_audit_passed") is not True
+        or receipt.get("status") != result.get("status")
+        or receipt.get("objective_passed") is not result.get("objective_passed")
+    ):
+        raise ValueError("J1 replay audit/status association differs")
+    work = receipt.get("new_scientific_work", {})
+    if set(work) != set(SIMILARITY_SCIENCE_KEYS) or any(
+        type(value) is not int or value != 0 for value in work.values()
+    ):
+        raise ValueError("J1 saved replay must perform zero scientific calls")
+    for key, name in (
+        ("config_sha256", "config.json"),
+        ("source_manifest_sha256", "manifest.json"),
+        ("input_manifest_sha256", "input_manifest.json"),
+        ("worker_result_sha256", "worker_result.json"),
+    ):
+        if audit.get(key) != hashlib.sha256((run / name).read_bytes()).hexdigest():
+            raise ValueError("J1 independent audit input hash differs: " + name)
+    source = root / "src/gps/mppi_gps/reporting/similarity.py"
+    if receipt.get("source_sha256") != hashlib.sha256(source.read_bytes()).hexdigest():
+        raise ValueError("J1 saved reporter source binding differs")
+    expected_points = {}
+    expected_inputs = {
+        (run / name).resolve()
+        for name in (
+            "config.json",
+            "manifest.json",
+            "input_manifest.json",
+            "worker_result.json",
+            "worker_process_receipt.json",
+            "worker/teachers.json",
+            "worker/cases.json",
+            "worker/score_definitions.json",
+            "worker/calibration.json",
+            "worker/predictive_comparison.json",
+            "worker/score_models.json",
+            "worker/probe_summary.json",
+            "worker/score_seals/development.json",
+            "worker/score_seals/protected.json",
+        )
+        if (run / name).is_file()
+    }
+    expected_inputs.update(
+        (replay / name).resolve()
+        for name in ("audit/result/audit.json", "atlas/result/atlas_receipt.json")
+    )
+    for case in cases:
+        fit_path = (run / case["fit_receipt_file"]).resolve()
+        if not fit_path.is_relative_to(run):
+            raise ValueError("J1 curve path escaped the materialized run")
+        fit = json.loads(fit_path.read_text())
+        curve_path = fit_path.with_name("learning_curve.json")
+        expected_inputs.update((fit_path, curve_path))
+        curve = json.loads(curve_path.read_text())["learning_curve"]
+        if fit.get("updates") != expected_updates or len(curve) != expected_updates:
+            raise ValueError("J1 fixed-update curve length differs: " + case["case_id"])
+        for ordinal, point in enumerate(curve, 1):
+            if point.get("update") != ordinal or point.get("fit_update") != ordinal:
+                raise ValueError("J1 saved curve update identity differs")
+            expected_points[case["case_id"], ordinal] = (case, point)
+    fields = (
+        "update",
+        "fit_update",
+        "action_mse",
+        "proximal_loss",
+        "total_loss",
+        "unclipped_gradient_norm",
+    )
+    seen = set()
+    with (report / "learning_curves.csv").open(newline="") as stream:
+        for row in csv.DictReader(stream):
+            key = row["case_id"], int(row["fit_update"])
+            if key not in expected_points or key in seen:
+                raise ValueError("J1 rendered learning-point roster differs")
+            seen.add(key)
+            case, point = expected_points[key]
+            if row["fit_status"] != "completed_fit" or any(
+                row[field] != str(case[field]) for field in ("group", "learner", "split", "source")
+            ):
+                raise ValueError("J1 rendered curve case join differs")
+            for field in fields:
+                value = point.get(field)
+                if (value is None and row[field] != "") or (
+                    value is not None and float(row[field]) != value
+                ):
+                    raise ValueError("J1 rendered curve value differs: " + field)
+    if seen != set(expected_points):
+        raise ValueError("J1 rendered learning-point roster differs")
+    for name, binding in receipt["input_files"].items():
+        path = Path(name).resolve()
+        if not path.is_relative_to(replay):
+            raise ValueError("J1 replay opened an input outside fresh materialization")
+        verify_report_outputs(replay, {str(path.relative_to(replay)): binding})
+    if {Path(name).resolve() for name in receipt["input_files"]} != expected_inputs:
+        raise ValueError("J1 saved reporter input roster differs")
+    if receipt["read_bytes"] != sum(row["bytes"] for row in receipt["input_files"].values()):
+        raise ValueError("J1 saved input-read census differs")
+    required = {
+        "cases.csv",
+        "outcome_summary.csv",
+        "teachers.csv",
+        "score_table.csv",
+        "score_outcome_pairs.csv",
+        "learning_curves.csv",
+        "scores_vs_motion.png",
+        "scores_vs_walking.png",
+        "learning_curves.png",
+        "saved_measurements.json",
+        "report.md",
+    }
+    if not required <= set(receipt["outputs"]):
+        raise ValueError("J1 rendered table/figure/report binding is missing")
+    verify_report_outputs(report, receipt["outputs"])
+    sealed = json.loads((replay / "report/report_receipt.json").read_text())
+    verify_report_outputs(replay / "report", sealed["outputs"])
+    for name in sorted(required):
+        if not (report / name).stat().st_size:
+            raise ValueError("J1 rendered output is empty: " + name)
+        if (
+            name.endswith(".csv")
+            and (report / name).read_bytes() != (replay / "report" / name).read_bytes()
+        ):
+            raise ValueError("J1 regenerated table differs from sealed saved rows: " + name)
+
+
 def _closure_payload(capsule: Path, relative: str) -> tuple[bytes, dict]:
     path = (capsule / relative).resolve()
     if (
@@ -744,6 +987,7 @@ def main(argv: list[str] | None = None) -> int:
         "student_consequence_c1_audit_recovery_a1",
         "student_consequence_c1_certificate_closure_a2",
         "student_visitation_s1_2_v",
+        "similarity_j1",
     ):
         if (root / "results" / name / "capsule.json").is_file():
             capsules += (name,)
@@ -898,6 +1142,7 @@ def main(argv: list[str] | None = None) -> int:
                 str(outputs / "student_visitation"),
             ]
         )
+    commands.extend(similarity_export_commands(root, outputs))
     inspections = {}
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
@@ -1012,6 +1257,20 @@ def main(argv: list[str] | None = None) -> int:
     if "student_visitation_s1_2_v" in capsules:
         verify_student_visitation_report(
             root / "results/student_visitation_s1_2_v", outputs / "student_visitation"
+        )
+    if "similarity_j1" in capsules:
+        view = inspections.get("similarity_j1", {})
+        if (
+            view.get("verification_requested") is not True
+            or view.get("errors") != []
+            or view.get("hash_mismatches") != []
+        ):
+            raise ValueError("J1 capsule lacks its verified metadata inspector smoke")
+        verify_similarity_report(
+            root,
+            root / "results/similarity_j1",
+            outputs / "similarity_materialized",
+            outputs / "similarity",
         )
     verify_consequence_recovery_capsules(root, inspections)
     print(

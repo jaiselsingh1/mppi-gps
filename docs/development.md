@@ -225,3 +225,51 @@ that worker. The local same-name `runs/` directory contains the initial source/i
 not a complete remote-run mirror. Read the external catalog for actual raw/checkpoint locations.
 [C1.0](student_consequence_c1_protocol.md) is a review protocol with launch disabled; these
 inspection commands authorize no new replay, fit or experiment.
+
+
+## J1 saved report replay
+
+[J1.0](similarity_j1_results.md) used frozen scientific commit `8c678e5` on robopil5090. Current source includes the later checked C1-terminal-flag adapter and portable report materializer. Editing this checkout never changes the preserved worker under its `source/` directory. The publication repair and its original failure are separate records; no science was repeated.
+
+Inspect the compact result without loading actors, raw arrays or per-case payloads:
+
+```sh
+uv run python scripts/train_mppi_gps.py inspect --run results/similarity_j1 --verify --json
+uv run python scripts/train_mppi_gps.py study similarity-investigation --help
+```
+
+J1 inspector verification is explicitly **metadata only**. It lists skipped payloads and remote availability. Use `scripts/check_repository.py` for all tracked capsule hashes and the preserved transfer verifier for the complete closing manifest. The inspector does not rerun the independent scientific audit.
+
+For a read-only report replay, create a resolved fresh parent directory and two unused children. The canonical materializer verifies stored and original hashes before lossless gzip decoding. It retains 128-MiB input/output, 64-MiB per-file, 120-second wall and 512-MiB RSS bounds. Linux additionally enforces an address-space bound; macOS reports RSS/wall enforcement without claiming unsupported address-space enforcement. The original archived helper and its macOS prelude failure remain preserved.
+
+```sh
+j1_debug_root="$(uv run python -c 'from pathlib import Path; import tempfile; print(Path(tempfile.mkdtemp(prefix="j1-report-")).resolve())')"
+uv run python -m src.gps.mppi_gps.reporting.similarity_capsule \
+  --capsule results/similarity_j1 --out "$j1_debug_root/replay" \
+  --manifest-sha256 65e0d63120b68e2fec6a88823e27503ce3d61839a032767f88994375b2f079c2 \
+  --exit-sha256 18dab5ead75750458c64c617a038468818b8996db91d16940c89010d0f40ad80
+MPLBACKEND=Agg MPLCONFIGDIR="$j1_debug_root/cache" XDG_CACHE_HOME="$j1_debug_root/cache" \
+uv run python -m src.gps.mppi_gps.reporting.similarity \
+  --run "$j1_debug_root/replay" --out "$j1_debug_root/report" \
+  --audit "$j1_debug_root/replay/audit/result" \
+  --atlas "$j1_debug_root/replay/atlas/result"
+```
+
+This needs only the tracked capsule. The full atlas media remain remote; replaying the JSON report does not reconstruct videos or claim that media have been fetched. The three predeclared exact figure copies are [teacher](figures/similarity_j1/teacher.png), [incoming actor](figures/similarity_j1/incoming.png) and [updated child](figures/similarity_j1/child.png). All other executed traces remain in the external raw archive, not discarded as favorable/unfavorable examples.
+
+Useful breakpoints are `similarity_capsule.materialize` for containment/byte/hash checks, `reporting.similarity._curves` for update/CSV joins, and `similarity_launch.iter_render_traces` for the strict uint8-to-boolean boundary. PDB can run the report module in a fresh process using `python -m pdb -m src.gps.mppi_gps.reporting.similarity` with the same replay/output arguments. Never use a preserved run or capsule as an output directory. A long-lived debugging process can already exceed a process-lifetime RSS cap; budgeted replay uses a fresh process.
+
+A VS Code metadata configuration can use the existing debugpy integration:
+
+```json
+{
+  "name": "J1 read-only metadata",
+  "type": "debugpy",
+  "request": "launch",
+  "program": "${workspaceFolder}/scripts/train_mppi_gps.py",
+  "cwd": "${workspaceFolder}",
+  "args": ["inspect", "--run", "results/similarity_j1", "--verify", "--json"]
+}
+```
+
+The [J1.1-B proposal](similarity_j1_1_proposal.md) is not a runnable follow-up. Its parent/input bindings, complete continuation tests and ancillary census must be frozen after review before any new acquisition or fit.

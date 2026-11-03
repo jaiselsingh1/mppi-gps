@@ -1,0 +1,43 @@
+{
+  "schema": "walker-j1-stride-atlas-v1",
+  "passed": false,
+  "mode": "kinematic_schematic",
+  "encoder": {
+    "path": "/usr/bin/ffmpeg",
+    "bytes": 342488,
+    "sha256": "ed16af623947494a72e284b6eb8ff225f2da22b38b5d5069c2fd4b4ba3384e41",
+    "version": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers"
+  },
+  "error": {
+    "type": "ValueError",
+    "message": "Actual done flags must be boolean"
+  },
+  "traces": [],
+  "frames": 0,
+  "work": {
+    "offline_restores": 0,
+    "offline_mj_forward_calls": 0,
+    "offline_position_forward_calls": 0,
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "neural_rows": 0,
+    "optimizer_steps": 0
+  },
+  "wall_seconds": 0.016000335001081112,
+  "peak_rss_bytes": 67264512,
+  "output_bytes_before_receipt": 0,
+  "limits": {
+    "wall_seconds": 7194.963807585,
+    "output_bytes": 2147483648,
+    "peak_rss_bytes": 2147483648,
+    "frames": 64000,
+    "traces": 224
+  },
+  "timing": {
+    "control_dt": 0.008,
+    "nominal_video_fps": 31.25,
+    "timestamp_units_per_second": 125,
+    "sampling_every_controls": 4,
+    "explicit_terminal_hold_frames": 0
+  }
+}

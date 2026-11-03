@@ -1,0 +1,33 @@
+{
+  "schema": "walker-j1-publication-collection-v2",
+  "status": "PREPARED_NOT_EXECUTED",
+  "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+  "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+  "collector_sha256": "f37592b10dba9b0f1b48f78498a5f084db02434a0f0397c2044dd01d2afde18c",
+  "immutable_base_sha256": "39fd627ed345916b5acf03ab326be91e91431226a2e5bdabf66bb9545a25053b",
+  "change": "Select render002/report002 only after exact closed repair parent/child/code/protocol/input/admission/failed001/roster/budget joins. Preserve failed001, old operators, all new repair records. Fixed-role previews use admitted002.",
+  "limits": {
+    "metadata_read_reservation_bytes": 117440512,
+    "shared_metadata_preview_read_ceiling_bytes": 134217728,
+    "each_remote_compact_or_single_local_tracked_copy_bytes": 58720256,
+    "ignored_local_preview_bytes": 8388608,
+    "receipt_transfer_overhead_bytes": 8388608,
+    "total_compact_reservation_bytes": 134217728,
+    "collector_wall_seconds": 600,
+    "collector_address_space_bytes": 1073741824
+  },
+  "frame_and_report_sources": "Original frozen science source8c; publication repair only.",
+  "namespaces": {
+    "atlas": "successful render002",
+    "report": "original-source report002",
+    "failed_render_001": "preserved original render failure",
+    "prior_report_001": "earlier report if any",
+    "run": "unchanged science",
+    "publication_repair_002": "all repair code/protocol/ownership/exits/results/logs"
+  },
+  "automatic_retry": false,
+  "automatic_scientific_followup": false,
+  "actual_collection_invocations": 0,
+  "new_scientific_work": 0,
+  "network_calls": 0
+}

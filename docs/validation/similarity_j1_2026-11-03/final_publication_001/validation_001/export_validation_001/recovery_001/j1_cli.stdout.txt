@@ -1,0 +1,13 @@
+usage: train_mppi_gps.py [-h]
+                         {freeze,prepare,launch,worker,audit-launch,audit-worker,render-launch,render-worker,finalize}
+                         ...
+
+Create-only owned launch and audit closure for the bounded J1 investigation.
+Science, audit and rendering run in separately owned children. Heavy policy
+and simulator imports stay behind the frozen source/input/runtime gates.
+
+positional arguments:
+  {freeze,prepare,launch,worker,audit-launch,audit-worker,render-launch,render-worker,finalize}
+
+options:
+  -h, --help            show this help message and exit

@@ -1,0 +1,32 @@
+{
+  "schema": "walker-j1-child-process-receipt-v1",
+  "phase": "audit",
+  "worker_pid": 120641,
+  "coordinator_pid": 120639,
+  "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+  "source_manifest_sha256": "efc4fbf36cb1b7c18808af0a35fffd9499e7cd73f3296a74066fc38f9accba58",
+  "input_manifest_sha256": "d510194cccebb1c3ec797e519c8af81b07b2e115a599bb79fe8f467268aa2ee1",
+  "result_sha256": "ae00225ee16fcbd41cc73f6b1d55852c17256d4829d12841238d08802fbc1962",
+  "phase_limits": {
+    "child_seconds": 10740,
+    "coordinator_seconds": 10770,
+    "stage_seconds": 10800
+  },
+  "elapsed_seconds": 18.23945874600031,
+  "process_lifetime_usage": {
+    "user_seconds": 17.594301,
+    "system_seconds": 0.6740109999999999,
+    "peak_rss_bytes": 409186304,
+    "linux_io_counters": {
+      "rchar": 6693085704,
+      "wchar": 1201322,
+      "syscr": 195434,
+      "syscw": 119,
+      "read_bytes": 20480,
+      "write_bytes": 1204224,
+      "cancelled_write_bytes": 0
+    },
+    "scope": "Child process lifetime, including imports. Final receipt write follows. Nested wall and CPU times are not additive."
+  },
+  "error": null
+}

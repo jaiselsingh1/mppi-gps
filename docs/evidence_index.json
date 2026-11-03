@@ -3900,6 +3900,186 @@
         "bytes": 2380,
         "sha256": "62111b5507d5d9ae9e94086e754353e65abfe2fa89857fe84b2b24f94a8ededa"
       }
+    },
+    "similarity_j1": {
+      "study": "J1.0",
+      "status": "CLOSED_DEVELOPMENT_VARIATION_INELIGIBLE",
+      "scientific_audit_passed": true,
+      "objective_passed": false,
+      "protected_test_opened": false,
+      "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+      "publication_repair_commit": "e1241837e1de1b31b0dc10a2eaed03831b5bedb0",
+      "remote_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001",
+      "remote_artifacts": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-03_similarity_j1_001",
+      "local_raw_mirror": false,
+      "config": {
+        "file": "results/similarity_j1/run/config.json",
+        "bytes": 28081,
+        "sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876"
+      },
+      "worker_result": {
+        "file": "results/similarity_j1/run/worker_result.json",
+        "bytes": 6118,
+        "sha256": "a92a261913aee4172c140f1afbef74e946a532b27a3d8e4ea2dcecaa978acaae"
+      },
+      "source_manifest": {
+        "file": "results/similarity_j1/run/manifest.json",
+        "bytes": 180494,
+        "sha256": "efc4fbf36cb1b7c18808af0a35fffd9499e7cd73f3296a74066fc38f9accba58"
+      },
+      "input_manifest": {
+        "file": "results/similarity_j1/run/input_manifest.json",
+        "bytes": 612,
+        "sha256": "d510194cccebb1c3ec797e519c8af81b07b2e115a599bb79fe8f467268aa2ee1"
+      },
+      "scientific_audit": {
+        "file": "results/similarity_j1/audit/result/audit.json",
+        "bytes": 722083,
+        "sha256": "ae00225ee16fcbd41cc73f6b1d55852c17256d4829d12841238d08802fbc1962"
+      },
+      "capsule": {
+        "file": "results/similarity_j1/capsule.json",
+        "bytes": 120840,
+        "sha256": "e9f42452386063956536fdba5048ac51a12092b960e79880f956b8f476763a5c"
+      },
+      "file_manifest": {
+        "file": "results/similarity_j1/files_manifest.json",
+        "bytes": 34687,
+        "sha256": "65e0d63120b68e2fec6a88823e27503ce3d61839a032767f88994375b2f079c2"
+      },
+      "collection_exit": {
+        "file": "results/similarity_j1/collection_exit.json",
+        "bytes": 326,
+        "sha256": "18dab5ead75750458c64c617a038468818b8996db91d16940c89010d0f40ad80"
+      },
+      "external_file_inventory": {
+        "file": "results/similarity_j1/external_evidence.json",
+        "bytes": 571933,
+        "sha256": "95b82c38933d11f806a1a1ab4c22030679568a40cd55367f9e7c3106157c5dce"
+      },
+      "capsule_files": 209,
+      "capsule_bytes": 36102352,
+      "bulk_files": [
+        {
+          "namespace": "run",
+          "file": "worker/evidence/arrays.bin",
+          "location": "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001/worker/evidence/arrays.bin",
+          "bytes": 1906457193,
+          "available": true,
+          "retained": "remote_only",
+          "sha256": "fa544ac85668b59da9826bff20be45360ffed686db017502ba8de1dace5ce082",
+          "checksum_source": "closed_audit_stream_checks",
+          "checksum_recomputed_by_collector": false,
+          "checksum_unavailable_reason": null,
+          "identity": {
+            "device": 66306,
+            "inode": 89820386,
+            "mtime_ns": 1793677815810101102
+          }
+        },
+        {
+          "namespace": "run",
+          "file": "worker/evidence/arrays.index.jsonl",
+          "location": "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001/worker/evidence/arrays.index.jsonl",
+          "bytes": 4240008,
+          "available": true,
+          "retained": "remote_only",
+          "sha256": "99e288f91207a2b906df34aaa854fde5078597ba50cc1a38c71c0709426c5409",
+          "checksum_source": "closed_audit_stream_checks",
+          "checksum_recomputed_by_collector": false,
+          "checksum_unavailable_reason": null,
+          "identity": {
+            "device": 66306,
+            "inode": 89820387,
+            "mtime_ns": 1793677815811101104
+          }
+        },
+        {
+          "namespace": "run",
+          "file": "worker/evidence/ledger.jsonl",
+          "location": "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001/worker/evidence/ledger.jsonl",
+          "bytes": 422439120,
+          "available": true,
+          "retained": "remote_only",
+          "sha256": "6fc8d882461809a7b5b5dd8be28c4c494fe9666214ffbb248e9f9bf2826fabc7",
+          "checksum_source": "closed_audit_stream_checks",
+          "checksum_recomputed_by_collector": false,
+          "checksum_unavailable_reason": null,
+          "identity": {
+            "device": 66306,
+            "inode": 89820388,
+            "mtime_ns": 1793677815820101123
+          }
+        }
+      ],
+      "completed_work": {
+        "environment_constructions": 1,
+        "checkpoint_loads": 1,
+        "resets": 528,
+        "external_mj_forward_calls": 1508,
+        "snapshot_reads": 162531,
+        "model_controls": 101746176,
+        "physics_substeps": 407630908,
+        "model_queries": 24632,
+        "native_controls": 161551,
+        "live_queries": 161551,
+        "contact_measurements": 161759,
+        "contact_force_queries": 159155,
+        "neural_rows": 16553551,
+        "prediction_calls": 201583,
+        "restores": 272,
+        "policy_constructions": 48,
+        "optimizer_constructions": 48,
+        "backward_rows": 16384000,
+        "optimizer_steps": 64000,
+        "fits": 32
+      },
+      "audit_work": {
+        "checkpoint_loads": 49,
+        "completed_neural_rows": 169551,
+        "coordinator_read_reserve_bytes": 134217728,
+        "neural_rows": 169551,
+        "new_optimizer_steps": 0,
+        "new_physics_controls": 0,
+        "prediction_calls": 137583,
+        "source_read_allocation_bytes": 34225520640,
+        "source_read_bytes": 6578843849,
+        "unknown_partial_neural_rows": 0,
+        "wall_seconds": 18.18144103099985
+      },
+      "actual_groups": 8,
+      "declared_groups": 16,
+      "actual_fits": 32,
+      "learning_points": 64000,
+      "atlas_traces": 96,
+      "atlas_frames": 8498,
+      "walking": {
+        "mppi": "0/256",
+        "reference": "35/256"
+      },
+      "survival": {
+        "mppi": "2/256",
+        "reference": "38/256"
+      },
+      "reproductions": "0/32",
+      "motion_sd": 0.03849315344778441,
+      "motion_sd_gate": 0.1,
+      "storage_scope": "Exact compact copy; original arrays, ledgers, checkpoints, tapes, source and full atlas remain remote. Raw checksums are reused from the independently closed audit with explicit authority. Original engineering/render failures remain preserved.",
+      "remote_storage_snapshot": {
+        "run_bytes": 2468416787,
+        "artifacts_bytes": 96496980,
+        "total_bytes": 2564913767,
+        "entries": 2668,
+        "filesystem_free_bytes": 472931913728
+      },
+      "final_named_root_storage_snapshot": {
+        "file": "docs/validation/similarity_j1_2026-11-03/final_storage_001/receipt.json",
+        "bytes": 1400,
+        "sha256": "d9bbb654e2c82e32e10817426170ff572bd39eea7bf37cc817d0b49b78f813a5",
+        "total_bytes": 3049234687,
+        "limit_bytes": 17179869184,
+        "scope": "Named retained roots, not all-filesystem transient peak; original engineering overrun preserved separately."
+      }
     }
   },
   "saved_analyses": {

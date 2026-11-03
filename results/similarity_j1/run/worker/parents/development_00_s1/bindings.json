@@ -1,0 +1,58 @@
+{
+  "schema": "walker-j1-incoming-package-v1",
+  "seed": 3300010001,
+  "fitseed": 3300020001,
+  "checkpoint": {
+    "file": "worker/parents/development_00_s1/incoming.pt",
+    "sha256": "e27d0e6bf6cc6b86d766dea6d53348c75481d20dfc2082f6437b83fe67a23e88",
+    "bytes": 168880,
+    "policy_hash": "dd8fd97f2cf2359021fc32d052ff997c08e652e2ebba1c2562addb41bd75245b"
+  },
+  "actor_hash": "dd8fd97f2cf2359021fc32d052ff997c08e652e2ebba1c2562addb41bd75245b",
+  "optimizer_fingerprint": "1ea5b373dd70d1de9b658b1e448e4638f949cfad78b03934ccd5a10e9b2c8256",
+  "private_rng_fingerprint": "974cb8a448842aca7be2c82d1f25e8dc05a60109a0eb466b092ab11297e921c7",
+  "global_rng_fingerprint": "5514742ea4e06cd0d0297ad3eab5338cd174316d458618daf92ef9348654a61a",
+  "tape": {
+    "file": "worker/parents/development_00_s1/minibatches.npy",
+    "bytes": 4096128,
+    "sha256": "e4caebb85ecf618088ce801272d16d58c5fc4b348f4ed479a999eee8e1f296d9",
+    "array_sha256": "704b35062846ef7157116b5ec5d1f7dbba54234034a01dbe41285be7ed4c465b",
+    "dtype": "int64",
+    "shape": [
+      2000,
+      256
+    ]
+  },
+  "global_cpu_rng": {
+    "file": "worker/parents/development_00_s1/global_torch_rng.npy",
+    "bytes": 5184,
+    "sha256": "65c0dcda1f8c5b514e6656770684c2a5a26f2c3af9af1d04b60280d4d63e8382",
+    "array_sha256": "5207920c7a5b551e077ce383a76a573dc57bbf070d35ca23851a602a4f510a6f",
+    "dtype": "uint8",
+    "shape": [
+      5056
+    ]
+  },
+  "initial_pcg64": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 294518574414987066086283113077166488208,
+      "inc": 260061490150357475600428679171310347177
+    },
+    "has_uint32": 0,
+    "uinteger": 0
+  },
+  "terminal_pcg64": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 26566589958510809527410180886075052688,
+      "inc": 260061490150357475600428679171310347177
+    },
+    "has_uint32": 0,
+    "uinteger": 1008652135
+  },
+  "updates": 2000,
+  "batch_size": 256,
+  "unique_rows": 1000,
+  "adam_state_empty": true
+}

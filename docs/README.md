@@ -57,4 +57,4 @@ Use the [code map](code_map.md) to locate active responsibilities and the [devel
 
 The later [Linux report-fixture follow-up](validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/README.md) preserves the first final-CI failure and bounded memory-pressure reproductions. Its fix isolates test processes without changing scientific or report budgets.
 
-The authorized [J1.0 similarity investigation](similarity_j1_protocol.md) tests prospective prediction of fixed-update learning, separately from any use of a score inside MPPI. The [original request](proposals/similarity_j1_user_request.txt) and [complete finite recipe](../configs/studies/similarity_j1_0.json) are tracked.
+[J1.0 results](similarity_j1_results.md), [formulation](similarity_j1_formulation.md) and [costs](similarity_j1_costs.md) close the audited development benchmark: protected prediction stayed unidentified. The [original request](proposals/similarity_j1_user_request.txt), [finite recipe](../configs/studies/similarity_j1_0.json), [capsule](../results/similarity_j1/capsule.json) and [J1.1-B proposal for review](similarity_j1_1_proposal.md) are preserved. No follow-up is authorized by the proposal.

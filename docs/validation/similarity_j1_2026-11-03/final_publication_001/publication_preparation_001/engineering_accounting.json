@@ -1,0 +1,1343 @@
+{
+  "schema": "walker-j1-engineering-accounting-draft-v1",
+  "draft_only": true,
+  "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+  "generated_at_utc": "2026-11-03T03:05:13.026893+00:00",
+  "scope": "Engineering preparation and validation receipts available locally; excludes the ongoing J1 scientific worker, audit and rendering results",
+  "scientific_result": null,
+  "scientific_result_inspected": false,
+  "new_scientific_work_by_this_draft": {
+    "neural_rows": 0,
+    "physics_substeps": 0,
+    "optimizer_steps": 0,
+    "checkpoint_tensor_loads": 0
+  },
+  "accounting_rules": [
+    "Null means unmeasured or unavailable, never zero.",
+    "Worker/render/report share28800seconds; audit/finalize share10800seconds. Engineering is separate.",
+    "Stage wall encloses child wall, pytest timers and report timers. Do not sum nested wall observations.",
+    "Selected leaf-envelope CPU subtotal excludes nested pytest/fit result CPU; it remains incomplete.",
+    "A completed fit has2000optimizer updates; six parameter Adam step counters are not six separate update budgets.",
+    "Test-fixture primitive counts are a known subset; all engineering physics/fitting totals remain unknown.",
+    "Original observer race and output-budget breach remain failed engineering attempts even though later validation passed.",
+    "Byte values are logical file sizes, not allocated disk blocks or peak RAM."
+  ],
+  "budgets": {
+    "shared_science_render_report_wall_seconds": 28800,
+    "shared_audit_finalize_wall_seconds": 10800,
+    "preparation_wall_seconds": 600,
+    "engineering_retained_output_bytes": 536870912,
+    "whole_study_retained_output_bytes": 17179869184
+  },
+  "validation": {
+    "initial": {
+      "tests": {
+        "passed": 1667,
+        "skipped": 2,
+        "xfailed": 1,
+        "pytest_reported_wall_seconds": 98.59
+      },
+      "passed_final_source_certification": false,
+      "actual_wrapper_exit": {
+        "schema": "walker-j1-engineering-observer-exit-v1",
+        "observed_pid": 5837,
+        "actual_exit_code": 0,
+        "source": "exec_command session85407 final completion",
+        "child_reaped": true,
+        "stage_summary_passed": false,
+        "preserved_format_failure": true,
+        "preserved_source_changes": true,
+        "final_clean_export_required": true,
+        "new_research_experiments": 0
+      },
+      "source_changes": [
+        "configs/studies/similarity_j1_0.json",
+        "docs/similarity_j1_protocol.md",
+        "src/gps/mppi_gps/audits/similarity.py",
+        "src/gps/mppi_gps/similarity_study.py",
+        "tests/test_similarity_audit.py"
+      ],
+      "format_failure_preserved": true,
+      "capsule_files": 4569,
+      "historical_files": 162,
+      "local_links": 1359
+    },
+    "original_local_export": {
+      "tests": {
+        "passed": 1669,
+        "skipped": 2,
+        "xfailed": 1,
+        "pytest_reported_wall_seconds": 137.65
+      },
+      "all51completed": false,
+      "last_saved_command": 40,
+      "wrapper_failure": {
+        "schema": "walker-j1-clean-export-wrapper-failure-v1",
+        "actual_wrapper_exit_code": 1,
+        "session_id": 37532,
+        "error_type": "FileNotFoundError",
+        "message": "Path.rglob raced deletion of transient temp/walker-h5-report-fonts-aoy6_utp",
+        "validator_pid": 7014,
+        "validator_parent_exited": true,
+        "validator_wait_status_available": false,
+        "validator_process_usage_available": false,
+        "original_helper_retained": "export_runner.py",
+        "science_launched": false
+      },
+      "budget_observer": {
+        "schema": "walker-j1-clean-export-replacement-observer-v1",
+        "validator_pid": 7014,
+        "known_owned_process_group": 7014,
+        "pid_gone": false,
+        "stopping_reason": "logical_output_limit",
+        "observed_wait_status": null,
+        "observed_process_usage": null,
+        "reason": "Original parent exited before reaping; orphan cannot be wait4-adopted by this observer",
+        "snapshots": [
+          {
+            "observer_elapsed_seconds": 0.009486667055170983,
+            "ps_row": "501  7014     1  7014 02:29   0:00.14  29776 /Users/jaisel/Documents/mppi-gps/.venv/bin/python /Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/export-8c678e507dad1e22708f02a121886d7951d1da44/scripts/validate_export.py --export /Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/export-8c678e507dad1e22708f02a121886d7951d1da44",
+            "logical_output_bytes": 1032385821
+          }
+        ],
+        "observer_wall_seconds": 2.3500552500481717,
+        "logical_output_bytes": 1032385821,
+        "new_research_experiments": 0
+      },
+      "owned_group_closure": {
+        "schema": "walker-j1-engineering-orphan-group-closure-v1",
+        "owned_validator_pid": 7014,
+        "owned_process_group": 7014,
+        "signal_sent": "SIGTERM for logical_output_limit",
+        "subsequent_ps_group_query_exit_code": 1,
+        "subsequent_ps_group_query_rows": 0,
+        "process_group_closed": true,
+        "actual_validator_exit_code": null,
+        "actual_validator_rusage": null,
+        "original_status_uncertainty_preserved": true,
+        "new_research_experiments": 0
+      },
+      "child_exit_code": null,
+      "child_process_usage": null,
+      "actual_total_wall_seconds": null,
+      "reported_inner_pytest_wall_seconds": 137.65,
+      "failed_output_bound": true,
+      "observed_subtree_logical_bytes": 1032385821,
+      "original_attempt_peak_all_preparation_bytes": null,
+      "why_peak_all_preparation_unknown": "Observer failed before reliable whole-preparation peak tracking; observed subtree already exceeded ceiling",
+      "archive_creation": {
+        "pid": 7000,
+        "exit_code": 0,
+        "wall_seconds": 2.882170875032898,
+        "process_usage": {
+          "user_seconds": 0.26328999999999997,
+          "system_seconds": 0.126034,
+          "peak_rss_bytes": 111476736,
+          "minor_page_faults": 6604,
+          "major_page_faults": 3573,
+          "block_input_operations": 0,
+          "block_output_operations": 0,
+          "voluntary_context_switches": 6106,
+          "involuntary_context_switches": 1661
+        }
+      },
+      "disposable_scratch_cleanup": {
+        "path": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/temp/walker-export-validation-aruu22p_/pytest",
+        "removed": true,
+        "bytes": 807578583,
+        "files": 10697,
+        "wall_seconds": 3.3316244169836864,
+        "checksum_read_bytes": 807578583,
+        "process_group7014_confirmed_closed": true
+      }
+    },
+    "recovered_local_export": {
+      "tests": {
+        "passed": 1669,
+        "skipped": 2,
+        "xfailed": 1,
+        "pytest_reported_wall_seconds": 134.08
+      },
+      "all51commands_passed": true,
+      "j1_cli_help_passed": true,
+      "ruff_and_format_passed": true,
+      "actual_wrapper_exit": {
+        "schema": "walker-j1-clean-export-recovery-observer-exit-v1",
+        "observed_wrapper_pid": 8310,
+        "actual_wrapper_exit_code": 0,
+        "child_reaped": true,
+        "source": "exec_command session89617 final completion",
+        "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "validation_passed": true,
+        "summary_sha256": "0fafc2e74520014e00851eafd44d4de0accda0038ac214b0f89e2ce8e33bd4db",
+        "new_research_experiments": 0
+      },
+      "source_before": {
+        "commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "verified_files": 6723,
+        "verified_bytes": 218809718,
+        "forbidden_directories_absent": true,
+        "original_export_manifest_sha256": "481c1b92f15530fe522d986b11cf67dc4e0555ec9de8f6f2dabb6e2c68770c4d"
+      },
+      "source_after": {
+        "commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "verified_files": 6723,
+        "verified_bytes": 218809718,
+        "forbidden_directories_absent": true,
+        "original_export_manifest_sha256": "481c1b92f15530fe522d986b11cf67dc4e0555ec9de8f6f2dabb6e2c68770c4d"
+      },
+      "full_recovery_wall_seconds": 212.88316358299926,
+      "observed_peak_all_preparation_bytes": 400016252,
+      "retained_bytes_at_completed_recovery": 361455977,
+      "pytest_skips": [
+        {
+          "file": "tests/test_warp_rollout.py:9",
+          "reason": "Could not import optional warp; No module named warp"
+        },
+        {
+          "file": "tests/test_consequence_closure.py:399",
+          "reason": "Linux exec peak-RSS inheritance regression, skipped on Mac"
+        }
+      ],
+      "expected_failure": {
+        "test": "tests/test_walker_gymnasium_differential.py::test_frozen_walker_is_stock_v5_dynamics",
+        "reason": "Frozen XML right-foot friction0.9 differs from stockv5 1.9"
+      }
+    },
+    "linux_cpu_ci": {
+      "receipt": {
+        "passed": true,
+        "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "workflow_run": 41568804434,
+        "job": 125696652422,
+        "conclusion": "success",
+        "url": "https://github.com/jaiselsingh1/mppi-gps/actions/runs/41568804434",
+        "wall_seconds": 2.0090568750165403,
+        "logs_bytes": 56931,
+        "logs_sha256": "7a55a37f90d436bd8136b38696af667356287d367a23c18bc53a7eb9fcb8d211",
+        "scientific_work": 0
+      },
+      "status_association_passed": true,
+      "tests": {
+        "passed": 1668,
+        "skipped": 3,
+        "xfailed": 1,
+        "pytest_reported_wall_seconds": 237.5
+      },
+      "all51commands_passed": true,
+      "job_start": "2026-11-03T02:52:54Z",
+      "job_end": "2026-11-03T02:59:12Z",
+      "job_wall_seconds": 378.0,
+      "export_step_wall_seconds": 357.0,
+      "cpu_user_seconds": null,
+      "cpu_system_seconds": null,
+      "peak_rss_bytes": null,
+      "individual_skip_identities": null,
+      "individual_skip_identity_reason": "Retained CI pytest-q log gives aggregate count; do not infer precise identities from platform differences",
+      "local_log_fetch_wall_seconds": 2.0090568750165403,
+      "local_log_fetch_bytes": 56931
+    }
+  },
+  "subprocess_stages": [
+    {
+      "name": "initial_pytest",
+      "scope": "local actual child envelope",
+      "receipt": {
+        "schema": "walker-j1-engineering-stage-v1",
+        "stage": "pytest",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-m",
+          "pytest",
+          "-q"
+        ],
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/cache"
+        },
+        "pid": 5841,
+        "parent_pid": 5837,
+        "exit_code": 0,
+        "child_reaped": true,
+        "killed": false,
+        "stopping_reason": null,
+        "wall_seconds": 99.53737820900278,
+        "wall_limit_seconds": 1800,
+        "user_seconds": 72.764125,
+        "system_seconds": 12.651871,
+        "peak_rss_bytes": 701841408,
+        "minor_page_faults": 1584807,
+        "major_page_faults": 20001,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 56113,
+        "involuntary_context_switches": 104976,
+        "output_bytes_after_stage": 281714,
+        "new_research_experiments": 0,
+        "engineering_model_and_physics_calls": "not individually instrumented; existing tests only"
+      }
+    },
+    {
+      "name": "initial_ruff",
+      "scope": "local actual child envelope",
+      "receipt": {
+        "schema": "walker-j1-engineering-stage-v1",
+        "stage": "ruff",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "."
+        ],
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/cache"
+        },
+        "pid": 6685,
+        "parent_pid": 5837,
+        "exit_code": 0,
+        "child_reaped": true,
+        "killed": false,
+        "stopping_reason": null,
+        "wall_seconds": 0.1075429159682244,
+        "wall_limit_seconds": 300,
+        "user_seconds": 0.021391999999999998,
+        "system_seconds": 0.037371,
+        "peak_rss_bytes": 26394624,
+        "minor_page_faults": 3426,
+        "major_page_faults": 0,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 4,
+        "involuntary_context_switches": 617,
+        "output_bytes_after_stage": 283039,
+        "new_research_experiments": 0,
+        "engineering_model_and_physics_calls": "not individually instrumented; existing tests only"
+      }
+    },
+    {
+      "name": "initial_format",
+      "scope": "local actual child envelope",
+      "receipt": {
+        "schema": "walker-j1-engineering-stage-v1",
+        "stage": "format",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/cache"
+        },
+        "pid": 6688,
+        "parent_pid": 5837,
+        "exit_code": 1,
+        "child_reaped": true,
+        "killed": false,
+        "stopping_reason": null,
+        "wall_seconds": 0.10783475002972409,
+        "wall_limit_seconds": 300,
+        "user_seconds": 0.01967,
+        "system_seconds": 0.025896,
+        "peak_rss_bytes": 24412160,
+        "minor_page_faults": 3303,
+        "major_page_faults": 0,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 0,
+        "involuntary_context_switches": 465,
+        "output_bytes_after_stage": 284458,
+        "new_research_experiments": 0,
+        "engineering_model_and_physics_calls": "not individually instrumented; existing tests only"
+      }
+    },
+    {
+      "name": "initial_repository",
+      "scope": "local actual child envelope",
+      "receipt": {
+        "schema": "walker-j1-engineering-stage-v1",
+        "stage": "repository",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "scripts/check_repository.py"
+        ],
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/cache"
+        },
+        "pid": 6689,
+        "parent_pid": 5837,
+        "exit_code": 0,
+        "child_reaped": true,
+        "killed": false,
+        "stopping_reason": null,
+        "wall_seconds": 0.9436300420202315,
+        "wall_limit_seconds": 300,
+        "user_seconds": 0.253974,
+        "system_seconds": 0.301961,
+        "peak_rss_bytes": 26017792,
+        "minor_page_faults": 1991,
+        "major_page_faults": 0,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 4523,
+        "involuntary_context_switches": 346,
+        "output_bytes_after_stage": 285914,
+        "new_research_experiments": 0,
+        "engineering_model_and_physics_calls": "not individually instrumented; existing tests only"
+      }
+    },
+    {
+      "name": "recovery_validate_export",
+      "scope": "local actual child envelope; validate_export includes its51commands",
+      "receipt": {
+        "schema": "walker-j1-clean-export-engineering-recovery-stage-v1",
+        "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "stage": "validate_export",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/export-8c678e507dad1e22708f02a121886d7951d1da44/scripts/validate_export.py",
+          "--export",
+          "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/export-8c678e507dad1e22708f02a121886d7951d1da44"
+        ],
+        "pid": 8313,
+        "parent_pid": 8310,
+        "exit_code": 0,
+        "child_reaped": true,
+        "wait_status_known": true,
+        "stopping_reason": null,
+        "observer_error": null,
+        "killed": false,
+        "wall_seconds": 208.70709845802048,
+        "wall_limit_seconds": 1800,
+        "user_seconds": 164.684913,
+        "system_seconds": 20.401044,
+        "peak_rss_bytes": 775618560,
+        "minor_page_faults": 1941055,
+        "major_page_faults": 16120,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 64583,
+        "involuntary_context_switches": 140389,
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/cache",
+          "TMPDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/temp",
+          "PYTEST_ADDOPTS": "-ra -o tmp_path_retention_policy=failed -o tmp_path_retention_count=1"
+        },
+        "observed_peak_all_preparation_logical_bytes": 400016252,
+        "total_retained_preparation_bytes": 361429374,
+        "new_research_experiments": 0,
+        "engineering_native_and_model_calls": "Existing/synthetic tests only; not individually instrumented"
+      }
+    },
+    {
+      "name": "recovery_j1_cli",
+      "scope": "local actual child envelope; validate_export includes its51commands",
+      "receipt": {
+        "schema": "walker-j1-clean-export-engineering-recovery-stage-v1",
+        "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "stage": "j1_cli",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "scripts/train_mppi_gps.py",
+          "study",
+          "similarity-investigation",
+          "--help"
+        ],
+        "pid": 9397,
+        "parent_pid": 8310,
+        "exit_code": 0,
+        "child_reaped": true,
+        "wait_status_known": true,
+        "stopping_reason": null,
+        "observer_error": null,
+        "killed": false,
+        "wall_seconds": 0.5396352920215577,
+        "wall_limit_seconds": 60,
+        "user_seconds": 0.07351099999999999,
+        "system_seconds": 0.018824999999999998,
+        "peak_rss_bytes": 38174720,
+        "minor_page_faults": 2761,
+        "major_page_faults": 9,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 84,
+        "involuntary_context_switches": 15,
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/cache",
+          "TMPDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/temp",
+          "PYTEST_ADDOPTS": "-ra -o tmp_path_retention_policy=failed -o tmp_path_retention_count=1"
+        },
+        "observed_peak_all_preparation_logical_bytes": 361432479,
+        "total_retained_preparation_bytes": 361432479,
+        "new_research_experiments": 0,
+        "engineering_native_and_model_calls": "Existing/synthetic tests only; not individually instrumented"
+      }
+    },
+    {
+      "name": "recovery_ruff",
+      "scope": "local actual child envelope; validate_export includes its51commands",
+      "receipt": {
+        "schema": "walker-j1-clean-export-engineering-recovery-stage-v1",
+        "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "stage": "ruff",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "."
+        ],
+        "pid": 9398,
+        "parent_pid": 8310,
+        "exit_code": 0,
+        "child_reaped": true,
+        "wait_status_known": true,
+        "stopping_reason": null,
+        "observer_error": null,
+        "killed": false,
+        "wall_seconds": 0.5414250000030734,
+        "wall_limit_seconds": 300,
+        "user_seconds": 0.140127,
+        "system_seconds": 0.124276,
+        "peak_rss_bytes": 70352896,
+        "minor_page_faults": 5869,
+        "major_page_faults": 601,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 286,
+        "involuntary_context_switches": 2583,
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/cache",
+          "TMPDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/temp",
+          "PYTEST_ADDOPTS": "-ra -o tmp_path_retention_policy=failed -o tmp_path_retention_count=1"
+        },
+        "observed_peak_all_preparation_logical_bytes": 361450143,
+        "total_retained_preparation_bytes": 361450143,
+        "new_research_experiments": 0,
+        "engineering_native_and_model_calls": "Existing/synthetic tests only; not individually instrumented"
+      }
+    },
+    {
+      "name": "recovery_format",
+      "scope": "local actual child envelope; validate_export includes its51commands",
+      "receipt": {
+        "schema": "walker-j1-clean-export-engineering-recovery-stage-v1",
+        "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+        "stage": "format",
+        "command": [
+          "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "pid": 9400,
+        "parent_pid": 8310,
+        "exit_code": 0,
+        "child_reaped": true,
+        "wait_status_known": true,
+        "stopping_reason": null,
+        "observer_error": null,
+        "killed": false,
+        "wall_seconds": 0.5512489580432884,
+        "wall_limit_seconds": 300,
+        "user_seconds": 0.172819,
+        "system_seconds": 0.049076999999999996,
+        "peak_rss_bytes": 76201984,
+        "minor_page_faults": 6519,
+        "major_page_faults": 0,
+        "block_input_operations": 0,
+        "block_output_operations": 0,
+        "voluntary_context_switches": 0,
+        "involuntary_context_switches": 618,
+        "environment_overrides": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MUJOCO_GL": "disable",
+          "MPLBACKEND": "Agg",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "MPLCONFIGDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/mpl",
+          "XDG_CACHE_HOME": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/cache",
+          "TMPDIR": "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/validation_001/export_validation_001/recovery_001/temp",
+          "PYTEST_ADDOPTS": "-ra -o tmp_path_retention_policy=failed -o tmp_path_retention_count=1"
+        },
+        "observed_peak_all_preparation_logical_bytes": 361453848,
+        "total_retained_preparation_bytes": 361453848,
+        "new_research_experiments": 0,
+        "engineering_native_and_model_calls": "Existing/synthetic tests only; not individually instrumented"
+      }
+    }
+  ],
+  "known_local_cpu_subtotal": {
+    "user_seconds": 240.82717800000003,
+    "system_seconds": 34.366440999999995,
+    "included_nonoverlapping_envelopes": [
+      {
+        "scope": "initial/pytest",
+        "user_seconds": 72.764125,
+        "system_seconds": 12.651871
+      },
+      {
+        "scope": "initial/ruff",
+        "user_seconds": 0.021391999999999998,
+        "system_seconds": 0.037371
+      },
+      {
+        "scope": "initial/format",
+        "user_seconds": 0.01967,
+        "system_seconds": 0.025896
+      },
+      {
+        "scope": "initial/repository",
+        "user_seconds": 0.253974,
+        "system_seconds": 0.301961
+      },
+      {
+        "scope": "recovery/validate_export",
+        "user_seconds": 164.684913,
+        "system_seconds": 20.401044
+      },
+      {
+        "scope": "recovery/j1_cli",
+        "user_seconds": 0.07351099999999999,
+        "system_seconds": 0.018824999999999998
+      },
+      {
+        "scope": "recovery/ruff",
+        "user_seconds": 0.140127,
+        "system_seconds": 0.124276
+      },
+      {
+        "scope": "recovery/format",
+        "user_seconds": 0.172819,
+        "system_seconds": 0.049076999999999996
+      },
+      {
+        "scope": "synthetic_fit/owned_child",
+        "user_seconds": 2.323801,
+        "system_seconds": 0.40602499999999997
+      },
+      {
+        "scope": "source_freeze/owned_child",
+        "user_seconds": 0.104613,
+        "system_seconds": 0.220106
+      },
+      {
+        "scope": "git_archive/owned_child",
+        "user_seconds": 0.26328999999999997,
+        "system_seconds": 0.126034
+      },
+      {
+        "scope": "remote_prepare/local_ssh_transport",
+        "user_seconds": 0.0049429999999999995,
+        "system_seconds": 0.003955
+      }
+    ],
+    "total_is_complete": false,
+    "excludes": [
+      "failed original validator process CPU",
+      "CI compute CPU",
+      "interactive targeted tests without receipts",
+      "Python wrapper/extraction/draft overhead not captured in child receipts",
+      "other transport/monitor CPU without rusage"
+    ]
+  },
+  "synthetic_fit": {
+    "engineering_only": true,
+    "research_learning_cases": 0,
+    "complete": true,
+    "observed_optimizer_updates": 2000,
+    "primitive_census": {
+      "requested": {
+        "policy_constructions": 2,
+        "optimizer_constructions": 2,
+        "fits": 1,
+        "neural_rows": 512000,
+        "prediction_calls": 2000,
+        "backward_rows": 512000,
+        "optimizer_steps": 2000
+      },
+      "completed": {
+        "policy_constructions": 2,
+        "optimizer_constructions": 2,
+        "neural_rows": 512000,
+        "prediction_calls": 2000,
+        "backward_rows": 512000,
+        "optimizer_steps": 2000,
+        "fits": 1
+      },
+      "unknown_partial": {},
+      "returned_unpersisted": {},
+      "storage": {
+        "requested_controls": 0,
+        "completed_controls": 0,
+        "requested_model_controls": 0,
+        "completed_model_controls": 0,
+        "requested_live_controls": 0,
+        "completed_live_controls": 0,
+        "requested_physics_substeps": 0,
+        "completed_physics_substeps": 0,
+        "unknown_partial_controls": 0,
+        "unknown_partial_physics_substeps": 0,
+        "model_queries": 0,
+        "live_queries": 0,
+        "failed_queries": 0,
+        "rejected_queries": 0,
+        "measurement_requests": 0,
+        "failed_measurements": 0,
+        "rejected_measurements": 0,
+        "requested_neural_rows": 512000,
+        "completed_neural_rows": 512000,
+        "unknown_partial_neural_rows": 0,
+        "requested_backward_rows": 512000,
+        "completed_backward_rows": 512000,
+        "unknown_partial_backward_rows": 0,
+        "requested_optimizer_steps": 2000,
+        "completed_optimizer_steps": 2000,
+        "unknown_partial_optimizer_steps": 0,
+        "resets": 0,
+        "reset_errors": 0,
+        "restores": 0,
+        "snapshots": 0,
+        "episodes": 0,
+        "neural_rows": 512000,
+        "backward_rows": 512000,
+        "optimizer_steps": 2000,
+        "queries": 0,
+        "physics_frames": 0,
+        "wall_seconds": 2.2054920829832554,
+        "array_format": "walker-array-stream-v1",
+        "storage_bytes": 2098170,
+        "storage_limit_bytes": 46428046,
+        "reserved_external_bytes": 16777216,
+        "emergency_reserved_bytes": 16384,
+        "evidence_poisoned": false,
+        "unknown_partial_model_controls": 0
+      }
+    },
+    "no_simulator_import": true,
+    "process_envelope": {
+      "schema": "walker-j1-synthetic-fit-process-v1",
+      "pid": 5213,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "stopping_reason": null,
+      "process_group_kill_requested": false,
+      "unknown_partial_work_possible": false,
+      "retries": 0,
+      "wall_seconds": 3.3138349159853533,
+      "child_user_seconds": 2.323801,
+      "child_system_seconds": 0.40602499999999997,
+      "peak_rss_check": "ChildJMeter checks measured ru_maxrss before each primitive and finalreceipt; externalwall/output watchdog",
+      "recipe_sha256": "953dbb4ef7a8ea5d0487b5a8867e44b60e055a5477145044fd0d7cc0cfd3ab5f",
+      "worker_sha256": "3435ac00be8e239a64bf83cd9f60b959b4dba2fc34754d0aa8f0b421ba5d2738"
+    },
+    "inner_wall_seconds": 2.2069795420393348,
+    "inner_user_seconds": 1.670457,
+    "inner_system_seconds": 0.30110899999999996,
+    "inner_peak_rss_bytes": 299892736,
+    "inner_and_envelope_not_additive": true,
+    "learning_outcome_claim": "None; synthetic reconstruction is a functionality test only"
+  },
+  "native_fixture_subset": {
+    "source": "tests/test_similarity_execution.py",
+    "pair_tests": [
+      "test_two_control_native_trace_has_full_terminal_context_and_real_contacts",
+      "test_tiny_native_planner_observer_restores_actual_integration_and_future_rng"
+    ],
+    "one_complete_pair": {
+      "native_controls": 3,
+      "model_controls": 88,
+      "physics_substeps": 364,
+      "derivation": "2livecontrols*4 + (88model+1live)*4 =364"
+    },
+    "verified_full_suite_pair_invocations": 4,
+    "verified_full_suite_invocation_scopes": [
+      "initial local suite",
+      "first local export suite before budget stop",
+      "recovery local export suite",
+      "exact-source LinuxCI suite"
+    ],
+    "derived_known_subset": {
+      "native_controls": 12,
+      "model_controls": 352,
+      "physics_substeps": 1456
+    },
+    "count_basis": "Full suite pass and exact native fixture assertions; not a complete engineering primitive meter",
+    "all_owned_pair_invocations_including_unreceipted_targeted_runs": null,
+    "all_engineering_native_controls": null,
+    "all_engineering_model_controls": null,
+    "all_engineering_physics_substeps": null,
+    "all_engineering_fitting_updates": null,
+    "all_engineering_neural_rows": null,
+    "all_engineering_backward_rows": null
+  },
+  "preparation": {
+    "local_freeze": {
+      "passed": true,
+      "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+      "published_tar_sha256": "bafc3c99654b404272dfec011cf2edfdbb0d5217d24071aedbd88ab2ba8257ab",
+      "published_tar_bytes": 10168320,
+      "frozen_run_bytes": 9573800,
+      "source_files": 975,
+      "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+      "source_manifest_sha256": "efc4fbf36cb1b7c18808af0a35fffd9499e7cd73f3296a74066fc38f9accba58",
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/freeze_001/published_source/scripts/train_mppi_gps.py",
+        "study",
+        "similarity-investigation",
+        "freeze",
+        "--recipe",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/freeze_001/published_source/configs/studies/similarity_j1_0.json",
+        "--out",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/freeze_001/frozen_run",
+        "--source-commit",
+        "8c678e507dad1e22708f02a121886d7951d1da44"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.9063150840229355,
+      "process_user_seconds": 0.104613,
+      "process_system_seconds": 0.220106,
+      "peak_rss_bytes": 35864576,
+      "scientific_work": 0
+    },
+    "preflight_server": {
+      "read_bytes": 3525365,
+      "wall_seconds": 0.007006994999755989,
+      "new_physics": 0,
+      "new_neural": 0,
+      "new_fitting": 0
+    },
+    "remote_prepare_operator": {
+      "schema": "walker-similarity-j1-external-operator-v1",
+      "phase": "prepare",
+      "passed": true,
+      "retries": 0,
+      "operator_pid": 91536,
+      "uid": 1006,
+      "operator_sha256": "521e8d0bff0b0bc0a9e7d2f0536766a6900913648d3d00bf6afac2e28b92fe12",
+      "unknown_partial_work_possible": false,
+      "stdout_stderr": "Combined subprocess streams preserved in stdout_stderr.txt; no truncation is accepted as clean.",
+      "scientific_retry_authorized": false,
+      "automatic_followup": false,
+      "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+      "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+      "protocol_sha256": "0fc10fadc60e64f79e983c398d76cbcad1317d26d7554804d712f22d75f29824",
+      "source_manifest_sha256": "efc4fbf36cb1b7c18808af0a35fffd9499e7cd73f3296a74066fc38f9accba58",
+      "allocation": {
+        "shared_stage_ceiling_seconds": 600,
+        "prior_stage_seconds": 0.0,
+        "remaining_before_child_seconds": 599.9491481719997,
+        "coordinator_wall_seconds": 569.9491481719997,
+        "closing_margin_seconds": 30,
+        "peak_rss_bytes": 2147483648,
+        "stdout_stderr_bytes": 16777216
+      },
+      "command": [
+        "/home/jaisel/mppi-gps/.venv/bin/python",
+        "-B",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001/source/scripts/train_mppi_gps.py",
+        "study",
+        "similarity-investigation",
+        "prepare",
+        "--run",
+        "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001"
+      ],
+      "output_bytes_before": 9611355,
+      "output_bytes_after": 13148849,
+      "process_receipt": {
+        "command": [
+          "/home/jaisel/mppi-gps/.venv/bin/python",
+          "-B",
+          "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001/source/scripts/train_mppi_gps.py",
+          "study",
+          "similarity-investigation",
+          "prepare",
+          "--run",
+          "/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001"
+        ],
+        "pid": 91619,
+        "exit_code": 0,
+        "stopping_reason": null,
+        "wall_seconds": 0.277601504998529,
+        "stdout_bytes": 0,
+        "leader_reaped": true,
+        "process_group_kill_requested": false,
+        "retries": 0,
+        "unknown_partial_work_possible": false,
+        "observed_peak_rss_bytes": 61583360,
+        "rss_unavailable_confirmed_exit_observations": 0
+      },
+      "stage_wall_seconds": 0.36876564100020914,
+      "child_user_seconds": 0.142962,
+      "child_system_seconds": 0.04605,
+      "operator_user_seconds": 0.069932,
+      "operator_system_seconds": 0.011819,
+      "operator_peak_rss_bytes": 39727104,
+      "usage_scope": "Nested process and stage times are not additive. Final receipt write follows; closing margins are reserved."
+    },
+    "local_remote_prepare_transport": {
+      "phase": "prepare",
+      "exit_code": 0,
+      "wall_seconds": 0.7052225000225008,
+      "ssh_child_user_seconds": 0.0049429999999999995,
+      "ssh_child_system_seconds": 0.003955,
+      "peak_rss_bytes": 4292608,
+      "error": null,
+      "scope": "Local SSH transport; remote actual process and work receipts are separate; do not add nested wall times."
+    },
+    "prepared_metadata_read_bytes": 9933,
+    "renderer_preflight": {
+      "mode": "kinematic_schematic",
+      "encoder": {
+        "path": "/usr/bin/ffmpeg",
+        "bytes": 342488,
+        "sha256": "ed16af623947494a72e284b6eb8ff225f2da22b38b5d5069c2fd4b4ba3384e41",
+        "version": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers"
+      },
+      "functional_probe": {
+        "schema": "walker-j1-encoder-functional-probe-v1",
+        "passed": true,
+        "command": [
+          "/usr/bin/ffmpeg",
+          "-n",
+          "-loglevel",
+          "error",
+          "-f",
+          "rawvideo",
+          "-pix_fmt",
+          "rgb24",
+          "-s",
+          "320x240",
+          "-r",
+          "31.25",
+          "-i",
+          "pipe:0",
+          "-an",
+          "-vf",
+          "settb=expr=1/125,setpts='if(lt(N,2),4*N,7+4*(N-2+0))'",
+          "-fps_mode",
+          "vfr",
+          "-enc_time_base",
+          "1:125",
+          "-video_track_timescale",
+          "125",
+          "-threads",
+          "1",
+          "-filter_threads",
+          "1",
+          "-vcodec",
+          "libx264",
+          "-bf",
+          "0",
+          "-preset",
+          "fast",
+          "-pix_fmt",
+          "yuv420p",
+          "/tmp/walker-j1-encoder-probe-wbgekocj/calibration.mp4"
+        ],
+        "encoder_exit_code": 0,
+        "ffprobe": {
+          "path": "/usr/bin/ffprobe",
+          "bytes": 191888,
+          "sha256": "272f6ebc634a63d9c8b4ca68e964119d980f25154e5aa2c35e5487da48e9a58f",
+          "version": "ffprobe version 6.1.1-3ubuntu5 Copyright (c) 2007-2023 the FFmpeg developers"
+        },
+        "observed_presentation_times_seconds": [
+          0.0,
+          0.032,
+          0.056
+        ],
+        "expected_presentation_times_seconds": [
+          0,
+          0.032,
+          0.056
+        ],
+        "calibration_frames": 3,
+        "synthetic_control_boundary_labels": [
+          0,
+          4,
+          7
+        ],
+        "actual_scientific_controls": 0,
+        "native_controls": 0,
+        "physics_substeps": 0,
+        "neural_rows": 0,
+        "fitting_updates": 0,
+        "temporary_output_bytes": 1593,
+        "temporary_output_limit_bytes": 2097152,
+        "temporary_output_removed": true,
+        "wall_seconds": 0.09094919699964521,
+        "wall_limit_seconds": 20
+      },
+      "work": {
+        "offline_mj_forward_calls": 0,
+        "offline_position_forward_calls": 1,
+        "native_controls": 0,
+        "physics_substeps": 0,
+        "neural_rows": 0
+      }
+    },
+    "nested_renderer_prepare_operator_walls_not_additive": true
+  },
+  "source_export": {
+    "commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+    "files": 6723,
+    "bytes": 218809718,
+    "forbidden_directories_absent": true,
+    "manifest_sha256": "481c1b92f15530fe522d986b11cf67dc4e0555ec9de8f6f2dabb6e2c68770c4d"
+  },
+  "transport_and_observation_receipts": {
+    "operator_deploy_001": {
+      "exit_code": 0,
+      "wall_seconds": 0.3763445420190692,
+      "transferred_stdin_bytes": 61440
+    },
+    "preflight_001": {
+      "exit_code": 0,
+      "wall_seconds": 0.4592803750419989,
+      "scientific_work": 0
+    },
+    "independent_prelaunch_001": {
+      "git_archive_stdout_bytes": 10168320,
+      "git_child_system_seconds": 0.046231,
+      "git_child_user_seconds": 0.041332999999999995,
+      "limits": {
+        "output_bytes": 2097152,
+        "read_bytes": 100663296,
+        "wall_seconds": 60
+      },
+      "network_calls": 0,
+      "new_research_experiments": 0,
+      "new_scientific_work": {
+        "backward_rows": 0,
+        "fits": 0,
+        "model_controls": 0,
+        "native_controls": 0,
+        "neural_rows": 0,
+        "optimizer_steps": 0
+      },
+      "output": {
+        "bytes": 561346,
+        "file": "prelaunch_review.json",
+        "sha256": "1e4af8eb48136f5420d08273f2135c244d6d52ef1d9dc087012ef07f7023f715"
+      },
+      "own_system_seconds": 0.130018,
+      "own_user_seconds": 0.12383599999999999,
+      "passed": true,
+      "peak_rss_bytes": 52838400,
+      "program": {
+        "bytes": 17332,
+        "file": "review.py",
+        "sha256": "f6917d2afb989a16176b15df2998c2cca22cd5d25247079e359b1a7435ed465b"
+      },
+      "protected_labels_read": false,
+      "receipt_write_follows": true,
+      "schema": "walker-j1-independent-prelaunch-review-process-v1",
+      "source_read_bytes": 19852318,
+      "wall_seconds": 0.4272980419918895
+    },
+    "prepared_read_001": {
+      "exit_code": 0,
+      "wall_seconds": 0.31373850000090897
+    },
+    "monitor_001": {
+      "exit_code": 0,
+      "wall_seconds": 0.2562640000251122
+    },
+    "monitor_006": {
+      "exit_code": 0,
+      "wall_seconds": 0.22409483295632526
+    },
+    "deploy_001": {
+      "exit_code": 0,
+      "wall_seconds": 2.8802326660370454,
+      "transferred_stdin_bytes": 11304960,
+      "stdout_bytes": 629,
+      "stderr_bytes": 0,
+      "scientific_work": 0
+    },
+    "monitor_003": {
+      "exit_code": 0,
+      "wall_seconds": 0.2120069589582272
+    },
+    "monitor_004": {
+      "exit_code": 0,
+      "wall_seconds": 0.22979658300755545
+    },
+    "monitor_005": {
+      "exit_code": 0,
+      "wall_seconds": 0.19856187497498468
+    },
+    "monitor_002": {
+      "exit_code": 0,
+      "wall_seconds": 0.2073022919939831
+    }
+  },
+  "known_content_io_bytes_by_operation": {
+    "cleanup_checksum_reads": 807578583,
+    "final_source_before_and_after_checksum_reads": 437619436,
+    "source_archive_extracted_bytes": 218809718,
+    "recorded_source_stdin_transfer_bytes": 11304960,
+    "recorded_operator_stdin_transfer_bytes": 61440,
+    "ci_log_retrieval_bytes": 56931,
+    "preflight_small_input_reads": 3525365,
+    "prepare_small_input_reads": 3525365,
+    "prepared_metadata_reads": 9933,
+    "total_all_io_bytes": null
+  },
+  "storage": {
+    "completed_recovery_snapshot_bytes": 361455977,
+    "current_local_preparation_snapshot_before_this_json_bytes": 362094333,
+    "by_top_level": {
+      "monitor.py": 2304,
+      "phase_client.py": 2038,
+      "remote_launch_001": 796,
+      "validation_001": 310425376,
+      "operator_deploy_001": 62910,
+      "synthetic_fit_001": 10384310,
+      "preflight_001": 2622,
+      "independent_prelaunch_001": 579767,
+      "prepared_read_001": 7727,
+      "remote_prepare_001": 3504,
+      "monitor_001": 1093,
+      "monitor_006": 2099,
+      "operator_001": 98357,
+      "publication_preparation_001": 37378,
+      "deploy_001": 11307922,
+      "freeze_001": 29108628,
+      "monitor_003": 1852,
+      "monitor_004": 2069,
+      "monitor_005": 2069,
+      "monitor_002": 1858,
+      "ci_001": 59654
+    },
+    "snapshot_scope": "All local preparation files by logical size; includes later additions and developer draft, excludes this not-yet-written accountingJSON; active unrelated preparation log writes can occur",
+    "atomic_snapshot": false,
+    "remote_retained_bytes": null,
+    "all_hosts_retained_bytes": null,
+    "original_failed_attempt_subtree_observation_bytes": 1032385821,
+    "original_bound_passed": false,
+    "recovered_observed_bound_passed": true
+  },
+  "unmeasured": {
+    "all_interactive_engineering_wall_seconds": null,
+    "all_engineering_cpu_seconds": null,
+    "original_validator_wait4_exit": null,
+    "original_validator_rusage": null,
+    "total_engineering_physics_substeps": null,
+    "total_engineering_optimizer_updates": null,
+    "total_engineering_neural_rows": null,
+    "financial_cost": null,
+    "electricity_kwh": null,
+    "ongoing_science_complete_work_census": null
+  },
+  "input_bindings": {
+    "validation_001/summary.json": {
+      "bytes": 6374,
+      "sha256": "b2fbc3ca8b51a96a20f5a8314fbefd220676c041d236f273de7ba19fa42f757b"
+    },
+    "validation_001/observer_exit.json": {
+      "bytes": 365,
+      "sha256": "0e92ec2ad2e97841b9893a2383a96a936cfc5646b2dcac3e2b2e12734b250bec"
+    },
+    "validation_001/pytest.stdout.txt": {
+      "bytes": 1974,
+      "sha256": "b7fe6026b3f3cd523cdacf5b4590e1499e017919284bdb6c8d9788ca33c1beaf"
+    },
+    "validation_001/export_validation_001/export_manifest.json": {
+      "bytes": 1346685,
+      "sha256": "481c1b92f15530fe522d986b11cf67dc4e0555ec9de8f6f2dabb6e2c68770c4d"
+    },
+    "validation_001/export_validation_001/original_wrapper_failure.json": {
+      "bytes": 474,
+      "sha256": "09d0a7b18afab8ceacd24c565e119450331ca353e2e51d409d702557f25e7c85"
+    },
+    "validation_001/export_validation_001/replacement_observer.json": {
+      "bytes": 1098,
+      "sha256": "df61798cccf7e4e0b8529a052f8cb82271c588d969885d2ec8d6940ed876da25"
+    },
+    "validation_001/export_validation_001/original_validator_group_closure.json": {
+      "bytes": 449,
+      "sha256": "45cf9e1d46dbb29d82de95c125457aa750ef24d8f73c0b937d88a96efc9f4927"
+    },
+    "validation_001/export_validation_001/disposable_pytest_cleanup.json": {
+      "bytes": 362,
+      "sha256": "0573d7eb3323498ac4a3c7681a8b87f3585e1c984844312464c22be597b6dc16"
+    },
+    "validation_001/export_validation_001/validate_export.stdout.txt": {
+      "bytes": 4091,
+      "sha256": "f6fddab50917d0fbad2321e12c159078257facee42b6e6dbc3ed606649b041cc"
+    },
+    "validation_001/export_validation_001/recovery_001/summary.json": {
+      "bytes": 9010,
+      "sha256": "0fafc2e74520014e00851eafd44d4de0accda0038ac214b0f89e2ce8e33bd4db"
+    },
+    "validation_001/export_validation_001/recovery_001/observer_exit.json": {
+      "bytes": 427,
+      "sha256": "e462e781f00aa4d20478396c95c11ea20a36a6726fbcc20aa9a97052fd4d0a4f"
+    },
+    "validation_001/export_validation_001/recovery_001/source_before.json": {
+      "bytes": 261,
+      "sha256": "35843cca08253bb25fca783a2d47b564d37bbefe8f37f2621d77f25f85cdf7ba"
+    },
+    "validation_001/export_validation_001/recovery_001/source_after.json": {
+      "bytes": 261,
+      "sha256": "35843cca08253bb25fca783a2d47b564d37bbefe8f37f2621d77f25f85cdf7ba"
+    },
+    "validation_001/export_validation_001/recovery_001/validate_export.stdout.txt": {
+      "bytes": 5131,
+      "sha256": "a49099b94221b472b2d1da036b977a98977059c3b1382cf78b9d247abd7a2600"
+    },
+    "ci_001/receipt.json": {
+      "bytes": 413,
+      "sha256": "0ba7b3dc2ce57a79bdf45c9e39f3464b94fcf72ae9d3751d6eb5f2660708aa95"
+    },
+    "ci_001/status.json": {
+      "bytes": 2310,
+      "sha256": "c34663b3c93d2e6213847ccecdea2efd107439475808d49fb5237823f9d3bd08"
+    },
+    "ci_001/logs.txt": {
+      "bytes": 56931,
+      "sha256": "7a55a37f90d436bd8136b38696af667356287d367a23c18bc53a7eb9fcb8d211"
+    },
+    "synthetic_fit_001/result.json": {
+      "bytes": 3492,
+      "sha256": "15aad6b0acda1b0cf0c728ab7e7809e96bdf2266b0f688c317e39f3988c14030"
+    },
+    "synthetic_fit_001/process_receipt.json": {
+      "bytes": 660,
+      "sha256": "627e48ffcb495445ed2f6fc5c6baad8c9032b8b4e9255fbae7b1ec6cc8850a6c"
+    },
+    "freeze_001/receipt.json": {
+      "bytes": 1283,
+      "sha256": "286b3f07cbc951f1312ef6d84eb5e647996e7957480379af7e85f974d638e2dc"
+    },
+    "remote_prepare_001/receipt.json": {
+      "bytes": 337,
+      "sha256": "6ba8d8eb6f972e23faab7c3b33b6a27c7feb6206b80a26021326f06c57b8f8ef"
+    },
+    "remote_prepare_001/stdout.json": {
+      "bytes": 2371,
+      "sha256": "2cb5be686007e460f7054d37d8bd77567a049b68cc22e9b7b1b452b37d21823a"
+    },
+    "prepared_read_001/stdout.json": {
+      "bytes": 7299,
+      "sha256": "f860c837ea92828e10ab6d5bad0504e294f7429868a2c742eb3a5e200710e6c7"
+    },
+    "preflight_001/stdout.json": {
+      "bytes": 1123,
+      "sha256": "8d53afd90ad8f8697fc1195f2b8c2c9fb25dcac8588de000c955e60a916ca9ed"
+    },
+    "operator_deploy_001/receipt.json": {
+      "bytes": 95,
+      "sha256": "43bb21ce7f07f7a17bc9104a9332cf229ef51641f724dbd15ff4f28a5ad9e58f"
+    },
+    "preflight_001/receipt.json": {
+      "bytes": 83,
+      "sha256": "0a82d19e7909c88b53ccbbdc9fe32adbe683f5601d9cf8a792eae3ea62105b84"
+    },
+    "independent_prelaunch_001/receipt.json": {
+      "bytes": 1089,
+      "sha256": "35569d8e56f111f2126c3e457aa991365cd473b50350828de63e101fbc59514a"
+    },
+    "prepared_read_001/receipt.json": {
+      "bytes": 60,
+      "sha256": "8517379ea6565da7e4e7ef6458cc2b1d4fbbd3456a79447e19724c9b0ceb9e30"
+    },
+    "monitor_001/receipt.json": {
+      "bytes": 59,
+      "sha256": "62fc1b4c8d786d857d65fd5c43954726552408596808d51b7193107f63042e8d"
+    },
+    "monitor_006/receipt.json": {
+      "bytes": 60,
+      "sha256": "e7b7ca649f4cc14cf21f98bb1ceb57508f4b1eece20c9978d2e7dba87587bdad"
+    },
+    "deploy_001/receipt.json": {
+      "bytes": 166,
+      "sha256": "f62ab25c0d9bc2f62a029f0f3db1d0c45f8998654b4f1361221d35ab2b7afe20"
+    },
+    "monitor_003/receipt.json": {
+      "bytes": 59,
+      "sha256": "88d80778e8f3d3d122ab96bd0d1cc06788af492d37b63501ccb85027ee263542"
+    },
+    "monitor_004/receipt.json": {
+      "bytes": 60,
+      "sha256": "10026394cd2e7bc8a4a82ae90bc83a21f82995d83d726072f817c2eee70b7d65"
+    },
+    "monitor_005/receipt.json": {
+      "bytes": 60,
+      "sha256": "39dd9103c51cb019587c7fe5629bc0938e82da5b3be7713e231bba7200d1b7cd"
+    },
+    "monitor_002/receipt.json": {
+      "bytes": 59,
+      "sha256": "0a741ec47bbb066904cc90e7febe6dbbba05fd453338c0213a835806a7bf742b"
+    },
+    "synthetic_fit_001/recipe.json": {
+      "bytes": 1242,
+      "sha256": "953dbb4ef7a8ea5d0487b5a8867e44b60e055a5477145044fd0d7cc0cfd3ab5f"
+    }
+  },
+  "accounting_json_generation": {
+    "read_bytes": 1456273,
+    "self_wall_seconds": 0.2797079589799978,
+    "self_user_seconds": 0.10360699999999999,
+    "self_system_seconds": 0.14318999999999998,
+    "peak_rss_bytes": 27443200,
+    "scope": "This metadata-only JSON generator; prior tool/source reads and final write are additional unmetered overhead"
+  }
+}

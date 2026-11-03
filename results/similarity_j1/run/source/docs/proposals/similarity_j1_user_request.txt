@@ -1,0 +1,67 @@
+Develop and execute a bounded investigation of a similarity function between MPPI behavior and a policy that predicts what that policy can learn. Deepen the measurement and inference within the existing Walker task. Keep the current planner/policy interfaces; introduce no critic, new environment, architecture intervention or broad algorithm sweep.
+
+The thesis is that MPPI provides task-directed exploration that can be shaped toward useful policy learning. Its efficiency advantage remains to be measured, including its planning simulations.
+
+1. Define the claim before defining the score
+
+Treat one complete incoming learner state, one training corpus and one fixed learning update as a learning case. Bind policy tensors, observations, normalization, Adam/RNG state, minibatch stream, unique data size and update budget. Keep these matched within each contrast.
+
+Define two separate post-update outcomes:
+- Standalone walking on held-out resets, using the existing walking criterion. Report survival and cost separately.
+- Motion reproduction when the updated student executes independently from the teacher’s identical starting simulator context. Freeze motion-error measures and reproduction thresholds, including handling of early falls.
+Allow competent walking with a different gait. Report walking and reproduction separately.
+
+Similarity scores must be available before the learning update whose outcome they predict. Declare how trajectory scores aggregate into a corpus score. Do not attribute a mixed-corpus child’s outcome to individual trajectories without an identifying comparison.
+
+2. Start with the planning and execution records
+
+Inspect and bind full simulator contexts, planner nominal/RNG states, within-decision samples, costs, weights, selected controls, actual transitions, contacts, checkpoints and complete failing student executions. Distinguish missing evidence from measured absence.
+
+Model the planning decision conceptually as depending on physical state, planner memory and random innovations. At identical physical contexts, vary planner randomness and carried nominal separately. Keep optimization passes and other settings matched. First verify that restoring everything, including RNG, reproduces the decision.
+
+Separate:
+- Variation from replanning randomness.
+- Dependence on carried plans.
+- Dependence on information the student observes.
+- Dependence on information hidden from the student.
+Do not label unexplained variation irrelevant noise or conclude it is safe to remove.
+
+3. Build five calibrated tools
+
+Reuse existing infrastructure, adding:
+- An exact-context repeated-replanning probe that retains within-decision evidence.
+- A stride-segmented atlas synchronizing joint motion, contacts, controls and video. Preserve real timing, partial strides, nonperiodic behavior and falls.
+- A realizability tester separating teacher replay, direct student execution and fixed-budget learning.
+- Local feedback-gain fits using controlled perturbations, paired random innovations and held-out perturbation checks. Report rank deficiency and contact-regime changes; do not call these optimal gains.
+- A harness joining pre-update similarity scores to measured post-update outcomes.
+Calibrate with synthetic array fixtures and known controllers: exact copies, affine feedback with known gains, contradictory observations, contact spikes/dropouts, changed joint coordination and shuffled predictive labels. A copied walking checkpoint is an execution control, not evidence that a fresh student can learn walking.
+
+Use the actual student observation interface for state-explained scores. Privileged state and planner memory are diagnostic controls.
+
+4. Compare the five initial candidates fairly
+
+Evaluate action MSE, smoothed-action agreement, state-explained action, motion distance and distribution distance on one shared benchmark of learning cases. Reuse each measured learning outcome across candidate scores.
+
+Freeze each candidate’s representation, preprocessing, aggregation, parameters and intended invariances. Include checks showing whether a proposed score merely reproduces MSE. Equal-weight Fourier transformation preserves squared error; some distribution distances to a deterministic action also reduce to expected squared error.
+
+Keep one score table containing definitions, calibration results, predictive performance, uncertainty, failure cases and costs. Preserve rejected candidates. Use synchronized visual evidence to explain what each score captures and misses.
+
+5. Make the predictive test capable of rejecting the idea
+
+Separate development data from a protected final test. Keep related trajectories, source runs and learner streams grouped. Fit normalization, explanatory models, smoothing choices and score calibration on development data only.
+
+Give every candidate and action MSE the same prediction-model capacity. Freeze the primary predictive measure, minimum meaningful improvement, uncertainty procedure and success criteria before revealing final outcomes.
+
+Check that the benchmark contains enough outcome variation and independent learning cases to support the claim. All-failure walking labels cannot demonstrate discrimination of walking success. Motion-prediction success alone is a partial result.
+
+Iterate on development evidence within a finite budget. Do not repeatedly inspect the final test and rename it held out.
+
+6. Execute and close one bounded version
+
+Before launch, freeze inputs, roster, work/storage budgets, controls, stopping rules and independent checks. Then implement, calibrate and execute the authorized block; preparation alone is not completion.
+
+Preserve existing runs and failures. Account separately for planning simulations, execution, fitting, diagnostics, rendering, auditing and engineering overhead. Independently recompute measurements and predictive comparisons from raw evidence.
+
+Deliver the runnable tools, visual evidence, score table, learning outcomes and a verdict identifying what was established, falsified or remains unidentified. If no candidate beats MSE, report that the objective remains unmet and propose the next version from the observed failure.
+
+Only after a candidate passes the protected predictive test should you prepare a separate, frozen comparison of using it inside MPPI versus ordinary action-MSE guidance, with matched total simulation and learning budgets. That later test must establish a better next standalone student while preserving teacher competence and independent discovery.

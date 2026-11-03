@@ -54,3 +54,18 @@ The Linux experiment workspace is `/home/jaisel/mppi-gps-workspace/` on `robopil
 The existing Linux interpreter is `/home/jaisel/mppi-gps/.venv/bin/python`. H4.1 ran on the local macOS platform and its full evidence is **local only**; do not infer that all studies share this remote location. [Per-study locations and checksums](evidence_availability.md) identify the available copies. [archive/](../archive) retains historical code and documentation outside active imports and formatting.
 
 S1.1 uses a separate [evaluation-only study](../src/gps/mppi_gps/experiments/student_source_evaluation.py), [input binding](../src/gps/mppi_gps/source_evaluation_inputs.py), [one-shot owner](../src/gps/mppi_gps/source_evaluation_launch.py), [closed-file durability](../src/gps/mppi_gps/durability.py), [off-host coordinator](../src/gps/mppi_gps/source_evaluation_coordinator.py) and [independent auditor](../src/gps/mppi_gps/audits/source_evaluation.py). See the [execution protocol](student_source_s1_1_execution_protocol.md). It reuses the closed S1 fits and performs no learning.
+
+
+## J1 similarity investigation
+
+| Boundary | Canonical implementation |
+|---|---|
+| Frozen cases, source and score-before-update ordering | [study](../src/gps/mppi_gps/similarity_study.py), [owned launch](../src/gps/mppi_gps/similarity_launch.py) |
+| Pure scores, calibrations and finite prediction gates | [metrics](../src/gps/mppi_gps/similarity_metrics.py) |
+| Full native execution, contacts, fixed fitting and paid work | [execution](../src/gps/mppi_gps/similarity_execution.py) |
+| Exact-context planner variation and local sensitivity | [probe](../src/gps/mppi_gps/similarity_probe.py) |
+| Saved-only stride/video atlas | [atlas](../src/gps/mppi_gps/similarity_atlas.py) |
+| Independent saved-evidence recomputation | [audit](../src/gps/mppi_gps/audits/similarity.py) |
+| JSON report and verified compact replay | [report](../src/gps/mppi_gps/reporting/similarity.py), [materializer](../src/gps/mppi_gps/reporting/similarity_capsule.py) |
+
+The [result](similarity_j1_results.md) distinguishes the scientific source8c678e5 from the later publication-only codec repair. Neither compact report replay nor inspection dispatches a scientific worker.

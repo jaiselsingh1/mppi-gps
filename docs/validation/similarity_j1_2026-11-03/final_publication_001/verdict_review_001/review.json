@@ -1,0 +1,1234 @@
+{
+  "actual_audit_costs": {
+    "checkpoint_loads": 49,
+    "completed_neural_rows": 169551,
+    "coordinator_read_reserve_bytes": 134217728,
+    "neural_rows": 169551,
+    "new_optimizer_steps": 0,
+    "new_physics_controls": 0,
+    "prediction_calls": 137583,
+    "source_read_allocation_bytes": 34225520640,
+    "source_read_bytes": 6578843849,
+    "unknown_partial_neural_rows": 0,
+    "wall_seconds": 18.18144103099985
+  },
+  "actual_worker_costs": {
+    "completed": {
+      "backward_rows": 16384000,
+      "checkpoint_loads": 1,
+      "contact_force_queries": 159155,
+      "contact_measurements": 161759,
+      "environment_constructions": 1,
+      "external_mj_forward_calls": 1508,
+      "fits": 32,
+      "live_queries": 161551,
+      "model_controls": 101746176,
+      "model_queries": 24632,
+      "native_controls": 161551,
+      "neural_rows": 16553551,
+      "optimizer_constructions": 48,
+      "optimizer_steps": 64000,
+      "physics_substeps": 407630908,
+      "policy_constructions": 48,
+      "prediction_calls": 201583,
+      "resets": 528,
+      "restores": 272,
+      "snapshot_reads": 162531
+    },
+    "requested": {
+      "backward_rows": 16384000,
+      "checkpoint_loads": 1,
+      "contact_force_queries": 159155,
+      "contact_measurements": 161759,
+      "environment_constructions": 1,
+      "external_mj_forward_calls": 1508,
+      "fits": 32,
+      "live_queries": 161551,
+      "model_controls": 101746176,
+      "model_queries": 24632,
+      "native_controls": 161551,
+      "neural_rows": 16553551,
+      "optimizer_constructions": 48,
+      "optimizer_steps": 64000,
+      "physics_substeps": 407630908,
+      "policy_constructions": 48,
+      "prediction_calls": 201583,
+      "resets": 528,
+      "restores": 272,
+      "snapshot_reads": 162531
+    },
+    "returned_unpersisted": {},
+    "storage": {
+      "array_format": "walker-array-stream-v1",
+      "backward_rows": 16384000,
+      "completed_backward_rows": 16384000,
+      "completed_controls": 101907727,
+      "completed_live_controls": 161551,
+      "completed_model_controls": 101746176,
+      "completed_neural_rows": 16553551,
+      "completed_optimizer_steps": 64000,
+      "completed_physics_substeps": 407630908,
+      "emergency_reserved_bytes": 16384,
+      "episodes": 0,
+      "evidence_poisoned": false,
+      "failed_measurements": 0,
+      "failed_queries": 0,
+      "live_queries": 161551,
+      "measurement_requests": 0,
+      "model_queries": 24632,
+      "neural_rows": 16553551,
+      "optimizer_steps": 64000,
+      "physics_frames": 407630908,
+      "queries": 186183,
+      "rejected_measurements": 0,
+      "rejected_queries": 0,
+      "requested_backward_rows": 16384000,
+      "requested_controls": 101907727,
+      "requested_live_controls": 161551,
+      "requested_model_controls": 101746176,
+      "requested_neural_rows": 16553551,
+      "requested_optimizer_steps": 64000,
+      "requested_physics_substeps": 407630908,
+      "reserved_external_bytes": 536870912,
+      "reset_errors": 0,
+      "resets": 528,
+      "restores": 272,
+      "snapshots": 162531,
+      "storage_bytes": 2333136321,
+      "storage_limit_bytes": 6979321856,
+      "unknown_partial_backward_rows": 0,
+      "unknown_partial_controls": 0,
+      "unknown_partial_model_controls": 0,
+      "unknown_partial_neural_rows": 0,
+      "unknown_partial_optimizer_steps": 0,
+      "unknown_partial_physics_substeps": 0,
+      "wall_seconds": 3016.2271090739996
+    },
+    "unknown_partial": {}
+  },
+  "audited_source": {
+    "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+    "input_manifest_sha256": "d510194cccebb1c3ec797e519c8af81b07b2e115a599bb79fe8f467268aa2ee1",
+    "objective_passed": false,
+    "protected_test_opened": false,
+    "scientific_audit_passed": true,
+    "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+    "source_manifest_sha256": "efc4fbf36cb1b7c18808af0a35fffd9499e7cd73f3296a74066fc38f9accba58"
+  },
+  "constant_MPPI_walking_prediction": {
+    "A": 0.0019455252918287938,
+    "B": 0.0019455252918287938,
+    "C": 0.0019455252918287938,
+    "D": 0.0019455252918287938,
+    "E": 0.0019455252918287938
+  },
+  "established": [
+    "All eight MPPI and eight reference teachers walked; lower native teacher cost did not guarantee successful transfer to this learner/update.",
+    "MPPI supervision produced no standalone walking in256 resets over16 fresh children. The reference source produced35 walking resets across8 children in6 groups, with maximum6/16 for any child. Neither source yielded binary motion reproduction.",
+    "Primary MPPI motion variation was0.03849315344778441, below0.1, and MPPI walking labels were all failures. The declared development gate correctly prevented acquisition/fitting of the protected block.",
+    "At the four fixed contexts, changing carried nominal or private innovations changes selected actions. The tested time/root-x/warmstart perturbations had zero or numerical-roundoff action effects.",
+    "A rank17 perturbation design does not certify a nonzero, accurate or optimal feedback law: two fits were exactlyzero; the other two had held errors0.07117 and0.12683 without measured contact-regime changes."
+  ],
+  "input_bindings": {
+    "audit.json": {
+      "bytes": 722083,
+      "sha256": "ae00225ee16fcbd41cc73f6b1d55852c17256d4829d12841238d08802fbc1962"
+    },
+    "cases.json": {
+      "bytes": 4470568,
+      "sha256": "ef5987b9c509ee7bd69a88ef08d91468736d5a42ec38e8721c7edebf3660f135"
+    },
+    "probe_summary.json": {
+      "bytes": 46403,
+      "sha256": "dd29468623ae90f927cb459b71a068e6807ece9cad15bb03cb595910b4ecf3d0"
+    },
+    "score_models.json": {
+      "bytes": 33971,
+      "sha256": "96c85ee4f9c15df1d11d303a79550c881af283493c08a6754c2ee8ea24307d0a"
+    },
+    "worker_result.json": {
+      "bytes": 6118,
+      "sha256": "a92a261913aee4172c140f1afbef74e946a532b27a3d8e4ea2dcecaa978acaae"
+    }
+  },
+  "no_new_scientific_work": {
+    "fits": 0,
+    "model_controls": 0,
+    "native_controls": 0,
+    "network_calls": 0,
+    "neural_rows": 0,
+    "optimizer_steps": 0
+  },
+  "paired_source_comparisons": [
+    {
+      "group": "development_00",
+      "learner": "development_00_s0",
+      "mean_cost_difference_reference_minus_mppi": -221.43438916409377,
+      "motion_difference_reference_minus_mppi": -0.03846706994384874,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_00",
+      "learner": "development_00_s1",
+      "mean_cost_difference_reference_minus_mppi": -1709.450717932733,
+      "motion_difference_reference_minus_mppi": -1.1445168368512317,
+      "survival_gain_reference_minus_mppi": 6,
+      "walking_gain_reference_minus_mppi": 6
+    },
+    {
+      "group": "development_01",
+      "learner": "development_01_s0",
+      "mean_cost_difference_reference_minus_mppi": -335.8956852273941,
+      "motion_difference_reference_minus_mppi": -0.08057612290620786,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_01",
+      "learner": "development_01_s1",
+      "mean_cost_difference_reference_minus_mppi": -2224.2526053114802,
+      "motion_difference_reference_minus_mppi": -0.15525714912542887,
+      "survival_gain_reference_minus_mppi": 5,
+      "walking_gain_reference_minus_mppi": 5
+    },
+    {
+      "group": "development_02",
+      "learner": "development_02_s0",
+      "mean_cost_difference_reference_minus_mppi": -1890.6399018307802,
+      "motion_difference_reference_minus_mppi": -0.126473811082636,
+      "survival_gain_reference_minus_mppi": 5,
+      "walking_gain_reference_minus_mppi": 5
+    },
+    {
+      "group": "development_02",
+      "learner": "development_02_s1",
+      "mean_cost_difference_reference_minus_mppi": -377.7949392194514,
+      "motion_difference_reference_minus_mppi": -0.1294223837681836,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_03",
+      "learner": "development_03_s0",
+      "mean_cost_difference_reference_minus_mppi": 11.458458118885574,
+      "motion_difference_reference_minus_mppi": -0.03145299673673474,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_03",
+      "learner": "development_03_s1",
+      "mean_cost_difference_reference_minus_mppi": 105.41553866868435,
+      "motion_difference_reference_minus_mppi": -0.14085744288089774,
+      "survival_gain_reference_minus_mppi": -2,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_04",
+      "learner": "development_04_s0",
+      "mean_cost_difference_reference_minus_mppi": -2220.4872408768333,
+      "motion_difference_reference_minus_mppi": -1.261662819678232,
+      "survival_gain_reference_minus_mppi": 6,
+      "walking_gain_reference_minus_mppi": 5
+    },
+    {
+      "group": "development_04",
+      "learner": "development_04_s1",
+      "mean_cost_difference_reference_minus_mppi": -2353.6943288257617,
+      "motion_difference_reference_minus_mppi": -0.36232260612010037,
+      "survival_gain_reference_minus_mppi": 6,
+      "walking_gain_reference_minus_mppi": 6
+    },
+    {
+      "group": "development_05",
+      "learner": "development_05_s0",
+      "mean_cost_difference_reference_minus_mppi": -199.87779038087774,
+      "motion_difference_reference_minus_mppi": -0.08072868223283125,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_05",
+      "learner": "development_05_s1",
+      "mean_cost_difference_reference_minus_mppi": -318.38853502104485,
+      "motion_difference_reference_minus_mppi": -0.0790015008963425,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    },
+    {
+      "group": "development_06",
+      "learner": "development_06_s0",
+      "mean_cost_difference_reference_minus_mppi": -1446.4319079059082,
+      "motion_difference_reference_minus_mppi": -0.10522906396367349,
+      "survival_gain_reference_minus_mppi": 3,
+      "walking_gain_reference_minus_mppi": 2
+    },
+    {
+      "group": "development_06",
+      "learner": "development_06_s1",
+      "mean_cost_difference_reference_minus_mppi": -2106.3700482312033,
+      "motion_difference_reference_minus_mppi": -1.060455579321655,
+      "survival_gain_reference_minus_mppi": 6,
+      "walking_gain_reference_minus_mppi": 5
+    },
+    {
+      "group": "development_07",
+      "learner": "development_07_s0",
+      "mean_cost_difference_reference_minus_mppi": -1014.8860373392927,
+      "motion_difference_reference_minus_mppi": -0.07675492786478144,
+      "survival_gain_reference_minus_mppi": 1,
+      "walking_gain_reference_minus_mppi": 1
+    },
+    {
+      "group": "development_07",
+      "learner": "development_07_s1",
+      "mean_cost_difference_reference_minus_mppi": -152.56388023305226,
+      "motion_difference_reference_minus_mppi": -0.05697944900432339,
+      "survival_gain_reference_minus_mppi": 0,
+      "walking_gain_reference_minus_mppi": 0
+    }
+  ],
+  "paired_summary": {
+    "mean_cost_difference_reference_minus_mppi": {
+      "reference_higher": 2,
+      "reference_lower": 14,
+      "tied": 0
+    },
+    "motion_difference_reference_minus_mppi": {
+      "reference_higher": 0,
+      "reference_lower": 16,
+      "tied": 0
+    },
+    "survival_gain_reference_minus_mppi": {
+      "reference_higher": 8,
+      "reference_lower": 1,
+      "tied": 7
+    },
+    "walking_gain_reference_minus_mppi": {
+      "reference_higher": 8,
+      "reference_lower": 0,
+      "tied": 8
+    }
+  },
+  "prediction_development_gate": {
+    "case_ids": [
+      "development_00_s0_mppi",
+      "development_00_s1_mppi",
+      "development_01_s0_mppi",
+      "development_01_s1_mppi",
+      "development_02_s0_mppi",
+      "development_02_s1_mppi",
+      "development_03_s0_mppi",
+      "development_03_s1_mppi",
+      "development_04_s0_mppi",
+      "development_04_s1_mppi",
+      "development_05_s0_mppi",
+      "development_05_s1_mppi",
+      "development_06_s0_mppi",
+      "development_06_s1_mppi",
+      "development_07_s0_mppi",
+      "development_07_s1_mppi"
+    ],
+    "development_groups": [
+      "development_00",
+      "development_01",
+      "development_02",
+      "development_03",
+      "development_04",
+      "development_05",
+      "development_06",
+      "development_07"
+    ],
+    "development_roster_complete": true,
+    "fit_source": "mppi",
+    "fit_split": "development",
+    "motion_sd": 0.03849315344778441,
+    "prediction_capacity": "intercept plus one standardized scalar for every candidate",
+    "ridge": 1,
+    "version": "walker-similarity-j1-metrics-v1",
+    "walking_degenerate": true,
+    "walking_loss": "binomial likelihood; all0/all1 uses (successes+.5)/(trials+1), slope0, no discrimination claim"
+  },
+  "probe": {
+    "decisions": 208,
+    "factorial": [
+      {
+        "carried_private_rng_mean_action_variance": 0.03212983736411138,
+        "context": 0,
+        "nominal_change_mse": {
+          "count": 3,
+          "maximum": 0.37469647743371887,
+          "mean": 0.32153871728327227,
+          "median": 0.316264892331701,
+          "minimum": 0.273654782084397,
+          "population_sd": 0.04141832100235479
+        },
+        "zero_nominal_private_rng_mean_action_variance": 0.01343923294786227
+      },
+      {
+        "carried_private_rng_mean_action_variance": 0.01989198658571061,
+        "context": 1,
+        "nominal_change_mse": {
+          "count": 3,
+          "maximum": 0.5012661932496769,
+          "mean": 0.39071703479769043,
+          "median": 0.37333452863005395,
+          "minimum": 0.29755038251334043,
+          "population_sd": 0.08406999673483066
+        },
+        "zero_nominal_private_rng_mean_action_variance": 0.06436549156548159
+      },
+      {
+        "carried_private_rng_mean_action_variance": 0.007601020004995501,
+        "context": 2,
+        "nominal_change_mse": {
+          "count": 3,
+          "maximum": 0.4298051079823751,
+          "mean": 0.31822064416015733,
+          "median": 0.28628772523829377,
+          "minimum": 0.23856909925980316,
+          "population_sd": 0.081271504810266
+        },
+        "zero_nominal_private_rng_mean_action_variance": 0.04507592268030929
+      },
+      {
+        "carried_private_rng_mean_action_variance": 0.032134331012932456,
+        "context": 3,
+        "nominal_change_mse": {
+          "count": 3,
+          "maximum": 0.6882967957617568,
+          "mean": 0.404898340140097,
+          "median": 0.38644105396599926,
+          "minimum": 0.13995717069253508,
+          "population_sd": 0.2242388453783868
+        },
+        "zero_nominal_private_rng_mean_action_variance": 0.048213538932605104
+      }
+    ],
+    "full_column_rank_is_design_rank_not_controller_gain_rank": true,
+    "gain_context_innovation_fits": 4,
+    "gain_contexts": 2,
+    "gains": [
+      {
+        "axis_action_boundary_rows": 0,
+        "axis_contact_measurements_available": 34,
+        "axis_contact_regime_changes": 0,
+        "baseline_clipped_velocity_coordinates": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "condition_number": 1.0000000000001112,
+        "context": 0,
+        "full_column_rank": true,
+        "held_action_boundary_rows": 0,
+        "held_action_max_abs_error": 0.0,
+        "held_action_rmse": 0.0,
+        "held_contact_measurements_available": 8,
+        "held_contact_regime_changes": 0,
+        "innovation": 0,
+        "minimum_norm_solution": true,
+        "normalization_is_algebraic_transform_only": true,
+        "optimal_gain_claim": false,
+        "rank": 17,
+        "rank_tolerance": 1.0676628719049681e-14,
+        "schema": "walker-j1-local-empirical-gain-v1",
+        "training_action_rmse": 0.0,
+        "unidentified_dimensions": 0
+      },
+      {
+        "axis_action_boundary_rows": 0,
+        "axis_contact_measurements_available": 34,
+        "axis_contact_regime_changes": 0,
+        "baseline_clipped_velocity_coordinates": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "condition_number": 1.0000000000001112,
+        "context": 0,
+        "full_column_rank": true,
+        "held_action_boundary_rows": 0,
+        "held_action_max_abs_error": 0.0,
+        "held_action_rmse": 0.0,
+        "held_contact_measurements_available": 8,
+        "held_contact_regime_changes": 0,
+        "innovation": 1,
+        "minimum_norm_solution": true,
+        "normalization_is_algebraic_transform_only": true,
+        "optimal_gain_claim": false,
+        "rank": 17,
+        "rank_tolerance": 1.0676628719049681e-14,
+        "schema": "walker-j1-local-empirical-gain-v1",
+        "training_action_rmse": 0.0,
+        "unidentified_dimensions": 0
+      },
+      {
+        "axis_action_boundary_rows": 0,
+        "axis_contact_measurements_available": 34,
+        "axis_contact_regime_changes": 0,
+        "baseline_clipped_velocity_coordinates": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "condition_number": 1.000000000000111,
+        "context": 1,
+        "full_column_rank": true,
+        "held_action_boundary_rows": 0,
+        "held_action_max_abs_error": 0.23709193144548307,
+        "held_action_rmse": 0.07116721309465478,
+        "held_contact_measurements_available": 8,
+        "held_contact_regime_changes": 0,
+        "innovation": 0,
+        "minimum_norm_solution": true,
+        "normalization_is_algebraic_transform_only": true,
+        "optimal_gain_claim": false,
+        "rank": 17,
+        "rank_tolerance": 1.067662871904968e-14,
+        "schema": "walker-j1-local-empirical-gain-v1",
+        "training_action_rmse": 0.030962179403937532,
+        "unidentified_dimensions": 0
+      },
+      {
+        "axis_action_boundary_rows": 0,
+        "axis_contact_measurements_available": 34,
+        "axis_contact_regime_changes": 0,
+        "baseline_clipped_velocity_coordinates": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "condition_number": 1.000000000000111,
+        "context": 1,
+        "full_column_rank": true,
+        "held_action_boundary_rows": 0,
+        "held_action_max_abs_error": 0.3822809701239814,
+        "held_action_rmse": 0.12683057283097354,
+        "held_contact_measurements_available": 8,
+        "held_contact_regime_changes": 0,
+        "innovation": 1,
+        "minimum_norm_solution": true,
+        "normalization_is_algebraic_transform_only": true,
+        "optimal_gain_claim": false,
+        "rank": 17,
+        "rank_tolerance": 1.067662871904968e-14,
+        "schema": "walker-j1-local-empirical-gain-v1",
+        "training_action_rmse": 0.043942980713596966,
+        "unidentified_dimensions": 0
+      }
+    ],
+    "held_out_fit_errors_are_not_task_outcomes": true,
+    "hidden_input_contrasts": [
+      {
+        "action_squared_change": 0.0,
+        "context": 0,
+        "id": "probe_196",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 0,
+        "id": "probe_197",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 0,
+        "id": "probe_198",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 0,
+        "id": "probe_199",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 1,
+        "id": "probe_200",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 1,
+        "id": "probe_201",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 1.877617991732282e-29,
+        "context": 1,
+        "id": "probe_202",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 1.1011931371505026e-28,
+        "context": 1,
+        "id": "probe_203",
+        "observed_input_unchanged": true,
+        "role": "hidden_state"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 0,
+        "id": "probe_204",
+        "observed_input_unchanged": true,
+        "role": "warmstart"
+      },
+      {
+        "action_squared_change": 0.0,
+        "context": 0,
+        "id": "probe_205",
+        "observed_input_unchanged": true,
+        "role": "warmstart"
+      },
+      {
+        "action_squared_change": 5.9914717604914714e-30,
+        "context": 1,
+        "id": "probe_206",
+        "observed_input_unchanged": true,
+        "role": "warmstart"
+      },
+      {
+        "action_squared_change": 1.096245744111696e-29,
+        "context": 1,
+        "id": "probe_207",
+        "observed_input_unchanged": true,
+        "role": "warmstart"
+      }
+    ],
+    "original_replay_checks": 8,
+    "physical_contexts": 4,
+    "source_trajectories": 2
+  },
+  "recommended_next_version": "J1.1-B: development-only incoming-package/outcome-variation pilot with learned and original fresh packages, matched no-update controls, unchanged scientific interface and no protected launch.",
+  "reproduction_failures": {
+    "fell_before_full_window": 28,
+    "full_window_angle_gate_failed": 4,
+    "full_window_forward_velocity_gate_failed": 1,
+    "full_window_height_gate_failed": 0,
+    "full_window_progress_gate_failed": 2,
+    "note": "Only full-window cases are classified by full-window error thresholds. Counts can overlap; missing post-fall progress stays missing."
+  },
+  "schema": "walker-j1-development-causal-review-v1",
+  "scope": "Descriptive arithmetic on already audited development metadata. No new predictor fit, bootstrap, raw-array audit, policy inference, physics or experiment; counts of episodes/probe calls are not independent task replications.",
+  "source_results": {
+    "mppi": {
+      "C_components": {
+        "explained_mse": {
+          "count": 16,
+          "maximum": 0.16141101446330508,
+          "mean": 0.12621611657645418,
+          "median": 0.1270921611997945,
+          "minimum": 0.10148123415447084,
+          "population_sd": 0.01395920811718465
+        },
+        "residual_mse": {
+          "count": 16,
+          "maximum": 0.2743068563939434,
+          "mean": 0.24009398988267577,
+          "median": 0.23730779227034893,
+          "minimum": 0.22483996664152542,
+          "population_sd": 0.014960821597885665
+        }
+      },
+      "child_rates": {
+        "cases": [
+          {
+            "case_id": "development_00_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9140756751624928,
+            "reproduction_controls": 236,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_00_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.907342960857347,
+            "reproduction_controls": 185,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_01_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9792963336670222,
+            "reproduction_controls": 49,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_01_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.8844150719747836,
+            "reproduction_controls": 166,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_02_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9822115655560884,
+            "reproduction_controls": 30,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_02_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9366394157946798,
+            "reproduction_controls": 120,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_03_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9035855593425917,
+            "reproduction_controls": 532,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_03_s1_mppi",
+            "full_survival": 2,
+            "post_motion": 2.036535879568627,
+            "reproduction_controls": 1000,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_04_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9416302364088533,
+            "reproduction_controls": 93,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_04_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9826858022569878,
+            "reproduction_controls": 33,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_05_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9595008322327285,
+            "reproduction_controls": 141,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_05_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9695261991702817,
+            "reproduction_controls": 60,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_06_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9607555415465405,
+            "reproduction_controls": 70,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_06_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.897767005596496,
+            "reproduction_controls": 172,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_07_s0_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9631475765951618,
+            "reproduction_controls": 75,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_07_s1_mppi",
+            "full_survival": 0,
+            "post_motion": 1.9438501679013453,
+            "reproduction_controls": 91,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          }
+        ],
+        "maximum_walking_per16": 0,
+        "positive_children": 0,
+        "positive_source_groups": 0
+      },
+      "learning_cases": 16,
+      "lineage_groups": 8,
+      "pre_update_scores": {
+        "A": {
+          "count": 16,
+          "maximum": 0.3255825120465044,
+          "mean": 0.29455628042370613,
+          "median": 0.2969882422042097,
+          "minimum": 0.2607144974424538,
+          "population_sd": 0.016724610012173232
+        },
+        "B": {
+          "count": 16,
+          "maximum": 0.21025455875527824,
+          "mean": 0.1791359976261732,
+          "median": 0.18257359882187946,
+          "minimum": 0.1506096674761786,
+          "population_sd": 0.016380436875541686
+        },
+        "C": {
+          "count": 16,
+          "maximum": 0.6662361937290396,
+          "mean": 0.6064040963418057,
+          "median": 0.608705684187012,
+          "minimum": 0.5621594487652375,
+          "population_sd": 0.02967521757861079
+        },
+        "D": {
+          "count": 16,
+          "maximum": 1.993161299763783,
+          "mean": 1.963910521046291,
+          "median": 1.9817508171032026,
+          "minimum": 1.892954381128386,
+          "population_sd": 0.03451035912105807
+        },
+        "E": {
+          "count": 16,
+          "maximum": 7.166757068597066,
+          "mean": 5.851544083188874,
+          "median": 6.013239562839656,
+          "minimum": 4.1032703032221765,
+          "population_sd": 0.8168834919610184
+        }
+      },
+      "reproduction": {
+        "binary_successes": 0,
+        "controls": {
+          "count": 16,
+          "maximum": 1000,
+          "mean": 190.8125,
+          "median": 106.5,
+          "minimum": 30,
+          "population_sd": 239.4342860656134
+        },
+        "full_window_components": [
+          {
+            "case_id": "development_03_s1_mppi",
+            "final_relative_progress_error": 12.522219091477774,
+            "forward_velocity_rms": 1.6325076525221955,
+            "height_rms": 0.08498812666945456,
+            "joint_angle_rms": 1.0949177471635672
+          }
+        ],
+        "full_windows": 1,
+        "motion": {
+          "count": 16,
+          "maximum": 2.036535879568627,
+          "mean": 1.9476853639770018,
+          "median": 1.951675500067037,
+          "minimum": 1.8844150719747836,
+          "population_sd": 0.03849315344778441
+        },
+        "walking_at_teacher_start": 0
+      },
+      "standalone": {
+        "complete_cost": {
+          "count": 256,
+          "maximum": 5181.554883723779,
+          "mean": 4754.402045200571,
+          "median": 4874.815083180252,
+          "minimum": 3221.8285382968606,
+          "population_sd": 321.2462446823467
+        },
+        "controls": {
+          "count": 256,
+          "maximum": 1000,
+          "mean": 139.9296875,
+          "median": 119.5,
+          "minimum": 28,
+          "population_sd": 122.67230761729537
+        },
+        "episodes": 256,
+        "full_survival": 2,
+        "walking": 0
+      },
+      "teachers": {
+        "cost": {
+          "count": 8,
+          "maximum": 436.96283653832404,
+          "mean": 392.9331717868471,
+          "median": 383.4332951962913,
+          "minimum": 361.7673245310761,
+          "population_sd": 24.247449402155812
+        },
+        "episodes": 8,
+        "survived": 8,
+        "walking": 8
+      }
+    },
+    "reference": {
+      "C_components": {
+        "explained_mse": {
+          "count": 16,
+          "maximum": 0.18936924169716954,
+          "mean": 0.14557928109267054,
+          "median": 0.14892315936862005,
+          "minimum": 0.1074921152372062,
+          "population_sd": 0.02511885999048375
+        },
+        "residual_mse": {
+          "count": 16,
+          "maximum": 0.09243135605237585,
+          "mean": 0.0901458462166224,
+          "median": 0.09050966084310687,
+          "minimum": 0.08795262412938691,
+          "population_sd": 0.0014926310477470495
+        }
+      },
+      "child_rates": {
+        "cases": [
+          {
+            "case_id": "development_00_s0_reference",
+            "full_survival": 0,
+            "post_motion": 1.875608605218644,
+            "reproduction_controls": 136,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_00_s1_reference",
+            "full_survival": 6,
+            "post_motion": 0.7628261240061152,
+            "reproduction_controls": 1000,
+            "reproduction_walking": true,
+            "trials": 16,
+            "walking": 6
+          },
+          {
+            "case_id": "development_01_s0_reference",
+            "full_survival": 0,
+            "post_motion": 1.8987202107608143,
+            "reproduction_controls": 105,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_01_s1_reference",
+            "full_survival": 5,
+            "post_motion": 1.7291579228493548,
+            "reproduction_controls": 276,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 5
+          },
+          {
+            "case_id": "development_02_s0_reference",
+            "full_survival": 5,
+            "post_motion": 1.8557377544734524,
+            "reproduction_controls": 168,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 5
+          },
+          {
+            "case_id": "development_02_s1_reference",
+            "full_survival": 0,
+            "post_motion": 1.8072170320264962,
+            "reproduction_controls": 226,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_03_s0_reference",
+            "full_survival": 0,
+            "post_motion": 1.872132562605857,
+            "reproduction_controls": 147,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_03_s1_reference",
+            "full_survival": 0,
+            "post_motion": 1.8956784366877293,
+            "reproduction_controls": 119,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_04_s0_reference",
+            "full_survival": 6,
+            "post_motion": 0.6799674167306213,
+            "reproduction_controls": 1000,
+            "reproduction_walking": true,
+            "trials": 16,
+            "walking": 5
+          },
+          {
+            "case_id": "development_04_s1_reference",
+            "full_survival": 6,
+            "post_motion": 1.6203631961368874,
+            "reproduction_controls": 378,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 6
+          },
+          {
+            "case_id": "development_05_s0_reference",
+            "full_survival": 0,
+            "post_motion": 1.8787721499998973,
+            "reproduction_controls": 137,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_05_s1_reference",
+            "full_survival": 0,
+            "post_motion": 1.8905246982739392,
+            "reproduction_controls": 127,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          },
+          {
+            "case_id": "development_06_s0_reference",
+            "full_survival": 3,
+            "post_motion": 1.855526477582867,
+            "reproduction_controls": 162,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 2
+          },
+          {
+            "case_id": "development_06_s1_reference",
+            "full_survival": 6,
+            "post_motion": 0.8373114262748409,
+            "reproduction_controls": 1000,
+            "reproduction_walking": true,
+            "trials": 16,
+            "walking": 5
+          },
+          {
+            "case_id": "development_07_s0_reference",
+            "full_survival": 1,
+            "post_motion": 1.8863926487303804,
+            "reproduction_controls": 126,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 1
+          },
+          {
+            "case_id": "development_07_s1_reference",
+            "full_survival": 0,
+            "post_motion": 1.886870718897022,
+            "reproduction_controls": 137,
+            "reproduction_walking": false,
+            "trials": 16,
+            "walking": 0
+          }
+        ],
+        "maximum_walking_per16": 6,
+        "positive_children": 8,
+        "positive_source_groups": 6
+      },
+      "learning_cases": 16,
+      "lineage_groups": 8,
+      "pre_update_scores": {
+        "A": {
+          "count": 16,
+          "maximum": 0.3419329383977635,
+          "mean": 0.3058506584511014,
+          "median": 0.31055306218727224,
+          "minimum": 0.2681053959220448,
+          "population_sd": 0.02420841705505632
+        },
+        "B": {
+          "count": 16,
+          "maximum": 0.31602593515030397,
+          "mean": 0.27927215678735456,
+          "median": 0.2836793389954735,
+          "minimum": 0.24265997500792752,
+          "population_sd": 0.023924757567678295
+        },
+        "C": {
+          "count": 16,
+          "maximum": 0.36691841985379114,
+          "mean": 0.3258709735259154,
+          "median": 0.33272319626988534,
+          "minimum": 0.2863201413070379,
+          "population_sd": 0.02488875195343552
+        },
+        "D": {
+          "count": 16,
+          "maximum": 1.994598553072249,
+          "mean": 1.9554243595953402,
+          "median": 1.9789535990490563,
+          "minimum": 1.8268127299459291,
+          "population_sd": 0.04997438888202151
+        },
+        "E": {
+          "count": 16,
+          "maximum": 7.262705083850957,
+          "mean": 5.90364554905265,
+          "median": 5.89597242283451,
+          "minimum": 4.040505805996964,
+          "population_sd": 0.9551370306327622
+        }
+      },
+      "reproduction": {
+        "binary_successes": 0,
+        "controls": {
+          "count": 16,
+          "maximum": 1000,
+          "mean": 327.75,
+          "median": 154.5,
+          "minimum": 105,
+          "population_sd": 329.8405864959617
+        },
+        "full_window_components": [
+          {
+            "case_id": "development_00_s1_reference",
+            "final_relative_progress_error": 0.19543085697879903,
+            "forward_velocity_rms": 0.2917783580903406,
+            "height_rms": 0.03821494675050386,
+            "joint_angle_rms": 0.3601481092423173
+          },
+          {
+            "case_id": "development_04_s0_reference",
+            "final_relative_progress_error": 0.48830479354242406,
+            "forward_velocity_rms": 0.24101457018919897,
+            "height_rms": 0.025764547600566432,
+            "joint_angle_rms": 0.2891592198145196
+          },
+          {
+            "case_id": "development_06_s1_reference",
+            "final_relative_progress_error": 0.6993150747685171,
+            "forward_velocity_rms": 0.26987477441543967,
+            "height_rms": 0.032183148743910886,
+            "joint_angle_rms": 0.42878674330296107
+          }
+        ],
+        "full_windows": 3,
+        "motion": {
+          "count": 16,
+          "maximum": 1.8987202107608143,
+          "mean": 1.6395504613284324,
+          "median": 1.8639351585396546,
+          "minimum": 0.6799674167306213,
+          "population_sd": 0.429230911353877
+        },
+        "walking_at_teacher_start": 3
+      },
+      "standalone": {
+        "complete_cost": {
+          "count": 256,
+          "maximum": 4764.704545252849,
+          "mean": 3725.94616953105,
+          "median": 4494.338111835783,
+          "minimum": 547.7954969385008,
+          "population_sd": 1444.8233295683494
+        },
+        "controls": {
+          "count": 256,
+          "maximum": 1000,
+          "mean": 329.9140625,
+          "median": 160.0,
+          "minimum": 91,
+          "population_sd": 318.71016975027027
+        },
+        "episodes": 256,
+        "full_survival": 38,
+        "walking": 35
+      },
+      "teachers": {
+        "cost": {
+          "count": 8,
+          "maximum": 579.5309804401222,
+          "mean": 543.7309207201191,
+          "median": 540.0384157746146,
+          "minimum": 505.25453217804846,
+          "population_sd": 23.477689707575177
+        },
+        "episodes": 8,
+        "survived": 8,
+        "walking": 8
+      }
+    }
+  },
+  "supported_interpretations": [
+    "The frozen fresh-parent/2000-update MPPI benchmark cannot identify walking prediction and has insufficient declared motion variation. This is an identification failure of the version, not a protected comparison in which all scores lost to MSE.",
+    "Teacher source affects observed student outcomes under matched incoming packages, tapes and update counts, but source bundles different states, targets and trajectory structure; this contrast does not identify which feature caused the difference.",
+    "The reference result demonstrates occasional learning of walking with width128 and2000updates; it does not prove capacity is sufficient for all MPPI targets or establish reliable individual competence.",
+    "The observed MPPI action variation motivates treating residuals cautiously; it does not prove action averaging, smoothing, memory deletion or transport invariance is safe."
+  ],
+  "unresolved": [
+    "Whether any pre-update candidate predicts a genuinely useful MPPI learning update better than MSE.",
+    "How much teacher memory/randomness, coverage, action consequences, trajectory structure, finite fitting or policy capacity caused the transfer gap.",
+    "Whether learned incoming packages create useful MPPI learning-outcome variation, or merely retain pre-existing walking or regress under new supervision.",
+    "Whether any change improves a next standalone child while preserving teachers over multiple acquisition-learning rounds."
+  ]
+}

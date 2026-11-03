@@ -1,0 +1,212 @@
+{
+  "schema": "walker-similarity-j1-result-v1",
+  "status": "CLOSED_DEVELOPMENT_VARIATION_INELIGIBLE",
+  "automatic_followup": false,
+  "guidance_launched": false,
+  "objective_passed": false,
+  "protected_test_revealed": false,
+  "cases": 32,
+  "eligible_cases": 32,
+  "declared_source_groups": 16,
+  "independent_groups": 8,
+  "acquired_source_groups": 8,
+  "teacher_outcomes": {
+    "development_00_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 401.16212316595386
+    },
+    "development_00_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 552.5415102866365
+    },
+    "development_01_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 423.85242218413634
+    },
+    "development_01_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 505.25453217804846
+    },
+    "development_02_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 361.7673245310761
+    },
+    "development_02_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 579.5309804401222
+    },
+    "development_03_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 379.55716285348194
+    },
+    "development_03_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 538.3306663199065
+    },
+    "development_04_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 373.7414894239247
+    },
+    "development_04_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 520.8375940187138
+    },
+    "development_05_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 387.30942753910057
+    },
+    "development_05_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 541.7461652293227
+    },
+    "development_06_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 379.11258805877895
+    },
+    "development_06_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 536.8129946676088
+    },
+    "development_07_mppi": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 436.96283653832404
+    },
+    "development_07_reference": {
+      "controls": 1000,
+      "walking": true,
+      "survived": true,
+      "cost": 574.7929226205941
+    }
+  },
+  "scores_file": "worker/cases.json",
+  "costs": {
+    "requested": {
+      "environment_constructions": 1,
+      "checkpoint_loads": 1,
+      "resets": 528,
+      "external_mj_forward_calls": 1508,
+      "snapshot_reads": 162531,
+      "model_controls": 101746176,
+      "physics_substeps": 407630908,
+      "model_queries": 24632,
+      "native_controls": 161551,
+      "live_queries": 161551,
+      "contact_measurements": 161759,
+      "contact_force_queries": 159155,
+      "neural_rows": 16553551,
+      "prediction_calls": 201583,
+      "restores": 272,
+      "policy_constructions": 48,
+      "optimizer_constructions": 48,
+      "fits": 32,
+      "backward_rows": 16384000,
+      "optimizer_steps": 64000
+    },
+    "completed": {
+      "environment_constructions": 1,
+      "checkpoint_loads": 1,
+      "resets": 528,
+      "external_mj_forward_calls": 1508,
+      "snapshot_reads": 162531,
+      "model_controls": 101746176,
+      "physics_substeps": 407630908,
+      "model_queries": 24632,
+      "native_controls": 161551,
+      "live_queries": 161551,
+      "contact_measurements": 161759,
+      "contact_force_queries": 159155,
+      "neural_rows": 16553551,
+      "prediction_calls": 201583,
+      "restores": 272,
+      "policy_constructions": 48,
+      "optimizer_constructions": 48,
+      "backward_rows": 16384000,
+      "optimizer_steps": 64000,
+      "fits": 32
+    },
+    "unknown_partial": {},
+    "returned_unpersisted": {},
+    "storage": {
+      "requested_controls": 101907727,
+      "completed_controls": 101907727,
+      "requested_model_controls": 101746176,
+      "completed_model_controls": 101746176,
+      "requested_live_controls": 161551,
+      "completed_live_controls": 161551,
+      "requested_physics_substeps": 407630908,
+      "completed_physics_substeps": 407630908,
+      "unknown_partial_controls": 0,
+      "unknown_partial_physics_substeps": 0,
+      "model_queries": 24632,
+      "live_queries": 161551,
+      "failed_queries": 0,
+      "rejected_queries": 0,
+      "measurement_requests": 0,
+      "failed_measurements": 0,
+      "rejected_measurements": 0,
+      "requested_neural_rows": 16553551,
+      "completed_neural_rows": 16553551,
+      "unknown_partial_neural_rows": 0,
+      "requested_backward_rows": 16384000,
+      "completed_backward_rows": 16384000,
+      "unknown_partial_backward_rows": 0,
+      "requested_optimizer_steps": 64000,
+      "completed_optimizer_steps": 64000,
+      "unknown_partial_optimizer_steps": 0,
+      "resets": 528,
+      "reset_errors": 0,
+      "restores": 272,
+      "snapshots": 162531,
+      "episodes": 0,
+      "neural_rows": 16553551,
+      "backward_rows": 16384000,
+      "optimizer_steps": 64000,
+      "queries": 186183,
+      "physics_frames": 407630908,
+      "wall_seconds": 3016.2271090739996,
+      "array_format": "walker-array-stream-v1",
+      "storage_bytes": 2333136321,
+      "storage_limit_bytes": 6979321856,
+      "reserved_external_bytes": 536870912,
+      "emergency_reserved_bytes": 16384,
+      "evidence_poisoned": false,
+      "unknown_partial_model_controls": 0
+    }
+  },
+  "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+  "source_manifest_sha256": "efc4fbf36cb1b7c18808af0a35fffd9499e7cd73f3296a74066fc38f9accba58",
+  "input_manifest_sha256": "d510194cccebb1c3ec797e519c8af81b07b2e115a599bb79fe8f467268aa2ee1",
+  "worker_pid": 94016,
+  "coordinator_pid": 94014,
+  "no_guidance_experiment": true
+}

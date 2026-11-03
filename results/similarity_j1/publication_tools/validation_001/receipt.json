@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/test_collector_v002.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/test_materialize.py"
+      ],
+      "pid": 13001,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "wall_seconds": 0.5622195420437492,
+      "user_seconds": 0.30868599999999996,
+      "system_seconds": 0.119061
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--isolated",
+        "--no-respect-gitignore",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/collector.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/collector_base_001.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/verify_capsule.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/stream_previews.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/materialize.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/test_collector_v002.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/test_materialize.py"
+      ],
+      "pid": 13002,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "wall_seconds": 0.059732249996159226,
+      "user_seconds": 0.008152000000000048,
+      "system_seconds": 0.03286899999999998
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "--isolated",
+        "--no-respect-gitignore",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/collector.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/collector_base_001.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/verify_capsule.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/stream_previews.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/materialize.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/test_collector_v002.py",
+        "/Users/jaisel/Documents/mppi-gps/artifacts/2026-11-03_similarity_j1_preparation_001/publication_collection_002/test_materialize.py"
+      ],
+      "pid": 13003,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "wall_seconds": 0.017691624991130084,
+      "user_seconds": 0.0068849999999999745,
+      "system_seconds": 0.01124
+    }
+  ],
+  "actual_study_collections": 0,
+  "new_scientific_work": 0,
+  "network_calls": 0
+}
