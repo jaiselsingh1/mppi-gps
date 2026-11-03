@@ -26,16 +26,17 @@ reference recovery, not useful supervision. Those results remain unchanged.
 | --- | --- | --- |
 | **Main pre-update target:** does present similarity predict what an update teaches? | [J1 metrics](../src/gps/mppi_gps/similarity_metrics.py), controlled replanning, atlas and bound learning cases. | [J1](similarity_j1_results.md) was audited: MPPI-data children walked 0/256 and its variation gate failed. The protected comparison stayed unopened. No candidate superiority/equivalence is established; the next comparison needs useful outcome variation and paired update gains. |
 | **Main supporting diagnosis:** does post-fit on-policy error rank standalone walking? | [J2 execution](../src/gps/mppi_gps/jitter_diagnosis.py), exact endpoint checkpoints, 9,000 clean rows, [independent audit](../src/gps/mppi_gps/audits/jitter_diagnosis.py) and [saved-only report](../src/gps/mppi_gps/reporting/jitter_diagnosis.py). | [J2.0](jitter_diagnosis_j2_results.md) stopped correctly after six clean children walked 143/192; three met competence. No jitter fits or frozen primary occurred. Across those six, post hoc utilities were +0.78269 on-policy and −0.72471 offline. The [40-fit J2.1 proposal](jitter_diagnosis_j2_1_proposal.md) is unlaunched and asks a different, within-condition question. |
-| **Parallel bank/relabeling:** can saved MPPI samples yield useful policy-dependent labels? | Nine successful source episodes; partial final-pass banks, costs/weights, plans and warmstarts. | Reported label consistency increased, but students failed walking. Three relabel/refit iterations used a fixed bank and fresh actors, not new acquisitions or Adam/RNG continuation. These are provisional results; first audit what saved evidence supports. |
-| **Parallel guidance:** can policy-dependent terminal scores or matching change acquisition and learning? | Short policy continuations, finite perturbation-growth probes and `coupled_loop`. | The [handoff](../archive/coordination-2026-11-03/owner_handoff.md) reports an already running two-arm, three-round experiment. It changes the acquisition's actor field but refits on accumulated surviving episodes, without a contemporary uncoupled iterated control. Await closure and saved-evidence review; missing arms/fits are not zero-success trials. |
+| **Parallel bank/relabeling:** can saved MPPI samples yield useful policy-dependent labels? | Nine successful source episodes; partial final-pass banks, costs/weights, plans and warmstarts. | The saved-only join matches all 10 episodes/9,624 controls at retained precision; 9/10 walk conditional on recorded survival. Relabeling increased consistency, but every child remained 0/32. Three iterations used a fixed bank and fresh actors. Missing checkpoints/evaluation traces prevent a full scientific audit; next review one matched pre-update learning contrast. |
+| **Parallel guidance:** can policy-dependent terminal scores or matching change acquisition and learning? | Short policy continuations, finite perturbation-growth probes and `coupled_loop`. | The [closed owner run](../results/walker_coordination_closure_001/README.md) has original exit code 0: all six cells report child walking 0/64; final teacher walking is 5/6 (torque) and 4/6 (relabeling). It changes the acquisition actor but refits on selected accumulated data. No contemporary uncoupled loop control, optimizer continuation, complete ledger or independent audit exists. Audit retained outputs before another intervention. |
 
 The [coordination capsule](../results/walker_coordination_review_001/README.md)
 records preservation scope. Retrospective collection is not a launch freeze or
 scientific audit. Full J2 checkpoints, tapes and N+1 contexts remain external,
 with [availability bindings](../results/jitter_diagnosis_j2_001/external_evidence.json).
 The [code map](code_map.md) separates maintained implementations from historical
-scripts. Preserve active import paths until the paid branch process exits;
-cleanup must not rewrite its source or completed outputs.
+scripts. After the paid process exited, all 36 source bindings matched the
+committed archive before 34 one-off entry points were retired. Frozen source
+and completed output bytes remain intact.
 
 ## Claims requiring correction
 
@@ -48,20 +49,24 @@ cleanup must not rewrite its source or completed outputs.
 | “Full bank; exact importance correction; guidance cannot help.” | The bank keeps only final-pass sampled prefixes of eight/48 controls in float16 and selected float32 fields. Its first-action kernel/density rule mixes clipped/pre-clip quantities; exact proposal-ratio validity is unestablished. A few failed variants establish no universal impossibility. |
 
 The [note-change record](validation/walker_coordination_2026-11-03/obsidian_changes.json)
-identifies minimal corrections in the existing external Obsidian vault, not new
-result notes. Preserve `Research Thoughts.md`, Kendall's behavior-family framing
+and [final reconciliation](validation/walker_coordination_2026-11-03/obsidian_final.json)
+identify corrections in the existing external Obsidian vault, not new result notes. Preserve `Research Thoughts.md`, Kendall's behavior-family framing
 and Ben's questions. “Higher/lower frequency” means alignment with developing
 behavior families, possibly gaits, rather than frequency filtering. Corrective
 coverage, consequential errors and behavioral alignment remain separate.
 
 ## Next work to review
 
-Close and preserve the already paid branch run, actual exits and incomplete
-arms. Audit saved measurements and accounting within an explicit bound; missing
-contexts/checkpoints stay missing. Do not refit or repeat physics to manufacture
-a complete historical record.
+The paid branch run and original harness exits are now preserved. The
+[saved-bank join](../results/walker_coordination_closure_001/bank_reference_joins.json)
+checks full episode alignment, states/warmstarts/actions, retained-precision
+plans and left-fold costs without physics or inference. Initial final-pass
+nominals are explicitly excluded from incoming-plan equality. This is not a
+full scientific audit. Close remaining saved-accounting questions first;
+missing contexts/checkpoints stay missing. Do not refit or repeat physics to
+manufacture historical evidence.
 
-A subsequent **pre-update paired-learning** comparison needs a separately frozen
+The recommended subsequent **pre-update paired-learning** comparison needs a separately frozen
 hypothesis, equal incoming packages/data/update budgets, and fresh standalone
 gains. Include task-only and policy-only controls that respectively omit policy
 preference and the claimed task-improvement signal; a non-learner smooth prior

@@ -1,0 +1,27 @@
+{
+  "status": "PASSED_PURE_SOURCE_MOVE",
+  "original_archive": "/Users/jaisel/Documents/mppi-gps/archive/coordination-2026-11-03/untracked/scripts/diagnostics/action_spectrum.py",
+  "original_sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08",
+  "staged_sha256": "d1658b0cd941a37f7bb45babe05fac7b69188c23c3903fc6500b2d77ea6e034a",
+  "numerical_function_ast_equal": {
+    "neighbour_index": true,
+    "state_dependence": true
+  },
+  "constants": [
+    100,
+    100,
+    10
+  ],
+  "synthetic_neighbor_index_byte_equal": true,
+  "synthetic_state_dependence_exact_equal": true,
+  "terminal_rng_state_exact_equal": true,
+  "rng_draw_contract": "one integers(0,N,(2,200_000)) call, 400000 integer values",
+  "ruff_check": "All checks passed!\n",
+  "wall_seconds": 0.09067737503210083,
+  "new_scientific_work": {
+    "physics_controls": 0,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0
+  }
+}

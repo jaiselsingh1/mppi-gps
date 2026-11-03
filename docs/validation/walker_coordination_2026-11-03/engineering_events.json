@@ -1,0 +1,15 @@
+{
+  "schema": "walker-cleanup-engineering-events-v1",
+  "events": [
+    {
+      "event": "Initial branch metadata checker did not support the already-present SAC capsule_files contract and raised KeyError(files).",
+      "resolution": "Reused the strictly validated metadata-only checker supporting both immutable contracts. All capsule/archive/link checks then passed.",
+      "new_scientific_work": 0
+    },
+    {
+      "event": "An initial source-copy attempt used a main-relative destination while already in the SAC cwd and failed without modifying files.",
+      "resolution": "Used an absolute main source path and the correct branch-relative destination.",
+      "new_scientific_work": 0
+    }
+  ]
+}
