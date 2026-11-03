@@ -146,6 +146,83 @@
         "bytes": 325461370,
         "sha256": "43593c4aad640ae789f160f7ea6186f4631cf4237a8765ac5e8dd6f004dfc147"
       }
+    },
+    "2026-11-03_jitter_diagnosis_j2_001": {
+      "local_directory": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_jitter_diagnosis_j2_001",
+      "remote_directory": null,
+      "availability": "local_only",
+      "remote_copy_verified": false,
+      "source_commit": "edda434a2771194163aa5be883b83f4f94d3cd56",
+      "config_sha256": "cb26a545940b7fa23f3260b97a1dfe3e1163e911a82f0d926e8315c02176f0ef",
+      "result_sha256": "29c0b96a3ad00e61c761456233814097224bfa96817a30154e9762778b05bf7c",
+      "audit_sha256": "aa8b038639f042192f7d154c9e2291cc03b33e9a1cd92642f9f371e9419176d0",
+      "capsule": {
+        "file": "results/jitter_diagnosis_j2_001/capsule.json",
+        "bytes": 13743,
+        "sha256": "481974f84a19625630c970c3f33eb1f92e81c13fc45c2b08cf116c017cbf1174"
+      },
+      "external_inventory": {
+        "file": "results/jitter_diagnosis_j2_001/external_evidence.json",
+        "bytes": 20946,
+        "sha256": "d51e7ba45c499cf92e6ba8903464368baa8b9ea5088177a985230a3c3a10071f"
+      },
+      "status": "STOPPED_CLEAN_POSITIVE_CONTROL",
+      "audit_passed": true,
+      "primary_comparison_executed": false,
+      "actual_fits": 6,
+      "actual_curve_points": 60000,
+      "walking": [
+        5,
+        15,
+        32,
+        30,
+        30,
+        31
+      ],
+      "competent_children": 3,
+      "reference_walking": "32/32",
+      "completed_work": {
+        "environment_constructions": 1,
+        "checkpoint_loads": 1,
+        "reference_actor_constructions": 1,
+        "policy_constructions": 12,
+        "optimizer_constructions": 6,
+        "fits": 6,
+        "native_controls": 189732,
+        "physics_substeps": 758928,
+        "neural_rows": 15702957,
+        "network_calls": 252975,
+        "backward_rows": 15360000,
+        "optimizer_steps": 60000,
+        "preallocated_index_values": 15360000,
+        "sampled_index_values": 15360000,
+        "resets": 272,
+        "restores": 63,
+        "external_forwards": 607,
+        "snapshot_reads": 190130
+      },
+      "audit_work": {
+        "neural_rows": 344493,
+        "read_bytes": 1526832387,
+        "new_physics_controls": 0,
+        "new_optimizer_steps": 0
+      },
+      "storage_snapshot": {
+        "scope": "Named study roots only; inherited original datasets, Git objects and CI scratch excluded. Not all-filesystem transient peak.",
+        "observed_at_utc": "2026-11-03T05:59:33.747389+00:00",
+        "roots": {
+          "artifacts/2026-11-03_jitter_diagnosis_j2_001": 30254833,
+          "runs/2026-11-03_jitter_diagnosis_j2_001": 199725495,
+          "results/jitter_diagnosis_j2_001": 5687625
+        },
+        "total_bytes": 235667953,
+        "limit_bytes": 4294967296,
+        "scientific_run_locked_readonly": true,
+        "compact_replay_read_bytes": 2136247,
+        "compact_replay_wall_seconds": 1.507932249980513,
+        "terminal_context_snapshot_read_bytes": 2305815,
+        "new_scientific_work": 0
+      }
     }
   },
   "focused_diagnosis": {
@@ -4130,6 +4207,15 @@
         "minibatch tapes",
         "launch manifests"
       ]
+    },
+    "j2_within_clean_posthoc": {
+      "file": "results/jitter_diagnosis_j2_001/posthoc/summary.json",
+      "bytes": 4106,
+      "sha256": "d043dcc9b7878b2cdeacf592d8f2e618edf9172d68725def5224d7566e2d18d4",
+      "scope": "Post-hoc within-clean six-student association; not the stopped frozen primary or confirmation.",
+      "utility_on_policy": 0.7826908981308054,
+      "utility_offline": -0.7247137945655605,
+      "new_scientific_work": 0
     }
   }
 }

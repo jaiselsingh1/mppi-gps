@@ -1,0 +1,94 @@
+Context from the parallel "gait matching" session (Claude, branch sac-continuation),
+as of 2026-11-03. Its scripts are uncommitted in
+.claude/worktrees/sac-continuation/scripts/diagnostics/; outputs are in
+runs/2026-11-02_* and runs/2026-11-03_* (git-ignored). Numbers are that session's.
+
+LEARNER AND DATA
+- Positive control (runs/2026-11-02_student_positive_control_001): the same
+  128-unit tanh learner clones SAC well at 9,000 rows and 10,000 updates. 94/96
+  walk from standing; 99% keep walking from mid-stride. J1's 1,000 rows and 2,000
+  updates is far below that, which is why J1's SAC-data children walked only 35/256.
+- At that full budget, students on MPPI data (default or smooth 5 Hz) still walk
+  0/96. They memorize: 78% of torque explained on the training walks, 18-30% held
+  out (SAC: 99%). They fall from every mid-stride MPPI start within about 0.6 s.
+- Docs fix needed: docs/sac_continuation_results.md cites S1.1 as "even oracle
+  clones fail". That failure was mostly undertraining.
+
+WHY ACTION AGREEMENT ISN'T THE SIMILARITY
+- Jitter tolerance (runs/2026-11-02_jitter_tolerance_001): jitter added to SAC's
+  labels at 10% of label variance gives MPPI-like 32/96, white 51/96, slow (2 Hz)
+  0/96. At 25%, MPPI-like gives 2/96. The action error is the same size, but walking
+  differs a lot: whether errors persist over time is what matters.
+- SAC running its own actions survives white noise (sd 0.3), offsets and +/-30%
+  gain. A 2-control delay or smoothing with tau 4 drops walking to 0%.
+- The full 17-D feedback (Jacobian) gap to SAC does not predict clone walking
+  (Spearman -0.28 vs action MSE -0.51). With identical data and the same offline
+  MSE, student seed 1 walks 0/32 where seeds 0 and 2 walk about 25.
+- On-policy disagreement catches that seed. It is the gap between the student and
+  SAC on the student's own states, over 0.8 s from standing, on probe resets kept
+  separate from the walking resets. AUC 0.996 vs 0.969 for offline MSE.
+  Limits: found after the fact, the whole edge is one seed seen in three
+  conditions, and the Spearman test set in advance failed (-0.53 vs -0.51). It is
+  measured after fitting, so it is a diagnosis, not a before-training score.
+
+MPPI'S LABELS
+- MPPI's action is set by its state plus its carried plan (92% together).
+  - A fresh plan at the same states explains only 17-25%; at student states, 9-18%.
+  - The carried plan shifts the action by MSE 0.25, against 0.02 from sampling.
+  - About 35x compute per query still reaches only 43-44%.
+  - So single MPPI queries at student states are mostly noise, which rules out
+    DAgger-style MPPI labels.
+- Kendall: MPPI only works because each step plans around the previous plan.
+  Never frame memoryless MPPI as a candidate teacher.
+- MPPI's motion is cleaner than its torques: posture 0.2-0.6 s ahead is 62-66%
+  set by the state, vs 4% for torque (SAC: 97%).
+
+ALREADY TRIED INSIDE MPPI (students walked 0/96 in every case)
+- Torque-matching term toward a SAC clone or the falling student. Best consistency
+  was 20%, and a strong pull toward the clone made MPPI fall.
+- Posture matching toward the policy's rollout.
+- Match-only MPPI with no task cost: falls within about 15 controls. Even handed the
+  clone's exact plan it drifts and falls, because it executes the weighted average
+  of noisy samples.
+- Warm start kept as one of the samples: 3/6 walk vs 5/6.
+- Lower noise or a hotter temperature: 0/6 walk.
+- 4x rollouts: only about 3 samples still carry the weight.
+- Best rollout only: 4/6 walk, +83% cost, no cleaner.
+- Terminal "confidence" cost from student-ensemble agreement, at three weights.
+  It never steered MPPI toward familiar states, and at the strongest weight MPPI
+  fell 6/6. Likely cause: those students memorized MPPI's walks. Kendall suggests
+  retrying with lightly trained students.
+Kendall's read: "affecting the rollouts and averaging might not be the right place
+to guide the policy." His standing ask: "just figure out a similarity function."
+
+IN PROGRESS
+Two ways to score where an MPPI rollout ends, using the policy itself:
+- (a) policy value: let the policy drive for 0.4 s from the end state;
+- (b) stability: run the policy from the end state and a few nudged copies for
+  0.2 s, and check whether they converge.
+Calibration at 153 MPPI states passed:
+- stability rank-correlates with takeover survival at -0.63 (SAC clone) and -0.42
+  (falling student);
+- the value version reaches -0.92 and -0.75;
+- at MPPI's states, both policies spread nudges about 10x over 0.2 s.
+MPPI runs with each score are underway. A quick literature check found no direct
+match for the stability version.
+
+WHAT THIS MEANS FOR J1
+- Don't launch J1.1-B as drafted. It keeps the undertrained budget, and the jitter
+  result predicts that fine-tuning the SAC-trained children on MPPI data will erase
+  their walking.
+- Any benchmark that needs MPPI-trained students to walk will come out all-fail. It
+  has been 0/96 at every budget and with every MPPI variant tried.
+- Use the positive-control budget and survival / time-to-fall as an outcome. Don't
+  use a time-synchronized motion score with a fall penalty: it sits near 2 for
+  every child that doesn't follow the teacher step for step.
+- The jitter datasets already give the outcome variation J1 lacked (0-94/96), with
+  no new MPPI runs.
+- Suggested next test: confirm the after-training diagnosis on about 10 fresh seeds
+  per split condition (clean, MPPI-like 10%, white 10%, white 25%).
+  - Criterion: within each condition, does the score rank students by walking
+    better than offline MSE?
+  - Record the before-training scores, but don't grade them.
+  - Add the stability score as a column. It needs no teacher, so it is the one that
+    could carry over to MPPI.

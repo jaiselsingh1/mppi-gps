@@ -1,0 +1,576 @@
+{
+  "git_commit": "edda434a2771194163aa5be883b83f4f94d3cd56",
+  "created_at_utc": "2026-11-03T05:29:35.641417+00:00",
+  "files": {
+    "assets/walker2d.xml": {
+      "bytes": 4950,
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    "configs/studies/jitter_diagnosis_j2_0.json": {
+      "bytes": 42421,
+      "sha256": "cb26a545940b7fa23f3260b97a1dfe3e1163e911a82f0d926e8315c02176f0ef"
+    },
+    "docs/jitter_diagnosis_j2_protocol.md": {
+      "bytes": 14951,
+      "sha256": "6b5e9799720f6ae53c38f8e4e9609626bcb3c9480612bfce4a390380be00ad50"
+    },
+    "pyproject.toml": {
+      "bytes": 1571,
+      "sha256": "7fbd17ad0f9e98c12e31d30c8d53e282c06f3bd1725d8a9124b56d64aa1ca0a9"
+    },
+    "scripts/train_mppi_gps.py": {
+      "bytes": 6180,
+      "sha256": "6a7a22bbea3a2ba84bd7acd43ab800b597b6ca2e0b48fdb4154fdb427b658337"
+    },
+    "src/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src/envs/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src/envs/base.py": {
+      "bytes": 2097,
+      "sha256": "76e99e1cab088ac78dc1ffb3d17473afe40aa284db0136d3e372f47b037c38e3"
+    },
+    "src/envs/mujoco_env.py": {
+      "bytes": 10288,
+      "sha256": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a"
+    },
+    "src/envs/walker2d.py": {
+      "bytes": 9411,
+      "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6"
+    },
+    "src/gps/__init__.py": {
+      "bytes": 79,
+      "sha256": "fef3e79e1938c559182135f9f7241355c8795180cff60180fa8d38805d1b15f8"
+    },
+    "src/gps/mppi_gps/__init__.py": {
+      "bytes": 73,
+      "sha256": "6ec41dbdaee411cffec8f2e9844a9e27aa541a7c9093db32ba8523d710f10a2e"
+    },
+    "src/gps/mppi_gps/audits/__init__.py": {
+      "bytes": 240,
+      "sha256": "8bf2e9870f41f29beaf1c0ea96a9a7b396722411cd730c2991e2d53f9258fbb8"
+    },
+    "src/gps/mppi_gps/audits/common.py": {
+      "bytes": 12256,
+      "sha256": "bbb90fcc1a6731da30bc5744002da3dda994005e5abb83f5049a8504f68f09e6"
+    },
+    "src/gps/mppi_gps/audits/compatibility.py": {
+      "bytes": 50500,
+      "sha256": "da20dc15f518c9542c495c6bfb5e693486587ff0c8cb38d263297d9b3b34f7f2"
+    },
+    "src/gps/mppi_gps/audits/consequence_closure.py": {
+      "bytes": 22646,
+      "sha256": "4ec8b6cba6d975b1decb1a4ce0415d7fd505f46205eb7d57ecedb02dd5cff947"
+    },
+    "src/gps/mppi_gps/audits/consequence_recovery.py": {
+      "bytes": 43703,
+      "sha256": "9be518ff8e4d691d8107ab7a8383f758b1a83a1159dd26c409f7ea184d0c4bc1"
+    },
+    "src/gps/mppi_gps/audits/coupling.py": {
+      "bytes": 30908,
+      "sha256": "dfbccea7bca2b33a58bbdac9e7c8b3a683c7558527e7c7894dc407d6c9dbd076"
+    },
+    "src/gps/mppi_gps/audits/coupling_detail.py": {
+      "bytes": 10339,
+      "sha256": "d73809437d8f8df4b88f11c0349692a5fb6be510ccf0cb1cbb393db0686ad7bb"
+    },
+    "src/gps/mppi_gps/audits/guided_data.py": {
+      "bytes": 24501,
+      "sha256": "8814e24d4ea7c06d3d262a7963bcc0d68582320559d48ede82d0d351a8055d8c"
+    },
+    "src/gps/mppi_gps/audits/jitter_diagnosis.py": {
+      "bytes": 70050,
+      "sha256": "0e698ed34843366486e20616e6868e5506b2371a2ed50dd62ba8c7d1a2e05cc8"
+    },
+    "src/gps/mppi_gps/audits/learnability.py": {
+      "bytes": 17152,
+      "sha256": "30f86fdaf57e5e89e199734cde5f606080937153f542e311e0374d23b67b1151"
+    },
+    "src/gps/mppi_gps/audits/motion_diagnosis.py": {
+      "bytes": 52584,
+      "sha256": "ab3e4d4df7fbaa4f9f9aab205a9aa8621377850eb12a45d05ef2dfc02a226f62"
+    },
+    "src/gps/mppi_gps/audits/native.py": {
+      "bytes": 19017,
+      "sha256": "2c5aac2407a2501e311d7c1dde10b390408de3ac9775b71e7ada46fde4d63694"
+    },
+    "src/gps/mppi_gps/audits/outcome_detail.py": {
+      "bytes": 5390,
+      "sha256": "20316910eced0daa8933b214cd2343ced45a6c6272cd8551df5b1ec627d0b521"
+    },
+    "src/gps/mppi_gps/audits/similarity.py": {
+      "bytes": 92030,
+      "sha256": "73c6db1c45bc5dff1d461d161781dab91267d2e1cd9dc222cceb8a22181bb761"
+    },
+    "src/gps/mppi_gps/audits/source.py": {
+      "bytes": 48930,
+      "sha256": "5a1af1b3def86cd8a15faab54b92a2f0eda3be5f20041da3e4759e0106e5af06"
+    },
+    "src/gps/mppi_gps/audits/source_evaluation.py": {
+      "bytes": 45380,
+      "sha256": "e706c2c30c962e2ca33168534ea3cc9223791f78c5e642616ba864c40f841d8a"
+    },
+    "src/gps/mppi_gps/audits/source_interruption.py": {
+      "bytes": 34867,
+      "sha256": "99387de1d883cff79ccbe2c674842739bc94fe55416796a56948349e96352c4a"
+    },
+    "src/gps/mppi_gps/audits/student_consequence.py": {
+      "bytes": 114102,
+      "sha256": "1140953a69e5570e9d6b1d548b4026715c7bb5e69b7c8e6e1ccccd03bddf618d"
+    },
+    "src/gps/mppi_gps/audits/student_visitation.py": {
+      "bytes": 69157,
+      "sha256": "1134f930774e482f9c9a439cfdf6f8df4301fbd5c1c1613e86d77a46c8df0684"
+    },
+    "src/gps/mppi_gps/audits/teacher_proposal.py": {
+      "bytes": 133834,
+      "sha256": "59dfaddaa9bca7160d72caa196b0ce0fc28dc185ab2a340321fc3df7a1b85703"
+    },
+    "src/gps/mppi_gps/audits/trajectory_review.py": {
+      "bytes": 39570,
+      "sha256": "5378e7dea986dcc52110fe9c468971a6f30f8352ac43cc8882124b519e5d16fe"
+    },
+    "src/gps/mppi_gps/audits/transfer.py": {
+      "bytes": 56919,
+      "sha256": "c58b77ecb09ea85290643de05aece3c84a943d4bdfb67af7f90bd94280cafb29"
+    },
+    "src/gps/mppi_gps/audits/update_budget.py": {
+      "bytes": 28183,
+      "sha256": "e4710b5b6d7eb64cacf3ab79571a01ca5e6469e3700329326527bd5d967c999f"
+    },
+    "src/gps/mppi_gps/audits/width.py": {
+      "bytes": 37047,
+      "sha256": "0fc37fc351673b2a9c90f705928440e5ecf95d64beaab0b1480c972d7a860aa7"
+    },
+    "src/gps/mppi_gps/compatibility_inputs.py": {
+      "bytes": 25352,
+      "sha256": "2343e8fffcf690c23ad9d8f018860b7527066d560cbcaed9650620cb22830c58"
+    },
+    "src/gps/mppi_gps/compatibility_metrics.py": {
+      "bytes": 20512,
+      "sha256": "fbcca99cbc02f733d2f532f288e741b2fa6920bc89fc98f3012b774ce7f0cdd9"
+    },
+    "src/gps/mppi_gps/consequence_execution.py": {
+      "bytes": 7039,
+      "sha256": "21b923309e53b8d5a1297e8918e77c51a91d0fed978496761a0fd9fd5611d934"
+    },
+    "src/gps/mppi_gps/consequence_inputs.py": {
+      "bytes": 34089,
+      "sha256": "2b81d9ade11c6285c467ddbadb23735fb5daf0ab0247a3d7a8ff93f4236745ca"
+    },
+    "src/gps/mppi_gps/consequence_learning.py": {
+      "bytes": 33426,
+      "sha256": "4a0029b4ffb503c51095c5300784c73e0deefbeee4c140d5718ef1dbb064840f"
+    },
+    "src/gps/mppi_gps/consequence_native.py": {
+      "bytes": 13091,
+      "sha256": "43b0f03eca7911771a78c0f60a28edc7914fe27d1d57234b26a72f84f15d1812"
+    },
+    "src/gps/mppi_gps/consequence_preflight.py": {
+      "bytes": 10803,
+      "sha256": "24a6252b580ac3f2869b7c2db08debdcf532575edf02bf765ee51e0b0167ce38"
+    },
+    "src/gps/mppi_gps/consequence_storage.py": {
+      "bytes": 25499,
+      "sha256": "dcf7f3ef769c252b9d86d6a61eb04d33dac122a27353b85c047a06fae03a213d"
+    },
+    "src/gps/mppi_gps/consequence_student.py": {
+      "bytes": 14319,
+      "sha256": "84bfb4e8be16f087569f546f32133c4038952c9b357e3ef193e1abec40b1f263"
+    },
+    "src/gps/mppi_gps/coupling_backoff.py": {
+      "bytes": 3607,
+      "sha256": "5b3c2b9cc1b26aa68c6f4bb599764831884d30b6d377295dbd43479dd1d045bc"
+    },
+    "src/gps/mppi_gps/diagnostic_policies.py": {
+      "bytes": 9993,
+      "sha256": "c322c020a5a5bfce3db32372c928babdce797eade4c736ad9afc0033982112b6"
+    },
+    "src/gps/mppi_gps/diagnostics.py": {
+      "bytes": 17965,
+      "sha256": "a88d661cb517348efe50940166f56fe7c62c75ea07f3cd547380a228e30ae7ec"
+    },
+    "src/gps/mppi_gps/durability.py": {
+      "bytes": 19467,
+      "sha256": "d8900cf4341a40cbc7e3fb872ea6fa66e0b26fa066813177f653871bfbc12a0f"
+    },
+    "src/gps/mppi_gps/evaluation_exchange.py": {
+      "bytes": 8279,
+      "sha256": "a7f96c18f9a1cbacca9abbb3ff75fbb0488b9634b1e3f599ebd572f299d56493"
+    },
+    "src/gps/mppi_gps/execution.py": {
+      "bytes": 10815,
+      "sha256": "c88973e23fbde5b23e97ffdd236036d610aad50a4d8c478ab04f47c58c1ee940"
+    },
+    "src/gps/mppi_gps/experience.py": {
+      "bytes": 32894,
+      "sha256": "9f03a96006a0928b86a81eb1e90bc6f75cf810461cdf02c1b817df26df9b0b17"
+    },
+    "src/gps/mppi_gps/experiments/__init__.py": {
+      "bytes": 72,
+      "sha256": "0314d38c11af4a34624c74ae38d88f8cba2dd7f12ff23ac220044891d62e05dc"
+    },
+    "src/gps/mppi_gps/experiments/action_compatibility.py": {
+      "bytes": 35007,
+      "sha256": "eb2999c6fa18dcfd7586d070ae6d4b92407e304754bb858abe8c1005eb544abb"
+    },
+    "src/gps/mppi_gps/experiments/adaptive_coupling.py": {
+      "bytes": 38902,
+      "sha256": "4d804baf68d0884edb4e5b40bc537623ffaa1fc3d55bcdeef3281631dcb0861a"
+    },
+    "src/gps/mppi_gps/experiments/consequence_certificate_closure.py": {
+      "bytes": 20047,
+      "sha256": "c7b1354cfecd4ad311b03ed95d3dbc8622082de789325a15ffcfd3f0b204a435"
+    },
+    "src/gps/mppi_gps/experiments/consequence_recovery.py": {
+      "bytes": 27941,
+      "sha256": "50b239f8b053915ef207918e9d518214c7ca5bdd4501156960a385d6e3a72751"
+    },
+    "src/gps/mppi_gps/experiments/guided_data_comparison.py": {
+      "bytes": 25140,
+      "sha256": "bd346f2f3a4b8ea8e55d952465714f88e46078c7b973acf3688e760fa89dab8c"
+    },
+    "src/gps/mppi_gps/experiments/motion_diagnosis.py": {
+      "bytes": 17898,
+      "sha256": "60b1255120455f77842537ed3d5180abf3c10a675c1922433e6c0b14850e0028"
+    },
+    "src/gps/mppi_gps/experiments/similarity_investigation.py": {
+      "bytes": 176,
+      "sha256": "57851478bbec0f1fed33aac683592cd40db89f8cd821af33c07116b37b5dbc4b"
+    },
+    "src/gps/mppi_gps/experiments/student_consequence.py": {
+      "bytes": 18856,
+      "sha256": "28e990dfbf90d1a00dce6be56ce97ebd5f3178cb8fd2bd99a0fdb05259aa0f5b"
+    },
+    "src/gps/mppi_gps/experiments/student_learnability.py": {
+      "bytes": 30719,
+      "sha256": "144172e231fc27c8ee1c41bafcb164fd3009f9a9f78f3d7e86b31b900503cfe8"
+    },
+    "src/gps/mppi_gps/experiments/student_source.py": {
+      "bytes": 30057,
+      "sha256": "95bae23dfb63ae51f6b607e2e3f0e8c6461a9b138cc6212aed2717d38d526f25"
+    },
+    "src/gps/mppi_gps/experiments/student_source_evaluation.py": {
+      "bytes": 24979,
+      "sha256": "db7f7eca61d819101bd82b62fe334e61f6a3b1088c22d2a202a02f999018b508"
+    },
+    "src/gps/mppi_gps/experiments/student_update_budget.py": {
+      "bytes": 28706,
+      "sha256": "38ae6569e39840f71aeb54dcbaadd218bf40ea95812b3c145d38ce3d7d28db00"
+    },
+    "src/gps/mppi_gps/experiments/student_visitation.py": {
+      "bytes": 22903,
+      "sha256": "f63cd03a9798aeaca6231149ace4ced956e8517b20f05d8d26255fe2fe9bf53b"
+    },
+    "src/gps/mppi_gps/experiments/student_width.py": {
+      "bytes": 23858,
+      "sha256": "4f9e327ca91c28adcd73ea8263c05b4b1c3e55d52bb730a440cb43543c7eb725"
+    },
+    "src/gps/mppi_gps/experiments/teacher_proposal.py": {
+      "bytes": 8923,
+      "sha256": "e7db493da839241f238af897da3a2c4e7a1eea7f01f60ac3037af0c3827dc508"
+    },
+    "src/gps/mppi_gps/experiments/trajectory_review.py": {
+      "bytes": 14651,
+      "sha256": "0f9c9504fc09f7c11a47d20d6fd0fddf6410130667d8fbbfa285860300e6ec63"
+    },
+    "src/gps/mppi_gps/experiments/transfer_diagnosis.py": {
+      "bytes": 20422,
+      "sha256": "a17c187feacda701186955e7d75329a886c79067867997b651156916ac32c6de"
+    },
+    "src/gps/mppi_gps/guided_proposals.py": {
+      "bytes": 25214,
+      "sha256": "39149c31c586ca3415891c656e6fe3460d9074c43b54c62cb99608f09a93e3c6"
+    },
+    "src/gps/mppi_gps/inspection.py": {
+      "bytes": 76705,
+      "sha256": "5b19efa020d42e565604e535e81cbe3ac5e9c1453d2565c6376ce217a52f3328"
+    },
+    "src/gps/mppi_gps/jitter_diagnosis.py": {
+      "bytes": 42083,
+      "sha256": "0d009537843b3c5cc5be03e94264167d805f0252d7e14c902e6a50a12f2cb779"
+    },
+    "src/gps/mppi_gps/lifecycle.py": {
+      "bytes": 2939,
+      "sha256": "eba6740afa9aeef71d819f8753093b075208b855df2201101dbc5d5b732ae202"
+    },
+    "src/gps/mppi_gps/loop.py": {
+      "bytes": 39230,
+      "sha256": "1894c1881e97693837be1e0de52a8129f414adbeb69a33c823d8c1b788fe5430"
+    },
+    "src/gps/mppi_gps/metrics.py": {
+      "bytes": 1248,
+      "sha256": "f2e8f143a73e4a1c8b8c3bc6411f1d1d8f27aab3096f3f08724b1a4586e7c890"
+    },
+    "src/gps/mppi_gps/motion_diagnosis.py": {
+      "bytes": 13034,
+      "sha256": "d57c8b997e4e23f001431f2beb1d0e6dbceaca093a7d5d318b0ca6b2c419583a"
+    },
+    "src/gps/mppi_gps/motion_inputs.py": {
+      "bytes": 8426,
+      "sha256": "08c98976d111692217344e369b40e7bc9abc2abe5805409b523b600715b81016"
+    },
+    "src/gps/mppi_gps/policy.py": {
+      "bytes": 27021,
+      "sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc"
+    },
+    "src/gps/mppi_gps/post_update.py": {
+      "bytes": 6166,
+      "sha256": "590cd8dafbb1b577eb23f54f6f7ba828a7ad637456d1c234155d35e877a33e6c"
+    },
+    "src/gps/mppi_gps/proposal_budget.py": {
+      "bytes": 22968,
+      "sha256": "19e3b6d0dc65a3b5485421e2bb2ea20c034cfcefecc2e7bc3c7649414db002cd"
+    },
+    "src/gps/mppi_gps/proposal_evidence.py": {
+      "bytes": 14097,
+      "sha256": "4d83e58988eb8f947af297a0f68a98987459867088c3c9926ba8334b21fded0c"
+    },
+    "src/gps/mppi_gps/proposal_execution.py": {
+      "bytes": 13830,
+      "sha256": "da7fdf5cf79c4c5eb894b37cbe4544b571a74aecf56b6cd59d1dc771bbed8c57"
+    },
+    "src/gps/mppi_gps/proposal_launch.py": {
+      "bytes": 10009,
+      "sha256": "28de956706948467f7fa5235b3dd82bafeb93cfe2bece319a6771a39f9477256"
+    },
+    "src/gps/mppi_gps/proposal_native.py": {
+      "bytes": 23115,
+      "sha256": "e061f37fc13d44a9edaac0b635d599f4651179d005da7e01dc7137c3f1a2c78b"
+    },
+    "src/gps/mppi_gps/proposal_round.py": {
+      "bytes": 9311,
+      "sha256": "ad285823d24406c94273ad40fb0d726c3f3a1139e50ceb29dfee77f52d85f611"
+    },
+    "src/gps/mppi_gps/proposal_storage.py": {
+      "bytes": 10815,
+      "sha256": "1d60a58f53908f7c9b87868179400a677f49d9cec80268c03e8919a2405d74c1"
+    },
+    "src/gps/mppi_gps/provenance.py": {
+      "bytes": 4019,
+      "sha256": "afe07b1860731267e3c4777e4a0cf18dbad0209e02429b82f70b2526c3e80b99"
+    },
+    "src/gps/mppi_gps/recipes.py": {
+      "bytes": 806,
+      "sha256": "96a09e010ea4e6bd3e5fb0472e9f8372b91561c3a5bf87daf4931e31f957b685"
+    },
+    "src/gps/mppi_gps/reporting/__init__.py": {
+      "bytes": 70,
+      "sha256": "cffae4650008a6b00a8ace134bb9f8a8774434c16a4a028716e47d3ed0e309fb"
+    },
+    "src/gps/mppi_gps/reporting/action_compatibility.py": {
+      "bytes": 45779,
+      "sha256": "cef418f6825706827a76698fd75d6460dec23be218fa6e462f0cf8e08c9fb632"
+    },
+    "src/gps/mppi_gps/reporting/guided_data_comparison.py": {
+      "bytes": 11030,
+      "sha256": "51aef0e9a90fde1befaa0e3de160ee1c591ed56195a69d3bb520f21af5edfb2a"
+    },
+    "src/gps/mppi_gps/reporting/jitter_diagnosis.py": {
+      "bytes": 28278,
+      "sha256": "dbce113235841c883a61bc7e39b59965247e500df78e184bd906b74fa72afe15"
+    },
+    "src/gps/mppi_gps/reporting/motion_diagnosis.py": {
+      "bytes": 30689,
+      "sha256": "eb0b97c3b1b7764dd24ebcc8f88db6bbc00c1f7c4e894832ef8b253e27086b75"
+    },
+    "src/gps/mppi_gps/reporting/sac_diagnostics_review.py": {
+      "bytes": 10796,
+      "sha256": "917a0a3fb54c7b8563139ce359b8a3911f04541b06c1ad8499fcadb3914cd7d2"
+    },
+    "src/gps/mppi_gps/reporting/similarity.py": {
+      "bytes": 34377,
+      "sha256": "d4904bbe290ea235918aec7c2b21304cbaffb4ad3ce4f0c593dc955e704106f0"
+    },
+    "src/gps/mppi_gps/reporting/similarity_capsule.py": {
+      "bytes": 12526,
+      "sha256": "99d4390e15ebd01a6c8596ee9b6b16632b4dbb95ce4341e5243acfb2bbc50d70"
+    },
+    "src/gps/mppi_gps/reporting/similarity_diagnostic.py": {
+      "bytes": 21245,
+      "sha256": "63b6a2068f522b569f2c2af9f96317080a72f47f9eb6249d9dabd198e5adcafe"
+    },
+    "src/gps/mppi_gps/reporting/source.py": {
+      "bytes": 81358,
+      "sha256": "ed05b89ae3d5c56eba33a7eead1ab53a36682a943d4e18188017174218275bbf"
+    },
+    "src/gps/mppi_gps/reporting/student_consequence.py": {
+      "bytes": 32272,
+      "sha256": "909db52dc433dfc36c874afb87aec110c7813313718390976e0e75970a45c198"
+    },
+    "src/gps/mppi_gps/reporting/student_visitation.py": {
+      "bytes": 15066,
+      "sha256": "61fa31988f7fdc8377e5ac390cf64051daf6e2a8cd52a6d0c3873badbf17803f"
+    },
+    "src/gps/mppi_gps/reporting/teacher_proposal.py": {
+      "bytes": 32216,
+      "sha256": "de1ad2c0048ed64f5627a955c737dd79f94f46c6b0b929148f8be36643e66318"
+    },
+    "src/gps/mppi_gps/reporting/trajectory_review.py": {
+      "bytes": 17943,
+      "sha256": "55222025cb1d717dd007408d303de73af03c27e0808dc9754ebc8ab62eb509e1"
+    },
+    "src/gps/mppi_gps/reporting/transfer.py": {
+      "bytes": 49428,
+      "sha256": "eae254d5365fc5df1302193d456cea84a94798b0ab50a758bd5757298fdec6a7"
+    },
+    "src/gps/mppi_gps/reporting/update_budget.py": {
+      "bytes": 20201,
+      "sha256": "b793e9ab06786db2babd74b9a728568c3d0d0c9e1ac848a300fcaef57e7791df"
+    },
+    "src/gps/mppi_gps/reporting/walker_experiments.py": {
+      "bytes": 9763,
+      "sha256": "5a2a11ff7be978f78be69c09e607b38c77b03da1aa676c6e293a1c54b6698fb5"
+    },
+    "src/gps/mppi_gps/reporting/width.py": {
+      "bytes": 21734,
+      "sha256": "841cc15418b1c8c597990cfe7938615d5f041a6050bfdc29eaec65e48ed4e827"
+    },
+    "src/gps/mppi_gps/runtime.py": {
+      "bytes": 27080,
+      "sha256": "3f6a0308cfa5911c4146d39c81b7ca9a345a65e469d734ecabfba914318fc83d"
+    },
+    "src/gps/mppi_gps/search.py": {
+      "bytes": 20222,
+      "sha256": "c47f77f56b8085be074811f8d49f873f925e4f853263f750d06b664bf1f644bd"
+    },
+    "src/gps/mppi_gps/similarity_atlas.py": {
+      "bytes": 33622,
+      "sha256": "bddce3f52143c1eb052447de52dc2df0eb3b769c22ae620bdada65c3aaeff93a"
+    },
+    "src/gps/mppi_gps/similarity_execution.py": {
+      "bytes": 32528,
+      "sha256": "2c3c4abcb11989e60a1560ae9580be600a58f17afa789bc9f10eb3d969f5d636"
+    },
+    "src/gps/mppi_gps/similarity_launch.py": {
+      "bytes": 26076,
+      "sha256": "0e0c19785a615405c27901a47d8c58e3334a6f04e3c0df9f87314a30e59e03d2"
+    },
+    "src/gps/mppi_gps/similarity_metrics.py": {
+      "bytes": 35125,
+      "sha256": "492341c960dd9800fbb6000593e1fe74dadd720acb6ae579f8c96073398913fe"
+    },
+    "src/gps/mppi_gps/similarity_probe.py": {
+      "bytes": 25624,
+      "sha256": "533b3bc6239ceee06e04fd794c41741d25a0923a885bec1d6a50bc3084fe1ec4"
+    },
+    "src/gps/mppi_gps/similarity_study.py": {
+      "bytes": 25342,
+      "sha256": "5e88e14a5b61a43963d63b10b95bc836935c2160a492a1b5a5598a452b8adaea"
+    },
+    "src/gps/mppi_gps/source_evaluation_coordinator.py": {
+      "bytes": 22010,
+      "sha256": "fb43c01e75f5a8d21e48a0671847da493738acf292be622f9a6104b7b850e76c"
+    },
+    "src/gps/mppi_gps/source_evaluation_inputs.py": {
+      "bytes": 9528,
+      "sha256": "363befe835e786045485de695417f55268c183bb6f89076c21b0838f926309df"
+    },
+    "src/gps/mppi_gps/source_evaluation_launch.py": {
+      "bytes": 6482,
+      "sha256": "b44a37472a672a5a731e1d1f686bfb8f77cab7a93936117c7de9399386d98ccb"
+    },
+    "src/gps/mppi_gps/source_inputs.py": {
+      "bytes": 26674,
+      "sha256": "54dff5d8f9a1035300603066393b82a64a96b3b5f5a4c4ca0174273fede4f6e0"
+    },
+    "src/gps/mppi_gps/source_launch.py": {
+      "bytes": 5935,
+      "sha256": "748b26adebe85b425337b104c3fe37906a6998cc6c7a51156e1a4a85f2f7633c"
+    },
+    "src/gps/mppi_gps/source_outcomes.py": {
+      "bytes": 1683,
+      "sha256": "71b2647ed9cdb41f1f87755116f62f0df8982cf5a7f317c1dd770e9cd45b5b32"
+    },
+    "src/gps/mppi_gps/trajectory_review.py": {
+      "bytes": 18548,
+      "sha256": "7dd323d6a1be1d0ee69b0284793a11492387dc6fdcd81741e357a523ac9f2485"
+    },
+    "src/gps/mppi_gps/transfer_inputs.py": {
+      "bytes": 22450,
+      "sha256": "29e88446f2800e2d0e6ffea36acc4d6f53180d89411d950687ed14045896bb9c"
+    },
+    "src/gps/mppi_gps/transfer_metrics.py": {
+      "bytes": 9634,
+      "sha256": "7b90730efa110416a7e267890542035e989cccf4b3bc13c61072d2931f5418ba"
+    },
+    "src/gps/mppi_gps/update_inputs.py": {
+      "bytes": 9667,
+      "sha256": "e2170b88ca35b048a0a5a9a72adad4c1f2cc6600cff050054e0bedf9902ac33c"
+    },
+    "src/gps/mppi_gps/visitation_inputs.py": {
+      "bytes": 26429,
+      "sha256": "4a5d7af47c4dd42763c9a1950e591b17c3bdc5a44471c3174bcdd771ac033c61"
+    },
+    "src/gps/mppi_gps/visitation_native.py": {
+      "bytes": 10027,
+      "sha256": "878e00f56d6634795ae3513d8a03ba3f854c8b64aaf357502f44544abe833d10"
+    },
+    "src/gps/mppi_gps/visitation_worker.py": {
+      "bytes": 23557,
+      "sha256": "2d76282ebaeea275da4b764c9dc4fd48e75dd924b89c23db624160e92756b77b"
+    },
+    "src/gps/mppi_gps/width_inputs.py": {
+      "bytes": 18034,
+      "sha256": "e78ac2d37ff88f8d32622505377e013170590642dbe6d6b7903387a8bc4e90aa"
+    },
+    "src/mppi/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src/mppi/mppi.py": {
+      "bytes": 19384,
+      "sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99"
+    },
+    "src/utils/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src/utils/config.py": {
+      "bytes": 1557,
+      "sha256": "3cefbed0d66ded796971b7995b3d1be0a3dcb7e1210de26980d7420b0a515bb7"
+    },
+    "src/utils/gait.py": {
+      "bytes": 4605,
+      "sha256": "29183f91070ba595ea21469b79d3b32bee4bba2bf4ffecea18303543e5dc1d9a"
+    },
+    "src/utils/math.py": {
+      "bytes": 3735,
+      "sha256": "fb50fb821540a52f727b906e7d6b05ffd231ce9764dffeb49f3599cd431038bd"
+    },
+    "src/utils/rollout_data.py": {
+      "bytes": 2671,
+      "sha256": "c6f698644a33a1177aaff87436b412803cd3434b12f1c6f04558ca6459ae03f5"
+    },
+    "src/utils/stats.py": {
+      "bytes": 5915,
+      "sha256": "e36963f0ce04c7082543e318cb8a037566db46c54f6fc4090616cd4d39c443d5"
+    },
+    "src/utils/trace_replay.py": {
+      "bytes": 3670,
+      "sha256": "1da5fbfb0763c6f7cc811e69713be4ccbe9a3d5421c94429d7cc5f540cab267b"
+    },
+    "tests/test_jitter_diagnosis.py": {
+      "bytes": 7946,
+      "sha256": "593e35bf761db233fb406bcb7466829936fc543e4b9f61acdcf8c761f9888763"
+    },
+    "tests/test_jitter_diagnosis_audit.py": {
+      "bytes": 26390,
+      "sha256": "f89238fd4edd921aa77e79eb182cd040ecaff2bff6aa711e4529d439d6401545"
+    },
+    "tests/test_jitter_diagnosis_report.py": {
+      "bytes": 15482,
+      "sha256": "1eaa3444e01c246029f07fba0ea7ebb3edfac3a29c5219aa9772fa1b0943b72f"
+    },
+    "uv.lock": {
+      "bytes": 277061,
+      "sha256": "5a969b4d08ca03bbb535d482cc339e5e87ac50fe33014999d9be9bfc569fb636"
+    }
+  },
+  "config_sha256": "cb26a545940b7fa23f3260b97a1dfe3e1163e911a82f0d926e8315c02176f0ef",
+  "scientific_execution_started": false
+}

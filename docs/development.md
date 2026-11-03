@@ -272,4 +272,22 @@ A VS Code metadata configuration can use the existing debugpy integration:
 }
 ```
 
-The [J1.1-B proposal](similarity_j1_1_proposal.md) is not a runnable follow-up. Its parent/input bindings, complete continuation tests and ancillary census must be frozen after review before any new acquisition or fit.
+The [J1.1-B proposal](similarity_j1_1_proposal.md) is suspended and is not a runnable follow-up. Its historical design remains preserved.
+
+## J2 saved-report replay
+
+The current metadata inspector and reporter read the compact J2 capsule without
+simulator imports, fitting or ignored evidence. Choose a new output directory:
+
+```sh
+uv run python scripts/train_mppi_gps.py inspect --run results/jitter_diagnosis_j2_001 --verify --json
+uv run python -m src.gps.mppi_gps.reporting.jitter_diagnosis \
+  --worker results/jitter_diagnosis_j2_001/run \
+  --audit results/jitter_diagnosis_j2_001/audit/audit_result.json \
+  --out /tmp/j2-report-fresh
+```
+
+The reporter falls back to `fit.json.gz` only when the original JSON is absent,
+and verifies the decoded original SHA against the audit. The frozen worker is
+the separate `source_002` export recorded by the run; later inspector/report
+improvements do not change that worker or authorize another study.

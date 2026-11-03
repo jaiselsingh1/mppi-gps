@@ -1,0 +1,96 @@
+{
+  "status": "PROVISIONAL_OBSERVED_CONTEXT_ONLY",
+  "source_worktree": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation",
+  "source_commit": "bd4ba791944a41025aeea4db6b42e714bef5b1e3",
+  "original_launch_binding": false,
+  "raw_calibration_vectors_available": false,
+  "independently_verified_correlations": false,
+  "limitations": [
+    "Ordinal double-argsort rank helper mishandles ties",
+    "No full checkpoint/context/cost census preserved by those scripts",
+    "State-level takeover calibration is different from across-student walking diagnosis",
+    "No novelty or useful-learning claim admitted"
+  ],
+  "takeover_output_directories_observed_empty": null,
+  "directory_observation": {
+    "observed_at_utc": "2026-11-03T05:56:06.300365+00:00",
+    "directories": [
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_walker_001",
+        "exists": true,
+        "files": [
+          {
+            "name": "summary.json",
+            "bytes": 700
+          },
+          {
+            "name": "episodes.npz",
+            "bytes": 1152314
+          },
+          {
+            "name": "posthoc_survivors.json",
+            "bytes": 322
+          }
+        ]
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_faller_001",
+        "exists": true,
+        "files": [
+          {
+            "name": "summary.json",
+            "bytes": 715
+          },
+          {
+            "name": "episodes.npz",
+            "bytes": 1151764
+          }
+        ]
+      }
+    ],
+    "scope": "File listing only; no process state, successful exit or result audit inferred."
+  },
+  "later_terminal_file_snapshot": {
+    "observed_at_utc": "2026-11-03T05:57:30.547551+00:00",
+    "files": [
+      {
+        "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_walker_001/summary.json",
+        "stored": "context/terminal_walker/summary.json",
+        "bytes": 700,
+        "sha256": "0df547aa9b0c614cdca712487dae5e7e144c616f0570988048d1dad8700c30e8",
+        "status": "reported_only_not_independently_audited"
+      },
+      {
+        "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_walker_001/posthoc_survivors.json",
+        "stored": "context/terminal_walker/posthoc_survivors.json",
+        "bytes": 322,
+        "sha256": "52cb7308f2b9f1995012370fd503020ac106132bcd8e5ec0f011b46fefd6f229",
+        "status": "reported_only_not_independently_audited"
+      },
+      {
+        "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_walker_001/episodes.npz",
+        "stored": null,
+        "bytes": 1152314,
+        "sha256": "ab4d78f46bffa635f7a72ba7abb92e80e2a0ddaa35fc3a0cd3c9a59401f9e72b",
+        "availability": "local_only",
+        "status": "not_recomputed; full-context/actual-exit evidence unavailable"
+      },
+      {
+        "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_faller_001/summary.json",
+        "stored": "context/terminal_faller/summary.json",
+        "bytes": 715,
+        "sha256": "75b50196e3ea144f2dd67b7844f249768688c74e65d63a22f47d583dbd3e983d",
+        "status": "reported_only_not_independently_audited"
+      },
+      {
+        "source": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_takeover_terminal_faller_001/episodes.npz",
+        "stored": null,
+        "bytes": 1151764,
+        "sha256": "c440156f3ba147e59e9cbf98db013b37c4cbfad8271838b96f08b5dc30ad2d48",
+        "availability": "local_only",
+        "status": "not_recomputed; full-context/actual-exit evidence unavailable"
+      }
+    ],
+    "interpretation": "Reported teacher walking0/6 forwalker-guided and1/6 forfaller-guided, baseline5/6; guidedstudent fits absent rather than0/96. Posthoc_survivors.json lacks a bound reconstruction of the walking criterion and is not teacher-competence evidence."
+  }
+}

@@ -1262,6 +1262,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     c1 = config.get("schema") == "walker-student-consequence-c1.0-executable-recipe-v1"
     visitation = config.get("schema") == "walker-student-visitation-v-execution-v1"
     similarity = config.get("schema") == "walker-similarity-j1-execution-v1"
+    jitter = config.get("schema") == "walker-jitter-diagnosis-j2-0"
     c1_recovery = config.get("schema") == "walker-c1-audit-recovery-protocol-v1"
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
@@ -1296,6 +1297,8 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
                 break
     manifest = _read_json(run / "manifest.json", errors)
     inputs = _read_json(run / "input_manifest.json", errors)
+    if jitter:
+        inputs = _read_json(run / "inputs/manifest.json", errors)
     launch = _read_json(run / "launch_receipt.json", errors)
     if not launch:
         launch = _read_json(run / "launch.json", errors)
@@ -1308,6 +1311,8 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         source_files = []
     else:
         bindings = {name: value for name, value in inputs.get("files", {}).items()}
+        if jitter:
+            bindings = {"inputs/" + name: value for name, value in bindings.items()}
         bindings.setdefault("config.json", manifest.get("config_sha256"))
         if manifest.get("input_sha256"):
             bindings.setdefault("input.pt", manifest["input_sha256"])
@@ -1322,6 +1327,8 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         "manifest.json",
         "input_manifest.json",
     )
+    if jitter:
+        required = ("config.json", "result.json", "work.json", "inputs/manifest.json")
     missing = [name for name in required if not (run / name).is_file()]
     if h5_attempt_without_result:
         missing.append("worker_result.json")
@@ -1333,6 +1340,12 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     ]
     omitted = capsule.get("bulk_evidence", {}).get("omitted", [])
     evidence_names = ("evidence/raw.h5", "evidence/ledger.jsonl")
+    if jitter:
+        evidence_names = tuple(
+            str(path.relative_to(run))
+            for path in sorted(run.rglob("*"))
+            if path.suffix in (".npz", ".pt")
+        )
     if c1_recovery:
         evidence_names = ()
         missing += [
@@ -1551,6 +1564,53 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             source_banks="Full within-decision arrays retained for the frozen208-decision probe; acquisition banks otherwise have digests and explicit availability limits.",
         )
         _similarity_saved_metadata(root, run, capsule, report, verify=verify)
+    if jitter:
+        rows = []
+        for case in result.get("cases", []):
+            saved = _read_json(_contained_path(run, case["summary"]), errors)
+            episodes = [row for row in saved.get("episodes", []) if row.get("kind") == "evaluation"]
+            rows.append(
+                dict(
+                    case_id=case.get("case_id"),
+                    episodes=len(episodes),
+                    walking=sum(bool(row.get("walking")) for row in episodes),
+                    full_survival=sum(bool(row.get("survived")) for row in episodes),
+                    postfit=saved.get("postfit", {}),
+                    fitting=saved.get("fitting", {}),
+                )
+            )
+        report["student_outcomes"] = dict(case_count=len(rows), cases=rows)
+        prerequisites = result.get("prerequisites", {})
+        report["gates"] = dict(
+            held_replay_episodes=prerequisites.get("held_replays", {}).get("episodes"),
+            reference_panel_walking=prerequisites.get("reference", {}).get("panel_walking"),
+            clean=prerequisites.get("clean", {}),
+        )
+        report["provenance"].update(
+            source_export=config.get("locations", {}).get("source_export"),
+            declared_inputs=config.get("inputs", {}),
+        )
+        audit = _read_json(root / "audit/audit_result.json", errors)
+        report["jitter_saved_audit"] = dict(
+            reported_passed=audit.get("passed"),
+            primary_comparison_executed=audit.get("primary_comparison_executed"),
+            scope="Saved audit declaration only; inspection does not repeat scientific checks.",
+        )
+        if capsule:
+            external = _read_json(root / "external_evidence.json", errors)
+            raw = [
+                row
+                for row in external.get("files", [])
+                if Path(row["file"]).suffix in (".npz", ".pt")
+            ]
+            report["bulk_evidence"] = dict(external_raw=raw)
+            report["missing_evidence"] += ["external:" + row["file"] for row in raw]
+        report["verification_scope"] = (
+            "Copied capsule file sizes/hashes only; external raw evidence and source export are not reopened."
+            if capsule
+            else "Prepared-input sizes/hashes only; source-export pointer and outcomes are recorded declarations."
+        )
+        report["missing_evidence"] = sorted(set(report["missing_evidence"]))
     if visitation:
         _visitation_inspection(root, run, capsule, result, report, verify=verify)
     if c1_recovery:
@@ -1652,6 +1712,8 @@ def format_inspection(report: dict[str, Any]) -> str:
     lines.append(
         f"Frozen source: {provenance['source_file_count']} recorded files; present={provenance['source_present']}"
     )
+    if provenance.get("source_export"):
+        lines.append(f"Declared source export (not reopened): {provenance['source_export']}")
     for label in ("teacher_outcomes", "student_outcomes", "teacher_student_gap", "gates", "costs"):
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
     for label in (
@@ -1661,6 +1723,7 @@ def format_inspection(report: dict[str, Any]) -> str:
         "audit_recovery",
         "visitation_saved_audit",
         "similarity_saved_audit",
+        "jitter_saved_audit",
     ):
         if label in report:
             lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")

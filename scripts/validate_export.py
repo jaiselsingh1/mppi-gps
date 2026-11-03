@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
 import hashlib
 import json
 import os
@@ -988,6 +989,7 @@ def main(argv: list[str] | None = None) -> int:
         "student_consequence_c1_certificate_closure_a2",
         "student_visitation_s1_2_v",
         "similarity_j1",
+        "jitter_diagnosis_j2_001",
     ):
         if (root / "results" / name / "capsule.json").is_file():
             capsules += (name,)
@@ -1143,6 +1145,19 @@ def main(argv: list[str] | None = None) -> int:
             ]
         )
     commands.extend(similarity_export_commands(root, outputs))
+    if "jitter_diagnosis_j2_001" in capsules:
+        commands.append(
+            [
+                "-m",
+                "src.gps.mppi_gps.reporting.jitter_diagnosis",
+                "--worker",
+                "results/jitter_diagnosis_j2_001/run",
+                "--audit",
+                "results/jitter_diagnosis_j2_001/audit/audit_result.json",
+                "--out",
+                str(outputs / "jitter_diagnosis"),
+            ]
+        )
     if (root / "results/similarity_j1_review_001/capsule.json").is_file():
         commands.append(
             [
@@ -1295,6 +1310,30 @@ def main(argv: list[str] | None = None) -> int:
             outputs / "similarity",
         )
     verify_consequence_recovery_capsules(root, inspections)
+    if "jitter_diagnosis_j2_001" in capsules:
+        capsule = root / "results/jitter_diagnosis_j2_001"
+        report = outputs / "jitter_diagnosis"
+        receipt = json.loads((report / "receipt.json").read_text())
+        view = inspections["jitter_diagnosis_j2_001"]
+        if (
+            view.get("errors") != []
+            or view.get("hash_mismatches") != []
+            or not receipt["passed"]
+            or receipt["actual_cases"] != 6
+            or receipt["curve_points"] != 60000
+            or receipt["primary_comparison_executed"]
+            or any(receipt["new_scientific_work"].values())
+        ):
+            raise ValueError("J2 compact replay or metadata inspection differs")
+        verify_report_outputs(report, receipt["output_files"])
+        for name in ("cases.csv", "per_seed_primary.csv"):
+            if (report / name).read_bytes() != (capsule / "report" / name).read_bytes():
+                raise ValueError("J2 compact replay table differs: " + name)
+        name = "learning_curves.csv.gz"
+        if gzip.decompress((report / name).read_bytes()) != gzip.decompress(
+            (capsule / "report" / name).read_bytes()
+        ):
+            raise ValueError("J2 compact replay changed a recorded learning point")
     for capsule_name, output_name, summary_name in (
         ("similarity_j1_review_001", "similarity_review", "summary.json"),
         ("sac_diagnostics_review_001", "sac_diagnostics_review", "reanalysis/summary.json"),

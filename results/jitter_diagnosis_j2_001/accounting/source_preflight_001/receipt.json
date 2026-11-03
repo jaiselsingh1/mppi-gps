@@ -1,0 +1,182 @@
+{
+  "source_hash_read_bytes": 3352394,
+  "prepared_hash_read_bytes": 17396283,
+  "prepared_manifest_read_bytes": 5408,
+  "manifest": {
+    "schema": "walker-jitter-diagnosis-j2-0",
+    "source_inputs": {
+      "reference_h5": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/evidence/stage_b/raw.h5",
+        "bytes": 1239388136,
+        "sha256": "2b73fc8e9f2b290dd3af0aa9153de009156f78d63cb239c65557ffe74d8c0e47"
+      },
+      "reference_checkpoint": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/checkpoints/reference.pt",
+        "bytes": 3524729,
+        "sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f"
+      },
+      "mppi_traces": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-02_noise_cutoff_001/cutoff_23.4375hz/traces.npz",
+        "bytes": 44935839,
+        "sha256": "b5a712587a43f70cb42bf8374b5195ae9431bb6c7e013b94b996cce8c4a33369"
+      }
+    },
+    "conditions": {
+      "clean": {
+        "id": "clean",
+        "kind": "clean",
+        "share": 1.0,
+        "sha256": "0cd2b14e89b5e32c01fc40b64016a01e2fe88c161ae88a2ccd186706f2aaa50b",
+        "clipped_share": 0.0
+      },
+      "mppi_0p9": {
+        "id": "mppi_0p9",
+        "kind": "MPPI",
+        "share": 0.9,
+        "sha256": "67eca2a6e3c5ac1f21c13c920f50d26c8c6fef1dd2f6b9fe44eff8efe15161a7",
+        "clipped_share": 0.05240740740740741
+      },
+      "mppi_0p75": {
+        "id": "mppi_0p75",
+        "kind": "MPPI",
+        "share": 0.75,
+        "sha256": "153c048c841a66a3308b7d3190be406881374ab8c9ce4402a2cdf6afd8716bef",
+        "clipped_share": 0.09520370370370371
+      },
+      "mppi_0p5": {
+        "id": "mppi_0p5",
+        "kind": "MPPI",
+        "share": 0.5,
+        "sha256": "03f97441fc13e8fd4f4df89afeaae0ff7b4b328adea5865abdf51e4d5cb6c370",
+        "clipped_share": 0.17185185185185184
+      },
+      "mppi_0p25": {
+        "id": "mppi_0p25",
+        "kind": "MPPI",
+        "share": 0.25,
+        "sha256": "351afc810d1339cfecda79e25163716f5bc08598359c2146512dc8a5f1ee153e",
+        "clipped_share": 0.32364814814814813
+      },
+      "white_0p9": {
+        "id": "white_0p9",
+        "kind": "white",
+        "share": 0.9,
+        "sha256": "7c196abcd45442bf5007126d9d187608aabbc092e3426903b7550b46fe89ebb4",
+        "clipped_share": 0.04827777777777778
+      },
+      "white_0p75": {
+        "id": "white_0p75",
+        "kind": "white",
+        "share": 0.75,
+        "sha256": "9adb423e765b52d5391a830d344fab029babdd55b68157f1bed1c6ec99a7d96c",
+        "clipped_share": 0.09116666666666666
+      },
+      "white_0p5": {
+        "id": "white_0p5",
+        "kind": "white",
+        "share": 0.5,
+        "sha256": "9f76048ce113ef8bee93dd713a0e8557594485aad13c9c5a5857aeea2ba89d1e",
+        "clipped_share": 0.16448148148148148
+      },
+      "white_0p25": {
+        "id": "white_0p25",
+        "kind": "white",
+        "share": 0.25,
+        "sha256": "cf590589e215130096ebb62830e28b5c39b10d3fc81798539ba0d2311914b805",
+        "clipped_share": 0.2995185185185185
+      },
+      "slow_0p9": {
+        "id": "slow_0p9",
+        "kind": "slow",
+        "share": 0.9,
+        "sha256": "4154edd92faef1716764a39c3fba2a5dd62341095543f1e7a29ffcd88e0f0e51",
+        "clipped_share": 0.049685185185185186
+      },
+      "slow_0p75": {
+        "id": "slow_0p75",
+        "kind": "slow",
+        "share": 0.75,
+        "sha256": "fed36b10e3374a22ee57b0c1877406fb4aeffaf467abd4d4ee96a171eea56ae9",
+        "clipped_share": 0.08688888888888889
+      },
+      "slow_0p5": {
+        "id": "slow_0p5",
+        "kind": "slow",
+        "share": 0.5,
+        "sha256": "be457f45ca89cdd0a61165969e8bb9e452bfb0d43fd7fd071795aaf06c4f10ad",
+        "clipped_share": 0.15703703703703703
+      },
+      "slow_0p25": {
+        "id": "slow_0p25",
+        "kind": "slow",
+        "share": 0.25,
+        "sha256": "a300be24d320b10291376155859277337664042368a3cbcf92659ab4a44dbf67",
+        "clipped_share": 0.28479629629629627
+      }
+    },
+    "unique_rows": 9000,
+    "normalization": {
+      "mean": [
+        1.0718879699707031,
+        -0.5469220876693726,
+        -0.3609154224395752,
+        -0.9322153925895691,
+        0.7079014182090759,
+        -1.0737569332122803,
+        -0.06900694221258163,
+        0.5174614787101746,
+        1.3213330507278442,
+        -0.022562863305211067,
+        -0.06877000629901886,
+        -0.04954402148723602,
+        -0.10751015692949295,
+        0.10567319393157959,
+        -0.137567937374115,
+        0.0023781456984579563,
+        -0.08258575201034546
+      ],
+      "std": [
+        0.031037520617246628,
+        0.06641621887683868,
+        0.3459964990615845,
+        0.41246870160102844,
+        0.15099525451660156,
+        0.2837454080581665,
+        0.2533090114593506,
+        0.3114602267742157,
+        0.3477674722671509,
+        0.26188328862190247,
+        1.214846134185791,
+        3.5869102478027344,
+        4.326005935668945,
+        3.2210259437561035,
+        1.8546350002288818,
+        1.7322734594345093,
+        4.135482311248779
+      ]
+    },
+    "files": {
+      "corpus.npz": {
+        "bytes": 13865276,
+        "sha256": "f08fa86c9aa98ca6da282932e17e2100cec490274fa4e02ac6e9d5daf53ac215"
+      },
+      "reference.pt": {
+        "bytes": 3524729,
+        "sha256": "174e988618a478d41b846cf428a63b91fef5a0a0f94ae0b36637708856ef363f"
+      },
+      "explainers.json": {
+        "bytes": 6278,
+        "sha256": "da1d1ab86e43529b3d3877346e6e49c41226c93bcd9559c602c26172b23615ba"
+      }
+    },
+    "wall_seconds": 1.5311578339897096,
+    "reads": {
+      "source_hash_bytes": 1287848704,
+      "logical_hdf5_dataset_bytes": 17935232,
+      "logical_npz_payload_bytes": 462040,
+      "reference_copy_bytes": 3524729,
+      "physical_disk_io_bytes": null
+    },
+    "new_scientific_work": 0
+  }
+}

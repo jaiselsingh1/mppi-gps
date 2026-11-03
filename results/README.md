@@ -22,6 +22,7 @@ These small evidence capsules make the completed Walker studies and explicitly u
 | J1 saved-outcome review | [similarity_j1_review_001](similarity_j1_review_001/README.md) | Post-hoc motion decomposition, walking and survival kept separate; original frozen result unchanged. Zero new simulation, inference or fitting. |
 | Recovered SAC-cloning and jitter diagnostics | [sac_diagnostics_review_001](sac_diagnostics_review_001/README.md) | Exact source/result snapshot and corrected tie-aware saved statistics; width128 reference clones94/96 under the positive-control recipe. Post-fit on-policy AUC is exploratory, not pre-update learning prediction. Original launch/checkpoint evidence is incomplete. |
 | SAC continuation map | [sac_continuation_001](sac_continuation_001/README.md) | Original separate-branch capsule preserved unchanged; reference continued walking from534/560 sampled MPPI states. Single historical run without independent audit. |
+| J2 post-fit diagnosis qualification | [jitter_diagnosis_j2_001](jitter_diagnosis_j2_001/README.md) | Audited six clean-data fits:143/192 walking, three competent children; frozen qualification stop, no jitter fits or primary comparison. Exploratory six-student on-policy association stays separate. |
 
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.
 

@@ -22,6 +22,8 @@ The [S1 source comparison](docs/student_source_s1_results.md) completed six matc
 
 [J1.0 is closed and independently audited](docs/similarity_j1_results.md): all 16 teachers walked, but MPPI-data children walked **0/256** resets and reference-data children **35/256**; no child was competent. Its primary development outcomes lacked the frozen variation, so the protected similarity comparison stayed unopened. The [saved-only review](docs/similarity_j1_review.md) identifies compression in the motion outcome and preserves a separate **94/96** width128 reference-cloning positive control at 9,000 rows and 10,000 updates. That control changes several recipe bindings and does not isolate J1's failure cause. [J1.1-B is suspended](docs/similarity_j1_1_proposal.md). Post-fit on-policy disagreement remains an exploratory walking diagnostic, separate from pre-update teachability prediction; no new learning or guidance was launched by this review.
 
+[J2.0 is closed and audited](docs/jitter_diagnosis_j2_results.md): six fresh clean-data clones walked **5, 15, 32, 30, 30 and 31 /32**; three met the two-panel competence rule. The clean qualification gate stopped the other 72 fits. A separate exploratory comparison across these six students favors on-policy disagreement over held-data MSE; the frozen primary was not executed. The [40-fit within-condition proposal](docs/jitter_diagnosis_j2_1_proposal.md), including a declared exploratory stability column, remains review-only and unlaunched.
+
 ## Setup
 
 Use Python 3.11 or newer and [uv](https://docs.astral.sh/uv/). Run commands from the checkout root:
@@ -58,6 +60,7 @@ uv run python scripts/train_mppi_gps.py study teacher-proposal census
 uv run python scripts/train_mppi_gps.py study student-consequence --help
 uv run python scripts/train_mppi_gps.py study visitation --help
 uv run python scripts/train_mppi_gps.py study similarity-investigation --help
+uv run python scripts/train_mppi_gps.py study jitter-diagnosis --help
 uv run python scripts/train_mppi_gps.py --help
 ```
 

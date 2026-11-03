@@ -58,3 +58,11 @@ Use the [code map](code_map.md) to locate active responsibilities and the [devel
 The later [Linux report-fixture follow-up](validation/motion_diagnosis_k1_2_2026-11-01/ci_followup/README.md) preserves the first final-CI failure and bounded memory-pressure reproductions. Its fix isolates test processes without changing scientific or report budgets.
 
 [J1.0 results](similarity_j1_results.md), [formulation](similarity_j1_formulation.md) and [costs](similarity_j1_costs.md) close the audited development benchmark: protected prediction stayed unidentified. The [original request](proposals/similarity_j1_user_request.txt), [finite recipe](../configs/studies/similarity_j1_0.json) and [capsule](../results/similarity_j1/capsule.json) remain unchanged. The [saved-only review](similarity_j1_review.md) separates outcome compression, the recovered positive-control evidence and post-fit on-policy diagnostics from prospective learning prediction. [J1.1-B is suspended](similarity_j1_1_proposal.md); no follow-up was launched. The maintained [SAC continuation report](sac_continuation_results.md) now includes the later reference-cloning positive control without erasing S1.1's failures.
+
+[J2.0](jitter_diagnosis_j2_results.md) executed six fresh full-budget clean controls
+and closed at its qualification stop: 143/192 walking, three competent children,
+no jitter fits and no frozen primary test. Its separately labelled within-clean
+analysis is an exploratory positive lead. The [capsule](../results/jitter_diagnosis_j2_001/README.md)
+preserves all 60,000 updates, native evidence bindings, independent audit and costs.
+The [J2.1 proposal](jitter_diagnosis_j2_1_proposal.md) changes the primary comparison
+to student ranking within fixed conditions; it is not frozen or launched.

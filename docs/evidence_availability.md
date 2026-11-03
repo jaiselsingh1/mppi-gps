@@ -513,3 +513,26 @@ is copied unchanged from its published branch, including its original
 repository-relative manifest contract. Its per-start raw archive remains
 local-only. See the [integrated review](similarity_j1_review.md) for which
 claims the evidence supports and which remain unresolved.
+
+### J2 fresh-seed diagnosis
+
+The [J2 capsule](../results/jitter_diagnosis_j2_001/README.md) contains exact compact
+worker metadata, original fitting JSON in lossless gzip, all 60,000 learning
+points, figures, independent audit, actual exits and full accounting. Compact
+report replay authenticates decoded original bytes against the audit without
+reading ignored data. The [external inventory](../results/jitter_diagnosis_j2_001/external_evidence.json)
+lists every original run file, checksum, size and compact-copy relationship.
+
+The full run is local-only at
+`/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_jitter_diagnosis_j2_001`.
+Checkpoints with Adam/RNG state, actual minibatch tapes and complete N+1 native
+snapshots remain outside Git. No remote backup is asserted. The create-only
+executed source is `artifacts/2026-11-03_jitter_diagnosis_j2_001/source_002` at
+`edda434`; the earlier `source_001` is preserved and unused. Two operator import
+failures occurred before worker creation and are preserved separately.
+
+The raw record contains six clean-data children, not 78 completed cases. The
+frozen primary remains unexecuted. The within-clean rank analysis is explicitly
+post hoc, and the parallel-session stability context remains provisional with
+missing raw calibration vectors. The [result](jitter_diagnosis_j2_results.md) and
+[review-only next proposal](jitter_diagnosis_j2_1_proposal.md) keep those scopes separate.

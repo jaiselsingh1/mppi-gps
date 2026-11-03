@@ -69,3 +69,17 @@ S1.1 uses a separate [evaluation-only study](../src/gps/mppi_gps/experiments/stu
 | JSON report and verified compact replay | [report](../src/gps/mppi_gps/reporting/similarity.py), [materializer](../src/gps/mppi_gps/reporting/similarity_capsule.py) |
 
 The [result](similarity_j1_results.md) distinguishes the scientific source8c678e5 from the later publication-only codec repair. Neither compact report replay nor inspection dispatches a scientific worker.
+## J2 post-fit diagnosis
+
+[jitter_diagnosis.py](../src/gps/mppi_gps/jitter_diagnosis.py) owns saved-data
+preparation and bounded execution through `study jitter-diagnosis`. It reuses
+the existing policy fitter and native Walker interfaces. Its
+[independent auditor](../src/gps/mppi_gps/audits/jitter_diagnosis.py) recomputes
+saved measurements and accounting without fitting or physics. The
+[saved reporter](../src/gps/mppi_gps/reporting/jitter_diagnosis.py) reads exact
+metadata and lossless gzip mirrors; it imports no simulator or Torch runtime.
+
+The canonical inspector understands J2's metadata and external NPZ/checkpoint
+inventory. The executed worker remains the separately sealed `source_002`
+export named in the [result](jitter_diagnosis_j2_results.md), so later navigation
+or reporting changes do not mutate its source.
