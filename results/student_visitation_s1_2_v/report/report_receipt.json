@@ -1,0 +1,184 @@
+{
+  "accounting": {
+    "audit": {
+      "checkpoint_loads": 4,
+      "completed_checkpoint_loads": 4,
+      "completed_neural_rows": 113621,
+      "functional_actor_replicas": 4,
+      "neural_rows": 113621,
+      "peak_rss_bytes": 319107072,
+      "policy_constructions": 0,
+      "prediction_calls": 113621,
+      "process_cpu_seconds": 29.972523000000002,
+      "selected_original_array_checks": 696,
+      "source_read_bytes": 623662563,
+      "unknown_partial_checkpoint_loads": 0,
+      "unknown_partial_neural_rows": 0,
+      "wall_seconds": 248.80168025500006
+    },
+    "worker": {
+      "completed": {
+        "checkpoint_loads": 4,
+        "environment_constructions": 1,
+        "external_mj_forward_calls": 256,
+        "native_controls": 113621,
+        "neural_rows": 113621,
+        "physics_substeps": 454484,
+        "policy_constructions": 4,
+        "prediction_calls": 113621,
+        "resets": 32,
+        "restores": 192,
+        "snapshot_reads": 227466
+      },
+      "requested": {
+        "checkpoint_loads": 4,
+        "environment_constructions": 1,
+        "external_mj_forward_calls": 256,
+        "native_controls": 113621,
+        "neural_rows": 113621,
+        "physics_substeps": 454484,
+        "policy_constructions": 4,
+        "prediction_calls": 113621,
+        "resets": 32,
+        "restores": 192,
+        "snapshot_reads": 227466
+      },
+      "returned_unpersisted": {},
+      "storage": {
+        "array_format": "walker-array-stream-v1",
+        "backward_rows": 0,
+        "completed_backward_rows": 0,
+        "completed_controls": 113621,
+        "completed_live_controls": 113621,
+        "completed_model_controls": 0,
+        "completed_neural_rows": 113621,
+        "completed_optimizer_steps": 0,
+        "completed_physics_substeps": 454484,
+        "emergency_reserved_bytes": 16384,
+        "episodes": 0,
+        "evidence_poisoned": false,
+        "failed_measurements": 0,
+        "failed_queries": 0,
+        "live_queries": 113621,
+        "measurement_requests": 0,
+        "model_queries": 0,
+        "neural_rows": 0,
+        "optimizer_steps": 0,
+        "physics_frames": 0,
+        "queries": 0,
+        "rejected_measurements": 0,
+        "rejected_queries": 0,
+        "requested_backward_rows": 0,
+        "requested_controls": 113621,
+        "requested_live_controls": 113621,
+        "requested_model_controls": 0,
+        "requested_neural_rows": 113621,
+        "requested_optimizer_steps": 0,
+        "requested_physics_substeps": 454484,
+        "reserved_external_bytes": 536870912,
+        "reset_errors": 0,
+        "resets": 32,
+        "restores": 192,
+        "snapshots": 227466,
+        "storage_bytes": 249890054,
+        "storage_limit_bytes": 3758096384,
+        "unknown_partial_backward_rows": 0,
+        "unknown_partial_controls": 0,
+        "unknown_partial_neural_rows": 0,
+        "unknown_partial_optimizer_steps": 0,
+        "unknown_partial_physics_substeps": 0,
+        "wall_seconds": 1148.8043823609996
+      },
+      "unknown_partial": {}
+    },
+    "worker_process_cpu": {
+      "linux_io_counters": {
+        "cancelled_write_bytes": 0,
+        "rchar": 134513486,
+        "read_bytes": 128778240,
+        "syscr": 11746,
+        "syscw": 459665,
+        "wchar": 251932005,
+        "write_bytes": 44001697792
+      },
+      "peak_rss_bytes": 282931200,
+      "scope": "Process lifetime including imports; final receipt write follows. Physical and logical IO differ; nested process times are not additive.",
+      "system_seconds": 7.230938,
+      "user_seconds": 45.843984
+    }
+  },
+  "audit_passed": true,
+  "available_documents": [
+    "config.json",
+    "worker/parent_replay_gate.json",
+    "worker/reference_positive_control_gate.json",
+    "worker/reference_usefulness_screen.json",
+    "worker/static_gate.json",
+    "worker_exit.json",
+    "worker_result.json"
+  ],
+  "closure_reason": "complete_reference_usefulness_screen",
+  "input_files": {
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/config.json": {
+      "bytes": 52941,
+      "sha256": "134d911f64bff8fe9de82563c8aaea6564ca055cceb02181062d312ed89b7ecf"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker/outcomes.jsonl": {
+      "bytes": 700848,
+      "sha256": "d1f57e898676897b3b754faee109bc4398e248e5d7c1dcb0b281b8a5451053ed"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker/parent_replay_gate.json": {
+      "bytes": 207,
+      "sha256": "bcc0a532ee6103cf58891a9bc0d551c80e4ed974c74f625c8ab551e40a2f3eff"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker/reference_positive_control_gate.json": {
+      "bytes": 278,
+      "sha256": "055d7c4f3f54b18a1872107e5a3ee902849ee9d43d3bdb57da0cc2183d4bb25e"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker/reference_usefulness_screen.json": {
+      "bytes": 2254,
+      "sha256": "ba7cb46d82f989fd73a6c8ad819e096ae89cd5b425966f233f3d2ed34f48ac6a"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker/static_gate.json": {
+      "bytes": 16632,
+      "sha256": "fa26f2d71821b820aad42ac9b58b37071509281b05aceb3b99d360edfbfb0b52"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker_exit.json": {
+      "bytes": 661,
+      "sha256": "8b0069591e10ab45f7e0f8be079f152bad219768aa8c8d53fad1d6040dd375aa"
+    },
+    "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/run/worker_result.json": {
+      "bytes": 6607,
+      "sha256": "55e60ed273ef3a01af057bfe2fda4fcc5cbb8c491e4dee46d62bd4c693b7e401"
+    },
+    "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/audit/result/audit.json": {
+      "bytes": 300879,
+      "sha256": "4898504f358983d78ff4612b858c3f2f799ab94335753528fc41601ef93e3396"
+    },
+    "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-report-bk3yc6lg/audit/result/prefix_curves.jsonl": {
+      "bytes": 29864656,
+      "sha256": "7ee3a51b0cfa271c33c177d3fd7de9fd486d01bba08058fe4c01ba41d4c44755"
+    }
+  },
+  "missing_evidence": [],
+  "new_scientific_work": {
+    "backward_rows": 0,
+    "checkpoint_tensor_loads": 0,
+    "mppi_queries": 0,
+    "native_controls": 0,
+    "neural_rows": 0,
+    "optimizer_steps": 0,
+    "physics_substeps": 0,
+    "prediction_calls": 0,
+    "resets": 0,
+    "restores": 0
+  },
+  "no_automatic_learning": true,
+  "outcomes": 224,
+  "peak_rss_bytes": 344457216,
+  "prefix_points": 113621,
+  "read_bytes": 30945963,
+  "saved_only": true,
+  "schema": "walker-student-visitation-s1.2-v-saved-report-v1",
+  "wall_seconds": 13.236808874993585
+}

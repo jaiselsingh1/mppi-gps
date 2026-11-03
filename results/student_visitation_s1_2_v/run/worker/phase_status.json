@@ -1,0 +1,142 @@
+{
+  "followup_launched": false,
+  "learning_launched": false,
+  "phase_status": {
+    "parent_replay": "passed",
+    "reference_positive_control": "passed",
+    "static": "passed",
+    "takeovers": "complete"
+  },
+  "prepared_verification_accounting": {
+    "new_native_controls": 0,
+    "new_neural_rows": 0,
+    "new_optimizer_steps": 0,
+    "output_reserved_bytes": 0,
+    "peak_rss_bytes": 45875200,
+    "source_read_bytes": 14994682,
+    "source_read_bytes_by_kind": {
+      "prepared_catalog": 773383,
+      "prepared_input_verification": 14191733,
+      "prepared_manifest": 29566
+    },
+    "wall_seconds": 0.014198711000062758
+  },
+  "reference_screen": {
+    "learning_launched": false,
+    "noninitial_anchors": 72,
+    "panels": {
+      "confirmation": {
+        "qualifying_streams": [
+          0,
+          1,
+          2
+        ],
+        "streams": {
+          "0": {
+            "gains": {
+              "survived": 7,
+              "walking": 2
+            },
+            "parent": {
+              "survived": 0,
+              "walking": 0
+            },
+            "reference": {
+              "survived": 7,
+              "walking": 2
+            }
+          },
+          "1": {
+            "gains": {
+              "survived": 8,
+              "walking": 7
+            },
+            "parent": {
+              "survived": 0,
+              "walking": 0
+            },
+            "reference": {
+              "survived": 8,
+              "walking": 7
+            }
+          },
+          "2": {
+            "gains": {
+              "survived": 8,
+              "walking": 6
+            },
+            "parent": {
+              "survived": 0,
+              "walking": 0
+            },
+            "reference": {
+              "survived": 8,
+              "walking": 6
+            }
+          }
+        }
+      },
+      "primary": {
+        "qualifying_streams": [
+          1,
+          2
+        ],
+        "streams": {
+          "0": {
+            "gains": {
+              "survived": 8,
+              "walking": 1
+            },
+            "parent": {
+              "survived": 0,
+              "walking": 0
+            },
+            "reference": {
+              "survived": 8,
+              "walking": 1
+            }
+          },
+          "1": {
+            "gains": {
+              "survived": 8,
+              "walking": 7
+            },
+            "parent": {
+              "survived": 0,
+              "walking": 0
+            },
+            "reference": {
+              "survived": 8,
+              "walking": 7
+            }
+          },
+          "2": {
+            "gains": {
+              "survived": 7,
+              "walking": 4
+            },
+            "parent": {
+              "survived": 0,
+              "walking": 0
+            },
+            "reference": {
+              "survived": 7,
+              "walking": 4
+            }
+          }
+        }
+      }
+    },
+    "passed": true,
+    "permits": "result_review_only",
+    "regressions": [],
+    "same_qualifying_streams": [
+      1,
+      2
+    ],
+    "schema": "walker-visitation-reference-screen-v1",
+    "secondary_initial_anchors": 24
+  },
+  "schema": "walker-visitation-validity-result-v1",
+  "status": "COMPLETED_V_FIXED_ROSTER"
+}

@@ -1,0 +1,16 @@
+{
+  "stage": "First actual S1.2 V scientific roster only",
+  "source_commit": "70075397bfb2966dff97e325c4104915f03c9581",
+  "program_sha256": "c8fce69d1f963c7bff57604cceb09ada27d6ba029714d69242e9cab393750a89",
+  "launch_requires": "newfullCIpassandclosedpreparation",
+  "worker_stage_limit_seconds": 7200,
+  "coordinator_limit_seconds": 7170,
+  "child_limit_seconds": 7140,
+  "native_control_limit": 224000,
+  "physics_substep_limit": 896000,
+  "neural_row_limit": 224000,
+  "output_limit_bytes": 4294967296,
+  "peak_rss_limit_bytes": 8589934592,
+  "on_failure": "stop/preserve; no retry; partial independent audit only",
+  "learning_authorized": false
+}

@@ -346,6 +346,54 @@ CLOSURE_SCIENCE_KEYS = (
 )
 
 
+def verify_student_visitation_report(capsule: Path, report: Path) -> None:
+    """Compare saved V replay with its audited outcomes and sealed summary."""
+    audit = json.loads((capsule / "audit/result/audit.json").read_text())
+    receipt = json.loads((report / "report_receipt.json").read_text())
+    if (
+        audit.get("passed") is not True
+        or audit.get("full_scientific_audit_passed") is not True
+        or receipt.get("saved_only") is not True
+        or receipt.get("audit_passed") is not True
+        or receipt.get("no_automatic_learning") is not True
+    ):
+        raise ValueError("V report replay requires audited saved-only evidence without learning")
+    work = receipt.get("new_scientific_work", {})
+    if set(work) != set(CLOSURE_SCIENCE_KEYS) or any(
+        type(value) is not int or value != 0 for value in work.values()
+    ):
+        raise ValueError("Saved V report must perform zero scientific calls")
+    outcomes = audit.get("outcomes")
+    if (
+        not isinstance(outcomes, list)
+        or not 0 < len(outcomes) <= 224
+        or any(
+            type(row.get("controls")) is not int or not 0 <= row["controls"] <= 1000
+            for row in outcomes
+        )
+    ):
+        raise ValueError("The audited V actual-outcome roster is unavailable or invalid")
+    controls = sum(row["controls"] for row in outcomes)
+    if receipt.get("outcomes") != len(outcomes) or receipt.get("prefix_points") != controls:
+        raise ValueError("Rendered V outcome/prefix census differs from the independent audit")
+    for filename, expected in (("outcomes.csv", len(outcomes)), ("actual_prefixes.csv", controls)):
+        with (report / filename).open(newline="") as stream:
+            if sum(1 for _ in csv.DictReader(stream)) != expected:
+                raise ValueError("Rendered V CSV census differs: " + filename)
+    summaries = []
+    for path in (capsule / "report/outcome_summary.csv", report / "outcome_summary.csv"):
+        with path.open(newline="") as stream:
+            reader = csv.DictReader(stream)
+            summaries.append((reader.fieldnames, list(reader)))
+    if summaries[0] != summaries[1]:
+        raise ValueError("Regenerated V summary differs rowwise from the sealed report")
+    names = {"prefixes_full.png", "prefixes_first100.png"}
+    if {path.name for path in report.glob("*.png")} != names or any(
+        not (report / name).is_file() or (report / name).stat().st_size == 0 for name in names
+    ):
+        raise ValueError("V saved report must retain both nonempty all-prefix figures")
+
+
 def _closure_payload(capsule: Path, relative: str) -> tuple[bytes, dict]:
     path = (capsule / relative).resolve()
     if (
@@ -695,6 +743,7 @@ def main(argv: list[str] | None = None) -> int:
     for name in (
         "student_consequence_c1_audit_recovery_a1",
         "student_consequence_c1_certificate_closure_a2",
+        "student_visitation_s1_2_v",
     ):
         if (root / "results" / name / "capsule.json").is_file():
             capsules += (name,)
@@ -841,6 +890,14 @@ def main(argv: list[str] | None = None) -> int:
         if (root / closure).is_file():
             consequence_report.extend(["--closure", closure])
         commands.append(consequence_report)
+    if "student_visitation_s1_2_v" in capsules:
+        commands.append(
+            [
+                "results/student_visitation_s1_2_v/render_report.py",
+                "--out",
+                str(outputs / "student_visitation"),
+            ]
+        )
     inspections = {}
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
@@ -951,6 +1008,10 @@ def main(argv: list[str] | None = None) -> int:
     if "student_consequence_c1_0" in capsules:
         verify_student_consequence_report(
             root, root / "results/student_consequence_c1_0", outputs / "student_consequence"
+        )
+    if "student_visitation_s1_2_v" in capsules:
+        verify_student_visitation_report(
+            root / "results/student_visitation_s1_2_v", outputs / "student_visitation"
         )
     verify_consequence_recovery_capsules(root, inspections)
     print(

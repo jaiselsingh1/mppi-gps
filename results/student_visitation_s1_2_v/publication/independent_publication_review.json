@@ -1,0 +1,159 @@
+{
+  "executed_source_commands": {
+    "explanation": "Review commands were run as inline Python heredocs and were not saved or hashed as script files at execution. No source-command digest is inferred retrospectively.",
+    "location": "Tool-call transcript in the parent conversation",
+    "persisted_script_path": null,
+    "persisted_script_sha256": null
+  },
+  "learning_or_followup_authorized": false,
+  "new_scientific_work_by_review": {
+    "backward_rows": 0,
+    "checkpoint_tensor_loads": 0,
+    "mppi_queries": 0,
+    "native_controls": 0,
+    "neural_rows": 0,
+    "optimizer_steps": 0,
+    "physics_substeps": 0,
+    "prediction_calls": 0,
+    "resets": 0,
+    "restores": 0
+  },
+  "outcomes": {
+    "confirmation_reference_full_survival_per12": [
+      7,
+      8,
+      8
+    ],
+    "confirmation_reference_walking_per12": [
+      2,
+      7,
+      6
+    ],
+    "initial_and_own_reset_outcomes_excluded_from_noninitial_screen": true,
+    "parent_initial_secondary_walking_and_survival": [
+      0,
+      0
+    ],
+    "parent_noninitial_full_survival": 0,
+    "parent_noninitial_walking": 0,
+    "primary_reference_full_survival_per12": [
+      8,
+      8,
+      7
+    ],
+    "primary_reference_walking_per12": [
+      1,
+      7,
+      4
+    ],
+    "reference_initial_secondary_walking_and_survival": [
+      24,
+      24
+    ],
+    "reference_noninitial_falls": 26,
+    "reference_noninitial_full_survival": 46,
+    "reference_noninitial_full_survival_but_walking_criterion_failed": 19,
+    "reference_noninitial_walking": 27,
+    "reference_own_reset_walking_and_survival": [
+      32,
+      32
+    ],
+    "same_qualifying_streams": [
+      1,
+      2
+    ],
+    "shared_source_reset_seeds": 8,
+    "source_episodes": 24,
+    "walking_or_survival_regressions": []
+  },
+  "passed": true,
+  "point_in_time_capsule_check": {
+    "bound_files_checked": 76,
+    "hashed_payload_bytes": 10123752,
+    "manifest": "results/student_visitation_s1_2_v/capsule.json",
+    "manifest_sha256_at_review": null,
+    "missing_files": [],
+    "root": "results/student_visitation_s1_2_v",
+    "scope": "The then-current 76 bound files, before the parent expanded/resealed the publication. This is not a claim to have checked the later 156-file seal.",
+    "size_or_sha256_mismatches": []
+  },
+  "publication_blockers": [],
+  "recomputed_noninitial_mean_costs": {
+    "native_prefix_lengths_are_not_equal": true,
+    "parent_absorbing": 4601.041666666667,
+    "parent_complete": 4892.860662701143,
+    "parent_native_prefix": 291.81899603447687,
+    "reference_absorbing": 1792.013888888889,
+    "reference_complete": 2239.251538506976,
+    "reference_native_prefix": 447.2376496180867
+  },
+  "review_resource_accounting": {
+    "explanation": "No end-to-end monotonic, CPU or IO meter was recorded for this read-only review. Subset byte counts were explicitly accumulated by the successful commands; they are not a total that includes repeated metadata reads and preliminary command failures.",
+    "measured_decoded_prefix_bytes": 29864656,
+    "measured_subset_hash_payload_bytes": 10123752,
+    "physical_read_or_write_bytes": null,
+    "preliminary_scratch_command_failures": [
+      "SyntaxError before execution",
+      "IndexError while mapping a closing-file path"
+    ],
+    "total_cpu_seconds": null,
+    "total_file_read_bytes": null,
+    "total_wall_seconds": null
+  },
+  "review_scope": "Read-only publication verification of preserved certificates, saved scalar prefixes and published summaries; no execution of study or audit implementations.",
+  "saved_prefix_recomputation": {
+    "all_control_indices_contiguous": true,
+    "all_walking_survival_fall_and_control_counts_match_saved_outcomes": true,
+    "at_most_one_nonzero_terminal_per_trace": true,
+    "comparison_atol": 1e-10,
+    "compressed_file_bytes": 5284927,
+    "cost_rule": "Sum saved native control costs; add five per missing control only after an actual fall.",
+    "decoded_binding_matches_audit": true,
+    "decoded_bytes_hashed": 29864656,
+    "decoded_sha256": "7ee3a51b0cfa271c33c177d3fd7de9fd486d01bba08058fe4c01ba41d4c44755",
+    "done_matches_saved_height_pitch_health": true,
+    "executed_control_rows": 113621,
+    "file": "results/student_visitation_s1_2_v/audit/result/prefix_curves.jsonl.gz",
+    "max_abs_native_or_complete_cost_residual": 4.547473508864641e-13,
+    "max_abs_prefix_mae_residual": 8.881784197001252e-16,
+    "no_rows_after_done": true,
+    "rtol": 0,
+    "scope": "Independent arithmetic over saved scalar prefixes. Full simulator arrays, actor tensors and neural predictions were certified by the frozen scientific audit; they were not re-evaluated by this publication review.",
+    "traces": 224,
+    "walking_rule": "1000 actual controls, no fall, full-window mean abs velocity error from 1.5 at most 0.3; prefix MAE for fallen traces is not a full-window walking score."
+  },
+  "saved_research_costs_reconciled": {
+    "audit_core_source_read_bytes": 623662563,
+    "audit_inclusive_invocation_seconds": 249.85965279198717,
+    "audit_neural_rows_and_calls": 113621,
+    "audit_source_and_metadata_prelude_read_upper_bound_bytes": 87250204,
+    "audit_unknown_checkpoint_or_neural_work": false,
+    "external_mj_forward_calls": 256,
+    "native_controls": 113621,
+    "physics_substeps": 454484,
+    "resets": 32,
+    "restores": 192,
+    "scope": "These are existing research receipts, not additional work by this reviewer. Nested times, Linux IO and retained storage are separate measures.",
+    "snapshot_reads": 227466,
+    "worker_inclusive_invocation_seconds": 1150.2471022499958,
+    "worker_linux_write_bytes": 44001697792,
+    "worker_neural_rows_and_calls": 113621,
+    "worker_retained_evidence_bytes": 249890054,
+    "worker_unknown_or_unpersisted_work": false
+  },
+  "schema": "walker-visitation-v-independent-publication-review-v1",
+  "scientific_source_commit": "70075397bfb2966dff97e325c4104915f03c9581",
+  "verified_certificates": {
+    "admission_sha256": "a8c0dc1f25c7aeae93c0161bb042c403887e1c65134dbb97c75ce41376daebdf",
+    "all_four_admission_closing_file_bytes_and_hashes_match": true,
+    "all_four_closing_exits_clean_zero_reaped_without_kill_or_unknown": true,
+    "audit_result_sha256": "4898504f358983d78ff4612b858c3f2f799ab94335753528fc41601ef93e3396",
+    "config_sha256": "134d911f64bff8fe9de82563c8aaea6564ca055cceb02181062d312ed89b7ecf",
+    "finalizer_exit_clean_zero_reaped_without_unknown": true,
+    "finalizer_pid_matches_admission": 40623,
+    "prepared_manifest_sha256": "66b8cb47c04be859108bbeda307a53427562ad3915fe057f019fe86d05de8d39",
+    "publication_renderer_original_and_version002_source_hashes_match": true,
+    "worker_result_sha256": "55e60ed273ef3a01af057bfe2fda4fcc5cbb8c491e4dee46d62bd4c693b7e401"
+  },
+  "written_report": "docs/student_visitation_s1_2_v_results.md"
+}

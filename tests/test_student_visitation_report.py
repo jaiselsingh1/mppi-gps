@@ -114,3 +114,113 @@ def test_figures_and_csv_preserve_actual_fallen_prefix_only(tmp_path):
     assert (tmp_path / "report/actual_prefixes.csv").read_text().count("\n") == 2
     for name in ("prefixes_full.png", "prefixes_first100.png"):
         assert (tmp_path / "report" / name).read_bytes().startswith(b"\x89PNG")
+
+
+def mock_read_stat_change(monkeypatch, path, field):
+    """Model a kernel atime update without a userspace utime/ctime side effect."""
+    from pathlib import Path
+    from types import SimpleNamespace
+
+    original = Path.stat
+    before = original(path)
+    attributes = {
+        name: getattr(before, name)
+        for name in (
+            "st_dev",
+            "st_ino",
+            "st_mode",
+            "st_size",
+            "st_mtime_ns",
+            "st_ctime_ns",
+            "st_atime_ns",
+        )
+    }
+    calls = 0
+
+    def changed_stat(candidate, *args, **kwargs):
+        nonlocal calls
+        if candidate != path or not kwargs.get("follow_symlinks", True):
+            return original(candidate, *args, **kwargs)
+        calls += 1
+        values = dict(attributes)
+        if calls > 1:
+            values[field] += 1
+        return SimpleNamespace(**values)
+
+    monkeypatch.setattr(Path, "stat", changed_stat)
+
+
+def test_read_only_atime_update_preserves_saved_input_hash(tmp_path, monkeypatch):
+    import hashlib
+
+    path = tmp_path / "saved.json"
+    payload = b'{"value": 1}\n'
+    path.write_bytes(payload)
+    mock_read_stat_change(monkeypatch, path, "st_atime_ns")
+    reader = SavedReader()
+    assert reader.load(path) == dict(value=1)
+    assert reader.inputs[str(path)] == dict(
+        bytes=len(payload), sha256=hashlib.sha256(payload).hexdigest()
+    )
+    assert reader.read_bytes == len(payload)
+
+
+@pytest.mark.parametrize(
+    "field", ["st_dev", "st_ino", "st_mode", "st_size", "st_mtime_ns", "st_ctime_ns"]
+)
+def test_stable_metadata_change_still_rejects_input(tmp_path, monkeypatch, field):
+    path = tmp_path / "saved.json"
+    path.write_bytes(b'{"value": 1}\n')
+    mock_read_stat_change(monkeypatch, path, field)
+    reader = SavedReader()
+    with pytest.raises(ValueError, match="saved report input changed"):
+        reader.load(path)
+    assert reader.inputs == {}
+    assert reader.read_bytes == len(path.read_bytes())
+
+
+def test_same_size_content_change_during_read_is_rejected(tmp_path, monkeypatch):
+    import os
+    from pathlib import Path
+
+    path = tmp_path / "saved.json"
+    before = b'{"value": 1}\n'
+    after = b'{"value": 2}\n'
+    assert len(before) == len(after)
+    path.write_bytes(before)
+    original = Path.stat
+    first = original(path)
+    calls = 0
+
+    def changed_stat(candidate, *args, **kwargs):
+        nonlocal calls
+        if candidate == path and kwargs.get("follow_symlinks", True):
+            calls += 1
+            if calls == 2:
+                path.write_bytes(after)
+                os.utime(path, ns=(first.st_atime_ns, first.st_mtime_ns + 1_000_000_000))
+        return original(candidate, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "stat", changed_stat)
+    reader = SavedReader()
+    with pytest.raises(ValueError, match="saved report input changed"):
+        reader.load(path)
+    assert reader.inputs == {}
+    assert path.read_bytes() == after
+
+
+def test_content_changed_before_read_still_fails_frozen_audit_binding(tmp_path):
+    import hashlib
+
+    run = tmp_path / "run"
+    write(run / "config.json", {})
+    path = run / "worker/outcomes.jsonl"
+    write(path, dict(synthetic=1))
+    audit = tmp_path / "audit/audit.json"
+    write(audit, dict(passed=True, outcomes_sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+    write(path, dict(synthetic=2))
+    with pytest.raises(
+        ValueError, match="saved outcomes differ from their independent audit binding"
+    ):
+        render(run, tmp_path / "report", audit)
+    assert not (tmp_path / "report").exists()

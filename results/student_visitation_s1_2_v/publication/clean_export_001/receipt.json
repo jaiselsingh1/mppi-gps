@@ -1,0 +1,56 @@
+{
+  "schema": "walker-visitation-v-clean-export-smoke-v1",
+  "passed": true,
+  "git_tree": "42d5a271b84854915c53703386fa7db286c51704",
+  "ignored_evidence_directories_present": false,
+  "commands": [
+    {
+      "command": [
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.8424541670246981
+    },
+    {
+      "command": [
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "results/student_visitation_s1_2_v",
+        "--verify"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.08156879199668765
+    },
+    {
+      "command": [
+        "scripts/train_mppi_gps.py",
+        "study",
+        "visitation",
+        "--help"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.1342585000093095
+    },
+    {
+      "command": [
+        "results/student_visitation_s1_2_v/render_report.py",
+        "--out",
+        "/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/walker-v-clean-export-bu61kqln/report"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 15.399076917034108
+    }
+  ],
+  "regenerated_outcomes": 224,
+  "regenerated_actual_prefix_points": 113621,
+  "regenerated_summary_equals_sealed_summary": true,
+  "new_research_experiments": 0,
+  "wall_seconds": 20.64786941598868,
+  "child_user_seconds": 14.695828,
+  "child_system_seconds": 1.220815,
+  "temporary_output_bytes": 236940830,
+  "temporary_output_limit_bytes": 268435456,
+  "temporary_output_removed": true,
+  "full_test_scope": "Targeted20andexport39already passed; exact publication commit will run full lockedLinuxsuite and52commands in CI."
+}

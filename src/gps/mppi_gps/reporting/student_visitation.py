@@ -60,6 +60,18 @@ def _rss() -> int:
     return value if sys.platform == "darwin" else value * 1024
 
 
+def _stable_file_identity(value: os.stat_result) -> tuple[int, ...]:
+    """Bind content/ownership metadata while allowing the read's access-time update."""
+    return (
+        value.st_dev,
+        value.st_ino,
+        value.st_mode,
+        value.st_size,
+        value.st_mtime_ns,
+        value.st_ctime_ns,
+    )
+
+
 class SavedReader:
     def __init__(self):
         self.started = time.monotonic()
@@ -81,7 +93,9 @@ class SavedReader:
         with path.open("rb") as stream:
             payload = stream.read(size)
         self.read_bytes += len(payload)
-        if len(payload) != size or path.stat() != before:
+        if len(payload) != size or _stable_file_identity(path.stat()) != _stable_file_identity(
+            before
+        ):
             raise ValueError("V saved report input changed")
         self.inputs[str(path)] = dict(bytes=size, sha256=hashlib.sha256(payload).hexdigest())
 

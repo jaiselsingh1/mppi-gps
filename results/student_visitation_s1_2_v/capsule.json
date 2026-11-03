@@ -1,0 +1,822 @@
+{
+  "schema": "walker-evidence-capsule-v1",
+  "study": "S1.2-V1.1",
+  "bound_files": 164,
+  "payload_bytes": 12826076,
+  "capsule_excludes_itself": true,
+  "scientific_source_commit": "70075397bfb2966dff97e325c4104915f03c9581",
+  "external_run_directory": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002",
+  "full_scientific_audit_passed": true,
+  "scientific_process_closure_passed": true,
+  "reference_screen_passed": true,
+  "learning_launched": false,
+  "automatic_followup": false,
+  "claim_scope": "Reference behavior at the fixed saved student-state roster only; no teachability, useful learning, behavioral alignment or adaptive coupling claim",
+  "bulk_evidence": {
+    "omitted": [
+      "worker/evidence/arrays.bin",
+      "worker/evidence/arrays.index.jsonl",
+      "worker/evidence/ledger.jsonl",
+      "audit/result/prediction_journal.jsonl",
+      "prepared checkpoint/NPZ payloads",
+      "complete frozen source tree"
+    ],
+    "availability": "remoteonly; localnewsourceexportisnotafullrawmirror",
+    "inventory": "accounting/external_inventory.json"
+  },
+  "publication_report_version": 2,
+  "files": {
+    "README.md": {
+      "bytes": 3208,
+      "sha256": "20406eb4e649847ab8aea870636b7c7523e3669f5d072fb2ada1443c0533d2dc"
+    },
+    "accounting/complete_costs.json": {
+      "bytes": 20711,
+      "sha256": "ee15020e25e0c99d86e0350c1a56d37647fab0284539967dc2e4b732ac0b22d3"
+    },
+    "accounting/external_inventory.json": {
+      "bytes": 749503,
+      "sha256": "3b94fa24a040f2fe72f96009794289cf7b2a4011ad67815854d714d74a5e3863"
+    },
+    "accounting/source_export_accounting.json": {
+      "bytes": 969,
+      "sha256": "692c0eed50cf3c048339148878ed8aca1b0b77290ab462382e114bc795353ce1"
+    },
+    "accounting/storage_accounting.json": {
+      "bytes": 2380,
+      "sha256": "62111b5507d5d9ae9e94086e754353e65abfe2fa89857fe84b2b24f94a8ededa"
+    },
+    "audit/audit.json": {
+      "bytes": 300879,
+      "sha256": "4898504f358983d78ff4612b858c3f2f799ab94335753528fc41601ef93e3396"
+    },
+    "audit/coordinator_exit.json": {
+      "bytes": 782,
+      "sha256": "43e7b302610baa44624096645d51b4b1ad9ddf01247862f7817a89d0d9c03ccb",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_001/coordinator_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "audit/exit.json": {
+      "bytes": 791,
+      "sha256": "6cdcf8d1eb5f65afafc28fe139f1d0985a9d93cd713ea4da7f7a2e8ff309369f",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_001/exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "audit/result/audit.json": {
+      "bytes": 300879,
+      "sha256": "4898504f358983d78ff4612b858c3f2f799ab94335753528fc41601ef93e3396",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_001/result/audit.json",
+      "source_encoding": "exact bytes"
+    },
+    "audit/result/prefix_curves.jsonl.gz": {
+      "bytes": 5284927,
+      "sha256": "5a3385058c4894fd189f5f4b12541cc4d4edc595b979b5f74b70f1b812c72b9a",
+      "source_path": null,
+      "source_encoding": "gzip; decompressed bytes exact"
+    },
+    "audit/result/process_receipt.json": {
+      "bytes": 746,
+      "sha256": "3362cc9996f9aad45d36427d988c825c59d25cf42d0555fcf9d20d4bab3d3777",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_001/result/process_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "audit/result/stream/receipt.json": {
+      "bytes": 1137,
+      "sha256": "bdc838b1e58955d7ca97f3a3cd5a7da67a40aab098654fa681273e865a7bae07",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_001/result/stream/receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "audit/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_001/stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "historical_failed_v1/prepare_coordinator_exit.json": {
+      "bytes": 672,
+      "sha256": "59de3ba671b6e2fdf6b72d7f443b65a90fc8da9831a492400068bad3ea739d28",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_001/prepare_coordinator_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "historical_failed_v1/prepare_exit.json": {
+      "bytes": 675,
+      "sha256": "963f28c5e3e77d96327dcaf6139a0d510e326fd457733f22bd94a3363089c929",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_001/prepare_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "historical_failed_v1/prepare_ownership.json": {
+      "bytes": 348,
+      "sha256": "679c9eae27a645022cd8b6fd96ee5fdb0711644ce08708711ee3fdf71b61f510",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_001/prepare_ownership.json",
+      "source_encoding": "exact bytes"
+    },
+    "historical_failed_v1/prepare_stdout.txt": {
+      "bytes": 2015,
+      "sha256": "d4c4ab71d7352713db38769fcd953d9f2c80c14065d807caf49285c49e78dcd8",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_001/prepare_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "historical_failed_v1/prepared/failure.json": {
+      "bytes": 642,
+      "sha256": "2ebc33729e1837793c2e3573c115c8266249230d3b07fea2ea7274dd31831294",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_001/prepared/failure.json",
+      "source_encoding": "exact bytes"
+    },
+    "operator/audit_coordinator_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_coordinator_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "operator/audit_operator_receipt.json": {
+      "bytes": 319681,
+      "sha256": "2d5f5d9d23d6d3b48991368b6607912ea05876e2436a4525fdc41b51ea2b5cd8",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/audit_operator_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "operator/finalizer_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/finalizer_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "operator/preparation_coordinator_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/preparation_coordinator_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "operator/preparation_finalizer_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/preparation_finalizer_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "operator/preparation_operator_receipt.json": {
+      "bytes": 1643,
+      "sha256": "167dd5b9965413cf7941694017747ddb7e96376b1fd7c3070d57e469feee32a8",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/preparation_operator_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "operator/report_exit.json": {
+      "bytes": 914,
+      "sha256": "36669e000b524edac422c387344b7c9513ca6c61256650e4968ac2d68fba9c1a",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/report_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "operator/report_operator_receipt.json": {
+      "bytes": 256,
+      "sha256": "853d7da6aa40e4a879449ebc23a75d3957f6dfed71217d391652e18f04c41e5f",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/report_operator_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "operator/report_stdout.txt": {
+      "bytes": 1239,
+      "sha256": "a6ca2e59f0975b61923102fb71747b73e30c2cde27d18f192559a391f849eb41",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/report_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "operator/source_deployment_receipt.json": {
+      "bytes": 510,
+      "sha256": "2dc60383e89c5d760627207407a398a6b60ffb635e709504a0c2a913cb7b9b82",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/source_deployment_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "operator/worker_coordinator_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/worker_coordinator_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "operator/worker_operator_receipt.json": {
+      "bytes": 5360,
+      "sha256": "6dc169d46b938e5c24a56b8d86c125dc9c46ecbca0436e738a3e2752c1520dac",
+      "source_path": "/home/jaisel/mppi-gps-workspace/artifacts/2026-11-02_student_visitation_s1_2_v_002/worker_operator_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "publication/aliases.json": {
+      "bytes": 576,
+      "sha256": "c31e902c4022c2e0dfc8269ea6bba90ff0a0fede33098bf7ee74e99d5aeaa8de"
+    },
+    "publication/ci/final_jobs.json": {
+      "bytes": 1956,
+      "sha256": "4dd168a8171d4af3cd4c362afd09b17e170ec6b430efd5a7955bd8bf72229eda"
+    },
+    "publication/ci/final_run.json": {
+      "bytes": 13765,
+      "sha256": "97af9c23f8fa11336b58368e5abb5cca120ee328bd2c2876fc197e265e2afacd"
+    },
+    "publication/ci/summary.json": {
+      "bytes": 1006,
+      "sha256": "02afde25429e7bdda451305cac4af597047aa18a8efe668c6d012926769f3283"
+    },
+    "publication/clean_export_001/command_01.log": {
+      "bytes": 141,
+      "sha256": "c58680be153b42301773a48a61964534c0ec1672c415fd78c1fc150e9070f189"
+    },
+    "publication/clean_export_001/command_02.log": {
+      "bytes": 52121,
+      "sha256": "8700469fcd977bd0b1f0c0573384e80f644cdd101ec983a02a6075ec5571f63c"
+    },
+    "publication/clean_export_001/command_03.log": {
+      "bytes": 476,
+      "sha256": "84a56db7c00f0397517801c17468d60ae9ca6646f7ca0e88bedfb715d818a836"
+    },
+    "publication/clean_export_001/command_04.log": {
+      "bytes": 336,
+      "sha256": "2c2ec2df1b7e569cd9906c453ded2a0a33fdbfc389dcd7db1f9d0240d4623724"
+    },
+    "publication/clean_export_001/receipt.json": {
+      "bytes": 1595,
+      "sha256": "870f24401c91d0b206e8ca03e5a4de76da794f20bca4ae4aaf247d92c6d0c139"
+    },
+    "publication/clean_export_001/run.py": {
+      "bytes": 2975,
+      "sha256": "9328a92a3e4fe862df76746201ec16e34219a231ff57d2144f3f01d14b24562d"
+    },
+    "publication/derived_summary.json": {
+      "bytes": 2491,
+      "sha256": "4f472feaa40f61aef160ddedd3044405ce9f9efb2a794644dcbac318e84fd8d4"
+    },
+    "publication/independent_publication_review.json": {
+      "bytes": 6841,
+      "sha256": "f73493bba706acd4c83382f329ca76066569406869a4b5b7a1021f728321bef4"
+    },
+    "publication/obsidian_update.json": {
+      "bytes": 1506,
+      "sha256": "433818302b305def223cad8d192a953b6ec393aa2d20a1b02cfd2a24b860ab8d"
+    },
+    "publication/operator/audit_launch_001/protocol.json": {
+      "bytes": 594,
+      "sha256": "4f3e7471a4f6ad58a2a1eb68fe2dbfa6a4ca2abd0565143ab7e68ac2bde3e315"
+    },
+    "publication/operator/audit_launch_001/receipt.json": {
+      "bytes": 210,
+      "sha256": "511c9159b8cd5305d3967500ea3a8d37fc12d8724d246395591ad2d5e2f33885"
+    },
+    "publication/operator/audit_launch_001/remote_program.py": {
+      "bytes": 4152,
+      "sha256": "31b00081cf48974d3790ab063248d161add408642468b4650eebaab701841287"
+    },
+    "publication/operator/audit_launch_001/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/audit_launch_001/stdout.json": {
+      "bytes": 243057,
+      "sha256": "c9fc403b86208fe827d54156d4231090d054903466ac58ba8a10428a57b75396"
+    },
+    "publication/operator/audit_launch_001/worker_guard_program.py": {
+      "bytes": 1061,
+      "sha256": "2e144a4c0bad4d78705d1de1570507d686e5eeb1e5687ff198141c7e2a894ae1"
+    },
+    "publication/operator/audit_launch_001/worker_guard_receipt.json": {
+      "bytes": 172,
+      "sha256": "5d613eba97c3d12851338c007ebc96c42cee584ddb301d4949871adf5335f1ad"
+    },
+    "publication/operator/audit_launch_001/worker_guard_stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/audit_launch_001/worker_guard_stdout.json": {
+      "bytes": 1427,
+      "sha256": "8626db5be4aead05856010eaf6f7755d58aab5702faab6e48e4f4df949f66765"
+    },
+    "publication/operator/capsule_build_002/extraction_receipt.json": {
+      "bytes": 377,
+      "sha256": "dc94a7ad95e92f60c8414a71e37aae283464c337786f2c8a9af674a8557e01e1"
+    },
+    "publication/operator/capsule_build_002/protocol.json": {
+      "bytes": 805,
+      "sha256": "ce6257e04f5f39d735fedf88c623821676366fd7ec7e0b50d6a446edec74cc1e"
+    },
+    "publication/operator/capsule_build_002/receipt.json": {
+      "bytes": 178,
+      "sha256": "86d04321355b09996f24aae717cc417fab61bb96d3e0ba79caec2a3546697a28"
+    },
+    "publication/operator/capsule_build_002/remote_program.py": {
+      "bytes": 6586,
+      "sha256": "14a05d5124a698a6cdbcd6726a3fdd160226cd06d5a972a7667829934a6182b7"
+    },
+    "publication/operator/capsule_build_002/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/capsule_build_002/stdout.json": {
+      "bytes": 554,
+      "sha256": "7571e448528d2e90352bfb9de7b1748d54251dc8bf91810378c28237e659dd2c"
+    },
+    "publication/operator/capsule_build_002/transfer_receipt.json": {
+      "bytes": 164,
+      "sha256": "b0536f973371111a136d25114f0f5322da9c33fc58f605e7285fd1fef64d1916"
+    },
+    "publication/operator/capsule_build_002/transfer_stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/capsule_build_002/transfer_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/correction_deployment_001/build_receipt.json": {
+      "bytes": 2151,
+      "sha256": "d3f727a86330fcd26f26997c6c72c8bb39203c9ede14b77aba33c379b04f31d3"
+    },
+    "publication/operator/correction_deployment_001/deploy_receipt.json": {
+      "bytes": 269,
+      "sha256": "4289f55535f49c62e181dd8535549adb4aca5aa9b02906cb54302f4f61007841"
+    },
+    "publication/operator/correction_deployment_001/deploy_stdout.json": {
+      "bytes": 485,
+      "sha256": "688e27a30d53d727948a0fd6001a87d95cc8c1592b0b1722aafc246fb904c881"
+    },
+    "publication/operator/deployment_001/extract_receipt.json": {
+      "bytes": 175,
+      "sha256": "bb578bb994f8d045f348513cc72803af376e0514098fd6098f2d9ce420f08637"
+    },
+    "publication/operator/deployment_001/setup_receipt.json": {
+      "bytes": 183,
+      "sha256": "b797af9151089282a78ccd1ec850d8536210e7dd63fce985095d9ce21b9a7ea4"
+    },
+    "publication/operator/deployment_001/transfer_receipt.json": {
+      "bytes": 251,
+      "sha256": "0e594544b1aab5d593b3b042f9b96b0e5f5ea0f74c2209cb74eb42a82db8de3e"
+    },
+    "publication/operator/prepare_launch_002/protocol.json": {
+      "bytes": 486,
+      "sha256": "8de8befc6d6b464f6cb0810cd38eaecd567552f808af1b0ca61938e0c0138099"
+    },
+    "publication/operator/prepare_launch_002/receipt.json": {
+      "bytes": 177,
+      "sha256": "2cf88770601ff967028514aacdafee3a7eab97f533479d45724d28013dd4e74f"
+    },
+    "publication/operator/prepare_launch_002/remote_program.py": {
+      "bytes": 4098,
+      "sha256": "43ebebda11ddf809b58d0763cc4f9fb915126a6700400f263f5c258ab874eb19"
+    },
+    "publication/operator/prepare_launch_002/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/prepare_launch_002/stdout.json": {
+      "bytes": 1409,
+      "sha256": "8f3d42e0df9d8bdd348007c12fc144da818cc52dd04455bc73850e6c304c4b3a"
+    },
+    "publication/operator/progress_002/check.py": {
+      "bytes": 2257,
+      "sha256": "b642677b028d86e7b5e1f3d66ae4147e63d4e398fccc1af4e7131d80c7ab217f"
+    },
+    "publication/operator/progress_002/check_001_receipt.json": {
+      "bytes": 207,
+      "sha256": "ddb8b51c77888a41909436918933ea3c0b7609bc612a952e408847dd075f9c28"
+    },
+    "publication/operator/progress_002/check_001_stderr.txt": {
+      "bytes": 91,
+      "sha256": "bdd2568dee4483406e05492476a3efec8996c6e52f0941c951fd9dd0ece0e024"
+    },
+    "publication/operator/progress_002/check_001_stdout.json": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/progress_002/remote_program.py": {
+      "bytes": 1215,
+      "sha256": "4e313c408a619502dcb4d634508d820c26556896b4540e6d75eb86e0195567b3"
+    },
+    "publication/operator/progress_003/check.py": {
+      "bytes": 2278,
+      "sha256": "639f423e62164d55812c41317f3ea76a1622fcb62b5559777d5a2f1361330b26"
+    },
+    "publication/operator/progress_003/check_001_receipt.json": {
+      "bytes": 209,
+      "sha256": "071b2207e04137b761f56676caab177c68a233b7b575c0d5c8339630beff9629"
+    },
+    "publication/operator/progress_003/check_001_stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/progress_003/check_001_stdout.json": {
+      "bytes": 851,
+      "sha256": "b59e223324298ae1145cf446c87e2ebd3d6b70001ed7bf2d009e2f4d0bdf54d3"
+    },
+    "publication/operator/progress_003/check_002_receipt.json": {
+      "bytes": 214,
+      "sha256": "b45576d5933758c4688e3f637f75ba715ee72de9e7c67745acf7c4dbded71566"
+    },
+    "publication/operator/progress_003/check_002_stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/progress_003/check_002_stdout.json": {
+      "bytes": 851,
+      "sha256": "c1f34b02a4c3cb51efc1aa34a63033a10c4d9b1977cc17f4f8d9d678113309cb"
+    },
+    "publication/operator/progress_003/remote_program.py": {
+      "bytes": 1236,
+      "sha256": "c7b11189883bacd321732615997b567ad96201383a394d2ac6f87a3af2b82bc2"
+    },
+    "publication/operator/progress_003/version.json": {
+      "bytes": 461,
+      "sha256": "8d348068986b9f2a287163eb4f3384bf60434fdad2a0ded7ee1295dc3209558d"
+    },
+    "publication/operator/report_launch_001/failure_read_program.py": {
+      "bytes": 221,
+      "sha256": "27324739f7e0bfc15c461a4b4832fe46e205f3f736ac8ba6f89ec4cb6463c041"
+    },
+    "publication/operator/report_launch_001/failure_read_receipt.json": {
+      "bytes": 83,
+      "sha256": "dd7a2ba1c09ab64965ba9a45582e35ed357c16b387a88ef2bad7e3aeae930abc"
+    },
+    "publication/operator/report_launch_001/failure_read_stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/report_launch_001/failure_read_stdout.json": {
+      "bytes": 2306,
+      "sha256": "ea85921decd14ba9155f7b61508a38506846aa73b5e641d5c0923c4ef0711554"
+    },
+    "publication/operator/report_launch_001/protocol.json": {
+      "bytes": 293,
+      "sha256": "e5ef79f7141dc144e5b90415acd22d5020c2c416a02502fe8b6b7a3f2b45bf2e"
+    },
+    "publication/operator/report_launch_001/receipt.json": {
+      "bytes": 178,
+      "sha256": "ef9fc0246203c6c532de444a78ba85bd80559ab034272b703dffb3a4574a7306"
+    },
+    "publication/operator/report_launch_001/remote_program.py": {
+      "bytes": 1996,
+      "sha256": "4947a382b7a40701281c32b5e48be6367d09fbfab1b5ebdf5e136ba2acf533d1"
+    },
+    "publication/operator/report_launch_001/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/report_launch_001/stdout.json": {
+      "bytes": 238,
+      "sha256": "642130a8654e9ba16edc5968d62f9bc335986990d07aa391fc3ae1f421cb40f2"
+    },
+    "publication/operator/source_freeze_001/receipt.json": {
+      "bytes": 593,
+      "sha256": "1a2d3e5ac94983e2094a2f7fc93226f991246f898639232f58e0dbe727743685"
+    },
+    "publication/operator/source_publication_002/ci_001/job_125650435334.log": {
+      "bytes": 31286,
+      "sha256": "8f79e165740483a4f32edcbdabad00fb7d2c8756198dea6f50906d736f805e89"
+    },
+    "publication/operator/source_publication_002/ci_001/summary.json": {
+      "bytes": 1006,
+      "sha256": "02afde25429e7bdda451305cac4af597047aa18a8efe668c6d012926769f3283"
+    },
+    "publication/operator/storage_census_001/protocol.json": {
+      "bytes": 273,
+      "sha256": "304429ca8b815773f7da7a0ad9f23dedbbc97fb17241b3d22e8ed39031af8a48"
+    },
+    "publication/operator/storage_census_001/receipt.json": {
+      "bytes": 171,
+      "sha256": "e7b86b13d38cf49e454be95f5e63c7e852b179d960f5144d3a6d706d8b30723d"
+    },
+    "publication/operator/storage_census_001/remote_program.py": {
+      "bytes": 3663,
+      "sha256": "cacc164b811312ae22926eae88ba9036fdec9d0ac989eeb725081cd5efd76682"
+    },
+    "publication/operator/worker_launch_001/ci_gate.json": {
+      "bytes": 397,
+      "sha256": "25b9aef226814b80fba964f228ea7b547d4a95dc10d60ead9a67c0f97dc940ae"
+    },
+    "publication/operator/worker_launch_001/protocol.json": {
+      "bytes": 655,
+      "sha256": "c58a6e6b9c7aaf79ec3a825c29af6cb27220116dfd3b2c724b81c85b1efe122f"
+    },
+    "publication/operator/worker_launch_001/receipt.json": {
+      "bytes": 170,
+      "sha256": "38741ef020e8d2f10b51d45b517ee308caf145607808395b4b5f1cb7bef181a9"
+    },
+    "publication/operator/worker_launch_001/remote_program.py": {
+      "bytes": 3540,
+      "sha256": "c8fce69d1f963c7bff57604cceb09ada27d6ba029714d69242e9cab393750a89"
+    },
+    "publication/operator/worker_launch_001/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "publication/operator/worker_launch_001/stdout.json": {
+      "bytes": 3582,
+      "sha256": "04a60b8037e8f9f872230cd933bc4deae3ba4145e7afafa1788c8de18032848b"
+    },
+    "publication/render_input_capsule_manifest.json": {
+      "bytes": 11957,
+      "sha256": "da508305b8cd4e969aff4ace82a273c1efe06176112fd8b0b595ef961f3546bb"
+    },
+    "publication/report_version_002.json": {
+      "bytes": 1310,
+      "sha256": "a4265e128278c2c72f1b6cef56f96707883a133dd2c5fc8e092ae324541a9511"
+    },
+    "publication/software_validation.json": {
+      "bytes": 604,
+      "sha256": "b985ff440a0e0bcd15f0430bfbd7fca39470924265c4389468d3128f9206e5d8"
+    },
+    "publication/source/src/gps/mppi_gps/reporting/student_visitation.py": {
+      "bytes": 15066,
+      "sha256": "61fa31988f7fdc8377e5ac390cf64051daf6e2a8cd52a6d0c3873badbf17803f"
+    },
+    "render_report.py": {
+      "bytes": 8120,
+      "sha256": "97144ea860ce425d7180fd0d9736464d40958c6e33103f6a2bcab73fc04281da"
+    },
+    "report/outcome_summary.csv": {
+      "bytes": 2947,
+      "sha256": "0b2d8f70dc7d52f7b78eeeb3be03ddb86853c4ead56d7a810a42b7280c445b14"
+    },
+    "report/outcomes.csv": {
+      "bytes": 47254,
+      "sha256": "f172c76c8b9ae4e31d380704e46c4a1ac0072c96af503551317c2dbb56edb200"
+    },
+    "report/prefixes_first100.png": {
+      "bytes": 738966,
+      "sha256": "1f037a623fc01e53f62297844a20ab7f8f8eed03889c579071c81033f1531493"
+    },
+    "report/prefixes_full.png": {
+      "bytes": 699269,
+      "sha256": "f452ba45f40a968c693137ace823964795afd314cd8bb765ad9dfd4fb3ef97db"
+    },
+    "report/report.md": {
+      "bytes": 5457,
+      "sha256": "e2d1c1103514c92af1ed7d337b0b9d357abfb4f2c0e4c924536ba22c6d4d8dcd"
+    },
+    "report/report_receipt.json": {
+      "bytes": 6839,
+      "sha256": "f490b404f5a8f59bcf371570618cfaa317e69ddc29212880f60014429f135615"
+    },
+    "run/admission.json": {
+      "bytes": 1501,
+      "sha256": "a8c0dc1f25c7aeae93c0161bb042c403887e1c65134dbb97c75ce41376daebdf",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/admission.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/audit/audit.json": {
+      "bytes": 300879,
+      "sha256": "4898504f358983d78ff4612b858c3f2f799ab94335753528fc41601ef93e3396"
+    },
+    "run/audit_ownership.json": {
+      "bytes": 408,
+      "sha256": "4a8e29af49a5929becc3d76528520f6edb7f94589e096ba034b506dac0ed8066",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/audit_ownership.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/config.json": {
+      "bytes": 52941,
+      "sha256": "134d911f64bff8fe9de82563c8aaea6564ca055cceb02181062d312ed89b7ecf",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/config.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/finalizer_exit.json": {
+      "bytes": 780,
+      "sha256": "5362a484496dfa6228ee07863485d7240ba248ed8b39cd37420a0c80c371e815",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/finalizer_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/input_manifest.json": {
+      "bytes": 39769,
+      "sha256": "ef546cd13be16f33fcbf9864eed9e6a24c944028ca1a140233cb00cab658b85b",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/input_manifest.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/manifest.json": {
+      "bytes": 170278,
+      "sha256": "37b6c6ae67f3e06b958a3c5dff9efa7d9cbc5e100f549a4a5853d353e494e286",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/manifest.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/preparation_admission.json": {
+      "bytes": 1358,
+      "sha256": "ce7f3daa8a603d955c221ddf1e201ab22d61fb428e925fde797ab6a8132e2509",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/preparation_admission.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/preparation_finalizer_exit.json": {
+      "bytes": 673,
+      "sha256": "a6e53acc4ba418968f5bcad1782e2fe277cb50184831ef92f5c70bdd9a7e1faa",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/preparation_finalizer_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/preparation_process_receipt.json": {
+      "bytes": 776,
+      "sha256": "3a38f2f17cf56028e87ded5b2159bcb3886b38887f6a685b99cacb6eb5d4c4fb",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/preparation_process_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepare_coordinator_exit.json": {
+      "bytes": 672,
+      "sha256": "d5126fc8cdb297251406b1e78acdc2cece33a2f492fc5a23c78ff09364a88693",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepare_coordinator_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepare_exit.json": {
+      "bytes": 673,
+      "sha256": "7d5e25477f2617320a63a9d345f723f634e0e2539e75e8ff684b572cb054cc62",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepare_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepare_ownership.json": {
+      "bytes": 348,
+      "sha256": "b39db0e55dceb6fe1d43a4c6069aafa47ab40e1989d171e4b2f3925dd7145a96",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepare_ownership.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepare_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepare_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepared/catalog.json": {
+      "bytes": 773383,
+      "sha256": "7582e3dfd561505fff4fa7f6536839f76f5a47956c0679f4caf4ae941a283bb8",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepared/catalog.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepared/preparation_census.json": {
+      "bytes": 930,
+      "sha256": "b0ef34df9e3306c5480d97246d906da16fa2bf99bdadfbe420e9be5abb497d1d",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepared/preparation_census.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepared/prepared_input_manifest.json": {
+      "bytes": 29566,
+      "sha256": "66b8cb47c04be859108bbeda307a53427562ad3915fe057f019fe86d05de8d39",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepared/prepared_input_manifest.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/prepared/static_receipt.json": {
+      "bytes": 16625,
+      "sha256": "7061d76a5d6241e2b13e37f0d63ccf4713a56470eda4dd4bfded616389af6561",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/prepared/static_receipt.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/audits/student_visitation.py": {
+      "bytes": 69157,
+      "sha256": "1134f930774e482f9c9a439cfdf6f8df4301fbd5c1c1613e86d77a46c8df0684",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/audits/student_visitation.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/consequence_execution.py": {
+      "bytes": 7039,
+      "sha256": "21b923309e53b8d5a1297e8918e77c51a91d0fed978496761a0fd9fd5611d934",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/consequence_execution.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/consequence_native.py": {
+      "bytes": 13091,
+      "sha256": "43b0f03eca7911771a78c0f60a28edc7914fe27d1d57234b26a72f84f15d1812",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/consequence_native.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/consequence_storage.py": {
+      "bytes": 25499,
+      "sha256": "dcf7f3ef769c252b9d86d6a61eb04d33dac122a27353b85c047a06fae03a213d",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/consequence_storage.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/diagnostic_policies.py": {
+      "bytes": 9993,
+      "sha256": "c322c020a5a5bfce3db32372c928babdce797eade4c736ad9afc0033982112b6",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/diagnostic_policies.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/experiments/student_visitation.py": {
+      "bytes": 22903,
+      "sha256": "f63cd03a9798aeaca6231149ace4ced956e8517b20f05d8d26255fe2fe9bf53b",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/experiments/student_visitation.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/lifecycle.py": {
+      "bytes": 2939,
+      "sha256": "eba6740afa9aeef71d819f8753093b075208b855df2201101dbc5d5b732ae202",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/lifecycle.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/policy.py": {
+      "bytes": 27021,
+      "sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/policy.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/proposal_launch.py": {
+      "bytes": 10009,
+      "sha256": "28de956706948467f7fa5235b3dd82bafeb93cfe2bece319a6771a39f9477256",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/proposal_launch.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/reporting/student_visitation.py": {
+      "bytes": 14676,
+      "sha256": "336ed3111883f4e49fa06a777c2e47a6afb72d83c18671b7411fbdc1a6d36a9a",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/reporting/student_visitation.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/visitation_inputs.py": {
+      "bytes": 26429,
+      "sha256": "4a5d7af47c4dd42763c9a1950e591b17c3bdc5a44471c3174bcdd771ac033c61",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/visitation_inputs.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/visitation_native.py": {
+      "bytes": 10027,
+      "sha256": "878e00f56d6634795ae3513d8a03ba3f854c8b64aaf357502f44544abe833d10",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/visitation_native.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/source/src/gps/mppi_gps/visitation_worker.py": {
+      "bytes": 23557,
+      "sha256": "2d76282ebaeea275da4b764c9dc4fd48e75dd924b89c23db624160e92756b77b",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/visitation_worker.py",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/actor_registry.json": {
+      "bytes": 2387,
+      "sha256": "69ea25c80e75cd165fb1cf3be6c3e8b6e7b3978b5caad759defdbbb482adf8ed",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/actor_registry.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/outcomes.json": {
+      "bytes": 1171984,
+      "sha256": "d6ceaf51bdc93dc572ecb3fd920ea454f0e74fb742a0f5b205f311d9124e4886",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/outcomes.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/outcomes.jsonl": {
+      "bytes": 700848,
+      "sha256": "d1f57e898676897b3b754faee109bc4398e248e5d7c1dcb0b281b8a5451053ed",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/outcomes.jsonl",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/parent_actor_registry.json": {
+      "bytes": 2049,
+      "sha256": "12715a85814acf3cb42d8c7f35587b46e6d71c3ec953f2f7b95b6acb952b2cad",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/parent_actor_registry.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/parent_replay_gate.json": {
+      "bytes": 207,
+      "sha256": "bcc0a532ee6103cf58891a9bc0d551c80e4ed974c74f625c8ab551e40a2f3eff",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/parent_replay_gate.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/phase_status.json": {
+      "bytes": 3241,
+      "sha256": "8dd7380a796182f6bddd12b26d707b737bd2baffc7ba6351631c4fbb147d3c19",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/phase_status.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/reference_positive_control_gate.json": {
+      "bytes": 278,
+      "sha256": "055d7c4f3f54b18a1872107e5a3ee902849ee9d43d3bdb57da0cc2183d4bb25e",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/reference_positive_control_gate.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/reference_usefulness_screen.json": {
+      "bytes": 2254,
+      "sha256": "ba7cb46d82f989fd73a6c8ad819e096ae89cd5b425966f233f3d2ed34f48ac6a",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/reference_usefulness_screen.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker/static_gate.json": {
+      "bytes": 16632,
+      "sha256": "fa26f2d71821b820aad42ac9b58b37071509281b05aceb3b99d360edfbfb0b52",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker/static_gate.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker_coordinator_exit.json": {
+      "bytes": 664,
+      "sha256": "8b7d0ff0674cbe223c0e5e30716053f5757b2589f7756cd9d289495f508cbddf",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker_coordinator_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker_exit.json": {
+      "bytes": 661,
+      "sha256": "8b0069591e10ab45f7e0f8be079f152bad219768aa8c8d53fad1d6040dd375aa",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker_exit.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker_ownership.json": {
+      "bytes": 409,
+      "sha256": "a6212d72ee8bc8c7b6031680558bf4ba3c61524625d6cf081decbaf1f77b1838",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker_ownership.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker_result.json": {
+      "bytes": 6607,
+      "sha256": "55e60ed273ef3a01af057bfe2fda4fcc5cbb8c491e4dee46d62bd4c693b7e401",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker_result.json",
+      "source_encoding": "exact bytes"
+    },
+    "run/worker_stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/worker_stdout.txt",
+      "source_encoding": "exact bytes"
+    },
+    "transfer_manifest.json": {
+      "bytes": 309972,
+      "sha256": "5cc09fc901c9be49d495bd749b91a550dc09f4b70bc9f2bf1db9139a3c1549f4"
+    }
+  }
+}

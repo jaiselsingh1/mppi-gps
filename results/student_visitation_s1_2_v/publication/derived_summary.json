@@ -1,0 +1,83 @@
+{
+  "schema": "walker-visitation-v-saved-summary-v1",
+  "source_audit_sha256": "4898504f358983d78ff4612b858c3f2f799ab94335753528fc41601ef93e3396",
+  "groups": [
+    {
+      "kind": "parent_replay",
+      "population": "initial",
+      "episodes": 24,
+      "controls": 5681,
+      "walking": 0,
+      "full_survival": 0,
+      "retention_without_walking": 0,
+      "mean_raw_cost": 753.5180445484102,
+      "mean_native_terminal": 20.0,
+      "mean_native_cost": 773.5180445484102,
+      "mean_absorbing_cost": 3816.4583333333335,
+      "mean_cost": 4589.976377881744,
+      "mean_mae": 1.528538377392186
+    },
+    {
+      "kind": "parent_replay",
+      "population": "noninitial",
+      "episodes": 72,
+      "controls": 5745,
+      "walking": 0,
+      "full_survival": 0,
+      "retention_without_walking": 0,
+      "mean_raw_cost": 271.81899603447687,
+      "mean_native_terminal": 20.0,
+      "mean_native_cost": 291.81899603447687,
+      "mean_absorbing_cost": 4601.041666666667,
+      "mean_cost": 4892.860662701145,
+      "mean_mae": 1.784782972247102
+    },
+    {
+      "kind": "reference_reset",
+      "population": "own_reset",
+      "episodes": 32,
+      "controls": 32000,
+      "walking": 32,
+      "full_survival": 32,
+      "retention_without_walking": 0,
+      "mean_raw_cost": 531.7822310589804,
+      "mean_native_terminal": 0.0,
+      "mean_native_cost": 531.7822310589804,
+      "mean_absorbing_cost": 0.0,
+      "mean_cost": 531.7822310589804,
+      "mean_mae": 0.232770598377313
+    },
+    {
+      "kind": "reference_takeover",
+      "population": "initial",
+      "episodes": 24,
+      "controls": 24000,
+      "walking": 24,
+      "full_survival": 24,
+      "retention_without_walking": 0,
+      "mean_raw_cost": 519.5340573422767,
+      "mean_native_terminal": 0.0,
+      "mean_native_cost": 519.5340573422767,
+      "mean_absorbing_cost": 0.0,
+      "mean_cost": 519.5340573422767,
+      "mean_mae": 0.22657431428574074
+    },
+    {
+      "kind": "reference_takeover",
+      "population": "noninitial",
+      "episodes": 72,
+      "controls": 46195,
+      "walking": 27,
+      "full_survival": 46,
+      "retention_without_walking": 19,
+      "mean_raw_cost": 440.01542739586444,
+      "mean_native_terminal": 7.222222222222222,
+      "mean_native_cost": 447.2376496180866,
+      "mean_absorbing_cost": 1792.013888888889,
+      "mean_cost": 2239.251538506976,
+      "mean_mae": 0.9030874573643604
+    }
+  ],
+  "arithmetic_only": true,
+  "new_scientific_work": 0
+}

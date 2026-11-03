@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/scripts/train_mppi_gps.py", line 145, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/scripts/train_mppi_gps.py", line 42, in main
+    return int(module.main(arguments[2:]) or 0)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/experiments/student_visitation.py", line 583, in main
+    report_run(args.run, args.out, audit=args.audit)
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/reporting/student_visitation.py", line 245, in render
+    documents["worker/" + name] = reader.load(root / "worker" / name)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_student_visitation_s1_2_v_002/source/src/gps/mppi_gps/reporting/student_visitation.py", line 85, in load
+    raise ValueError("V saved report input changed")
+ValueError: V saved report input changed
