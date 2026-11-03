@@ -1,0 +1,44 @@
+{
+  "schema": "walker-s1.2-v-preparation-attempt-v2",
+  "stage": "V_only",
+  "authority": "User explicitly requested retry after restoring SSH. One new V-only preparation attempt; previous timeout remains immutable. V execution requires all declared prerequisites; L remains separately review-gated.",
+  "review_recipe": {
+    "file": "configs/studies/student_visitation_s1_2_review_v2.json",
+    "bytes": 81259,
+    "sha256": "1268b15b6501f8094caef6a470c74ca3790839bc11ed232938be48931d26d381"
+  },
+  "source_commit": "59ef42efdc9f3ccfbb203ec79d4bf8e29f1572db",
+  "limits": {
+    "wall_seconds": 600,
+    "peak_rss_bytes": 536870912,
+    "input_read_bytes": 536870912,
+    "output_bytes": 536870912
+  },
+  "first_check": {
+    "purpose": "Single bounded read-only remote connection/runtime/chosen-input availability and hash preflight; no simulator or network construction.",
+    "ssh_connect_timeout_seconds": 8,
+    "command_wall_seconds": 45,
+    "max_stdout_bytes": 65536,
+    "max_read_bytes": 33554432,
+    "attempts": 1,
+    "remote_writes": false
+  },
+  "stopping": "Any connection, runtime, binding, capacity or preparation-budget failure stops this new attempt. No additional automatic retry, input replacement, local fallback, physics, inference or fitting before prerequisite completion.",
+  "new_scientific_work": {
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "neural_rows": 0,
+    "prediction_calls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "resets": 0,
+    "restores": 0,
+    "mppi_queries": 0
+  },
+  "created_unix": 1793664231.517237,
+  "previous_attempt": {
+    "file": "docs/validation/student_visitation_s1_2_v_2026-11-02/preflight_001/execution.json",
+    "sha256": "ef180458f263ccb16287f85f393ec9c2a6ece6a69b9bd399acd8dc42dc98d68a",
+    "paid_SSH_wall_seconds": 8.013397000031546
+  }
+}

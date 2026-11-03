@@ -30,6 +30,7 @@ STUDIES = {
     "motion-diagnosis": "src.gps.mppi_gps.experiments.motion_diagnosis",
     "teacher-proposal": "src.gps.mppi_gps.experiments.teacher_proposal",
     "student-consequence": "src.gps.mppi_gps.experiments.student_consequence",
+    "visitation": "src.gps.mppi_gps.experiments.student_visitation",
 }
 
 

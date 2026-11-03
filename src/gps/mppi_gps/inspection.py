@@ -855,6 +855,122 @@ def _certificate_inspection(
     )
 
 
+def _visitation_inspection(
+    root: Path,
+    run: Path,
+    capsule: dict[str, Any],
+    result: dict[str, Any],
+    report: dict[str, Any],
+    *,
+    verify: bool,
+) -> None:
+    """Show V's saved phase evidence; worker claims never establish an audit."""
+    metadata = {}
+    descriptors = []
+    prefix = "run/" if capsule else ""
+    paths = {
+        "preparation": "prepared/preparation_census.json",
+        "static_inputs": "prepared/static_receipt.json",
+        "static_contexts": "worker/static_gate.json",
+        "parent_continuation": "worker/parent_actor_registry.json",
+        "parent_replay": "worker/parent_replay_gate.json",
+        "reference_positive_control": "worker/reference_positive_control_gate.json",
+        "reference_usefulness": "worker/reference_usefulness_screen.json",
+        "phase_status": "worker/phase_status.json",
+    }
+    for key, name in paths.items():
+        value, descriptor = _h5_compact_metadata(
+            root, prefix + name, capsule.get("files", {}), verify=verify
+        )
+        metadata[key] = value if descriptor["available"] and not descriptor.get("error") else None
+        descriptors.append(descriptor)
+        if descriptor.get("error"):
+            report["errors"].append(name + ": " + descriptor["error"])
+    preparation = metadata["preparation"]
+    report["costs"] = dict(
+        worker=result.get("costs"),
+        worker_wall_seconds=result.get("worker_wall_seconds"),
+        preparation=preparation.get("accounting") if preparation else None,
+        limits=report["config"].get("limits"),
+        scope="Saved preparation and V worker costs are separate declarations. Missing counters remain unavailable; inspection performs no policy inference or physics.",
+    )
+    report["gates"] = {
+        key: metadata[key]
+        for key in (
+            "static_inputs",
+            "static_contexts",
+            "parent_continuation",
+            "parent_replay",
+            "reference_positive_control",
+            "reference_usefulness",
+        )
+    }
+    status = result.get("status")
+    report["outcomes"] = dict(
+        status=status if status is not None else "WORKER_RESULT_UNAVAILABLE",
+        recorded_fixed_roster_complete=(status == "COMPLETED_V_FIXED_ROSTER") if status else None,
+        learning_launched=result.get("learning_launched"),
+        followup_launched=result.get("followup_launched"),
+        error=result.get("error"),
+        stopped_before=result.get("stopped_before"),
+        stopped_during=result.get("stopped_during"),
+    )
+    report["diagnostics"] = dict(
+        authorized_stage=report["config"].get("authorized_stage"),
+        conditional_learning_authorized=report["config"].get("conditional_learning_authorized"),
+        phase_status=result.get("phase_status") or metadata["phase_status"],
+        reference_screen=result.get("reference_screen"),
+        metadata_files=descriptors,
+        scope="V only: restored closed-loop reference behavior at saved student states. A complete or negative worker screen is not an independently accepted result and does not authorize learning. Missing worker/preparation evidence does not imply zero work.",
+    )
+    if not capsule:
+        prepared, prepared_file = _h5_compact_metadata(
+            run, "prepared/prepared_input_manifest.json", {}, verify=False
+        )
+        report["prepared_inputs"] = _files(
+            run / "prepared",
+            {row["file"]: row for row in prepared.get("files", [])},
+            verify,
+            report["errors"],
+        )
+        if prepared_file.get("error"):
+            report["errors"].append(prepared_file["error"])
+        for name in (
+            "prepared/prepared_input_manifest.json",
+            "prepared/static_receipt.json",
+            "prepared/preparation_census.json",
+        ):
+            if not (run / name).is_file():
+                report["missing_evidence"].append(name)
+        report["missing_evidence"] += [
+            "prepared/" + row["file"] for row in report["prepared_inputs"] if not row["available"]
+        ]
+        report["hash_mismatches"] += [
+            "prepared/" + row["file"]
+            for row in report["prepared_inputs"]
+            if row.get("verified") is False and row["available"]
+        ]
+    audit_name = "audit/audit.json"
+    audit, audit_file = _h5_compact_metadata(
+        root, audit_name, capsule.get("files", {}), verify=verify
+    )
+    recognized = audit.get("schema") == "walker-student-visitation-s1.2-v-audit-v1"
+    report["visitation_saved_audit"] = dict(
+        available=audit_file["available"],
+        metadata_file=audit_file,
+        schema_recognized=recognized if audit else None,
+        reported_full_scientific_audit_passed=audit.get("full_scientific_audit_passed")
+        if recognized
+        else None,
+        reported_passed=audit.get("passed") if recognized else None,
+        closure_reason=audit.get("closure_reason") if recognized else None,
+        reported_work=audit.get("work") if recognized else None,
+        scope="Optional recorded independent audit receipt only. Capsule hashes bind copied bytes when verified; this inspector neither repeats the audit nor infers outer launcher/admission closure.",
+    )
+    if recognized:
+        report["costs"]["independent_audit"] = audit.get("work")
+
+
 def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     """Describe a full frozen run or a portable result capsule, read only.
 
@@ -885,10 +1001,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     run = root / "run" if capsule else root
     config = _read_json(run / "config.json", errors)
     c1 = config.get("schema") == "walker-student-consequence-c1.0-executable-recipe-v1"
+    visitation = config.get("schema") == "walker-student-visitation-v-execution-v1"
     c1_recovery = config.get("schema") == "walker-c1-audit-recovery-protocol-v1"
     result = _read_json(run / "result.json", errors)
     result_file = "result.json"
-    if c1:
+    if c1 or visitation:
         result = _read_json(run / "worker_result.json", errors)
         result_file = "worker_result.json"
     if c1_recovery:
@@ -937,7 +1054,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
         source_files = _files(run / "source", source_bindings, verify, errors)
     required = (
         "config.json",
-        result_file if c1 or c1_recovery else "result.json",
+        result_file if c1 or c1_recovery or visitation else "result.json",
         "manifest.json",
         "input_manifest.json",
     )
@@ -964,7 +1081,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             )
             if not (run / name).is_file()
         ]
-    if c1:
+    if c1 or visitation:
         evidence_names = tuple(
             "worker/evidence/" + name
             for name in ("arrays.bin", "arrays.index.jsonl", "ledger.jsonl")
@@ -1149,6 +1266,8 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
                 for row in report["prepared_inputs"]
                 if row.get("verified") is False and row["available"]
             ]
+    if visitation:
+        _visitation_inspection(root, run, capsule, result, report, verify=verify)
     if c1_recovery:
         recovery = _consequence_recovery_metadata(root, run, capsule, verify=verify)
         if verify and (report["hash_mismatches"] or report["errors"]):
@@ -1250,7 +1369,13 @@ def format_inspection(report: dict[str, Any]) -> str:
     )
     for label in ("teacher_outcomes", "student_outcomes", "teacher_student_gap", "gates", "costs"):
         lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
-    for label in ("h5_compact_audit", "h5_measurement_scope", "c1_compact_audit", "audit_recovery"):
+    for label in (
+        "h5_compact_audit",
+        "h5_measurement_scope",
+        "c1_compact_audit",
+        "audit_recovery",
+        "visitation_saved_audit",
+    ):
         if label in report:
             lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")
     if "diagnostics" in report:

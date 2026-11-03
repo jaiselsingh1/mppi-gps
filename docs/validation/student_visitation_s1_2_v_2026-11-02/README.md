@@ -1,5 +1,7 @@
 # S1.2 V preparation 1: stopped before remote execution
 
+**Retry status:** the user explicitly authorized a new attempt after restoring SSH. The [second check](preflight_002/remote_stdout.json) passed with zero scientific work: package versions/CPU availability and all chosen checkpoint/normalization hashes matched. Its [new protocol](preflight_002/protocol.json), [execution receipt](preflight_002/execution.json) and [exact file bindings](preflight_002/file_bindings.json) are separate from the original records below. The [V1 execution contract](../../student_visitation_s1_2_v_execution_1.md) specifies the remaining prelaunch gates; L is not authorized.
+
 The user authorized continuing to the next experimental stage. This attempt covered **S1.2 V only**: reference behavior at retained student states. L remained separately review-gated. The [review protocol](../../student_visitation_s1_2_protocol_v2.md) and its scientific inputs, budgets, outcomes and architecture constraints were preserved.
 
 The single frozen read-only preflight could not connect to `robopil5090` (`128.59.22.10:22`). SSH exited 255 after **8.013397 seconds**, with no stdout and a connection-timeout message. The remote program did not execute. No checkpoint hash, runtime, capacity, source-array or replay gate was verified remotely. Reference availability is unknown; it was not shown missing or invalid.

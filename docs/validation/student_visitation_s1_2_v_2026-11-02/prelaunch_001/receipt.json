@@ -1,0 +1,72 @@
+{
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_visitation_inputs.py",
+        "tests/test_visitation_native.py",
+        "tests/test_visitation_worker.py",
+        "tests/test_visitation_inspection.py",
+        "tests/test_visitation_lifecycle.py",
+        "tests/test_student_visitation_audit.py",
+        "tests/test_student_visitation_report.py",
+        "tests/test_research_cli.py",
+        "tests/test_consequence_storage.py",
+        "tests/test_student_consequence_audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 13.788832916005049,
+      "child_user_seconds": 10.575771,
+      "child_system_seconds": 1.53286
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.03599087498150766,
+      "child_user_seconds": 0.00897900000000007,
+      "child_system_seconds": 0.03620600000000018
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.016991875017993152,
+      "child_user_seconds": 0.008240999999999943,
+      "child_system_seconds": 0.017799999999999816
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.7898916249978356,
+      "child_user_seconds": 0.2152390000000004,
+      "child_system_seconds": 0.25094400000000006
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.021920458995737135,
+      "child_user_seconds": 0.006773000000000806,
+      "child_system_seconds": 0.06675199999999992
+    }
+  ],
+  "new_scientific_work": 0,
+  "full_old_research_rerun": false
+}
