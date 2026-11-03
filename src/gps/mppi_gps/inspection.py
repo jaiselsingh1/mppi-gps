@@ -1240,6 +1240,15 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     root = path.resolve()
     if not root.is_dir():
         raise ValueError(f"run directory does not exist: {root}")
+    for candidate in (root / "run", root):
+        metadata = candidate / "config.json"
+        if (
+            metadata.is_file()
+            and json.loads(metadata.read_text()).get("schema") == "trajectory-pi-p1-1"
+        ):
+            from .reporting.trajectory_pi import inspect
+
+            return inspect(root, verify=verify)
     # A2 deliberately has a tiny protocol/source bundle, not generic config/input files.
     detection_read_bytes = 0
     for candidate in (root / "run", root):

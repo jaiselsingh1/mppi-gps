@@ -4,7 +4,9 @@ The current question is whether a simple CIO-style policy-consistency term
 works when the **complete control sequence** is optimized against one fixed
 objective. Recurrence preparation has stopped. This branch contains the saved
 paper/evidence review and this formulation, without that recurrent implementation.
-No new experiment has launched here.
+The bounded comparison is specified in the
+[P1 protocol](trajectory_pi_p1_protocol.md); its launch remains conditional on
+frozen-input/source and executable prerequisite checks.
 
 ## What already exists
 
@@ -18,9 +20,11 @@ read-only `sac-continuation` worktree. The inspected source really repeats
 `_plan_iteration` on H1000 from a fixed start without shifting. It uses task cost
 only, 300 iterations, noise annealing, adaptive temperature targeting ESS5%,
 and a zero-noise current-sequence sample. It returns the lowest-cost previously
-scored nominal sequence. Its local output directory was empty when inspected;
-completion and remote execution status are unknown. Do not duplicate this work
-or report a result from the script's existence.
+scored nominal sequence. The initial observation found no results; the subsequent
+[completed prototype review](validation/full_pi_loop_2026-11-03/prototype_review.md)
+preserves all six completed cases. Each returned its incoming walking sequence
+exactly; that is retention evidence, not selected-path improvement. Do not
+duplicate this task-only work.
 
 Those extra optimizer choices are part of that prototype's recipe. A result
 from it would not isolate full horizon from noise/temperature/incumbent changes.
