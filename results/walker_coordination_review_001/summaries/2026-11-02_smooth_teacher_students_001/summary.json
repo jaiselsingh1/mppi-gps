@@ -1,0 +1,189 @@
+{
+  "source": "runs/2026-11-02_noise_cutoff_001",
+  "data_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9
+  ],
+  "eval_seeds": 32,
+  "fits": [
+    {
+      "arm": "default",
+      "student_seed": 0,
+      "updates": 2000,
+      "train_mse": 0.1691260188817978,
+      "student_mean_abs_torque": 0.24594439566135406,
+      "teacher_mean_abs_torque": 0.4385066628456116
+    },
+    {
+      "arm": "default",
+      "student_seed": 0,
+      "updates": 10000,
+      "train_mse": 0.13396066427230835,
+      "student_mean_abs_torque": 0.29574307799339294,
+      "teacher_mean_abs_torque": 0.4385066628456116
+    },
+    {
+      "arm": "default",
+      "student_seed": 1,
+      "updates": 2000,
+      "train_mse": 0.1695736199617386,
+      "student_mean_abs_torque": 0.2447546273469925,
+      "teacher_mean_abs_torque": 0.4385066628456116
+    },
+    {
+      "arm": "default",
+      "student_seed": 1,
+      "updates": 10000,
+      "train_mse": 0.134027898311615,
+      "student_mean_abs_torque": 0.29281461238861084,
+      "teacher_mean_abs_torque": 0.4385066628456116
+    },
+    {
+      "arm": "default",
+      "student_seed": 2,
+      "updates": 2000,
+      "train_mse": 0.16831040382385254,
+      "student_mean_abs_torque": 0.25023967027664185,
+      "teacher_mean_abs_torque": 0.4385066628456116
+    },
+    {
+      "arm": "default",
+      "student_seed": 2,
+      "updates": 10000,
+      "train_mse": 0.13274581730365753,
+      "student_mean_abs_torque": 0.2921256422996521,
+      "teacher_mean_abs_torque": 0.4385066628456116
+    },
+    {
+      "arm": "smooth",
+      "student_seed": 0,
+      "updates": 2000,
+      "train_mse": 0.11973003298044205,
+      "student_mean_abs_torque": 0.4301115870475769,
+      "teacher_mean_abs_torque": 0.5287855863571167
+    },
+    {
+      "arm": "smooth",
+      "student_seed": 0,
+      "updates": 10000,
+      "train_mse": 0.06315892934799194,
+      "student_mean_abs_torque": 0.4799678921699524,
+      "teacher_mean_abs_torque": 0.5287855863571167
+    },
+    {
+      "arm": "smooth",
+      "student_seed": 1,
+      "updates": 2000,
+      "train_mse": 0.11974842101335526,
+      "student_mean_abs_torque": 0.42971935868263245,
+      "teacher_mean_abs_torque": 0.5287855863571167
+    },
+    {
+      "arm": "smooth",
+      "student_seed": 1,
+      "updates": 10000,
+      "train_mse": 0.06393668055534363,
+      "student_mean_abs_torque": 0.48339930176734924,
+      "teacher_mean_abs_torque": 0.5287855863571167
+    },
+    {
+      "arm": "smooth",
+      "student_seed": 2,
+      "updates": 2000,
+      "train_mse": 0.1210443452000618,
+      "student_mean_abs_torque": 0.42093396186828613,
+      "teacher_mean_abs_torque": 0.5287855863571167
+    },
+    {
+      "arm": "smooth",
+      "student_seed": 2,
+      "updates": 10000,
+      "train_mse": 0.06369810551404953,
+      "student_mean_abs_torque": 0.48703211545944214,
+      "teacher_mean_abs_torque": 0.5287855863571167
+    }
+  ],
+  "outcomes": {
+    "2000": {
+      "default": {
+        "episodes": 96,
+        "walks": 0,
+        "survives": 0,
+        "mean_controls": 175.91666666666666,
+        "mean_complete_cost": 4809.270592953047,
+        "per_student_walks": [
+          0,
+          0,
+          0
+        ],
+        "per_student_mean_controls": [
+          143.625,
+          191.125,
+          193.0
+        ]
+      },
+      "smooth": {
+        "episodes": 96,
+        "walks": 0,
+        "survives": 0,
+        "mean_controls": 241.16666666666666,
+        "mean_complete_cost": 4675.870231147025,
+        "per_student_walks": [
+          0,
+          0,
+          0
+        ],
+        "per_student_mean_controls": [
+          260.0,
+          208.03125,
+          255.46875
+        ]
+      }
+    },
+    "10000": {
+      "default": {
+        "episodes": 96,
+        "walks": 0,
+        "survives": 0,
+        "mean_controls": 182.875,
+        "mean_complete_cost": 4510.920415160895,
+        "per_student_walks": [
+          0,
+          0,
+          0
+        ],
+        "per_student_mean_controls": [
+          162.75,
+          193.78125,
+          192.09375
+        ]
+      },
+      "smooth": {
+        "episodes": 96,
+        "walks": 0,
+        "survives": 1,
+        "mean_controls": 238.22916666666666,
+        "mean_complete_cost": 4309.150899550717,
+        "per_student_walks": [
+          0,
+          0,
+          0
+        ],
+        "per_student_mean_controls": [
+          219.71875,
+          239.09375,
+          255.875
+        ]
+      }
+    }
+  },
+  "reading": "no clear difference",
+  "seconds": 47.59318341698963
+}

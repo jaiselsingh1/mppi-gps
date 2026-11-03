@@ -1,0 +1,61 @@
+{
+  "calibration": {
+    "saved_decisions_reproduced": true
+  },
+  "results": {
+    "own_states": {
+      "carried": {
+        "states": 50,
+        "consistency": 0.9220915396693654,
+        "within_variance_per_torque": 0.022671616970255336,
+        "between_variance_per_torque": 0.2683316562819638
+      },
+      "fresh_2": {
+        "states": 50,
+        "consistency": 0.16950101723109487,
+        "within_variance_per_torque": 0.10135064571454377,
+        "between_variance_per_torque": 0.020685199984674416
+      },
+      "fresh_8": {
+        "states": 50,
+        "consistency": 0.254352059504218,
+        "within_variance_per_torque": 0.17902646619175974,
+        "between_variance_per_torque": 0.06106869999715897
+      }
+    },
+    "student_states": {
+      "fresh_2": {
+        "states": 60,
+        "consistency": 0.09170665371239027,
+        "within_variance_per_torque": 0.09380395634874816,
+        "between_variance_per_torque": 0.00947100072557712
+      },
+      "fresh_8": {
+        "states": 60,
+        "consistency": 0.18167797349334516,
+        "within_variance_per_torque": 0.1540691405800387,
+        "between_variance_per_torque": 0.03420532300460461
+      }
+    }
+  },
+  "student_gap": {
+    "fresh_2": {
+      "mean_squared_gap": 0.17203749015084718,
+      "mppi_spread": 0.09380395634874818
+    },
+    "fresh_8": {
+      "mean_squared_gap": 0.15180498349781263,
+      "mppi_spread": 0.1540691405800387
+    }
+  },
+  "carried_vs_fresh": {
+    "mean_squared_shift": 0.2544710077074782,
+    "carried_spread": 0.02267161697025534
+  },
+  "readings": {
+    "consistent_enough_at_student_states": false,
+    "more_passes_help": false,
+    "carried_plan_decides": true
+  },
+  "seconds": 416.154655041988
+}

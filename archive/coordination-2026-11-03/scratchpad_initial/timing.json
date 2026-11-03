@@ -1,0 +1,123 @@
+{
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "forward_reward_weight": 1.0,
+    "healthy_reward": 1.0,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true,
+    "max_steps": 50,
+    "velocity_cost_weight": 2.0
+  },
+  "mppi_config": {
+    "K": 256,
+    "H": 48,
+    "lam": 3.0,
+    "noise_sigma": 0.3,
+    "use_is_correction": false,
+    "noise_std": null,
+    "noise_cov": null,
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2,
+    "initial_iterations": 2,
+    "lam_target_neff_fraction": null
+  },
+  "episodes": [
+    {
+      "reset_seed": 0,
+      "planner_seed": 10000,
+      "steps": 50,
+      "survived": true,
+      "distance": 0.23440069353984444,
+      "mean_vx": 0.5993176518918992,
+      "velocity_mae": 0.9117005721510685,
+      "total_cost": 95.99876854350201,
+      "fall_cost": 0.0,
+      "mean_running_cost": 1.9199753708700402,
+      "mean_plan_seconds": 0.038554633315652606,
+      "action_delta_rms": 0.8440525408468122,
+      "action_saturation_fraction": 0.0,
+      "action_near_limit_fraction": 0.0033333333333333335,
+      "mean_n_eff": 10.662624564797676,
+      "right_foot_onsets": 3,
+      "left_foot_onsets": 0,
+      "single_support_fraction": 0.56,
+      "double_support_fraction": 0.0,
+      "flight_fraction": 0.44,
+      "onset_alternation": 0.0
+    }
+  ],
+  "summary": {
+    "episodes": 1,
+    "survival_rate": 1.0,
+    "mean_steps": 50.0,
+    "mean_vx": 0.5993176518918992,
+    "velocity_mae": 0.9117005721510685,
+    "action_delta_rms": 0.8440525408468122,
+    "action_saturation_fraction": 0.0,
+    "mean_plan_seconds": 0.038554633315652606,
+    "mean_n_eff": 10.662624564797676,
+    "single_support_fraction": 0.56,
+    "double_support_fraction": 0.0,
+    "flight_fraction": 0.44,
+    "onset_alternation": 0.0
+  },
+  "run": {
+    "requested_episodes": 1,
+    "complete": true,
+    "elapsed_seconds": 1.934744291997049,
+    "reset_seed_base": 0,
+    "planner_seed_base": 10000
+  },
+  "cost_semantics": {
+    "total_cost": "Executed step costs through first fall, including fall cost once. Failed episodes are shorter, so total costs alone cannot rank controllers.",
+    "planning_cost": "Running cost through first predicted fall, one terminal fall cost, and an absorbing failure cost for each remaining horizon step.",
+    "absorbing_failure_cost_per_remaining_step": 5.0
+  },
+  "provenance": {
+    "python": "3.11.15",
+    "packages": {
+      "mujoco": "3.6.0",
+      "numpy": "2.4.3",
+      "scipy": "1.17.1"
+    },
+    "config_path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/configs/walker2d_best.json",
+    "task_config_path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/configs/walker2d_task.json",
+    "config_sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6",
+    "task_config_sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a",
+    "source_sha256": {
+      "scripts/runners/run_walker2d.py": "b78aa4dfad62b38f14091547a1feceeec4d1985192571df8607a18dc3353e1ec",
+      "src/envs/walker2d.py": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6",
+      "src/envs/mujoco_env.py": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a",
+      "src/mppi/mppi.py": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99",
+      "src/utils/config.py": "3cefbed0d66ded796971b7995b3d1be0a3dcb7e1210de26980d7420b0a515bb7",
+      "assets/walker2d.xml": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    "control_dt": 0.008,
+    "physics_dt": 0.002,
+    "frame_skip": 4,
+    "nthread": 18,
+    "backend": "mujoco_cpu",
+    "video_fps": 31.25,
+    "video_frame_stride": 4
+  },
+  "trace_layout": {
+    "states": "Flat mjSTATE_FULLPHYSICS; episode_state_offsets delimit initial + post-action states.",
+    "warmstarts": "Solver state aligned with states.",
+    "actions": "episode_step_offsets delimit actions, costs and post-action contacts.",
+    "contacts": "Right, left; raw floor-foot contact presence.",
+    "contact_normal_forces": "Right, left; summed nonnegative floor-foot normal force in newtons.",
+    "pre_plan_nominals": "MPPI nominal U entering each decision, aligned with actions.",
+    "plans": "Optimized pre-shift plan of each decision; actions equal plans[:, 0].",
+    "planner_rng_states": "JSON planner bit-generator state entering each decision.",
+    "initial_plan_flags": "Whether each decision used initial_iterations refinement passes.",
+    "replay": "For episode e and step t, restore states[i] and warmstarts[i] with i = episode_state_offsets[e] + t, and the decision snapshot at j = episode_step_offsets[e] + t, to replay action j exactly."
+  }
+}

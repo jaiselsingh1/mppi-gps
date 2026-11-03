@@ -1,0 +1,882 @@
+{
+  "calibration": {
+    "leave_one_out": {
+      "p50": 1.7288127090593988,
+      "p95": 3.108927395104069
+    },
+    "held_out_walk": {
+      "median": 1.698202103738359,
+      "share_above_p95": 0.03777777777777778
+    }
+  },
+  "teacher_range": {
+    "angle": [
+      -0.8496995773963817,
+      0.7411730051865855
+    ],
+    "height": [
+      0.8805144090989127,
+      1.3343183232688296
+    ]
+  },
+  "anatomy": {
+    "rollouts": 96,
+    "falls": 95,
+    "reasons": {
+      "pitched +": 62,
+      "too low": 33
+    },
+    "controls_out_of_support_before_fall": {
+      "p10": 11.0,
+      "median": 16.0,
+      "p90": 30.400000000000034
+    },
+    "share_left_25_before": 0.4,
+    "share_left_within_10": 0.09473684210526316,
+    "fall_controls": {
+      "median": 230.0
+    },
+    "reading": "mixed"
+  },
+  "realizability": {
+    "pairs": 30,
+    "student_falls": 30,
+    "controls_until_gap_exceeds_p95": {
+      "median": 4.0,
+      "values": [
+        3,
+        6,
+        2,
+        4,
+        3,
+        6,
+        6,
+        7,
+        2,
+        3,
+        4,
+        6,
+        2,
+        3,
+        3,
+        5,
+        5,
+        7,
+        2,
+        3,
+        3,
+        6,
+        2,
+        6,
+        4,
+        7,
+        4,
+        7,
+        2,
+        3
+      ]
+    },
+    "student_fall_controls": [
+      178,
+      186,
+      212,
+      179,
+      189,
+      179,
+      175,
+      197,
+      169,
+      173,
+      255,
+      259,
+      229,
+      241,
+      227,
+      280,
+      228,
+      253,
+      276,
+      233,
+      324,
+      217,
+      255,
+      321,
+      245,
+      261,
+      206,
+      316,
+      261,
+      256
+    ]
+  },
+  "records": [
+    {
+      "student": 0,
+      "seed": 1250000000,
+      "controls": 171,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000001,
+      "controls": 238,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000002,
+      "controls": 160,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000003,
+      "controls": 202,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000004,
+      "controls": 183,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000005,
+      "controls": 187,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000006,
+      "controls": 196,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000007,
+      "controls": 210,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000008,
+      "controls": 326,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000009,
+      "controls": 173,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000010,
+      "controls": 168,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000011,
+      "controls": 198,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000012,
+      "controls": 199,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000013,
+      "controls": 169,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1250000014,
+      "controls": 172,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1250000015,
+      "controls": 184,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1260000000,
+      "controls": 199,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 41
+    },
+    {
+      "student": 0,
+      "seed": 1260000001,
+      "controls": 165,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000002,
+      "controls": 196,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 84
+    },
+    {
+      "student": 0,
+      "seed": 1260000003,
+      "controls": 167,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000004,
+      "controls": 209,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1260000005,
+      "controls": 275,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000006,
+      "controls": 223,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 0,
+      "seed": 1260000007,
+      "controls": 177,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000008,
+      "controls": 191,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000009,
+      "controls": 189,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 42
+    },
+    {
+      "student": 0,
+      "seed": 1260000010,
+      "controls": 163,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000011,
+      "controls": 1000,
+      "fell": false,
+      "reason": null
+    },
+    {
+      "student": 0,
+      "seed": 1260000012,
+      "controls": 168,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000013,
+      "controls": 192,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000014,
+      "controls": 172,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 0,
+      "seed": 1260000015,
+      "controls": 209,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 16
+    },
+    {
+      "student": 1,
+      "seed": 1250000000,
+      "controls": 263,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000001,
+      "controls": 227,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000002,
+      "controls": 220,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000003,
+      "controls": 227,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000004,
+      "controls": 223,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 25
+    },
+    {
+      "student": 1,
+      "seed": 1250000005,
+      "controls": 255,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000006,
+      "controls": 256,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 26
+    },
+    {
+      "student": 1,
+      "seed": 1250000007,
+      "controls": 226,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000008,
+      "controls": 243,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 1,
+      "seed": 1250000009,
+      "controls": 238,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000010,
+      "controls": 229,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 1,
+      "seed": 1250000011,
+      "controls": 283,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 42
+    },
+    {
+      "student": 1,
+      "seed": 1250000012,
+      "controls": 227,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1250000013,
+      "controls": 255,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 39
+    },
+    {
+      "student": 1,
+      "seed": 1250000014,
+      "controls": 231,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 32
+    },
+    {
+      "student": 1,
+      "seed": 1250000015,
+      "controls": 241,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 1,
+      "seed": 1260000000,
+      "controls": 234,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000001,
+      "controls": 254,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 25
+    },
+    {
+      "student": 1,
+      "seed": 1260000002,
+      "controls": 220,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000003,
+      "controls": 237,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000004,
+      "controls": 251,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000005,
+      "controls": 230,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000006,
+      "controls": 250,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 1,
+      "seed": 1260000007,
+      "controls": 227,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 1,
+      "seed": 1260000008,
+      "controls": 262,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 24
+    },
+    {
+      "student": 1,
+      "seed": 1260000009,
+      "controls": 230,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 26
+    },
+    {
+      "student": 1,
+      "seed": 1260000010,
+      "controls": 231,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 1,
+      "seed": 1260000011,
+      "controls": 224,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000012,
+      "controls": 237,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000013,
+      "controls": 261,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000014,
+      "controls": 226,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 27
+    },
+    {
+      "student": 1,
+      "seed": 1260000015,
+      "controls": 233,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 28
+    },
+    {
+      "student": 2,
+      "seed": 1250000000,
+      "controls": 285,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 13
+    },
+    {
+      "student": 2,
+      "seed": 1250000001,
+      "controls": 254,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1250000002,
+      "controls": 238,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 47
+    },
+    {
+      "student": 2,
+      "seed": 1250000003,
+      "controls": 206,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 11
+    },
+    {
+      "student": 2,
+      "seed": 1250000004,
+      "controls": 251,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1250000005,
+      "controls": 318,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1250000006,
+      "controls": 228,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1250000007,
+      "controls": 254,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1250000008,
+      "controls": 173,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 8
+    },
+    {
+      "student": 2,
+      "seed": 1250000009,
+      "controls": 210,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 5
+    },
+    {
+      "student": 2,
+      "seed": 1250000010,
+      "controls": 226,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 47
+    },
+    {
+      "student": 2,
+      "seed": 1250000011,
+      "controls": 250,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1250000012,
+      "controls": 320,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 11
+    },
+    {
+      "student": 2,
+      "seed": 1250000013,
+      "controls": 268,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1250000014,
+      "controls": 277,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 8
+    },
+    {
+      "student": 2,
+      "seed": 1250000015,
+      "controls": 234,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1260000000,
+      "controls": 327,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1260000001,
+      "controls": 233,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 46
+    },
+    {
+      "student": 2,
+      "seed": 1260000002,
+      "controls": 242,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1260000003,
+      "controls": 252,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 47
+    },
+    {
+      "student": 2,
+      "seed": 1260000004,
+      "controls": 252,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1260000005,
+      "controls": 221,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1260000006,
+      "controls": 409,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1260000007,
+      "controls": 243,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 9
+    },
+    {
+      "student": 2,
+      "seed": 1260000008,
+      "controls": 283,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 2
+    },
+    {
+      "student": 2,
+      "seed": 1260000009,
+      "controls": 275,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 9
+    },
+    {
+      "student": 2,
+      "seed": 1260000010,
+      "controls": 328,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1260000011,
+      "controls": 260,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 14
+    },
+    {
+      "student": 2,
+      "seed": 1260000012,
+      "controls": 237,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 15
+    },
+    {
+      "student": 2,
+      "seed": 1260000013,
+      "controls": 193,
+      "fell": true,
+      "reason": "pitched +",
+      "left_support_before_fall": 10
+    },
+    {
+      "student": 2,
+      "seed": 1260000014,
+      "controls": 276,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 9
+    },
+    {
+      "student": 2,
+      "seed": 1260000015,
+      "controls": 165,
+      "fell": true,
+      "reason": "too low",
+      "left_support_before_fall": 8
+    }
+  ],
+  "seconds": 24.988284208986443
+}

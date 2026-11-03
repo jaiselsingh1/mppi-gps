@@ -1,0 +1,1191 @@
+{
+  "schema": "walker-sample-bank-review-v1",
+  "folder": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001",
+  "summary": {
+    "episodes": [
+      {
+        "seed": 0,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 401.2886332898132,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 1,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 378.30951482694167,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 2,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 409.56559136249194,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 3,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 433.3376603183862,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 4,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 390.83954856018175,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 5,
+        "controls": 624,
+        "survived": false,
+        "walks": false,
+        "cost": 295.9023066246764,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 6,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 393.87173536250975,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 7,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 416.79357861814606,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 8,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 366.2492846865472,
+        "repeats_default_arm": true
+      },
+      {
+        "seed": 9,
+        "controls": 1000,
+        "survived": true,
+        "walks": true,
+        "cost": 361.96597835481685,
+        "repeats_default_arm": true
+      }
+    ],
+    "seconds": 417.25153487501666
+  },
+  "episodes": [
+    {
+      "file": "episode_0.npz",
+      "bytes": 30888498,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_1.npz",
+      "bytes": 30897701,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_2.npz",
+      "bytes": 30924829,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_3.npz",
+      "bytes": 30886872,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_4.npz",
+      "bytes": 30824711,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_5.npz",
+      "bytes": 19305905,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            624,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            624,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            624,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            624,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            624,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            624,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            624,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            624,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            624,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_6.npz",
+      "bytes": 30875283,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_7.npz",
+      "bytes": 30866791,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_8.npz",
+      "bytes": 30897831,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    },
+    {
+      "file": "episode_9.npz",
+      "bytes": 30948910,
+      "arrays": {
+        "states": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            19
+          ]
+        },
+        "warmstarts": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            9
+          ]
+        },
+        "actions": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "nominal_first": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            6
+          ]
+        },
+        "raw_first": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            6
+          ]
+        },
+        "prefix": {
+          "descr": "<f2",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256,
+            8,
+            6
+          ]
+        },
+        "costs": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "weights": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            256
+          ]
+        },
+        "plan": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            1000,
+            48,
+            6
+          ]
+        },
+        "survived": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "walks": {
+          "descr": "|b1",
+          "fortran_order": false,
+          "shape": []
+        },
+        "cost": {
+          "descr": "<f8",
+          "fortran_order": false,
+          "shape": []
+        }
+      }
+    }
+  ],
+  "missing_evidence": [
+    {
+      "episode": "episode_0.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_0.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_1.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_1.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_2.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_2.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_3.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_3.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_4.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_4.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_5.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_5.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_6.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_6.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_7.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_7.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_8.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_8.npz",
+      "evidence": "N+1 state sequence"
+    },
+    {
+      "episode": "episode_9.npz",
+      "unbound_replay_context": [
+        "integrations",
+        "planner_rng",
+        "pre_update_plan"
+      ]
+    },
+    {
+      "episode": "episode_9.npz",
+      "evidence": "N+1 state sequence"
+    }
+  ],
+  "limits": [
+    "Metadata inspection is not an independent scientific audit.",
+    "Headers do not establish valid snapshots, outcomes or checkpoint identity.",
+    "The prototype stores final-pass truncated FP16 prefixes, not every full candidate trajectory.",
+    "Present-policy proximity and label consistency do not establish pre-update teachability."
+  ],
+  "scientific_calls": 0,
+  "array_payloads_decoded": 0
+}
