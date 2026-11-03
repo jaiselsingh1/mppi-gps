@@ -45,6 +45,7 @@ def main(argv: list[str] | None = None) -> int:
         ["-m", "pytest", "-q", "--basetemp", str(outputs / "pytest")],
         ["scripts/check_repository.py"],
         ["scripts/train_mppi_gps.py", "review", "--help"],
+        ["scripts/train_mppi_gps.py", "review", "bank-bindings", "--help"],
         ["scripts/train_mppi_gps.py", "review", "inventory", "--root", "."],
         ["scripts/train_mppi_gps.py", "walker-run", "--help"],
         ["scripts/train_mppi_gps.py", "walker-replay", "--help"],

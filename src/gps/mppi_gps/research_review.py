@@ -1,7 +1,9 @@
-"""Read-only source inventory and saved candidate-bank metadata inspection.
+"""Read-only source inventory, candidate-bank headers and explicit saved joins.
 
-No arrays, checkpoints, simulator, network or optimizer are loaded. Use the
-ordinary study commands only after a separately authorized frozen protocol.
+Header inspection decodes no array payloads. The explicit bank-bindings command
+reads saved arrays within a finite reservation. Neither operation loads a
+checkpoint, simulator, network or optimizer. Study execution requires its own
+separately authorized frozen protocol.
 """
 
 from __future__ import annotations
@@ -158,13 +160,21 @@ def main(argv: list[str] | None = None) -> int:
     inventory.add_argument("--root", type=Path, default=Path.cwd())
     bank = sub.add_parser("sample-bank", help="inspect saved NPZ headers and summary only")
     bank.add_argument("--bank", type=Path, required=True)
+    joins = sub.add_parser("bank-bindings", help="join saved bank arrays to recorded source traces")
+    joins.add_argument("--bank", type=Path, required=True)
+    joins.add_argument("--reference", type=Path, required=True)
+    joins.add_argument("--metrics", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == "inventory":
         report = source_inventory(args.root)
-    else:
+    elif args.command == "sample-bank":
         report = inspect_sample_bank(args.bank)
+    else:
+        from .bank_review import verify_bank_reference
+
+        report = verify_bank_reference(args.bank, args.reference, args.metrics)
     print(json.dumps(report, indent=2))
-    return 0
+    return 0 if report.get("passed", True) else 1
 
 
 if __name__ == "__main__":

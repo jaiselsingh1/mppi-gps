@@ -79,7 +79,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     item.add_argument("--verify", action="store_true", help="check copied/source and input hashes")
     sub.add_parser("review", help="inventory source or inspect a saved candidate bank")
     sub.add_parser("walker-run", help="native Walker runner (historical runner interface)")
-    sub.add_parser("walker-replay", help="replay recorded controls without MPPI")
+    sub.add_parser("walker-replay", help="verify a native runner trace with exact replay")
     sub.add_parser("validate-export", help="test a clean export and replay saved reports")
     args = parser.parse_args(arguments)
     if args.command == "inspect":
