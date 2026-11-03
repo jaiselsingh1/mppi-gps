@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 STUDIES = {
+    "sac-continuation": "src.gps.mppi_gps.experiments.sac_continuation",
     "guided-data": "src.gps.mppi_gps.experiments.guided_data_comparison",
     "learnability": "src.gps.mppi_gps.experiments.student_learnability",
     "backoff": "src.gps.mppi_gps.experiments.adaptive_coupling",
@@ -35,6 +36,16 @@ STUDIES = {
 
 def main(argv: Sequence[str] | None = None) -> int:
     arguments = list(sys.argv[1:] if argv is None else argv)
+    utilities = {
+        "review": ("src.gps.mppi_gps.research_review", "main"),
+        "walker-run": ("src.gps.mppi_gps.native_runner", "cli"),
+        "walker-replay": ("src.gps.mppi_gps.native_replay", "cli"),
+        "validate-export": ("src.gps.mppi_gps.validation.export", "main"),
+    }
+    if arguments and arguments[0] in utilities:
+        module_name, entry_point = utilities[arguments[0]]
+        module = importlib.import_module(module_name)
+        return int(getattr(module, entry_point)(arguments[1:]) or 0)
     # Forward the study parser intact, including --help and its worker protocol.
     if len(arguments) >= 2 and arguments[0] == "study" and arguments[1] in STUDIES:
         module = importlib.import_module(STUDIES[arguments[1]])
@@ -64,6 +75,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     item.add_argument("--run", type=Path, required=True)
     item.add_argument("--json", action="store_true", dest="as_json")
     item.add_argument("--verify", action="store_true", help="check copied/source and input hashes")
+    sub.add_parser("review", help="read-only source and saved-bank review")
+    sub.add_parser("walker-run", help="native Walker runner")
+    sub.add_parser("walker-replay", help="native trace replay")
+    sub.add_parser("validate-export", help="clean-export tests and saved reports")
     args = parser.parse_args(arguments)
     if args.command == "inspect":
         from src.gps.mppi_gps.inspection import format_inspection, inspect_run
