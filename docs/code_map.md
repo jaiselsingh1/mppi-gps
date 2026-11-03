@@ -83,3 +83,16 @@ The canonical inspector understands J2's metadata and external NPZ/checkpoint
 inventory. The executed worker remains the separately sealed `source_002`
 export named in the [result](jitter_diagnosis_j2_results.md), so later navigation
 or reporting changes do not mutate its source.
+
+## Coordinated cleanup, 2026-11-03
+
+| Supported tool / former active code | Canonical implementation and disposition |
+|---|---|
+| `walker-run`, `walker-replay` | [Native runner](../src/gps/mppi_gps/native_runner.py), [replay](../src/gps/mppi_gps/native_replay.py). The two historical scripts are compatibility facades; replay imports the library directly. Numerical episode/helper bodies and override behavior are preserved. |
+| `validate-export --export …` | [Orchestration](../src/gps/mppi_gps/validation/export.py) and [saved-report validators](../src/gps/mppi_gps/validation/reports.py). The former 1,362-line script is now a compatibility facade retaining public helper exports. |
+| `review inventory --root …` | [Read-only review](../src/gps/mppi_gps/research_review.py): tracked/untracked source hashes and script dependencies; a clean export reports unknown Git status explicitly. |
+| `review sample-bank --bank …` | Same module: summary and NPZ headers only, with precision, missing N+1 states and unbound replay context. No arrays, models or simulator are loaded. |
+| Saved bank reweighting | [Pure array API](../src/gps/mppi_gps/sample_bank.py): existing observation conversion, labels and effective sample size from supplied predictions. Extracted arithmetic is checked byte-for-byte against the archived implementation; no fitting/acquisition launch command was added. |
+| SAC branch prototypes | All 34 former untracked one-off entry points are preserved in the [exact archive](../archive/coordination-2026-11-03/README.md), including their dependency inventory, original docstrings, failed results and scratchpad sources/logs. Removal waits for the existing worker to exit. The branch’s documented SAC continuation entry remains a facade; its implementation and bank capture helper move to library modules on that branch. |
+
+The remaining small compatibility wrappers are documented study/report/audit entry points and historical helper interfaces. No additional wrapper is retained for the retired 34 prototypes. Reusable fitting, checkpoint continuation, outcomes and independent audit remain in their existing libraries. The [coordination map](walker_coordination_review.md) records scientific limits; cleanup does not promote prototypes to validated experiments. Branch history, original `runs/` paths and all frozen capsule/source bytes remain intact.

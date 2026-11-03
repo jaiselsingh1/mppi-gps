@@ -8,3 +8,5 @@ These folders preserve retired implementations, configurations, tests and report
 - `cio_walker_v1-2026-10-29/`: exact v1 snapshot before the v2 diagnostics.
 
 Manifested regular files are versioned without changing their bytes. Generated interpreter caches and local symlink bridges are excluded from Git. Large run/checkpoint/query evidence remains in its original local and remote locations; see [evidence availability](../docs/evidence_availability.md) and the [historical index](../docs/history.md).
+
+- [coordination-2026-11-03](coordination-2026-11-03/README.md): exact pre-cleanup Walker diagnostic sources, dependencies, inventory and owner handoff; separate from scientific execution freezes.

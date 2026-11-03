@@ -536,3 +536,5 @@ frozen primary remains unexecuted. The within-clean rank analysis is explicitly
 post hoc, and the parallel-session stability context remains provisional with
 missing raw calibration vectors. The [result](jitter_diagnosis_j2_results.md) and
 [review-only next proposal](jitter_diagnosis_j2_1_proposal.md) keep those scopes separate.
+
+The [2026-11-03 coordination capsule](../results/walker_coordination_review_001/README.md) preserves 53 compact payloads from 42 prototype study directories and records checksums/sizes for 543,626,606 bytes of local external files at the initial observation. Its coupled-loop record is explicitly partial while the pre-existing worker finishes. The [source archive](../archive/coordination-2026-11-03/README.md) preserves all 34 untracked sources before cleanup, plus tracked dependencies and scratchpad artifacts. These preservation checks do not establish launch provenance, complete work accounting or an independent scientific audit.

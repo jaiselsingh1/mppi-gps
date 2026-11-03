@@ -34,3 +34,5 @@ K1.2's [publication-only portability correction](motion_diagnosis_k1_2/publicati
 
 
 J1 raw arrays/checkpoints/ledgers and full 96-trace atlas remain on `robopil5090`; [exact remote locations and checksums](similarity_j1/external_evidence.json) distinguish those files from the 36.1-MB verified compact copy. [Saved report replay](../docs/development.md#j1-saved-report-replay) needs no ignored evidence.
+
+The [coordinated Walker review](walker_coordination_review_001/README.md) preserves exploratory branch summaries and external-file hashes without promoting them to audited experiments.
