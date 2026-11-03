@@ -1,4 +1,4 @@
-"""Public Walker commands: baseline, train, evaluate, render, study and inspect."""
+"""Public Walker commands for execution, frozen studies and read-only review."""
 
 from __future__ import annotations
 
@@ -38,6 +38,16 @@ STUDIES = {
 
 def main(argv: Sequence[str] | None = None) -> int:
     arguments = list(sys.argv[1:] if argv is None else argv)
+    utilities = {
+        "review": ("src.gps.mppi_gps.research_review", "main"),
+        "walker-run": ("src.gps.mppi_gps.native_runner", "cli"),
+        "walker-replay": ("src.gps.mppi_gps.native_replay", "cli"),
+        "validate-export": ("src.gps.mppi_gps.validation.export", "main"),
+    }
+    if arguments and arguments[0] in utilities:
+        module_name, entry_point = utilities[arguments[0]]
+        module = importlib.import_module(module_name)
+        return int(getattr(module, entry_point)(arguments[1:]) or 0)
     # Forward the study parser intact, including --help and its worker protocol.
     if len(arguments) >= 2 and arguments[0] == "study" and arguments[1] in STUDIES:
         module = importlib.import_module(STUDIES[arguments[1]])
@@ -67,6 +77,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     item.add_argument("--run", type=Path, required=True)
     item.add_argument("--json", action="store_true", dest="as_json")
     item.add_argument("--verify", action="store_true", help="check copied/source and input hashes")
+    sub.add_parser("review", help="inventory source or inspect a saved candidate bank")
+    sub.add_parser("walker-run", help="native Walker runner (historical runner interface)")
+    sub.add_parser("walker-replay", help="replay recorded controls without MPPI")
+    sub.add_parser("validate-export", help="test a clean export and replay saved reports")
     args = parser.parse_args(arguments)
     if args.command == "inspect":
         from src.gps.mppi_gps.inspection import format_inspection, inspect_run
