@@ -1,0 +1,39 @@
+{
+  "checked_utc": "2026-11-03T22:08:10.288660+00:00",
+  "checks": [
+    "Prototype zero/nonzero exact nominal/weight/update equivalence",
+    "precision and first-fall action inclusion",
+    "actual private PCG/Adam continuation",
+    "durable failed-work accounting",
+    "independent fall cost oracle",
+    "complete native initializer/batch replay and zero-residual table identity",
+    "supervisor peer-failure preservation"
+  ],
+  "test_runs": [
+    {
+      "passed": 6,
+      "skipped": 0
+    },
+    {
+      "passed": 7,
+      "skipped": 0
+    },
+    {
+      "passed": 7,
+      "skipped": 1,
+      "skip": "Previously passed explicit native fixture not repeated"
+    }
+  ],
+  "Ruff": "passed",
+  "new_engineering_work": {
+    "neural_forward_rows": 5376,
+    "backward_rows": 5376,
+    "Adam_updates": 21,
+    "native_controls": 4000,
+    "physics_substeps": 24000,
+    "model_controls": 2000
+  },
+  "analytic_toy_control_evaluations": 2304,
+  "failed_scientific_launches": 0,
+  "scope": "Focused implementation checks, not a full repository suite or research outcome"
+}
