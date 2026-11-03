@@ -1,0 +1,30 @@
+{
+  "scope": "V1.1 prelaunch join correction; no scientific work",
+  "targeted_tests": {
+    "passed": 102,
+    "wall_seconds": 13.23,
+    "files": [
+      "test_visitation_inputs.py",
+      "test_visitation_lifecycle.py",
+      "test_visitation_worker.py",
+      "test_visitation_native.py",
+      "test_student_visitation_audit.py",
+      "test_student_visitation_report.py",
+      "test_visitation_inspection.py"
+    ]
+  },
+  "ruff": "passed",
+  "format": "passed",
+  "repository_checks": {
+    "capsule_files": 4405,
+    "historical_files": 162,
+    "local_links": 1335,
+    "errors": []
+  },
+  "protocol_regression": {
+    "passed": 2,
+    "wall_seconds": 0.05,
+    "exact_configuration_comparison": true
+  },
+  "independent_review": "432-row actual ledger confirms exactly96 fresh parents; strict missing/duplicate/extra gates preserved"
+}

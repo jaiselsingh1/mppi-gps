@@ -393,7 +393,7 @@ def _finish(
         )
     by_tag = {}
     for record in evaluations:
-        if record.get("arm") == "parent":
+        if record.get("arm") == "parent" and record.get("panel") in {"primary", "confirmation"}:
             _need(record["tag"] not in by_tag, "Duplicate parent evaluation")
             by_tag[record["tag"]] = record
     _need(set(by_tag) == {row["tag"] for row in roster}, "C1 parent evaluation roster differs")

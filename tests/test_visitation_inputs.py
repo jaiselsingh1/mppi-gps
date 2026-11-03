@@ -36,7 +36,13 @@ def write_json(path: Path, value) -> dict:
 
 
 def source_fixture(
-    root: Path, *, mismatch=False, missing_terminal=False, wrong_actor=False, physical=False
+    root: Path,
+    *,
+    mismatch=False,
+    missing_terminal=False,
+    wrong_actor=False,
+    physical=False,
+    mixed_panels=False,
 ):
     """Ninety-six four-control prefixes, including their real synthetic falls."""
     run = root / "old"
@@ -199,6 +205,30 @@ def source_fixture(
                             selected_quota=4,
                         )
                     )
+    if mixed_panels:
+        # The actual C1 ledger has 36 cases per actor: 32 fresh evaluation
+        # cases and four historical source-context cases. Only the declared
+        # parent primary/confirmation cases belong to this preparation roster.
+        for stream in range(3):
+            for case in range(4):
+                original = next(
+                    row
+                    for row in records
+                    if row["stream"] == stream and row["panel"] == "primary" and row["case"] == case
+                )
+                record = copy.deepcopy(original)
+                record.update(tag=f"eval_s{stream}_parent_source_{case:02d}", panel="source")
+                records.append(record)
+        parent_rows = list(records)
+        for arm in ("uniform", "cost_effect", "shuffled"):
+            for original in parent_rows:
+                record = copy.deepcopy(original)
+                record.update(
+                    tag=original["tag"].replace("_parent_", "_" + arm + "_"),
+                    actor=f"s{original['stream']}_{arm}",
+                    arm=arm,
+                )
+                records.append(record)
     if wrong_actor:
         registry["s1_parent"]["actor_hash"] = "f" * 64
     config = dict(xml_sha256=binding(xml)["sha256"])
@@ -324,6 +354,56 @@ def test_preparation_is_create_only(saved_source, tmp_path):
     with pytest.raises(inputs.ConsequenceInputError, match="already exists"):
         inputs.prepare(saved_source["config"], run)
     assert marker.read_bytes() == b"retain"
+
+
+def test_mixed_c1_ledger_keeps_only_declared_fresh_parent_panels(tmp_path):
+    source = source_fixture(tmp_path / "source", mixed_panels=True)
+    assert len(source["records"]) == 432
+    assert (
+        sum(row["arm"] == "parent" and row["panel"] == "source" for row in source["records"]) == 12
+    )
+    result = inputs.prepare(source["config"], tmp_path / "new")
+    catalog = inputs.verify_prepared(tmp_path / "new/prepared")
+    assert result["passed"] is True
+    assert len(catalog["initial_contexts"]) == 96
+    assert len(catalog["episodes"]) == 24
+    assert all("_parent_" in tag and "_source_" not in tag for tag in catalog["initial_contexts"])
+
+
+@pytest.mark.parametrize(
+    "change,reason",
+    [
+        ("missing", "roster differs"),
+        ("duplicate", "Duplicate parent evaluation"),
+        ("extra", "roster differs"),
+    ],
+)
+def test_mixed_ledger_still_rejects_missing_duplicate_or_extra_fresh_parent(
+    tmp_path,
+    change,
+    reason,
+):
+    source = source_fixture(tmp_path / "source", mixed_panels=True)
+    rows = source["records"]
+    if change == "missing":
+        rows.pop(0)
+    elif change == "duplicate":
+        rows.append(copy.deepcopy(rows[0]))
+    else:
+        record = copy.deepcopy(rows[0])
+        record.update(tag="eval_s0_parent_primary_99", case=99, seed=2810000099)
+        rows.append(record)
+    path = source["source"] / "worker/evaluations.jsonl"
+    path.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    recipe = source["config"]["input_preparation"]["review_recipe"]
+    review = json.loads(Path(recipe["path"]).read_text())
+    review["input_bindings"]["c1_evaluations"].update(binding(path))
+    recipe.update(write_json(Path(recipe["path"]), review))
+    with pytest.raises(inputs.ConsequenceInputError, match=reason):
+        inputs.prepare(source["config"], tmp_path / "new")
+    failure = json.loads((tmp_path / "new/prepared/failure.json").read_text())
+    assert failure["passed"] is False
+    assert failure["scientific_work"] == 0
 
 
 @pytest.mark.parametrize(
