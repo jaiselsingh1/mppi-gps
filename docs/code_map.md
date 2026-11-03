@@ -52,3 +52,18 @@ The Linux experiment workspace is `/home/jaisel/mppi-gps-workspace/` on `robopil
 The existing Linux interpreter is `/home/jaisel/mppi-gps/.venv/bin/python`. H4.1 ran on the local macOS platform and its full evidence is **local only**; do not infer that all studies share this remote location. [Per-study locations and checksums](evidence_availability.md) identify the available copies. [archive/](../archive) retains historical code and documentation outside active imports and formatting.
 
 S1.1 uses a separate [evaluation-only study](../src/gps/mppi_gps/experiments/student_source_evaluation.py), [input binding](../src/gps/mppi_gps/source_evaluation_inputs.py), [one-shot owner](../src/gps/mppi_gps/source_evaluation_launch.py), [closed-file durability](../src/gps/mppi_gps/durability.py), [off-host coordinator](../src/gps/mppi_gps/source_evaluation_coordinator.py) and [independent auditor](../src/gps/mppi_gps/audits/source_evaluation.py). See the [execution protocol](student_source_s1_1_execution_protocol.md). It reuses the closed S1 fits and performs no learning.
+
+## Coordinated active-code cleanup
+
+All 34 formerly untracked exploratory entry points were retired after the owner’s worker exited and all 36 source bindings matched the committed [archive](../archive/coordination-2026-11-03/README.md). Scientific failures and all raw run paths remain intact. No branch was merged and no experiment was launched. See [restoration and dependency instructions](diagnostic_archive.md).
+
+| Supported interface | Maintained implementation |
+|---|---|
+| `study sac-continuation --help` | [Historical workflow](../src/gps/mppi_gps/experiments/sac_continuation.py); documented script remains a compatibility facade. Legacy ordinal ranks are unchanged and labelled. |
+| `walker-run`, `walker-replay` | [Native runner](../src/gps/mppi_gps/native_runner.py) and [replay](../src/gps/mppi_gps/native_replay.py); historical script signatures/exports remain compatible. |
+| `review inventory`, `review sample-bank`, `review bank-bindings` | [Metadata review](../src/gps/mppi_gps/research_review.py): source seals, saved headers/precision and missing evidence; header inspection decodes no arrays; explicit joins read saved arrays under a finite reservation, without simulation/inference. |
+| Pure saved-bank arrays | [Labels/ESS](../src/gps/mppi_gps/sample_bank.py), [neighborhood metrics](../src/gps/mppi_gps/bank_metrics.py), [original capture helper](../src/gps/mppi_gps/sample_capture.py). No relabel/refit/acquisition workflow was activated. |
+| `validate-export --export …` | [Branch-specific orchestration](../src/gps/mppi_gps/validation/export.py) and [unchanged report checks](../src/gps/mppi_gps/validation/reports.py); original script re-exports helpers. |
+| `scripts/check_repository.py` | Supports both immutable capsule hash contracts, including SAC’s original `capsule_files` schema; archives are excluded from formatting. |
+
+Existing small documented study/report/audit wrappers remain. One-off orchestration, plotting, coupled-loop and ridge scripts are available only in the sealed historical archive and an isolated reconstruction. Reuse existing fitting/checkpoint/runtime libraries for a separately reviewed future protocol. The [main coordination map](https://github.com/jaiselsingh1/mppi-gps/blob/main/docs/walker_coordination_review.md) separates pre-update teaching usefulness from J2’s supporting post-fit diagnosis.

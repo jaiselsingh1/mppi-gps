@@ -1,0 +1,481 @@
+{
+  "schema": "walker-bank-reference-join-v1",
+  "passed": true,
+  "scientific_audit": false,
+  "survival_independently_verified": false,
+  "scope": "Exact saved-file joins at stored precision, conditional on recorded source survival; no replay, search, inference or learning.",
+  "expected_episodes": 10,
+  "recorded_task_horizon": 1000,
+  "target_velocity": 1.5,
+  "walking_velocity_mae_max": 0.3,
+  "checked_episodes": 10,
+  "missing_bank_seeds": [],
+  "unexpected_bank_files": [],
+  "bank_summary_available": true,
+  "bank_seed_authority": "Episode filename and optional summary, joined to source reset/planner metadata; bank planner RNG is not stored.",
+  "inputs": {
+    "reference": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-02_noise_cutoff_001/cutoff_23.4375hz/traces.npz",
+      "bytes": 44935839,
+      "sha256": "b5a712587a43f70cb42bf8374b5195ae9431bb6c7e013b94b996cce8c4a33369"
+    },
+    "metrics": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-02_noise_cutoff_001/cutoff_23.4375hz/metrics.json",
+      "bytes": 12214,
+      "sha256": "4df9e5d3cb141933fee606ea5d1e63f21b39c8f6f72cd4daef3d2ec47cb58519"
+    },
+    "bank": [
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_0.npz",
+        "bytes": 30888498,
+        "sha256": "240bf2f077c9f15db6b07761450f149eeefd0087b108bbf0f37f711348ffe58e"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_1.npz",
+        "bytes": 30897701,
+        "sha256": "3492ad67515624613defe1d869b8d70050e1dc9a7fb057b5f74413dc96fca42d"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_2.npz",
+        "bytes": 30924829,
+        "sha256": "37bdf818cf9e0717a419b7f77e114c8c5b31d319f75f2569fb26a5b9b8f9e65c"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_3.npz",
+        "bytes": 30886872,
+        "sha256": "ce2de2746d85e29803bba0bc46715fdba490bd78f0dd347a08cbe94f78567a86"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_4.npz",
+        "bytes": 30824711,
+        "sha256": "21f12b31f65a58aec6b500097ed05ca186a87920bc7efdb6f6ffead873360584"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_5.npz",
+        "bytes": 19305905,
+        "sha256": "7ab6ef08e928d994aa165ca32c80fa606e88c60817bb921536f0b208ea312150"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_6.npz",
+        "bytes": 30875283,
+        "sha256": "1a8f55cd647042b51ccc1a4fac27709308bdb2a1d093721104c4e24272463eec"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_7.npz",
+        "bytes": 30866791,
+        "sha256": "34741348395f75243bce486f26a4c0f7eec631829149f52e3a2fa8ef1a51b7b1"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_8.npz",
+        "bytes": 30897831,
+        "sha256": "954cadf027281f73758d4f22053ebb4092bf8f32938c245dd591f4c99fd7dc4d"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_9.npz",
+        "bytes": 30948910,
+        "sha256": "fb473ae3d37d7b6a3586052b4a5e77980dc9e58e0e1be3244e08debd269f66f6"
+      }
+    ],
+    "bank_summary": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/summary.json",
+      "bytes": 1723,
+      "sha256": "cc2edc4be1df0fafe7d63149529773f249efd533269188dc22b603cd74362a46"
+    }
+  },
+  "episodes": [
+    {
+      "file": "episode_0.npz",
+      "reset_seed": 0,
+      "source_planner_seed": 10000,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.15743860586904734,
+      "left_fold_cost": 401.2886332898132,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_1.npz",
+      "reset_seed": 1,
+      "source_planner_seed": 10001,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.1405283875445494,
+      "left_fold_cost": 378.30951482694167,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_2.npz",
+      "reset_seed": 2,
+      "source_planner_seed": 10002,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.15542884632722836,
+      "left_fold_cost": 409.56559136249194,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_3.npz",
+      "reset_seed": 3,
+      "source_planner_seed": 10003,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.16837384202199923,
+      "left_fold_cost": 433.3376603183862,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_4.npz",
+      "reset_seed": 4,
+      "source_planner_seed": 10004,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.1385626167197127,
+      "left_fold_cost": 390.83954856018175,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_5.npz",
+      "reset_seed": 5,
+      "source_planner_seed": 10005,
+      "controls": 624,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": false,
+      "survival_independently_verified": false,
+      "rederived_walking": false,
+      "velocity_mae": 0.15763654366709762,
+      "left_fold_cost": 295.9023066246764,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_6.npz",
+      "reset_seed": 6,
+      "source_planner_seed": 10006,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.1601448957542083,
+      "left_fold_cost": 393.87173536250975,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_7.npz",
+      "reset_seed": 7,
+      "source_planner_seed": 10007,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.15317756849638414,
+      "left_fold_cost": 416.79357861814606,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_8.npz",
+      "reset_seed": 8,
+      "source_planner_seed": 10008,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.14293151032362458,
+      "left_fold_cost": 366.2492846865472,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    },
+    {
+      "file": "episode_9.npz",
+      "reset_seed": 9,
+      "source_planner_seed": 10009,
+      "controls": 1000,
+      "checks": {
+        "finite_recorded_arrays": true,
+        "source_seed_and_length": true,
+        "pre_action_states": true,
+        "pre_action_warmstarts": true,
+        "executed_actions": true,
+        "stored_plan_precision": true,
+        "nominal_first_noninitial": true,
+        "left_fold_executed_cost": true,
+        "recorded_survival": true,
+        "walking_from_post_states_and_recorded_survival": true,
+        "bank_summary_seed_and_length": true
+      },
+      "passed": true,
+      "nominal_first_initial_rows_excluded": 1,
+      "recorded_source_survived": true,
+      "survival_independently_verified": false,
+      "rederived_walking": true,
+      "velocity_mae": 0.1418476382640015,
+      "left_fold_cost": 361.96597835481685,
+      "missing_full_replay_context": [
+        "integrations",
+        "planner_rng_states",
+        "pre_plan_nominals"
+      ],
+      "stored_candidate_horizon": 8,
+      "full_planning_horizon": 48,
+      "stored_candidate_dtype": "<f2",
+      "missing_candidate_evidence": [
+        "all optimization passes",
+        "original full-precision full-horizon candidate sequences"
+      ]
+    }
+  ],
+  "work": {
+    "hash_read_bytes": 342267107,
+    "logical_array_bytes_loaded": 376580172,
+    "maximum_uncompressed_reservation_bytes": 87899714,
+    "physical_disk_io_bytes": null,
+    "new_native_controls": 0,
+    "new_neural_rows": 0,
+    "new_optimizer_steps": 0
+  },
+  "limits": {
+    "reference_plus_one_bank_uncompressed_bytes": 536870912,
+    "maximum_episodes": 100,
+    "json_bytes": 4194304
+  }
+}

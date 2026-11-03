@@ -1,0 +1,35 @@
+{
+  "status": "PASSED_STAGED_SOURCE_ONLY",
+  "numerical_function_ast_equal": {
+    "load_teachers": true,
+    "load_sac_rollouts": true,
+    "load_critic": true,
+    "critic_value": true,
+    "act": true,
+    "full_state": true,
+    "observation": true,
+    "restore": true,
+    "rollouts": true,
+    "walking": true,
+    "gait_windows": true,
+    "nearest_gait": true,
+    "spearman": true,
+    "describe": true,
+    "plot": true,
+    "main": true
+  },
+  "recording_class_ast_equal": true,
+  "pure_legacy_helpers_equal": true,
+  "compatibility_help_and_capture_import_no_torch_mujoco": true,
+  "help_exit": 0,
+  "help_stdout": "usage: sac_continuation.py [-h] [--k1 K1] [--out OUT] [--horizon HORIZON]\n                           [--settle SETTLE] [--stride STRIDE] [--chunk CHUNK]\n                           [--seed SEED] [--smoke]\n\nSAC continuation map: can the walking SAC oracle carry on from MPPI's walks?\n\noptions:\n  -h, --help         show this help message and exit\n  --k1 K1\n  --out OUT\n  --horizon HORIZON\n  --settle SETTLE\n  --stride STRIDE\n  --chunk CHUNK\n  --seed SEED\n  --smoke            plumbing only: two SAC rollouts stand in for the MPPI\n                     teachers\n",
+  "help_stderr": "",
+  "wall_seconds": 0.67884604196297,
+  "comparison_scope": "all original function numerical AST statements; permits docstrings/import placement, local enum bindings and argparse argv adapter only",
+  "new_scientific_work": {
+    "physics_controls": 0,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0
+  }
+}
