@@ -2,9 +2,11 @@
 
 The goal is a cheap standalone walking policy taught by competent MPPI search, with feedback from learning improving subsequent acquisition. The central open question is **pre-update teachability**: can a score predict what the student will execute after a fixed learning update?
 
+This branch focuses on the [whole-trajectory similarity formulation](docs/full_trajectory_pi_similarity.md): optimize a complete control sequence with PI under a fixed policy, then alternate with policy fitting. Recurrence preparation has stopped. The existing task-only full-PI prototype on `sac-continuation` is being reviewed before any duplicate experiment. Its source is not a result or a tested similarity function.
+
 Start with the [coordinated investigation map](docs/walker_coordination_review.md). MPPI-taught competent walking and beneficial coupling remain unestablished. [J1](docs/similarity_j1_results.md) lacked outcome variation for its protected prediction comparison. [J2](docs/jitter_diagnosis_j2_results.md) produced three competent clean-reference clones but stopped at its frozen qualification gate; its six-student post-fit association is exploratory. The `sac-continuation` prototypes and their missing controls/audits are reviewed separately. These torque-policy studies are not a reproduction of CIO–GPS’s state-to-state controller.
 
-Frozen runs, failed results, configurations, checkpoints and historical sources remain preserved. No merge or new experiment is part of the current coordination/cleanup.
+Frozen runs, failed results, configurations, checkpoints and historical sources remain preserved. This branch currently adds formulation and read-only evidence review; no new experiment or merge has launched.
 
 ## Setup
 
@@ -40,7 +42,7 @@ The sample bank is local external evidence; its command reports missing files ex
 
 ## Reading order
 
-1. [Investigation map and next research decision](docs/walker_coordination_review.md).
+1. [Current whole-trajectory PI question](docs/full_trajectory_pi_similarity.md), [paper/optimizer evidence review](docs/cio_optimizer_gap_review.md), then the [coordinated investigation map](docs/walker_coordination_review.md).
 2. [Methods](docs/methods.md), [study reports and protocols](docs/README.md), and [primary-source review](docs/loop_v3_prior_art.md).
 3. [Supported code and cleanup map](docs/code_map.md), then [debugging](docs/development.md).
 4. [Result capsules](results/README.md), [external evidence availability](docs/evidence_availability.md), [machine-readable index](docs/evidence_index.json), and [history](docs/history.md).
