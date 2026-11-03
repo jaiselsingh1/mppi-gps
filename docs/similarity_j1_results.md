@@ -8,6 +8,12 @@ the protected test was never opened. This is a closed finite diagnostic result,
 with the original publication failure retained. Git publication is tracked
 separately from execution and evidence closure.
 
+**Post-publication review:** the [integrated evidence review](similarity_j1_review.md)
+adds previously separate positive-control and jitter diagnostics and examines
+compression of J1's frozen motion outcome. These records change the recommended
+next step, not J1's saved measurements or admission status. The J1.1-B proposal
+is suspended pending that review; no follow-up has launched.
+
 The [frozen protocol](similarity_j1_protocol.md),
 [implemented formulation](similarity_j1_formulation.md),
 [cost accounting](similarity_j1_costs.md) and
@@ -217,11 +223,14 @@ comparison did not become identifiable on its frozen primary development
 stratum. No candidate-selection claim, adaptive coupling result, new guidance
 mechanism or convergence claim follows.
 
-The next step is the separately versioned [J1.1-B benchmark-repair proposal](similarity_j1_1_proposal.md)
-addressing incoming learner states and a matched no-update control, with its own
-finite budget and variation gate. It proposes fresh `3500…` seed roles rather than
-repurposing J1.0's unopened `3400…` protected panel. It is a proposal, not an
-automatically launched experiment. Architecture changes and MPPI behavior-family
+The previously recommended [J1.1-B proposal](similarity_j1_1_proposal.md) is now
+**suspended**. It retained the same 1,000-row/2,000-update fitting budget and
+compressed motion outcome before reconciling a stronger saved reference-cloning
+control. The [post-publication review](similarity_j1_review.md) first joins those
+records and separates walking, observed duration and overlap-only motion error.
+It does not reopen J1's protected test, alter its frozen endpoint or authorize
+new fitting or acquisition. A replacement experimental protocol requires review
+after this evidence reconciliation. Architecture changes and MPPI behavior-family
 shaping remain separate hypotheses.
 
 ## Fixed-role visual evidence

@@ -43,7 +43,28 @@ def check_capsules(root: Path, errors: list[str]) -> int:
     count = 0
     for path in sorted((root / "results").glob("*/capsule.json")):
         capsule = json.loads(path.read_text())
-        for name, binding in capsule["files"].items():
+        if isinstance(capsule.get("files"), dict):
+            bindings = capsule["files"].items()
+        elif isinstance(capsule.get("capsule_files"), list):
+            # The preserved SAC continuation capsule used repository-relative
+            # paths. Read its original contract without rewriting its manifest.
+            prefix = path.parent.relative_to(root)
+            converted = {}
+            for binding in capsule["capsule_files"]:
+                name = Path(binding["path"])
+                if not name.is_relative_to(prefix):
+                    errors.append(f"Capsule binding escapes its directory: {name}")
+                    continue
+                relative_name = str(name.relative_to(prefix))
+                if relative_name in converted:
+                    errors.append(f"Duplicate capsule binding: {name}")
+                    continue
+                converted[relative_name] = binding
+            bindings = converted.items()
+        else:
+            errors.append(f"Unrecognized capsule file roster: {path.relative_to(root)}")
+            continue
+        for name, binding in bindings:
             check_binding(path.parent, name, binding, errors)
             count += 1
     if not count:

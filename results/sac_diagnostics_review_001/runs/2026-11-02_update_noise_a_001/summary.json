@@ -1,0 +1,335 @@
+{
+  "cells": {
+    "baseline / seeded": {
+      "walks": 0,
+      "runs": 3,
+      "gap": 0.03942980082160353,
+      "controls": 303.6666666666667,
+      "n_eff": 2.3719186586204564
+    },
+    "baseline / own plan": {
+      "walks": 0,
+      "runs": 3,
+      "gap": 0.2201793612575551,
+      "controls": 74.66666666666667,
+      "n_eff": 3.66390027606411
+    },
+    "nominal sample / seeded": {
+      "walks": 3,
+      "runs": 3,
+      "gap": 1.629884377562673e-14,
+      "controls": 1000.0,
+      "n_eff": 1.0000000084618035
+    },
+    "nominal sample / own plan": {
+      "walks": 0,
+      "runs": 3,
+      "gap": 0.3717949926475234,
+      "controls": 18.0,
+      "n_eff": 1.1653217449813282
+    },
+    "hotter / seeded": {
+      "walks": 1,
+      "runs": 3,
+      "gap": 0.00202708152032784,
+      "controls": 849.0,
+      "n_eff": 88.86398184025353
+    },
+    "hotter / own plan": {
+      "walks": 0,
+      "runs": 3,
+      "gap": 0.3207119882807699,
+      "controls": 16.333333333333332,
+      "n_eff": 169.25318779985122
+    },
+    "narrower / seeded": {
+      "walks": 1,
+      "runs": 3,
+      "gap": 0.0027176047507402458,
+      "controls": 565.0,
+      "n_eff": 9.25096771619174
+    },
+    "narrower / own plan": {
+      "walks": 0,
+      "runs": 3,
+      "gap": 0.2872161501971939,
+      "controls": 18.333333333333332,
+      "n_eff": 21.444605005367492
+    }
+  },
+  "rows": [
+    {
+      "variant": "baseline",
+      "mode": "seeded",
+      "seed": 0,
+      "mean_n_eff": 2.571926032486463,
+      "controls": 118,
+      "survived": false,
+      "walks": false,
+      "task_cost": 243.10758454717285,
+      "torque_gap": 0.037145972776760426
+    },
+    {
+      "variant": "baseline",
+      "mode": "seeded",
+      "seed": 1,
+      "mean_n_eff": 2.6711495076174896,
+      "controls": 220,
+      "survived": false,
+      "walks": false,
+      "task_cost": 403.53953529295865,
+      "torque_gap": 0.03722798209059362
+    },
+    {
+      "variant": "baseline",
+      "mode": "seeded",
+      "seed": 2,
+      "mean_n_eff": 1.8726804357574163,
+      "controls": 573,
+      "survived": false,
+      "walks": false,
+      "task_cost": 461.72088944614416,
+      "torque_gap": 0.04391544759745654
+    },
+    {
+      "variant": "baseline",
+      "mode": "own plan",
+      "seed": 0,
+      "mean_n_eff": 3.543410020313016,
+      "controls": 16,
+      "survived": false,
+      "walks": false,
+      "task_cost": 111.8307127936315,
+      "torque_gap": 0.24581014143316351
+    },
+    {
+      "variant": "baseline",
+      "mode": "own plan",
+      "seed": 1,
+      "mean_n_eff": 4.927934485186026,
+      "controls": 200,
+      "survived": false,
+      "walks": false,
+      "task_cost": 575.9496928875656,
+      "torque_gap": 0.1444244202125301
+    },
+    {
+      "variant": "baseline",
+      "mode": "own plan",
+      "seed": 2,
+      "mean_n_eff": 2.5203563226932886,
+      "controls": 8,
+      "survived": false,
+      "walks": false,
+      "task_cost": 99.19134253837493,
+      "torque_gap": 0.2703035221269717
+    },
+    {
+      "variant": "nominal sample",
+      "mode": "seeded",
+      "seed": 0,
+      "mean_n_eff": 1.000000006425963,
+      "controls": 1000,
+      "survived": true,
+      "walks": true,
+      "task_cost": 554.7626767728882,
+      "torque_gap": 1.5820809060168827e-14
+    },
+    {
+      "variant": "nominal sample",
+      "mode": "seeded",
+      "seed": 1,
+      "mean_n_eff": 1.0000000057869074,
+      "controls": 1000,
+      "survived": true,
+      "walks": true,
+      "task_cost": 480.994124752096,
+      "torque_gap": 1.6507644697437677e-14
+    },
+    {
+      "variant": "nominal sample",
+      "mode": "seeded",
+      "seed": 2,
+      "mean_n_eff": 1.0000000131725397,
+      "controls": 1000,
+      "survived": true,
+      "walks": true,
+      "task_cost": 533.1305274780422,
+      "torque_gap": 1.656807756927368e-14
+    },
+    {
+      "variant": "nominal sample",
+      "mode": "own plan",
+      "seed": 0,
+      "mean_n_eff": 1.2635807194013753,
+      "controls": 16,
+      "survived": false,
+      "walks": false,
+      "task_cost": 112.06448506000227,
+      "torque_gap": 0.42719440446273066
+    },
+    {
+      "variant": "nominal sample",
+      "mode": "own plan",
+      "seed": 1,
+      "mean_n_eff": 1.134377176888326,
+      "controls": 22,
+      "survived": false,
+      "walks": false,
+      "task_cost": 122.07533907643659,
+      "torque_gap": 0.3390001049082648
+    },
+    {
+      "variant": "nominal sample",
+      "mode": "own plan",
+      "seed": 2,
+      "mean_n_eff": 1.0980073386542837,
+      "controls": 16,
+      "survived": false,
+      "walks": false,
+      "task_cost": 105.82909832301544,
+      "torque_gap": 0.3491904685715747
+    },
+    {
+      "variant": "hotter",
+      "mode": "seeded",
+      "seed": 0,
+      "mean_n_eff": 85.16775229985404,
+      "controls": 1000,
+      "survived": true,
+      "walks": true,
+      "task_cost": 541.2573433783651,
+      "torque_gap": 0.0020501032970893286
+    },
+    {
+      "variant": "hotter",
+      "mode": "seeded",
+      "seed": 1,
+      "mean_n_eff": 93.85946919398211,
+      "controls": 788,
+      "survived": false,
+      "walks": false,
+      "task_cost": 547.7039369831858,
+      "torque_gap": 0.001969547970205001
+    },
+    {
+      "variant": "hotter",
+      "mode": "seeded",
+      "seed": 2,
+      "mean_n_eff": 87.56472402692442,
+      "controls": 759,
+      "survived": false,
+      "walks": false,
+      "task_cost": 691.4934821772754,
+      "torque_gap": 0.0020615932936891897
+    },
+    {
+      "variant": "hotter",
+      "mode": "own plan",
+      "seed": 0,
+      "mean_n_eff": 170.98337925944566,
+      "controls": 17,
+      "survived": false,
+      "walks": false,
+      "task_cost": 109.85775881563119,
+      "torque_gap": 0.305673703194379
+    },
+    {
+      "variant": "hotter",
+      "mode": "own plan",
+      "seed": 1,
+      "mean_n_eff": 167.2551683101263,
+      "controls": 16,
+      "survived": false,
+      "walks": false,
+      "task_cost": 106.20431585321684,
+      "torque_gap": 0.3281878735415535
+    },
+    {
+      "variant": "hotter",
+      "mode": "own plan",
+      "seed": 2,
+      "mean_n_eff": 169.5210158299817,
+      "controls": 16,
+      "survived": false,
+      "walks": false,
+      "task_cost": 106.69667556317877,
+      "torque_gap": 0.3282743881063774
+    },
+    {
+      "variant": "narrower",
+      "mode": "seeded",
+      "seed": 0,
+      "mean_n_eff": 9.559629488933068,
+      "controls": 169,
+      "survived": false,
+      "walks": false,
+      "task_cost": 236.1769445853987,
+      "torque_gap": 0.0021423153787923596
+    },
+    {
+      "variant": "narrower",
+      "mode": "seeded",
+      "seed": 1,
+      "mean_n_eff": 13.997101999760506,
+      "controls": 526,
+      "survived": false,
+      "walks": false,
+      "task_cost": 536.9171973679413,
+      "torque_gap": 0.0027067148105161193
+    },
+    {
+      "variant": "narrower",
+      "mode": "seeded",
+      "seed": 2,
+      "mean_n_eff": 4.1961716598816485,
+      "controls": 1000,
+      "survived": true,
+      "walks": true,
+      "task_cost": 557.0702341222402,
+      "torque_gap": 0.0033037840629122576
+    },
+    {
+      "variant": "narrower",
+      "mode": "own plan",
+      "seed": 0,
+      "mean_n_eff": 25.611156940578404,
+      "controls": 19,
+      "survived": false,
+      "walks": false,
+      "task_cost": 112.47308674735197,
+      "torque_gap": 0.27917878665623147
+    },
+    {
+      "variant": "narrower",
+      "mode": "own plan",
+      "seed": 1,
+      "mean_n_eff": 14.72625040572448,
+      "controls": 18,
+      "survived": false,
+      "walks": false,
+      "task_cost": 111.18073270373071,
+      "torque_gap": 0.304608973105796
+    },
+    {
+      "variant": "narrower",
+      "mode": "own plan",
+      "seed": 2,
+      "mean_n_eff": 23.99640766979959,
+      "controls": 18,
+      "survived": false,
+      "walks": false,
+      "task_cost": 108.94543244527861,
+      "torque_gap": 0.27786069082955406
+    }
+  ],
+  "readings": {
+    "update_noise_causes_the_drift": true,
+    "variants_fixing_seeded": [
+      "nominal sample / seeded"
+    ],
+    "fixed_mppi_tracks_on_its_own": false,
+    "variants_fixing_own_plan": []
+  },
+  "seconds": 536.2150965410401
+}

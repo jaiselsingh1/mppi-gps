@@ -488,3 +488,28 @@ The [audited result](similarity_j1_results.md) closed32 development cases at its
 Full evidence remains at `/home/jaisel/mppi-gps-workspace/runs/2026-11-03_similarity_j1_001` and the matching artifact namespace on `robopil5090`. [The external inventory](../results/similarity_j1/external_evidence.json) records per-file availability, actual sizes and checksum authority, including all three raw-container SHA-256 values from the closed audit. Checkpoints, tapes, ledgers, arrays and the full96-trace/8,498-frame atlas stay outside Git. The local run copy is source preparation, not a full raw mirror. Three fixed-role original videos are verified in the ignored local preparation previews; their exact figures are [teacher](figures/similarity_j1/teacher.png), [incoming](figures/similarity_j1/incoming.png) and [child](figures/similarity_j1/child.png), with [bindings](figures/similarity_j1/manifest.json).
 
 The first render failed before any frame at the C1 terminal-flag codec; [publication repair002](similarity_j1_publication_repair_002.md) preserved that failure and used the same saved scientific evidence. [Costs](similarity_j1_costs.md) retain the earlier engineering output overrun, generic failed-render uncertainty, successful repair and known/unknown overhead separately. A passed collection or inspector does not turn the unmet predictive objective into a success.
+
+### J1 review and recovered diagnostic evidence
+
+The separate [saved-outcome supplement](../results/similarity_j1_review_001/README.md)
+uses only J1's tracked compact metadata. It retains the original motion score
+beside overlap-only motion, walking and observed duration. Its receipt binds
+the inputs and records zero new simulation, inference or fitting. Original J1
+source, scores, gate, capsule and unopened protected namespace are unchanged.
+
+The [recovered diagnostic capsule](../results/sac_diagnostics_review_001/README.md)
+contains exact positive-control, jitter and on-policy summary/figure copies,
+the explicitly listed source snapshot and a tie-corrected saved-summary review.
+The original local outputs are under `runs/2026-11-02_*_001`; the source snapshot
+was collected from the `sac-continuation` worktree at `bd4ba791`. It is not a
+certified launch export. Those three diagnostics did not preserve fitted
+checkpoints, full executed student traces, Adam/RNG continuation, minibatch tapes
+or launch manifests; those items are unavailable, not externally backed up.
+Their source inputs remain the local K1 and noise-cutoff runs. The preservation
+roster does not cover new files subsequently added in the other worktree.
+
+The original [SAC continuation capsule](../results/sac_continuation_001/README.md)
+is copied unchanged from its published branch, including its original
+repository-relative manifest contract. Its per-start raw archive remains
+local-only. See the [integrated review](similarity_j1_review.md) for which
+claims the evidence supports and which remain unresolved.

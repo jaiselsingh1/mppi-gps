@@ -1143,6 +1143,28 @@ def main(argv: list[str] | None = None) -> int:
             ]
         )
     commands.extend(similarity_export_commands(root, outputs))
+    if (root / "results/similarity_j1_review_001/capsule.json").is_file():
+        commands.append(
+            [
+                "-m",
+                "src.gps.mppi_gps.reporting.similarity_diagnostic",
+                "--capsule",
+                "results/similarity_j1",
+                "--out",
+                str(outputs / "similarity_review"),
+            ]
+        )
+    if (root / "results/sac_diagnostics_review_001/capsule.json").is_file():
+        commands.append(
+            [
+                "-m",
+                "src.gps.mppi_gps.reporting.sac_diagnostics_review",
+                "--capsule",
+                "results/sac_diagnostics_review_001",
+                "--output",
+                str(outputs / "sac_diagnostics_review"),
+            ]
+        )
     inspections = {}
     for index, command in enumerate(commands):
         print(f"[{index + 1}/{len(commands)}] {command[0]}", flush=True)
@@ -1273,6 +1295,16 @@ def main(argv: list[str] | None = None) -> int:
             outputs / "similarity",
         )
     verify_consequence_recovery_capsules(root, inspections)
+    for capsule_name, output_name, summary_name in (
+        ("similarity_j1_review_001", "similarity_review", "summary.json"),
+        ("sac_diagnostics_review_001", "sac_diagnostics_review", "reanalysis/summary.json"),
+    ):
+        capsule = root / "results" / capsule_name
+        if (capsule / "capsule.json").is_file():
+            expected = json.loads((capsule / summary_name).read_text())
+            actual = json.loads((outputs / output_name / "summary.json").read_text())
+            if actual != expected:
+                raise ValueError(f"Saved-only review no longer reproduces: {capsule_name}")
     print(
         json.dumps(
             dict(

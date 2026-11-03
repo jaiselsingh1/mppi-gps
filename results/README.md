@@ -19,6 +19,9 @@ These small evidence capsules make the completed Walker studies and explicitly u
 | H5.0r1 proposal guidance | [teacher_proposal_h5_0_round1](teacher_proposal_h5_0_round1/README.md) | Audited teacher-competence stop: I walked 12/12, S/P each 11/12. No child fits, standalone panels or paired gaps; useful learning unmeasured. |
 | S1.2 V reference recovery | [student_visitation_s1_2_v](student_visitation_s1_2_v/README.md) | Audited 32/32 reference reset walking; 27/72 noninitial walking, 46/72 survival; fixed screen passed. No learning or coupling. |
 | J1 prospective similarity / fixed-update benchmark | [similarity_j1 capsule](similarity_j1/capsule.json), [report](../docs/similarity_j1_results.md) | 32 audited development fits; MPPI children0/256 walking, reference children35/256; inadequate primary variation kept the protected test unopened. 64k curve points and both rendering attempts retained. |
+| J1 saved-outcome review | [similarity_j1_review_001](similarity_j1_review_001/README.md) | Post-hoc motion decomposition, walking and survival kept separate; original frozen result unchanged. Zero new simulation, inference or fitting. |
+| Recovered SAC-cloning and jitter diagnostics | [sac_diagnostics_review_001](sac_diagnostics_review_001/README.md) | Exact source/result snapshot and corrected tie-aware saved statistics; width128 reference clones94/96 under the positive-control recipe. Post-fit on-policy AUC is exploratory, not pre-update learning prediction. Original launch/checkpoint evidence is incomplete. |
+| SAC continuation map | [sac_continuation_001](sac_continuation_001/README.md) | Original separate-branch capsule preserved unchanged; reference continued walking from534/560 sampled MPPI states. Single historical run without independent audit. |
 
 H4.1, K1, W1 and W2 full raw evidence are local-only. A capsule is not a replacement for its full frozen run and must not be used as a worker output directory.
 

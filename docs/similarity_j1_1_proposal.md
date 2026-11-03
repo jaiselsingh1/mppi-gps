@@ -1,6 +1,22 @@
-# J1.1-B draft: identify MPPI learning outcomes for developing students
+# J1.1-B suspended draft: developing-student benchmark
 
-**Review proposal only. This is neither a frozen executable protocol nor authorization to launch.** It is the one recommended next version. It changes the benchmark's incoming learner packages; it does not change the planner, policy architecture, observations, normalization, supervised torque targets, loss, update budget, scores or execution controller. No guidance, smoothing, architecture comparison, critic or follow-up is included.
+**Suspended after post-publication evidence review. Do not execute this draft.**
+This document preserves the previously proposed design, including its unexecuted
+seed roles and budgets. It is neither frozen nor authorized and is no longer the
+recommended next experiment. No J1.1-B work has launched.
+
+The [integrated review](similarity_j1_review.md) identified two prerequisites
+that this draft did not settle: J1's motion outcome compressed the realized
+failures, and separately saved width128 reference clones already walked 94/96
+after a 9,000-row/10,000-update fit with corpus-derived normalization. This draft
+would reuse the 1,000-row/2,000-update block and original motion gate. Changing
+incoming packages alone is not presently justified as the next paid test. The
+original proposal below remains a historical record, not a replacement protocol.
+
+Its proposed intervention changes incoming learner packages; it does not change
+the planner, policy architecture, observations, normalization, supervised torque
+targets, loss, update budget, scores or execution controller. No guidance,
+smoothing, architecture comparison, critic or follow-up is included.
 
 ## Hypothesis and falsifiable purpose
 
@@ -8,7 +24,7 @@ J1.0 used only fresh untrained incoming packages. Its MPPI updates produced no w
 
 The hypothesis concerns the complete incoming package—actor tensors, Adam moments and RNG continuation together. It does not identify an effect of trained weights alone. The matched source comparison within each package retains exact incoming state. Package conditions are not claimed to have identical Adam/RNG states to each other; that would contradict preserving their histories.
 
-## Frozen input roster to prepare for review
+## Historical proposed input roster
 
 Use **all 16** J1.0 reference-trained child checkpoints and **all 16** corresponding original fresh incoming checkpoints, with no selection by 6/16 performance, source group or reproduction outcome. Bind them to the audited J1.0 case/checkpoint hashes, parent/child provenance, full optimizer/private/global RNG packages and W1 normalization. The learned checkpoints have 2,000 cumulative updates; the original incoming packages have zero. Parents remain immutable. No parent is retrained or evaluated selectively before the roster freezes.
 
@@ -56,8 +72,18 @@ Use at most **six worker-hours, two audit-hours and16 GiB retained output**, wit
 
 No repeat of J1's208-decision probe is included. Existing probe evidence remains diagnostic. Contact-force multiplicity, constructor/load counts, source reads, index draws, audit rows, rendering, transfers and engineering must receive explicit nonoverlapping ceilings and a complete census in the executable protocol; this draft is not ready to launch until those prerequisites and continuation tests close. Rendering fits within the same worker allocation, and raw arrays/checkpoints stay outside Git. Stop on any source, replay, owner, continuation, numerical or budget failure; preserve paid prefixes. Independently recompute saved outcomes and accounting without repeating physics/fitting.
 
-This proposal is preferred over a smoothing, nominal-reset, architecture or guidance intervention because J1's probe does not establish that teacher variation is harmless, whereas the failed primary gate directly identifies the missing benchmark property. The pilot can reject the narrower incoming-package hypothesis without claiming to resolve teacher randomness, memory, corrective coverage or gait-family alignment.
+The original rationale preferred this pilot over a smoothing, nominal-reset,
+architecture or guidance intervention because J1's probe did not establish that
+teacher variation was harmless. That remains a limit of the probe, but does not
+resolve the outcome-measure and fitting-control concerns above. The pilot is
+suspended rather than endorsed by this rationale.
 
 ## Reading and status
 
-This proposal follows the [audited J1.0 result](similarity_j1_results.md). It is a development-only benchmark repair, separate from corrective coverage and MPPI behavior-family alignment. The broader behavior-family interpretation may describe gaits on Walker; it does not prescribe frequency filtering. No new protocol is frozen or launched by publishing this document.
+This historical proposal follows the [audited J1.0 result](similarity_j1_results.md)
+and is superseded as a recommendation by the [evidence review](similarity_j1_review.md).
+It remains separate from corrective coverage and MPPI behavior-family alignment.
+The broader behavior-family interpretation may describe gaits on Walker; it does
+not prescribe frequency filtering. Its `3500…` namespace and J1.0's protected
+`3400…` namespace remain unexecuted. No replacement protocol is frozen or launched
+by publishing this correction.

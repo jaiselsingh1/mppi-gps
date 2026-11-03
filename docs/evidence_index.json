@@ -4097,6 +4097,39 @@
         "raw_array_reads": 0
       },
       "fixed_reference_policy_hash": "e1ec300c39d6880f893995012fa7c5a0789f9ef0b931280454310b57e62c9cba"
+    },
+    "similarity_j1_outcome_review": {
+      "file": "results/similarity_j1_review_001/capsule.json",
+      "bytes": 2162,
+      "sha256": "96f9e5be4b0393b0ef7576158399fbdf09aabe80ae3ebc63417f4293995ce5d3",
+      "scope": "Post-hoc saved-only decomposition and544episode duration/cost records; original frozenJ1 and protected status unchanged.",
+      "availability": "Tracked capsule; required compact inputs tracked; no physics/inference/fitting rerun.",
+      "work": {
+        "new_native_controls": 0,
+        "new_model_controls": 0,
+        "new_neural_rows": 0,
+        "new_optimizer_steps": 0
+      }
+    },
+    "sac_diagnostics_review": {
+      "file": "results/sac_diagnostics_review_001/capsule.json",
+      "bytes": 7139,
+      "sha256": "54e134449ade617358ad7d48b7eada91394e33cc36b78aa7e332df5ab27bd111",
+      "scope": "Retrospectively collected source/results; corrected summary arithmetic only, not independent certification of original execution.",
+      "availability": "Tracked capsule; required compact inputs tracked; no physics/inference/fitting rerun.",
+      "work": {
+        "new_native_controls": 0,
+        "new_model_controls": 0,
+        "new_neural_rows": 0,
+        "new_optimizer_steps": 0
+      },
+      "unavailable_original_evidence": [
+        "fitted checkpoints",
+        "full executed student traces",
+        "Adam/RNG packages",
+        "minibatch tapes",
+        "launch manifests"
+      ]
     }
   }
 }
