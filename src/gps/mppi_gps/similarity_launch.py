@@ -471,6 +471,8 @@ def select_render_roster(teachers: Mapping[str, dict], cases: list[dict]) -> lis
 
 def iter_render_traces(run: Path, roster: list[dict], accounting: dict) -> Iterator[dict]:
     """Read authenticated ranges lazily; no NativeRunner, environment or policy exists."""
+    import numpy as np
+
     from .proposal_evidence import read_array
 
     aliases = dict(native_costs="costs", x_velocities="velocities", contact_normal_forces="forces")
@@ -509,8 +511,16 @@ def iter_render_traces(run: Path, roster: list[dict], accounting: dict) -> Itera
                 result[aliases.get(name, name)] = read_array(
                     run / "worker/evidence", reference, name, max_bytes=16 * 1024**2
                 )
-        if not {"contacts", "forces", "states", "actions"} <= set(result):
+        if not {"contacts", "forces", "states", "actions", "done"} <= set(result):
             raise ValueError("J1 atlas may not substitute missing measurements with zeros")
+        done = np.asarray(result["done"])
+        if done.dtype.kind != "b":
+            if done.dtype != np.dtype("u1") or not np.isin(done, [0, 1]).all():
+                raise ValueError("J1 C1 done flags must be uint8 zero/one before decoding")
+            # C1's immutable storage contract is uint8; the atlas deliberately
+            # accepts boolean semantics only. Decode at this boundary, without
+            # changing saved bytes or relaxing the renderer's fall checks.
+            result["done"] = done.astype(bool)
         yield result
 
 

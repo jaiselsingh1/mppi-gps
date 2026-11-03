@@ -971,11 +971,270 @@ def _visitation_inspection(
         report["costs"]["independent_audit"] = audit.get("work")
 
 
+_SIMILARITY_METADATA = frozenset(
+    {
+        "run/config.json",
+        "run/manifest.json",
+        "run/input_manifest.json",
+        "run/preparation.json",
+        "run/worker_result.json",
+        "run/worker_process_receipt.json",
+        "run/worker_exit.json",
+        "run/worker_coordinator_exit.json",
+        "run/admission.json",
+        "run/finalizer_exit.json",
+        "audit/result/audit.json",
+        "audit/result/process_receipt.json",
+        "audit/audit.json",
+        "audit/exit.json",
+        "audit/coordinator_exit.json",
+    }
+)
+
+
+def _similarity_capsule_files(
+    root: Path, bindings: dict[str, Any], verify: bool, errors: list[str]
+) -> list[dict[str, Any]]:
+    """J1 inspection never opens case labels, curves or compressed payloads."""
+    metadata = {name: value for name, value in bindings.items() if name in _SIMILARITY_METADATA}
+    records = _files(root, metadata, verify, errors)
+    for name, binding in bindings.items():
+        if name in metadata:
+            continue
+        try:
+            path = _contained_path(root, name)
+            present = path.is_file()
+            records.append(
+                dict(
+                    file=name,
+                    available=present,
+                    expected_sha256=binding if isinstance(binding, str) else binding.get("sha256"),
+                    expected_bytes=binding.get("bytes") if isinstance(binding, dict) else None,
+                    bytes=path.stat().st_size if present else None,
+                    encoding=binding.get("encoding") if isinstance(binding, dict) else None,
+                    verification_status="not_read_j1_metadata_only",
+                    read_bytes=0,
+                )
+            )
+        except (OSError, ValueError) as error:
+            errors.append(str(error))
+    return sorted(records, key=lambda row: row["file"])
+
+
+def _similarity_saved_metadata(
+    root: Path,
+    run: Path,
+    capsule: dict[str, Any],
+    report: dict[str, Any],
+    *,
+    verify: bool,
+) -> None:
+    """Expose collector availability and bounded audit associations, never raw data."""
+    bindings = dict(capsule.get("files", {}))
+    file_manifest, manifest_descriptor = _h5_compact_metadata(
+        root, "files_manifest.json", {}, verify=True
+    )
+    if manifest_descriptor.get("error"):
+        report["errors"].append(manifest_descriptor["error"])
+    # The collector's final manifest also binds external_evidence.json, which
+    # is written after its selected-payload table. It contains hashes only.
+    for name, value in file_manifest.get("files", {}).items():
+        if name not in bindings:
+            bindings[name] = value
+        else:
+            original = bindings[name]
+            expected = original if isinstance(original, str) else original.get("sha256")
+            actual = value if isinstance(value, str) else value.get("sha256")
+            if expected != actual:
+                report["errors"].append("J1 capsule/file-manifest binding conflict: " + name)
+    external, external_descriptor = _h5_compact_metadata(
+        root, "external_evidence.json", bindings, verify=verify
+    )
+    if external_descriptor.get("error"):
+        report["errors"].append(external_descriptor["error"])
+    recognized = external.get("schema") == "walker-j1-remote-evidence-availability-v1"
+    rows = external.get("files", []) if recognized else []
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        report["errors"].append("J1 remote availability catalog must contain descriptor objects")
+        rows = []
+    report["external_evidence"] = dict(
+        metadata_file=external_descriptor,
+        schema_recognized=recognized if external else None,
+        host=external.get("host"),
+        source_location=external.get("source_location"),
+        source_identities=external.get("source_identities"),
+        files=rows,
+        recorded_available_files=sum(row.get("available") is True for row in rows),
+        recorded_unavailable_files=sum(row.get("available") is False for row in rows),
+        recorded_available_bytes=sum(
+            row.get("bytes", 0)
+            for row in rows
+            if row.get("available") is True and type(row.get("bytes")) is int
+        ),
+        locations_rechecked=False,
+        remote_hashes_recomputed=False,
+        scope="Recorded external location, size, availability and checksum provenance only. Remote availability is not local presence or a fresh verification. Missing whole-file hashes remain unavailable; no remote path is followed.",
+    )
+    for row in rows:
+        name = row.get("file")
+        if not isinstance(name, str):
+            continue
+        is_bulk = row.get("namespace") == "run" and name in {
+            "worker/evidence/arrays.bin",
+            "worker/evidence/arrays.index.jsonl",
+            "worker/evidence/ledger.jsonl",
+        }
+        if is_bulk:
+            report["bulk_evidence"][name] = dict(
+                locally_available=(run / name).is_file(),
+                recorded_available_at_source=row.get("available"),
+                bytes=row.get("bytes"),
+                location=row.get("location"),
+                retained=row.get("retained"),
+                recorded_sha256=row.get("sha256"),
+                checksum_source=row.get("checksum_source"),
+                checksum_recomputed_by_collector=row.get("checksum_recomputed_by_collector"),
+                checksum_unavailable_reason=row.get("checksum_unavailable_reason"),
+                verified_locally=False,
+            )
+        if row.get("available") is False:
+            report["missing_evidence"].append("external:" + str(row.get("namespace")) + ":" + name)
+        elif row.get("retained") == "remote_only" and is_bulk:
+            report["omitted_bulk_evidence"].append(
+                dict(
+                    namespace=row.get("namespace"),
+                    file=name,
+                    location=row.get("location"),
+                    bytes=row.get("bytes"),
+                    sha256=row.get("sha256"),
+                    checksum_source=row.get("checksum_source"),
+                    availability="recorded_remote_only_not_rechecked",
+                )
+            )
+
+    audit_name = next(
+        (
+            name
+            for name in ("audit/result/audit.json", "audit/audit.json")
+            if (root / name).is_file()
+        ),
+        "audit/result/audit.json",
+    )
+    saved, audit_descriptor = _h5_compact_metadata(root, audit_name, bindings, verify=True)
+    descriptors = [manifest_descriptor, external_descriptor, audit_descriptor]
+    if audit_descriptor.get("error"):
+        report["errors"].append(audit_descriptor["error"])
+    audit_recognized = saved.get("schema") == "walker-similarity-j1-audit-v1"
+    associations = {}
+    prefix = "run/" if capsule else ""
+    for key, name in (
+        ("config_sha256", "config.json"),
+        ("source_manifest_sha256", "manifest.json"),
+        ("input_manifest_sha256", "input_manifest.json"),
+        ("worker_result_sha256", "worker_result.json"),
+    ):
+        _, descriptor = _h5_compact_metadata(root, prefix + name, bindings, verify=True)
+        descriptors.append(descriptor)
+        if descriptor.get("error"):
+            report["errors"].append(descriptor["error"])
+        associations[key] = dict(
+            reported_sha256=saved.get(key),
+            actual_sha256=descriptor.get("sha256"),
+            matches=bool(
+                audit_recognized
+                and saved.get(key)
+                and not descriptor.get("error")
+                and descriptor.get("sha256") == saved.get(key)
+            ),
+        )
+    associated = audit_recognized and all(value["matches"] for value in associations.values())
+    if verify:
+        for descriptor in descriptors:
+            if (
+                descriptor.get("available")
+                and descriptor.get("bound_in_capsule")
+                and descriptor.get("binding_verified") is False
+            ):
+                report["hash_mismatches"].append(descriptor["file"])
+    recorded_pass = (
+        saved.get("passed") is True and saved.get("full_scientific_audit_passed") is True
+    )
+    metadata_valid = not any(descriptor.get("error") for descriptor in descriptors)
+    capsule_bindings_valid = not capsule or all(
+        descriptor.get("binding_verified") is True for descriptor in descriptors[2:]
+    )
+    accepted = bool(
+        associated
+        and recorded_pass
+        and metadata_valid
+        and (not verify or capsule_bindings_valid)
+        and not report["hash_mismatches"]
+        and not report["errors"]
+    )
+    if not audit_descriptor["available"]:
+        status = "saved_audit_unavailable"
+    elif not audit_recognized or not metadata_valid:
+        status = "saved_audit_unrecognized_or_unreadable"
+    elif not associated:
+        status = "saved_audit_association_mismatch"
+    elif not recorded_pass:
+        status = "saved_audit_failed_or_incomplete"
+    elif not accepted:
+        status = "saved_audit_metadata_unverified_or_conflicting"
+    else:
+        status = "saved_full_scientific_audit_associated"
+    report["similarity_saved_audit"] = dict(
+        status=status,
+        available=audit_descriptor["available"],
+        metadata_file=audit_descriptor,
+        schema_recognized=audit_recognized if saved else None,
+        reported_passed=saved.get("passed"),
+        reported_full_scientific_audit_passed=saved.get("full_scientific_audit_passed"),
+        associations=associations,
+        association_matches=bool(associated),
+        associated_recorded_full_scientific_audit=accepted,
+        reported_objective_passed=saved.get("objective_passed"),
+        reported_work=saved.get("work"),
+        inspector_metadata_read_bytes=sum(row.get("read_bytes", 0) for row in descriptors),
+        scope="Only a saved plain audit with all four actual metadata hashes matching and both saved pass flags can be associated. Inspection repeats no scientific audit, inference, physics, fitting or bootstrap, and does not infer launcher/finalizer closure.",
+    )
+    report["costs"]["independent_audit"] = saved.get("work")
+    report["diagnostics"]["predictive_comparison_available"] = any(
+        (run / ("worker/predictive_comparison.json" + suffix)).is_file() for suffix in ("", ".gz")
+    )
+    skipped = [
+        row["file"]
+        for row in report["files"]
+        if row.get("verification_status") == "not_read_j1_metadata_only"
+    ]
+    report["verification_scope"] = (
+        "J1 metadata_only: selected plain metadata and saved audit associations; "
+        + (
+            ""
+            if capsule
+            else "direct frozen-run --verify additionally hashes its source and sealed inputs; "
+        )
+        + "case labels, curves, compressed payloads and remote evidence are never opened. "
+        "Full capsule validation belongs to repository/publication validation."
+    )
+    report["verification_details"] = dict(
+        mode="metadata_only",
+        skipped_payloads=skipped,
+        all_capsule_bytes_verified=False,
+        case_payloads_opened=False,
+        compressed_payloads_opened=False,
+        external_locations_followed=False,
+        frozen_source_and_sealed_input_verification_included=not bool(capsule),
+    )
+    report["missing_evidence"] = sorted(set(report["missing_evidence"]))
+
+
 def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     """Describe a full frozen run or a portable result capsule, read only.
 
-    Capsule verification covers exact copied files. Full-run verification covers
-    the source snapshot and sealed input files, not an expensive full raw audit.
+    J1 capsules verify selected metadata only; full payloads require the capsule
+    checker. Other capsule verification covers exact copied files. Full-run
+    verification covers the source snapshot and sealed input files, not a full raw audit.
     Raw costs/outcomes remain recorded claims until independently audited.
     """
     root = path.resolve()
@@ -1041,7 +1300,11 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
     if not launch:
         launch = _read_json(run / "launch.json", errors)
     if capsule:
-        files = _files(root, capsule.get("files", {}), verify, errors)
+        files = (
+            _similarity_capsule_files(root, capsule.get("files", {}), verify, errors)
+            if similarity
+            else _files(root, capsule.get("files", {}), verify, errors)
+        )
         source_files = []
     else:
         bindings = {name: value for name, value in inputs.get("files", {}).items()}
@@ -1287,6 +1550,7 @@ def inspect_run(path: Path, *, verify: bool = False) -> dict[str, Any]:
             predictive_comparison_available=(run / "worker/predictive_comparison.json").is_file(),
             source_banks="Full within-decision arrays retained for the frozen208-decision probe; acquisition banks otherwise have digests and explicit availability limits.",
         )
+        _similarity_saved_metadata(root, run, capsule, report, verify=verify)
     if visitation:
         _visitation_inspection(root, run, capsule, result, report, verify=verify)
     if c1_recovery:
@@ -1396,6 +1660,7 @@ def format_inspection(report: dict[str, Any]) -> str:
         "c1_compact_audit",
         "audit_recovery",
         "visitation_saved_audit",
+        "similarity_saved_audit",
     ):
         if label in report:
             lines.append(f"{label}: {json.dumps(report[label], sort_keys=True)}")

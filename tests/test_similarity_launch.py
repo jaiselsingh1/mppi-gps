@@ -354,3 +354,44 @@ def test_actual_audit_and_finalizer_proof_admit_negative_scientific_result(
     assert launch._admission(run)["scientific_audit_passed"] is True
     with pytest.raises(FileExistsError):
         launch.finalize(run, audit)
+
+
+@pytest.mark.parametrize("invalid", [None, [2], "float", "wide"])
+def test_c1_render_adapter_decodes_only_bound_uint8_flags(tmp_path, monkeypatch, invalid):
+    import numpy as np
+
+    from src.gps.mppi_gps import proposal_evidence
+    from src.gps.mppi_gps.similarity_atlas import _trace
+
+    states = np.zeros((8, 19))
+    states[:, 0] = np.arange(8) * 0.008
+    original = np.zeros(7, dtype="u1")
+    values = dict(
+        states=states,
+        actions=np.zeros((7, 6)),
+        done=original,
+        contacts=np.zeros((7, 2), dtype=bool),
+        contact_normal_forces=np.zeros((7, 2)),
+    )
+    if invalid == "float":
+        values["done"] = original.astype(float)
+    elif invalid == "wide":
+        values["done"] = original.astype("u2")
+    elif invalid is not None:
+        values["done"] = original.copy()
+        values["done"][-1] = invalid[0]
+    reference = dict(arrays={k: dict(byte_length=v.nbytes) for k, v in values.items()})
+    item = dict(
+        outcome=dict(tag="actual_c1_schema", trace=reference, contact_trace=dict(arrays={}))
+    )
+    monkeypatch.setattr(proposal_evidence, "read_array", lambda root, ref, name, **kw: values[name])
+    accounting = dict(source_read_bytes=0, source_read_limit_bytes=1024**2)
+    if invalid is not None:
+        with pytest.raises(ValueError, match="uint8 zero/one"):
+            list(launch.iter_render_traces(tmp_path, [item], accounting))
+    else:
+        decoded = list(launch.iter_render_traces(tmp_path, [item], accounting))[0]
+        assert decoded["done"].dtype == bool
+        assert np.array_equal(decoded["done"], original)
+        assert original.dtype == np.dtype("u1")
+        assert _trace(decoded)["done"].shape == (7,)

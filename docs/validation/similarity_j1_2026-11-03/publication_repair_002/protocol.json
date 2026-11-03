@@ -1,0 +1,52 @@
+{
+  "schema": "walker-j1-publication-repair-v2",
+  "status": "PREPARED_NOT_LAUNCHED",
+  "source_commit": "8c678e507dad1e22708f02a121886d7951d1da44",
+  "config_sha256": "2d436b3ff0d51bfe4afd41a15c1dfe49bd9a0473aa8d7cdda916388570369876",
+  "wrapper_sha256": "44e492102b01602a18172c4f029ff83e8470eebf48d186d14a32926729d3236e",
+  "change": "Validate original uint8 done values are exactly0/1 and decode to bool for original frozen atlas only; all other arrays,96-entry roster, pinned mode/XML/encoder/timing, scientific source and outcomes unchanged.",
+  "original_failure": "render001 preserved with zero recorded frames/restores/forwards/physics/neural/update work; generic nonzero-exit uncertainty retained.",
+  "prior_actual_receipts_authoritative": true,
+  "approximate_prior_seconds_for_orientation": {
+    "worker_stage": 3017.794,
+    "failed_render_stage": 0.318964,
+    "audit_stage": 18.665,
+    "finalizer_stage": 0.156
+  },
+  "limits": {
+    "shared_worker_render_report_seconds": 28800,
+    "render_child_seconds": 7200,
+    "report_child_seconds": 600,
+    "owned_parent_seconds": 7920,
+    "render_rss_bytes": 2147483648,
+    "combined_render001_and_render002_bytes": 2147483648,
+    "render_closing_metadata_reserve_bytes": 4194304,
+    "render_stdout_bytes": 65536,
+    "render_frames": 64000,
+    "render_source_read_bytes": 2147483648,
+    "source_gate_read_reservation_bytes": 67108864,
+    "saved_array_read_limit_bytes": 2080374784,
+    "frozen_source_stat_ceiling_bytes": 12582912,
+    "global_retained_output_bytes": 17179869184
+  },
+  "prerequisites": [
+    "Original source/runtime/input gates",
+    "Actual clean scientific worker and audit/finalizer admission",
+    "Actual reaped failed001 parent/child with exact original bool-codec error",
+    "Same96-entry original failed-render source roster",
+    "Create-only new execution/render/report directories",
+    "Actual parent PID plus private nonce and code/protocol/input/admission/failed001 hashes"
+  ],
+  "scientific_work": {
+    "new_native_controls": 0,
+    "new_model_controls": 0,
+    "neural_rows": 0,
+    "gradients": 0,
+    "optimizer_steps": 0,
+    "fits": 0,
+    "teacher_acquisitions": 0
+  },
+  "scientific_retry": false,
+  "automatic_followup": false,
+  "launches_executed": 0
+}
