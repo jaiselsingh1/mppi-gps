@@ -87,6 +87,8 @@ def main(argv: list[str] | None = None) -> int:
     item.add_argument("--source", type=Path, required=True)
     item.add_argument("--replay", type=Path, required=True)
     item.add_argument("--out", type=Path, required=True)
+    item = commands.add_parser("origin-replay", help="one frozen, bounded origin-host replay")
+    item.add_argument("--launch", type=Path, required=True)
     item = commands.add_parser("inspect", help="read compact metadata, never reopen checkpoints")
     item.add_argument("--run", type=Path, required=True)
     item.add_argument("--verify", action="store_true")
@@ -118,6 +120,10 @@ def main(argv: list[str] | None = None) -> int:
         from ..reporting.trajectory_pi_replay import replay_report
 
         value = replay_report(args.source, args.replay, args.out)
+    elif args.command == "origin-replay":
+        from ..trajectory_pi_replay_validation import main as origin_main
+
+        return origin_main(["--launch", str(args.launch)])
     else:
         from ..reporting.trajectory_pi import inspect
 

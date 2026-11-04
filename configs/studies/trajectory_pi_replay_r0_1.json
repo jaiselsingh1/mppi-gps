@@ -1,0 +1,69 @@
+{
+  "schema": "trajectory-pi-replay-r0-1",
+  "version": "R0.1",
+  "mode": "origin",
+  "horizon": 1000,
+  "tolerance": {
+    "rtol": 0,
+    "atol": 1e-10
+  },
+  "physics_threads": 8,
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true
+  },
+  "output_directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001",
+  "limits": {
+    "wall_seconds": 600,
+    "output_bytes": 67108864,
+    "memory_bytes": 2147483648,
+    "native_controls": 1000,
+    "physics_substeps": 4000,
+    "model_controls": 0,
+    "model_queries": 0,
+    "pi_passes": 0,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "environment_constructions": 1,
+    "restores": 1,
+    "external_mj_forward_calls": 1,
+    "compiled_model_saves": 1
+  },
+  "inputs": {
+    "source_recording": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz",
+      "bytes": 4007410,
+      "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+    },
+    "linux_trace": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/teacher_0_replay.h5",
+      "bytes": 1484464,
+      "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+    },
+    "origin_launch_receipt": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-30_adaptive_coupling_h4_1_r1_001/launch_receipt.json",
+      "bytes": 1102,
+      "sha256": "d20da2281ce13eb3f236f229a0b00ae61f80c679fe144a5f318ac9fcae3866df"
+    }
+  },
+  "expected_runtime": {
+    "machine": "arm64",
+    "python": "3.11.15",
+    "mujoco": "3.6.0",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "h5py": "3.16.0"
+  },
+  "stopping_rule": "One attempt; any missing binding, context mismatch, replay mismatch, fall, budget or evidence failure stops. No tolerance change or automatic diagnostic. No Linux replay.",
+  "scientific_interpretation": "Origin strictpass plus preservedLinuxdivergence supports practical platform/runtime reproducibility issue, not a unique numericalcause.",
+  "conditional_route": "Only audited R0 strictPASS permits separately frozen worker-native P1.1 revalidation. No P1.0 resume."
+}
