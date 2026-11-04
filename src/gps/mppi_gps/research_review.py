@@ -164,11 +164,22 @@ def main(argv: list[str] | None = None) -> int:
     joins.add_argument("--bank", type=Path, required=True)
     joins.add_argument("--reference", type=Path, required=True)
     joins.add_argument("--metrics", type=Path, required=True)
+    reweight = sub.add_parser(
+        "reweight-local-bank", help="reweight one saved local C/D bank, without physics or fitting"
+    )
+    reweight.add_argument("--bank", type=Path, required=True)
+    reweight.add_argument("--out", type=Path, required=True)
+    reweight.add_argument("--alpha", type=float, required=True)
+    reweight.add_argument("--temperature", type=float, required=True)
     args = parser.parse_args(argv)
     if args.command == "inventory":
         report = source_inventory(args.root)
     elif args.command == "sample-bank":
         report = inspect_sample_bank(args.bank)
+    elif args.command == "reweight-local-bank":
+        from .bank_review import reweight_local_bank
+
+        report = reweight_local_bank(args.bank, args.out, args.alpha, args.temperature)
     else:
         from .bank_review import verify_bank_reference
 

@@ -291,3 +291,25 @@ The reporter falls back to `fit.json.gz` only when the original JSON is absent,
 and verifies the decoded original SHA against the audit. The frozen worker is
 the separate `source_002` export recorded by the run; later inspector/report
 improvements do not change that worker or authorize another study.
+
+## Mechanism-first investigations after the current bounded loop
+
+L3 finishes its frozen eight rounds unchanged. Subsequent investigations begin with four short statements: the proposed mechanism; an observation that would contradict it; the cheapest test separating it from the leading alternative; and the decision after either outcome. Check the evidence index and failed results first. A renamed test is not new evidence.
+
+Use existing analytical/point-mass tools before short native contact tests when a mathematical property is genuinely unresolved. The read-only `ciogps` tree already contains `src/envs/point_mass.py`, `src/envs/lqr_point_mass.py`, `scripts/runners/run_point_mass.py` and the LQR oracle/trust diagnostics. Bind their source before reuse; do not edit that branch or repeat completed positive controls unless the new formulation changes their purpose.
+
+Keep architecture and unrelated components fixed. A bounded exploratory window declares its small set of discriminating tests, revision opportunities and total resource limit; those planned probes do not each create another approval boundary. Freeze fresh-seed confirmation only after the optimization block demonstrates a competent, meaningful intervention. Agreement and fitting loss do not establish teachability. Stop for validity or resource failure, and preserve null results.
+
+Reuse the native recorder, paired seeds/context bindings, checkpoint-continuing fitter and work meter described in the [code map](code_map.md). Saved-bank reweighting tests a finite bank; predicting an execution change requires a separately accounted counterfactual replay. A pre-fit score must be recorded before its corresponding update and judged against subsequent standalone outcomes on separate starts. J2's post-fit diagnosis is supporting evidence, not such a score.
+
+Every mechanism claim needs a figure capable of exposing it as wrong: cost versus discrepancy with survival/weight mass, predicted versus executed changes, or standalone performance and fixed/current/student-state gaps across updates. Show representative failures and motion videos when their rendering is included in the declared budget. Existing C1 cost-effect weighting and D1/D2 fixed-suffix assays must inform any consequence-based proposal. Profile saved operation timings before adding parallelism. Progress reports lead with the hypothesis that changed, the evidence that changed it and the next discriminating test; accounting and publication belong in an appendix.
+
+The existing review CLI now supports one-bank counterfactuals:
+
+```sh
+uv run python scripts/train_mppi_gps.py review reweight-local-bank \
+  --bank /path/to/closed-episode/full_t000_p0.npz \
+  --alpha 0.12 --temperature 3 --out /tmp/bank-review-fresh
+```
+
+It preserves configuration, exact input/code hashes, supplied original checkpoint identity, C/D/survival/weights and proposed plans in a create-only directory, plus measured arithmetic cost. When the original job is available, its recorded score, weights and update must reproduce first; incompatible importance-correction/adaptive-temperature recipes fail explicitly. Invalid reviews retain a failure record. No checkpoint is loaded and no physics, inference or fitting occurs. This changes weights within one recorded bank/actor; it does not acquire a new trajectory, predict later replanning, establish teachability or select a condition using subsequent fitting outcomes. Native execution of a proposed update remains a separately budgeted test with complete context bindings.

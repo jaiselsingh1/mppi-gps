@@ -1,4 +1,4 @@
-"""Saved-only joins between a prototype sample bank and its recorded baseline.
+"""Saved candidate-bank joins and one-pass reweighting, without execution.
 
 This establishes byte agreements within the retained precision and evidence.
 It neither repeats physics nor independently verifies reported survival.
@@ -16,6 +16,207 @@ from typing import Any
 MAX_UNCOMPRESSED_BYTES = 512 * 1024**2
 MAX_EPISODES = 100
 MAX_JSON_BYTES = 4 * 1024**2
+
+
+def local_bank_update(arrays: dict, alpha: float, temperature: float) -> dict:
+    """Reweight one recorded local bank; this predicts one optimizer update.
+
+    C and D belong to the recorded actor, contexts and candidate sequences.
+    Neither a new actor's discrepancy nor subsequent replanning is inferred.
+    """
+    import numpy as np
+
+    if not np.isfinite(alpha) or alpha < 0 or not np.isfinite(temperature) or temperature <= 0:
+        raise ValueError("Finite nonnegative alpha and positive temperature required")
+    c, d, actions, nominal, survived = (
+        np.asarray(arrays[key]) for key in ("C", "D", "actions", "U_before", "full_survival")
+    )
+    if (
+        actions.ndim != 3
+        or min(actions.shape) <= 0
+        or actions.shape[-1] != 6
+        or nominal.shape != actions.shape[1:]
+        or c.shape != (actions.shape[0],)
+        or d.shape != c.shape
+        or survived.shape != c.shape
+        or survived.dtype != np.bool_
+        or any(value.dtype != np.float64 for value in (c, d, actions, nominal))
+        or not np.isfinite(actions).all()
+        or not np.isfinite(nominal).all()
+        or np.any(np.abs(actions) > 1)
+        or np.any(np.abs(nominal) > 1)
+    ):
+        raise ValueError("Complete bounded candidate/nominal arrays and survival roster required")
+    valid = np.isfinite(c)
+    if not valid.any() or not np.isfinite(d[valid]).all() or np.any(d[valid] < 0):
+        raise ValueError("Finite cost and nonnegative discrepancy required for valid candidates")
+    score = np.full(len(c), np.inf)
+    score[valid] = c[valid] if alpha == 0 else c[valid] + alpha * d[valid]
+    if not np.array_equal(np.isfinite(score), valid):
+        raise ValueError("Agreement score overflow or invalid cost/discrepancy combination")
+    weights = np.zeros(len(c), dtype=np.float64)
+    weights[valid] = np.exp(-(score[valid] - score[valid].min()) / temperature)
+    weights /= weights.sum()
+    # Effective clipped perturbations preserve the stock recorded update order.
+    updated = np.clip(nominal + np.einsum("k,kha->ha", weights, actions - nominal), -1, 1)
+    return dict(
+        weights=weights,
+        updated_plan=updated,
+        valid=valid,
+        score=score,
+        failed_weight_mass=float(weights[~survived].sum()),
+        survival_fraction=float(survived.mean()),
+        effective_sample_size=float(1 / np.sum(weights**2)),
+        expected_task_cost=float(np.sum(weights[valid] * c[valid])),
+        expected_discrepancy=float(np.sum(weights[valid] * d[valid])),
+    )
+
+
+def _reweight_local_bank(bank: Path, out: Path, alpha: float, temperature: float) -> dict:
+    """Preserve a bounded, saved-only counterfactual with exact input/source hashes."""
+    import time
+
+    import numpy as np
+
+    started, cpu = time.monotonic(), time.process_time()
+    bank, out = bank.resolve(), out.resolve()
+    reservation = _reservation(bank)
+    source = _binding(Path(__file__))
+    before = _binding(bank)
+    out.mkdir(parents=True, exist_ok=False)
+    config = dict(
+        schema="local-bank-reweight-config-1",
+        bank=before,
+        source=source,
+        alpha=alpha,
+        temperature=temperature,
+        numpy_version=np.__version__,
+        limits=dict(input_uncompressed_bytes=MAX_UNCOMPRESSED_BYTES, output_bytes=1024**2),
+        scope="One fixed recorded bank/actor. No physics, inference, fitting or execution prediction beyond this one plan update.",
+    )
+    job_path = bank.parent / "job.json"
+    config["original_job"] = _binding(job_path) if job_path.is_file() else None
+    original_job = _json(job_path) if job_path.is_file() else None
+    config["declared_checkpoint"] = original_job.get("checkpoint") if original_job else None
+    (out / "config.json").write_text(json.dumps(config, indent=2, allow_nan=False) + "\n")
+    with np.load(bank, allow_pickle=False) as raw:
+        arrays = {
+            key: raw[key].copy() for key in ("C", "D", "actions", "U_before", "full_survival")
+        }
+        recorded = (
+            {key: raw[key].copy() for key in ("weights", "U_after", "J")} if original_job else None
+        )
+    recorded_update_verified = False
+    if original_job:
+        planner = original_job["planner"]
+        if planner.get("use_is_correction") or planner.get("lam_target_neff_fraction"):
+            raise ValueError("This bank tool requires the fixed-temperature C+alpha*D recipe")
+        actual = local_bank_update(arrays, original_job["alpha"], planner["lam"])
+        for field, expected in (
+            ("weights", actual["weights"]),
+            ("U_after", actual["updated_plan"]),
+        ):
+            if recorded[field].shape != expected.shape or not np.allclose(
+                recorded[field], expected, rtol=0, atol=1e-12
+            ):
+                raise ValueError("Saved optimizer update is not reproduced: " + field)
+        valid = actual["valid"]
+        if (
+            recorded["J"].shape != valid.shape
+            or not np.array_equal(np.isfinite(recorded["J"]), valid)
+            or not np.allclose(recorded["J"][valid], actual["score"][valid], rtol=0, atol=1e-12)
+        ):
+            raise ValueError("Saved C+alpha*D score is not reproduced")
+        recorded_update_verified = True
+    target = local_bank_update(arrays, alpha, temperature)
+    control = local_bank_update(arrays, 0.0, temperature)
+    if _binding(bank) != before:
+        raise ValueError("Saved bank changed during review")
+    with (out / "measurements.npz").open("xb") as stream:
+        np.savez_compressed(
+            stream,
+            C=arrays["C"],
+            D=arrays["D"],
+            full_survival=arrays["full_survival"],
+            weights=target["weights"],
+            independent_weights=control["weights"],
+            updated_plan=target["updated_plan"],
+            independent_plan=control["updated_plan"],
+            valid=target["valid"],
+        )
+    result = dict(
+        schema="local-bank-reweight-result-1",
+        status="COMPLETED",
+        config=_binding(out / "config.json"),
+        measurements=_binding(out / "measurements.npz"),
+        summaries={
+            name: {key: value for key, value in row.items() if not isinstance(value, np.ndarray)}
+            for name, row in (("independent", control), ("target", target))
+        },
+        first_action_rms_change=float(
+            np.sqrt(np.mean((target["updated_plan"][0] - control["updated_plan"][0]) ** 2))
+        ),
+        plan_rms_change=float(
+            np.sqrt(np.mean((target["updated_plan"] - control["updated_plan"]) ** 2))
+        ),
+        read_only_inputs=True,
+        recorded_update_verified=recorded_update_verified,
+        pre_update_teachability_established=False,
+        work=dict(
+            model_controls=0,
+            native_controls=0,
+            neural_rows=0,
+            backward_rows=0,
+            optimizer_steps=0,
+            input_uncompressed_reservation=reservation,
+            cpu_seconds=time.process_time() - cpu,
+            wall_seconds=time.monotonic() - started,
+        ),
+        limits="Finite-bank reweighting only. Saved survival is not independently replayed; a lower discrepancy or changed plan is not evidence of better learning.",
+    )
+    if sum(p.stat().st_size for p in out.iterdir()) > 1024**2 - 8192:
+        raise ValueError("Saved review exceeds its 1 MiB output ceiling")
+    (out / "result.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
+    return result
+
+
+def reweight_local_bank(bank: Path, out: Path, alpha: float, temperature: float) -> dict:
+    """Create one review directory, retaining invalid requests as failures."""
+    import time
+
+    started, cpu = time.monotonic(), time.process_time()
+    out = out.resolve()
+    if out.exists():
+        raise FileExistsError(out)
+    try:
+        return _reweight_local_bank(bank, out, alpha, temperature)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        out.mkdir(parents=True, exist_ok=True)
+        config_path = out / "config.json"
+        failure = dict(
+            schema="local-bank-reweight-result-1",
+            status="FAILED_STOPPED",
+            passed=False,
+            error=repr(error),
+            requested_bank=str(bank.resolve()),
+            requested_alpha=repr(alpha),
+            requested_temperature=repr(temperature),
+            config=_binding(config_path) if config_path.is_file() else None,
+            source=_binding(Path(__file__)),
+            work=dict(
+                model_controls=0,
+                native_controls=0,
+                neural_rows=0,
+                backward_rows=0,
+                optimizer_steps=0,
+                cpu_seconds=time.process_time() - cpu,
+                wall_seconds=time.monotonic() - started,
+            ),
+        )
+        with (out / "failure.json").open("x") as stream:
+            json.dump(failure, stream, indent=2, allow_nan=False)
+            stream.write("\n")
+        return failure
 
 
 def _binding(path: Path) -> dict[str, Any]:

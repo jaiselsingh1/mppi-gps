@@ -1,0 +1,49 @@
+{
+  "schema": "saved-bank-tool-validation-1",
+  "passed": true,
+  "commands": [
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_local_bank_reweight.py",
+        "tests/test_bank_review.py",
+        "tests/test_research_review.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.8259645419893786,
+      "cpu_seconds": 0.680079
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps/bank_review.py",
+        "src/gps/mppi_gps/research_review.py",
+        "tests/test_local_bank_reweight.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.040656791999936104,
+      "cpu_seconds": 0.021312999999999915
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.060668667021673,
+      "cpu_seconds": 1.4155609999999998
+    }
+  ],
+  "study_execution_changed": false,
+  "scientific_calls": 0,
+  "physics": 0,
+  "inference": 0,
+  "optimizer_steps": 0,
+  "accounting_scope": "Software/metadata work within the original engineering reservation; no new study or new candidate score."
+}
