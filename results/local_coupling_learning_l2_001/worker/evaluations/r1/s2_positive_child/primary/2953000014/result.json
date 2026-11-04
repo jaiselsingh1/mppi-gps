@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "02a3ca3721ae46fdbd8916770ef2b5fdd7de5404442f6e68aab8aa4137a2c2ed"
+  },
+  "reset_seed": 2953000014,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 2,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "863742c7c235715d06cfd50ed3311e669029da3ce155887f87b180feaee40b27",
+  "initial_context_fingerprint": "64b591c88ee8da41d8e9122b8ac12f7822a8ff3c47af1c0c3c0bec3b3580e4e7",
+  "outcome": {
+    "controls": 240,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.867527322130595,
+    "mean_velocity": 0.8921979007529879,
+    "raw_native_cost": 512.5512480890939,
+    "absorbing_tail_cost": 3800.0,
+    "complete_cost": 4312.551248089094
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000014/trace.h5",
+    "bytes": 384408,
+    "sha256": "1ff98e7596eaa4a6e4630ffb9665d62a0db478432f59d7e377050c06d9e080d4"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000014/receipt.json",
+    "bytes": 852,
+    "sha256": "7d54a3347c84329a0f748a9843d84a7aaa8511263a3b313781c0f39999bfbda0"
+  }
+}

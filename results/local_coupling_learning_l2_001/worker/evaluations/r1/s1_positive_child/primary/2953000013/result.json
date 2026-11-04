@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "43956083a97fe753bc54518c90fa7746d0a01e6c5cd76d8d51c61df78e4a1d04"
+  },
+  "reset_seed": 2953000013,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "49abb21cd9572a18f53a39073d71294508026f00cf9cb0d13ba765864e467111",
+  "initial_context_fingerprint": "8a2fed11690a928b65eeb322a77aae792b62209648ec813795ea10d09bd29b87",
+  "outcome": {
+    "controls": 1000,
+    "requested_controls": 1000,
+    "fell": false,
+    "full_survival": true,
+    "walking": false,
+    "velocity_mae": 1.5511360528504956,
+    "mean_velocity": -0.05111859511314672,
+    "raw_native_cost": 3129.9650417112803,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 3129.9650417112803
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000013/trace.h5",
+    "bytes": 1484464,
+    "sha256": "b8ad99a63e7c762ed63ec6f75913688f42e4e8f4428561e83c06b1f3c6b6725d"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000013/receipt.json",
+    "bytes": 858,
+    "sha256": "6dbff952a5fc2203b7abf2295bda435dca4ff75bc132dce8d479da12bbf38653"
+  }
+}

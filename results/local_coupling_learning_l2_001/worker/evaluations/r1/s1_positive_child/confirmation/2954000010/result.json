@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "43956083a97fe753bc54518c90fa7746d0a01e6c5cd76d8d51c61df78e4a1d04"
+  },
+  "reset_seed": 2954000010,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "confirmation"
+  },
+  "policy_hash": "49abb21cd9572a18f53a39073d71294508026f00cf9cb0d13ba765864e467111",
+  "initial_context_fingerprint": "2eb611f1b37814e7d7382e94ab03a4e62c0c63118cc29d1c133f45c29d12d1f2",
+  "outcome": {
+    "controls": 165,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.9913244281488585,
+    "mean_velocity": -0.49132442814885846,
+    "raw_native_cost": 702.8391969121266,
+    "absorbing_tail_cost": 4175.0,
+    "complete_cost": 4877.839196912127
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/confirmation/2954000010/trace.h5",
+    "bytes": 263464,
+    "sha256": "4802abba6d6d8a1bd73388a8de51381780f845914f5c12b358f0977e13f4cd3d"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/confirmation/2954000010/receipt.json",
+    "bytes": 852,
+    "sha256": "80731e1b415252853614c7d38dd97136b8989a45ff76398bc01b8ca05582f102"
+  }
+}

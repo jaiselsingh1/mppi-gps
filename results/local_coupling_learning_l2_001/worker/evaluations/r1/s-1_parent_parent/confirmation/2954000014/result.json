@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/parent.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "reset_seed": 2954000014,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": -1,
+    "arm": "parent",
+    "kind": "parent",
+    "panel": "confirmation"
+  },
+  "policy_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+  "initial_context_fingerprint": "3ea69afe7c2dcccad910c7ac669f257c1e7dbae0381e2e02f4ceb3628c6f7249",
+  "outcome": {
+    "controls": 228,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.9275894053065609,
+    "mean_velocity": 0.7679850147399381,
+    "raw_native_cost": 474.10194799233966,
+    "absorbing_tail_cost": 3860.0,
+    "complete_cost": 4334.10194799234
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/confirmation/2954000014/trace.h5",
+    "bytes": 353312,
+    "sha256": "02e24f54c1f8f85e86ff4059f383d951f80b239bfcc5293187a571fbdcda5bc7"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/confirmation/2954000014/receipt.json",
+    "bytes": 853,
+    "sha256": "44e35cf90996bb7dade40cf5bce8c8e3fcd2158d3ae23b87d9ce6a23d991503a"
+  }
+}

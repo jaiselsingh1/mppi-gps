@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "43956083a97fe753bc54518c90fa7746d0a01e6c5cd76d8d51c61df78e4a1d04"
+  },
+  "reset_seed": 2953000014,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "49abb21cd9572a18f53a39073d71294508026f00cf9cb0d13ba765864e467111",
+  "initial_context_fingerprint": "64b591c88ee8da41d8e9122b8ac12f7822a8ff3c47af1c0c3c0bec3b3580e4e7",
+  "outcome": {
+    "controls": 309,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.0388400299472629,
+    "mean_velocity": 0.5820571154461183,
+    "raw_native_cost": 716.8956834019451,
+    "absorbing_tail_cost": 3455.0,
+    "complete_cost": 4171.8956834019455
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000014/trace.h5",
+    "bytes": 481168,
+    "sha256": "a73d0522cd7f6ad4b952f6d955be6d3b1883c2bca04dd05d486aceb6995e35cf"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000014/receipt.json",
+    "bytes": 855,
+    "sha256": "beb171c0de03438624e666c55748d2414606f94a2c472266db5933d24ce5520a"
+  }
+}

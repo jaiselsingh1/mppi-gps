@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "43956083a97fe753bc54518c90fa7746d0a01e6c5cd76d8d51c61df78e4a1d04"
+  },
+  "reset_seed": 2953000003,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "49abb21cd9572a18f53a39073d71294508026f00cf9cb0d13ba765864e467111",
+  "initial_context_fingerprint": "942b914b2a29facaa2658bb69aa55eff7421d10f40d886ddc828ccbf099d773f",
+  "outcome": {
+    "controls": 247,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.4157392844807215,
+    "mean_velocity": 0.08426071551927845,
+    "raw_native_cost": 810.0377734032473,
+    "absorbing_tail_cost": 3765.0,
+    "complete_cost": 4575.037773403247
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000003/trace.h5",
+    "bytes": 392472,
+    "sha256": "d79ee1f8bec8b88ac93338288552789b0f8f3e5d319c738669f7440894f6241d"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000003/receipt.json",
+    "bytes": 852,
+    "sha256": "a1b7b7a94358a8a850540d7ccf54e374cfd545486edc8bff5e842efa5eb41e78"
+  }
+}

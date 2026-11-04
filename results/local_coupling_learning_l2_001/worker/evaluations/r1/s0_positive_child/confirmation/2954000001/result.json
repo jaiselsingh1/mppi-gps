@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "7d2f774336c5d9b52f22d2e21f10fd5170cae9c69e4b46ea287e9577fe5a1459"
+  },
+  "reset_seed": 2954000001,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 0,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "confirmation"
+  },
+  "policy_hash": "fa0ce5bc9d8ab1a61639caa1f0741f0be86630f6955646fa3b13242a65fbf155",
+  "initial_context_fingerprint": "96be72dccb9a1ed71c182eff3f217866e68a09459a18388fbfd1a5249d3d9071",
+  "outcome": {
+    "controls": 292,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.9614567271305664,
+    "mean_velocity": 0.7407372934191905,
+    "raw_native_cost": 646.5564268130238,
+    "absorbing_tail_cost": 3540.0,
+    "complete_cost": 4186.556426813024
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s0_positive_child/confirmation/2954000001/trace.h5",
+    "bytes": 455672,
+    "sha256": "c445cc7bd8e96010e63cd4e00965e250e07802bb86d25bdcedc70f18605e0242"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s0_positive_child/confirmation/2954000001/receipt.json",
+    "bytes": 854,
+    "sha256": "82e0e39f050c9c6df491bf5981de1b727c7f8d5a527c1f688807a93f9ac9f125"
+  }
+}

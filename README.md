@@ -2,7 +2,7 @@
 
 The goal is a cheap standalone walking policy taught by competent MPPI search, with feedback from learning improving subsequent acquisition. The central open question is **pre-update teachability**: can a score predict what the student will execute after a fixed learning update?
 
-The active [L2.0 protocol](docs/local_coupling_learning_l2_0_protocol.md) tests the actual H48 MPPI controller, matched policy learning and one conditional feedback round. It removes the historical candidate-survival gate only in this new version: executed teacher competence and standalone walking determine the scientific result. This branch owns its implementation and execution; the diagnostic owner's branch remains unchanged.
+The completed, independently audited [L2.0 result](docs/local_coupling_learning_l2_0_result.md) tested the actual H48 MPPI controller and matched policy learning. Alpha `.12` preserved local walking and improved teacher survival/cost, but all children still walked `0/16` on both fresh panels. Coupled data improved retention; the frozen walking criterion correctly prevented round two. [Protocol](docs/local_coupling_learning_l2_0_protocol.md), [evidence and curves](results/local_coupling_learning_l2_001/README.md), and [accounting](docs/local_coupling_learning_l2_0_accounting.md) preserve the entire result. Other branches remain unchanged.
 
 The [A/B/C review](docs/full_pi_abc_coordination.md) and failed six-round H1000 acquisition remain evidence. P1.1's 20-round H1000 experiment stays held; it is not resumed by L2.0. Historical failures, raw sources and accounting remain preserved.
 
@@ -31,6 +31,7 @@ CPU operation is sufficient for tests, saved-data fitting and metadata inspectio
 uv run python scripts/train_mppi_gps.py --help
 uv run python scripts/train_mppi_gps.py study jitter-diagnosis --help
 uv run python scripts/train_mppi_gps.py study trajectory-pi --help
+uv run python scripts/train_mppi_gps.py study local-coupling-loop --help
 uv run python scripts/train_mppi_gps.py walker-run --help
 uv run python scripts/train_mppi_gps.py walker-replay --help
 
@@ -48,7 +49,7 @@ The sample bank is local external evidence; its command reports missing files ex
 
 ## Reading order
 
-1. [Current whole-trajectory PI question](docs/full_trajectory_pi_similarity.md), [paper/optimizer evidence review](docs/cio_optimizer_gap_review.md), then the [coordinated investigation map](docs/walker_coordination_review.md).
+1. [L2.0 end-to-end result](docs/local_coupling_learning_l2_0_result.md), its [frozen protocol](docs/local_coupling_learning_l2_0_protocol.md), then the [coordinated investigation map](docs/walker_coordination_review.md). The earlier [whole-trajectory PI question](docs/full_trajectory_pi_similarity.md) and [paper/optimizer review](docs/cio_optimizer_gap_review.md) remain preserved.
 2. [Methods](docs/methods.md), [study reports and protocols](docs/README.md), and [primary-source review](docs/loop_v3_prior_art.md).
 3. [Supported code and cleanup map](docs/code_map.md), then [debugging](docs/development.md).
 4. [Result capsules](results/README.md), [external evidence availability](docs/evidence_availability.md), [machine-readable index](docs/evidence_index.json), and [history](docs/history.md).

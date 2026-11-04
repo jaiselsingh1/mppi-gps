@@ -1,0 +1,505 @@
+{
+  "schema": "local-coupling-learning-l2-1",
+  "version": "L2.0",
+  "launch_ready": true,
+  "status": "FROZEN_REQUIRES_SEALED_SOURCE_INPUT_RUNTIME_AND_NATIVE_PRECHECK",
+  "question": "Does fixed local torque reconstruction coupling change competent receding-horizon teacher behavior and improve a standalone fixed student after matched fitting, then support a second useful acquisition-learning round?",
+  "inputs": {
+    "checkpoint": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001/parent0.pt",
+      "bytes": 330426,
+      "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+    },
+    "incoming_stream_directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/prepared/initial/stream0",
+    "incoming_stream_files": {
+      "policy.pt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/prepared/initial/stream0/policy.pt",
+        "bytes": 330426,
+        "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+      },
+      "global_rng.pt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/prepared/initial/stream0/global_rng.pt",
+        "bytes": 14249,
+        "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+      },
+      "stream.json": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_p1_001/prepared/initial/stream0/stream.json",
+        "bytes": 1545,
+        "sha256": "edf92c7d37cb30ed841000f30a7f352da4e9f7e70f833f7a2fb622265dde4d6c"
+      }
+    },
+    "actor_tensor_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+    "checkpoint_hash_contract": "File SHA256 is distinct from actor tensor and optimizer fingerprints; validate each separately.",
+    "student_episode": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001/stream_0/r00_zero/eval_4130000000.npz",
+      "bytes": 151118,
+      "sha256": "5db399e3a49545cb720582667bc1fe40cea53bba05dcc17e0889defdf6b10ed6"
+    },
+    "restart_contexts": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/restarts.npz",
+      "bytes": 12198,
+      "sha256": "5a82fe05d980ae37346c521c4cc708138dc1feab6a969cff3b4668ac6dd01bf3"
+    },
+    "restart_source_control_indices": [
+      1,
+      17,
+      34,
+      51,
+      67,
+      84,
+      101,
+      118
+    ],
+    "restart_count": 8,
+    "source_groups": 1,
+    "mppi_source": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/configs/walker2d_best.json",
+      "bytes": 226,
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6"
+    },
+    "task_source": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/configs/walker2d_task.json",
+      "bytes": 314,
+      "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a"
+    },
+    "model_xml": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/assets/walker2d.xml",
+      "bytes": 4950,
+      "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+    },
+    "held_diagnostic": {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/inputs/validation.npz",
+      "bytes": 1161518,
+      "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6"
+    },
+    "held_rows": 2000,
+    "historical_global_rng_available": false,
+    "global_envelope": "Copy the exact already-declared P1 stream0 envelope; it is not the missing historical W2 global RNG.",
+    "outer_launch_manifest": "Bind create-only copied inputs, all source bytes, runtime/native binary/XML receipt, config hash, prepared forks and ledger before any native work; no mutable path substitution.",
+    "calibration": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/calibration.json",
+      "bytes": 247,
+      "sha256": "d6d00e1d3dde236555b898271660bc2579df36c339b59c414c104729cb20dc2b"
+    }
+  },
+  "controller": {
+    "planner": {
+      "K": 256,
+      "H": 48,
+      "lam": 3.0,
+      "noise_sigma": 0.3,
+      "noise_lowpass_cutoff_hz": 23.4375,
+      "noise_lowpass_sample_rate_hz": 125.0,
+      "noise_lowpass_order": 2,
+      "use_is_correction": false,
+      "initial_iterations": 2
+    },
+    "task": {
+      "frame_skip": 4,
+      "cost_style": "target_velocity",
+      "target_velocity": 1.5,
+      "vel_cost_weight": 2.0,
+      "vertical_velocity_cost_weight": 0.5,
+      "angle_cost_weight": 0.1,
+      "unhealthy_cost_weight": 5.0,
+      "ctrl_cost_weight": 0.001,
+      "terminal_unhealthy_weight": 20.0,
+      "apply_terminal_cost_on_done": true
+    },
+    "native_threads": 4,
+    "torch_threads": 1,
+    "device": "cpu",
+    "controls": 300,
+    "arms": [
+      {
+        "name": "independent",
+        "alpha": 0.0
+      },
+      {
+        "name": "weak",
+        "alpha": 0.12
+      },
+      {
+        "name": "large",
+        "alpha": 3.4744413290249314
+      }
+    ],
+    "alpha_large_origin": "Historical A/B/C calibration 0.5 std(C)/std(D), held fixed; no recalibration or weight search.",
+    "initialization": "Zero float64 (48,6) plan at each restored restart; no policy/teacher centering.",
+    "refinement": "Existing MPPI.plan_step: two passes before first physical action, one thereafter; no extra refinement or horizon annealing.",
+    "shift": "After each decision exactly once, use existing last-control replication; retain carried plan and private planner PCG within episode.",
+    "objective": "J=C+alpha*D; D=.5*sum_valid_prefix sum_action (physical_U-bounded_Torch_pi(pre_action_obs))**2.",
+    "candidate_cost": "Unchanged Walker rollout_cost: native running costs through first fall, terminal20 once, absorbing5 per missing horizon control.",
+    "candidate_d": "Use pre-action state; include fall-causing action and exclude post-fall or invalid observations. No inference on post-fall suffixes.",
+    "invalid_candidates": "Invalid executable prefix has infinite task/objective cost; a physical fall alone is not numerical invalidity or a controller abort.",
+    "population_d_in_alpha0": "Measure D diagnostically under the same calling convention but multiply by zero in weights; no policy-conditioned score or fallback in independent arm.",
+    "policy_execution": "Unchanged bounded Torch Policy.predict and native clipped17 observations for scoring, fitting and direct execution. Promote returned actions to float64 before env.step; do not deploy P1 NumPy actor.",
+    "candidate_survival_gate": false,
+    "early_futility_stop": false,
+    "roster_completion": "Execute all24 round1 episodes despite candidate/teacher falls, then all48 round2 episodes if that round is authorized. Native done ends only its own episode.",
+    "physical_trace": "Save actual N+1 states, warmstarts, integration arrays, observations and N actions/costs; no fabricated post-fall rows.",
+    "full_bank_capture": [
+      {
+        "control": 0,
+        "pass": 0
+      },
+      {
+        "control": 0,
+        "pass": 1
+      },
+      {
+        "control": 149,
+        "pass": 0
+      },
+      {
+        "control": 299,
+        "pass": 0
+      }
+    ],
+    "all_bank_evidence": [
+      "U_before",
+      "U_after",
+      "C",
+      "D",
+      "J",
+      "weights",
+      "prefix_lengths",
+      "temperature",
+      "RNG_before",
+      "RNG_after",
+      "actor_hash",
+      "alpha",
+      "context_binding"
+    ],
+    "sampling_scope": "Standard local MPPI sampling/noise/temperature exactly as walker2d_best; no FullPI zero-noise sample override or ESS-target addition.",
+    "native_verification": {
+      "episode_roster": "Replay first-restart episode for each of3 R1 alpha arms, and each of6 fork/arm R2 controllers if reached; max9 episodes/2700 native controls.",
+      "candidate_roster": "At each of72 reached teacher episodes, independently replay candidate0 and255 from control0/pass0, through first fall or48 controls; max144 prefixes/6912 native controls.",
+      "native_controls_max": 9612,
+      "tolerance": {
+        "rtol": 0.0,
+        "state_atol": 1e-10,
+        "warmstart_atol": 1e-10,
+        "integration_atol": 1e-10,
+        "cost_atol": 1e-09,
+        "action_atol": 1e-06,
+        "accumulation_atol": 1e-10,
+        "D_atol_formula": "accumulation_atol + 2*(6*L)*action_atol, where L is actual executable replay-prefix length",
+        "source_full_bank_same_grouping_D_atol": 1e-06
+      },
+      "comparisons": [
+        "complete restored context bytes",
+        "each native prefix state",
+        "warmstart",
+        "integration arrays",
+        "native cost",
+        "pre-action actor predictions",
+        "D prefix sum",
+        "complete C decomposition"
+      ],
+      "evidence": "Save complete rawH5 native replay states/warmstart/integration/actions/costs, stored reference arrays, actor predictions, C/D and comparisons. This is paid worker verification, not zero-physics independent audit.",
+      "failure": "Replay mismatch is numerical/implementation failure: preserve paid work, stop without relaxation or source replacement.",
+      "torch_grouping": "Native prefix Torch calls use L<=48 rows; a source bank may use up to12288. Require every corresponding action prediction component to differ by at most1e-6 and retain actual prediction/error arrays. For controls and predictions bounded by1, each half-squared residual changes by at most2*action_atol, so sourceD/nativeD tolerance is1e-10+2*(6L)*1e-6. This is explicit numerical propagation, not assumed identical call grouping. State/warmstart/integration1e-10 and C1e-9 remain unchanged; source full-bank independent D uses same grouping and tolerance1e-6. Historical P1 contracts unchanged.",
+      "context_scope": "Native episode replay compares saved states/warmstarts/integration/observations/actions/costs. Candidate replay compares full initial context plus forecast poststates/C/D; post-warmstart/integration are retained in native replay H5 but cannot be compared with unavailable forecast counterparts."
+    },
+    "independent_score": "J=C exactly; never compute 0*infinite or0*missingD. Diagnostic D cannot modify alpha0 weights."
+  },
+  "selection": {
+    "timing": "After all24 controller episodes and before any fitting or fitted outcome is read.",
+    "baseline_required_local_walking": 6,
+    "positive_required_local_walking": 6,
+    "local_walking": "Exactly300 executed controls, no native fall, and mean absolute target-velocity error<=.3m/s.",
+    "full_survival": "Exactly300 executed controls and no native fall; longer survival alone is not local walking.",
+    "effect": "Pooled RMS over all common executed (restart,control,action-dimension) differences versus alpha0 >=.01; every restart contributes at least one common control.",
+    "action_rms_min": 0.01,
+    "min_rows_each_restart": 1,
+    "competence": "Positive local-walking and full-survival counts must not be below independent; mean complete cost<=1.10 independent.",
+    "complete_cost_ratio_max": 1.1,
+    "local_velocity": "Report mean of eight per-episode observed-prefix MAEs, pooled observed MAE and executed controls; no fabricated missing-tail velocity.",
+    "local_velocity_extra_gate": false,
+    "priority": [
+      "weak",
+      "large"
+    ],
+    "tie_rule": "Choose weak if it qualifies, otherwise large if it qualifies. No task-cost tie optimization, MSE, spectra or fitted results select the arm.",
+    "failure": "If neither qualifies, close after all24 controllers; preserve every failed prefix and all cost, no fit or weight retry."
+  },
+  "learning": {
+    "forks": [
+      0,
+      1,
+      2
+    ],
+    "updates": 2000,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "eta_theta": 0.0,
+    "prox_reduction": "mean",
+    "anchor_refresh": 0,
+    "gradient_clip": 0.5,
+    "torch_threads": 1,
+    "device": "cpu",
+    "architecture": [
+      17,
+      128,
+      128,
+      6
+    ],
+    "activation": "tanh hidden layers and output",
+    "observations": "concat(state[2:10],clip(state[10:19],-10,10))",
+    "normalization": "Exact inherited float32 mean/std buffers; no recomputation, unclipping or feature change.",
+    "targets": "Actual executed teacher torques, float32 in existing fitter; no filtering, relabeling or weighting.",
+    "corpus": "All common executed prefixes joined by (restart_id,control_index), restart then control order, each of8 contributes>=1; equal arm N<=2400; new-round-only corpus, no historical/evaluation/held rows appended.",
+    "max_rows": 2400,
+    "optimizer": "Exact incoming Adam state including moments and counters; existing Adam lr3e-4, foreach=False/fused=False; no parent refits.",
+    "fork_rng": "Clone incoming private PCG64; jumped(fork+1) once at R1 preparation. Hash each fork then copy actor/normalization/Adam/private Torch/global RNG to its independent and coupled arms.",
+    "paired_indices": "Within a round/contrast, same N and same inherited PCG state imply identical sampled row-index streams; save every draw/state transition.",
+    "round2_rng": "No second jump or reseed; load each retained R1 child with exact Adam/private PCG/private Torch/global continuation.",
+    "resume_fit": false,
+    "resume_fit_meaning": "Begin a new corpus block while preserving Adam/private PCG/cumulative counters; eta0 makes anchor refresh irrelevant but provenance remains explicit.",
+    "checkpoints": "Save and reload actual complete incoming/outgoing checkpoints and stream files; compare actor, normalization, Adam, RNG and operative cursor; R1 cumulative4000/R2 cumulative6000.",
+    "diagnostics": [
+      "all2000 per-update losses",
+      "own/cross teacher-state action MSE",
+      "frozen2000-row held-trajectory action MSE",
+      "input clipping counts",
+      "teacher-label and actual-actor hashes"
+    ],
+    "continuation_proof": "Reuse the already-executed student-component unit fixture: A2\u2192A2 and B2\u2192B2, two exact paired2+2 continuations, eight total Adam updates/2048 backward rows. Bind its source/test receipt. Verify actual R1final\u2192R2initial Adam/privatePCG/privateTorch/global equality and paired sampled indices. This is not a separate2+2-versus4 equivalence test and no second formal fixture is authorized.",
+    "continuation_fixture_source": "tests/test_local_coupling_learning.py::pipeline; actual four2-update jobs, syntheticPolicy1701/privatePCG1901."
+  },
+  "evaluation": {
+    "episodes": 16,
+    "panels": [
+      "primary",
+      "confirmation"
+    ],
+    "horizon": 1000,
+    "target_velocity": 1.5,
+    "walking_velocity_mae_max": 0.3,
+    "walking": "Exactly1000 controls with no native fall and observed-post-action velocity MAE<=.3m/s.",
+    "controller": "Direct bounded Torch torque actor only; no MPPI/fallback/prefix assistance.",
+    "confirmation": "Run both panels for every fitted round even if primary benefit or teacher competence fails; only confirmed R1 permits R2.",
+    "round1_actors": "Six children plus one identical shared incoming parent;224 episodes.",
+    "round2_actors": "Six children plus all six incoming R1 actors on the fresh R2 panels;384 episodes. No duplicate shared-original-parent evaluation.",
+    "reset_pairing": "Within a panel use identical complete reset contexts across every actor/fork, bind actual integration contexts, preserve all failures.",
+    "complete_cost": "Sum native costs including fall terminal20 once, then5 per missing control. Raw physical cost and absorbing tail reported separately.",
+    "no_postfall_rows": true
+  },
+  "round2": {
+    "enabled_only_after": "Confirmed R1 walking criterion and passing provenance/accounting audit.",
+    "teacher_episodes": 48,
+    "streams": 3,
+    "arms": [
+      "independent",
+      "selected_positive"
+    ],
+    "contexts": "Same8 complete source contexts and planner seeds as R1; each arm uses its own actual R1 child.",
+    "alpha": "Freeze the R1 selected positive alpha; independent remains0, no reselect or schedule.",
+    "perform_all_acquisition": true,
+    "perform_all_fits_if_common_rows_positive": true,
+    "teacher_failure": "Deterioration is retained and reported; do not proxy-abort remaining48 controllers or six fixed fits if every paired restart has positive common rows. It prevents the useful-feedback verdict.",
+    "new_labels": "Rebuild new-round-only equal common-prefix corpus separately for each fork.",
+    "independent_repeat": "Same contexts/seeds and policy-free score imply repeated independent acquisition is expected; execute/preserve actual evidence and charge it, do not invent new independent task replications."
+  },
+  "criteria": {
+    "round1": {
+      "gain_min": 2,
+      "same_forks_min": 2,
+      "both_panels": true,
+      "comparators": [
+        "independent_child",
+        "shared_parent"
+      ],
+      "no_walking_or_full_survival_regression_in_any_fork": true,
+      "definition": "Coupled walking >= independent+2 and parent+2 in the same>=2forks on both panels; no walking/full-survival regression against either comparator in any fork."
+    },
+    "round2": {
+      "difference_in_gain_min": 2,
+      "gain_over_own_parent_min": 2,
+      "gain_over_independent_child_min": 2,
+      "same_forks_min": 2,
+      "both_panels": true,
+      "no_walking_or_full_survival_regression_in_any_fork": true,
+      "definition": "In the same>=2forks on both panels: (coupled child-coupled incoming parent)-(independent child-independent incoming parent)>=2, coupled child-coupled incoming parent>=2, coupled child-independent child>=2 walking; no coupled walking/full-survival regression against its own incoming parent or independent child in any fork."
+    },
+    "round2_teacher": {
+      "action_rms_min": 0.01,
+      "complete_cost_ratio_max": 1.1,
+      "comparators": [
+        "R1_same_selected_alpha",
+        "R2_independent_same_fork"
+      ],
+      "walking_and_full_survival_nonregression": true,
+      "definition": "For each fork, compare actual R2 positive teacher with R1 same-alpha teacher and R2 independent: no local-walk/full-survival-count decrease and mean complete cost<=1.10 each. Pooled actual actionRMS R2positive vsR1samealpha>=.01, all8 common prefixes positive."
+    },
+    "useful_feedback": "Confirmed R2 standalone walking benefit AND passing R2 teacher criteria in the same>=2forks; teacher nonregression against both comparators in every fork. Actual updated-actor hash must participate in R2 scoring.",
+    "individual_competence": "At least15/16 full walking on BOTH panels; distinct from finite gain.",
+    "retention": "More controls or survival without walking is a retention improvement, not competent walking or useful feedback.",
+    "reconstruction": "Own/cross/held errors and gap changes are diagnostic, never admission or success criteria.",
+    "ceiling": "An incoming parent already>=15/16 may make the two-additional-success criterion unattainable; preserve that ceiling result without relaxing the frozen gate."
+  },
+  "seeds": {
+    "planner_base": 4510000000,
+    "planner_formula": "planner_base+restart_id; deliberately reuse the original A/B/C private planner streams, paired across alpha and unchanged in R2; no new calibration.",
+    "round1_primary_base": 2953000000,
+    "round1_confirmation_base": 2954000000,
+    "round2_primary_base": 2955000000,
+    "round2_confirmation_base": 2956000000,
+    "evaluation_formula": "panel_base+episode_index, episode_index0..15; disjoint panels/rounds.",
+    "global": "No new global seed; copy already-bound P1 stream0 global envelope. Restore paired copy per contrast; preserve exact own-arm continuation thereafter.",
+    "fork_formula": "PCG64(incoming_bit_generator_state).jumped(fork_id+1), fork_id0..2, once only.",
+    "synthetic_continuation": 2957000000,
+    "fit_seed_argument": "Ignored when incoming private PCG is loaded; do not silently reseed.",
+    "collisions": "Prelaunch scan saved ledgers/configs; stop on accidental evaluation/reset-role collisions. Deliberate within-study planner pairing and inherited-data reuse are explicit.",
+    "synthetic_continuation_status": "Unused reserved seed; do not launch a new fixture. Reused test_local_coupling_learning.py fixture used Policy seed1701 and initial private-PCG seed1901."
+  },
+  "budgets": {
+    "global": {
+      "cpu_seconds": 23400,
+      "active_pool_wall_seconds": 19800,
+      "output_bytes": 8589934592,
+      "memory_bytes": 4294967296,
+      "gpu_seconds": 0,
+      "model_controls": 270000000,
+      "native_controls": 660000,
+      "physics_substeps": 1082640000,
+      "neural_rows": 285000000,
+      "backward_rows": 6146048,
+      "optimizer_steps": 24008,
+      "execution_audit_report_guard": {
+        "cpu_seconds": 21600,
+        "active_wall_seconds": 18000,
+        "preparation_cpu_reservation": 1800,
+        "preparation_wall_reservation": 1800,
+        "scope": "Portable live process-tree CPU/RSS guard plus phase RLIMIT/deadlines; total21600CPU/18000activewall includes worker,audits,report/publication; add conservative prep1800 once to reach23400CPU/19800globalactivewall. Enforce4GiB live aggregate RSS and8GiB total output."
+      }
+    },
+    "preparation": {
+      "cpu_seconds": 1800,
+      "wall_seconds": 1800,
+      "scope": "All source/testing/input work, including the already-paid eight-update paired-continuation unit fixture (2048 backward rows), native prerequisite validation and failed paid attempts. Reuse the fixture proof; do not run a second formal eight-update fixture.",
+      "synthetic_audit_parity": {
+        "neural_rows_max": 32,
+        "scope": "Tiny synthetic Torch audit parity only; record actual counts before source freeze. No W2 fitting, dynamics, teacher queries or second eight-update continuation fixture."
+      },
+      "observed_synthetic_forward_rows": 2671,
+      "synthetic_head_forward_rows": 16
+    },
+    "worker": {
+      "cpu_seconds": 18000,
+      "wall_seconds": 14400,
+      "output_bytes": 6442450944,
+      "native_threads": 4,
+      "torch_threads": 1,
+      "worker_processes": 1
+    },
+    "audit": {
+      "cpu_seconds": 3600,
+      "wall_seconds": 3600,
+      "output_bytes": 2147483648,
+      "native_controls": 0,
+      "model_controls": 0,
+      "backward_rows": 0,
+      "optimizer_steps": 0,
+      "neural_rows": 8000000,
+      "scope": "Includes saved-only independent audits, report/rendering and publication. Reserve300CPU/300wall seconds for report/publication before launching audit phases; no new physics/fitting/evaluations.",
+      "report_publication_reserve": {
+        "cpu_seconds": 300,
+        "wall_seconds": 300,
+        "included_in_audit_total": true
+      },
+      "intermediate_r1_max": {
+        "cpu_seconds": 1650,
+        "wall_seconds": 1650,
+        "neural_rows": 3000000
+      },
+      "final_remaining": "Final audit CPU/wall allowance =3300 minus actual admitted-R1 audit CPU/wall respectively; neural rows =8000000 minus actual R1 completed rows. No second full allocation; report/publication reserve300 remains separate within3600 total."
+    },
+    "worst_case_census": {
+      "round1_controller_episodes": 24,
+      "round2_controller_episodes": 48,
+      "total_controller_episodes": 72,
+      "passes_per_full_episode": 301,
+      "total_forecast_banks": 21672,
+      "model_controls": 266305536,
+      "teacher_native_controls": 21600,
+      "evaluation_episodes": 608,
+      "evaluation_native_controls": 608000,
+      "science_native_controls": 629600,
+      "science_physics_substeps": 1067740544,
+      "fits": 12,
+      "optimizer_steps": 24000,
+      "fit_forward_rows": 6144000,
+      "backward_rows": 6144000,
+      "candidate_forward_rows_max": 266305536,
+      "diagnostic_forward_rows_reservation": 250000,
+      "science_forward_rows_max": 273307536,
+      "full_bank_files_max": 288,
+      "synthetic_optimizer_steps": 8,
+      "synthetic_backward_rows": 2048,
+      "native_verification_controls": 9612,
+      "prerequisite_native_controls": 8,
+      "prerequisite_model_controls": 4,
+      "all_phases_native_controls_max": 639220,
+      "all_phases_model_controls_max": 266305540,
+      "all_phases_physics_substeps_max": 1067779040,
+      "preparation_synthetic_audit_parity_forward_rows_max": 32
+    },
+    "measured_cost_basis": {
+      "source_ledger": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/ledger.jsonl",
+      "bank_model_controls": 12288,
+      "bank_wall_seconds": 0.13737425004364923,
+      "bank_cpu_seconds": 0.5206090000000358,
+      "linear_full_roster_cpu_seconds": 11282.638248000778,
+      "linear_full_roster_wall_seconds": 2977.174746945966,
+      "limitation": "One historical early-falling calibration bank; not a benchmark of full healthy controller trajectories. Worker18,000CPU reservation includes about1.6x bank extrapolation and all fitting/evaluation/IO; hard stop retains partial if insufficient. No new benchmark launched."
+    },
+    "charging": "Reserve before actual calls; requested/completed/unknown-partial separate. Count all physics, forward/backward rows, updates, failed attempts, constructors, IO/read bytes, transfer and engineering. Stage CPU/wall reservations sum to global; unused allowances are not equal spent compute. No new roster under remaining allowance.",
+    "historical": "Prior six-round, R0/P1.1 and A/B/C costs remain separate inherited evidence; do not charge their reuse as new physics or hide them from amortized accounting.",
+    "prerequisites": {
+      "native_controls": 8,
+      "model_controls": 4,
+      "physics_substeps": 48,
+      "optimizer_steps": 8,
+      "backward_rows": 2048,
+      "definition": "After source/config freeze: one four-control capture plus four-control native replay and one K1H4 forecast (8native/4model/48substeps). Reuse already-executed component fixture A2\u2192A2 and B2\u2192B2 (two exact paired2+2 continuations,8totalAdam/2048backward); no separate2+2vs4 claim or new formal fit fixture. Include all counts once in global caps.",
+      "synthetic_fixture_status": "ALREADY_EXECUTED_REUSE_PROOF_DO_NOT_REPEAT"
+    }
+  },
+  "evidence": {
+    "save": [
+      "complete source/config/input/runtime manifests",
+      "all24 R1 controller outcomes, including unused positive arm",
+      "all48 R2 controller outcomes if launched",
+      "all nativeN+1 traces",
+      "all-bank metrics and U/RNG",
+      "selected rawfullbanks",
+      "row joins and corpus hashes",
+      "incoming/outgoing actual checkpoints and stream seals",
+      "all losses and minibatch indices",
+      "both evaluation panels and failure tails",
+      "teacher/policy joint-angle and velocity plots",
+      "all requested/completed/unknown ledger events",
+      "independent audit findings/receipts and limitations",
+      "complete rawH5 paid-native-verification arrays",
+      "candidate/teacher pre-action actor predictions and C/D components"
+    ],
+    "audit": "Independently recompute all physical outcomes/cost decomposition, row joins, alpha selection, provenance, continuation, criteria and work totals. Rebuild all saved PI updates from RNG/U/weights without physics; recompute C/D/J on preserved full banks and clearly state sparse physical-state coverage. Audit is saved-only, no new fitting/evaluations/MPPI/native physics.",
+    "publication": "Compact tracked capsule and checksums; large arrays/checkpoints/rawledgers remain external. Publish all negatives and exact limitations."
+  },
+  "stopping": {
+    "before_launch": "Stop on missing/changed inputs, runtime/source/schema mismatch, failed full-context/pre-action/score/continuation/budget tests or unavailable reserved resources. Freeze config/source before native work.",
+    "during_roster": "Native falls and low candidate survival end only that physical episode; continue all remaining predefined controllers. Stop whole study on numerical/software/provenance failure or hard budget exhaustion; retain paid partial evidence.",
+    "after_round1": "Neither teacher eligible=>no fits. Failed/negative/ambiguous/unconfirmed R1 walking=>no R2. Do not tune weights, replace starts, extend updates or alter architecture.",
+    "after_round2": "Stop after fixed acquisition/fits/panels/audit regardless outcome; no automatic third round, fair-compute baseline suite or follow-up."
+  },
+  "interpretation": {
+    "pre_update": "The score is a declared local torque reconstruction objective available before the update. Smaller disagreement is not a validated teachability score; usefulness is judged by subsequent walking.",
+    "h4_1": "H4.1 changed a backoff weight in a separate candidate-reweighting teacher and regressing guided lineage with appended history/proximity settings; it already supplied an updated-actor negative result. L2 uses direct carried-plan H48 MPPI, three fixed-alpha controller arms, W2s0 eta0 learner, all-prefix new-round-only corpora and matched jumpedPCG forks. Do not call H4.1 a non-coupling experiment.",
+    "coverage": "Eight source contexts belong to one old student episode; forks are optimizer-stream replications, not independent policy initializations or8independent task seeds.",
+    "feedback": "Two useful rounds support finite feedback-associated learning only; no frozen-old-actor R2 control isolates causal benefit of actorfeedback over further fitting.",
+    "scope": "No architecture/noise-target/critic/environment/transport/filter intervention; no equal-compute plain-cloning/low-pass-cloning/DAgger or second-body comparison; no full project success or asymptotic convergence claim.",
+    "historical_continuation_tests": "Existing P1 split-versus-whole tests remain historical separate evidence unchanged; do not represent them as a new L2 execution."
+  }
+}

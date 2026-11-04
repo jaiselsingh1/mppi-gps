@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/parent.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "reset_seed": 2954000011,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": -1,
+    "arm": "parent",
+    "kind": "parent",
+    "panel": "confirmation"
+  },
+  "policy_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+  "initial_context_fingerprint": "f27b983835a48e46e30e24033a98483479de28cd0511b3414eb8508179c24dd6",
+  "outcome": {
+    "controls": 209,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.8856293105867459,
+    "mean_velocity": 0.8239896024282648,
+    "raw_native_cost": 420.65720165599197,
+    "absorbing_tail_cost": 3955.0,
+    "complete_cost": 4375.657201655992
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/confirmation/2954000011/trace.h5",
+    "bytes": 331424,
+    "sha256": "10d4acc5af114f725e9dd03224a480b93de8141809ba68c3060f69887b13543e"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/confirmation/2954000011/receipt.json",
+    "bytes": 851,
+    "sha256": "ae1493f98c1e66c20e46e4a43b3affed1cbe8a41cdb86cb016e3c43c56ac5d84"
+  }
+}

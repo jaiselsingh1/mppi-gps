@@ -1,0 +1,60 @@
+{
+  "out": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive",
+  "incoming": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/forks/stream1/stream.json",
+    "bytes": 1240,
+    "sha256": "f09252c249ca85c66ccea0d820a2f6bd2e9019cf827e388bcef29ab23056e463"
+  },
+  "corpus": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/b.npz",
+    "bytes": 734771,
+    "sha256": "4f241c3f0177a0c82d71d93753087aa53314225cc747001379e6bc4639a27e36"
+  },
+  "round": 1,
+  "stream": 1,
+  "arm": "positive",
+  "diagnostics": {
+    "own": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/b.npz",
+      "bytes": 734771,
+      "sha256": "4f241c3f0177a0c82d71d93753087aa53314225cc747001379e6bc4639a27e36"
+    },
+    "cross": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/a.npz",
+      "bytes": 733943,
+      "sha256": "82cc42fbc6590d70cb126c250323bb3e35defc0903662ad6b8f3d84709d3ffff"
+    },
+    "held": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/held.npz",
+      "bytes": 1161518,
+      "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6"
+    }
+  },
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "limits": {
+    "wall_seconds": 14400,
+    "output_bytes": 67108864,
+    "memory_bytes": 4294967296,
+    "model_controls": 186023804,
+    "native_controls": 629593,
+    "physics_substeps": 746613588,
+    "neural_rows": 209288833,
+    "backward_rows": 4608000,
+    "optimizer_steps": 18000,
+    "checkpoint_loads": 100000,
+    "checkpoint_writes": 100000,
+    "policy_constructions": 100000,
+    "optimizer_constructions": 100000,
+    "environment_constructions": 100000,
+    "model_queries": 100000,
+    "restores": 100000,
+    "external_mj_forward_calls": 100000,
+    "resets": 100000,
+    "compiled_model_saves": 100000,
+    "pi_passes": 100000
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_independent/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "4fb0faf5e561e7c3fbae4551a630291a1ca0e0465780c5a32599700449370fee"
+  },
+  "reset_seed": 2953000007,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "independent",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "e98c7af60cd298d6dadab5f7b2561689bde6b1a1854c094ed0aa412410aadd78",
+  "initial_context_fingerprint": "ebf0530d3984628e9cb2cc6f73bffe1f6625a5d65d497787903a7fbbf5f7f13f",
+  "outcome": {
+    "controls": 193,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.9048948468573047,
+    "mean_velocity": 0.7764907875900041,
+    "raw_native_cost": 399.3801294735382,
+    "absorbing_tail_cost": 4035.0,
+    "complete_cost": 4434.380129473539
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_independent_child/primary/2953000007/trace.h5",
+    "bytes": 312992,
+    "sha256": "eb569a82047704064b8ad56a180519f4ddf77e51f7836c0b7b8ad814b2710016"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_independent_child/primary/2953000007/receipt.json",
+    "bytes": 852,
+    "sha256": "c9cb6eef2b0a7eaa2d978ee66282560bff1d39794a0c423aa1e30fbda49dce27"
+  }
+}

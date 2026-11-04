@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "7d2f774336c5d9b52f22d2e21f10fd5170cae9c69e4b46ea287e9577fe5a1459"
+  },
+  "reset_seed": 2953000013,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 0,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "fa0ce5bc9d8ab1a61639caa1f0741f0be86630f6955646fa3b13242a65fbf155",
+  "initial_context_fingerprint": "8a2fed11690a928b65eeb322a77aae792b62209648ec813795ea10d09bd29b87",
+  "outcome": {
+    "controls": 352,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.0278616604238808,
+    "mean_velocity": 0.6187563295399343,
+    "raw_native_cost": 811.2175394137555,
+    "absorbing_tail_cost": 3240.0,
+    "complete_cost": 4051.2175394137557
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s0_positive_child/primary/2953000013/trace.h5",
+    "bytes": 547976,
+    "sha256": "7efe4bbaea94044614497264c54d9f29642f398767c3939ab293e66bc6f2c0d0"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s0_positive_child/primary/2953000013/receipt.json",
+    "bytes": 852,
+    "sha256": "21b6d76c68d555374174bc0cf26c6787b82a90041883952c1cd8bcdf4b7d4aab"
+  }
+}

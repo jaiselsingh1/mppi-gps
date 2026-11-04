@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_independent/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "4fb0faf5e561e7c3fbae4551a630291a1ca0e0465780c5a32599700449370fee"
+  },
+  "reset_seed": 2954000009,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "independent",
+    "kind": "child",
+    "panel": "confirmation"
+  },
+  "policy_hash": "e98c7af60cd298d6dadab5f7b2561689bde6b1a1854c094ed0aa412410aadd78",
+  "initial_context_fingerprint": "033cd7382bf612aad9784769ff7d6877aabffde4f4275039f3eb476be276642f",
+  "outcome": {
+    "controls": 213,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.9517427681298054,
+    "mean_velocity": 0.710886374312697,
+    "raw_native_cost": 456.85828685043913,
+    "absorbing_tail_cost": 3935.0,
+    "complete_cost": 4391.858286850439
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_independent_child/confirmation/2954000009/trace.h5",
+    "bytes": 336032,
+    "sha256": "e841d3b03401fdf29744001cbba1c09a4a8acf005ad0757065925ba8ac728f0a"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_independent_child/confirmation/2954000009/receipt.json",
+    "bytes": 852,
+    "sha256": "6703e13934cfdbafb9bd919de6983db74bc9df49e82d748a6d7161d510e9eff5"
+  }
+}

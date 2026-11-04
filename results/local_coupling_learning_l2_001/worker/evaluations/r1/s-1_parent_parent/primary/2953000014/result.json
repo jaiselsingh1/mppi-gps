@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/parent.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "reset_seed": 2953000014,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": -1,
+    "arm": "parent",
+    "kind": "parent",
+    "panel": "primary"
+  },
+  "policy_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+  "initial_context_fingerprint": "64b591c88ee8da41d8e9122b8ac12f7822a8ff3c47af1c0c3c0bec3b3580e4e7",
+  "outcome": {
+    "controls": 321,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.089969078284471,
+    "mean_velocity": 0.5494142074453762,
+    "raw_native_cost": 751.885759773709,
+    "absorbing_tail_cost": 3395.0,
+    "complete_cost": 4146.885759773709
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/primary/2953000014/trace.h5",
+    "bytes": 494992,
+    "sha256": "944af162c084b5762cdb2b18f9796d47083192f212be8c3ea332631b3e3758c3"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/primary/2953000014/receipt.json",
+    "bytes": 854,
+    "sha256": "0f8ddf65fe6f09f9a6ac914cfc58cefafd65cdb9799c1e48078888c0e5d85d55"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "schema": "local-coupling-fit-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "incoming": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/forks/stream0/stream.json",
+    "bytes": 1240,
+    "sha256": "83adee9d3d438b086a4869601e4b11d15f7f1595352aff67c7310133c8635a09"
+  },
+  "corpus": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/a.npz",
+    "bytes": 733943,
+    "sha256": "82cc42fbc6590d70cb126c250323bb3e35defc0903662ad6b8f3d84709d3ffff"
+  },
+  "round": 1,
+  "stream": 0,
+  "arm": "independent",
+  "before": {
+    "policy_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+    "optimizer_fingerprint": "a486e655136a19965b0e839a45d47554be8f9212ecbde191f57cc44af4fdc610",
+    "normalization": "3207e296cfc27c1e5e75591c2553f39d996ce76d5d5bbb6590bb4a94490f4148",
+    "private_torch": "f3ee8fcab0a57b3059e68819fc27dabe927f207c7f638e4ef5d7c1c77846ce46",
+    "global_rng": "21d721e4207c770b62dfaf820254c45ccb1700f6bec41b6f731c8feab0ddb974"
+  },
+  "diagnostics_before": {
+    "own": {
+      "data": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/a.npz",
+        "bytes": 733943,
+        "sha256": "82cc42fbc6590d70cb126c250323bb3e35defc0903662ad6b8f3d84709d3ffff"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/before/own.npz",
+        "bytes": 50784,
+        "sha256": "2b0ee1b5e7e0fc823b7dbabb4e56d2ec1c12e1a5ab6358c76f8c65880d3b5a43"
+      },
+      "rows": 2298,
+      "action_mse": 0.20222056419391646,
+      "rms_l2": 1.1015095937682515,
+      "torch_prediction_batch_size": 1024
+    },
+    "cross": {
+      "data": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/b.npz",
+        "bytes": 734771,
+        "sha256": "4f241c3f0177a0c82d71d93753087aa53314225cc747001379e6bc4639a27e36"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/before/cross.npz",
+        "bytes": 50931,
+        "sha256": "9b3234f2e1c0aa6bb02cdc012ccfe2c581c5c704943714689bbe581d4c2de16a"
+      },
+      "rows": 2298,
+      "action_mse": 0.17705907089154146,
+      "rms_l2": 1.0307057899076966,
+      "torch_prediction_batch_size": 1024
+    },
+    "held": {
+      "data": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/held.npz",
+        "bytes": 1161518,
+        "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/before/held.npz",
+        "bytes": 44170,
+        "sha256": "eb688fb3a2ac5d053553eb4eefbfb05bba24db2a2de3c914bf0ba50578dd2ee1"
+      },
+      "rows": 2000,
+      "action_mse": 0.19932394612994844,
+      "rms_l2": 1.0935920979870377,
+      "torch_prediction_batch_size": 1024
+    }
+  },
+  "updates": 2000,
+  "cumulative_updates": 4000,
+  "after": {
+    "policy_hash": "d0d597c320239e0188b6a1697ed16868dd5d3f84eb9ac0de60aa701f954e0f88",
+    "optimizer_fingerprint": "8d8ca2b31f3136e5a7001764291db2fa30eea3e472593c6b7b07f2e6e5bf78fa",
+    "normalization": "3207e296cfc27c1e5e75591c2553f39d996ce76d5d5bbb6590bb4a94490f4148",
+    "private_torch": "f3ee8fcab0a57b3059e68819fc27dabe927f207c7f638e4ef5d7c1c77846ce46",
+    "global_rng": "21d721e4207c770b62dfaf820254c45ccb1700f6bec41b6f731c8feab0ddb974"
+  },
+  "outgoing": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/stream/stream.json",
+    "bytes": 1102,
+    "sha256": "df0f7c632f58d58a46af52f39281780132dfda6b58ca9f37825c72d55cb4b3ff"
+  },
+  "initial_state": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/initial_state.pt",
+    "bytes": 248466,
+    "sha256": "bc0a35af0f7febc4d97ac8a4fbf8604bfe6254e5cedb9de1c69278737c9542ba"
+  },
+  "fit": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/fit.json",
+    "bytes": 446774,
+    "sha256": "f9149cfe669aa2c6fe0fae37a1fc84361314627b44c23c05259024c3dafde066"
+  },
+  "diagnostics_after": {
+    "own": {
+      "data": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/a.npz",
+        "bytes": 733943,
+        "sha256": "82cc42fbc6590d70cb126c250323bb3e35defc0903662ad6b8f3d84709d3ffff"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/after/own.npz",
+        "bytes": 50987,
+        "sha256": "cabb44d313fff1d56bcc3cc8c8795ed13168c4b8fbbe2beeb2303956edce30c0"
+      },
+      "rows": 2298,
+      "action_mse": 0.1095670847407753,
+      "rms_l2": 0.8108036189143778,
+      "torch_prediction_batch_size": 1024
+    },
+    "cross": {
+      "data": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/corpus/r1/shared/b.npz",
+        "bytes": 734771,
+        "sha256": "4f241c3f0177a0c82d71d93753087aa53314225cc747001379e6bc4639a27e36"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/after/cross.npz",
+        "bytes": 51103,
+        "sha256": "3e449ee93ff6ed93185debfc98e7e2041b7f6545bd62321a75d10812e7fc5d63"
+      },
+      "rows": 2298,
+      "action_mse": 0.1985422009206504,
+      "rms_l2": 1.0914454661245803,
+      "torch_prediction_batch_size": 1024
+    },
+    "held": {
+      "data": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/held.npz",
+        "bytes": 1161518,
+        "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/after/held.npz",
+        "bytes": 44421,
+        "sha256": "f3921d9ea56d7659f9431b63af45534aa67bf59729422c49c8fe8755c67560e3"
+      },
+      "rows": 2000,
+      "action_mse": 0.23318721523346986,
+      "rms_l2": 1.1828454216003115,
+      "torch_prediction_batch_size": 1024
+    }
+  },
+  "index_tape": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/index_tape.npz",
+    "bytes": 1094512,
+    "sha256": "cd99195a9e2c512d3e4d59e9a35dcd976edc5ef36a39382d76e6a823e1431ace"
+  },
+  "index_rng": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/index_rng.jsonl",
+    "bytes": 1018516,
+    "sha256": "ba2a94d360400bf491ce7b7c67d78901c7fa5c752401d168409101e0fe0b1310"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/receipt.json",
+    "bytes": 785,
+    "sha256": "cfd0180ef1375168888901f7de7eee43e2a1413de4814140d29483214512cc0c"
+  }
+}

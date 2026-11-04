@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/parent.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "reset_seed": 2954000000,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": -1,
+    "arm": "parent",
+    "kind": "parent",
+    "panel": "confirmation"
+  },
+  "policy_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+  "initial_context_fingerprint": "eadf220ff671309c76e2796efd047f8e619df1891630c2d1f57149b438b331a4",
+  "outcome": {
+    "controls": 272,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.9002604103444398,
+    "mean_velocity": -0.4002604103444396,
+    "raw_native_cost": 1102.8803486383235,
+    "absorbing_tail_cost": 3640.0,
+    "complete_cost": 4742.880348638324
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/confirmation/2954000000/trace.h5",
+    "bytes": 421272,
+    "sha256": "cc08eb4e76a2f192e163b109e1f620f15ec513ff444e30d845c2121b2d289550"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s-1_parent_parent/confirmation/2954000000/receipt.json",
+    "bytes": 853,
+    "sha256": "e0955ee433f603743f5d159c279fe422c924c15622d4133ffa45fa829d9f2399"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "out": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/large/slot1",
+  "round": 1,
+  "stream": -1,
+  "arm": "large",
+  "slot": 1,
+  "alpha": 3.4744413290249314,
+  "seed": 4510000001,
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/parent.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "restarts": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/restarts.npz",
+    "bytes": 12198,
+    "sha256": "5a82fe05d980ae37346c521c4cc708138dc1feab6a969cff3b4668ac6dd01bf3"
+  },
+  "controls": 300,
+  "planner": {
+    "K": 256,
+    "H": 48,
+    "lam": 3.0,
+    "noise_sigma": 0.3,
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2,
+    "use_is_correction": false,
+    "initial_iterations": 2
+  },
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true
+  },
+  "physics_threads": 4,
+  "replay_episode": false,
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "limits": {
+    "wall_seconds": 14400,
+    "output_bytes": 67108864,
+    "memory_bytes": 4294967296,
+    "model_controls": 210095996,
+    "native_controls": 653549,
+    "physics_substeps": 842998180,
+    "neural_rows": 231142968,
+    "backward_rows": 6144000,
+    "optimizer_steps": 24000,
+    "checkpoint_loads": 100000,
+    "checkpoint_writes": 100000,
+    "policy_constructions": 100000,
+    "optimizer_constructions": 100000,
+    "environment_constructions": 100000,
+    "model_queries": 100000,
+    "restores": 100000,
+    "external_mj_forward_calls": 100000,
+    "resets": 100000,
+    "compiled_model_saves": 100000,
+    "pi_passes": 100000
+  }
+}

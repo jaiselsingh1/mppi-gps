@@ -1,0 +1,141 @@
+{
+  "schema": "local-coupling-selection-1",
+  "baseline": {
+    "local_walking": 7,
+    "full_survival": 7,
+    "complete_cost": 249.73803218794023,
+    "velocity_mae": 0.2707041534551179,
+    "controls": 2298
+  },
+  "comparisons": {
+    "weak": {
+      "outcomes": {
+        "local_walking": 7,
+        "full_survival": 8,
+        "complete_cost": 184.93464744955548,
+        "velocity_mae": 0.25521420036814724,
+        "controls": 2400
+      },
+      "effect": {
+        "pooled_rms": 0.6202551898455599,
+        "cases": [
+          {
+            "slot": 0,
+            "common_controls": 300,
+            "action_rms": 0.5829080702873756
+          },
+          {
+            "slot": 1,
+            "common_controls": 300,
+            "action_rms": 0.5988532864929215
+          },
+          {
+            "slot": 2,
+            "common_controls": 300,
+            "action_rms": 0.6186324500066808
+          },
+          {
+            "slot": 3,
+            "common_controls": 198,
+            "action_rms": 0.6403907906493765
+          },
+          {
+            "slot": 4,
+            "common_controls": 300,
+            "action_rms": 0.6569854026122173
+          },
+          {
+            "slot": 5,
+            "common_controls": 300,
+            "action_rms": 0.6489074392814664
+          },
+          {
+            "slot": 6,
+            "common_controls": 300,
+            "action_rms": 0.6118688049706941
+          },
+          {
+            "slot": 7,
+            "common_controls": 300,
+            "action_rms": 0.6066752421856644
+          }
+        ]
+      },
+      "gates": {
+        "baseline_competent": true,
+        "positive_competent": true,
+        "walking_nonregression": true,
+        "survival_nonregression": true,
+        "cost_noninferiority": true,
+        "effective_intervention": true
+      },
+      "eligible": true
+    },
+    "large": {
+      "outcomes": {
+        "local_walking": 0,
+        "full_survival": 6,
+        "complete_cost": 415.02669190204085,
+        "velocity_mae": 0.35457534386702383,
+        "controls": 2112
+      },
+      "effect": {
+        "pooled_rms": 0.6265967238202833,
+        "cases": [
+          {
+            "slot": 0,
+            "common_controls": 160,
+            "action_rms": 0.5458982671276931
+          },
+          {
+            "slot": 1,
+            "common_controls": 152,
+            "action_rms": 0.5974204465433685
+          },
+          {
+            "slot": 2,
+            "common_controls": 300,
+            "action_rms": 0.6333650785858751
+          },
+          {
+            "slot": 3,
+            "common_controls": 198,
+            "action_rms": 0.6685444637101595
+          },
+          {
+            "slot": 4,
+            "common_controls": 300,
+            "action_rms": 0.6400406738982835
+          },
+          {
+            "slot": 5,
+            "common_controls": 300,
+            "action_rms": 0.6371542674916582
+          },
+          {
+            "slot": 6,
+            "common_controls": 300,
+            "action_rms": 0.636497462489652
+          },
+          {
+            "slot": 7,
+            "common_controls": 300,
+            "action_rms": 0.6114900614864588
+          }
+        ]
+      },
+      "gates": {
+        "baseline_competent": true,
+        "positive_competent": false,
+        "walking_nonregression": false,
+        "survival_nonregression": false,
+        "cost_noninferiority": false,
+        "effective_intervention": true
+      },
+      "eligible": false
+    }
+  },
+  "selected_condition": "weak",
+  "alpha": 0.12,
+  "selected_before_fitting": true
+}

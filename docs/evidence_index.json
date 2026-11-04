@@ -4180,6 +4180,31 @@
         "optimizer_updates": 0
       },
       "audit_scope": "PASS_STOPPED: preserved failure/accounting only; replay invalid, similarity untested"
+    },
+    "local_coupling_learning_l2_001": {
+      "status": "AUDITED_ROUND1_WALKING_NOT_CONFIRMED",
+      "capsule": "results/local_coupling_learning_l2_001",
+      "result_report": "docs/local_coupling_learning_l2_0_result.md",
+      "accounting": "docs/local_coupling_learning_l2_0_accounting.md",
+      "local_directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001",
+      "raw_availability": "LOCAL_ONLY_NO_REMOTE_MIRROR_ASSERTED",
+      "source_commit": "1ade651d105529eac6d3bbd719a70260b1378d7a",
+      "raw_file_count": 9437,
+      "raw_logical_bytes": 875142974,
+      "full_file_manifest": "results/local_coupling_learning_l2_001/publication/raw_file_manifest.json",
+      "result_sha256": "5c0a4f7c906ba3d31360cd9d6be4279d5e9658c160f3d3ed489c84be167179bf",
+      "audit_sha256": "fa3bcaf46536451aed68e9e5d4a55a74c55ae8097baa52516d2f99ac33dbc987",
+      "work": {
+        "model_controls": 83976196,
+        "native_controls": 66268,
+        "physics_substeps": 336169856,
+        "forward_rows_including_audit_and_preparation": 78272913,
+        "backward_rows_including_preparation": 3074048,
+        "adam_updates_including_preparation": 12008
+      },
+      "round2": "NOT_TRIGGERED_NO_CONFIRMED_WALKING_GAIN",
+      "capsule_files": 834,
+      "capsule_bytes": 17059386
     }
   },
   "saved_analyses": {

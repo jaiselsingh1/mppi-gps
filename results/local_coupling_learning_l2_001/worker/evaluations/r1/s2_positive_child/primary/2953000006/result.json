@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "02a3ca3721ae46fdbd8916770ef2b5fdd7de5404442f6e68aab8aa4137a2c2ed"
+  },
+  "reset_seed": 2953000006,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 2,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "863742c7c235715d06cfd50ed3311e669029da3ce155887f87b180feaee40b27",
+  "initial_context_fingerprint": "9a88e9266afbca8f1b325c4a6ffbb3aaaf922a4a2b0f4ed916c866b184228791",
+  "outcome": {
+    "controls": 247,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.8828163847849634,
+    "mean_velocity": 0.8693046086879481,
+    "raw_native_cost": 533.3626577762831,
+    "absorbing_tail_cost": 3765.0,
+    "complete_cost": 4298.362657776283
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000006/trace.h5",
+    "bytes": 392472,
+    "sha256": "ccda82ed6538bb544f93ae20a558dae92b80c1be97a53a21a6346bb83405f8f1"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000006/receipt.json",
+    "bytes": 852,
+    "sha256": "3005fc11de16e0a7d55240f208a4dd9ed6a317fccc1f829f566af66539c03756"
+  }
+}

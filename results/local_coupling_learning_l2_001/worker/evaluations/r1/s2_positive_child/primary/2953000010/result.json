@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "02a3ca3721ae46fdbd8916770ef2b5fdd7de5404442f6e68aab8aa4137a2c2ed"
+  },
+  "reset_seed": 2953000010,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 2,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "863742c7c235715d06cfd50ed3311e669029da3ce155887f87b180feaee40b27",
+  "initial_context_fingerprint": "fafd90d89dd4f0e6d1edd4eb9c08c7d5236bc4fd9b7d2beda3fcea89719b5105",
+  "outcome": {
+    "controls": 299,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 1.0077100009246767,
+    "mean_velocity": 0.7452016604032575,
+    "raw_native_cost": 697.3446516841975,
+    "absorbing_tail_cost": 3505.0,
+    "complete_cost": 4202.344651684198
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000010/trace.h5",
+    "bytes": 469648,
+    "sha256": "1e4b741b5ec64b4a8ad7720b3170e71945064943102f30b66c2464ce398e4b73"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000010/receipt.json",
+    "bytes": 853,
+    "sha256": "94cb74b65b9fa43d814191f8cd9941dade7e734a83b825295089a857b9ec7934"
+  }
+}

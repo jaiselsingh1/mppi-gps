@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "02a3ca3721ae46fdbd8916770ef2b5fdd7de5404442f6e68aab8aa4137a2c2ed"
+  },
+  "reset_seed": 2953000008,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 2,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "863742c7c235715d06cfd50ed3311e669029da3ce155887f87b180feaee40b27",
+  "initial_context_fingerprint": "14c846c0bd9d0e8ee3b907bb4b9e1b1ead9ba9794fea48f5a48c437f24055964",
+  "outcome": {
+    "controls": 240,
+    "requested_controls": 1000,
+    "fell": true,
+    "full_survival": false,
+    "walking": false,
+    "velocity_mae": 0.8619533026377408,
+    "mean_velocity": 0.897170462164558,
+    "raw_native_cost": 504.9164029922953,
+    "absorbing_tail_cost": 3800.0,
+    "complete_cost": 4304.916402992295
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000008/trace.h5",
+    "bytes": 384408,
+    "sha256": "5dadb8d907eb4136e80003585cdbcb1a0e4ef3c8647ff2ee6b598be11dce5d5c"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s2_positive_child/primary/2953000008/receipt.json",
+    "bytes": 851,
+    "sha256": "1b68af934c854d459defbaa5187a16b2b51b93833a85c2c64445cc252167241c"
+  }
+}

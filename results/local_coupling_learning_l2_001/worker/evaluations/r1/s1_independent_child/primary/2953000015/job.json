@@ -1,0 +1,56 @@
+{
+  "out": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_independent_child/primary/2953000015",
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_independent/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "4fb0faf5e561e7c3fbae4551a630291a1ca0e0465780c5a32599700449370fee"
+  },
+  "reset_seed": 2953000015,
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true
+  },
+  "physics_threads": 4,
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "independent",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "limits": {
+    "wall_seconds": 14400,
+    "output_bytes": 67108864,
+    "memory_bytes": 4294967296,
+    "model_controls": 186023804,
+    "native_controls": 632812,
+    "physics_substeps": 746626464,
+    "neural_rows": 209292052,
+    "backward_rows": 4608000,
+    "optimizer_steps": 18000,
+    "checkpoint_loads": 100000,
+    "checkpoint_writes": 100000,
+    "policy_constructions": 100000,
+    "optimizer_constructions": 100000,
+    "environment_constructions": 100000,
+    "model_queries": 100000,
+    "restores": 100000,
+    "external_mj_forward_calls": 100000,
+    "resets": 100000,
+    "compiled_model_saves": 100000,
+    "pi_passes": 100000
+  }
+}

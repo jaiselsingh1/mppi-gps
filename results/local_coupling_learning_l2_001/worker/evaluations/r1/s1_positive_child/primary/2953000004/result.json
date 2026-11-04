@@ -1,0 +1,47 @@
+{
+  "schema": "local-coupling-evaluation-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source/configs/studies/local_coupling_learning_l2_0.json",
+    "bytes": 30115,
+    "sha256": "1bf0e092f5d78f32794c3fe630c5128ed10bd17d8c4733885dbabe1d9519c6b8"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "43956083a97fe753bc54518c90fa7746d0a01e6c5cd76d8d51c61df78e4a1d04"
+  },
+  "reset_seed": 2953000004,
+  "controller": "Torch Policy.predict; direct bounded torques",
+  "role": {
+    "round": 1,
+    "stream": 1,
+    "arm": "positive",
+    "kind": "child",
+    "panel": "primary"
+  },
+  "policy_hash": "49abb21cd9572a18f53a39073d71294508026f00cf9cb0d13ba765864e467111",
+  "initial_context_fingerprint": "bafd19a32b10fe01ca67bcaf23e8ad58fe360fdfc169334445a354d5ab9987c5",
+  "outcome": {
+    "controls": 1000,
+    "requested_controls": 1000,
+    "fell": false,
+    "full_survival": true,
+    "walking": false,
+    "velocity_mae": 1.5518500406791147,
+    "mean_velocity": -0.05185004067911469,
+    "raw_native_cost": 3127.320603294467,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 3127.320603294467
+  },
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000004/trace.h5",
+    "bytes": 1484464,
+    "sha256": "ba9f2beac6b0d253727fd5187f1d32a47943a9e9d3b5b343aa58eac589bade63"
+  },
+  "receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/evaluations/r1/s1_positive_child/primary/2953000004/receipt.json",
+    "bytes": 858,
+    "sha256": "2aec3bbf2a310af84835a8e4cca272c33d74570dcf65b25974c03eae8d253ee7"
+  }
+}

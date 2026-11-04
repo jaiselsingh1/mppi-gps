@@ -1,0 +1,71 @@
+{
+  "schema": "l2-publication-validation-1",
+  "passed": true,
+  "commands": {
+    "repository": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.3672336660092697
+    },
+    "capsule_inspector": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "results/local_coupling_learning_l2_001",
+        "--verify"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.28154758299933746
+    },
+    "study_help": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "local-coupling-loop",
+        "--help"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.18352904100902379
+    },
+    "closed_run_inspector": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "local-coupling-loop",
+        "inspect",
+        "--base",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.1857507909880951
+    },
+    "ruff": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps",
+        "tests"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.07577400002628565
+    }
+  },
+  "wall_seconds": 1.3682929169735871,
+  "parent_cpu_seconds": 0.010300000000000004,
+  "child_cpu_seconds": 1.288952,
+  "scope": "Metadata,documentation,capsulehashes,read-only CLI and staticlint only; no repeated fitting/simulation/NN. Earlier frozen test receipts retained.",
+  "physics_controls": 0,
+  "neural_rows": 0,
+  "adam_updates": 0
+}

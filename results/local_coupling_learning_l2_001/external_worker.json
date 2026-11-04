@@ -1,0 +1,24 @@
+{
+  "schema": "trajectory-pi-phase-1",
+  "phase": "worker",
+  "argv": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-B",
+    "-m",
+    "src.gps.mppi_gps.local_coupling_loop",
+    "--launch",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/launch.json"
+  ],
+  "pid": 7300,
+  "exit_code": 0,
+  "limit_error": null,
+  "remaining_group_terminated": false,
+  "wall_seconds": 1443.0684572909959,
+  "process_tree_cpu_seconds": 4492.478836,
+  "supervisor_cpu_seconds": 92.798329,
+  "waited_children_cpu_seconds": 4399.810854,
+  "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+  "peak_sampled_tree_rss_bytes": 644661248,
+  "stdout": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/supervisor/worker.stdout.log",
+  "stderr": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/supervisor/worker.stderr.log"
+}

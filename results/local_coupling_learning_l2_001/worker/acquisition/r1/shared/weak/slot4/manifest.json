@@ -1,0 +1,131 @@
+{
+  "schema": "local-coupling-episode-1",
+  "status": "COMPLETED",
+  "round": 1,
+  "stream": -1,
+  "arm": "weak",
+  "slot": 4,
+  "alpha": 0.12,
+  "seed": 4510000004,
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/parent.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "outcome": {
+    "controls": 300,
+    "requested_controls": 300,
+    "fell": false,
+    "full_survival": true,
+    "walking": false,
+    "velocity_mae": 0.2740846267821079,
+    "mean_velocity": 1.3078952336726084,
+    "raw_native_cost": 190.91458743141698,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 190.91458743141698,
+    "local_walking": true
+  },
+  "actor_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+  "initial_context_fingerprint": "3f344f88d9d3c75ef5278da53b7f382f37f14c0cb81c40e466253f704a439656",
+  "banks": 301,
+  "native_candidate_checks": [
+    {
+      "source": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/full_t000_p0.npz",
+        "bytes": 2484517,
+        "sha256": "b909090500c99e0a85f2bc674c32b538d6ec4c32f507331e3e5f730eda45260e"
+      },
+      "candidate": 0,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/candidate_replay_0_0.h5",
+        "bytes": 51520,
+        "sha256": "59294e624030f34b749c1a58a5e33a886b663dd021ed9ba0b5ec2e446cb3515f"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/candidate_replay_0_0.predictions.npz",
+        "bytes": 5961,
+        "sha256": "ca8604a4522d41d253b2e95f9509bd03414e1a18317ff7e745272313e87321b7"
+      },
+      "outcome": {
+        "controls": 26,
+        "requested_controls": 48,
+        "fell": true,
+        "full_survival": false,
+        "walking": false,
+        "velocity_mae": 2.5323797036258244,
+        "mean_velocity": -1.0323797036258244,
+        "raw_native_cost": 234.83392736590292,
+        "absorbing_tail_cost": 110.0,
+        "complete_cost": 344.8339273659029
+      },
+      "D": 12.403187836491606,
+      "D_tolerance": 0.0003120001,
+      "action_max_error": 3.5762786865234375e-07
+    },
+    {
+      "source": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/full_t000_p0.npz",
+        "bytes": 2484517,
+        "sha256": "b909090500c99e0a85f2bc674c32b538d6ec4c32f507331e3e5f730eda45260e"
+      },
+      "candidate": 255,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/candidate_replay_0_255.h5",
+        "bytes": 35392,
+        "sha256": "5c18cb515ef6b2fc8692573a49bacc6dfb11e3b1cdbc7fb680d102a27463f86e"
+      },
+      "predictions": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/candidate_replay_0_255.predictions.npz",
+        "bytes": 3493,
+        "sha256": "886185b3ec384010cf139cc07a27d1b93f621f0b9a8c9d15ff7e5b78f04bd6c4"
+      },
+      "outcome": {
+        "controls": 12,
+        "requested_controls": 48,
+        "fell": true,
+        "full_survival": false,
+        "walking": false,
+        "velocity_mae": 2.832053274473424,
+        "mean_velocity": -1.332053274473424,
+        "raw_native_cost": 105.8201264781672,
+        "absorbing_tail_cost": 180.0,
+        "complete_cost": 285.8201264781672
+      },
+      "D": 6.9371088275372035,
+      "D_tolerance": 0.0001440001,
+      "action_max_error": 0.0
+    }
+  ],
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/trace.h5",
+    "bytes": 470800,
+    "sha256": "f1f1046b997a4403d7d14ccf32811793f3a9e550f0c4b8d4524cdcd4eec15b39"
+  },
+  "bank_stats": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot4/banks.h5",
+    "bytes": 6589392,
+    "sha256": "edf7fa4b629f0db4d93c84014d49b83434732a567e4870d978eaa9f6c5d5701c"
+  },
+  "work": {
+    "requested_checkpoint_loads": 1,
+    "requested_policy_constructions": 1,
+    "completed_checkpoint_loads": 1,
+    "completed_policy_constructions": 1,
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_restores": 3,
+    "requested_external_mj_forward_calls": 3,
+    "completed_restores": 3,
+    "completed_external_mj_forward_calls": 3,
+    "requested_model_controls": 3698688,
+    "requested_physics_substeps": 14796104,
+    "requested_model_queries": 301,
+    "completed_model_controls": 3698688,
+    "completed_physics_substeps": 14796104,
+    "completed_model_queries": 301,
+    "requested_neural_rows": 3404523,
+    "completed_neural_rows": 3404523,
+    "requested_native_controls": 338,
+    "completed_native_controls": 338
+  }
+}

@@ -17,6 +17,8 @@ The [machine-readable index](evidence_index.json) preserves earlier v1/v2 locato
 
 ## Storage by study
 
+L2.0's complete new evidence is **local only**: [capsule and full checksum roster](../results/local_coupling_learning_l2_001/README.md), [scientific answer](local_coupling_learning_l2_0_result.md), and [accounting scope](local_coupling_learning_l2_0_accounting.md). Its closed run binds 9,437 files /875,142,974 logical bytes before separate publication derivatives, including its immutable source, exact inputs, checkpoints, all 24 teacher traces, all 224 standalone traces and failures. No remote raw mirror is asserted. Compact results, curves, plots and audit metadata are tracked; raw arrays, checkpoints and bulk ledgers remain outside Git. The separate A/B/C owner and six-round worktrees were not edited or merged.
+
 | Study | Tracked exact capsule | Full evidence availability |
 |---|---|---|
 | v3.1 recorded-data comparison | [Configuration, outcomes, curves, audit and accounting](../results/guided_data_v3_1/README.md) | Complete local mirror and verified Linux remote copy; 173 original run files, 756,044,512 bytes |
