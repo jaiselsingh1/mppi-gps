@@ -40,8 +40,9 @@ def _bound(spec: dict) -> Path:
 def _config(spec: dict) -> dict:
     value = json.loads(_bound(spec).read_text())
     _need(
-        value.get("schema") == "local-coupling-learning-l2-1" and value.get("launch_ready") is True,
-        "Frozen launch-ready L2 configuration required",
+        value.get("schema") in ("local-coupling-learning-l2-1", "local-coupling-learning-l3-1")
+        and value.get("launch_ready") is True,
+        "Frozen launch-ready local coupling configuration required",
     )
     return value
 
@@ -333,6 +334,45 @@ def _diagnostics(actor: Any, roster: dict, out: Path, work: Work) -> dict:
     return result
 
 
+def incoming_lineage_matches(config: dict, job: dict, metadata: dict, state: dict) -> bool:
+    """Validate the frozen owner without constructing another policy or optimizer."""
+    multiround = config["schema"] == "local-coupling-learning-l3-1"
+    if multiround and job["round"] == 1:
+        original = next(
+            row
+            for row in config["inputs"]["initial_streams"]
+            if (row["stream"], row["arm"]) == (job["stream"], job["arm"])
+        )
+        return (
+            job["incoming"]["sha256"] == original["files"]["stream.json"]["sha256"]
+            and metadata.get("stream") == job["stream"]
+            and metadata.get("arm") == job["arm"]
+            and state["updates"] == config["initial_cumulative_updates"]
+        )
+    if multiround:
+        return (
+            metadata.get("stream") == job["stream"]
+            and metadata.get("arm") == job["arm"]
+            and metadata.get("config_sha256") == job["config"]["sha256"]
+            and metadata.get("round") == job["round"] - 1
+            and metadata.get("fit_updates") == config["learning"]["updates"]
+            and state["updates"]
+            == config["initial_cumulative_updates"]
+            + config["learning"]["updates"] * (job["round"] - 1)
+        )
+    return (
+        metadata.get("stream") == job["stream"]
+        and metadata.get("config_sha256") == job["config"]["sha256"]
+        and (
+            metadata.get("pcg_jump") == job["stream"] + 1
+            if job["round"] == 1
+            else metadata.get("round") == 1
+            and metadata.get("arm") == job["arm"]
+            and metadata.get("fit_updates") == config["learning"]["updates"]
+        )
+    )
+
+
 def fit_job(job: dict) -> dict:
     """One fit block; round two loads its own child stream without another fork."""
     config = _config(job["config"])
@@ -342,9 +382,14 @@ def fit_job(job: dict) -> dict:
     incoming_path, raw = _bound(job["incoming"]), _corpus(job["corpus"])
     _need(incoming_path.name == "stream.json", "Bound complete stream envelope required")
     updates = config["learning"]["updates"]
+    multiround = config["schema"] == "local-coupling-learning-l3-1"
+    rounds = config["rounds"] if multiround else 2
     _need(
-        type(updates) is int and 0 < updates <= 2000 and job["round"] in (1, 2),
-        "Bounded L2 round/update count required",
+        type(updates) is int
+        and 0 < updates <= 2000
+        and type(job["round"]) is int
+        and 1 <= job["round"] <= rounds,
+        "Frozen round/update count required",
     )
     out = Path(job["out"])
     out.mkdir(parents=True, exist_ok=False)
@@ -369,16 +414,8 @@ def fit_job(job: dict) -> dict:
             lambda: load_stream(incoming_path.parent),
         )
         _need(
-            metadata.get("stream") == job["stream"]
-            and metadata.get("config_sha256") == job["config"]["sha256"]
-            and (
-                metadata.get("pcg_jump") == job["stream"] + 1
-                if job["round"] == 1
-                else metadata.get("round") == 1
-                and metadata.get("arm") == job["arm"]
-                and metadata.get("fit_updates") == updates
-            ),
-            "Incoming stream is not the declared fork or same-arm round-one child",
+            incoming_lineage_matches(config, job, metadata, state),
+            "Incoming stream is not the frozen same-arm continuation",
         )
         before = dict(
             policy_hash=actor.hash(),

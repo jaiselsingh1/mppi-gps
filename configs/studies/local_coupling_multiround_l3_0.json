@@ -1,0 +1,504 @@
+{
+  "schema": "local-coupling-learning-l3-1",
+  "version": "L3.0",
+  "launch_ready": true,
+  "rounds": 8,
+  "initial_cumulative_updates": 4000,
+  "question": "Eight unconditional additional H48 MPPI/policy acquisition-learning rounds from exact retained L2 children; zero walking/regression never stops alternation.",
+  "controller": {
+    "planner": {
+      "K": 256,
+      "H": 48,
+      "lam": 3.0,
+      "noise_sigma": 0.3,
+      "noise_lowpass_cutoff_hz": 23.4375,
+      "noise_lowpass_sample_rate_hz": 125.0,
+      "noise_lowpass_order": 2,
+      "use_is_correction": false,
+      "initial_iterations": 2
+    },
+    "task": {
+      "frame_skip": 4,
+      "cost_style": "target_velocity",
+      "target_velocity": 1.5,
+      "vel_cost_weight": 2.0,
+      "vertical_velocity_cost_weight": 0.5,
+      "angle_cost_weight": 0.1,
+      "unhealthy_cost_weight": 5.0,
+      "ctrl_cost_weight": 0.001,
+      "terminal_unhealthy_weight": 20.0,
+      "apply_terminal_cost_on_done": true
+    },
+    "arms": [
+      {
+        "name": "independent",
+        "alpha": 0.0
+      },
+      {
+        "name": "positive",
+        "alpha": 0.12
+      }
+    ]
+  },
+  "learning": {
+    "batch_size": 256,
+    "lr": 0.0003,
+    "eta_theta": 0.0,
+    "gradient_clip": 0.5,
+    "prox_reduction": "mean",
+    "anchor_refresh": 0,
+    "updates": 2000,
+    "device": "cpu",
+    "torch_threads": 1,
+    "stream_continuation": "Exact retained L2 finalpackages4000updates; no refork/reseed; eachnewround2000updates\u219220000after8.",
+    "data_rule": "Same2400latestcompetent-per-restart corpus botharms; fallbackreusesoldexperienceexplicitly; nooriginalW2replay ormixturesweep.",
+    "normalization": "Frozen W2 inherited float32mean/std; unchanged17clippedfeatures, boundedTorchactor bothscoringandexecution.",
+    "optimizer": "Existing AdamforeachFalse fusedFalse, continuing allstates; samewithin-pairminibatchindices, arm-specific tensors/Adam retained fromL2."
+  },
+  "inputs": {
+    "initial_streams": [
+      {
+        "stream": 0,
+        "arm": "independent",
+        "files": {
+          "stream.json": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/stream/stream.json",
+            "bytes": 1102,
+            "sha256": "df0f7c632f58d58a46af52f39281780132dfda6b58ca9f37825c72d55cb4b3ff"
+          },
+          "policy.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/stream/policy.pt",
+            "bytes": 330810,
+            "sha256": "573ecf2faa03c7f92927fa2981aa7c041d40587684cd53c3df5b4d7365834e5f"
+          },
+          "global_rng.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_independent/stream/global_rng.pt",
+            "bytes": 14249,
+            "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+          }
+        }
+      },
+      {
+        "stream": 0,
+        "arm": "positive",
+        "files": {
+          "stream.json": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_positive/stream/stream.json",
+            "bytes": 1099,
+            "sha256": "224339687943d60d2dc6f63d06759bdc77c7ad6f9e61edd63895769aaa832c0a"
+          },
+          "policy.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_positive/stream/policy.pt",
+            "bytes": 330810,
+            "sha256": "7d2f774336c5d9b52f22d2e21f10fd5170cae9c69e4b46ea287e9577fe5a1459"
+          },
+          "global_rng.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s0_positive/stream/global_rng.pt",
+            "bytes": 14249,
+            "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+          }
+        }
+      },
+      {
+        "stream": 1,
+        "arm": "independent",
+        "files": {
+          "stream.json": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_independent/stream/stream.json",
+            "bytes": 1102,
+            "sha256": "5125c80f5287478234b1aed46e5ade44a8fbc5330662cdab53ef2d96b4955eae"
+          },
+          "policy.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_independent/stream/policy.pt",
+            "bytes": 330810,
+            "sha256": "4fb0faf5e561e7c3fbae4551a630291a1ca0e0465780c5a32599700449370fee"
+          },
+          "global_rng.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_independent/stream/global_rng.pt",
+            "bytes": 14249,
+            "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+          }
+        }
+      },
+      {
+        "stream": 1,
+        "arm": "positive",
+        "files": {
+          "stream.json": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/stream.json",
+            "bytes": 1099,
+            "sha256": "4e89de521bd2762045820323251a62c7d69f746e4e381cc7543487e622b91691"
+          },
+          "policy.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/policy.pt",
+            "bytes": 330810,
+            "sha256": "43956083a97fe753bc54518c90fa7746d0a01e6c5cd76d8d51c61df78e4a1d04"
+          },
+          "global_rng.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s1_positive/stream/global_rng.pt",
+            "bytes": 14249,
+            "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+          }
+        }
+      },
+      {
+        "stream": 2,
+        "arm": "independent",
+        "files": {
+          "stream.json": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_independent/stream/stream.json",
+            "bytes": 1102,
+            "sha256": "2983011eb7a9937126a40de63482c41d946a299e1141314b5ee1fa9052f5a64c"
+          },
+          "policy.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_independent/stream/policy.pt",
+            "bytes": 330810,
+            "sha256": "8d6f9a92291a36717add82f8a6f1d09977cdaf790ab21cba044a69eac210cca3"
+          },
+          "global_rng.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_independent/stream/global_rng.pt",
+            "bytes": 14249,
+            "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+          }
+        }
+      },
+      {
+        "stream": 2,
+        "arm": "positive",
+        "files": {
+          "stream.json": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/stream.json",
+            "bytes": 1099,
+            "sha256": "8d2d583b4f3ac16eb47753793afe053057d1a0f387eea0a28f22d122a71ec18a"
+          },
+          "policy.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/policy.pt",
+            "bytes": 330810,
+            "sha256": "02a3ca3721ae46fdbd8916770ef2b5fdd7de5404442f6e68aab8aa4137a2c2ed"
+          },
+          "global_rng.pt": {
+            "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/fits/r1/s2_positive/stream/global_rng.pt",
+            "bytes": 14249,
+            "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+          }
+        }
+      }
+    ],
+    "anchors": [
+      {
+        "slot": 0,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot0/manifest.json",
+          "bytes": 5822,
+          "sha256": "cb3b57051acf377c44406c9eca11208b27a3f727860d519de7f4c27e77104391"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot0/trace.h5",
+          "bytes": 470800,
+          "sha256": "62c17d169cb8477c2dc035211ac937d6e25cb06989840d14dae1d96ba0c78f0a"
+        },
+        "source_condition": "independent"
+      },
+      {
+        "slot": 1,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot1/manifest.json",
+          "bytes": 5529,
+          "sha256": "96caf2e63f3c042a59f4d6969a33033858ef264b164d11147a0a881918ccccf7"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot1/trace.h5",
+          "bytes": 470800,
+          "sha256": "b64ec1e65b7371e259106519e6330beb89486a9eacb8c86a37af648c9bce5f56"
+        },
+        "source_condition": "independent"
+      },
+      {
+        "slot": 2,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot2/manifest.json",
+          "bytes": 5524,
+          "sha256": "b3093a1ff9dbcef5a92ba957853964a428252ad8f4b6010ec34db68b9f263311"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot2/trace.h5",
+          "bytes": 470800,
+          "sha256": "4ae0aa9e3f9dbabeb761500897f304a69067049bd8eb1558a06bf9095851d427"
+        },
+        "source_condition": "independent"
+      },
+      {
+        "slot": 3,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot3/manifest.json",
+          "bytes": 5467,
+          "sha256": "3abf06325353509d42a5b135e339b6e897f088a248422e959f9eb5ca2b03d5b7"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/weak/slot3/trace.h5",
+          "bytes": 470800,
+          "sha256": "c68ff372feb3fd99958034a82d63b114fe96ce435805cbae1e2069f5e6b1c095"
+        },
+        "source_condition": "weak"
+      },
+      {
+        "slot": 4,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot4/manifest.json",
+          "bytes": 5503,
+          "sha256": "822a0b61023bff6b23651bf045411b5664c6052dab403dfb0b402c4e52a4486b"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot4/trace.h5",
+          "bytes": 470800,
+          "sha256": "a5a1e82932dd05da9080d025063e3dce549365c27132211cb22d418c8b94da9e"
+        },
+        "source_condition": "independent"
+      },
+      {
+        "slot": 5,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot5/manifest.json",
+          "bytes": 5513,
+          "sha256": "20942ad132fb6a6a7d5849c6a25a1c1aa9fb89d003e6931a53f0beb4edec804c"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot5/trace.h5",
+          "bytes": 470800,
+          "sha256": "d66ad3f20a901a72d96e5af7adac4c1b3ce2ae5abf5e33fbf6d2f50c68b7a7e0"
+        },
+        "source_condition": "independent"
+      },
+      {
+        "slot": 6,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot6/manifest.json",
+          "bytes": 5522,
+          "sha256": "bdc0310deb9b0dc856609499edb037316487921a287f0df318fbd28cf851190b"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot6/trace.h5",
+          "bytes": 470800,
+          "sha256": "13c351e87a62c6fcfe84b94bad54b23f220158a2ae342b5fbbd04019622417ce"
+        },
+        "source_condition": "independent"
+      },
+      {
+        "slot": 7,
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot7/manifest.json",
+          "bytes": 5513,
+          "sha256": "bc209b02c79c093234fbba1b95d833ab9a31db6974c1d53c3b4512433cb40f26"
+        },
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/acquisition/r1/shared/independent/slot7/trace.h5",
+          "bytes": 470800,
+          "sha256": "c80250edf842df0d6c0bb60ae23f45af2a3a032fe335c734b7ec9a153a126a91"
+        },
+        "source_condition": "independent"
+      }
+    ],
+    "restarts": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/restarts.npz",
+      "bytes": 12198,
+      "sha256": "5a82fe05d980ae37346c521c4cc708138dc1feab6a969cff3b4668ac6dd01bf3"
+    },
+    "held": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/prepared/held.npz",
+      "bytes": 1161518,
+      "sha256": "d7604537bf83d4a3c33c4f326d117be7c9743d9a250f5d200c3cfd23c128f7e6"
+    },
+    "prior_result": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/progress/000039.json",
+      "bytes": 226043,
+      "sha256": "5c0a4f7c906ba3d31360cd9d6be4279d5e9658c160f3d3ed489c84be167179bf"
+    },
+    "prior_audit": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/audit/final/receipt.json",
+      "bytes": 1265,
+      "sha256": "fa3bcaf46536451aed68e9e5d4a55a74c55ae8097baa52516d2f99ac33dbc987"
+    },
+    "prior_environment": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/environment.json",
+      "bytes": 5493,
+      "sha256": "00a781256077217e9f3e8e5f079506ac404ae2769d63dbb58b1d8dde8bc6daef"
+    },
+    "prior_source_manifest": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/source_manifest.json",
+      "bytes": 1623037,
+      "sha256": "55a93ce51b40e923f7d22df04ac9fca56f8b44cc69a4f9df587b377cd03658ee"
+    },
+    "prior_native_proof": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/worker/native_preflight/result.json",
+      "bytes": 1475,
+      "sha256": "d5cc62ba8edac84dd50aa030bbe37bced05bc01c7bfb6c8ffd3a4bed93f82219"
+    },
+    "head_proof": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_audit_head/receipt.json",
+      "bytes": 1004,
+      "sha256": "cecbcd12479b7e3d5d8890532e3b7a63d8f09400c203c8513a8e3af1fafd2bc7"
+    },
+    "continuation_proof": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/unit_learning.json",
+      "bytes": 104618,
+      "sha256": "ff38f1e06123ed0fcc82139c46f7155d286d60f57db5b7bbcf97b2e1df1d92c7"
+    },
+    "reset_freshness": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/reset_freshness.json",
+      "bytes": 1995,
+      "sha256": "f454e2c9d17a470162ae7256e8ca9acb1c568a7bfd82277c16a37671181d0967"
+    }
+  },
+  "arms": [
+    {
+      "name": "independent",
+      "alpha": 0.0
+    },
+    {
+      "name": "positive",
+      "alpha": 0.12
+    }
+  ],
+  "streams": 3,
+  "seeds": {
+    "planner_base": 2961000000,
+    "planner_round_stride": 0,
+    "planner_stream_stride": 100,
+    "probe_base": 2962000000,
+    "probe_stream_stride": 100,
+    "primary_base": 2955000000,
+    "confirmation_base": 2956000000,
+    "panel_size": 16,
+    "primary_reused_each_round": true,
+    "panels": "Unused L2R2 panels, freshness proof inherited; L2 R2 never executed.",
+    "planner_rule": "2961000000+100*stream+slot fixed all8rounds andbotharms; independentrepeat paid andlabelledstationary."
+  },
+  "retention": {
+    "rule": "LATEST_COMPETENT_PER_RESTART",
+    "rows_per_corpus": 2400,
+    "controls_per_restart": 300,
+    "append_duplicate_fallback": false,
+    "original_w2_replay": false,
+    "old_versions_preserved": true
+  },
+  "admission": {
+    "full_controls": 300,
+    "velocity_mae_max": 0.3,
+    "cost_ratio_max": 1.1,
+    "cost_reference": "FIXED_INITIAL_SAFE_ANCHOR_PER_SLOT",
+    "fallback": "REUSE_LAST_ADMITTED_FOR_SAME_STREAM_ARM_SLOT",
+    "scientific_stop": false,
+    "initial_anchor_selection": "L2 independent slots except slot3 uses L2weak; fixed before L3, same both arms."
+  },
+  "evaluation": {
+    "max_controls": 1000,
+    "primary_each_round": true,
+    "baseline_primary": true,
+    "final_confirmation_initial_and_final": true,
+    "learning_from_evaluations": false,
+    "walking_velocity_mae_max": 0.3,
+    "individual_competence_successes": 15,
+    "horizon": 1000
+  },
+  "gap": {
+    "teacher": "All2400 latest-admitted pre-action targets before/after fit",
+    "fixed_anchor": "Same2400 initialsafeanchor rows for every fit",
+    "held": "Unchanged2000 W2validation rows",
+    "student_probe_controls": [
+      0,
+      50,
+      100
+    ],
+    "student_probe_context": "Independent alpha0 standardMPPI zero carriedplan/two initial refinements at exact complete studentpreaction context; fixed seeds across rounds, actual policy action from trace; only firstprimary reset per actor.",
+    "missing": "Missing after actualprefix, no imputation/replacement; compare common initial/final anchors and report counts, require no missingness increase for contraction."
+  },
+  "criteria": {
+    "continuation": "ALL_EIGHT_ROUNDS_REGARDLESS_SCIENTIFIC_OUTCOME",
+    "walking_gain_min": 2,
+    "winning_streams_min": 2,
+    "panels": [
+      "primary",
+      "confirmation"
+    ],
+    "no_walking_or_survival_regression": true,
+    "teacher_gap_reduction_min": 0.2,
+    "fixed_anchor_gap_reduction_min": 0.2,
+    "student_common_anchor_gap_reduction_min": 0.2,
+    "last_round_window": 4,
+    "last_primary_competent_rounds": 3,
+    "claim": "No convergence orsuperiority claim fromthis finiteexperiment regardlessoutcome; LPcloningDAggerandgeneralization controlsrequired.",
+    "difference_in_walking_gain_min": 2,
+    "feedback_effect_action_rms_min": 0.01,
+    "activity": "Descriptive accepted/new/fallback/identical counts; nofractiongate. A stationaryteacher maysettlebut allfallbacks cannot masqueradeasusefulfeedback."
+  },
+  "budgets": {
+    "preparation": {
+      "cpu_seconds": 1800,
+      "wall_seconds": 1800
+    },
+    "worker": {
+      "cpu_seconds": 90000,
+      "wall_seconds": 16200,
+      "output_bytes": 12884901888,
+      "stream_cpu_seconds": 30000,
+      "concurrent_streams": 3,
+      "physics_threads_per_stream": 4,
+      "torch_threads_per_stream": 1
+    },
+    "audit": {
+      "cpu_seconds": 7200,
+      "wall_seconds": 5400,
+      "neural_rows": 40000000,
+      "output_bytes": 2147483648
+    },
+    "report": {
+      "cpu_seconds": 1800,
+      "wall_seconds": 1800,
+      "output_bytes": 2147483648
+    },
+    "global": {
+      "cpu_seconds": 100800,
+      "wall_seconds": 25200,
+      "output_bytes": 17179869184,
+      "memory_bytes": 6442450944,
+      "model_controls": 1430000000,
+      "native_controls": 1230000,
+      "physics_substeps": 5725000000,
+      "neural_rows": 1520000000,
+      "backward_rows": 24576000,
+      "optimizer_steps": 96000
+    }
+  },
+  "expected_max_work": {
+    "acquisition_episodes": 384,
+    "acquisition_banks": 115584,
+    "acquisition_model_controls": 1420296192,
+    "probe_jobs": 54,
+    "probe_model_controls": 3981312,
+    "evaluations": 1056,
+    "fits": 48,
+    "adam_updates": 96000,
+    "backward_rows": 24576000,
+    "native_controls_including_verification": 1222464,
+    "physics_substeps": 5701999872
+  },
+  "costs": {
+    "prototype": "L2 actual complete healthy episode185.828CPU/54.258wall; paid run had24acq+6fits+224eval=4385.294workerCPU/1440.538wall.",
+    "estimate_full_acquisition_cpu": 71358.10368,
+    "estimate_parallel_acquisition_wall": 6945.03584,
+    "accounting": "All attempted includingrejectedteacher, fallbackreusedrows, policy diagnosticforwardsevenalpha0, all probes/fits/evals/verification/engineering/audit/reportcharged. OldL2workseparate."
+  },
+  "stop_rules": [
+    "Invalid executed physics or binding/provenance failure",
+    "Corrupted/missing required evidence",
+    "Unrecoverable infrastructure failure",
+    "Frozen CPU/wall/count/output/RSS exhaustion"
+  ],
+  "no_early_scientific_stops": [
+    "zero walking",
+    "weaker reconstruction",
+    "temporary regression",
+    "low candidate survival",
+    "all acquisition slots falling back"
+  ]
+}

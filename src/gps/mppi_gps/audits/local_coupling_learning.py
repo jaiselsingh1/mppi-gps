@@ -811,7 +811,7 @@ def audit_fit_job(audit: LearningAudit, directory: Path, expected: dict, config:
         fit["completed_updates"] == fit["fit_updates"] == result["updates"] == updates
         and fit["cumulative_updates"]
         == result["cumulative_updates"]
-        == 2000 + 2000 * result["round"],
+        == config.get("initial_cumulative_updates", 2000) + updates * result["round"],
         "Fixed fit budget and actual cumulative endpoint",
     )
     fit_data = dict(

@@ -1,0 +1,172 @@
+{
+  "schema": "local-coupling-l3-software-validation-1",
+  "passed": true,
+  "commands": {
+    "pure_lifecycle_tests": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/engineering/software_checks_001/fixtures",
+        "tests/test_local_coupling_multiround_audit.py",
+        "tests/test_local_coupling_multiround_lifecycle.py",
+        "tests/test_local_coupling_multiround_lineage.py",
+        "tests/test_local_coupling_multiround_measurements.py",
+        "tests/test_local_coupling_multiround_metrics.py",
+        "tests/test_local_coupling_multiround_report.py",
+        "tests/test_local_coupling_controller.py",
+        "tests/test_local_coupling_loop.py",
+        "tests/test_local_coupling_learning_audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 23.80070424999576
+    },
+    "shared_lazy_terminal_tests": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/engineering/software_checks_001/shared_fixtures",
+        "tests/test_local_coupling_learning.py",
+        "-k",
+        "import_has_no_torch_or_simulator_side_effects or saved_terminal_observation"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.342624708020594
+    },
+    "ruff": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps",
+        "tests"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.07902916695456952
+    },
+    "repository": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.6486569169792347
+    },
+    "CLI_help": {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "local-coupling-multiround",
+        "--help"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.18361512501724064
+    }
+  },
+  "wall_seconds": 23.804327709018253,
+  "parent_cpu_seconds": 0.022709999999999994,
+  "child_cpu_seconds": 25.348503,
+  "source_files": [
+    {
+      "path": "configs/studies/local_coupling_multiround_l3_0.json",
+      "bytes": 22664,
+      "sha256": "d9532984ca562a069421fecdf6deb8382b553e27443cda15e2104daf0e5144db"
+    },
+    {
+      "path": "docs/local_coupling_multiround_l3_0_protocol.md",
+      "bytes": 14608,
+      "sha256": "26a6abbdd602e56a5bb6929aaedb04a3248495dbc96d2a6a8534099d9960f4a2"
+    },
+    {
+      "path": "scripts/train_mppi_gps.py",
+      "bytes": 7302,
+      "sha256": "b3d6131927ac65c5b31d96f60fc26cb6ead8ca505b4a846bcacaf8840e312551"
+    },
+    {
+      "path": "src/gps/mppi_gps/audits/local_coupling_learning.py",
+      "bytes": 95546,
+      "sha256": "6a00d8099408cc18ad6b6f85f6ef2569bc43f872a0a8aa18e3bab0bc5a599441"
+    },
+    {
+      "path": "src/gps/mppi_gps/audits/local_coupling_multiround.py",
+      "bytes": 63299,
+      "sha256": "b1f5f41cae132f044fd8be7f930ea6942446a0b6cc1113273a65554672bc64ab"
+    },
+    {
+      "path": "src/gps/mppi_gps/experiments/local_coupling_multiround.py",
+      "bytes": 14900,
+      "sha256": "65f427c1dc6d3ef0a1e35b12612b9727ab9fcfb32b0e42d37674b580c003939c"
+    },
+    {
+      "path": "src/gps/mppi_gps/local_coupling_learning.py",
+      "bytes": 22941,
+      "sha256": "cb4f574aafa9bb8ce898874c1b0a3643ee473ea224b813823d5bc02448a19fc1"
+    },
+    {
+      "path": "src/gps/mppi_gps/local_coupling_multiround.py",
+      "bytes": 24269,
+      "sha256": "4d161bea91a5b431ad7a7a4ca819605d75098c036186d12c1b5d516fd7e0f375"
+    },
+    {
+      "path": "src/gps/mppi_gps/local_coupling_multiround_measurements.py",
+      "bytes": 13489,
+      "sha256": "64e1fe7ef405d8b4dffd87b8f6542934f454e51538f7df67e11a772624356c53"
+    },
+    {
+      "path": "src/gps/mppi_gps/local_coupling_multiround_metrics.py",
+      "bytes": 26254,
+      "sha256": "ab07d2bffd4b4e75c7d2e3c9e8f7fffcc6a3bb0a8bfa1c70c5e20fea552c41e0"
+    },
+    {
+      "path": "src/gps/mppi_gps/reporting/local_coupling_multiround.py",
+      "bytes": 31585,
+      "sha256": "8244cc7db74c7f215eee4a3c8377b18b9abbe0626f5094faf7036b1d48625c8d"
+    },
+    {
+      "path": "tests/test_local_coupling_multiround_audit.py",
+      "bytes": 8216,
+      "sha256": "374f234d98ca5c59f537f039029c3a36b7f8299fa2cd01942ed25c9b3b043cba"
+    },
+    {
+      "path": "tests/test_local_coupling_multiround_lifecycle.py",
+      "bytes": 18825,
+      "sha256": "a4ab4c3487f821504ef85a200be8c43dd7ba66f399d98ba2522082db3948363c"
+    },
+    {
+      "path": "tests/test_local_coupling_multiround_lineage.py",
+      "bytes": 2399,
+      "sha256": "ef9b7aa5b1110cb2a8296cec4fa7ddaa170df14423b144d0620892ebf5147e39"
+    },
+    {
+      "path": "tests/test_local_coupling_multiround_measurements.py",
+      "bytes": 10778,
+      "sha256": "3977d4ef7c4bdb367bd60f1e7081af62f8a3beab3d9461a44fb31a6e865e41f7"
+    },
+    {
+      "path": "tests/test_local_coupling_multiround_metrics.py",
+      "bytes": 18745,
+      "sha256": "c9f77624993cad1aeb88fb096692029a90dbb0d97c91f5ccb0a5fbf56df34450"
+    },
+    {
+      "path": "tests/test_local_coupling_multiround_report.py",
+      "bytes": 11711,
+      "sha256": "3320c75c1c6b42bbe962861759ed53f17daf9186678153017df948987564ae50"
+    }
+  ],
+  "native_controls": 0,
+  "model_controls": 0,
+  "physics_substeps": 0,
+  "neural_rows": 0,
+  "backward_rows": 0,
+  "optimizer_steps": 0,
+  "scope": "Allnewlifecycle/probe/metrics/audit/report/lineageguard tests usepureorsaved/mockedfixtures. Existing8-real-update/head/nativeproofs reusednotrerun. Mockreceiptcountersarenotactualscientificwork."
+}
