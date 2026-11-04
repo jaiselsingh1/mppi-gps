@@ -422,6 +422,8 @@ def audit_ledger(
     counts: dict[str, int] = {}
     pending: dict[int, dict] = {}
     imported_workers: set[str] = set()
+    antecedents: dict[str, dict] = {}
+    prerequisite_counts: dict | None = None
     rejected = failed = 0
 
     def add(values: dict, prefix: str = "") -> None:
@@ -451,7 +453,36 @@ def audit_ledger(
         elif event == "derived_cost_components":
             add({"derived_cost_component_rows": row["rows"]})
         elif coordinator and event == "prerequisite_work_included":
+            a.need(prerequisite_counts is None, "P0 prerequisite work is imported once")
+            prerequisite_counts = row["counts"]
             add(row["counts"])
+        elif coordinator and event == "antecedent_work_included":
+            phase = row["phase"]
+            a.need(
+                phase in ("r0", "rv") and phase not in antecedents,
+                "Each previously paid origin/native-validation phase imported exactly once",
+            )
+            paid = a.json(a.bound(row["receipt"]))
+            if phase == "r0":
+                a.need(
+                    paid["schema"] == "trajectory-pi-replay-result-1"
+                    and paid["status"] == "ORIGIN_REPLAY_PASS",
+                    "Paid origin result is the strict passing gate",
+                )
+                actual_counts = paid["work"]
+            else:
+                a.need(
+                    paid["status"] == "COMPLETED",
+                    "Paid worker-native validation closed successfully",
+                )
+                actual_counts = paid["counts"]
+            a.equal(
+                row["counts"],
+                actual_counts,
+                "Antecedent counts match their original durable source",
+            )
+            antecedents[phase] = dict(phase=phase, receipt=row["receipt"], counts=actual_counts)
+            add(actual_counts)
         elif coordinator and event in ("worker_returned", "failed_worker_receipt_recovered"):
             a.need(row["path"] not in imported_workers, "No duplicate imported worker accounting")
             imported_workers.add(row["path"])
@@ -473,6 +504,8 @@ def audit_ledger(
             failed=failed,
             rejected=rejected,
             imported_workers=sorted(imported_workers),
+            antecedents=list(antecedents.values()),
+            prerequisite_counts=prerequisite_counts,
             status="OPEN_UNCONFIRMED",
             unresolved_request_upper_charges=unresolved,
             unresolved_requests=sorted(pending),
@@ -493,6 +526,8 @@ def audit_ledger(
         failed=failed,
         rejected=rejected,
         imported_workers=sorted(imported_workers),
+        antecedents=list(antecedents.values()),
+        prerequisite_counts=prerequisite_counts,
     )
 
 
@@ -1206,6 +1241,231 @@ def _roster(a: Audit, directory: Path, rows: list[dict]) -> None:
     a.need([row["path"] for row in rows] == sorted(seen), "Canonical sorted file roster")
 
 
+def audit_native_input_lineage(a: Audit, cfg: dict, prepared: dict, data_root: Path) -> dict:
+    """P1.1 changes input provenance only; P1.0 remains an immutable record."""
+    a.need(
+        cfg.get("version") == prepared.get("version") == "P1.1"
+        and cfg.get("input_mode") == prepared.get("input_mode") == "worker-native"
+        and prepared.get("new_global_envelopes_created") == 0,
+        "Versioned worker-native inputs retain all incoming stochastic streams",
+    )
+    previous_config_path = a.bound(prepared["previous_config"])
+    previous_prepared_path = a.bound(prepared["previous_prepared_manifest"])
+    previous_config, previous = a.json(previous_config_path), a.json(previous_prepared_path)
+    a.need(
+        previous_config.get("version") == "P1.0"
+        and previous["schema"] == "trajectory-pi-prepared-1"
+        and previous["config_sha256"] == prepared["previous_config"]["sha256"],
+        "Exact previously failed P1.0 configuration and prepared lineage",
+    )
+    for name, binding_name in (
+        ("previous_config", "previous_config"),
+        ("previous_prepared_manifest", "previous_prepared_manifest"),
+    ):
+        declared = cfg["lineage"][name]
+        a.need(
+            all(prepared[binding_name][key] == declared[key] for key in ("bytes", "sha256")),
+            "Committed P1.0 lineage hash: " + name,
+        )
+    scientific = (
+        "hypothesis",
+        "streams",
+        "arms",
+        "rounds",
+        "horizon",
+        "parents",
+        "teachers",
+        "planner",
+        "task",
+        "learning",
+        "optimizer",
+        "score",
+        "admission",
+        "queries",
+        "evaluation",
+        "seeds",
+        "criteria",
+        "resources",
+        "limits",
+        "prerequisites",
+    )
+    for name in scientific:
+        a.equal(
+            cfg[name], previous_config[name], "Unchanged P1.0 scientific recipe and gate: " + name
+        )
+    a.need(
+        len(prepared["parents"]) == len(previous["parents"]) == 3,
+        "Exactly three incoming streams, aliased by both arms",
+    )
+    previous_files = {row["path"]: row for row in previous["files"]}
+    declared_files = {
+        (row["stream"], row["filename"]): row
+        for row in cfg["lineage"]["parent_stream_files"]["files"]
+    }
+    copied = []
+    for parent, old in zip(prepared["parents"], previous["parents"], strict=True):
+        for key in old:
+            a.equal(parent[key], old[key], "Original parent metadata remains unchanged: " + key)
+        for name in ("policy.pt", "global_rng.pt", "stream.json"):
+            relative = str(Path(old["directory"]) / name)
+            source_binding = previous_files[relative]
+            a.bind(data_root / relative, source_binding)
+            declared = declared_files[(old["stream"], name)]
+            a.need(
+                all(declared[key] == source_binding[key] for key in ("bytes", "sha256")),
+                "Committed byte identity of all nine incoming stream files",
+            )
+            if "inherited_stream_files" in parent:
+                a.bind(data_root / relative, parent["inherited_stream_files"][name])
+            copied.append(
+                dict(
+                    stream=old["stream"],
+                    filename=name,
+                    bytes=source_binding["bytes"],
+                    sha256=source_binding["sha256"],
+                )
+            )
+    a.need(
+        len(copied) == 9, "No incoming policy, Adam/private/global RNG or envelope reserialization"
+    )
+    manifest_path = a.bound(prepared["validation_manifest"])
+    validation = a.json(manifest_path)
+    a.need(
+        validation["schema"] == "trajectory-pi-native-validation-1"
+        and validation["status"] == "PASS"
+        and validation["p1_config_sha256"] == prepared["config_sha256"]
+        and validation["previous_prepared_manifest"] == prepared["previous_prepared_manifest"],
+        "Exact audited worker-native validation is bound to this P1.1 recipe",
+    )
+    native_receipt_path = a.bound(validation["native_audit"]["receipt"])
+    native_findings_path = a.bound(validation["native_audit"]["findings"])
+    native_receipt, native_findings = a.json(native_receipt_path), a.json(native_findings_path)
+    a.need(
+        native_receipt["passed"] is True
+        and native_receipt["native_validation_passed"] is True
+        and native_findings["native_validation_passed"] is True
+        and native_findings["result_binding"] == validation["result"]
+        and native_findings["source_manifest_sha256"] == validation["source_manifest_sha256"]
+        and native_findings["config_sha256"] == validation["config_sha256"]
+        and native_findings["p1_config_sha256"] == validation["p1_config_sha256"],
+        "Audit pass and scientific baseline pass belong to the same raw result/source/config",
+    )
+    a.bind(native_findings_path, native_receipt["findings_binding"])
+    result_path, receipt_path = a.bound(validation["result"]), a.bound(validation["receipt"])
+    result, receipt = a.json(result_path), a.json(receipt_path)
+    a.need(
+        result["status"] == "PASS"
+        and receipt["status"] == "COMPLETED"
+        and result["work"] == receipt["counts"] == native_findings["work"],
+        "Worker-native paid result and audit census agree",
+    )
+    a.need(
+        len(validation["episodes"]) == len(native_findings["episodes"]) == 2,
+        "Both original slots have native capture, repeat and K=1 proof",
+    )
+    for teacher, episode, proof in zip(
+        prepared["teachers"], validation["episodes"], native_findings["episodes"], strict=True
+    ):
+        historical = next(row for row in cfg["teachers"] if row["slot"] == teacher["slot"])
+        a.need(
+            teacher["slot"] == episode["slot"] == proof["slot"]
+            and teacher["source"] == historical["episode"]
+            and episode["original_episode"] == proof["original_episode"]
+            and all(
+                teacher["source"][key] == episode["original_episode"][key]
+                for key in ("bytes", "sha256")
+            )
+            and teacher["native_capture"] == episode["capture"] == proof["capture"],
+            "Worker-native teacher retains its original episode and exact audited capture owner",
+        )
+        for key in ("original_prepared", "replay", "candidate"):
+            a.need(episode[key] == proof[key], "Same audited native proof array: " + key)
+            a.bound(episode[key])
+        for key in (
+            "native_replay_passed",
+            "single_candidate_passed",
+            "initial_context_exact",
+            "actions_exact",
+        ):
+            a.need(
+                episode[key] is True and proof[key] is True,
+                "Complete native validation gate: " + key,
+            )
+        raw = load_arrays(a, a.bound(episode["capture"]))
+        canonical = load_arrays(a, data_root / teacher["file_relative"])
+        for key in ("states", "warmstarts", "integrations", "actions", "costs"):
+            a.equal(
+                canonical[key],
+                raw[key],
+                "Canonical native teaching array copies capture bytes: " + key,
+            )
+        a.equal(
+            canonical["observations"],
+            raw["observations"][:-1],
+            "Native canonical observations retain exact pre-action indexing",
+        )
+        a.close(
+            teacher["complete_cost"],
+            np.sum(raw["costs"]),
+            "New immutable native initial-cost reference",
+        )
+        a.need(
+            teacher["walking"] is True and episode["outcome"]["walking"] is True,
+            "New baseline remains competent walking",
+        )
+        original_copy = data_root / "originals" / f"teacher_{teacher['slot']}.npz"
+        a.bind(original_copy, teacher["source"])
+    origin = validation["origin_replay"]
+    r0_result, r0_receipt, r0_findings = (
+        a.json(a.bound(origin[name])) for name in ("result", "audit_receipt", "audit_findings")
+    )
+    a.bound(origin["external_summary"])
+    a.need(
+        origin["origin_replay_passed"] is True
+        and r0_result["status"] == "ORIGIN_REPLAY_PASS"
+        and r0_receipt["passed"] is True
+        and r0_receipt["origin_replay_passed"] is True
+        and r0_findings["origin_replay_passed"] is True
+        and all(row["passed"] for row in r0_result["source_comparisons"].values()),
+        "Preserved origin-host replay passed before worker-native validation; no origin rerun",
+    )
+    origin_names = ("result", "audit_receipt", "audit_findings", "external_summary")
+    a.need(
+        set(cfg["lineage"]["origin_replay"]["bindings"]) == set(origin_names),
+        "All four canonical origin proof bindings are retained",
+    )
+    for name in origin_names:
+        frozen = cfg["lineage"]["origin_replay"]["bindings"][name]
+        a.need(
+            all(origin[name][key] == frozen[key] for key in ("bytes", "sha256")),
+            "Committed original replay/audit proof bytes",
+        )
+    expected_imports = [
+        dict(phase="r0", receipt=origin["result"], counts=r0_result["work"]),
+        dict(phase="rv", receipt=validation["receipt"], counts=receipt["counts"]),
+    ]
+    a.equal(
+        prepared["imported_work"],
+        expected_imports,
+        "Origin and worker-native paid physics are imported once, separately from new preparation/P0",
+    )
+    return dict(
+        input_mode="worker-native",
+        previous_config=prepared["previous_config"],
+        previous_prepared_manifest=prepared["previous_prepared_manifest"],
+        validation_manifest=prepared["validation_manifest"],
+        copied_incoming_files=copied,
+        r0_work=r0_result["work"],
+        worker_native_validation_work=receipt["counts"],
+        r0_receipt_binding=origin["result"],
+        worker_native_validation_receipt_binding=validation["receipt"],
+        native_audit=validation["native_audit"],
+        new_parent_refits=0,
+        imported_work=expected_imports,
+        original_p1_failure="Preserved historical cost, separately reported; never relabeled or rerun",
+    )
+
+
 def audit_launch(a: Audit, run: Path) -> tuple[dict, dict, dict, dict]:
     launch = a.json(run / "launch.json")
     a.need(launch.get("schema") == "trajectory-pi-p1-launch-1", "Frozen launch schema")
@@ -1295,6 +1555,9 @@ def audit_launch(a: Audit, run: Path) -> tuple[dict, dict, dict, dict]:
         )
     for normal in normals[1:]:
         a.equal(normal, normals[0], "Common inherited W2 normalization across streams")
+    native_input = prepared.get("input_mode") == "worker-native"
+    if native_input:
+        a.input_lineage = audit_native_input_lineage(a, cfg, prepared, data_root)
     for spec, row in zip(cfg["teachers"], prepared["teachers"], strict=True):
         a.need(
             spec["slot"] == row["slot"] and spec["episode"] == row["source"],
@@ -1305,18 +1568,25 @@ def audit_launch(a: Audit, run: Path) -> tuple[dict, dict, dict, dict]:
         a.bind(copied_source, row["source"])
         original = load_arrays(a, copied_source)
         converted = load_arrays(a, data_root / row["file_relative"])
-        for key, terminal in (
-            ("states", "terminal_state"),
-            ("warmstarts", "terminal_warmstarts"),
-            ("integrations", "terminal_integrations"),
-        ):
+        if not native_input:
+            for key, terminal in (
+                ("states", "terminal_state"),
+                ("warmstarts", "terminal_warmstarts"),
+                ("integrations", "terminal_integrations"),
+            ):
+                a.equal(
+                    converted[key],
+                    np.concatenate((original[key], original[terminal][None])),
+                    "Terminal-inclusive source context conversion: " + key,
+                )
+            for key in ("observations", "actions", "costs"):
+                a.equal(converted[key], original[key], "Unchanged original teacher array: " + key)
+        else:
             a.equal(
-                converted[key],
-                np.concatenate((original[key], original[terminal][None])),
-                "Terminal-inclusive source context conversion: " + key,
+                converted["actions"],
+                original["actions"],
+                "Worker-native inputs retain exact original U",
             )
-        for key in ("observations", "actions", "costs"):
-            a.equal(converted[key], original[key], "Unchanged original teacher array: " + key)
         a.close(
             converted["observations"],
             observations(converted["states"][:-1]),
@@ -2134,6 +2404,7 @@ def audit_preflight(a: Audit, launch: dict, config: dict, prepared: dict, prefli
 def audit_run(a: Audit, run: Path, allow_stopped: bool = False) -> dict:
     """Audit a closed run; stopped evidence remains explicitly scientifically incomplete."""
     config, launch, prepared, preflight = audit_launch(a, run)
+    input_lineage = getattr(a, "input_lineage", None)
     result = a.json(run / "result.json")
     a.need(result.get("full_project_success") is False, "No broader project-success claim")
     prerequisites = audit_preflight(a, launch, config, prepared, preflight)
@@ -2173,6 +2444,8 @@ def audit_run(a: Audit, run: Path, allow_stopped: bool = False) -> dict:
             criteria=None,
             new_research_calls_after_failed_prerequisite=0,
             external_supervisor=external,
+            input_lineage=input_lineage,
+            phase_work=prelaunch_phase_accounting(a, prerequisites, input_lineage, config),
         )
     a.need(preflight["status"] == "PASS", "Research execution required passed prerequisites")
     if result["status"] != "COMPLETED_20_ROUNDS":
@@ -2207,6 +2480,8 @@ def audit_run(a: Audit, run: Path, allow_stopped: bool = False) -> dict:
             criteria=None,
             prerequisites=prerequisites,
             coordinator=coordinator,
+            phase_work=phase_accounting(a, coordinator, preflight, input_lineage),
+            input_lineage=input_lineage,
             jobs=jobs,
             scope="Closed work accounting and completed native outputs; incomplete fits/rounds remain unconfirmed",
         )
@@ -2225,6 +2500,7 @@ def audit_run(a: Audit, run: Path, allow_stopped: bool = False) -> dict:
     compare_tree(a, result["criteria"], criteria, "Independent finite-loop criteria")
     coordinator = audit_ledger(a, run / "coordinator", coordinator=True)
     counts = coordinator["counts"]
+    phase_work = phase_accounting(a, coordinator, preflight, input_lineage)
     a.equal(result["accounting"]["counts"], counts, "Root result complete actual work census")
     a.need(
         coordinator["receipt"]["status"] == "COMPLETED"
@@ -2276,6 +2552,8 @@ def audit_run(a: Audit, run: Path, allow_stopped: bool = False) -> dict:
         criteria=criteria,
         prerequisites=prerequisites,
         actual_work=counts,
+        phase_work=phase_work,
+        input_lineage=input_lineage,
         fit_blocks=len(fits),
         actor_episodes=sum(row["kind"] == "actor" for row in a.native.values()),
         solve_jobs=sum(row["kind"] == "solve" for row in a.native.values()),
@@ -2291,6 +2569,75 @@ def audit_run(a: Audit, run: Path, allow_stopped: bool = False) -> dict:
             "Equal optimizer budgets are not equal total compute: agreement requires additional frozen-policy evaluations.",
             "Frozen incoming parents are not equal-compute cloning or DAgger controls; no paper reproduction or second-body success is claimed.",
         ],
+    )
+
+
+def phase_accounting(a: Audit, coordinator: dict, preflight: dict, lineage: dict | None) -> dict:
+    """Partition previously paid prerequisites and actual study calls exactly once."""
+    expected = [] if lineage is None else lineage["imported_work"]
+    a.equal(
+        coordinator["antecedents"],
+        expected,
+        "Exactly the frozen origin and worker-native prerequisite imports, never historical reruns",
+    )
+    a.equal(
+        coordinator["prerequisite_counts"],
+        preflight["work"],
+        "P0 ledger contribution is its own paid work, not cumulative prior work",
+    )
+    known: dict[str, int] = {}
+    phases = {row["phase"]: row["counts"] for row in expected}
+    phases["p0"] = preflight["work"]
+    for counts in phases.values():
+        for key, value in counts.items():
+            known[key] = known.get(key, 0) + value
+    study = {key: value - known.get(key, 0) for key, value in coordinator["counts"].items()}
+    a.need(
+        all(value >= 0 for value in study.values())
+        and all(coordinator["counts"].get(key, 0) >= value for key, value in known.items()),
+        "No prerequisite overwritten or subtracted twice from complete paid work",
+    )
+    phases["study"] = study
+    return dict(
+        phases=phases,
+        combined=coordinator["counts"],
+        imports_counted_once=True,
+        previous_p1_failure="Historical separately retained cost; excluded from this new R0/RV/P0/study budget scope",
+        audit_scope="Independent audit performs only declared saved-array CPU/NumPy work; no repeated native/model physics, gradients or Adam updates",
+    )
+
+
+def prelaunch_phase_accounting(
+    a: Audit, prerequisite: dict, lineage: dict | None, cfg: dict
+) -> dict:
+    """Retain R0/RV/P0 paid counts even if the alternating study never starts."""
+    imports = [] if lineage is None else lineage["imported_work"]
+    phases = {row["phase"]: row["counts"] for row in imports}
+    phases["p0"] = prerequisite["work"]
+    phases["study"] = {}
+    combined: dict[str, int] = {}
+    for values in phases.values():
+        for key, value in values.items():
+            combined[key] = combined.get(key, 0) + value
+    for unit in (
+        "model_controls",
+        "native_controls",
+        "physics_substeps",
+        "neural_rows",
+        "backward_rows",
+        "optimizer_steps",
+    ):
+        a.need(
+            combined.get("requested_" + unit, 0) <= cfg["limits"][unit],
+            "Known stopped phase reservations remain within unchanged global ceiling: " + unit,
+        )
+    return dict(
+        phases=phases,
+        combined_known_ledger_counts=combined,
+        accounting_complete=prerequisite["accounting_complete"],
+        imports_counted_once=True,
+        unknown_request_upper_charges=prerequisite.get("unresolved_request_upper_charges"),
+        scope="No alternating study was entered. A missing external-stop closure remains incomplete; known prior paid phases are never erased or simulated again.",
     )
 
 

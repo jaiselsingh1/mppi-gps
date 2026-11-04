@@ -1,0 +1,544 @@
+{
+  "schema": "trajectory-pi-replay-audit-findings-1",
+  "status": "PASS_SAVED_EVIDENCE",
+  "original_status": "ORIGIN_REPLAY_PASS",
+  "origin_replay_passed": true,
+  "conclusion": {
+    "origin_replay_passed": true,
+    "linux_replay_passed": false,
+    "interpretation": "ORIGIN_REPLAY_CONFIRMED_LINUX_DIVERGES",
+    "scope": "Origin-pass/Linux-divergence supports a practical platform/runtime replay distinction; it does not identify a unique numerical cause."
+  },
+  "original": {
+    "controls": 1000,
+    "complete_trace": true,
+    "finite": true,
+    "fell": false,
+    "full_survival": true,
+    "walking": true,
+    "velocity_mae": 0.14545528445534656,
+    "mean_velocity": 1.4500978260249326,
+    "raw_native_cost": 372.7086518178426,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 372.7086518178426,
+    "native_cost_formula_matches": true,
+    "early_stop_reason": null
+  },
+  "origin": {
+    "controls": 1000,
+    "complete_trace": true,
+    "finite": true,
+    "fell": false,
+    "full_survival": true,
+    "walking": true,
+    "velocity_mae": 0.14545528445534656,
+    "mean_velocity": 1.4500978260249326,
+    "raw_native_cost": 372.7086518178426,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 372.7086518178426,
+    "native_cost_formula_matches": true,
+    "early_stop_reason": null
+  },
+  "linux": {
+    "controls": 1000,
+    "complete_trace": true,
+    "finite": true,
+    "fell": false,
+    "full_survival": true,
+    "walking": true,
+    "velocity_mae": 0.14734510928973157,
+    "mean_velocity": 1.4444372237405292,
+    "raw_native_cost": 376.5714059963932,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 376.5714059963932,
+    "native_cost_formula_matches": true,
+    "early_stop_reason": null
+  },
+  "source_comparison": {
+    "arrays": {
+      "states": {
+        "actual_shape": [
+          1001,
+          19
+        ],
+        "expected_shape": [
+          1001,
+          19
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      },
+      "warmstarts": {
+        "actual_shape": [
+          1001,
+          9
+        ],
+        "expected_shape": [
+          1001,
+          9
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      },
+      "integrations": {
+        "actual_shape": [
+          1001,
+          91
+        ],
+        "expected_shape": [
+          1001,
+          91
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      },
+      "actions": {
+        "actual_shape": [
+          1000,
+          6
+        ],
+        "expected_shape": [
+          1000,
+          6
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1000,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      },
+      "costs": {
+        "actual_shape": [
+          1000
+        ],
+        "expected_shape": [
+          1000
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1000,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      },
+      "observations": {
+        "actual_shape": [
+          1001,
+          17
+        ],
+        "expected_shape": [
+          1001,
+          17
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      }
+    },
+    "initial_context_exact_bytes": {
+      "states": true,
+      "warmstarts": true,
+      "integrations": true
+    },
+    "initial_context_passed": true,
+    "actions_exact_bytes": true,
+    "strict_arrays_passed": true,
+    "passed": true
+  },
+  "linux_comparison": {
+    "arrays": {
+      "states": {
+        "actual_shape": [
+          1001,
+          19
+        ],
+        "expected_shape": [
+          1001,
+          19
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": false,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 2.8782809078627594,
+        "first_nonidentical_row": 1,
+        "first_above_threshold_row": {
+          "0": 1,
+          "1e-10": 306
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": false
+      },
+      "warmstarts": {
+        "actual_shape": [
+          1001,
+          9
+        ],
+        "expected_shape": [
+          1001,
+          9
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": false,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 1773.968955648963,
+        "first_nonidentical_row": 1,
+        "first_above_threshold_row": {
+          "0": 1,
+          "1e-10": 222
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": false
+      },
+      "integrations": {
+        "actual_shape": [
+          1001,
+          91
+        ],
+        "expected_shape": [
+          1001,
+          91
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": false,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 1773.968955648963,
+        "first_nonidentical_row": 1,
+        "first_above_threshold_row": {
+          "0": 1,
+          "1e-10": 222
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": false
+      },
+      "actions": {
+        "actual_shape": [
+          1000,
+          6
+        ],
+        "expected_shape": [
+          1000,
+          6
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": true,
+        "compared_rows": 1000,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.0,
+        "first_nonidentical_row": null,
+        "first_above_threshold_row": {
+          "0": null,
+          "1e-10": null
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": true
+      },
+      "costs": {
+        "actual_shape": [
+          1000
+        ],
+        "expected_shape": [
+          1000
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": false,
+        "compared_rows": 1000,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 0.4093100415615373,
+        "first_nonidentical_row": 0,
+        "first_above_threshold_row": {
+          "0": 0,
+          "1e-10": 377
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": false
+      },
+      "observations": {
+        "actual_shape": [
+          1001,
+          17
+        ],
+        "expected_shape": [
+          1001,
+          17
+        ],
+        "same_shape": true,
+        "same_dtype": true,
+        "exact_bytes": false,
+        "compared_rows": 1001,
+        "missing_expected_rows": 0,
+        "unexpected_actual_rows": 0,
+        "nonfinite_compared_elements": 0,
+        "maximum_absolute_error": 1.412888162660398,
+        "first_nonidentical_row": 1,
+        "first_above_threshold_row": {
+          "0": 1,
+          "1e-10": 312
+        },
+        "rtol": 0,
+        "atol": 1e-10,
+        "passed": false
+      }
+    },
+    "initial_context_exact_bytes": {
+      "states": true,
+      "warmstarts": true,
+      "integrations": true
+    },
+    "initial_context_passed": true,
+    "actions_exact_bytes": true,
+    "strict_arrays_passed": false,
+    "passed": false
+  },
+  "work": {
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_compiled_model_saves": 1,
+    "completed_compiled_model_saves": 1,
+    "requested_external_mj_forward_calls": 1,
+    "requested_restores": 1,
+    "completed_external_mj_forward_calls": 1,
+    "completed_restores": 1,
+    "requested_native_controls": 1000,
+    "requested_physics_substeps": 4000,
+    "completed_native_controls": 1000,
+    "completed_physics_substeps": 4000
+  },
+  "ledger_closed": true,
+  "native_model_bindings": {
+    "compiled": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/compiled.mjb",
+      "bytes": 516124,
+      "sha256": "766b087233d21c9e981963522a3e679a9a1c784784f1f44a71c374f3bc39c9d9"
+    },
+    "options": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/model_options.json",
+      "bytes": 822,
+      "sha256": "8517db2e0715d4d72d489300119a301579a01baf6157ee4559b866a9dc4c8c1e"
+    },
+    "dimensions": [
+      9,
+      9,
+      6
+    ],
+    "spec": 16383
+  },
+  "environment": {
+    "schema": "trajectory-pi-replay-environment-1",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "python": "3.11.15",
+    "versions": {
+      "numpy": "2.4.3",
+      "mujoco": "3.6.0",
+      "scipy": "1.17.1",
+      "h5py": "3.16.0"
+    },
+    "interpreter": {
+      "path": "/Users/jaisel/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/bin/python3.11",
+      "bytes": 49968,
+      "sha256": "db30580518b84bad8052a966f9e817db7afb57dbce050885b39922fb81fca485"
+    },
+    "binary_files": [
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_callbacks.cpython-311-darwin.so",
+        "bytes": 201840,
+        "sha256": "91bfb10c15973788d82a2a48b6a22fdd07f966c25267efe6fd786dbb3f90fef6"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_constants.cpython-311-darwin.so",
+        "bytes": 146992,
+        "sha256": "b0846cd0989137fd43d4070a93e65ccdd1927bc49049d0d4b6acaed3d5ad4ac5"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_enums.cpython-311-darwin.so",
+        "bytes": 2095680,
+        "sha256": "96da65fd7e0339448c7bcfb51bc722d55bd7d301b7375270e773ba782210bc1a"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_errors.cpython-311-darwin.so",
+        "bytes": 146640,
+        "sha256": "beedfd70f6338d36af22ae4c89f9830de9b126810a54159ac9a6631d0beb8b34"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_functions.cpython-311-darwin.so",
+        "bytes": 808944,
+        "sha256": "7bbdc7a6b0ef5575dac5298a9b59a79fd22a4b3579a74f0ac902b7d3cb07f9be"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_render.cpython-311-darwin.so",
+        "bytes": 337760,
+        "sha256": "b3e045c753cd6fff37787d28392e971dab97464c209bee5de78d560ce9af07a3"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_rollout.cpython-311-darwin.so",
+        "bytes": 222032,
+        "sha256": "63aaaaba6271fdb51c3e8970e88889546a1d3232949b65707ec8c0d49fa64213"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_simulate.cpython-311-darwin.so",
+        "bytes": 460064,
+        "sha256": "7f733cfb1bb083434bd2d751f8146de3f0785dc211ec37c3749e657691eac14c"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_specs.cpython-311-darwin.so",
+        "bytes": 1931424,
+        "sha256": "db2fa91643fe4063842e01516b58c9bbbced606f494bf0f561f348383da1228f"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_structs.cpython-311-darwin.so",
+        "bytes": 2460912,
+        "sha256": "fee51b28ae963fd1144e0ff13a4f9a4e0d22f79b2f3d47de3cb8005373ae8000"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/libmujoco.3.6.0.dylib",
+        "bytes": 8675528,
+        "sha256": "45a6f863981c605adda396b959ccba9c15c97383ea357c054e04814b162d24ae"
+      },
+      {
+        "path": "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/numpy/_core/_multiarray_umath.cpython-311-darwin.so",
+        "bytes": 3678200,
+        "sha256": "e2808e85db8cca838f745da98f6b1f190f5079865546b89c1c927d26ce49673a"
+      }
+    ],
+    "historical_native_binary_hashes_available": false,
+    "native_binary_logical_hash_read_bytes": 21166016,
+    "execution_environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "external_receipt": {
+    "schema": "trajectory-pi-phase-1",
+    "phase": "origin-replay",
+    "argv": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "-m",
+      "src.gps.mppi_gps.trajectory_pi_replay_validation",
+      "--launch",
+      "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/launch.json",
+      "--worker"
+    ],
+    "pid": 80098,
+    "exit_code": 0,
+    "limit_error": null,
+    "remaining_group_terminated": false,
+    "wall_seconds": 14.061771834036335,
+    "process_tree_cpu_seconds": 9.810772,
+    "supervisor_cpu_seconds": 0.221898,
+    "waited_children_cpu_seconds": 9.593498,
+    "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+    "peak_sampled_tree_rss_bytes": 0,
+    "stdout": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/supervisor/origin-replay.stdout.log",
+    "stderr": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/supervisor/origin-replay.stderr.log"
+  },
+  "study_output_bytes_before_audit": 11785217,
+  "original_terminal_observation": "Derived by the unchanged state feature map from the recorded terminal physical state; no terminal state is fabricated",
+  "limitations": [
+    "The audit compares saved arrays and opaque binary/model hashes without dynamics or inference.",
+    "Bound current native binaries/options do not prove that every unrecorded original native setting was identical.",
+    "An origin pass plus Linux mismatch supports practical replayability separation, not a unique floating-point or platform cause.",
+    "An evidence-audit pass alone does not authorize the conditional next stage; origin_replay_passed is the separate scientific gate."
+  ]
+}

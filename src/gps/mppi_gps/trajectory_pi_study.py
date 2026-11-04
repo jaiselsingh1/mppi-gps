@@ -155,6 +155,10 @@ def validate_launch(path: Path) -> tuple[dict, dict, dict, dict]:
         "Frozen prepared inputs differ",
     )
     _roster(data_root, prepared["files"])
+    if config.get("input_mode") == "worker-native":
+        from .trajectory_pi_inputs import validate_native_prepared
+
+        validate_native_prepared(files["config"], data_root, prepared, files["source_manifest"])
     _need(
         {row["stream"] for row in prepared["parents"]} == set(config["streams"]),
         "Prepared parent roster differs",
@@ -293,7 +297,15 @@ def native_limits(config: dict, kind: str, alpha: float, iterations: int = 0) ->
 class StudyWork:
     """Small global reservation layer over the common native/fit ledger."""
 
-    def __init__(self, out: Path, config: dict, preflight: dict, *, origin: tuple | None = None):
+    def __init__(
+        self,
+        out: Path,
+        config: dict,
+        preflight: dict,
+        *,
+        origin: tuple | None = None,
+        antecedents: list[dict] | None = None,
+    ):
         limits = dict(
             wall_seconds=config["limits"]["execution_wall_seconds"],
             output_bytes=config["limits"]["execution_output_bytes"],
@@ -328,10 +340,31 @@ class StudyWork:
         self.child_cpu_start = usage.ru_utime + usage.ru_stime
         self.peak_tree_rss = 0
         for key, value in preflight.get("work", {}).items():
-            if key.startswith(("requested_", "completed_", "unknown_partial_")):
-                _need(type(value) is int and value >= 0, "Invalid prerequisite work count")
-                self.work.counts[key] = value
+            _need(type(value) is int and value >= 0, "Invalid prerequisite work count")
+            self.work.counts[key] = value
         self.work.record("prerequisite_work_included", counts=dict(self.work.counts))
+        seen = set()
+        for row in antecedents or []:
+            phase = row["phase"]
+            _need(
+                phase in ("r0", "rv") and phase not in seen, "Unique antecedent work phase required"
+            )
+            seen.add(phase)
+            document = _json(_bound(row["receipt"]))
+            expected = document["work"] if phase == "r0" else document["counts"]
+            _need(expected == row["counts"], "Antecedent paid counters changed")
+            for key, value in expected.items():
+                _need(
+                    type(value) is int and value >= 0, "Nonnegative antecedent paid work required"
+                )
+                self.work.counts[key] = self.work.counts.get(key, 0) + value
+            self.work.record(
+                "antecedent_work_included", phase=phase, receipt=row["receipt"], counts=expected
+            )
+        if config.get("input_mode") == "worker-native":
+            _need(
+                seen == {"r0", "rv"}, "Both R0 and native validation must be charged exactly once"
+            )
 
     def check(self, *, final: bool = False) -> None:
         self.work.check()
@@ -1260,7 +1293,9 @@ def run_loop(launch_path: str | Path) -> dict:
     out.mkdir(parents=True)
     write(out / "launch.json", launch)
     write(out / "config.json", config)
-    ledger = StudyWork(out, config, preflight, origin=origin)
+    ledger = StudyWork(
+        out, config, preflight, origin=origin, antecedents=prepared.get("imported_work")
+    )
     pool, result = (
         None,
         dict(

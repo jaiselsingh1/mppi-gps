@@ -139,10 +139,18 @@ def test_child_writes_no_source_bytecode_and_uses_frozen_thread_and_cache_settin
     assert Path(environment["TMPDIR"]).is_relative_to(tmp_path)
 
 
-def setup_base(tmp_path, config, monkeypatch):
+def setup_base(
+    tmp_path, config, monkeypatch, config_relative="configs/studies/trajectory_pi_p1.json"
+):
     source = tmp_path / "source"
-    write(source / "configs/studies/trajectory_pi_p1.json", config)
-    write(tmp_path / "source_manifest.json", dict(schema="metadata-fixture"))
+    write(source / config_relative, config)
+    write(
+        tmp_path / "source_manifest.json",
+        dict(
+            schema="metadata-fixture",
+            files=[dict(launch.binding(source / config_relative), path=config_relative)],
+        ),
+    )
     write(tmp_path / "prepared/manifest.json", dict(schema="metadata-fixture"))
     monkeypatch.setattr(
         launch, "tree_usage", lambda pid: dict(cpu_seconds=0.0, rss_bytes=100, observed_pids=[pid])
@@ -156,7 +164,7 @@ def fake_phase_factory(calls, p0_status="PASS", study_exit=0):
         guard()
         if name == "preflight":
             paths = dict(
-                config=source / "configs/studies/trajectory_pi_p1.json",
+                config=Path(argv[argv.index("--config") + 1]),
                 source_manifest=base / "source_manifest.json",
                 prepared_manifest=base / "prepared/manifest.json",
             )
@@ -277,3 +285,85 @@ def test_failed_main_has_no_retry_and_retains_external_stop(tmp_path, config, mo
     assert [name for name, _ in calls] == ["preflight", "study", "audit", "report"]
     assert launch.read(tmp_path / "worker/result.json")["status"] == "FAILED_STOPPED"
     assert "--stopped" in calls[2][1]
+
+
+def test_explicit_p1_1_configuration_is_source_bound_and_used_in_every_receipt(
+    tmp_path, config, monkeypatch
+):
+    name = "configs/studies/trajectory_pi_p1_1.json"
+    config.update(version="P1.1", input_mode="worker-native")
+    source = setup_base(tmp_path, config, monkeypatch, config_relative=name)
+    calls = []
+    monkeypatch.setattr(launch, "observe_capacity", lambda *a, **k: capacity(config))
+    monkeypatch.setattr(launch, "run_phase", fake_phase_factory(calls))
+    result = launch.supervise(tmp_path, config_relative=name)
+    assert result["status"] == "CLOSED"
+    assert launch.read(tmp_path / "launch.json")["config"] == launch.binding(source / name)
+    preflight_args = calls[0][1]
+    assert preflight_args[preflight_args.index("--config") + 1] == str(source / name)
+    assert launch.read(tmp_path / "worker/config.json")["version"] == "P1.1"
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "../outside.json",
+        "/tmp/outside.json",
+        "configs/../outside.json",
+        "./configs/studies/trajectory_pi_p1.json",
+    ],
+)
+def test_configuration_selector_cannot_escape_frozen_source(tmp_path, config, monkeypatch, name):
+    setup_base(tmp_path, config, monkeypatch)
+    with pytest.raises(ValueError, match="Contained normalized"):
+        launch.supervise(tmp_path, config_relative=name)
+    assert not (tmp_path / "supervisor").exists()
+
+
+def test_selected_configuration_bytes_must_belong_to_frozen_source_roster(
+    tmp_path, config, monkeypatch
+):
+    source = setup_base(tmp_path, config, monkeypatch)
+    path = source / "configs/studies/trajectory_pi_p1.json"
+    path.write_text(path.read_text() + " ")
+    with pytest.raises(ValueError, match="source roster"):
+        launch.supervise(tmp_path)
+    assert not (tmp_path / "supervisor").exists()
+
+
+def test_external_guard_enforces_mutable_output_ceiling_with_closure_headroom(
+    tmp_path, config, monkeypatch
+):
+    monkeypatch.setattr(launch, "tree_usage", lambda _: dict(cpu_seconds=0.0, rss_bytes=1))
+    guard = launch.Guard(tmp_path, config)
+    assert guard.output_ceiling == config["limits"]["output_bytes"] == 64 * launch.GIB
+    (tmp_path / "paid-prefix").write_bytes(b"x" * 20)
+    guard()
+    # Small synthetic ceilings exercise actual byte accounting without large files.
+    guard.output_ceiling = 1024**2 + 19
+    with pytest.raises(RuntimeError, match="total output/closure reservation"):
+        guard()
+    guard.output_ceiling = 1024**2 + 20
+    guard()
+
+
+def test_supervisor_reserves_execution_output_then_releases_audit_output(
+    tmp_path, config, monkeypatch
+):
+    setup_base(tmp_path, config, monkeypatch)
+    calls, observed = [], []
+    fake = fake_phase_factory(calls)
+
+    def record_ceiling(name, argv, base, source, timeout, guard):
+        observed.append((name, guard.output_ceiling))
+        return fake(name, argv, base, source, timeout, guard)
+
+    monkeypatch.setattr(launch, "observe_capacity", lambda *a, **k: capacity(config))
+    monkeypatch.setattr(launch, "run_phase", record_ceiling)
+    assert launch.supervise(tmp_path)["status"] == "CLOSED"
+    assert observed == [
+        ("preflight", 56 * launch.GIB),
+        ("study", 56 * launch.GIB),
+        ("audit", 64 * launch.GIB),
+        ("report", 64 * launch.GIB),
+    ]

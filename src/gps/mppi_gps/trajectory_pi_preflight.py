@@ -88,9 +88,11 @@ def _validate_bindings(
     paths = _roster(root, source["files"])
     own = "src/gps/mppi_gps/trajectory_pi_preflight.py"
     _need(paths.get(own) == Path(__file__).resolve(), "Execute the bound frozen P0 source")
+    selected = config_path.resolve()
+    _need(selected.is_relative_to(root), "Scientific configuration must be inside frozen source")
+    relative = str(selected.relative_to(root))
     _need(
-        "configs/studies/trajectory_pi_p1.json" in paths
-        and sha(paths["configs/studies/trajectory_pi_p1.json"]) == sha(config_path),
+        paths.get(relative) == selected and sha(paths[relative]) == sha(config_path),
         "Source and scientific configuration differ",
     )
     _need(
@@ -116,6 +118,14 @@ def _validate_bindings(
         _need(sha(checkpoint) == spec["checkpoint"]["sha256"], "Incoming parent bytes differ")
     for spec in config["teachers"]:
         _need(spec["prepared_path"] in files, "Missing complete initial teacher")
+    if (
+        config.get("version") == "P1.1"
+        or config.get("input_mode") == "worker-native"
+        or manifest.get("input_mode") == "worker-native"
+    ):
+        from .trajectory_pi_inputs import validate_native_prepared
+
+        validate_native_prepared(config_path, prepared, manifest, source_manifest)
     return config, manifest
 
 

@@ -1,0 +1,97 @@
+{
+  "schema": "trajectory-pi-native-baselines-1",
+  "version": "P1.1-RV1",
+  "p1_config_relative": "configs/studies/trajectory_pi_p1_1.json",
+  "p1_config_sha256": "4c26199f9c0bdf18d1057200feb010c5c8d7f417eda48224ee43e58940690089",
+  "output_directory": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation",
+  "horizon": 1000,
+  "physics_threads": 8,
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true
+  },
+  "expected_runtime": {
+    "python": "3.11.16",
+    "numpy": "2.4.3",
+    "mujoco": "3.6.0",
+    "scipy": "1.17.1",
+    "h5py": "3.16.0"
+  },
+  "tolerances": {
+    "native": {
+      "rtol": 0,
+      "atol": 1e-10
+    },
+    "candidate_states": {
+      "rtol": 0,
+      "atol": 1e-10
+    },
+    "candidate_complete_cost": {
+      "rtol": 0,
+      "atol": 1e-09
+    }
+  },
+  "limits": {
+    "wall_seconds": 600,
+    "output_bytes": 67108864,
+    "memory_bytes": 2147483648,
+    "native_controls": 4000,
+    "model_controls": 2000,
+    "physics_substeps": 24000,
+    "model_queries": 2,
+    "pi_passes": 0,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "environment_constructions": 1,
+    "restores": 6,
+    "external_mj_forward_calls": 6,
+    "compiled_model_saves": 1
+  },
+  "one_attempt": true,
+  "sequence_selection": "Exactly P1.0 selected initial contexts and recorded float64 control sequences; no search or replacement.",
+  "stop_rule": "Any binding/context/walking/replay/candidate/numerical/budget/evidence failure stops; preserve paid prefix, no retries or further diagnostics.",
+  "phase_census": {
+    "captures": 2,
+    "native_replays": 2,
+    "single_candidate_rollouts": 2
+  },
+  "p0_replays": "Existing P0 two prepared-input replays are separately budgeted under original2500native/2Mmodel cap, not included in RV4000native/2000model.",
+  "historical_comparison": "Original Mac recordings retained as lineage/diagnostics. New same-worker identity and competence are the gate. Native captured C replaces old Mac C in both arms admission/competence baselines.",
+  "global_limits_unchanged": {
+    "execution_wall_seconds": 86400,
+    "audit_wall_seconds": 7200,
+    "pool_wall_seconds": 93600,
+    "cpu_seconds": 2851200,
+    "worker_cpu_seconds": 2764800,
+    "coordinator_cpu_seconds": 86400,
+    "gpu_seconds": 0,
+    "output_bytes": 68719476736,
+    "execution_output_bytes": 60129542144,
+    "audit_output_bytes": 8589934592,
+    "model_controls": 8000000000,
+    "native_controls": 4000000,
+    "physics_substeps": 32016000000,
+    "study_optimizer_steps": 12000,
+    "prerequisite_optimizer_steps": 8,
+    "optimizer_steps": 12008,
+    "study_backward_rows": 3072000,
+    "prerequisite_backward_rows": 2048,
+    "backward_rows": 3074048,
+    "neural_rows": 4000000000,
+    "audit_numpy_head_rows": 140000000,
+    "audit_model_controls": 0,
+    "audit_native_controls": 0,
+    "audit_physics_substeps": 0,
+    "audit_backward_rows": 0,
+    "audit_optimizer_steps": 0
+  }
+}

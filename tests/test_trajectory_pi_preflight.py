@@ -352,7 +352,10 @@ def test_continuation_uses_only_synthetic_rows_and_actual_saved_stream(monkeypat
     work.close("COMPLETED")
 
 
-def test_complete_binding_contract_and_source_mutation_fail_before_execution(monkeypatch, tmp_path):
+@pytest.mark.parametrize("config_name", ["trajectory_pi_p1.json", "trajectory_pi_p1_1.json"])
+def test_complete_binding_contract_and_source_mutation_fail_before_execution(
+    monkeypatch, tmp_path, config_name
+):
     import hashlib
 
     root, prepared = tmp_path / "source", tmp_path / "prepared"
@@ -370,7 +373,7 @@ def test_complete_binding_contract_and_source_mutation_fail_before_execution(mon
     teacher_dir.mkdir()
     for index in range(2):
         (teacher_dir / f"slot{index}.npz").write_bytes(b"frozen complete teacher fixture")
-    config = root / "configs/studies/trajectory_pi_p1.json"
+    config = root / "configs/studies" / config_name
     config.parent.mkdir(parents=True)
     config.write_text(
         json.dumps(

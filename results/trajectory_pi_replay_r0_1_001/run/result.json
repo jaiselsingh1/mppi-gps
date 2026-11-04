@@ -1,0 +1,216 @@
+{
+  "schema": "trajectory-pi-replay-result-1",
+  "status": "ORIGIN_REPLAY_PASS",
+  "diagnosis": "SUPPORTS_PLATFORM_RUNTIME_REPLAYABILITY_DIFFERENCE",
+  "launch": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/launch.json",
+    "bytes": 1113,
+    "sha256": "28937799f6a521deacd70a899e8873ccd2a2e53025bb4c11454e963438987b1b"
+  },
+  "model_bindings": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/model_bindings.json",
+    "bytes": 561,
+    "sha256": "a0454c896beb57415befc79125eb700c5db8fadb1f49d27159b2150be9e96c9d"
+  },
+  "outcome": {
+    "controls": 1000,
+    "requested_controls": 1000,
+    "fell": false,
+    "full_survival": true,
+    "walking": true,
+    "velocity_mae": 0.14545528445534656,
+    "mean_velocity": 1.4500978260249326,
+    "raw_native_cost": 372.7086518178426,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 372.7086518178426
+  },
+  "source_comparisons": {
+    "states": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1001,
+        19
+      ],
+      "replay_shape": [
+        1001,
+        19
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    },
+    "warmstarts": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1001,
+        9
+      ],
+      "replay_shape": [
+        1001,
+        9
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    },
+    "integrations": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1001,
+        91
+      ],
+      "replay_shape": [
+        1001,
+        91
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    },
+    "observations": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1001,
+        17
+      ],
+      "replay_shape": [
+        1001,
+        17
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    },
+    "actions": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1000,
+        6
+      ],
+      "replay_shape": [
+        1000,
+        6
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    },
+    "costs": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1000
+      ],
+      "replay_shape": [
+        1000
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    }
+  },
+  "linux_comparisons": {
+    "states": {
+      "passed": false,
+      "exact_bytes": false,
+      "source_shape": [
+        1001,
+        19
+      ],
+      "replay_shape": [
+        1001,
+        19
+      ],
+      "maximum_absolute_error": 2.8782809078627594,
+      "first_above_atol": 306
+    },
+    "warmstarts": {
+      "passed": false,
+      "exact_bytes": false,
+      "source_shape": [
+        1001,
+        9
+      ],
+      "replay_shape": [
+        1001,
+        9
+      ],
+      "maximum_absolute_error": 1773.968955648963,
+      "first_above_atol": 222
+    },
+    "integrations": {
+      "passed": false,
+      "exact_bytes": false,
+      "source_shape": [
+        1001,
+        91
+      ],
+      "replay_shape": [
+        1001,
+        91
+      ],
+      "maximum_absolute_error": 1773.968955648963,
+      "first_above_atol": 222
+    },
+    "observations": {
+      "passed": false,
+      "exact_bytes": false,
+      "source_shape": [
+        1001,
+        17
+      ],
+      "replay_shape": [
+        1001,
+        17
+      ],
+      "maximum_absolute_error": 1.412888162660398,
+      "first_above_atol": 312
+    },
+    "actions": {
+      "passed": true,
+      "exact_bytes": true,
+      "source_shape": [
+        1000,
+        6
+      ],
+      "replay_shape": [
+        1000,
+        6
+      ],
+      "maximum_absolute_error": 0.0,
+      "first_above_atol": null
+    },
+    "costs": {
+      "passed": false,
+      "exact_bytes": false,
+      "source_shape": [
+        1000
+      ],
+      "replay_shape": [
+        1000
+      ],
+      "maximum_absolute_error": 0.4093100415615373,
+      "first_above_atol": 377
+    }
+  },
+  "initial_context_exact": true,
+  "actions_exact": true,
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/trace.h5",
+    "bytes": 1484464,
+    "sha256": "92a48814a2fae5e5d5342dbd7e6e0c81aea3fb65a079a3d8ad9a3f33ae7ba453"
+  },
+  "work": {
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_compiled_model_saves": 1,
+    "completed_compiled_model_saves": 1,
+    "requested_restores": 1,
+    "requested_external_mj_forward_calls": 1,
+    "completed_restores": 1,
+    "completed_external_mj_forward_calls": 1,
+    "requested_native_controls": 1000,
+    "requested_physics_substeps": 4000,
+    "completed_native_controls": 1000,
+    "completed_physics_substeps": 4000
+  }
+}

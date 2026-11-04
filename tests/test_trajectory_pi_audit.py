@@ -635,3 +635,316 @@ def test_missing_preflight_closure_never_fabricates_paid_counts(tmp_path, status
     assert not result["original_closure_present"]
     assert result["accounting_complete"] is (status == "NOT_ATTEMPTED")
     assert result["work"] == {}
+
+
+def native_lineage_fixture(base):
+    """P1.1 lineage proof with synthetic files; no checkpoint construction."""
+    import h5py
+
+    old_dir, new_dir = base / "previous", base / "prepared"
+    old_dir.mkdir(parents=True)
+    new_dir.mkdir()
+    root = Path(__file__).resolve().parents[1]
+    old_config = json.loads((root / "configs/studies/trajectory_pi_p1.json").read_text())
+    parents, files, declared = [], [], []
+    for stream in range(3):
+        relative = f"initial/stream{stream}"
+        parent = dict(
+            stream=stream,
+            directory=relative,
+            source=dict(path=f"/original/s{stream}.pt", bytes=1, sha256="a" * 64),
+            policy_hash=f"p{stream}",
+            optimizer_fingerprint=f"adam{stream}",
+            global_rng_fingerprint=f"global{stream}",
+        )
+        parents.append(parent)
+        for filename in ("policy.pt", "global_rng.pt", "stream.json"):
+            old_path = old_dir / relative / filename
+            old_path.parent.mkdir(parents=True, exist_ok=True)
+            old_path.write_bytes(f"immutable stream{stream} {filename}".encode())
+            new_path = new_dir / relative / filename
+            new_path.parent.mkdir(parents=True, exist_ok=True)
+            new_path.write_bytes(old_path.read_bytes())
+            bound = bind(old_path)
+            files.append(
+                dict(path=f"{relative}/{filename}", bytes=bound["bytes"], sha256=bound["sha256"])
+            )
+            declared.append(
+                dict(stream=stream, filename=filename, bytes=bound["bytes"], sha256=bound["sha256"])
+            )
+    teacher_rows, episodes = [], []
+    for slot in range(2):
+        raw = trace(1000)
+        original = base / f"original_{slot}.npz"
+        np.savez(original, **raw)
+        runtime_copy = bind(original)
+        source = dict(runtime_copy, path=f"/unavailable/historical/mac/H4/teacher_{slot}.npz")
+        old_config["teachers"][slot]["episode"] = source
+        (new_dir / "originals").mkdir(exist_ok=True)
+        (new_dir / "originals" / f"teacher_{slot}.npz").write_bytes(original.read_bytes())
+        old_native = old_dir / f"slot{slot}.npz"
+        np.savez(old_native, **raw)
+        capture = base / f"capture_{slot}.h5"
+        with h5py.File(capture, "x") as target:
+            for name, value in raw.items():
+                target.create_dataset(name, data=value)
+        replay = base / f"replay_{slot}.h5"
+        replay.write_bytes(capture.read_bytes())
+        candidate = base / f"candidate_{slot}.npz"
+        np.savez(candidate, states=raw["states"][None, 1:])
+        relative = f"teachers/slot{slot}.npz"
+        (new_dir / "teachers").mkdir(exist_ok=True)
+        canonical = {
+            key: raw[key] for key in ("states", "warmstarts", "integrations", "actions", "costs")
+        }
+        canonical["observations"] = raw["observations"][:-1]
+        np.savez(new_dir / relative, **canonical)
+        outcome = dict(
+            controls=1000, walking=True, full_survival=True, complete_cost=0.0, velocity_mae=0.0
+        )
+        teacher_rows.append(
+            dict(
+                slot=slot,
+                source=source,
+                native_capture=bind(capture),
+                file_relative=relative,
+                complete_cost=0.0,
+                walking=True,
+            )
+        )
+        episodes.append(
+            dict(
+                slot=slot,
+                original_episode=runtime_copy,
+                original_prepared=bind(old_native),
+                capture=bind(capture),
+                replay=bind(replay),
+                candidate=bind(candidate),
+                outcome=outcome,
+                native_replay_passed=True,
+                single_candidate_passed=True,
+                initial_context_exact=True,
+                actions_exact=True,
+            )
+        )
+    put(base / "previous_config.json", old_config)
+    previous = dict(
+        schema="trajectory-pi-prepared-1",
+        config_sha256=bind(base / "previous_config.json")["sha256"],
+        parents=parents,
+        files=files,
+        teachers=[],
+    )
+    put(old_dir / "manifest.json", previous)
+    r0_work = dict(
+        requested_native_controls=1000,
+        completed_native_controls=1000,
+        requested_physics_substeps=4000,
+        completed_physics_substeps=4000,
+    )
+    r0_result = dict(
+        schema="trajectory-pi-replay-result-1",
+        status="ORIGIN_REPLAY_PASS",
+        work=r0_work,
+        source_comparisons={"states": dict(passed=True)},
+    )
+    r0_receipt = dict(passed=True, origin_replay_passed=True)
+    put(base / "r0_result.json", r0_result)
+    put(base / "r0_receipt.json", r0_receipt)
+    put(base / "r0_findings.json", dict(origin_replay_passed=True))
+    put(base / "r0_external.json", dict(status="CLOSED"))
+    origin = dict(
+        result=bind(base / "r0_result.json"),
+        audit_receipt=bind(base / "r0_receipt.json"),
+        audit_findings=bind(base / "r0_findings.json"),
+        external_summary=bind(base / "r0_external.json"),
+        origin_replay_passed=True,
+    )
+    cfg = copy.deepcopy(old_config)
+    cfg.update(
+        version="P1.1",
+        input_mode="worker-native",
+        lineage=dict(
+            previous_config=bind(base / "previous_config.json"),
+            previous_prepared_manifest=bind(old_dir / "manifest.json"),
+            parent_stream_files=dict(files=declared),
+            origin_replay=dict(
+                bindings={
+                    name: origin[name]
+                    for name in ("result", "audit_receipt", "audit_findings", "external_summary")
+                }
+            ),
+        ),
+    )
+    put(base / "new_config.json", cfg)
+    rv_work = {
+        prefix + unit: value
+        for unit, value in (
+            ("native_controls", 4000),
+            ("model_controls", 2000),
+            ("physics_substeps", 24000),
+        )
+        for prefix in ("requested_", "completed_")
+    }
+    put(base / "rv_result.json", dict(status="PASS", work=rv_work))
+    put(base / "rv_receipt.json", dict(status="COMPLETED", counts=rv_work))
+    validation = dict(
+        schema="trajectory-pi-native-validation-1",
+        status="PASS",
+        config_sha256="b" * 64,
+        p1_config_sha256=bind(base / "new_config.json")["sha256"],
+        source_manifest_sha256="c" * 64,
+        previous_prepared_manifest=bind(old_dir / "manifest.json"),
+        origin_replay=origin,
+        result=bind(base / "rv_result.json"),
+        receipt=bind(base / "rv_receipt.json"),
+        episodes=episodes,
+    )
+    finding = dict(
+        native_validation_passed=True,
+        result_binding=validation["result"],
+        config_sha256=validation["config_sha256"],
+        p1_config_sha256=validation["p1_config_sha256"],
+        source_manifest_sha256=validation["source_manifest_sha256"],
+        episodes=episodes,
+        work=rv_work,
+    )
+    put(base / "rv_findings.json", finding)
+    put(
+        base / "rv_audit.json",
+        dict(
+            passed=True,
+            native_validation_passed=True,
+            findings_binding=bind(base / "rv_findings.json"),
+        ),
+    )
+    validation["native_audit"] = dict(
+        receipt=bind(base / "rv_audit.json"), findings=bind(base / "rv_findings.json")
+    )
+    put(base / "validation_manifest.json", validation)
+    prepared = dict(
+        version="P1.1",
+        input_mode="worker-native",
+        new_global_envelopes_created=0,
+        config_sha256=validation["p1_config_sha256"],
+        parents=copy.deepcopy(parents),
+        teachers=teacher_rows,
+        previous_config=bind(base / "previous_config.json"),
+        previous_prepared_manifest=bind(old_dir / "manifest.json"),
+        validation_manifest=bind(base / "validation_manifest.json"),
+        imported_work=[
+            dict(phase="r0", receipt=origin["result"], counts=r0_work),
+            dict(phase="rv", receipt=validation["receipt"], counts=rv_work),
+        ],
+    )
+    return cfg, prepared, new_dir
+
+
+def test_p1_1_native_lineage_keeps_all_nine_parent_files_and_new_capture_provenance(tmp_path):
+    cfg, prepared, data = native_lineage_fixture(tmp_path)
+    result = audit.audit_native_input_lineage(audit.Audit(), cfg, prepared, data)
+    assert result["input_mode"] == "worker-native"
+    assert len(result["copied_incoming_files"]) == 9
+    assert result["new_parent_refits"] == 0
+    assert result["r0_work"]["completed_native_controls"] == 1000
+    assert result["worker_native_validation_work"]["completed_model_controls"] == 2000
+    assert prepared["teachers"][0]["source"]["path"].startswith("/unavailable/historical/mac/")
+    assert (
+        prepared["teachers"][0]["source"]["path"]
+        != json.loads(Path(prepared["validation_manifest"]["path"]).read_text())["episodes"][0][
+            "original_episode"
+        ]["path"]
+    )
+
+
+@pytest.mark.parametrize(
+    "bad", ["gate", "parent", "capture", "import", "origin_findings", "origin_external"]
+)
+def test_p1_1_native_lineage_rejects_recipe_or_provenance_drift(tmp_path, bad):
+    cfg, prepared, data = native_lineage_fixture(tmp_path)
+    if bad == "gate":
+        cfg["admission"]["maximum_cost_ratio_to_initial"] += 0.01
+    if bad == "parent":
+        (data / "initial/stream2/global_rng.pt").write_bytes(b"reseeded")
+    if bad == "capture":
+        path = data / "teachers/slot1.npz"
+        with np.load(path, allow_pickle=False) as raw:
+            values = {key: raw[key].copy() for key in raw.files}
+        values["states"][1, 2] += 0.01
+        np.savez(path, **values)
+    if bad == "import":
+        prepared["imported_work"].append(prepared["imported_work"][0])
+    if bad == "origin_findings":
+        cfg["lineage"]["origin_replay"]["bindings"]["audit_findings"]["sha256"] = "0" * 64
+    if bad == "origin_external":
+        cfg["lineage"]["origin_replay"]["bindings"]["external_summary"]["sha256"] = "0" * 64
+    with pytest.raises(audit.AuditFailure):
+        audit.audit_native_input_lineage(audit.Audit(), cfg, prepared, data)
+
+
+def test_phase_accounting_keeps_r0_rv_p0_and_loop_counters_separate(tmp_path):
+    cfg, prepared, data = native_lineage_fixture(tmp_path)
+    lineage = audit.audit_native_input_lineage(audit.Audit(), cfg, prepared, data)
+    p0 = dict(
+        requested_native_controls=2016,
+        completed_native_controls=2016,
+        requested_model_controls=1024016,
+        completed_model_controls=1024016,
+        requested_physics_substeps=4104128,
+        completed_physics_substeps=4104128,
+    )
+    loop = dict(
+        requested_native_controls=100,
+        completed_native_controls=100,
+        requested_model_controls=256000,
+        completed_model_controls=256000,
+        requested_physics_substeps=1024400,
+        completed_physics_substeps=1024400,
+    )
+    total = {}
+    for values in [lineage["r0_work"], lineage["worker_native_validation_work"], p0, loop]:
+        for key, value in values.items():
+            total[key] = total.get(key, 0) + value
+    coordinator = dict(antecedents=prepared["imported_work"], prerequisite_counts=p0, counts=total)
+    result = audit.phase_accounting(audit.Audit(), coordinator, dict(work=p0), lineage)
+    assert result["phases"]["study"] == loop
+    assert result["combined"]["completed_native_controls"] == 7116
+    assert result["imports_counted_once"]
+    coordinator["prerequisite_counts"] = {
+        key: value + lineage["r0_work"].get(key, 0) for key, value in p0.items()
+    }
+    with pytest.raises(audit.AuditFailure, match="not cumulative"):
+        audit.phase_accounting(audit.Audit(), coordinator, dict(work=p0), lineage)
+
+
+def test_coordinator_ledger_imports_origin_and_rv_once_without_overwriting_p0(tmp_path):
+    _, prepared, _ = native_lineage_fixture(tmp_path)
+    directory = tmp_path / "coordinator"
+    directory.mkdir()
+    p0 = dict(
+        requested_native_controls=2016,
+        completed_native_controls=2016,
+        requested_physics_substeps=8064,
+        completed_physics_substeps=8064,
+    )
+    rows = []
+    for paid in prepared["imported_work"]:
+        rows.append(dict(id=len(rows), event="antecedent_work_included", **paid))
+    rows.append(dict(id=len(rows), event="prerequisite_work_included", counts=p0))
+    total = {}
+    for values in [p0, *[row["counts"] for row in prepared["imported_work"]]]:
+        for key, value in values.items():
+            total[key] = total.get(key, 0) + value
+    receipt = dict(status="COMPLETED", counts=total)
+    rows.append(dict(id=len(rows), event="closed", receipt=receipt))
+    put(directory / "receipt.json", receipt)
+    (directory / "ledger.jsonl").write_text("".join(json.dumps(row) + "\n" for row in rows))
+    saved = audit.audit_ledger(audit.Audit(), directory, coordinator=True)
+    assert saved["counts"]["completed_native_controls"] == 7016
+    assert saved["antecedents"] == prepared["imported_work"]
+    assert saved["prerequisite_counts"] == p0
+    rows.insert(-1, dict(rows[0], id=len(rows) - 1))
+    rows[-1]["id"] = len(rows) - 1
+    (directory / "ledger.jsonl").write_text("".join(json.dumps(row) + "\n" for row in rows))
+    with pytest.raises(audit.AuditFailure, match="exactly once"):
+        audit.audit_ledger(audit.Audit(), directory, coordinator=True)

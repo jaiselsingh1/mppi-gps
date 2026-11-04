@@ -1,0 +1,3014 @@
+{
+  "schema": "trajectory-pi-p1-1",
+  "version": "P1.1",
+  "launch_ready": true,
+  "status": "FROZEN_SCIENTIFIC_COMPARISON_REQUIRES_PASSING_BOUND_PREREQUISITES",
+  "hypothesis": "Repeated whole-control-sequence optimization with a fixed nonzero policy reconstruction term can reduce a finite alternating teacher-student gap while preserving teacher competence and improving standalone walking.",
+  "streams": [
+    0,
+    1,
+    2
+  ],
+  "arms": [
+    {
+      "name": "independent",
+      "alpha": 0.0
+    },
+    {
+      "name": "coupled",
+      "alpha": 0.12
+    }
+  ],
+  "rounds": 20,
+  "horizon": 1000,
+  "parents": [
+    {
+      "stream": 0,
+      "checkpoint": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s0_u2000.pt",
+        "bytes": 330426,
+        "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+      },
+      "prepared_directory": "initial/stream0",
+      "legacy_updates": 2000,
+      "private_adam_rng": "Inherited unchanged; exact tree/hash recorded by prepared manifest",
+      "new_global_envelope_seed": 2841000000
+    },
+    {
+      "stream": 1,
+      "checkpoint": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s1_u2000.pt",
+        "bytes": 330426,
+        "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050"
+      },
+      "prepared_directory": "initial/stream1",
+      "legacy_updates": 2000,
+      "private_adam_rng": "Inherited unchanged; exact tree/hash recorded by prepared manifest",
+      "new_global_envelope_seed": 2841000001
+    },
+    {
+      "stream": 2,
+      "checkpoint": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s2_u2000.pt",
+        "bytes": 330426,
+        "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e"
+      },
+      "prepared_directory": "initial/stream2",
+      "legacy_updates": 2000,
+      "private_adam_rng": "Inherited unchanged; exact tree/hash recorded by prepared manifest",
+      "new_global_envelope_seed": 2841000002
+    }
+  ],
+  "teachers": [
+    {
+      "slot": 0,
+      "episode": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz",
+        "bytes": 4007410,
+        "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+      },
+      "prepared_path": "teachers/slot0.npz",
+      "source": "Existing complete-context H4 independent trajectory, retained by K1",
+      "controls": 1000
+    },
+    {
+      "slot": 1,
+      "episode": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_01.npz",
+        "bytes": 4007410,
+        "sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1"
+      },
+      "prepared_path": "teachers/slot1.npz",
+      "source": "Existing complete-context H4 independent trajectory, retained by K1",
+      "controls": 1000
+    }
+  ],
+  "planner": {
+    "K": 256,
+    "H": 1000,
+    "lam": 3.0,
+    "noise_sigma": 0.3,
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2,
+    "use_is_correction": false,
+    "initial_iterations": 2,
+    "lam_target_neff_fraction": 0.05
+  },
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true
+  },
+  "learning": {
+    "updates": 100,
+    "batch_size": 256,
+    "lr": 0.0003,
+    "eta_theta": 0.0,
+    "prox_reduction": "mean",
+    "anchor_refresh": 0,
+    "gradient_clip": 0.5,
+    "device": "cpu",
+    "torch_threads": 1,
+    "architecture": [
+      17,
+      128,
+      128,
+      6
+    ],
+    "activations": "tanh at both hidden layers and output",
+    "observations": "pre-action concat(state[2:10],clip(state[10:19],-10,10)); no new features",
+    "normalization": "Inherit exact FP32 parent mean/std buffers; W2 provenance population FP64 mean/std floor.05 then FP32; do not recompute",
+    "training_rows": 2000,
+    "corpus": "Two current retained complete trajectories only; no evaluation/query/parent-baseline rows",
+    "target_dtype": "float32 as existing W2 fitter",
+    "score_action_dtype": "physical candidate float64 minus predicted float32 actions promoted to float64",
+    "action_map": "Canonical deterministic NumPy export for planning and physical execution; physical action promoted float64 before env.step; Torch fitting same bounded mathematical map",
+    "minibatch_stream": "Continue inherited private PCG without reseeding; paired within stream across arms",
+    "checkpoint_continuation": "Write/reload actual complete checkpoint after every round; retain Adam/private RNG; refresh new-corpus block anchor; retain a separate complete global RNG envelope",
+    "legacy_global_rng": "Historical global RNG not supplied by legacy W2 checkpoint; initialize declared new paired envelope, do not claim historical global-state continuity",
+    "total_new_updates_per_arm_stream": 2000,
+    "total_legacy_plus_new_updates": 4000,
+    "extra_learning_noise": false
+  },
+  "optimizer": {
+    "prototype": {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/scripts/diagnostics/full_pi.py",
+      "bytes": 8738,
+      "sha256": "350cdce35c43585eb7edcda11bc2fd9a65c542b0b336783362715703929ffea2"
+    },
+    "reuse": "Reuse FullPI noise subclass and MPPI._plan_iteration; lift with provenance/library adapter, do not create another search algorithm",
+    "iterations": 100,
+    "prototype_iterations": 300,
+    "final_noise_scale": 0.1,
+    "noise_schedule": "scale=.1**(inner_index/(100-1)); K256,H1000,sigma.3 with unchanged low-pass covariance",
+    "zero_noise_current_sample": 0,
+    "temperature_rule": "Existing lam_target_neff_fraction=.05 applied to current total J",
+    "direct_iteration_extra_initial_passes": 0,
+    "shift_horizon": false,
+    "execute_during_solve": false,
+    "initialization": "Each source uses its previous retained complete U; round1 uses original bound H4 controls",
+    "fixed_during_solve": [
+      "policy tensors",
+      "normalization",
+      "alpha",
+      "complete initial simulator context"
+    ],
+    "selection": {
+      "eligible": "Previously scored current nominal sequences, including incoming nominal; not arbitrary population members",
+      "objective": "C + alpha * prefix_D; task-only C when alpha0",
+      "ties": "Earliest strictly improving nominal, matching prototype less-than update",
+      "final_weighted_mean_evaluated": true,
+      "final_weighted_mean_eligible_for_selection": false
+    },
+    "full_bank_iterations": [
+      0,
+      49,
+      99
+    ]
+  },
+  "score": {
+    "definition": "D=.5*sum_t sum_action (physical_U - bounded_pi(pre_action_state))**2; raw sum, no horizon normalization in weights",
+    "complete_trajectory": "Exact requested full sum over T1000",
+    "fall_extension": "Executable prefix including fall-causing action only; missing post-fall D terms are not fabricated; native terminal/tail C remain",
+    "alpha_justification": "Fixed .12 equals historical weak w=.06 times sum(error\u00b2) in raw torque units. Maximum per-control D=12 gives omitted alpha*D<=1.44, below native absorbing charge5; no retuning or adaptation.",
+    "prefix_max_per_control_D": 12.0,
+    "max_omitted_agreement_per_control": 1.44,
+    "alpha_schedule": "None; same nonzero .12 all coupled rounds/queries",
+    "independent_population_D": "Not computed: NaN plus an explicit unavailable flag, never a fabricated zero. Current nominal D is measured separately for diagnostics.",
+    "nominal_D": "Measure every current nominal in both arms; never use D in independent-arm weights.",
+    "reported_RMS": "sqrt(2*D/executed_controls); coordinate MSE is 2*D/(6*executed_controls). Retained teacher paths have1000 controls.",
+    "fall_cost": "Charge native terminal20 once, then5 per missing live control; never add terminal cost twice."
+  },
+  "admission": {
+    "walking": "Full1000-control survival and mean absolute speed error<=.3 around target1.5 m/s.",
+    "maximum_cost_ratio_to_initial": 1.2,
+    "initial_cost": "Native replayed complete cost of same bound source path from exact initial context",
+    "require_agreement_decrease": false,
+    "if_rejected": "Preserve raw best proposal/failure and retain prior incumbent",
+    "gate_applies_to_both_arms": true
+  },
+  "queries": {
+    "anchors": [
+      0,
+      100
+    ],
+    "evaluation_episode": 0,
+    "rounds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "iterations": 25,
+    "horizon": 1000,
+    "initial_template_slot": 0,
+    "initialization": "Frozen original slot0 controls from beginning for every query; never current bank or equal-clock suffix",
+    "alpha": "study_arm",
+    "policy": "Current post-fit policy at rounds1..20; bound parent at round0",
+    "optimizer_rule": "Same FullPI update, geometrical noise scale1 to.1 across25 refinements and ESS target.05; no horizon shifting or physical execution inside a solve.",
+    "full_bank_iterations": [],
+    "nominal_states_and_statistics": "Preserve all query nominal states, controls, RNG and per-candidate C/Dpartial/J/weights/first-fall counts",
+    "qualification": "Selected query trajectory fully survives1000 controls and has velocity MAE<=.3; report query cost, walking and survival for every paid query.",
+    "missing": "Anchor unavailable after student termination stays missing, no dummy query or zero discrepancy",
+    "gap": "L2 norm of first teacher-query action minus saved actor action at exact pre-action context",
+    "anchor0": "Reset-state action disagreement, plus true paired full1000 policy-query cost gap",
+    "anchor100": "Post-deviation action disagreement and query own outcomes only; cost not paired to900-control actor suffix",
+    "strong_gap_claim": "Both anchors must be available and query-walking-qualified for both arms throughout early rounds1..5 and late rounds16..20; otherwise this stream student-gap criterion is UNRESOLVED.",
+    "query_data_used_for_fitting": false
+  },
+  "evaluation": {
+    "episodes": 16,
+    "rounds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "reset_seed_base": 2821000000,
+    "round_stride": 1000,
+    "panels": [
+      {
+        "round": 0,
+        "reset_seeds": [
+          2821000000,
+          2821000001,
+          2821000002,
+          2821000003,
+          2821000004,
+          2821000005,
+          2821000006,
+          2821000007,
+          2821000008,
+          2821000009,
+          2821000010,
+          2821000011,
+          2821000012,
+          2821000013,
+          2821000014,
+          2821000015
+        ]
+      },
+      {
+        "round": 1,
+        "reset_seeds": [
+          2821001000,
+          2821001001,
+          2821001002,
+          2821001003,
+          2821001004,
+          2821001005,
+          2821001006,
+          2821001007,
+          2821001008,
+          2821001009,
+          2821001010,
+          2821001011,
+          2821001012,
+          2821001013,
+          2821001014,
+          2821001015
+        ]
+      },
+      {
+        "round": 2,
+        "reset_seeds": [
+          2821002000,
+          2821002001,
+          2821002002,
+          2821002003,
+          2821002004,
+          2821002005,
+          2821002006,
+          2821002007,
+          2821002008,
+          2821002009,
+          2821002010,
+          2821002011,
+          2821002012,
+          2821002013,
+          2821002014,
+          2821002015
+        ]
+      },
+      {
+        "round": 3,
+        "reset_seeds": [
+          2821003000,
+          2821003001,
+          2821003002,
+          2821003003,
+          2821003004,
+          2821003005,
+          2821003006,
+          2821003007,
+          2821003008,
+          2821003009,
+          2821003010,
+          2821003011,
+          2821003012,
+          2821003013,
+          2821003014,
+          2821003015
+        ]
+      },
+      {
+        "round": 4,
+        "reset_seeds": [
+          2821004000,
+          2821004001,
+          2821004002,
+          2821004003,
+          2821004004,
+          2821004005,
+          2821004006,
+          2821004007,
+          2821004008,
+          2821004009,
+          2821004010,
+          2821004011,
+          2821004012,
+          2821004013,
+          2821004014,
+          2821004015
+        ]
+      },
+      {
+        "round": 5,
+        "reset_seeds": [
+          2821005000,
+          2821005001,
+          2821005002,
+          2821005003,
+          2821005004,
+          2821005005,
+          2821005006,
+          2821005007,
+          2821005008,
+          2821005009,
+          2821005010,
+          2821005011,
+          2821005012,
+          2821005013,
+          2821005014,
+          2821005015
+        ]
+      },
+      {
+        "round": 6,
+        "reset_seeds": [
+          2821006000,
+          2821006001,
+          2821006002,
+          2821006003,
+          2821006004,
+          2821006005,
+          2821006006,
+          2821006007,
+          2821006008,
+          2821006009,
+          2821006010,
+          2821006011,
+          2821006012,
+          2821006013,
+          2821006014,
+          2821006015
+        ]
+      },
+      {
+        "round": 7,
+        "reset_seeds": [
+          2821007000,
+          2821007001,
+          2821007002,
+          2821007003,
+          2821007004,
+          2821007005,
+          2821007006,
+          2821007007,
+          2821007008,
+          2821007009,
+          2821007010,
+          2821007011,
+          2821007012,
+          2821007013,
+          2821007014,
+          2821007015
+        ]
+      },
+      {
+        "round": 8,
+        "reset_seeds": [
+          2821008000,
+          2821008001,
+          2821008002,
+          2821008003,
+          2821008004,
+          2821008005,
+          2821008006,
+          2821008007,
+          2821008008,
+          2821008009,
+          2821008010,
+          2821008011,
+          2821008012,
+          2821008013,
+          2821008014,
+          2821008015
+        ]
+      },
+      {
+        "round": 9,
+        "reset_seeds": [
+          2821009000,
+          2821009001,
+          2821009002,
+          2821009003,
+          2821009004,
+          2821009005,
+          2821009006,
+          2821009007,
+          2821009008,
+          2821009009,
+          2821009010,
+          2821009011,
+          2821009012,
+          2821009013,
+          2821009014,
+          2821009015
+        ]
+      },
+      {
+        "round": 10,
+        "reset_seeds": [
+          2821010000,
+          2821010001,
+          2821010002,
+          2821010003,
+          2821010004,
+          2821010005,
+          2821010006,
+          2821010007,
+          2821010008,
+          2821010009,
+          2821010010,
+          2821010011,
+          2821010012,
+          2821010013,
+          2821010014,
+          2821010015
+        ]
+      },
+      {
+        "round": 11,
+        "reset_seeds": [
+          2821011000,
+          2821011001,
+          2821011002,
+          2821011003,
+          2821011004,
+          2821011005,
+          2821011006,
+          2821011007,
+          2821011008,
+          2821011009,
+          2821011010,
+          2821011011,
+          2821011012,
+          2821011013,
+          2821011014,
+          2821011015
+        ]
+      },
+      {
+        "round": 12,
+        "reset_seeds": [
+          2821012000,
+          2821012001,
+          2821012002,
+          2821012003,
+          2821012004,
+          2821012005,
+          2821012006,
+          2821012007,
+          2821012008,
+          2821012009,
+          2821012010,
+          2821012011,
+          2821012012,
+          2821012013,
+          2821012014,
+          2821012015
+        ]
+      },
+      {
+        "round": 13,
+        "reset_seeds": [
+          2821013000,
+          2821013001,
+          2821013002,
+          2821013003,
+          2821013004,
+          2821013005,
+          2821013006,
+          2821013007,
+          2821013008,
+          2821013009,
+          2821013010,
+          2821013011,
+          2821013012,
+          2821013013,
+          2821013014,
+          2821013015
+        ]
+      },
+      {
+        "round": 14,
+        "reset_seeds": [
+          2821014000,
+          2821014001,
+          2821014002,
+          2821014003,
+          2821014004,
+          2821014005,
+          2821014006,
+          2821014007,
+          2821014008,
+          2821014009,
+          2821014010,
+          2821014011,
+          2821014012,
+          2821014013,
+          2821014014,
+          2821014015
+        ]
+      },
+      {
+        "round": 15,
+        "reset_seeds": [
+          2821015000,
+          2821015001,
+          2821015002,
+          2821015003,
+          2821015004,
+          2821015005,
+          2821015006,
+          2821015007,
+          2821015008,
+          2821015009,
+          2821015010,
+          2821015011,
+          2821015012,
+          2821015013,
+          2821015014,
+          2821015015
+        ]
+      },
+      {
+        "round": 16,
+        "reset_seeds": [
+          2821016000,
+          2821016001,
+          2821016002,
+          2821016003,
+          2821016004,
+          2821016005,
+          2821016006,
+          2821016007,
+          2821016008,
+          2821016009,
+          2821016010,
+          2821016011,
+          2821016012,
+          2821016013,
+          2821016014,
+          2821016015
+        ]
+      },
+      {
+        "round": 17,
+        "reset_seeds": [
+          2821017000,
+          2821017001,
+          2821017002,
+          2821017003,
+          2821017004,
+          2821017005,
+          2821017006,
+          2821017007,
+          2821017008,
+          2821017009,
+          2821017010,
+          2821017011,
+          2821017012,
+          2821017013,
+          2821017014,
+          2821017015
+        ]
+      },
+      {
+        "round": 18,
+        "reset_seeds": [
+          2821018000,
+          2821018001,
+          2821018002,
+          2821018003,
+          2821018004,
+          2821018005,
+          2821018006,
+          2821018007,
+          2821018008,
+          2821018009,
+          2821018010,
+          2821018011,
+          2821018012,
+          2821018013,
+          2821018014,
+          2821018015
+        ]
+      },
+      {
+        "round": 19,
+        "reset_seeds": [
+          2821019000,
+          2821019001,
+          2821019002,
+          2821019003,
+          2821019004,
+          2821019005,
+          2821019006,
+          2821019007,
+          2821019008,
+          2821019009,
+          2821019010,
+          2821019011,
+          2821019012,
+          2821019013,
+          2821019014,
+          2821019015
+        ]
+      },
+      {
+        "round": 20,
+        "reset_seeds": [
+          2821020000,
+          2821020001,
+          2821020002,
+          2821020003,
+          2821020004,
+          2821020005,
+          2821020006,
+          2821020007,
+          2821020008,
+          2821020009,
+          2821020010,
+          2821020011,
+          2821020012,
+          2821020013,
+          2821020014,
+          2821020015
+        ]
+      }
+    ],
+    "confirmation_episodes": 16,
+    "confirmation_seed_base": 2831000000,
+    "confirmation_seeds": [
+      2831000000,
+      2831000001,
+      2831000002,
+      2831000003,
+      2831000004,
+      2831000005,
+      2831000006,
+      2831000007,
+      2831000008,
+      2831000009,
+      2831000010,
+      2831000011,
+      2831000012,
+      2831000013,
+      2831000014,
+      2831000015
+    ],
+    "shared_across_streams_and_arms": true,
+    "frozen_parent_baseline": "At round0 evaluate the parent once per stream and share both arms. Reevaluate the unchanged parent once per stream on every round1..20 panel and the confirmation panel for paired parent-child gains.",
+    "training_exclusion": "All reset panels/query states/parent-baseline traces excluded from fitting and admission decisions",
+    "walking_rule": "Survive1000 controls with velocity MAE<=.3. Survival without walking is retention only.",
+    "joint_angles": "Save actual six joint angles in every selected-teacher and policy trace; preserve missing post-fall samples and show all cases."
+  },
+  "seeds": {
+    "planner_argument_base": 2801000000,
+    "query_argument_base": 2811000000,
+    "stream_stride": 1000000,
+    "round_stride": 1000,
+    "slot_stride": 10,
+    "prototype_seed_offset": 20000,
+    "global_envelope_base": 2841000000,
+    "preflight_physical": 2851000000,
+    "synthetic_continuation": 2861000000,
+    "fit_argument_base": 2871000000,
+    "fit_argument_rule": "Passed but ignored while continuing the bound inherited Adam/private-PCG state; never reseed it",
+    "planner_roster": [
+      {
+        "stream": 0,
+        "round": 1,
+        "slot": 0,
+        "argument": 2801001000,
+        "actual_pcg_seed": 2801021000
+      },
+      {
+        "stream": 0,
+        "round": 1,
+        "slot": 1,
+        "argument": 2801001010,
+        "actual_pcg_seed": 2801021010
+      },
+      {
+        "stream": 0,
+        "round": 2,
+        "slot": 0,
+        "argument": 2801002000,
+        "actual_pcg_seed": 2801022000
+      },
+      {
+        "stream": 0,
+        "round": 2,
+        "slot": 1,
+        "argument": 2801002010,
+        "actual_pcg_seed": 2801022010
+      },
+      {
+        "stream": 0,
+        "round": 3,
+        "slot": 0,
+        "argument": 2801003000,
+        "actual_pcg_seed": 2801023000
+      },
+      {
+        "stream": 0,
+        "round": 3,
+        "slot": 1,
+        "argument": 2801003010,
+        "actual_pcg_seed": 2801023010
+      },
+      {
+        "stream": 0,
+        "round": 4,
+        "slot": 0,
+        "argument": 2801004000,
+        "actual_pcg_seed": 2801024000
+      },
+      {
+        "stream": 0,
+        "round": 4,
+        "slot": 1,
+        "argument": 2801004010,
+        "actual_pcg_seed": 2801024010
+      },
+      {
+        "stream": 0,
+        "round": 5,
+        "slot": 0,
+        "argument": 2801005000,
+        "actual_pcg_seed": 2801025000
+      },
+      {
+        "stream": 0,
+        "round": 5,
+        "slot": 1,
+        "argument": 2801005010,
+        "actual_pcg_seed": 2801025010
+      },
+      {
+        "stream": 0,
+        "round": 6,
+        "slot": 0,
+        "argument": 2801006000,
+        "actual_pcg_seed": 2801026000
+      },
+      {
+        "stream": 0,
+        "round": 6,
+        "slot": 1,
+        "argument": 2801006010,
+        "actual_pcg_seed": 2801026010
+      },
+      {
+        "stream": 0,
+        "round": 7,
+        "slot": 0,
+        "argument": 2801007000,
+        "actual_pcg_seed": 2801027000
+      },
+      {
+        "stream": 0,
+        "round": 7,
+        "slot": 1,
+        "argument": 2801007010,
+        "actual_pcg_seed": 2801027010
+      },
+      {
+        "stream": 0,
+        "round": 8,
+        "slot": 0,
+        "argument": 2801008000,
+        "actual_pcg_seed": 2801028000
+      },
+      {
+        "stream": 0,
+        "round": 8,
+        "slot": 1,
+        "argument": 2801008010,
+        "actual_pcg_seed": 2801028010
+      },
+      {
+        "stream": 0,
+        "round": 9,
+        "slot": 0,
+        "argument": 2801009000,
+        "actual_pcg_seed": 2801029000
+      },
+      {
+        "stream": 0,
+        "round": 9,
+        "slot": 1,
+        "argument": 2801009010,
+        "actual_pcg_seed": 2801029010
+      },
+      {
+        "stream": 0,
+        "round": 10,
+        "slot": 0,
+        "argument": 2801010000,
+        "actual_pcg_seed": 2801030000
+      },
+      {
+        "stream": 0,
+        "round": 10,
+        "slot": 1,
+        "argument": 2801010010,
+        "actual_pcg_seed": 2801030010
+      },
+      {
+        "stream": 0,
+        "round": 11,
+        "slot": 0,
+        "argument": 2801011000,
+        "actual_pcg_seed": 2801031000
+      },
+      {
+        "stream": 0,
+        "round": 11,
+        "slot": 1,
+        "argument": 2801011010,
+        "actual_pcg_seed": 2801031010
+      },
+      {
+        "stream": 0,
+        "round": 12,
+        "slot": 0,
+        "argument": 2801012000,
+        "actual_pcg_seed": 2801032000
+      },
+      {
+        "stream": 0,
+        "round": 12,
+        "slot": 1,
+        "argument": 2801012010,
+        "actual_pcg_seed": 2801032010
+      },
+      {
+        "stream": 0,
+        "round": 13,
+        "slot": 0,
+        "argument": 2801013000,
+        "actual_pcg_seed": 2801033000
+      },
+      {
+        "stream": 0,
+        "round": 13,
+        "slot": 1,
+        "argument": 2801013010,
+        "actual_pcg_seed": 2801033010
+      },
+      {
+        "stream": 0,
+        "round": 14,
+        "slot": 0,
+        "argument": 2801014000,
+        "actual_pcg_seed": 2801034000
+      },
+      {
+        "stream": 0,
+        "round": 14,
+        "slot": 1,
+        "argument": 2801014010,
+        "actual_pcg_seed": 2801034010
+      },
+      {
+        "stream": 0,
+        "round": 15,
+        "slot": 0,
+        "argument": 2801015000,
+        "actual_pcg_seed": 2801035000
+      },
+      {
+        "stream": 0,
+        "round": 15,
+        "slot": 1,
+        "argument": 2801015010,
+        "actual_pcg_seed": 2801035010
+      },
+      {
+        "stream": 0,
+        "round": 16,
+        "slot": 0,
+        "argument": 2801016000,
+        "actual_pcg_seed": 2801036000
+      },
+      {
+        "stream": 0,
+        "round": 16,
+        "slot": 1,
+        "argument": 2801016010,
+        "actual_pcg_seed": 2801036010
+      },
+      {
+        "stream": 0,
+        "round": 17,
+        "slot": 0,
+        "argument": 2801017000,
+        "actual_pcg_seed": 2801037000
+      },
+      {
+        "stream": 0,
+        "round": 17,
+        "slot": 1,
+        "argument": 2801017010,
+        "actual_pcg_seed": 2801037010
+      },
+      {
+        "stream": 0,
+        "round": 18,
+        "slot": 0,
+        "argument": 2801018000,
+        "actual_pcg_seed": 2801038000
+      },
+      {
+        "stream": 0,
+        "round": 18,
+        "slot": 1,
+        "argument": 2801018010,
+        "actual_pcg_seed": 2801038010
+      },
+      {
+        "stream": 0,
+        "round": 19,
+        "slot": 0,
+        "argument": 2801019000,
+        "actual_pcg_seed": 2801039000
+      },
+      {
+        "stream": 0,
+        "round": 19,
+        "slot": 1,
+        "argument": 2801019010,
+        "actual_pcg_seed": 2801039010
+      },
+      {
+        "stream": 0,
+        "round": 20,
+        "slot": 0,
+        "argument": 2801020000,
+        "actual_pcg_seed": 2801040000
+      },
+      {
+        "stream": 0,
+        "round": 20,
+        "slot": 1,
+        "argument": 2801020010,
+        "actual_pcg_seed": 2801040010
+      },
+      {
+        "stream": 1,
+        "round": 1,
+        "slot": 0,
+        "argument": 2802001000,
+        "actual_pcg_seed": 2802021000
+      },
+      {
+        "stream": 1,
+        "round": 1,
+        "slot": 1,
+        "argument": 2802001010,
+        "actual_pcg_seed": 2802021010
+      },
+      {
+        "stream": 1,
+        "round": 2,
+        "slot": 0,
+        "argument": 2802002000,
+        "actual_pcg_seed": 2802022000
+      },
+      {
+        "stream": 1,
+        "round": 2,
+        "slot": 1,
+        "argument": 2802002010,
+        "actual_pcg_seed": 2802022010
+      },
+      {
+        "stream": 1,
+        "round": 3,
+        "slot": 0,
+        "argument": 2802003000,
+        "actual_pcg_seed": 2802023000
+      },
+      {
+        "stream": 1,
+        "round": 3,
+        "slot": 1,
+        "argument": 2802003010,
+        "actual_pcg_seed": 2802023010
+      },
+      {
+        "stream": 1,
+        "round": 4,
+        "slot": 0,
+        "argument": 2802004000,
+        "actual_pcg_seed": 2802024000
+      },
+      {
+        "stream": 1,
+        "round": 4,
+        "slot": 1,
+        "argument": 2802004010,
+        "actual_pcg_seed": 2802024010
+      },
+      {
+        "stream": 1,
+        "round": 5,
+        "slot": 0,
+        "argument": 2802005000,
+        "actual_pcg_seed": 2802025000
+      },
+      {
+        "stream": 1,
+        "round": 5,
+        "slot": 1,
+        "argument": 2802005010,
+        "actual_pcg_seed": 2802025010
+      },
+      {
+        "stream": 1,
+        "round": 6,
+        "slot": 0,
+        "argument": 2802006000,
+        "actual_pcg_seed": 2802026000
+      },
+      {
+        "stream": 1,
+        "round": 6,
+        "slot": 1,
+        "argument": 2802006010,
+        "actual_pcg_seed": 2802026010
+      },
+      {
+        "stream": 1,
+        "round": 7,
+        "slot": 0,
+        "argument": 2802007000,
+        "actual_pcg_seed": 2802027000
+      },
+      {
+        "stream": 1,
+        "round": 7,
+        "slot": 1,
+        "argument": 2802007010,
+        "actual_pcg_seed": 2802027010
+      },
+      {
+        "stream": 1,
+        "round": 8,
+        "slot": 0,
+        "argument": 2802008000,
+        "actual_pcg_seed": 2802028000
+      },
+      {
+        "stream": 1,
+        "round": 8,
+        "slot": 1,
+        "argument": 2802008010,
+        "actual_pcg_seed": 2802028010
+      },
+      {
+        "stream": 1,
+        "round": 9,
+        "slot": 0,
+        "argument": 2802009000,
+        "actual_pcg_seed": 2802029000
+      },
+      {
+        "stream": 1,
+        "round": 9,
+        "slot": 1,
+        "argument": 2802009010,
+        "actual_pcg_seed": 2802029010
+      },
+      {
+        "stream": 1,
+        "round": 10,
+        "slot": 0,
+        "argument": 2802010000,
+        "actual_pcg_seed": 2802030000
+      },
+      {
+        "stream": 1,
+        "round": 10,
+        "slot": 1,
+        "argument": 2802010010,
+        "actual_pcg_seed": 2802030010
+      },
+      {
+        "stream": 1,
+        "round": 11,
+        "slot": 0,
+        "argument": 2802011000,
+        "actual_pcg_seed": 2802031000
+      },
+      {
+        "stream": 1,
+        "round": 11,
+        "slot": 1,
+        "argument": 2802011010,
+        "actual_pcg_seed": 2802031010
+      },
+      {
+        "stream": 1,
+        "round": 12,
+        "slot": 0,
+        "argument": 2802012000,
+        "actual_pcg_seed": 2802032000
+      },
+      {
+        "stream": 1,
+        "round": 12,
+        "slot": 1,
+        "argument": 2802012010,
+        "actual_pcg_seed": 2802032010
+      },
+      {
+        "stream": 1,
+        "round": 13,
+        "slot": 0,
+        "argument": 2802013000,
+        "actual_pcg_seed": 2802033000
+      },
+      {
+        "stream": 1,
+        "round": 13,
+        "slot": 1,
+        "argument": 2802013010,
+        "actual_pcg_seed": 2802033010
+      },
+      {
+        "stream": 1,
+        "round": 14,
+        "slot": 0,
+        "argument": 2802014000,
+        "actual_pcg_seed": 2802034000
+      },
+      {
+        "stream": 1,
+        "round": 14,
+        "slot": 1,
+        "argument": 2802014010,
+        "actual_pcg_seed": 2802034010
+      },
+      {
+        "stream": 1,
+        "round": 15,
+        "slot": 0,
+        "argument": 2802015000,
+        "actual_pcg_seed": 2802035000
+      },
+      {
+        "stream": 1,
+        "round": 15,
+        "slot": 1,
+        "argument": 2802015010,
+        "actual_pcg_seed": 2802035010
+      },
+      {
+        "stream": 1,
+        "round": 16,
+        "slot": 0,
+        "argument": 2802016000,
+        "actual_pcg_seed": 2802036000
+      },
+      {
+        "stream": 1,
+        "round": 16,
+        "slot": 1,
+        "argument": 2802016010,
+        "actual_pcg_seed": 2802036010
+      },
+      {
+        "stream": 1,
+        "round": 17,
+        "slot": 0,
+        "argument": 2802017000,
+        "actual_pcg_seed": 2802037000
+      },
+      {
+        "stream": 1,
+        "round": 17,
+        "slot": 1,
+        "argument": 2802017010,
+        "actual_pcg_seed": 2802037010
+      },
+      {
+        "stream": 1,
+        "round": 18,
+        "slot": 0,
+        "argument": 2802018000,
+        "actual_pcg_seed": 2802038000
+      },
+      {
+        "stream": 1,
+        "round": 18,
+        "slot": 1,
+        "argument": 2802018010,
+        "actual_pcg_seed": 2802038010
+      },
+      {
+        "stream": 1,
+        "round": 19,
+        "slot": 0,
+        "argument": 2802019000,
+        "actual_pcg_seed": 2802039000
+      },
+      {
+        "stream": 1,
+        "round": 19,
+        "slot": 1,
+        "argument": 2802019010,
+        "actual_pcg_seed": 2802039010
+      },
+      {
+        "stream": 1,
+        "round": 20,
+        "slot": 0,
+        "argument": 2802020000,
+        "actual_pcg_seed": 2802040000
+      },
+      {
+        "stream": 1,
+        "round": 20,
+        "slot": 1,
+        "argument": 2802020010,
+        "actual_pcg_seed": 2802040010
+      },
+      {
+        "stream": 2,
+        "round": 1,
+        "slot": 0,
+        "argument": 2803001000,
+        "actual_pcg_seed": 2803021000
+      },
+      {
+        "stream": 2,
+        "round": 1,
+        "slot": 1,
+        "argument": 2803001010,
+        "actual_pcg_seed": 2803021010
+      },
+      {
+        "stream": 2,
+        "round": 2,
+        "slot": 0,
+        "argument": 2803002000,
+        "actual_pcg_seed": 2803022000
+      },
+      {
+        "stream": 2,
+        "round": 2,
+        "slot": 1,
+        "argument": 2803002010,
+        "actual_pcg_seed": 2803022010
+      },
+      {
+        "stream": 2,
+        "round": 3,
+        "slot": 0,
+        "argument": 2803003000,
+        "actual_pcg_seed": 2803023000
+      },
+      {
+        "stream": 2,
+        "round": 3,
+        "slot": 1,
+        "argument": 2803003010,
+        "actual_pcg_seed": 2803023010
+      },
+      {
+        "stream": 2,
+        "round": 4,
+        "slot": 0,
+        "argument": 2803004000,
+        "actual_pcg_seed": 2803024000
+      },
+      {
+        "stream": 2,
+        "round": 4,
+        "slot": 1,
+        "argument": 2803004010,
+        "actual_pcg_seed": 2803024010
+      },
+      {
+        "stream": 2,
+        "round": 5,
+        "slot": 0,
+        "argument": 2803005000,
+        "actual_pcg_seed": 2803025000
+      },
+      {
+        "stream": 2,
+        "round": 5,
+        "slot": 1,
+        "argument": 2803005010,
+        "actual_pcg_seed": 2803025010
+      },
+      {
+        "stream": 2,
+        "round": 6,
+        "slot": 0,
+        "argument": 2803006000,
+        "actual_pcg_seed": 2803026000
+      },
+      {
+        "stream": 2,
+        "round": 6,
+        "slot": 1,
+        "argument": 2803006010,
+        "actual_pcg_seed": 2803026010
+      },
+      {
+        "stream": 2,
+        "round": 7,
+        "slot": 0,
+        "argument": 2803007000,
+        "actual_pcg_seed": 2803027000
+      },
+      {
+        "stream": 2,
+        "round": 7,
+        "slot": 1,
+        "argument": 2803007010,
+        "actual_pcg_seed": 2803027010
+      },
+      {
+        "stream": 2,
+        "round": 8,
+        "slot": 0,
+        "argument": 2803008000,
+        "actual_pcg_seed": 2803028000
+      },
+      {
+        "stream": 2,
+        "round": 8,
+        "slot": 1,
+        "argument": 2803008010,
+        "actual_pcg_seed": 2803028010
+      },
+      {
+        "stream": 2,
+        "round": 9,
+        "slot": 0,
+        "argument": 2803009000,
+        "actual_pcg_seed": 2803029000
+      },
+      {
+        "stream": 2,
+        "round": 9,
+        "slot": 1,
+        "argument": 2803009010,
+        "actual_pcg_seed": 2803029010
+      },
+      {
+        "stream": 2,
+        "round": 10,
+        "slot": 0,
+        "argument": 2803010000,
+        "actual_pcg_seed": 2803030000
+      },
+      {
+        "stream": 2,
+        "round": 10,
+        "slot": 1,
+        "argument": 2803010010,
+        "actual_pcg_seed": 2803030010
+      },
+      {
+        "stream": 2,
+        "round": 11,
+        "slot": 0,
+        "argument": 2803011000,
+        "actual_pcg_seed": 2803031000
+      },
+      {
+        "stream": 2,
+        "round": 11,
+        "slot": 1,
+        "argument": 2803011010,
+        "actual_pcg_seed": 2803031010
+      },
+      {
+        "stream": 2,
+        "round": 12,
+        "slot": 0,
+        "argument": 2803012000,
+        "actual_pcg_seed": 2803032000
+      },
+      {
+        "stream": 2,
+        "round": 12,
+        "slot": 1,
+        "argument": 2803012010,
+        "actual_pcg_seed": 2803032010
+      },
+      {
+        "stream": 2,
+        "round": 13,
+        "slot": 0,
+        "argument": 2803013000,
+        "actual_pcg_seed": 2803033000
+      },
+      {
+        "stream": 2,
+        "round": 13,
+        "slot": 1,
+        "argument": 2803013010,
+        "actual_pcg_seed": 2803033010
+      },
+      {
+        "stream": 2,
+        "round": 14,
+        "slot": 0,
+        "argument": 2803014000,
+        "actual_pcg_seed": 2803034000
+      },
+      {
+        "stream": 2,
+        "round": 14,
+        "slot": 1,
+        "argument": 2803014010,
+        "actual_pcg_seed": 2803034010
+      },
+      {
+        "stream": 2,
+        "round": 15,
+        "slot": 0,
+        "argument": 2803015000,
+        "actual_pcg_seed": 2803035000
+      },
+      {
+        "stream": 2,
+        "round": 15,
+        "slot": 1,
+        "argument": 2803015010,
+        "actual_pcg_seed": 2803035010
+      },
+      {
+        "stream": 2,
+        "round": 16,
+        "slot": 0,
+        "argument": 2803016000,
+        "actual_pcg_seed": 2803036000
+      },
+      {
+        "stream": 2,
+        "round": 16,
+        "slot": 1,
+        "argument": 2803016010,
+        "actual_pcg_seed": 2803036010
+      },
+      {
+        "stream": 2,
+        "round": 17,
+        "slot": 0,
+        "argument": 2803017000,
+        "actual_pcg_seed": 2803037000
+      },
+      {
+        "stream": 2,
+        "round": 17,
+        "slot": 1,
+        "argument": 2803017010,
+        "actual_pcg_seed": 2803037010
+      },
+      {
+        "stream": 2,
+        "round": 18,
+        "slot": 0,
+        "argument": 2803018000,
+        "actual_pcg_seed": 2803038000
+      },
+      {
+        "stream": 2,
+        "round": 18,
+        "slot": 1,
+        "argument": 2803018010,
+        "actual_pcg_seed": 2803038010
+      },
+      {
+        "stream": 2,
+        "round": 19,
+        "slot": 0,
+        "argument": 2803019000,
+        "actual_pcg_seed": 2803039000
+      },
+      {
+        "stream": 2,
+        "round": 19,
+        "slot": 1,
+        "argument": 2803019010,
+        "actual_pcg_seed": 2803039010
+      },
+      {
+        "stream": 2,
+        "round": 20,
+        "slot": 0,
+        "argument": 2803020000,
+        "actual_pcg_seed": 2803040000
+      },
+      {
+        "stream": 2,
+        "round": 20,
+        "slot": 1,
+        "argument": 2803020010,
+        "actual_pcg_seed": 2803040010
+      }
+    ],
+    "query_roster": [
+      {
+        "stream": 0,
+        "round": 0,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811000000,
+        "actual_pcg_seed": 2811020000
+      },
+      {
+        "stream": 0,
+        "round": 0,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811000010,
+        "actual_pcg_seed": 2811020010
+      },
+      {
+        "stream": 0,
+        "round": 1,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811001000,
+        "actual_pcg_seed": 2811021000
+      },
+      {
+        "stream": 0,
+        "round": 1,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811001010,
+        "actual_pcg_seed": 2811021010
+      },
+      {
+        "stream": 0,
+        "round": 2,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811002000,
+        "actual_pcg_seed": 2811022000
+      },
+      {
+        "stream": 0,
+        "round": 2,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811002010,
+        "actual_pcg_seed": 2811022010
+      },
+      {
+        "stream": 0,
+        "round": 3,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811003000,
+        "actual_pcg_seed": 2811023000
+      },
+      {
+        "stream": 0,
+        "round": 3,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811003010,
+        "actual_pcg_seed": 2811023010
+      },
+      {
+        "stream": 0,
+        "round": 4,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811004000,
+        "actual_pcg_seed": 2811024000
+      },
+      {
+        "stream": 0,
+        "round": 4,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811004010,
+        "actual_pcg_seed": 2811024010
+      },
+      {
+        "stream": 0,
+        "round": 5,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811005000,
+        "actual_pcg_seed": 2811025000
+      },
+      {
+        "stream": 0,
+        "round": 5,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811005010,
+        "actual_pcg_seed": 2811025010
+      },
+      {
+        "stream": 0,
+        "round": 6,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811006000,
+        "actual_pcg_seed": 2811026000
+      },
+      {
+        "stream": 0,
+        "round": 6,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811006010,
+        "actual_pcg_seed": 2811026010
+      },
+      {
+        "stream": 0,
+        "round": 7,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811007000,
+        "actual_pcg_seed": 2811027000
+      },
+      {
+        "stream": 0,
+        "round": 7,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811007010,
+        "actual_pcg_seed": 2811027010
+      },
+      {
+        "stream": 0,
+        "round": 8,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811008000,
+        "actual_pcg_seed": 2811028000
+      },
+      {
+        "stream": 0,
+        "round": 8,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811008010,
+        "actual_pcg_seed": 2811028010
+      },
+      {
+        "stream": 0,
+        "round": 9,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811009000,
+        "actual_pcg_seed": 2811029000
+      },
+      {
+        "stream": 0,
+        "round": 9,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811009010,
+        "actual_pcg_seed": 2811029010
+      },
+      {
+        "stream": 0,
+        "round": 10,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811010000,
+        "actual_pcg_seed": 2811030000
+      },
+      {
+        "stream": 0,
+        "round": 10,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811010010,
+        "actual_pcg_seed": 2811030010
+      },
+      {
+        "stream": 0,
+        "round": 11,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811011000,
+        "actual_pcg_seed": 2811031000
+      },
+      {
+        "stream": 0,
+        "round": 11,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811011010,
+        "actual_pcg_seed": 2811031010
+      },
+      {
+        "stream": 0,
+        "round": 12,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811012000,
+        "actual_pcg_seed": 2811032000
+      },
+      {
+        "stream": 0,
+        "round": 12,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811012010,
+        "actual_pcg_seed": 2811032010
+      },
+      {
+        "stream": 0,
+        "round": 13,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811013000,
+        "actual_pcg_seed": 2811033000
+      },
+      {
+        "stream": 0,
+        "round": 13,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811013010,
+        "actual_pcg_seed": 2811033010
+      },
+      {
+        "stream": 0,
+        "round": 14,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811014000,
+        "actual_pcg_seed": 2811034000
+      },
+      {
+        "stream": 0,
+        "round": 14,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811014010,
+        "actual_pcg_seed": 2811034010
+      },
+      {
+        "stream": 0,
+        "round": 15,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811015000,
+        "actual_pcg_seed": 2811035000
+      },
+      {
+        "stream": 0,
+        "round": 15,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811015010,
+        "actual_pcg_seed": 2811035010
+      },
+      {
+        "stream": 0,
+        "round": 16,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811016000,
+        "actual_pcg_seed": 2811036000
+      },
+      {
+        "stream": 0,
+        "round": 16,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811016010,
+        "actual_pcg_seed": 2811036010
+      },
+      {
+        "stream": 0,
+        "round": 17,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811017000,
+        "actual_pcg_seed": 2811037000
+      },
+      {
+        "stream": 0,
+        "round": 17,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811017010,
+        "actual_pcg_seed": 2811037010
+      },
+      {
+        "stream": 0,
+        "round": 18,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811018000,
+        "actual_pcg_seed": 2811038000
+      },
+      {
+        "stream": 0,
+        "round": 18,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811018010,
+        "actual_pcg_seed": 2811038010
+      },
+      {
+        "stream": 0,
+        "round": 19,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811019000,
+        "actual_pcg_seed": 2811039000
+      },
+      {
+        "stream": 0,
+        "round": 19,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811019010,
+        "actual_pcg_seed": 2811039010
+      },
+      {
+        "stream": 0,
+        "round": 20,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2811020000,
+        "actual_pcg_seed": 2811040000
+      },
+      {
+        "stream": 0,
+        "round": 20,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2811020010,
+        "actual_pcg_seed": 2811040010
+      },
+      {
+        "stream": 1,
+        "round": 0,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812000000,
+        "actual_pcg_seed": 2812020000
+      },
+      {
+        "stream": 1,
+        "round": 0,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812000010,
+        "actual_pcg_seed": 2812020010
+      },
+      {
+        "stream": 1,
+        "round": 1,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812001000,
+        "actual_pcg_seed": 2812021000
+      },
+      {
+        "stream": 1,
+        "round": 1,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812001010,
+        "actual_pcg_seed": 2812021010
+      },
+      {
+        "stream": 1,
+        "round": 2,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812002000,
+        "actual_pcg_seed": 2812022000
+      },
+      {
+        "stream": 1,
+        "round": 2,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812002010,
+        "actual_pcg_seed": 2812022010
+      },
+      {
+        "stream": 1,
+        "round": 3,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812003000,
+        "actual_pcg_seed": 2812023000
+      },
+      {
+        "stream": 1,
+        "round": 3,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812003010,
+        "actual_pcg_seed": 2812023010
+      },
+      {
+        "stream": 1,
+        "round": 4,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812004000,
+        "actual_pcg_seed": 2812024000
+      },
+      {
+        "stream": 1,
+        "round": 4,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812004010,
+        "actual_pcg_seed": 2812024010
+      },
+      {
+        "stream": 1,
+        "round": 5,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812005000,
+        "actual_pcg_seed": 2812025000
+      },
+      {
+        "stream": 1,
+        "round": 5,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812005010,
+        "actual_pcg_seed": 2812025010
+      },
+      {
+        "stream": 1,
+        "round": 6,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812006000,
+        "actual_pcg_seed": 2812026000
+      },
+      {
+        "stream": 1,
+        "round": 6,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812006010,
+        "actual_pcg_seed": 2812026010
+      },
+      {
+        "stream": 1,
+        "round": 7,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812007000,
+        "actual_pcg_seed": 2812027000
+      },
+      {
+        "stream": 1,
+        "round": 7,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812007010,
+        "actual_pcg_seed": 2812027010
+      },
+      {
+        "stream": 1,
+        "round": 8,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812008000,
+        "actual_pcg_seed": 2812028000
+      },
+      {
+        "stream": 1,
+        "round": 8,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812008010,
+        "actual_pcg_seed": 2812028010
+      },
+      {
+        "stream": 1,
+        "round": 9,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812009000,
+        "actual_pcg_seed": 2812029000
+      },
+      {
+        "stream": 1,
+        "round": 9,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812009010,
+        "actual_pcg_seed": 2812029010
+      },
+      {
+        "stream": 1,
+        "round": 10,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812010000,
+        "actual_pcg_seed": 2812030000
+      },
+      {
+        "stream": 1,
+        "round": 10,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812010010,
+        "actual_pcg_seed": 2812030010
+      },
+      {
+        "stream": 1,
+        "round": 11,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812011000,
+        "actual_pcg_seed": 2812031000
+      },
+      {
+        "stream": 1,
+        "round": 11,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812011010,
+        "actual_pcg_seed": 2812031010
+      },
+      {
+        "stream": 1,
+        "round": 12,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812012000,
+        "actual_pcg_seed": 2812032000
+      },
+      {
+        "stream": 1,
+        "round": 12,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812012010,
+        "actual_pcg_seed": 2812032010
+      },
+      {
+        "stream": 1,
+        "round": 13,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812013000,
+        "actual_pcg_seed": 2812033000
+      },
+      {
+        "stream": 1,
+        "round": 13,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812013010,
+        "actual_pcg_seed": 2812033010
+      },
+      {
+        "stream": 1,
+        "round": 14,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812014000,
+        "actual_pcg_seed": 2812034000
+      },
+      {
+        "stream": 1,
+        "round": 14,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812014010,
+        "actual_pcg_seed": 2812034010
+      },
+      {
+        "stream": 1,
+        "round": 15,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812015000,
+        "actual_pcg_seed": 2812035000
+      },
+      {
+        "stream": 1,
+        "round": 15,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812015010,
+        "actual_pcg_seed": 2812035010
+      },
+      {
+        "stream": 1,
+        "round": 16,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812016000,
+        "actual_pcg_seed": 2812036000
+      },
+      {
+        "stream": 1,
+        "round": 16,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812016010,
+        "actual_pcg_seed": 2812036010
+      },
+      {
+        "stream": 1,
+        "round": 17,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812017000,
+        "actual_pcg_seed": 2812037000
+      },
+      {
+        "stream": 1,
+        "round": 17,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812017010,
+        "actual_pcg_seed": 2812037010
+      },
+      {
+        "stream": 1,
+        "round": 18,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812018000,
+        "actual_pcg_seed": 2812038000
+      },
+      {
+        "stream": 1,
+        "round": 18,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812018010,
+        "actual_pcg_seed": 2812038010
+      },
+      {
+        "stream": 1,
+        "round": 19,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812019000,
+        "actual_pcg_seed": 2812039000
+      },
+      {
+        "stream": 1,
+        "round": 19,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812019010,
+        "actual_pcg_seed": 2812039010
+      },
+      {
+        "stream": 1,
+        "round": 20,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2812020000,
+        "actual_pcg_seed": 2812040000
+      },
+      {
+        "stream": 1,
+        "round": 20,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2812020010,
+        "actual_pcg_seed": 2812040010
+      },
+      {
+        "stream": 2,
+        "round": 0,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813000000,
+        "actual_pcg_seed": 2813020000
+      },
+      {
+        "stream": 2,
+        "round": 0,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813000010,
+        "actual_pcg_seed": 2813020010
+      },
+      {
+        "stream": 2,
+        "round": 1,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813001000,
+        "actual_pcg_seed": 2813021000
+      },
+      {
+        "stream": 2,
+        "round": 1,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813001010,
+        "actual_pcg_seed": 2813021010
+      },
+      {
+        "stream": 2,
+        "round": 2,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813002000,
+        "actual_pcg_seed": 2813022000
+      },
+      {
+        "stream": 2,
+        "round": 2,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813002010,
+        "actual_pcg_seed": 2813022010
+      },
+      {
+        "stream": 2,
+        "round": 3,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813003000,
+        "actual_pcg_seed": 2813023000
+      },
+      {
+        "stream": 2,
+        "round": 3,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813003010,
+        "actual_pcg_seed": 2813023010
+      },
+      {
+        "stream": 2,
+        "round": 4,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813004000,
+        "actual_pcg_seed": 2813024000
+      },
+      {
+        "stream": 2,
+        "round": 4,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813004010,
+        "actual_pcg_seed": 2813024010
+      },
+      {
+        "stream": 2,
+        "round": 5,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813005000,
+        "actual_pcg_seed": 2813025000
+      },
+      {
+        "stream": 2,
+        "round": 5,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813005010,
+        "actual_pcg_seed": 2813025010
+      },
+      {
+        "stream": 2,
+        "round": 6,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813006000,
+        "actual_pcg_seed": 2813026000
+      },
+      {
+        "stream": 2,
+        "round": 6,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813006010,
+        "actual_pcg_seed": 2813026010
+      },
+      {
+        "stream": 2,
+        "round": 7,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813007000,
+        "actual_pcg_seed": 2813027000
+      },
+      {
+        "stream": 2,
+        "round": 7,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813007010,
+        "actual_pcg_seed": 2813027010
+      },
+      {
+        "stream": 2,
+        "round": 8,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813008000,
+        "actual_pcg_seed": 2813028000
+      },
+      {
+        "stream": 2,
+        "round": 8,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813008010,
+        "actual_pcg_seed": 2813028010
+      },
+      {
+        "stream": 2,
+        "round": 9,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813009000,
+        "actual_pcg_seed": 2813029000
+      },
+      {
+        "stream": 2,
+        "round": 9,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813009010,
+        "actual_pcg_seed": 2813029010
+      },
+      {
+        "stream": 2,
+        "round": 10,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813010000,
+        "actual_pcg_seed": 2813030000
+      },
+      {
+        "stream": 2,
+        "round": 10,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813010010,
+        "actual_pcg_seed": 2813030010
+      },
+      {
+        "stream": 2,
+        "round": 11,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813011000,
+        "actual_pcg_seed": 2813031000
+      },
+      {
+        "stream": 2,
+        "round": 11,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813011010,
+        "actual_pcg_seed": 2813031010
+      },
+      {
+        "stream": 2,
+        "round": 12,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813012000,
+        "actual_pcg_seed": 2813032000
+      },
+      {
+        "stream": 2,
+        "round": 12,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813012010,
+        "actual_pcg_seed": 2813032010
+      },
+      {
+        "stream": 2,
+        "round": 13,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813013000,
+        "actual_pcg_seed": 2813033000
+      },
+      {
+        "stream": 2,
+        "round": 13,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813013010,
+        "actual_pcg_seed": 2813033010
+      },
+      {
+        "stream": 2,
+        "round": 14,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813014000,
+        "actual_pcg_seed": 2813034000
+      },
+      {
+        "stream": 2,
+        "round": 14,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813014010,
+        "actual_pcg_seed": 2813034010
+      },
+      {
+        "stream": 2,
+        "round": 15,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813015000,
+        "actual_pcg_seed": 2813035000
+      },
+      {
+        "stream": 2,
+        "round": 15,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813015010,
+        "actual_pcg_seed": 2813035010
+      },
+      {
+        "stream": 2,
+        "round": 16,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813016000,
+        "actual_pcg_seed": 2813036000
+      },
+      {
+        "stream": 2,
+        "round": 16,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813016010,
+        "actual_pcg_seed": 2813036010
+      },
+      {
+        "stream": 2,
+        "round": 17,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813017000,
+        "actual_pcg_seed": 2813037000
+      },
+      {
+        "stream": 2,
+        "round": 17,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813017010,
+        "actual_pcg_seed": 2813037010
+      },
+      {
+        "stream": 2,
+        "round": 18,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813018000,
+        "actual_pcg_seed": 2813038000
+      },
+      {
+        "stream": 2,
+        "round": 18,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813018010,
+        "actual_pcg_seed": 2813038010
+      },
+      {
+        "stream": 2,
+        "round": 19,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813019000,
+        "actual_pcg_seed": 2813039000
+      },
+      {
+        "stream": 2,
+        "round": 19,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813019010,
+        "actual_pcg_seed": 2813039010
+      },
+      {
+        "stream": 2,
+        "round": 20,
+        "anchor_index": 0,
+        "anchor_step": 0,
+        "argument": 2813020000,
+        "actual_pcg_seed": 2813040000
+      },
+      {
+        "stream": 2,
+        "round": 20,
+        "anchor_index": 1,
+        "anchor_step": 100,
+        "argument": 2813020010,
+        "actual_pcg_seed": 2813040010
+      }
+    ],
+    "roster_sha256": "ec45d97b3dd502d4eeec3fccb6b1ac9016f2cfc4ff5e6b8bbea79d1373d4d48f"
+  },
+  "criteria": {
+    "early_rounds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "late_rounds": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "minimum_joint_streams": 2,
+    "same_streams_required": true,
+    "teacher_gap": {
+      "phase": "Post-fit reconstruction on retained teacher trajectories",
+      "aggregation": "Equal-trajectory mean of each trajectory RMS L2 action residual",
+      "minimum_relative_contraction": 0.2,
+      "maximum_late_ratio_to_independent": 0.9
+    },
+    "student_gap": {
+      "anchors": [
+        0,
+        100
+      ],
+      "each_anchor_required": true,
+      "aggregation": "Perstream,peranchor means overfixed early/late round windows",
+      "minimum_relative_contraction": 0.2,
+      "maximum_late_ratio_to_independent": 0.9,
+      "qualification": "Every fixed anchor is available and query-walking-qualified in both arms throughout both windows; no improvement by censoring or subset selection.",
+      "missing_or_unqualified": "UNRESOLVED; never passed or zero."
+    },
+    "teacher_competence": {
+      "retained_walking_nonregression_all_streams": true,
+      "maximum_late_aggregate_cost_ratio_to_initial": 1.1,
+      "raw_best_minimum_walking_rounds_per_path_in_late_window": 4,
+      "raw_best_window_rounds": 5,
+      "raw_best_minimum_streams": 2
+    },
+    "walking": {
+      "minimum_additional_successes": 2,
+      "minimum_streams": 2,
+      "comparators": [
+        "independent child",
+        "same-stream frozen incoming parent"
+      ],
+      "primary_and_confirmation_required": true,
+      "any_stream_walking_or_full_survival_regression_forbidden": true
+    },
+    "individual_competence": {
+      "minimum_primary_walking": 15,
+      "minimum_confirmation_walking": 15,
+      "episodes_per_panel": 16,
+      "scope": "Per individual policy, separately reported"
+    },
+    "undefined_denominators": "A gap denominator<=1e-12 makes its percentage criterion UNRESOLVED; no artificial epsilon pass.",
+    "verdicts": [
+      "HELPED_FINITE_ALTERNATING_LOOP",
+      "PARTIAL_WALKING_GAIN_WITH_UNRESOLVED_GAP",
+      "PARTIAL_WALKING_GAIN_GAP_NOT_CLOSED",
+      "GAP_ONLY_IMPROVEMENT",
+      "NO_CONFIRMED_HELP",
+      "INCOMPLETE_STOPPED"
+    ],
+    "full_project_success": false,
+    "broader_requirements_not_tested": [
+      "equal-compute plain cloning",
+      "equal-compute DAgger",
+      "matched paper noise/joint ablations",
+      "second body without retuning"
+    ],
+    "same_streams_required_components": [
+      "teacher_gap",
+      "both_qualified_student_query_anchors",
+      "raw_teacher_competence",
+      "walking_vs_control_and_parent_on_primary_and_confirmation"
+    ],
+    "retention_interpretation": "Report survival and controls descriptively; longer survival without walking is retention improvement, never competent walking."
+  },
+  "resources": {
+    "host": "robopil5090",
+    "device": "cpu",
+    "gpu_allowed": false,
+    "native_workers": 4,
+    "native_threads_per_worker": 8,
+    "blas_threads": 1,
+    "torch_threads": 1,
+    "coordinator_threads": 1,
+    "maximum_runnable_thread_description": "Up to32 native rollout threads plus one coordinator; worker main threads mostly blocked during native calls; measureactualCPU",
+    "aggregate_ram_bytes": 34359738368,
+    "worker_ram_bytes": 6442450944,
+    "coordinator_ram_bytes": 4294967296,
+    "cpu_capacity": "Require fresh capacity clearance before launch; preserve other workspaces and do not compete with existing experiments.",
+    "runtime": {
+      "python": "3.11.16",
+      "numpy": "2.4.3",
+      "scipy": "1.17.1",
+      "mujoco": "3.6.0",
+      "torch": "2.10.0+cpu",
+      "h5py": "3.16.0",
+      "use_warp": false,
+      "deterministic": true
+    }
+  },
+  "limits": {
+    "execution_wall_seconds": 86400,
+    "audit_wall_seconds": 7200,
+    "pool_wall_seconds": 93600,
+    "cpu_seconds": 2851200,
+    "worker_cpu_seconds": 2764800,
+    "coordinator_cpu_seconds": 86400,
+    "gpu_seconds": 0,
+    "output_bytes": 68719476736,
+    "execution_output_bytes": 60129542144,
+    "audit_output_bytes": 8589934592,
+    "model_controls": 8000000000,
+    "native_controls": 4000000,
+    "physics_substeps": 32016000000,
+    "study_optimizer_steps": 12000,
+    "prerequisite_optimizer_steps": 8,
+    "optimizer_steps": 12008,
+    "study_backward_rows": 3072000,
+    "prerequisite_backward_rows": 2048,
+    "backward_rows": 3074048,
+    "neural_rows": 4000000000,
+    "audit_numpy_head_rows": 140000000,
+    "audit_model_controls": 0,
+    "audit_native_controls": 0,
+    "audit_physics_substeps": 0,
+    "audit_backward_rows": 0,
+    "audit_optimizer_steps": 0
+  },
+  "prerequisites": {
+    "source_input_binding": true,
+    "complete_context_restore": "State,warmstart,integration byte-exact; dimensions9/9/6; mjSTATE_INTEGRATION vector width91, enum resolved from pinnednativeversion",
+    "pre_action_indexing": true,
+    "no_shift_full_sequence": true,
+    "score_calculation": true,
+    "zero_residual_native_reproduction": true,
+    "checkpoint_adam_rng_continuation": true,
+    "fall_accounting": true,
+    "budget_enforcement": true,
+    "wall_seconds": 600,
+    "model_controls": 2000000,
+    "native_controls": 2500,
+    "synthetic_optimizer_steps": 8,
+    "synthetic_backward_rows": 2048,
+    "output_bytes": 536870912,
+    "stop_if_any_fails": true,
+    "action_function_parity_atol": 1e-06
+  },
+  "storage": {
+    "all_source_and_inputs": "Create-only source export and input manifest before launch; keep raw arrays and checkpoints outside Git.",
+    "acquisition_full_bank_iterations": [
+      0,
+      49,
+      99
+    ],
+    "acquisition_full_bank_count": 720,
+    "acquisition_bank_raw_state_action_bytes": 36864000000,
+    "query_full_banks": false,
+    "every_iteration": [
+      "nominal states with a valid-prefix mask",
+      "physical nominal U",
+      "private RNG prestate",
+      "noise scale",
+      "per-candidate native C",
+      "per-candidate D and availability mask",
+      "per-candidate total J",
+      "weights",
+      "temperature, ESS and maximum weight",
+      "first-fall index/prefix length",
+      "task-component statistics",
+      "weighted proposal"
+    ],
+    "selected_traces": [
+      "N+1physicalstates",
+      "warmstarts",
+      "integrationcontexts",
+      "terminalcontext",
+      "costs",
+      "actions",
+      "pre-actionobservations",
+      "source/policybindings"
+    ],
+    "contact_data": "Preserve contacts if already available; the fixed task cost does not need them and no extra environment component is added.",
+    "model_postfall": "Computed unused model output may be retained with an explicit prefix mask. Do not fabricate or use post-fall execution observations for D, training or plots.",
+    "temporary_files": "Count temporary atomic-write bytes in the global output cap.",
+    "failure_preservation": "Preserve all paid attempts, unknown partial work, rejected best proposals and admission reasons."
+  },
+  "audit": {
+    "wall_seconds": 7200,
+    "memory_bytes": 34359738368,
+    "output_bytes": 8589934592,
+    "numpy_head_rows": 140000000,
+    "scope": "Independently recompute all nominal C/D/J, native C on all720 saved full acquisition banks, D only on coupled saved full banks, and source/input/checkpoint/fit/RNG/outcome/accounting joins.",
+    "unmeasured_independent_population_D": "Missingasdeclared; notretroactivelyrequiredfromallbanks",
+    "physics_native_controls": 0,
+    "physics_model_controls": 0,
+    "gradients": 0,
+    "optimizer_updates": 0,
+    "coverage": "Sparse full-bank state evidence is not exhaustive equivalence of all candidate physics. Query populations are not fully saved. Declare audit coverage and limits in the verdict."
+  },
+  "census": {
+    "acquisition_solves": 240,
+    "acquisition_PI_passes": 24000,
+    "query_solves_maximum": 252,
+    "query_PI_passes_maximum": 6300,
+    "PI_passes_maximum": 30300,
+    "refinement_model_controls_maximum": 7756800000,
+    "final_mean_single_trajectory_rollouts": 492,
+    "final_mean_model_controls": 492000,
+    "initial_input_validation_model_controls": 2000,
+    "prerequisite_model_controls_maximum": 2000000,
+    "planned_model_controls_maximum": 7759294000,
+    "fit_blocks": 120,
+    "new_optimizer_steps": 12000,
+    "new_backward_rows": 3072000,
+    "training_rows_per_block": 2000,
+    "primary_parent_shared_r0_episodes": 48,
+    "primary_child_round1_to20_episodes": 1920,
+    "primary_parent_round1_to20_episodes": 960,
+    "confirmation_child_episodes": 96,
+    "confirmation_parent_episodes": 48,
+    "actor_episodes": 3072,
+    "actor_native_controls_maximum": 3072000,
+    "selected_teacher_native_controls_maximum": 240000,
+    "selected_query_native_controls_maximum": 252000,
+    "native_controls_before_input_prerequisites_maximum": 3564000,
+    "acquisition_population_neural_rows_coupled_maximum": 3072000000,
+    "query_population_neural_rows_coupled_maximum": 806400000,
+    "all_nominal_neural_rows_maximum": 30300000
+  },
+  "stopping": "Execute exactly20 alternating rounds and fixed100/25 refinement budgets. Do not stop for one unsuccessful fit, poor walking result or flat curve. Stop on source, input, context, shape, numerical, continuation, evidence, resource or budget failure and preserve paid work. No replacement seeds, retries, parent refits, new teachers, adaptive alpha, other interventions or automatic follow-ups. Settling is a diagnostic and authorizes no extra iterations.",
+  "claim_scope": "Finite fixed-score versus alpha0 alternating contrast with two fixed source paths and three paired parent streams. I25 teacher queries approximate a lower-budget study operator; direct policy pull can mechanically reduce their gap. Walking, teacher competence and query qualification remain necessary. Frozen parent baselines are not compute-matched plain cloning. No broad CIO reproduction or project-success claim.",
+  "bindings": {
+    "prepared_manifest": null,
+    "source_manifest": null,
+    "prerequisite_receipt": null,
+    "capacity_receipt": null,
+    "seed_namespace_receipt": null,
+    "protocol_review_receipt": null,
+    "machine_inputs": "The outer launch binds actual prepared/source/config/protocol hashes; avoid self-referential configuration manifests."
+  },
+  "input_mode": "worker-native",
+  "lineage": {
+    "original_version": "P1.0",
+    "preserve_original_failed_run": true,
+    "scientific_settings": "All original arms,parents,normalization,planner,learner,seeds,horizons,rounds,evaluations,criteria and resource ceilings are inherited unchanged. Only input/runtime provenance and prerequisite phase accounting are extended.",
+    "previous_config": {
+      "bytes": 72463,
+      "sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f"
+    },
+    "previous_prepared_manifest": {
+      "bytes": 5319,
+      "sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783"
+    },
+    "parent_stream_files": {
+      "source": "Existing P1.0 prepared streams; outer manifest resolves machine-specific locations.",
+      "files": [
+        {
+          "stream": 0,
+          "filename": "global_rng.pt",
+          "bytes": 14249,
+          "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+        },
+        {
+          "stream": 0,
+          "filename": "policy.pt",
+          "bytes": 330426,
+          "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+        },
+        {
+          "stream": 0,
+          "filename": "stream.json",
+          "bytes": 1545,
+          "sha256": "edf92c7d37cb30ed841000f30a7f352da4e9f7e70f833f7a2fb622265dde4d6c"
+        },
+        {
+          "stream": 1,
+          "filename": "global_rng.pt",
+          "bytes": 14377,
+          "sha256": "6fa725263fbf52dee3fb2d8f73d5f674774eb1568dab88b42cd7b93abc468630"
+        },
+        {
+          "stream": 1,
+          "filename": "policy.pt",
+          "bytes": 330426,
+          "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050"
+        },
+        {
+          "stream": 1,
+          "filename": "stream.json",
+          "bytes": 1545,
+          "sha256": "b07b24a09315f401f4549de2498c35d67e5d5bd60fcc714a6e1782601492dcc7"
+        },
+        {
+          "stream": 2,
+          "filename": "global_rng.pt",
+          "bytes": 14313,
+          "sha256": "3fdf23c0a6aea99ba3a68c9bc80927e478b1af83ac9b10477d2f938252d5ead7"
+        },
+        {
+          "stream": 2,
+          "filename": "policy.pt",
+          "bytes": 330426,
+          "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e"
+        },
+        {
+          "stream": 2,
+          "filename": "stream.json",
+          "bytes": 1545,
+          "sha256": "468154c9fd357c9fb6ea28a7bde201dee2077be961d9315747d3a5a36ea82572"
+        }
+      ],
+      "copy_exact_bytes": true,
+      "refreeze_or_reseed": false,
+      "rewrite_metadata": false
+    },
+    "origin_replay": {
+      "version": "R0.1",
+      "required_result_status": "ORIGIN_REPLAY_PASS",
+      "required_audit_status": "PASS_SAVED_EVIDENCE",
+      "required_audit_passed": true,
+      "bindings": {
+        "result": {
+          "bytes": 4970,
+          "sha256": "a83b4fb53a97fe2074525d9e4f1ffa0798acf5787ec292a85805b0712d10ade4"
+        },
+        "audit_receipt": {
+          "bytes": 471,
+          "sha256": "54bec2ce7c39b342728fa6ca65e4471e4a4a2b1e4205ebc674fd09df9a1e09ef"
+        },
+        "audit_findings": {
+          "bytes": 16850,
+          "sha256": "67383e2d146b09f4637edbd69c2ce461aa281712050ebe150c0cafd1eb80ba53"
+        },
+        "external_summary": {
+          "bytes": 2670,
+          "sha256": "407cfff5ad53dd9f828bfd40c1ff798709c396bc0bb24c287080c14fa6cbcff6"
+        }
+      },
+      "paths_via_outer_launch": true
+    }
+  },
+  "input_changes": {
+    "schema": "trajectory-pi-native-baselines-1",
+    "configuration": "configs/studies/trajectory_pi_native_baselines_p1_1.json",
+    "manifest_via_outer_launch": true,
+    "original_context_and_controls": "Original H4 slot0/1 initial state,warmstart,integration and all float64 actions remain byte-identical; no new teacher optimization.",
+    "state_and_cost_source": "Two separately qualified worker-native capture traces; original macOS trajectories remain original evidence and diagnostics.",
+    "admission_cost_reference": "Each source slot worker-native capture complete cost is the immutable initial C used by the unchanged1.2 proposal-admission and1.1 late-cost-ratio gates; original macOS cost is reported separately.",
+    "prepared_observations": "Store Npre-action observations for Ncontrols alongside N+1states,warmstarts,integrations; terminal context remains retained.",
+    "all_three_native_executions": "RV capture, RV repeat, then all-eight-check P0 replay from the exact serialized prepared input. Extra2000 P0native controls are explicitly authorized and charged; no reuse-only shortcut.",
+    "replace_failed_slots": false,
+    "change_control_sequences": false,
+    "manifest_location": "prepared.validation_manifest",
+    "validation_result_schema": "trajectory-pi-native-validation-1",
+    "validation_result_status": "PASS",
+    "source_prepared_lineage": "Validation proof supplies previous_config and previous_prepared_manifest bindings; preserve original inputs and nine parent stream files unchanged."
+  },
+  "antecedent_census": {
+    "origin_native_controls": 1000,
+    "origin_model_controls": 0,
+    "origin_physics_substeps": 4000,
+    "native_validation_capture_controls": 2000,
+    "native_validation_repeat_controls": 2000,
+    "native_validation_native_controls": 4000,
+    "native_validation_model_controls": 2000,
+    "native_validation_physics_substeps": 24000,
+    "prepared_input_preflight_replay_controls": 2000,
+    "remaining_preflight_native_controls": 16,
+    "preflight_native_controls_planned": 2016,
+    "preflight_native_controls_ceiling": 2500,
+    "preflight_model_controls_planned": 1024016,
+    "preflight_model_controls_ceiling": 2000000,
+    "preflight_physics_substeps_planned": 4104128,
+    "study_native_controls_maximum": 3564000,
+    "study_model_controls_maximum": 7757292000,
+    "planned_total_native_controls": 3571016,
+    "planned_total_model_controls": 7758318016,
+    "planned_total_physics_substeps": 31047556128,
+    "total_native_controls_with_full_preflight_allowance": 3571500,
+    "total_model_controls_with_full_preflight_allowance": 7759294000,
+    "total_physics_substeps_with_full_preflight_allowance": 31051462000,
+    "initial_input_validation_model_allowance_is_native_validation_forecasts": true,
+    "duplicate_native_validation_forecasts_outside_this_census": false,
+    "complete_phase_accounting": {
+      "global_limits_unchanged": true,
+      "scope": "All new R0.1,worker-native revalidation,all-eight-check P0,alternating study and independent audit work; prior P1.0 failure remains historical separately reported cost.",
+      "wall": "Cumulative nonoverlapping paid phase elapsed wall seconds,including external-supervisor overhead. Reserve7200 auditseconds inside93600 total; before main subtract paid prerequisite wall from86400 execution allowance. Idle engineering chronology is reported separately.",
+      "cpu": "Charge actual complete process-tree CPU for origin/revalidation/preflight to unchanged2851200 total CPU seconds; reduce remaining worker/coordinator allowances before main.",
+      "output": "Charge all newly produced source/prepared/transfer/phase/audit output once under64GiB; deduct prerequisite and preparation bytes from56GiB execution allowance,retaining8GiB audit reserve.",
+      "import": "Import durable phase ledger receipts once each; never hide the second native validation replay or third serialized-input replay. Unknown partial paid work remains charged.",
+      "prerequisite_limits": {
+        "origin_wall_seconds": 600,
+        "origin_output_bytes": 67108864,
+        "native_validation_wall_seconds": 600,
+        "native_validation_output_bytes": 67108864,
+        "preflight_wall_seconds": 600,
+        "preflight_output_bytes": 536870912
+      },
+      "budget_stop": "No retry,replacement input,tolerance relaxation,automatic extra iteration or follow-up on any failed phase or exhausted global reservation."
+    }
+  }
+}

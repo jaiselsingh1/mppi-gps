@@ -67,6 +67,17 @@ def main(argv: list[str] | None = None) -> int:
     )
     item.add_argument("--config", type=Path, required=True)
     item.add_argument("--out", type=Path, required=True)
+    item = commands.add_parser(
+        "prepare-native", help="copy audited worker-native inputs and exact parent streams"
+    )
+    item.add_argument("--config", type=Path, required=True)
+    item.add_argument("--out", type=Path, required=True)
+    item.add_argument("--validation-manifest", type=Path, required=True)
+    item.add_argument("--previous-prepared", type=Path, required=True)
+    item = commands.add_parser(
+        "native-baselines", help="one bounded capture/replay/candidate validation"
+    )
+    item.add_argument("--launch", type=Path, required=True)
     item = commands.add_parser("preflight", help="run the separately bounded prerequisite block")
     item.add_argument("--config", type=Path, required=True)
     item.add_argument("--prepared", type=Path, required=True)
@@ -99,6 +110,16 @@ def main(argv: list[str] | None = None) -> int:
         from ..trajectory_pi_inputs import prepare
 
         value = prepare(args.config, args.out)
+    elif args.command == "prepare-native":
+        from ..trajectory_pi_inputs import prepare_native
+
+        value = prepare_native(
+            args.config, args.out, args.validation_manifest, args.previous_prepared
+        )
+    elif args.command == "native-baselines":
+        from ..trajectory_pi_native_baselines import main as native_main
+
+        return native_main(["--launch", str(args.launch)])
     elif args.command == "preflight":
         from ..trajectory_pi_preflight import run_preflight
 

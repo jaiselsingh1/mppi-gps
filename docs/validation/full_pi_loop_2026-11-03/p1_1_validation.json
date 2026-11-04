@@ -1,0 +1,19 @@
+{
+  "schema": "trajectory-pi-p1-1-validation-1",
+  "full_suite": {
+    "passed": 2010,
+    "skipped": 3,
+    "xfailed": 1,
+    "wall_seconds": 138.59,
+    "scope": "Before final CLI six regressions and bare P0 counter preservation"
+  },
+  "final_targeted_suite": {
+    "passed": 145,
+    "wall_seconds": 3.36,
+    "scope": "All changed execution, input, accounting, audit and lazy CLI boundaries"
+  },
+  "ruff": "PASS src/gps/mppi_gps tests",
+  "recipe_invariance": "All P1.0 keys identical except version; new lineage/input/accounting top-level records",
+  "r0_capsule_hashes": "PASS",
+  "new_research_execution": "R0 only; native revalidation and main loop not yet executed"
+}

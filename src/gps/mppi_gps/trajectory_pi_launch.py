@@ -231,18 +231,23 @@ def run_phase(
 
 
 class Guard:
-    def __init__(self, base: Path, config: dict):
+    def __init__(self, base: Path, config: dict, *, antecedents: list[dict] | None = None):
         self.base, self.config = base, config
         self.started, self.own_cpu = time.monotonic(), time.process_time()
+        self.antecedents = antecedents or []
+        self.started -= sum(row["wall_seconds"] for row in self.antecedents)
+        self.antecedent_cpu = sum(row["cpu_seconds"] for row in self.antecedents)
         self.initial_cpu = tree_usage(os.getpid())["cpu_seconds"]
         self.peak = 0
         self.maximum_cpu = 0.0
         self.cpu_ceiling = config["limits"]["cpu_seconds"]
+        self.output_ceiling = config["limits"]["output_bytes"]
 
     def sample(self) -> dict:
         usage = tree_usage(os.getpid())
         self.maximum_cpu = max(self.maximum_cpu, usage["cpu_seconds"] - self.initial_cpu)
-        usage["cpu_seconds"] = self.maximum_cpu
+        usage["cpu_seconds"] = self.maximum_cpu + self.antecedent_cpu
+        usage["antecedents"] = self.antecedents
         self.peak = max(self.peak, usage["rss_bytes"])
         usage["peak_rss_bytes"] = self.peak
         return usage
@@ -260,8 +265,8 @@ class Guard:
             (
                 sum(path.stat().st_size for path in self.base.rglob("*") if path.is_file())
                 + 1024**2
-                <= limits["output_bytes"],
-                "total output",
+                <= self.output_ceiling,
+                "total output/closure reservation",
             ),
         )
         for passed, name in checks:
@@ -270,10 +275,60 @@ class Guard:
         return usage
 
 
-def supervise(base: Path) -> dict:
+def antecedent_usage(prepared: Path) -> list[dict]:
+    """Import closed active-phase resource receipts; never charge nested times twice."""
+    manifest = read(prepared / "manifest.json", {})
+    if manifest.get("input_mode") != "worker-native":
+        return []
+    from .trajectory_pi_replay_validation import bound
+
+    proof = read(bound(manifest["validation_manifest"]))
+    rows = []
+    for phase, seal in (
+        ("r0", proof["origin_replay"]["external_summary"]),
+        ("rv", proof["external_summary"]),
+    ):
+        value = read(bound(seal))
+        cpu = (
+            sum(value[key]["process_tree_cpu_seconds"] for key in ("replay", "audit"))
+            if phase == "r0"
+            else value["cpu_seconds"]
+        )
+        wall = value["wall_seconds"]
+        if not (0 <= cpu < float("inf") and 0 <= wall <= 600 and value["no_retries"] is True):
+            raise ValueError("Closed finite antecedent resource receipt required")
+        rows.append(
+            dict(
+                phase=phase,
+                receipt=seal,
+                wall_seconds=wall,
+                cpu_seconds=cpu,
+                scope="Paid active phases; source preparation/transfer engineering is separate",
+            )
+        )
+    return rows
+
+
+def supervise(
+    base: Path, *, config_relative: str = "configs/studies/trajectory_pi_p1.json"
+) -> dict:
     base = base.resolve()
     source, prepared = base / "source", base / "prepared"
-    config_path = source / "configs/studies/trajectory_pi_p1.json"
+    relative = Path(config_relative)
+    config_path = (source / relative).resolve()
+    if (
+        relative.is_absolute()
+        or str(relative) != config_relative
+        or ".." in relative.parts
+        or not config_path.is_relative_to(source)
+    ):
+        raise ValueError("Contained normalized source-relative configuration required")
+    source_manifest = read(base / "source_manifest.json", {})
+    declared = {row["path"]: row for row in source_manifest.get("files", [])}
+    if config_relative not in declared or {
+        key: binding(config_path)[key] for key in ("bytes", "sha256")
+    } != {key: declared[config_relative][key] for key in ("bytes", "sha256")}:
+        raise ValueError("Scientific configuration absent from frozen source roster")
     config = read(config_path)
     if config["schema"] != "trajectory-pi-p1-1" or config["launch_ready"] is not True:
         raise ValueError("Committed launch-ready configuration required")
@@ -295,7 +350,7 @@ def supervise(base: Path) -> dict:
     ):
         if (base / name).exists():
             raise FileExistsError("No supervision retries: " + str(base / name))
-    guard, phases = Guard(base, config), []
+    guard, phases = Guard(base, config, antecedents=antecedent_usage(prepared)), []
     seals = {
         key + "_sha256": sha(path)
         for key, path in dict(
@@ -323,6 +378,9 @@ def supervise(base: Path) -> dict:
         remaining = config["limits"]["pool_wall_seconds"] - (time.monotonic() - guard.started)
         reserved_closure = config["limits"]["audit_wall_seconds"] + 300 if name == "study" else 0
         guard.cpu_ceiling = config["limits"]["cpu_seconds"] - reserved_closure
+        guard.output_ceiling = config["limits"][
+            "execution_output_bytes" if name in {"preflight", "study"} else "output_bytes"
+        ]
         remaining -= reserved_closure
         journal(
             "phase_start",
@@ -528,8 +586,9 @@ def main(argv: list[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--config-relative", default="configs/studies/trajectory_pi_p1.json")
     args = parser.parse_args(argv)
-    return int(supervise(args.root)["status"] != "CLOSED")
+    return int(supervise(args.root, config_relative=args.config_relative)["status"] != "CLOSED")
 
 
 if __name__ == "__main__":

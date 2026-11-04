@@ -1,0 +1,44 @@
+{
+  "schema": "trajectory-pi-p1-1-origin-binding-smoke-1",
+  "status": "PASS_SAVED_ORIGIN_BINDING_JOIN_ONLY",
+  "configuration": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/trajectory_pi_p1_1.json",
+    "bytes": 80484,
+    "sha256": "4c26199f9c0bdf18d1057200feb010c5c8d7f417eda48224ee43e58940690089"
+  },
+  "canonical_keys": [
+    "result",
+    "audit_receipt",
+    "audit_findings",
+    "external_summary"
+  ],
+  "bindings": {
+    "result": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/result.json",
+      "bytes": 4970,
+      "sha256": "a83b4fb53a97fe2074525d9e4f1ffa0798acf5787ec292a85805b0712d10ade4"
+    },
+    "audit_receipt": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/audit/receipt.json",
+      "bytes": 471,
+      "sha256": "54bec2ce7c39b342728fa6ca65e4471e4a4a2b1e4205ebc674fd09df9a1e09ef"
+    },
+    "audit_findings": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/audit/findings.json",
+      "bytes": 16850,
+      "sha256": "67383e2d146b09f4637edbd69c2ce461aa281712050ebe150c0cafd1eb80ba53"
+    },
+    "external_summary": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_trajectory_pi_r0_1_001/external_summary.json",
+      "bytes": 2670,
+      "sha256": "407cfff5ad53dd9f828bfd40c1ff798709c396bc0bb24c287080c14fa6cbcff6"
+    }
+  },
+  "checks": 30,
+  "new_native_controls": 0,
+  "new_model_controls": 0,
+  "new_neural_rows": 0,
+  "new_gradients": 0,
+  "new_optimizer_updates": 0,
+  "scope": "Read-only join of actual preserved R0 result/audit/findings/external-summary to the actual P1.1 configuration. No RV audit, physics, fitting or loop execution."
+}
