@@ -1,0 +1,115 @@
+{
+  "schema": "walker-abc-shared-inputs-1",
+  "diagnostic_owner_branch": "codex/local-mppi-coupling-diagnosis",
+  "reviewer_branch": "codex/full-trajectory-pi",
+  "diagnostic_execution_commit": "56e9b046cbc86f046726b66b5e07d9741fef7eb3",
+  "verification_source_commit": "a2c9998",
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001/parent0.pt",
+    "bytes": 330426,
+    "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+  },
+  "actor_tensor_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+  "hash_contracts": "Checkpoint file SHA256 and actor tensor hash are distinct contracts.",
+  "student_episode": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001/stream_0/r00_zero/eval_4130000000.npz",
+    "bytes": 151118,
+    "sha256": "5db399e3a49545cb720582667bc1fe40cea53bba05dcc17e0889defdf6b10ed6"
+  },
+  "restart_control_indices": [
+    1,
+    17,
+    34,
+    51,
+    67,
+    84,
+    101,
+    118
+  ],
+  "restart_complete_contexts": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/restarts.npz",
+    "bytes": 12198,
+    "sha256": "5a82fe05d980ae37346c521c4cc708138dc1feab6a969cff3b4668ac6dd01bf3"
+  },
+  "source_episode_controls": 236,
+  "source_groups": 1,
+  "mppi_config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/configs/walker2d_best.json",
+    "bytes": 226,
+    "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6"
+  },
+  "task_config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/configs/walker2d_task.json",
+    "bytes": 314,
+    "sha256": "546f6902405daaddb37fb9c458d77fb5159234d1218ec73abf9a625ec9f8f27a"
+  },
+  "model_xml": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/assets/walker2d.xml",
+    "bytes": 4950,
+    "sha256": "4f33bf5069a0bf65056871ab4579f09c62696e7f46c3af6936efedacc572d590"
+  },
+  "initialization": "Zero48x6 plan per restart/arm; no teacher tape/policy centering; standard shift after actual controls (none executed).",
+  "randomness": "Private planner seed4510000000+restart; paired across arms; no multi-arm trajectories executed.",
+  "policy": "Existing bounded Torch Policy.predict, native clipped17 pre-action features, unchanged W2 normalization/architecture.",
+  "declared_runtime": {
+    "mujoco": "3.6.0",
+    "native_threads": 4,
+    "torch_intra_threads": 1,
+    "torch_inter_threads": 1
+  },
+  "runtime_provenance_scope": "Owner confirms interpreter command is in its chat launch record. Runtime versions/threads are declared in frozen protocol; no new execution-time environment or native binary/model receipt exists. Earlier six-round/R0/P1.1 environment receipts apply only to their own runs.",
+  "alpha": {
+    "zero": 0,
+    "weak": 0.12,
+    "larger_pre_B": 3.4744413290249314,
+    "selection": "0.5 std(C)/std(D) on one common calibration bank, not fitted outcomes",
+    "larger_executed": false
+  },
+  "evidence_locations": {
+    "attempt001": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_001",
+    "attempt002": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002",
+    "native_all256": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_calibration_audit_001",
+    "independent_saved_review": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/docs/validation/full_pi_abc_coordination_2026-11-03/saved_review_002"
+  },
+  "files": {
+    "input_bindings": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/configs/studies/local_coupling_inputs.json",
+      "bytes": 1013,
+      "sha256": "61b52471ab0c342c96bf320caa84e0458c6978a13be97e6e9d1b784fab3dbe23"
+    },
+    "frozen_input_roster": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/input_bindings.json",
+      "bytes": 600,
+      "sha256": "b6584439f71885b809d00e0a5f1b303e4941b83a98afa07993e28b5156dea9af"
+    },
+    "calibration": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/calibration.json",
+      "bytes": 247,
+      "sha256": "d6d00e1d3dde236555b898271660bc2579df36c339b59c414c104729cb20dc2b"
+    },
+    "part_b": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_coupling_diagnosis_002/part_b.json",
+      "bytes": 277,
+      "sha256": "9143d70f5ff71b4d0bfc915cd3523e1aefc960ace3d066c3b8f26884f80348b2"
+    },
+    "native_audit": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_calibration_audit_001/audit.json",
+      "bytes": 248,
+      "sha256": "6902727e4fae89d983d699cac9a8b7c89edb7ab0c5f7fe2461692f1f1c1798b5"
+    },
+    "native_reductions": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/runs/2026-11-03_local_calibration_audit_001/native_reductions.npz",
+      "bytes": 5080,
+      "sha256": "c3dba41b5642b9885201ff5372746b897ce0d947330a127d05e92d718c28a140"
+    },
+    "shared_budget_start": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/artifacts/local_coupling_diagnosis_2026-11-03/budget_start.json",
+      "bytes": 526,
+      "sha256": "e99ea45633876212828c506ce31e26400976dbb0f0495a1c247b02b9a200c518"
+    }
+  },
+  "actual_interpreter_command": "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+  "calibrated_restart_index": 0,
+  "calibrated_source_control_index": 1,
+  "other_restart_contexts": "Bound/selected only; no controller episodes or later restart comparisons executed."
+}

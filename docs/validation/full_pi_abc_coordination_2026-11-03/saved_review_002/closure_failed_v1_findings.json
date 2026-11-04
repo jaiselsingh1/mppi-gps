@@ -1,0 +1,892 @@
+{
+  "schema": "independent-local-coupling-closure-1",
+  "passed": false,
+  "checks": [
+    {
+      "name": "input_size_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "input_hash_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "runtime_input_binding_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "input_size_student_episode",
+      "passed": true
+    },
+    {
+      "name": "input_hash_student_episode",
+      "passed": true
+    },
+    {
+      "name": "runtime_input_binding_student_episode",
+      "passed": true
+    },
+    {
+      "name": "input_size_config",
+      "passed": true
+    },
+    {
+      "name": "input_hash_config",
+      "passed": true
+    },
+    {
+      "name": "runtime_input_binding_config",
+      "passed": true
+    },
+    {
+      "name": "input_size_task",
+      "passed": true
+    },
+    {
+      "name": "input_hash_task",
+      "passed": true
+    },
+    {
+      "name": "runtime_input_binding_task",
+      "passed": true
+    },
+    {
+      "name": "restart_indices",
+      "passed": true
+    },
+    {
+      "name": "protocol_restart_indices",
+      "passed": true
+    },
+    {
+      "name": "controls",
+      "passed": true
+    },
+    {
+      "name": "source_pre_action_observations",
+      "passed": true
+    },
+    {
+      "name": "restart_0_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_0_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_0_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_0_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_1_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_1_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_1_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_1_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_2_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_2_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_2_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_2_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_3_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_3_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_3_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_3_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_4_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_4_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_4_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_4_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_5_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_5_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_5_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_5_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_6_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_6_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_6_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_6_dimensions",
+      "passed": true
+    },
+    {
+      "name": "restart_7_state_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_7_warmstart_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_7_integration_bytes",
+      "passed": true
+    },
+    {
+      "name": "restart_7_dimensions",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_scripts/studies/local_coupling_diagnosis.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_src/mppi/mppi.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_src/gps/mppi_gps/policy.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_src/gps/mppi_gps/runtime.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_src/envs/walker2d.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_docs/local_coupling_protocol.md",
+      "passed": false
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_unique_request_1",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_matching_complete_1",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_unique_request_2",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_matching_complete_2",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_no_unclosed_requests",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_completed_counts",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_001_unknown_counts",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_1",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_1",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_2",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_2",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_3",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_3",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_4",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_4",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_5",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_5",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_6",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_6",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_7",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_7",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_8",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_8",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_9",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_9",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_10",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_10",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_11",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_11",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_12",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_12",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_13",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_13",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_14",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_14",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_15",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_15",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_16",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_16",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_17",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_17",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_18",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_18",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_19",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_19",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_20",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_20",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_21",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_21",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_22",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_22",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_23",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_23",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_24",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_24",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_25",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_25",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_26",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_26",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_27",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_27",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_28",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_28",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_29",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_29",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_30",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_30",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_31",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_31",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_32",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_32",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_33",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_33",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_34",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_34",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_35",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_35",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_36",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_36",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_37",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_37",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_38",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_38",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_39",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_39",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_40",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_40",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_41",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_41",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_42",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_42",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_43",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_43",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_44",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_44",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_45",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_45",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_46",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_46",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_47",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_47",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_48",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_48",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_49",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_49",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_50",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_50",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_51",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_51",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_52",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_52",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_53",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_53",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_54",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_54",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_55",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_55",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_56",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_56",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_57",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_57",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_58",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_58",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_59",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_59",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_60",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_60",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_61",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_61",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_62",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_62",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_63",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_63",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_64",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_64",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_65",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_65",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_66",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_66",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_67",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_67",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_68",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_68",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_69",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_69",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unique_request_70",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_matching_complete_70",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_no_unclosed_requests",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_completed_counts",
+      "passed": true
+    },
+    {
+      "name": "2026-11-03_local_coupling_diagnosis_002_unknown_counts",
+      "passed": true
+    },
+    {
+      "name": "001_before_physics_inference",
+      "passed": true
+    }
+  ],
+  "failures": [
+    "frozen_source_docs/local_coupling_protocol.md",
+    "TypeError(\"unsupported operand type(s) for -: 'dict' and 'dict'\")"
+  ],
+  "summary": {
+    "context_spec_values": [
+      16383,
+      16383,
+      16383,
+      16383,
+      16383,
+      16383,
+      16383,
+      16383
+    ],
+    "source_seals": {
+      "scripts/studies/local_coupling_diagnosis.py": {
+        "frozen_commit": "56e9b04",
+        "frozen_sha256": "f9866c86e36e271a44adc40a470e337e6d060f85610f6c851782cb81ad14914d",
+        "current": {
+          "bytes": 32960,
+          "sha256": "f9866c86e36e271a44adc40a470e337e6d060f85610f6c851782cb81ad14914d"
+        }
+      },
+      "src/mppi/mppi.py": {
+        "frozen_commit": "56e9b04",
+        "frozen_sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99",
+        "current": {
+          "bytes": 19384,
+          "sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99"
+        }
+      },
+      "src/gps/mppi_gps/policy.py": {
+        "frozen_commit": "56e9b04",
+        "frozen_sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc",
+        "current": {
+          "bytes": 27021,
+          "sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc"
+        }
+      },
+      "src/gps/mppi_gps/runtime.py": {
+        "frozen_commit": "56e9b04",
+        "frozen_sha256": "3f6a0308cfa5911c4146d39c81b7ca9a345a65e469d734ecabfba914318fc83d",
+        "current": {
+          "bytes": 27080,
+          "sha256": "3f6a0308cfa5911c4146d39c81b7ca9a345a65e469d734ecabfba914318fc83d"
+        }
+      },
+      "src/envs/walker2d.py": {
+        "frozen_commit": "56e9b04",
+        "frozen_sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6",
+        "current": {
+          "bytes": 9411,
+          "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6"
+        }
+      },
+      "docs/local_coupling_protocol.md": {
+        "frozen_commit": "56e9b04",
+        "frozen_sha256": "f770789918bcbf27cce547a2c6eb3cf3486b22bc5d38ae78f65165339ab2630a",
+        "current": {
+          "bytes": 10206,
+          "sha256": "6ef415e6f7efea7b2bef78fd3933786a6fdd48bf87b303d0670315c3735f0595"
+        }
+      }
+    }
+  }
+}

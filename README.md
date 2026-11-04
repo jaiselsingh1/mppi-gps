@@ -2,11 +2,13 @@
 
 The goal is a cheap standalone walking policy taught by competent MPPI search, with feedback from learning improving subsequent acquisition. The central open question is **pre-update teachability**: can a score predict what the student will execute after a fixed learning update?
 
-This branch implements the [fixed-alpha full-trajectory PI comparison](docs/trajectory_pi_p1_protocol.md), reusing the existing task-only prototype. Its [P1 execution stopped at the replay prerequisite](docs/trajectory_pi_p1_result.md): the ARM-origin teacher diverged on the Linux worker despite matching initial context and controls. No PI solve or learning round ran; the similarity hypothesis remains untested. Recurrence stays stopped.
+The current [A/B/C coordination note](docs/full_pi_abc_coordination.md) holds this branch's 20-round H1000 experiment regardless of CPU availability. Another branch completed a closely related six-round comparison: all 72 acquisitions retained their original tapes and neither arm walked. Its local H48 diagnostic is independently reviewed here; implementation and execution remain with that branch's owner. No new experiment is launched here.
+
+The original [P1 replay failure](docs/trajectory_pi_p1_result.md) remains preserved. [Origin-host and worker-native revalidation passed](docs/trajectory_pi_replay_resolution_result.md), producing separately bound native baselines for P1.1. Those results resolve its replay route, not the scientific similarity hypothesis. Its implementation and protocol remain intact. Recurrence stays stopped.
 
 Start with the [coordinated investigation map](docs/walker_coordination_review.md). MPPI-taught competent walking and beneficial coupling remain unestablished. [J1](docs/similarity_j1_results.md) lacked outcome variation for its protected prediction comparison. [J2](docs/jitter_diagnosis_j2_results.md) produced three competent clean-reference clones but stopped at its frozen qualification gate; its six-student post-fit association is exploratory. The `sac-continuation` prototypes and their missing controls/audits are reviewed separately. These torque-policy studies are not a reproduction of CIO–GPS’s state-to-state controller.
 
-Frozen runs, failed results, configurations, checkpoints and historical sources remain preserved. The failed P1 prerequisite and audited stop are published; no follow-up or branch merge has launched.
+Frozen runs, failed results, configurations, checkpoints and historical sources remain preserved. Branch boundaries remain intact; no merge or further experiment is authorized by this coordination review.
 
 ## Setup
 
