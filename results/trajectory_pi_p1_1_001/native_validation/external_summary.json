@@ -1,0 +1,60 @@
+{
+  "schema": "trajectory-pi-native-validation-external-1",
+  "validation": {
+    "schema": "trajectory-pi-phase-1",
+    "phase": "native-validation",
+    "argv": [
+      "/home/jaisel/mppi-gps/.venv/bin/python",
+      "-B",
+      "-m",
+      "src.gps.mppi_gps.trajectory_pi_native_baselines",
+      "--launch",
+      "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_launch.json",
+      "--worker"
+    ],
+    "pid": 187868,
+    "exit_code": 0,
+    "limit_error": null,
+    "remaining_group_terminated": false,
+    "wall_seconds": 18.663132163001137,
+    "process_tree_cpu_seconds": 7.340000000000001,
+    "supervisor_cpu_seconds": 0.159385946,
+    "waited_children_cpu_seconds": 7.202477,
+    "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+    "peak_sampled_tree_rss_bytes": 43012096,
+    "stdout": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/validation_launch/supervisor/native-validation.stdout.log",
+    "stderr": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/validation_launch/supervisor/native-validation.stderr.log"
+  },
+  "audit": {
+    "schema": "trajectory-pi-phase-1",
+    "phase": "audit",
+    "argv": [
+      "/home/jaisel/mppi-gps/.venv/bin/python",
+      "-B",
+      "-m",
+      "src.gps.mppi_gps.audits.trajectory_pi_native_baselines",
+      "--run",
+      "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation",
+      "--out",
+      "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/audit",
+      "--seconds",
+      "60.0"
+    ],
+    "pid": 188028,
+    "exit_code": 0,
+    "limit_error": null,
+    "remaining_group_terminated": false,
+    "wall_seconds": 0.5070183059979172,
+    "process_tree_cpu_seconds": 0.3299999999999992,
+    "supervisor_cpu_seconds": 0.006766044000000027,
+    "waited_children_cpu_seconds": 0.3161670000000001,
+    "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+    "peak_sampled_tree_rss_bytes": 43012096,
+    "stdout": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/validation_launch/supervisor/audit.stdout.log",
+    "stderr": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/validation_launch/supervisor/audit.stderr.log"
+  },
+  "wall_seconds": 19.469897648999904,
+  "cpu_seconds": 7.67,
+  "output_bytes_before_summary": 32520565,
+  "no_retries": true
+}

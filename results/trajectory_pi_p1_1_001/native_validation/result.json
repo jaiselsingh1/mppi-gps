@@ -1,0 +1,351 @@
+{
+  "schema": "trajectory-pi-native-baselines-result-1",
+  "status": "PASS",
+  "config_sha256": "235c37941af6056be3eea5393e9aa4fbeb13701ef8f2ac278e1f3497c8b376e1",
+  "p1_config_sha256": "4c26199f9c0bdf18d1057200feb010c5c8d7f417eda48224ee43e58940690089",
+  "source_manifest_sha256": "2ad4749e2574bd4002e9aa4c256a6558a7ffa3a7551e105be624e976c890a9f7",
+  "previous_prepared_manifest": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/manifest.json",
+    "bytes": 5319,
+    "sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783"
+  },
+  "origin_replay": {
+    "origin_replay_passed": true,
+    "result": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/result.json",
+      "bytes": 4970,
+      "sha256": "a83b4fb53a97fe2074525d9e4f1ffa0798acf5787ec292a85805b0712d10ade4"
+    },
+    "audit_receipt": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/audit/receipt.json",
+      "bytes": 471,
+      "sha256": "54bec2ce7c39b342728fa6ca65e4471e4a4a2b1e4205ebc674fd09df9a1e09ef"
+    },
+    "audit_findings": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/audit/findings.json",
+      "bytes": 16850,
+      "sha256": "67383e2d146b09f4637edbd69c2ce461aa281712050ebe150c0cafd1eb80ba53"
+    },
+    "external_summary": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/external_summary.json",
+      "bytes": 2670,
+      "sha256": "407cfff5ad53dd9f828bfd40c1ff798709c396bc0bb24c287080c14fa6cbcff6"
+    }
+  },
+  "episodes": [
+    {
+      "slot": 0,
+      "original_episode": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/originals/teacher_0.npz",
+        "bytes": 4007410,
+        "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+      },
+      "original_prepared": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/teachers/slot0.npz",
+        "bytes": 664454,
+        "sha256": "1a9921c449c227825e802030cf5e7c78f7c1600e1e6acf578472efd1ee8cbcb2"
+      },
+      "capture": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/capture_0.h5",
+        "bytes": 1484464,
+        "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+      },
+      "outcome": {
+        "controls": 1000,
+        "requested_controls": 1000,
+        "fell": false,
+        "full_survival": true,
+        "walking": true,
+        "velocity_mae": 0.14734510928973157,
+        "mean_velocity": 1.4444372237405292,
+        "raw_native_cost": 376.5714059963932,
+        "absorbing_tail_cost": 0.0,
+        "complete_cost": 376.5714059963932
+      },
+      "initial_context_exact": true,
+      "actions_exact": true,
+      "replay": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/replay_0.h5",
+        "bytes": 1484464,
+        "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+      },
+      "replay_outcome": {
+        "controls": 1000,
+        "requested_controls": 1000,
+        "fell": false,
+        "full_survival": true,
+        "walking": true,
+        "velocity_mae": 0.14734510928973157,
+        "mean_velocity": 1.4444372237405292,
+        "raw_native_cost": 376.5714059963932,
+        "absorbing_tail_cost": 0.0,
+        "complete_cost": 376.5714059963932
+      },
+      "replay_comparisons": {
+        "states": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            19
+          ],
+          "replay_shape": [
+            1001,
+            19
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "warmstarts": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            9
+          ],
+          "replay_shape": [
+            1001,
+            9
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "integrations": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            91
+          ],
+          "replay_shape": [
+            1001,
+            91
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "observations": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            17
+          ],
+          "replay_shape": [
+            1001,
+            17
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "actions": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1000,
+            6
+          ],
+          "replay_shape": [
+            1000,
+            6
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "costs": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1000
+          ],
+          "replay_shape": [
+            1000
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        }
+      },
+      "native_replay_passed": true,
+      "candidate": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/candidate_0.npz",
+        "bytes": 193748,
+        "sha256": "b59eae957476203296a72333726298d3abba335e67d15b867d12d76acf5cca5a"
+      },
+      "candidate_state_maximum_error": 0.0,
+      "candidate_cost_error": 0.0,
+      "candidate_scores_finite": true,
+      "single_candidate_passed": true
+    },
+    {
+      "slot": 1,
+      "original_episode": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/originals/teacher_1.npz",
+        "bytes": 4007410,
+        "sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1"
+      },
+      "original_prepared": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/teachers/slot1.npz",
+        "bytes": 664322,
+        "sha256": "feddca69ff451105813e046702fc20f11111f2f8287b7aa0f1cd296b57dfef7e"
+      },
+      "capture": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/capture_1.h5",
+        "bytes": 1484464,
+        "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+      },
+      "outcome": {
+        "controls": 1000,
+        "requested_controls": 1000,
+        "fell": false,
+        "full_survival": true,
+        "walking": true,
+        "velocity_mae": 0.15150925772759719,
+        "mean_velocity": 1.4632232419686517,
+        "raw_native_cost": 392.5842025316817,
+        "absorbing_tail_cost": 0.0,
+        "complete_cost": 392.5842025316817
+      },
+      "initial_context_exact": true,
+      "actions_exact": true,
+      "replay": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/replay_1.h5",
+        "bytes": 1484464,
+        "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+      },
+      "replay_outcome": {
+        "controls": 1000,
+        "requested_controls": 1000,
+        "fell": false,
+        "full_survival": true,
+        "walking": true,
+        "velocity_mae": 0.15150925772759719,
+        "mean_velocity": 1.4632232419686517,
+        "raw_native_cost": 392.5842025316817,
+        "absorbing_tail_cost": 0.0,
+        "complete_cost": 392.5842025316817
+      },
+      "replay_comparisons": {
+        "states": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            19
+          ],
+          "replay_shape": [
+            1001,
+            19
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "warmstarts": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            9
+          ],
+          "replay_shape": [
+            1001,
+            9
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "integrations": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            91
+          ],
+          "replay_shape": [
+            1001,
+            91
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "observations": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1001,
+            17
+          ],
+          "replay_shape": [
+            1001,
+            17
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "actions": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1000,
+            6
+          ],
+          "replay_shape": [
+            1000,
+            6
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        },
+        "costs": {
+          "passed": true,
+          "exact_bytes": true,
+          "source_shape": [
+            1000
+          ],
+          "replay_shape": [
+            1000
+          ],
+          "maximum_absolute_error": 0.0,
+          "first_above_atol": null
+        }
+      },
+      "native_replay_passed": true,
+      "candidate": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/candidate_1.npz",
+        "bytes": 193391,
+        "sha256": "85c7eac363aa963bd2335b5098b98dcf9ca58c6fd00ad3055b20c0f10746296a"
+      },
+      "candidate_state_maximum_error": 0.0,
+      "candidate_cost_error": 0.0,
+      "candidate_scores_finite": true,
+      "single_candidate_passed": true
+    }
+  ],
+  "launch": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/launch.json",
+    "bytes": 931,
+    "sha256": "04ce1907352004a585c0ca176bf9e09b7995835373f53c4a6d3ec2cf94ab35e3"
+  },
+  "model_bindings": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/model_bindings.json",
+    "bytes": 515,
+    "sha256": "b8e6154ca1a5ef777adb9f9d3e8f22b57379ea5c360e8a0fb2bdbd6c79d8bc51"
+  },
+  "work": {
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_compiled_model_saves": 1,
+    "completed_compiled_model_saves": 1,
+    "requested_restores": 6,
+    "requested_external_mj_forward_calls": 6,
+    "completed_restores": 6,
+    "completed_external_mj_forward_calls": 6,
+    "requested_native_controls": 4000,
+    "requested_physics_substeps": 24000,
+    "completed_native_controls": 4000,
+    "completed_physics_substeps": 24000,
+    "requested_model_controls": 2000,
+    "requested_model_queries": 2,
+    "completed_model_controls": 2000,
+    "completed_model_queries": 2
+  }
+}

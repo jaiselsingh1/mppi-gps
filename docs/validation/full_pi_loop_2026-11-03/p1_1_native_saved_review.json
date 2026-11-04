@@ -1,0 +1,359 @@
+{
+  "schema": "trajectory-pi-p1-1-native-saved-review-1",
+  "status": "VERIFIED_RV_SAVED_EVIDENCE",
+  "scope": "Independent read-only review of already saved RV outcomes, arrays, byte hashes, counters and closure. No additional audit program, simulator, physics, policy inference, gradients or fitting was executed. This JSON preserves the completed review; it is not a new experiment.",
+  "slots": [
+    {
+      "slot": 0,
+      "native_controls": 1000,
+      "walking": true,
+      "full_survival": true,
+      "velocity_mae": 0.14734510928973157,
+      "complete_cost": 376.5714059963932,
+      "capture_repeat_arrays_exact_bytes": true,
+      "capture_repeat_h5_sha256_equal": true,
+      "capture_repeat_h5_sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb",
+      "original_initial_state_warmstart_integration_exact_bytes": true,
+      "original_actions_exact_bytes": true,
+      "batch_post_state_maximum_absolute_error": 0.0,
+      "batch_complete_cost_absolute_error": 0.0,
+      "batch_initial_final_context_exact_bytes": true,
+      "native_running_cost_formula_maximum_error": 0.0,
+      "original_mac_complete_cost": 372.7086518178426,
+      "original_mac_to_worker": {
+        "states_maximum_absolute_error": 2.8782809078627594,
+        "states_first_above_atol_boundary": 306,
+        "warmstarts_maximum_absolute_error": 1773.968955648963,
+        "warmstarts_first_above_atol_boundary": 222,
+        "integrations_maximum_absolute_error": 1773.968955648963,
+        "integrations_first_above_atol_boundary": 222,
+        "observations_maximum_absolute_error": 1.412888162660398,
+        "observations_first_above_atol_boundary": 312,
+        "per_control_cost_maximum_absolute_error": 0.4093100415615373,
+        "costs_first_above_atol_control": 377,
+        "actions_maximum_absolute_error": 0.0
+      }
+    },
+    {
+      "slot": 1,
+      "native_controls": 1000,
+      "walking": true,
+      "full_survival": true,
+      "velocity_mae": 0.15150925772759719,
+      "complete_cost": 392.5842025316817,
+      "capture_repeat_arrays_exact_bytes": true,
+      "capture_repeat_h5_sha256_equal": true,
+      "capture_repeat_h5_sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989",
+      "original_initial_state_warmstart_integration_exact_bytes": true,
+      "original_actions_exact_bytes": true,
+      "batch_post_state_maximum_absolute_error": 0.0,
+      "batch_complete_cost_absolute_error": 0.0,
+      "batch_initial_final_context_exact_bytes": true,
+      "native_running_cost_formula_maximum_error": 0.0,
+      "original_mac_complete_cost": 392.2748839912696,
+      "original_mac_to_worker": {
+        "states_maximum_absolute_error": 2.3171087054961834,
+        "states_first_above_atol_boundary": 325,
+        "warmstarts_maximum_absolute_error": 1685.659541356957,
+        "warmstarts_first_above_atol_boundary": 122,
+        "integrations_maximum_absolute_error": 1685.659541356957,
+        "integrations_first_above_atol_boundary": 122,
+        "observations_maximum_absolute_error": 2.253312688305046,
+        "observations_first_above_atol_boundary": 325,
+        "per_control_cost_maximum_absolute_error": 0.10610464750669374,
+        "costs_first_above_atol_control": 336,
+        "actions_maximum_absolute_error": 0.0
+      }
+    }
+  ],
+  "tolerance": {
+    "rtol": 0,
+    "native_atol": 1e-10,
+    "batch_states_atol": 1e-10,
+    "batch_complete_cost_atol": 1e-09
+  },
+  "ledger": {
+    "events": 8022,
+    "closed": true,
+    "requested_completed_counts_equal": true,
+    "unresolved_requests": 0,
+    "failed_entered_calls": 0,
+    "rejected_calls": 0,
+    "counts": {
+      "requested_environment_constructions": 1,
+      "completed_environment_constructions": 1,
+      "requested_compiled_model_saves": 1,
+      "completed_compiled_model_saves": 1,
+      "requested_restores": 6,
+      "requested_external_mj_forward_calls": 6,
+      "completed_restores": 6,
+      "completed_external_mj_forward_calls": 6,
+      "requested_native_controls": 4000,
+      "requested_physics_substeps": 24000,
+      "completed_native_controls": 4000,
+      "completed_physics_substeps": 24000,
+      "requested_model_controls": 2000,
+      "requested_model_queries": 2,
+      "completed_model_controls": 2000,
+      "completed_model_queries": 2
+    }
+  },
+  "byte_hash_review": {
+    "original_automatic_audit_bound_files": 227,
+    "locally_available_hashes_independently_verified": 214,
+    "remote_only_binding_count": 13,
+    "remote_only_bindings": [
+      {
+        "path": "/home/jaisel/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/bin/python3.11",
+        "bytes": 21740464,
+        "sha256": "1e761eb19d6f2594ab8dc64bd99ad4e1753589f3bf1ec199e4eef3aaa21e3930"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_callbacks.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 626304,
+        "sha256": "d758012e200a5de47ee9b5aa01bccf571fc389dfd9e47c02516e36f522648646"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_constants.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 359688,
+        "sha256": "b36e9fd7407baf459836bad62f0beb765a262e3ee3dbd96865e758be784fc56a"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_enums.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 2481192,
+        "sha256": "cf94cbfc4ce2f51c1db1277374e3e9050cd96e99fb867a6fb4b352c0d6fe675a"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_errors.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 355272,
+        "sha256": "49b80fe84552c61089b61d0d9651cc8182ceb13973b696d4a5136e8740cf55b9"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_functions.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 1047640,
+        "sha256": "e8865942e1f6e70620271416d1e2ca6d93455471ce043ccb2bb582316b466da0"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_render.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 771464,
+        "sha256": "cb9e0626640168e1bbcd3961fb487e059dadc81876bf4363429031cd09d64334"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_rollout.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 661168,
+        "sha256": "dc605e4b37e29635be334657c443822894ede71c0cefb82366eeac10ba217b38"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_simulate.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 924216,
+        "sha256": "16d21dfa23fae6fd13e24738a27b6df8306cd6167e8c470e7e8ea4a856bd32ba"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_specs.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 2319336,
+        "sha256": "3aac3ee3dc10e784e2ff2cade136b6f1a8c40b698d7af9333c89cb2e2d1e645b"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_structs.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 3262712,
+        "sha256": "b33d2fdcd2c07501c684347589eb58bf2ae94c1ab1399933ea6465cdfeb5b410"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/libmujoco.so.3.6.0",
+        "bytes": 5175888,
+        "sha256": "385ae719dde65acffdb0a66605e43fa0c680cb8b331fc4dfe26b39ab3f5630ff"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/numpy/_core/_multiarray_umath.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 10411849,
+        "sha256": "09edb53c84c812e0a29298ad7f9190e5190a6a51db7ae16868ecbcc7a7d4e295"
+      }
+    ],
+    "remote_only_scope": "Linux worker interpreter and native binaries are unavailable on the local Mac. Their hashes were verified by the automatic frozen independent worker audit; this local review did not claim to rehash those thirteen files.",
+    "nine_incoming_parent_files_verified": [
+      {
+        "stream": 0,
+        "filename": "global_rng.pt",
+        "bytes": 14249,
+        "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+      },
+      {
+        "stream": 0,
+        "filename": "policy.pt",
+        "bytes": 330426,
+        "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+      },
+      {
+        "stream": 0,
+        "filename": "stream.json",
+        "bytes": 1545,
+        "sha256": "edf92c7d37cb30ed841000f30a7f352da4e9f7e70f833f7a2fb622265dde4d6c"
+      },
+      {
+        "stream": 1,
+        "filename": "global_rng.pt",
+        "bytes": 14377,
+        "sha256": "6fa725263fbf52dee3fb2d8f73d5f674774eb1568dab88b42cd7b93abc468630"
+      },
+      {
+        "stream": 1,
+        "filename": "policy.pt",
+        "bytes": 330426,
+        "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050"
+      },
+      {
+        "stream": 1,
+        "filename": "stream.json",
+        "bytes": 1545,
+        "sha256": "b07b24a09315f401f4549de2498c35d67e5d5bd60fcc714a6e1782601492dcc7"
+      },
+      {
+        "stream": 2,
+        "filename": "global_rng.pt",
+        "bytes": 14313,
+        "sha256": "3fdf23c0a6aea99ba3a68c9bc80927e478b1af83ac9b10477d2f938252d5ead7"
+      },
+      {
+        "stream": 2,
+        "filename": "policy.pt",
+        "bytes": 330426,
+        "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e"
+      },
+      {
+        "stream": 2,
+        "filename": "stream.json",
+        "bytes": 1545,
+        "sha256": "468154c9fd357c9fb6ea28a7bde201dee2077be961d9315747d3a5a36ea82572"
+      }
+    ]
+  },
+  "automatic_worker_audit": {
+    "passed": true,
+    "native_validation_passed": true,
+    "checks": 33600,
+    "new_native_controls": 0,
+    "new_model_controls": 0,
+    "new_physics_substeps": 0,
+    "new_neural_rows": 0,
+    "new_gradients": 0,
+    "new_optimizer_updates": 0,
+    "wall_seconds": 0.23957719399913913,
+    "cpu_seconds": 0.237781631
+  },
+  "external_closure": {
+    "no_retries": true,
+    "validation_exit_code": 0,
+    "audit_exit_code": 0,
+    "validation_limit_error": null,
+    "audit_limit_error": null,
+    "validation_remaining_group_terminated": false,
+    "audit_remaining_group_terminated": false,
+    "wall_seconds": 19.469897648999904,
+    "process_tree_cpu_seconds": 7.67,
+    "whole_phase_parent_bytes_before_summary": 32520565,
+    "frozen_wall_ceiling_seconds": 600,
+    "frozen_output_ceiling_bytes": 67108864,
+    "cpu_accounting": "External process-tree and nested internal process CPU receipts are alternative views; they are not added twice."
+  },
+  "evidence_bindings": [
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/result.json",
+      "bytes": 11154,
+      "sha256": "119b7866ea19b604a605afff1bf1605609ab08783747b01b52d04624900c5e9b"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/receipt.json",
+      "bytes": 856,
+      "sha256": "c5efaed867580d905e6a2f94f1448e6f9544a6a885ebf974211a028a7552461c"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/ledger.jsonl",
+      "bytes": 1517769,
+      "sha256": "93de6cde8f6e25d197ad581545429c3c8d7cc06c2e47a407f4ed1e472b90a8ea"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/manifest.json",
+      "bytes": 12378,
+      "sha256": "bb14b53d22586d057c921994ea52221bf12392fdfe18750ade48872ae5e2ee3f"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/compiled.mjb",
+      "bytes": 516124,
+      "sha256": "5a16ea4b25c7eb631c43dcaa96bda01f3052b8f6f7efd9d6d1acd6810deb1ca6"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/model_options.json",
+      "bytes": 822,
+      "sha256": "8517db2e0715d4d72d489300119a301579a01baf6157ee4559b866a9dc4c8c1e"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/model_bindings.json",
+      "bytes": 515,
+      "sha256": "b8e6154ca1a5ef777adb9f9d3e8f22b57379ea5c360e8a0fb2bdbd6c79d8bc51"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/capture_0.h5",
+      "bytes": 1484464,
+      "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/replay_0.h5",
+      "bytes": 1484464,
+      "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/candidate_0.npz",
+      "bytes": 193748,
+      "sha256": "b59eae957476203296a72333726298d3abba335e67d15b867d12d76acf5cca5a"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/capture_1.h5",
+      "bytes": 1484464,
+      "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/replay_1.h5",
+      "bytes": 1484464,
+      "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/candidate_1.npz",
+      "bytes": 193391,
+      "sha256": "85c7eac363aa963bd2335b5098b98dcf9ca58c6fd00ad3055b20c0f10746296a"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/external_receipt.json",
+      "bytes": 1067,
+      "sha256": "0da7ef8c9a2730f36b80927fa7e68a885e7ebf476d3e35ef475e379217a44b97"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/external_summary.json",
+      "bytes": 2552,
+      "sha256": "97ad3a4a0ce03ab671aa1b41a5bc0fdd636a829989456dcf4fd276cf7d6f810b"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/audit/receipt.json",
+      "bytes": 682,
+      "sha256": "63ad257c96f0b522e239b7989fede059073dbfbba4693ecd0de418c97589e8fa"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/audit/findings.json",
+      "bytes": 35203,
+      "sha256": "e2c84ab6d22541131add51fcffed6382ba01ad398f9869d69345dcda9e393bec"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/audit/file_bindings.json",
+      "bytes": 56804,
+      "sha256": "c4b05077f98e2f20089342e25985deef65bac231858819b764b4e2001f376c15"
+    }
+  ],
+  "causal_conclusion": "The two fixed source control sequences are competent and exactly repeatable on the worker, and their K=1 batch forecasts equal native execution. Their full paths differ from the preserved original Mac recordings despite exact initial contexts/actions. Worker-native initial-cost baselines are therefore explicit new provenance, not an overwrite or a claim of cross-platform equality.",
+  "blocking_rv_issue": null,
+  "remaining_gates": "All eight P0 prerequisites and fresh main capacity must still pass. This RV review establishes no result for the reconstruction score, policy learning, teacher-student gap or alternating loop.",
+  "new_native_controls": 0,
+  "new_model_controls": 0,
+  "new_physics_substeps": 0,
+  "new_neural_rows": 0,
+  "new_gradients": 0,
+  "new_optimizer_updates": 0
+}

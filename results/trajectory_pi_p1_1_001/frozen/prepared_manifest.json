@@ -1,0 +1,285 @@
+{
+  "schema": "trajectory-pi-prepared-1",
+  "version": "P1.1",
+  "input_mode": "worker-native",
+  "config_sha256": "4c26199f9c0bdf18d1057200feb010c5c8d7f417eda48224ee43e58940690089",
+  "previous_config": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/source/configs/studies/trajectory_pi_p1.json",
+    "bytes": 72463,
+    "sha256": "e209f9093b53092198a6f252bd7dfff5fcace93a72522496d398080299ed568f"
+  },
+  "previous_prepared_manifest": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/manifest.json",
+    "bytes": 5319,
+    "sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783"
+  },
+  "validation_manifest": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/manifest.json",
+    "bytes": 12378,
+    "sha256": "bb14b53d22586d057c921994ea52221bf12392fdfe18750ade48872ae5e2ee3f"
+  },
+  "parents": [
+    {
+      "stream": 0,
+      "directory": "initial/stream0",
+      "source": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s0_u2000.pt",
+        "bytes": 330426,
+        "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+      },
+      "policy_hash": "e8c38f59825d619fc526387ba954225a7005fa56ce4824f74534f12abb2485a4",
+      "optimizer_fingerprint": "581f2a4f6b07cb4be32d1a4fff9fa2f5ce669669a13752eab477f529417fa52c",
+      "global_rng_fingerprint": "21d721e4207c770b62dfaf820254c45ccb1700f6bec41b6f731c8feab0ddb974",
+      "inherited_stream_files": {
+        "policy.pt": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream0/policy.pt",
+          "bytes": 330426,
+          "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+        },
+        "global_rng.pt": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream0/global_rng.pt",
+          "bytes": 14249,
+          "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+        },
+        "stream.json": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream0/stream.json",
+          "bytes": 1545,
+          "sha256": "edf92c7d37cb30ed841000f30a7f352da4e9f7e70f833f7a2fb622265dde4d6c"
+        }
+      },
+      "source_prepared_directory": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream0"
+    },
+    {
+      "stream": 1,
+      "directory": "initial/stream1",
+      "source": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s1_u2000.pt",
+        "bytes": 330426,
+        "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050"
+      },
+      "policy_hash": "f992ad384b501fef1d0f8e3f0f4dd8fc313b15c292e4f43a42e92d0615303ea8",
+      "optimizer_fingerprint": "6258848ebad83f87d3cffd79e634caf20ab845fab3dc9e2bd04051f959ab0d37",
+      "global_rng_fingerprint": "b059c1e319653840c3857933fff97dbe09c5da82f4206dd0fd0c007bd312951c",
+      "inherited_stream_files": {
+        "policy.pt": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream1/policy.pt",
+          "bytes": 330426,
+          "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050"
+        },
+        "global_rng.pt": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream1/global_rng.pt",
+          "bytes": 14377,
+          "sha256": "6fa725263fbf52dee3fb2d8f73d5f674774eb1568dab88b42cd7b93abc468630"
+        },
+        "stream.json": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream1/stream.json",
+          "bytes": 1545,
+          "sha256": "b07b24a09315f401f4549de2498c35d67e5d5bd60fcc714a6e1782601492dcc7"
+        }
+      },
+      "source_prepared_directory": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream1"
+    },
+    {
+      "stream": 2,
+      "directory": "initial/stream2",
+      "source": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_student_update_w2_001/checkpoints/s2_u2000.pt",
+        "bytes": 330426,
+        "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e"
+      },
+      "policy_hash": "e502d2aade76b7eda95ba9a805c3788b357b03adbe450210f7d92938a136451d",
+      "optimizer_fingerprint": "dfae82639fe44a0f0a1c3fd3377dcd74bb7ec14ce6382318cd3192ac751a0bc4",
+      "global_rng_fingerprint": "4badcdb6c7c241baf8a5d97a139bced2d811cffac1d7d32767943428a1a8b541",
+      "inherited_stream_files": {
+        "policy.pt": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream2/policy.pt",
+          "bytes": 330426,
+          "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e"
+        },
+        "global_rng.pt": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream2/global_rng.pt",
+          "bytes": 14313,
+          "sha256": "3fdf23c0a6aea99ba3a68c9bc80927e478b1af83ac9b10477d2f938252d5ead7"
+        },
+        "stream.json": {
+          "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream2/stream.json",
+          "bytes": 1545,
+          "sha256": "468154c9fd357c9fb6ea28a7bde201dee2077be961d9315747d3a5a36ea82572"
+        }
+      },
+      "source_prepared_directory": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/initial/stream2"
+    }
+  ],
+  "teachers": [
+    {
+      "slot": 0,
+      "file_relative": "teachers/slot0.npz",
+      "source": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz",
+        "bytes": 4007410,
+        "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+      },
+      "native_capture": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/capture_0.h5",
+        "bytes": 1484464,
+        "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+      },
+      "complete_cost": 376.5714059963932,
+      "walking": true,
+      "velocity_mae": 0.14734510928973157
+    },
+    {
+      "slot": 1,
+      "file_relative": "teachers/slot1.npz",
+      "source": {
+        "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_01.npz",
+        "bytes": 4007410,
+        "sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1"
+      },
+      "native_capture": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/capture_1.h5",
+        "bytes": 1484464,
+        "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+      },
+      "complete_cost": 392.5842025316817,
+      "walking": true,
+      "velocity_mae": 0.15150925772759719
+    }
+  ],
+  "files": [
+    {
+      "path": "initial/stream0/global_rng.pt",
+      "bytes": 14249,
+      "sha256": "3b7b7115fe205c1a69a8cb6b91bf02780511aaba264664fd12faba12b2db8e41"
+    },
+    {
+      "path": "initial/stream0/policy.pt",
+      "bytes": 330426,
+      "sha256": "f8014db94bc5f32910cfaf12d0ab38a462bbf950f2567580729d02929e6cc03d"
+    },
+    {
+      "path": "initial/stream0/stream.json",
+      "bytes": 1545,
+      "sha256": "edf92c7d37cb30ed841000f30a7f352da4e9f7e70f833f7a2fb622265dde4d6c"
+    },
+    {
+      "path": "initial/stream1/global_rng.pt",
+      "bytes": 14377,
+      "sha256": "6fa725263fbf52dee3fb2d8f73d5f674774eb1568dab88b42cd7b93abc468630"
+    },
+    {
+      "path": "initial/stream1/policy.pt",
+      "bytes": 330426,
+      "sha256": "c88ef473db3a888b811025d2720170c9098978cfaa26b2a3605874a89acff050"
+    },
+    {
+      "path": "initial/stream1/stream.json",
+      "bytes": 1545,
+      "sha256": "b07b24a09315f401f4549de2498c35d67e5d5bd60fcc714a6e1782601492dcc7"
+    },
+    {
+      "path": "initial/stream2/global_rng.pt",
+      "bytes": 14313,
+      "sha256": "3fdf23c0a6aea99ba3a68c9bc80927e478b1af83ac9b10477d2f938252d5ead7"
+    },
+    {
+      "path": "initial/stream2/policy.pt",
+      "bytes": 330426,
+      "sha256": "d74c0b82b1bf55dfde789a8e506f33ff1a0f89a1f7f9487863e3778789a28e2e"
+    },
+    {
+      "path": "initial/stream2/stream.json",
+      "bytes": 1545,
+      "sha256": "468154c9fd357c9fb6ea28a7bde201dee2077be961d9315747d3a5a36ea82572"
+    },
+    {
+      "path": "originals/teacher_0.npz",
+      "bytes": 4007410,
+      "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+    },
+    {
+      "path": "originals/teacher_1.npz",
+      "bytes": 4007410,
+      "sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1"
+    },
+    {
+      "path": "teachers/slot0.npz",
+      "bytes": 664425,
+      "sha256": "b92ae1a7185864f2d11ef2e4aafbf236de8b0960bfee5e18ddf17b63349acb9c"
+    },
+    {
+      "path": "teachers/slot1.npz",
+      "bytes": 664252,
+      "sha256": "448581fed69dffc8cc7cb29e95c1c84e3d4d5ba86797c46d35b7de7d61ac2e70"
+    }
+  ],
+  "normalization_inherited": true,
+  "parent_refits": 0,
+  "historical_global_rng_available": false,
+  "new_study_globals_frozen": true,
+  "new_global_envelopes_created": 0,
+  "global_envelope_origin": "P1.0 prepared stream files, copied byte-identically without reseeding",
+  "preparation_work": {
+    "checkpoint_loads": 0,
+    "policy_constructions": 0,
+    "optimizer_constructions": 0,
+    "neural_rows": 0,
+    "native_controls": 0,
+    "model_controls": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "exact_file_copies": 11,
+    "canonical_teacher_arrays_written": 2
+  },
+  "imported_work": [
+    {
+      "phase": "r0",
+      "receipt": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/result.json",
+        "bytes": 4970,
+        "sha256": "a83b4fb53a97fe2074525d9e4f1ffa0798acf5787ec292a85805b0712d10ade4"
+      },
+      "counts": {
+        "requested_environment_constructions": 1,
+        "completed_environment_constructions": 1,
+        "requested_compiled_model_saves": 1,
+        "completed_compiled_model_saves": 1,
+        "requested_restores": 1,
+        "requested_external_mj_forward_calls": 1,
+        "completed_restores": 1,
+        "completed_external_mj_forward_calls": 1,
+        "requested_native_controls": 1000,
+        "requested_physics_substeps": 4000,
+        "completed_native_controls": 1000,
+        "completed_physics_substeps": 4000
+      }
+    },
+    {
+      "phase": "rv",
+      "receipt": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/receipt.json",
+        "bytes": 856,
+        "sha256": "c5efaed867580d905e6a2f94f1448e6f9544a6a885ebf974211a028a7552461c"
+      },
+      "counts": {
+        "requested_environment_constructions": 1,
+        "completed_environment_constructions": 1,
+        "requested_compiled_model_saves": 1,
+        "completed_compiled_model_saves": 1,
+        "requested_restores": 6,
+        "requested_external_mj_forward_calls": 6,
+        "completed_restores": 6,
+        "completed_external_mj_forward_calls": 6,
+        "requested_native_controls": 4000,
+        "requested_physics_substeps": 24000,
+        "completed_native_controls": 4000,
+        "completed_physics_substeps": 24000,
+        "requested_model_controls": 2000,
+        "requested_model_queries": 2,
+        "completed_model_controls": 2000,
+        "completed_model_queries": 2
+      }
+    }
+  ],
+  "imported_work_scope": "Prior paid R0/RV phases, each imported once; no new preparation calls or duplicated P0 charges"
+}

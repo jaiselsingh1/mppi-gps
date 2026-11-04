@@ -1,0 +1,1051 @@
+{
+  "schema": "trajectory-pi-native-baselines-audit-findings-1",
+  "status": "PASS_SAVED_EVIDENCE",
+  "native_validation_passed": true,
+  "original_status": "PASS",
+  "result_binding": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/result.json",
+    "bytes": 11154,
+    "sha256": "119b7866ea19b604a605afff1bf1605609ab08783747b01b52d04624900c5e9b"
+  },
+  "config_sha256": "235c37941af6056be3eea5393e9aa4fbeb13701ef8f2ac278e1f3497c8b376e1",
+  "p1_config_sha256": "4c26199f9c0bdf18d1057200feb010c5c8d7f417eda48224ee43e58940690089",
+  "source_manifest_sha256": "2ad4749e2574bd4002e9aa4c256a6558a7ffa3a7551e105be624e976c890a9f7",
+  "previous_prepared_manifest": {
+    "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/manifest.json",
+    "bytes": 5319,
+    "sha256": "1a41483c329dab3348791c8ce845cf8d455a26879cf038edf8313dabe539f783"
+  },
+  "origin_replay": {
+    "origin_replay_passed": true,
+    "result": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/result.json",
+      "bytes": 4970,
+      "sha256": "a83b4fb53a97fe2074525d9e4f1ffa0798acf5787ec292a85805b0712d10ade4"
+    },
+    "audit_receipt": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/audit/receipt.json",
+      "bytes": 471,
+      "sha256": "54bec2ce7c39b342728fa6ca65e4471e4a4a2b1e4205ebc674fd09df9a1e09ef"
+    },
+    "audit_findings": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/audit/findings.json",
+      "bytes": 16850,
+      "sha256": "67383e2d146b09f4637edbd69c2ce461aa281712050ebe150c0cafd1eb80ba53"
+    },
+    "external_summary": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/origin_replay/external_summary.json",
+      "bytes": 2670,
+      "sha256": "407cfff5ad53dd9f828bfd40c1ff798709c396bc0bb24c287080c14fa6cbcff6"
+    }
+  },
+  "episodes": [
+    {
+      "slot": 0,
+      "original_episode": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/originals/teacher_0.npz",
+        "bytes": 4007410,
+        "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413"
+      },
+      "original_prepared": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/teachers/slot0.npz",
+        "bytes": 664454,
+        "sha256": "1a9921c449c227825e802030cf5e7c78f7c1600e1e6acf578472efd1ee8cbcb2"
+      },
+      "capture": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/capture_0.h5",
+        "bytes": 1484464,
+        "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+      },
+      "replay": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/replay_0.h5",
+        "bytes": 1484464,
+        "sha256": "64b5a2782c6b6a8388aafb42e46d995089d61261a73430598ce6faff07eaadeb"
+      },
+      "candidate": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/candidate_0.npz",
+        "bytes": 193748,
+        "sha256": "b59eae957476203296a72333726298d3abba335e67d15b867d12d76acf5cca5a"
+      },
+      "outcome": {
+        "controls": 1000,
+        "complete_trace": true,
+        "finite": true,
+        "fell": false,
+        "full_survival": true,
+        "walking": true,
+        "velocity_mae": 0.14734510928973157,
+        "mean_velocity": 1.4444372237405292,
+        "raw_native_cost": 376.5714059963932,
+        "absorbing_tail_cost": 0.0,
+        "complete_cost": 376.5714059963932,
+        "native_cost_formula_matches": true,
+        "early_stop_reason": null
+      },
+      "native_replay_passed": true,
+      "single_candidate_passed": true,
+      "initial_context_exact": true,
+      "actions_exact": true,
+      "measurements": {
+        "passed": true,
+        "original_initial_bytes": {
+          "states": true,
+          "warmstarts": true,
+          "integrations": true
+        },
+        "original_actions_exact_bytes": true,
+        "repeat": {
+          "arrays": {
+            "states": {
+              "actual_shape": [
+                1001,
+                19
+              ],
+              "expected_shape": [
+                1001,
+                19
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "warmstarts": {
+              "actual_shape": [
+                1001,
+                9
+              ],
+              "expected_shape": [
+                1001,
+                9
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "integrations": {
+              "actual_shape": [
+                1001,
+                91
+              ],
+              "expected_shape": [
+                1001,
+                91
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "actions": {
+              "actual_shape": [
+                1000,
+                6
+              ],
+              "expected_shape": [
+                1000,
+                6
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1000,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "costs": {
+              "actual_shape": [
+                1000
+              ],
+              "expected_shape": [
+                1000
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1000,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "observations": {
+              "actual_shape": [
+                1001,
+                17
+              ],
+              "expected_shape": [
+                1001,
+                17
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            }
+          },
+          "initial_context_exact_bytes": {
+            "states": true,
+            "warmstarts": true,
+            "integrations": true
+          },
+          "initial_context_passed": true,
+          "actions_exact_bytes": true,
+          "strict_arrays_passed": true,
+          "passed": true
+        },
+        "candidate_post_states": {
+          "actual_shape": [
+            1000,
+            19
+          ],
+          "expected_shape": [
+            1000,
+            19
+          ],
+          "same_shape": true,
+          "same_dtype": true,
+          "exact_bytes": true,
+          "compared_rows": 1000,
+          "missing_expected_rows": 0,
+          "unexpected_actual_rows": 0,
+          "nonfinite_compared_elements": 0,
+          "maximum_absolute_error": 0.0,
+          "first_nonidentical_row": null,
+          "first_above_threshold_row": {
+            "0": null,
+            "1e-10": null
+          },
+          "rtol": 0,
+          "atol": 1e-10,
+          "passed": true
+        },
+        "candidate_cost": 376.5714059963932,
+        "native_capture_outcome": {
+          "controls": 1000,
+          "complete_trace": true,
+          "finite": true,
+          "fell": false,
+          "full_survival": true,
+          "walking": true,
+          "velocity_mae": 0.14734510928973157,
+          "mean_velocity": 1.4444372237405292,
+          "raw_native_cost": 376.5714059963932,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 376.5714059963932,
+          "native_cost_formula_matches": true,
+          "early_stop_reason": null
+        },
+        "native_replay_outcome": {
+          "controls": 1000,
+          "complete_trace": true,
+          "finite": true,
+          "fell": false,
+          "full_survival": true,
+          "walking": true,
+          "velocity_mae": 0.14734510928973157,
+          "mean_velocity": 1.4444372237405292,
+          "raw_native_cost": 376.5714059963932,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 376.5714059963932,
+          "native_cost_formula_matches": true,
+          "early_stop_reason": null
+        },
+        "original_to_worker_difference": {
+          "states": {
+            "actual_shape": [
+              1001,
+              19
+            ],
+            "expected_shape": [
+              1001,
+              19
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 2.8782809078627594,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 306
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "warmstarts": {
+            "actual_shape": [
+              1001,
+              9
+            ],
+            "expected_shape": [
+              1001,
+              9
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 1773.968955648963,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 222
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "integrations": {
+            "actual_shape": [
+              1001,
+              91
+            ],
+            "expected_shape": [
+              1001,
+              91
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 1773.968955648963,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 222
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "actions": {
+            "actual_shape": [
+              1000,
+              6
+            ],
+            "expected_shape": [
+              1000,
+              6
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": true,
+            "compared_rows": 1000,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 0.0,
+            "first_nonidentical_row": null,
+            "first_above_threshold_row": {
+              "0": null,
+              "1e-10": null
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": true
+          },
+          "costs": {
+            "actual_shape": [
+              1000
+            ],
+            "expected_shape": [
+              1000
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1000,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 0.4093100415615373,
+            "first_nonidentical_row": 0,
+            "first_above_threshold_row": {
+              "0": 0,
+              "1e-10": 377
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "observations": {
+            "actual_shape": [
+              1001,
+              17
+            ],
+            "expected_shape": [
+              1001,
+              17
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 1.412888162660398,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 312
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          }
+        },
+        "source_scope": "Original controls and initial contexts are retained. New native trajectories/costs carry worker-native provenance; historical state paths are not overwritten.",
+        "batch_context_scope": "Complete live context before/after the batch is checked. Per-step batch warmstart/integration arrays are unavailable and are never fabricated."
+      }
+    },
+    {
+      "slot": 1,
+      "original_episode": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/originals/teacher_1.npz",
+        "bytes": 4007410,
+        "sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1"
+      },
+      "original_prepared": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/previous_prepared/teachers/slot1.npz",
+        "bytes": 664322,
+        "sha256": "feddca69ff451105813e046702fc20f11111f2f8287b7aa0f1cd296b57dfef7e"
+      },
+      "capture": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/capture_1.h5",
+        "bytes": 1484464,
+        "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+      },
+      "replay": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/replay_1.h5",
+        "bytes": 1484464,
+        "sha256": "7b905d1133ab51eedd40cd3d444cb96c5ef6d96a61ccd73beb7da7145e7cf989"
+      },
+      "candidate": {
+        "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/candidate_1.npz",
+        "bytes": 193391,
+        "sha256": "85c7eac363aa963bd2335b5098b98dcf9ca58c6fd00ad3055b20c0f10746296a"
+      },
+      "outcome": {
+        "controls": 1000,
+        "complete_trace": true,
+        "finite": true,
+        "fell": false,
+        "full_survival": true,
+        "walking": true,
+        "velocity_mae": 0.15150925772759719,
+        "mean_velocity": 1.4632232419686517,
+        "raw_native_cost": 392.5842025316817,
+        "absorbing_tail_cost": 0.0,
+        "complete_cost": 392.5842025316817,
+        "native_cost_formula_matches": true,
+        "early_stop_reason": null
+      },
+      "native_replay_passed": true,
+      "single_candidate_passed": true,
+      "initial_context_exact": true,
+      "actions_exact": true,
+      "measurements": {
+        "passed": true,
+        "original_initial_bytes": {
+          "states": true,
+          "warmstarts": true,
+          "integrations": true
+        },
+        "original_actions_exact_bytes": true,
+        "repeat": {
+          "arrays": {
+            "states": {
+              "actual_shape": [
+                1001,
+                19
+              ],
+              "expected_shape": [
+                1001,
+                19
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "warmstarts": {
+              "actual_shape": [
+                1001,
+                9
+              ],
+              "expected_shape": [
+                1001,
+                9
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "integrations": {
+              "actual_shape": [
+                1001,
+                91
+              ],
+              "expected_shape": [
+                1001,
+                91
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "actions": {
+              "actual_shape": [
+                1000,
+                6
+              ],
+              "expected_shape": [
+                1000,
+                6
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1000,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "costs": {
+              "actual_shape": [
+                1000
+              ],
+              "expected_shape": [
+                1000
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1000,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            },
+            "observations": {
+              "actual_shape": [
+                1001,
+                17
+              ],
+              "expected_shape": [
+                1001,
+                17
+              ],
+              "same_shape": true,
+              "same_dtype": true,
+              "exact_bytes": true,
+              "compared_rows": 1001,
+              "missing_expected_rows": 0,
+              "unexpected_actual_rows": 0,
+              "nonfinite_compared_elements": 0,
+              "maximum_absolute_error": 0.0,
+              "first_nonidentical_row": null,
+              "first_above_threshold_row": {
+                "0": null,
+                "1e-10": null
+              },
+              "rtol": 0,
+              "atol": 1e-10,
+              "passed": true
+            }
+          },
+          "initial_context_exact_bytes": {
+            "states": true,
+            "warmstarts": true,
+            "integrations": true
+          },
+          "initial_context_passed": true,
+          "actions_exact_bytes": true,
+          "strict_arrays_passed": true,
+          "passed": true
+        },
+        "candidate_post_states": {
+          "actual_shape": [
+            1000,
+            19
+          ],
+          "expected_shape": [
+            1000,
+            19
+          ],
+          "same_shape": true,
+          "same_dtype": true,
+          "exact_bytes": true,
+          "compared_rows": 1000,
+          "missing_expected_rows": 0,
+          "unexpected_actual_rows": 0,
+          "nonfinite_compared_elements": 0,
+          "maximum_absolute_error": 0.0,
+          "first_nonidentical_row": null,
+          "first_above_threshold_row": {
+            "0": null,
+            "1e-10": null
+          },
+          "rtol": 0,
+          "atol": 1e-10,
+          "passed": true
+        },
+        "candidate_cost": 392.5842025316817,
+        "native_capture_outcome": {
+          "controls": 1000,
+          "complete_trace": true,
+          "finite": true,
+          "fell": false,
+          "full_survival": true,
+          "walking": true,
+          "velocity_mae": 0.15150925772759719,
+          "mean_velocity": 1.4632232419686517,
+          "raw_native_cost": 392.5842025316817,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 392.5842025316817,
+          "native_cost_formula_matches": true,
+          "early_stop_reason": null
+        },
+        "native_replay_outcome": {
+          "controls": 1000,
+          "complete_trace": true,
+          "finite": true,
+          "fell": false,
+          "full_survival": true,
+          "walking": true,
+          "velocity_mae": 0.15150925772759719,
+          "mean_velocity": 1.4632232419686517,
+          "raw_native_cost": 392.5842025316817,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 392.5842025316817,
+          "native_cost_formula_matches": true,
+          "early_stop_reason": null
+        },
+        "original_to_worker_difference": {
+          "states": {
+            "actual_shape": [
+              1001,
+              19
+            ],
+            "expected_shape": [
+              1001,
+              19
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 2.3171087054961834,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 325
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "warmstarts": {
+            "actual_shape": [
+              1001,
+              9
+            ],
+            "expected_shape": [
+              1001,
+              9
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 1685.659541356957,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 122
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "integrations": {
+            "actual_shape": [
+              1001,
+              91
+            ],
+            "expected_shape": [
+              1001,
+              91
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 1685.659541356957,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 122
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "actions": {
+            "actual_shape": [
+              1000,
+              6
+            ],
+            "expected_shape": [
+              1000,
+              6
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": true,
+            "compared_rows": 1000,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 0.0,
+            "first_nonidentical_row": null,
+            "first_above_threshold_row": {
+              "0": null,
+              "1e-10": null
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": true
+          },
+          "costs": {
+            "actual_shape": [
+              1000
+            ],
+            "expected_shape": [
+              1000
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1000,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 0.10610464750669374,
+            "first_nonidentical_row": 0,
+            "first_above_threshold_row": {
+              "0": 0,
+              "1e-10": 336
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          },
+          "observations": {
+            "actual_shape": [
+              1001,
+              17
+            ],
+            "expected_shape": [
+              1001,
+              17
+            ],
+            "same_shape": true,
+            "same_dtype": true,
+            "exact_bytes": false,
+            "compared_rows": 1001,
+            "missing_expected_rows": 0,
+            "unexpected_actual_rows": 0,
+            "nonfinite_compared_elements": 0,
+            "maximum_absolute_error": 2.253312688305046,
+            "first_nonidentical_row": 1,
+            "first_above_threshold_row": {
+              "0": 1,
+              "1e-10": 325
+            },
+            "rtol": 0,
+            "atol": 1e-10,
+            "passed": false
+          }
+        },
+        "source_scope": "Original controls and initial contexts are retained. New native trajectories/costs carry worker-native provenance; historical state paths are not overwritten.",
+        "batch_context_scope": "Complete live context before/after the batch is checked. Per-step batch warmstart/integration arrays are unavailable and are never fabricated."
+      }
+    }
+  ],
+  "work": {
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_compiled_model_saves": 1,
+    "completed_compiled_model_saves": 1,
+    "requested_external_mj_forward_calls": 6,
+    "requested_restores": 6,
+    "completed_external_mj_forward_calls": 6,
+    "completed_restores": 6,
+    "requested_native_controls": 4000,
+    "requested_physics_substeps": 24000,
+    "completed_native_controls": 4000,
+    "completed_physics_substeps": 24000,
+    "requested_model_controls": 2000,
+    "requested_model_queries": 2,
+    "completed_model_controls": 2000,
+    "completed_model_queries": 2
+  },
+  "model_bindings": {
+    "compiled": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/compiled.mjb",
+      "bytes": 516124,
+      "sha256": "5a16ea4b25c7eb631c43dcaa96bda01f3052b8f6f7efd9d6d1acd6810deb1ca6"
+    },
+    "options": {
+      "path": "/home/jaisel/mppi-full-pi-workspace/2026-11-03_p1_1_001/native_validation/model_options.json",
+      "bytes": 822,
+      "sha256": "8517db2e0715d4d72d489300119a301579a01baf6157ee4559b866a9dc4c8c1e"
+    },
+    "dimensions": [
+      9,
+      9,
+      6
+    ],
+    "spec": 16383
+  },
+  "environment": {
+    "schema": "trajectory-pi-worker-environment-1",
+    "machine": "x86_64",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "python": "3.11.16",
+    "versions": {
+      "numpy": "2.4.3",
+      "mujoco": "3.6.0",
+      "scipy": "1.17.1",
+      "h5py": "3.16.0"
+    },
+    "interpreter": {
+      "path": "/home/jaisel/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/bin/python3.11",
+      "bytes": 21740464,
+      "sha256": "1e761eb19d6f2594ab8dc64bd99ad4e1753589f3bf1ec199e4eef3aaa21e3930"
+    },
+    "binary_files": [
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_callbacks.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 626304,
+        "sha256": "d758012e200a5de47ee9b5aa01bccf571fc389dfd9e47c02516e36f522648646"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_constants.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 359688,
+        "sha256": "b36e9fd7407baf459836bad62f0beb765a262e3ee3dbd96865e758be784fc56a"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_enums.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 2481192,
+        "sha256": "cf94cbfc4ce2f51c1db1277374e3e9050cd96e99fb867a6fb4b352c0d6fe675a"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_errors.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 355272,
+        "sha256": "49b80fe84552c61089b61d0d9651cc8182ceb13973b696d4a5136e8740cf55b9"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_functions.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 1047640,
+        "sha256": "e8865942e1f6e70620271416d1e2ca6d93455471ce043ccb2bb582316b466da0"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_render.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 771464,
+        "sha256": "cb9e0626640168e1bbcd3961fb487e059dadc81876bf4363429031cd09d64334"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_rollout.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 661168,
+        "sha256": "dc605e4b37e29635be334657c443822894ede71c0cefb82366eeac10ba217b38"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_simulate.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 924216,
+        "sha256": "16d21dfa23fae6fd13e24738a27b6df8306cd6167e8c470e7e8ea4a856bd32ba"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_specs.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 2319336,
+        "sha256": "3aac3ee3dc10e784e2ff2cade136b6f1a8c40b698d7af9333c89cb2e2d1e645b"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/_structs.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 3262712,
+        "sha256": "b33d2fdcd2c07501c684347589eb58bf2ae94c1ab1399933ea6465cdfeb5b410"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco/libmujoco.so.3.6.0",
+        "bytes": 5175888,
+        "sha256": "385ae719dde65acffdb0a66605e43fa0c680cb8b331fc4dfe26b39ab3f5630ff"
+      },
+      {
+        "path": "/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/numpy/_core/_multiarray_umath.cpython-311-x86_64-linux-gnu.so",
+        "bytes": 10411849,
+        "sha256": "09edb53c84c812e0a29298ad7f9190e5190a6a51db7ae16868ecbcc7a7d4e295"
+      }
+    ]
+  },
+  "origin_work_already_paid": {
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_compiled_model_saves": 1,
+    "completed_compiled_model_saves": 1,
+    "requested_restores": 1,
+    "requested_external_mj_forward_calls": 1,
+    "completed_restores": 1,
+    "completed_external_mj_forward_calls": 1,
+    "requested_native_controls": 1000,
+    "requested_physics_substeps": 4000,
+    "completed_native_controls": 1000,
+    "completed_physics_substeps": 4000
+  },
+  "study_output_bytes_before_audit": 8374233,
+  "scope": "Saved array equivalence and original-input/runtime lineage only. Zero new physics, inference or optimizer arithmetic. Original P1.0 failure remains historical evidence."
+}

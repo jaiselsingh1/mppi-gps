@@ -49,11 +49,11 @@ There is no replacement slot, retry, alternative source or tolerance search.
 ## Exact comparisons and outputs
 
 Capture versus repeat uses `rtol=0, atol=1e-10` for all1,001 physical states,
-warmstarts and integration contexts, all saved observations and all1,000 native
+warmstarts and integration contexts, all saved observations and all 1,000 native
 costs. Controls and initial restoration remain byte-exact. Preserve separately
 stored terminal boundaries; do not shift pre-action observations by one control.
 
-The K1 forecast uses the existing batch/native contracts: all1,000 post-action
+The K1 forecast uses the existing batch/native contracts: all 1,000 post-action
 states at `rtol=0, atol=1e-10`, and aggregate complete cost at
 `rtol=0, atol=1e-9`. The existing batch interface returns neither warmstarts nor
 integration arrays; this comparison must not claim to verify unavailable
