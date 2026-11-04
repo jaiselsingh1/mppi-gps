@@ -17,6 +17,132 @@ from ..provenance import sha, write
 from .local_coupling_learning import Saved, _csv
 
 
+def render_bank_review(review: Path, out: Path) -> dict:
+    """Challenge one saved-bank explanation; no new score or execution is run."""
+    import numpy as np
+
+    from ..bank_review import _reservation
+
+    started, cpu = time.monotonic(), time.process_time()
+    review, out = review.resolve(), out.resolve()
+    saved = Saved()
+    result = saved.json(review / "result.json", "saved reweighting")
+    if result is None or result.get("status") != "COMPLETED":
+        raise ValueError("A complete saved arithmetic review is required")
+    config = saved.json(result["config"], "review configuration")
+    spec = result["measurements"]
+    path = Path(spec["path"])
+    if path.stat().st_size != spec["bytes"] or sha(path) != spec["sha256"]:
+        raise ValueError("Saved bank measurements changed")
+    _reservation(path)
+    with np.load(path, allow_pickle=False) as archive:
+        raw = {key: archive[key].copy() for key in archive.files}
+    if config is None:
+        raise ValueError("Bound review configuration is required")
+    valid = raw["valid"]
+    survival = raw["full_survival"]
+    weights = raw["weights"]
+    if valid.shape != survival.shape or valid.shape != weights.shape:
+        raise ValueError("Saved candidate roster differs")
+    out.mkdir(parents=True, exist_ok=False)
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.4))
+    for survive, color, label in (
+        (False, "#c04747", "Falls in horizon"),
+        (True, "#26855e", "Full-horizon survival"),
+    ):
+        selected = valid & (survival == survive)
+        axes[0].scatter(
+            raw["D"][selected],
+            raw["C"][selected],
+            s=12 + 140 * weights[selected],
+            color=color,
+            alpha=0.7,
+            label=f"{label} ({selected.sum()})",
+        )
+    axes[0].set(
+        xlabel="Recorded reconstruction D",
+        ylabel="Complete horizon task cost C",
+        title=f"All finite candidates: {valid.sum()}/{len(valid)}",
+    )
+    axes[0].legend(fontsize=7)
+    summaries = result["summaries"]
+    values = [
+        1 - float(survival.mean()),
+        summaries["independent"]["failed_weight_mass"],
+        summaries["target"]["failed_weight_mass"],
+    ]
+    axes[1].bar(
+        [0, 1, 2], [max(value, 1e-14) for value in values], color=["#777777", "#456da2", "#d78b28"]
+    )
+    axes[1].set(
+        yscale="log",
+        ylim=(1e-14, 2),
+        ylabel="Fraction / probability mass",
+        title="Candidate failure and PI weight differ",
+    )
+    axes[1].set_xticks(
+        [0, 1, 2],
+        [
+            "Unweighted\nfailed fraction",
+            "Failed weight\nalpha=0",
+            f"Failed weight\nalpha={config['alpha']:g}",
+        ],
+    )
+    for index, value in enumerate(values):
+        axes[1].text(index, max(value, 1e-14) * 1.6, f"{value:.3g}", ha="center", fontsize=8)
+    delta = raw["updated_plan"][0] - raw["independent_plan"][0]
+    axes[2].bar(np.arange(len(delta)), delta, color="#d78b28")
+    axes[2].axhline(0, color="black", linewidth=0.6)
+    axes[2].set(
+        xlabel="Actuator index",
+        ylabel="Proposed first-control change",
+        title=f"One-pass RMS change: {result['first_action_rms_change']:.4g}",
+    )
+    fig.suptitle(
+        "One recorded bank and actor; this is neither standalone execution nor teachability",
+        fontsize=11,
+    )
+    fig.tight_layout()
+    figure = out / "bank_mechanism.png"
+    fig.savefig(figure, dpi=140)
+    plt.close(fig)
+    manifest = dict(
+        schema="local-bank-mechanism-figure-1",
+        inputs=dict(
+            result=dict(
+                path=str(review / "result.json"),
+                bytes=(review / "result.json").stat().st_size,
+                sha256=sha(review / "result.json"),
+            ),
+            config=result["config"],
+            measurements=spec,
+        ),
+        source=dict(
+            path=str(Path(__file__).resolve()),
+            bytes=Path(__file__).stat().st_size,
+            sha256=sha(Path(__file__)),
+        ),
+        figure=dict(path=str(figure), bytes=figure.stat().st_size, sha256=sha(figure)),
+        work=dict(
+            model_controls=0,
+            native_controls=0,
+            neural_rows=0,
+            backward_rows=0,
+            optimizer_steps=0,
+            cpu_seconds=time.process_time() - cpu,
+            wall_seconds=time.monotonic() - started,
+        ),
+        scope="Illustrative fixed-bank arithmetic. Saved C/D/survival are not replayed. A one-pass proposed control is not the controller's action after further refinements, or standalone policy performance. No learnability or population-level claim follows. Zero mass is displayed at 1e-14 and labelled zero.",
+    )
+    write(out / "manifest.json", manifest)
+    return manifest
+
+
 def _load(saved: Saved, value: Any, role: str) -> dict | None:
     if isinstance(value, dict) and "path" not in value:
         saved.refs(value)

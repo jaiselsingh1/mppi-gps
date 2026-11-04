@@ -171,6 +171,9 @@ def main(argv: list[str] | None = None) -> int:
     reweight.add_argument("--out", type=Path, required=True)
     reweight.add_argument("--alpha", type=float, required=True)
     reweight.add_argument("--temperature", type=float, required=True)
+    figure = sub.add_parser("bank-figure", help="plot a bound saved-bank review; no execution")
+    figure.add_argument("--review", type=Path, required=True)
+    figure.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == "inventory":
         report = source_inventory(args.root)
@@ -180,6 +183,10 @@ def main(argv: list[str] | None = None) -> int:
         from .bank_review import reweight_local_bank
 
         report = reweight_local_bank(args.bank, args.out, args.alpha, args.temperature)
+    elif args.command == "bank-figure":
+        from .reporting.local_coupling_multiround import render_bank_review
+
+        report = render_bank_review(args.review, args.out)
     else:
         from .bank_review import verify_bank_reference
 

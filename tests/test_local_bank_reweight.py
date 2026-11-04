@@ -124,3 +124,21 @@ def test_recorded_job_requires_exact_reproduction_of_its_scoring_rule(tmp_path, 
         assert result["status"] == "FAILED_STOPPED"
     else:
         assert result["recorded_update_verified"]
+
+
+def test_mechanism_figure_keeps_bound_measurements_and_rejects_changes(tmp_path, monkeypatch):
+    from src.gps.mppi_gps.reporting.local_coupling_multiround import render_bank_review
+
+    monkeypatch.setenv("MPLCONFIGDIR", str(tmp_path / "mpl"))
+    path = tmp_path / "bank.npz"
+    np.savez_compressed(path, **bank())
+    review = tmp_path / "review"
+    result = reweight_local_bank(path, review, 0.12, 3)
+    figure = render_bank_review(review, tmp_path / "figure")
+    assert figure["work"]["native_controls"] == figure["work"]["neural_rows"] == 0
+    assert figure["inputs"]["measurements"] == result["measurements"]
+    assert (tmp_path / "figure/bank_mechanism.png").stat().st_size > 1000
+    (review / "measurements.npz").write_bytes(b"changed")
+    with pytest.raises(ValueError, match="measurements changed"):
+        render_bank_review(review, tmp_path / "wrong")
+    assert not (tmp_path / "wrong").exists()
