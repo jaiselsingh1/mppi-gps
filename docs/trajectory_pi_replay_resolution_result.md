@@ -78,3 +78,11 @@ passed. This capacity gate prevents launch; it is **not a scientific negative
 result**. A fresh capacity pass and the remaining prerequisites are required
 before the already authorized bounded comparison can begin. There is still no
 result about whether fixed reconstruction coupling improves the loop.
+
+A bounded ten-minute read-only availability wait also failed to find capacity
+(the [admission record](../results/trajectory_pi_p1_1_001/prelaunch_admission.json)
+binds all observations). P0 and the loop remain unattempted. The final test
+suite passed **2,016 tests**, with three documented skips and one expected
+failure; all 145 targeted tests also passed from the immutable source export.
+See [complete preloop accounting](../results/trajectory_pi_p1_1_001/preloop_accounting.json)
+and [saved joint-angle traces](../results/trajectory_pi_p1_1_001/figures/native_replay_joint_angles.png).

@@ -1,0 +1,580 @@
+{
+  "schema": "trajectory-pi-p1-1-preloop-accounting-1",
+  "as_of_utc": "2026-11-04T02:21:00.902064+00:00",
+  "status": "R0_AND_RV_AUDITED_P0_AND_MAIN_NOT_RUN",
+  "scope": "Snapshot of the current authorized R0/RV/P0/alternating-study chain before P0/main entry. Counts cover actual preserved scientific phase ledgers, not the older teacher acquisition/W1/W2 research history or unmetered engineering fixtures. Capacity waiting is idle chronology, not additional scientific work.",
+  "scientific_phases": {
+    "r0_origin_replay": {
+      "status": "COMPLETED",
+      "paid_science_work": {
+        "native_controls": {
+          "requested": 1000,
+          "completed": 1000,
+          "unknown_partial": 0
+        },
+        "model_controls": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "physics_substeps": {
+          "requested": 4000,
+          "completed": 4000,
+          "unknown_partial": 0
+        },
+        "neural_rows": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "backward_rows": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "optimizer_steps": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "pi_passes": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "model_queries": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "environment_constructions": {
+          "requested": 1,
+          "completed": 1,
+          "unknown_partial": 0
+        },
+        "compiled_model_saves": {
+          "requested": 1,
+          "completed": 1,
+          "unknown_partial": 0
+        },
+        "restores": {
+          "requested": 1,
+          "completed": 1,
+          "unknown_partial": 0
+        },
+        "external_mj_forward_calls": {
+          "requested": 1,
+          "completed": 1,
+          "unknown_partial": 0
+        },
+        "checkpoint_loads": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "numpy_constructions": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        }
+      },
+      "science_internal_process": {
+        "wall_seconds": 13.482327708043158,
+        "cpu_seconds": 9.393236,
+        "peak_process_rss_bytes": 103137280,
+        "output_bytes_before_receipt": 11776563,
+        "physical_disk_io_bytes": null
+      },
+      "science_external_phase": {
+        "exit_code": 0,
+        "limit_error": null,
+        "wall_seconds": 14.061771834036335,
+        "process_tree_cpu_seconds": 9.810772,
+        "supervisor_cpu_seconds": 0.221898,
+        "waited_children_cpu_seconds": 9.593498,
+        "remaining_group_terminated": false
+      },
+      "independent_saved_audit": {
+        "passed": true,
+        "checks": 9222,
+        "internal_wall_seconds": 0.24176570802228525,
+        "internal_cpu_seconds": 0.18284499999999998,
+        "external_wall_seconds": 0.5281444999855012,
+        "external_process_tree_cpu_seconds": 0.3238669999999999,
+        "new_native_controls": 0,
+        "new_model_controls": 0,
+        "new_physics_substeps": 0,
+        "new_neural_rows": 0,
+        "new_gradients": 0,
+        "new_optimizer_updates": 0
+      },
+      "enclosing_summary": {
+        "wall_seconds": 14.591895624995232,
+        "no_retries": true,
+        "output_bytes_before_summary": 11860022,
+        "non_phase_wall_gap_seconds": 0.001979290973395109
+      },
+      "nesting_rule": "Internal science/audit process timers are nested within external phase process-tree timers. Do not add these levels. RUSAGE waited-child CPU is a cross-check, not an extra charge."
+    },
+    "rv_worker_native": {
+      "status": "COMPLETED",
+      "paid_science_work": {
+        "native_controls": {
+          "requested": 4000,
+          "completed": 4000,
+          "unknown_partial": 0
+        },
+        "model_controls": {
+          "requested": 2000,
+          "completed": 2000,
+          "unknown_partial": 0
+        },
+        "physics_substeps": {
+          "requested": 24000,
+          "completed": 24000,
+          "unknown_partial": 0
+        },
+        "neural_rows": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "backward_rows": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "optimizer_steps": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "pi_passes": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "model_queries": {
+          "requested": 2,
+          "completed": 2,
+          "unknown_partial": 0
+        },
+        "environment_constructions": {
+          "requested": 1,
+          "completed": 1,
+          "unknown_partial": 0
+        },
+        "compiled_model_saves": {
+          "requested": 1,
+          "completed": 1,
+          "unknown_partial": 0
+        },
+        "restores": {
+          "requested": 6,
+          "completed": 6,
+          "unknown_partial": 0
+        },
+        "external_mj_forward_calls": {
+          "requested": 6,
+          "completed": 6,
+          "unknown_partial": 0
+        },
+        "checkpoint_loads": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        },
+        "numpy_constructions": {
+          "requested": 0,
+          "completed": 0,
+          "unknown_partial": 0
+        }
+      },
+      "science_internal_process": {
+        "wall_seconds": 18.483957293999993,
+        "cpu_seconds": 7.027578762,
+        "peak_process_rss_bytes": 99184640,
+        "output_bytes_before_receipt": 8360305,
+        "physical_disk_io_bytes": null
+      },
+      "science_external_phase": {
+        "exit_code": 0,
+        "limit_error": null,
+        "wall_seconds": 18.663132163001137,
+        "process_tree_cpu_seconds": 7.340000000000001,
+        "supervisor_cpu_seconds": 0.159385946,
+        "waited_children_cpu_seconds": 7.202477,
+        "remaining_group_terminated": false
+      },
+      "independent_saved_audit": {
+        "passed": true,
+        "checks": 33600,
+        "internal_wall_seconds": 0.23957719399913913,
+        "internal_cpu_seconds": 0.237781631,
+        "external_wall_seconds": 0.5070183059979172,
+        "external_process_tree_cpu_seconds": 0.3299999999999992,
+        "new_native_controls": 0,
+        "new_model_controls": 0,
+        "new_physics_substeps": 0,
+        "new_neural_rows": 0,
+        "new_gradients": 0,
+        "new_optimizer_updates": 0
+      },
+      "enclosing_summary": {
+        "wall_seconds": 19.469897648999904,
+        "no_retries": true,
+        "output_bytes_before_summary": 32520565,
+        "non_phase_wall_gap_seconds": 0.29974718000084977
+      },
+      "nesting_rule": "Internal science/audit process timers are nested within external phase process-tree timers. Do not add these levels. RUSAGE waited-child CPU is a cross-check, not an extra charge."
+    },
+    "p0": {
+      "status": "NOT_RUN",
+      "native_controls": 0,
+      "model_controls": 0,
+      "physics_substeps": 0,
+      "neural_rows": 0,
+      "backward_rows": 0,
+      "optimizer_steps": 0,
+      "pi_passes": 0
+    },
+    "alternating_loop": {
+      "status": "NOT_RUN",
+      "closed_rounds": 0,
+      "policy_fitting_blocks": 0,
+      "native_controls": 0,
+      "model_controls": 0,
+      "physics_substeps": 0,
+      "neural_rows": 0,
+      "backward_rows": 0,
+      "optimizer_steps": 0,
+      "pi_passes": 0
+    }
+  },
+  "paid_scientific_census_combined_once": {
+    "native_controls": {
+      "requested": 5000,
+      "completed": 5000,
+      "unknown_partial": 0
+    },
+    "model_controls": {
+      "requested": 2000,
+      "completed": 2000,
+      "unknown_partial": 0
+    },
+    "physics_substeps": {
+      "requested": 28000,
+      "completed": 28000,
+      "unknown_partial": 0
+    },
+    "neural_rows": {
+      "requested": 0,
+      "completed": 0,
+      "unknown_partial": 0
+    },
+    "backward_rows": {
+      "requested": 0,
+      "completed": 0,
+      "unknown_partial": 0
+    },
+    "optimizer_steps": {
+      "requested": 0,
+      "completed": 0,
+      "unknown_partial": 0
+    },
+    "pi_passes": {
+      "requested": 0,
+      "completed": 0,
+      "unknown_partial": 0
+    },
+    "model_queries": {
+      "requested": 2,
+      "completed": 2,
+      "unknown_partial": 0
+    },
+    "environment_constructions": {
+      "requested": 2,
+      "completed": 2,
+      "unknown_partial": 0
+    },
+    "compiled_model_saves": {
+      "requested": 2,
+      "completed": 2,
+      "unknown_partial": 0
+    },
+    "restores": {
+      "requested": 7,
+      "completed": 7,
+      "unknown_partial": 0
+    },
+    "external_mj_forward_calls": {
+      "requested": 7,
+      "completed": 7,
+      "unknown_partial": 0
+    },
+    "checkpoint_loads": {
+      "requested": 0,
+      "completed": 0,
+      "unknown_partial": 0
+    },
+    "numpy_constructions": {
+      "requested": 0,
+      "completed": 0,
+      "unknown_partial": 0
+    }
+  },
+  "paid_counts_summary": {
+    "native_controls": 5000,
+    "model_controls": 2000,
+    "physics_substeps": 28000,
+    "neural_rows": 0,
+    "backward_rows": 0,
+    "adam_updates": 0,
+    "pi_passes": 0
+  },
+  "active_phase_resource_summary": {
+    "inclusive_wall_seconds": 34.061793273995136,
+    "process_tree_cpu_seconds_imported_by_frozen_supervisor": 17.804639,
+    "r0_process_tree_cpu_seconds": 10.134639,
+    "rv_process_tree_cpu_seconds": 7.67,
+    "internal_science_process_cpu_seconds_alternative_view": 16.420814762,
+    "internal_saved_audit_cpu_seconds_alternative_view": 0.420626631,
+    "internal_science_wall_seconds_alternative_view": 31.96628500204315,
+    "internal_saved_audit_wall_seconds_alternative_view": 0.4813429020214244,
+    "additive_scope": "Add R0 and RV enclosing active phases once. Their audit subphases and internal receipts are already nested; transfer/engineering is separate. Idle wait elapsed time is not included."
+  },
+  "transfer_and_preparation": {
+    "upload_archive": {
+      "logical_archive_bytes": 9244340,
+      "sha256": "369c8432b0235154620cfd21d95a77ceef450ce5804013a4d5423d51ebfa6cac",
+      "source_payload_bytes": 4352984,
+      "source_file_count": 188,
+      "source_commit": "0570f3c5b48c07a5ae88161e994f6cbe29fc9271",
+      "source_and_inputs_verified": true
+    },
+    "measured_remote_receive_extract_verify": {
+      "wall_seconds": 2.608700543998566,
+      "cpu_seconds": 0.103487157,
+      "workspace_bytes_at_receipt": 24050142,
+      "scope": "Remote timer begins before stdin archive receive, then covers hash checking, extraction and input/source verification. It excludes local packaging, SSH setup, and local orchestration before the remote process."
+    },
+    "unmeasured": {
+      "local_packaging_wall_seconds": null,
+      "local_packaging_cpu_seconds": null,
+      "local_source_preparation_wall_seconds": null,
+      "local_source_preparation_cpu_seconds": null,
+      "complete_end_to_end_upload_wall_seconds": null,
+      "complete_end_to_end_upload_cpu_seconds": null,
+      "ssh_transport_cpu_seconds": null,
+      "actual_wire_bytes": null,
+      "evidence_retrieval_wall_seconds": null,
+      "evidence_retrieval_cpu_seconds": null,
+      "physical_disk_io_bytes": null
+    },
+    "canonical_native_preparation": {
+      "work": {
+        "checkpoint_loads": 0,
+        "policy_constructions": 0,
+        "optimizer_constructions": 0,
+        "neural_rows": 0,
+        "native_controls": 0,
+        "model_controls": 0,
+        "backward_rows": 0,
+        "optimizer_steps": 0,
+        "exact_file_copies": 11,
+        "canonical_teacher_arrays_written": 2
+      },
+      "wall_seconds": null,
+      "cpu_seconds": null,
+      "scope": "Existing files copied and canonical arrays serialized; zero new native/model/NN/fit work is declared by preparation. CPU/I/O time was not separately metered."
+    },
+    "byte_accounting": "Archive bytes, source payload bytes and unpacked workspace bytes describe overlapping representations. They are not added as unique evidence bytes; workspace and later output caps are measured on the full phase parent."
+  },
+  "engineering_validation": {
+    "final_pytest": {
+      "passed": 2016,
+      "skipped": 3,
+      "expected_failures": 1,
+      "pytest_reported_elapsed_seconds": 127.4,
+      "outer_invocation_wall_seconds": null,
+      "cpu_seconds": null,
+      "log": {
+        "file": "runs/2026-11-03_trajectory_pi_p1_1_001/engineering/final_full_pytest.log",
+        "bytes": 2375,
+        "sha256": "c0869a89f76739c6f601b4e58272eb8fd508c9da7f57475843dbc8576807fabc"
+      },
+      "research_experiment": false,
+      "native_controls": null,
+      "model_controls": null,
+      "physics_substeps": null,
+      "neural_rows": null,
+      "optimizer_steps": null,
+      "scope": "Engineering test suite, including fixtures and potentially simulator/training unit checks. The log does not provide a metered control/NN/Adam census or process-tree CPU; these are unknown, not invented zeros and not counted as a new research experiment."
+    },
+    "read_only_support_reviews": {
+      "new_native_controls": 0,
+      "new_model_controls": 0,
+      "new_physics_substeps": 0,
+      "new_neural_rows": 0,
+      "new_gradients": 0,
+      "new_optimizer_updates": 0,
+      "cpu_seconds": null,
+      "wall_seconds": null,
+      "scope": "Saved array/hash/ledger and source-contract inspections only; additional CPU/time was not centrally metered. No extra scientific run or automatic diagnostic was launched."
+    }
+  },
+  "historical_p1_0_failure_separate": {
+    "status": "FAILED_PREREQUISITE_PRESERVED",
+    "import_into_current_r0_rv_census": false,
+    "science_work": {
+      "native_controls": {
+        "requested": 1000,
+        "completed": 1000,
+        "unknown_partial": 0
+      },
+      "model_controls": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "physics_substeps": {
+        "requested": 4000,
+        "completed": 4000,
+        "unknown_partial": 0
+      },
+      "neural_rows": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "backward_rows": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "optimizer_steps": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "pi_passes": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "model_queries": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "environment_constructions": {
+        "requested": 1,
+        "completed": 1,
+        "unknown_partial": 0
+      },
+      "compiled_model_saves": {
+        "requested": 0,
+        "completed": 0,
+        "unknown_partial": 0
+      },
+      "restores": {
+        "requested": 1,
+        "completed": 1,
+        "unknown_partial": 0
+      },
+      "external_mj_forward_calls": {
+        "requested": 1,
+        "completed": 1,
+        "unknown_partial": 0
+      },
+      "checkpoint_loads": {
+        "requested": 1,
+        "completed": 1,
+        "unknown_partial": 0
+      },
+      "numpy_constructions": {
+        "requested": 1,
+        "completed": 1,
+        "unknown_partial": 0
+      }
+    },
+    "native_controls": 1000,
+    "model_controls": 0,
+    "physics_substeps": 4000,
+    "neural_rows": 0,
+    "adam_updates": 0,
+    "internal_process_wall_seconds": 4.623642131000452,
+    "internal_process_cpu_seconds": 1.7774479429999999,
+    "enclosing_stopped_supervisor_wall_seconds": 10.763133166999978,
+    "enclosing_stopped_supervisor_cpu_seconds": 4.029999999999999,
+    "scope": "The previous P1.0 source-replay failure stays historical and paid. It is neither erased nor imported again as an R0/RV execution. Broader pre-existing teacher acquisition and student-fitting runs are outside this snapshot."
+  },
+  "evidence_bindings": [
+    {
+      "file": "runs/2026-11-03_trajectory_pi_r0_1_001/receipt.json",
+      "bytes": 709,
+      "sha256": "e2d67fa8eed8720e6c0033a3932c9cca5d02d6a51b25ea316c2bddc6ebdf000a"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_r0_1_001/external_summary.json",
+      "bytes": 2670,
+      "sha256": "407cfff5ad53dd9f828bfd40c1ff798709c396bc0bb24c287080c14fa6cbcff6"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_r0_1_001/audit/receipt.json",
+      "bytes": 471,
+      "sha256": "54bec2ce7c39b342728fa6ca65e4471e4a4a2b1e4205ebc674fd09df9a1e09ef"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/receipt.json",
+      "bytes": 856,
+      "sha256": "c5efaed867580d905e6a2f94f1448e6f9544a6a885ebf974211a028a7552461c"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/external_summary.json",
+      "bytes": 2552,
+      "sha256": "97ad3a4a0ce03ab671aa1b41a5bc0fdd636a829989456dcf4fd276cf7d6f810b"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/native_validation/audit/receipt.json",
+      "bytes": 682,
+      "sha256": "63ad257c96f0b522e239b7989fede059073dbfbba4693ecd0de418c97589e8fa"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/remote_evidence/transfer_receipt.json",
+      "bytes": 351,
+      "sha256": "0692c71e2326f7efa81c75e0563073209731990778e2b290ee7e81db5fba77d5"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/engineering/transfer_selection.json",
+      "bytes": 752,
+      "sha256": "252d62311466b0b422fe692912dbd9a1b4ea29e95c621d1b04716abbea806af2"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/engineering/transfer_worker.py",
+      "bytes": 2163,
+      "sha256": "d1297a61f80be2514c0e1bbb0c70bd0f9e135c0784babbe22c37afc427237e52"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_1_001/engineering/final_full_pytest.log",
+      "bytes": 2375,
+      "sha256": "c0869a89f76739c6f601b4e58272eb8fd508c9da7f57475843dbc8576807fabc"
+    },
+    {
+      "file": "results/trajectory_pi_p1_1_001/frozen/prepared_manifest.json",
+      "bytes": 11818,
+      "sha256": "cf00c63ba713af0cdd8211c7f8a22f88862ff4923d724b916c90da3399d58384"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/preflight/receipt.json",
+      "bytes": 786,
+      "sha256": "c61b0578910d91477dc05a8f99b89980a66295b3385c874b8cfe49b796cf8f9a"
+    },
+    {
+      "file": "runs/2026-11-03_trajectory_pi_p1_001/remote_evidence/supervisor.json",
+      "bytes": 5396,
+      "sha256": "6f8a5195037dad74a51681520c94f401e12a7bc5c8d8dc1c2e5b54225c70a559"
+    }
+  ],
+  "uncertainty_policy": "Null means not independently metered or unavailable. No preparation/transport/test CPU, control count or disk I/O amount is inferred from file sizes, elapsed pytest text, or nested runtime receipts."
+}

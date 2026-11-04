@@ -1,0 +1,27 @@
+{
+  "schema": "trajectory-pi-p1-1-prelaunch-admission-1",
+  "status": "HELD_CAPACITY_UNAVAILABLE",
+  "native_validation": "PASS_AUDITED",
+  "p0": "NOT_RUN",
+  "alternating_rounds": 0,
+  "source_commit": "0570f3c5b48c07a5ae88161e994f6cbe29fc9271",
+  "binding_commit": "8381944fed2b97eb7cf7b3216dfd81947a5de44a",
+  "required_available_logical_cpus": 28,
+  "observations": 21,
+  "minimum_available_logical_cpus": 11.028930817610062,
+  "maximum_available_logical_cpus": 18.027603513174405,
+  "engineering_wait_wall_seconds": 600.2506556370026,
+  "engineering_observer_cpu_seconds": 0.011396704000000007,
+  "new_native_controls": 0,
+  "new_model_controls": 0,
+  "new_neural_rows": 0,
+  "new_optimizer_steps": 0,
+  "other_jobs_changed": false,
+  "gate_relaxed": false,
+  "next_authorized_action": "Once capacity is available, run create-only frozen supervisor for P0 then the unchanged P1.1 comparison; no new experiment or teacher acquisition.",
+  "capacity_observations": {
+    "path": "frozen/capacity_wait.json",
+    "bytes": 9110,
+    "sha256": "c460bc3561f1db87452c32d88575cc4d65e7aff57c85edd0f56d418093a8a30f"
+  }
+}

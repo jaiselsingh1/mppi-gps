@@ -13,7 +13,11 @@ passed 33,600 checks. The original P1.0 failure remains unchanged.
 [source roster](frozen/source_manifest.json),
 [external raw evidence](external_evidence.json).
 
-P0 and the alternating comparison have not run. The prelaunch capacity survey
-found 14 available cores against the unchanged 28-core gate. No allocation or
+P0 and the alternating comparison have not run. The initial survey and ten-minute read-only wait
+remained below the unchanged 28-core gate. See [admission](prelaunch_admission.json). No allocation or
 scientific setting has been relaxed. Raw arrays and checkpoints remain outside
 Git on both hosts. All nine incoming parent/Adam/RNG files are unchanged.
+
+[Joint-angle traces](figures/native_replay_joint_angles.png),
+[complete preloop accounting](preloop_accounting.json),
+[final tests](frozen/final_full_pytest.txt).
