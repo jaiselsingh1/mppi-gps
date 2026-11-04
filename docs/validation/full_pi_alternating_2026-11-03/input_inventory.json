@@ -1,0 +1,468 @@
+{
+  "schema": "full-pi-prototype-review-inputs-1",
+  "observed_utc": "2026-11-03T21:47:40.209669+00:00",
+  "observed_new_york": "2026-11-03T16:47:40.209683-05:00",
+  "source_branch": "sac-continuation",
+  "source_head": "d563712c0ac3c4983eb9727b51eed55f8b42313e",
+  "source_status": "?? scripts/diagnostics/full_pi.py",
+  "files": [
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/scripts/diagnostics/full_pi.py",
+      "bytes": 8738,
+      "sha256": "350cdce35c43585eb7edcda11bc2fd9a65c542b0b336783362715703929ffea2",
+      "mtime_ns": 1793741367781876340,
+      "mtime_new_york": "2026-11-03T16:29:27.781876-05:00",
+      "stable_during_read": true,
+      "snapshot_utf8": "\"\"\"Full-trajectory PI: does MPPI's path-integral update, run on a whole trajectory until it settles, walk?\n\nKendall (2026-11-03): \"You don't have to do mppi as mpc. You can just do the 'PI'\npart with full length trajectory and search with noise along the whole thing and\nrunning that a bunch of times until it settles. Then you can have a simpler\nsimilarity score over the whole traj like in CIO.\" MPPI as MPC never converges:\nits carried plan is a half-finished optimization whose state depends on history,\nwhich made its actions uncopyable. This is the prerequisite for the 2015-style\nloop: whether the PI update on a full open-loop trajectory settles into walking,\nand how consistent the settled actions are. Writes only to --out.\n\nDesign, fixed before the first run:\n\n- Optimizer: MPPI's update (configs/walker2d_best.json: K 256, sigma 0.3\n  low-passed at 23.4 Hz) on one 1,000-control open-loop sequence (the whole\n  episode) from a fixed start state, with no shift between iterations. 300\n  iterations; the noise is scaled by a factor decaying geometrically from 1 to\n  0.1; the current sequence is always one sample (zero noise); the temperature is\n  set each iteration so n_eff is 5% of K (MPPI's lam_target_neff_fraction).\n  Each iteration costs the current sequence exactly (it is sample 0); the\n  settled sequence is the lowest-cost one seen, since an averaged update can\n  make things worse (a plumbing run showed one tipping the walker over).\n- Starts: reset seeds 0, 1, 2 (the sample bank's starts). Inits: \"zero\" (from\n  scratch) and \"MPC\" (default MPPI-MPC's executed actions for that seed, from the\n  sample bank; it walks). Two planner seeds per start and init.\n- Measures: the current sequence's cost at every iteration; for the settled\n  sequence: survival over 1,000 controls, K1 walking (speed MAE <= 0.3 around\n  1.5 m/s), cost against MPC's executed sequence from the same start (both\n  open-loop); settling as the relative cost change over the last 50 iterations;\n  agreement between the two planner seeds' settled actions (R^2 of one on the\n  other); state-consistency of settled actions across all 6 trajectories of an\n  init (10-nearest-state R^2, controls 100+; MPC-MPPI 4%, SAC 99%).\n- Readings per init: \"full-trajectory PI walks\" if >= 5 of 6 settled sequences\n  pass K1 at <= 1.2x MPC's cost; \"it settles\" if the median relative change over\n  the last 50 iterations is <= 1%; \"settled actions are state-consistent\" if the\n  consistency is >= 0.5.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport json\nimport sys\nimport time\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[2]\nif str(ROOT) not in sys.path:\n    sys.path.insert(0, str(ROOT))\n\nimport numpy as np\n\nfrom scripts.diagnostics.action_spectrum import FIRST, neighbour_index, state_dependence\nfrom scripts.diagnostics.coupled_mppi import CONFIG, WALK_MAE\nfrom scripts.diagnostics.noise_cutoff import observation\nfrom scripts.diagnostics.sac_continuation import K1, load_teachers\nfrom src.envs.walker2d import Walker2d\nfrom src.gps.mppi_gps.diagnostic_policies import NATIVE_TASK\nfrom src.mppi.mppi import MPPI\nfrom src.utils.config import MPPIConfig\nfrom src.utils.rollout_data import pre_action_states\n\nLENGTH = 1000\nITERATIONS = 300\nFINAL_SCALE = 0.1\nNEFF_FRACTION = 0.05\nSTARTS = (0, 1, 2)\nPLANNER_SEEDS = (0, 1)\n\n\nclass FullPI(MPPI):\n    \"\"\"MPPI's update on a fixed-start sequence: scaled noise, the current sequence kept as sample 0.\"\"\"\n\n    scale = 1.0\n\n    def _sample_noise(self) -> np.ndarray:\n        noise = super()._sample_noise() * self.scale\n        noise[0] = 0.0\n        return noise\n\n\ndef rollout(env, start, warm, actions):\n    states, cost, _ = env.batch_rollout(start, actions[None], initial_warmstart=warm)\n    states = states[0]\n    healthy = env._is_healthy(states[:, 2], states[:, 3])\n    return states, float(cost[0]), bool(healthy.all())\n\n\ndef optimize(env, cfg, start, warm, init, seed, iterations):\n    planner = FullPI(env, cfg)\n    planner.reset(seed=20_000 + seed)\n    planner.U = np.clip(init.copy(), planner.action_low, planner.action_high)\n    curve, best, best_cost = [], planner.U.copy(), np.inf\n    for k in range(iterations):\n        planner.scale = FINAL_SCALE ** (k / max(iterations - 1, 1))\n        current = planner.U.copy()\n        planner._plan_iteration(start, None, None, warm)\n        curve.append(float(planner._last_costs[0]))  # cost of `current`, before this update\n        if curve[-1] < best_cost:\n            best, best_cost = current, curve[-1]\n    return best, curve\n\n\ndef agreement(a: np.ndarray, b: np.ndarray) -> float:\n    return float(1.0 - ((a - b) ** 2).sum() / ((a - a.mean(0)) ** 2).sum())\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])\n    parser.add_argument(\"--out\", type=Path, required=True)\n    parser.add_argument(\"--init\", choices=(\"zero\", \"MPC\"), required=True)\n    parser.add_argument(\"--bank\", type=Path, default=Path(\"runs/2026-11-03_sample_bank_001\"))\n    parser.add_argument(\"--threads\", type=int, default=None, help=\"MuJoCo rollout threads\")\n    parser.add_argument(\"--quick\", action=\"store_true\", help=\"plumbing check only\")\n    args = parser.parse_args()\n    started = time.perf_counter()\n    args.out.mkdir(parents=True, exist_ok=False)\n    env = Walker2d(**NATIVE_TASK, nthread=args.threads)\n    length = 120 if args.quick else LENGTH\n    iterations = 5 if args.quick else ITERATIONS\n    cfg = MPPIConfig(\n        **dict(json.loads(CONFIG.read_text()), H=length, lam_target_neff_fraction=NEFF_FRACTION)\n    )\n    pooled = np.concatenate([t[\"observations\"][FIRST:] for t in load_teachers(K1)])\n    mu, sd = pooled.mean(0), np.maximum(pooled.std(0), 1e-8)\n\n    rows, finals = [], []\n    for seed in STARTS[:2] if args.quick else STARTS:\n        with np.load(args.bank / f\"episode_{seed}.npz\") as data:\n            start, warm = data[\"states\"][0], data[\"warmstarts\"][0]\n            mpc = data[\"actions\"][:length].astype(np.float64)\n        mpc_states, mpc_cost, mpc_survives = rollout(env, start, warm, mpc)\n        init = mpc if args.init == \"MPC\" else np.zeros_like(mpc)\n        settled = []\n        for p in PLANNER_SEEDS:\n            u, curve = optimize(env, cfg, start, warm, init, 100 * seed + p, iterations)\n            states, cost, survives = rollout(env, start, warm, u)\n            vx = states[:, 10]\n            tail = np.array(curve[-50:])\n            rows.append(\n                dict(\n                    start=seed,\n                    planner_seed=p,\n                    cost=cost,\n                    mpc_cost=mpc_cost,\n                    mpc_open_loop_survives=mpc_survives,\n                    cost_ratio_to_mpc=cost / mpc_cost,\n                    survives=survives,\n                    walks=bool(survives and np.mean(np.abs(vx - 1.5)) <= WALK_MAE),\n                    mean_speed=float(vx.mean()),\n                    settling=float(abs(tail[-1] - tail[0]) / max(abs(tail[0]), 1e-9)),\n                    agreement_with_mpc=agreement(mpc, u),\n                    curve=curve,\n                )\n            )\n            settled.append(u)\n            finals.append((pre_action_states(start, states[None])[0], u))\n            print(\n                {k: v for k, v in rows[-1].items() if k != \"curve\"},\n                round(time.perf_counter() - started),\n                \"s\",\n                flush=True,\n            )\n        rows[-1][\"agreement_between_seeds\"] = agreement(settled[0], settled[1])\n        np.savez_compressed(\n            args.out / f\"start_{seed}.npz\",\n            mpc=mpc,\n            **{f\"seed_{p}\": u for p, u in zip(PLANNER_SEEDS, settled)},\n        )\n\n    crop = 10 if args.quick else FIRST\n    index = neighbour_index([(observation(s)[crop:] - mu) / sd for s, _ in finals])\n    consistency = state_dependence(\n        np.concatenate([u[crop:] for _, u in finals]), index, np.random.default_rng(0)\n    )[\"r2\"]\n    passing = [r for r in rows if r[\"walks\"] and r[\"cost_ratio_to_mpc\"] <= 1.2]\n    summary = dict(\n        init=args.init,\n        rows=rows,\n        consistency=consistency,\n        agreement_between_seeds=[\n            r[\"agreement_between_seeds\"] for r in rows if \"agreement_between_seeds\" in r\n        ],\n        readings=dict(\n            full_trajectory_pi_walks=len(passing) >= 5,\n            it_settles=float(np.median([r[\"settling\"] for r in rows])) <= 0.01,\n            settled_actions_state_consistent=consistency >= 0.5,\n        ),\n        seconds=time.perf_counter() - started,\n    )\n    (args.out / \"summary.json\").write_text(json.dumps(summary, indent=2) + \"\\n\")\n    print(json.dumps(summary[\"readings\"]), \"consistency\", round(consistency, 3))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n"
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/scripts/diagnostics/sample_bank.py",
+      "bytes": 5734,
+      "sha256": "8f033aba9b5faf75dbefb1052ccc3b3564d07f0a3e93355ec913f2ca37f5b924",
+      "mtime_ns": 1793740051513833599,
+      "mtime_new_york": "2026-11-03T16:07:31.513834-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/scripts/diagnostics/coupled_mppi.py",
+      "bytes": 10450,
+      "sha256": "b12d3f9052e6efcf97e73c1a72e39a0f08065251de3a2bf5514fd8022ba672d2",
+      "mtime_ns": 1793727943538959700,
+      "mtime_new_york": "2026-11-03T12:45:43.538960-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/src/mppi/mppi.py",
+      "bytes": 19384,
+      "sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99",
+      "mtime_ns": 1793657302802460971,
+      "mtime_new_york": "2026-11-02T17:08:22.802461-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/src/envs/mujoco_env.py",
+      "bytes": 10288,
+      "sha256": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a",
+      "mtime_ns": 1793657302789701638,
+      "mtime_new_york": "2026-11-02T17:08:22.789702-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/src/envs/walker2d.py",
+      "bytes": 9411,
+      "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6",
+      "mtime_ns": 1793657302789792513,
+      "mtime_new_york": "2026-11-02T17:08:22.789793-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/src/gps/mppi_gps/diagnostic_policies.py",
+      "bytes": 9993,
+      "sha256": "c322c020a5a5bfce3db32372c928babdce797eade4c736ad9afc0033982112b6",
+      "mtime_ns": 1793657302794131846,
+      "mtime_new_york": "2026-11-02T17:08:22.794132-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/src/gps/mppi_gps/experiments/sac_continuation.py",
+      "bytes": 22220,
+      "sha256": "99f501b8ea53b9fb56e86c632e2e48a13b7096c02852c617a5aea8c59015d679",
+      "mtime_ns": 1793728926223098516,
+      "mtime_new_york": "2026-11-03T13:02:06.223099-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/configs/walker2d_best.json",
+      "bytes": 226,
+      "sha256": "16435775c846c8037cc17be218cdf1255fa9abb971174ff04f4df363449a3ad6",
+      "mtime_ns": 1793657302082612998,
+      "mtime_new_york": "2026-11-02T17:08:22.082613-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/summary.json",
+      "bytes": 1723,
+      "sha256": "cc2edc4be1df0fafe7d63149529773f249efd533269188dc22b603cd74362a46",
+      "mtime_ns": 1793726432192281323,
+      "mtime_new_york": "2026-11-03T12:20:32.192281-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_0.npz",
+      "bytes": 30888498,
+      "sha256": "240bf2f077c9f15db6b07761450f149eeefd0087b108bbf0f37f711348ffe58e",
+      "mtime_ns": 1793726053275541299,
+      "mtime_new_york": "2026-11-03T12:14:13.275541-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_1.npz",
+      "bytes": 30897701,
+      "sha256": "3492ad67515624613defe1d869b8d70050e1dc9a7fb057b5f74413dc96fca42d",
+      "mtime_ns": 1793726093983438398,
+      "mtime_new_york": "2026-11-03T12:14:53.983438-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_2.npz",
+      "bytes": 30924829,
+      "sha256": "37bdf818cf9e0717a419b7f77e114c8c5b31d319f75f2569fb26a5b9b8f9e65c",
+      "mtime_ns": 1793726136332516399,
+      "mtime_new_york": "2026-11-03T12:15:36.332516-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_full_pi_mpc_001/start_0.npz",
+      "bytes": 138379,
+      "sha256": "eef04eb82525852b4cfb9db12a5dd9fe02b0b36341d4969fb5293c3e5065e243",
+      "mtime_ns": 1793741978021860699,
+      "mtime_new_york": "2026-11-03T16:39:38.021861-05:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jaisel--claude-spares-spare-9NRwAu/d1be111d-3d91-4afd-aa53-f75f917509e0/scratchpad/full_pi_mpc.log",
+      "bytes": 850,
+      "sha256": "67e9d114bd0a22abd51daeb09c92b9615b6f912cb4ff6c7f2217228821cccbe2",
+      "mtime_ns": 1793742275606423068,
+      "mtime_new_york": "2026-11-03T16:44:35.606423-05:00",
+      "stable_during_read": true,
+      "snapshot_utf8": "{'start': 0, 'planner_seed': 0, 'cost': 401.28863328981333, 'mpc_cost': 401.28863328981333, 'mpc_open_loop_survives': True, 'cost_ratio_to_mpc': 1.0, 'survives': True, 'walks': True, 'mean_speed': 1.453400717095828, 'settling': 0.008014194910437247, 'agreement_with_mpc': 1.0} 287 s\n{'start': 0, 'planner_seed': 1, 'cost': 401.28863328981333, 'mpc_cost': 401.28863328981333, 'mpc_open_loop_survives': True, 'cost_ratio_to_mpc': 1.0, 'survives': True, 'walks': True, 'mean_speed': 1.453400717095828, 'settling': 0.015451488325167028, 'agreement_with_mpc': 1.0} 583 s\n{'start': 1, 'planner_seed': 0, 'cost': 378.30951482694223, 'mpc_cost': 378.30951482694223, 'mpc_open_loop_survives': True, 'cost_ratio_to_mpc': 1.0, 'survives': True, 'walks': True, 'mean_speed': 1.4708544227372413, 'settling': 0.021519768832061185, 'agreement_with_mpc': 1.0} 881 s\n"
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jaisel--claude-spares-spare-9NRwAu/d1be111d-3d91-4afd-aa53-f75f917509e0/scratchpad/fullpi_launch.txt",
+      "bytes": 14,
+      "sha256": "4c7560d5c62b72f00fd4552cf4e3863c7394b698377418c01b15b92a7ca4fc4f",
+      "mtime_ns": 1793741371729674597,
+      "mtime_new_york": "2026-11-03T16:29:31.729675-05:00",
+      "stable_during_read": true,
+      "snapshot_utf8": "5090 launched\n"
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz",
+      "bytes": 4007410,
+      "sha256": "45639eebb6541106bc080c69eced53f947bc6928490cec561ae8f449aba9c413",
+      "mtime_ns": 1793424402892185573,
+      "mtime_new_york": "2026-10-31T01:26:42.892186-04:00",
+      "stable_during_read": true
+    },
+    {
+      "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_01.npz",
+      "bytes": 4007410,
+      "sha256": "4516875f906305633c16c75dbae10225c452019fb15a717095582ac4dd2ae4d1",
+      "mtime_ns": 1793424402901773519,
+      "mtime_new_york": "2026-10-31T01:26:42.901773-04:00",
+      "stable_during_read": true
+    }
+  ],
+  "logical_read_and_hash_bytes": 100963258,
+  "array_headers": {
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_sample_bank_001/episode_0.npz": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "float64"
+      },
+      "warmstarts": {
+        "shape": [
+          1000,
+          9
+        ],
+        "dtype": "float64"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float64"
+      },
+      "nominal_first": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float64"
+      },
+      "raw_first": {
+        "shape": [
+          1000,
+          256,
+          6
+        ],
+        "dtype": "float32"
+      },
+      "prefix": {
+        "shape": [
+          1000,
+          256,
+          8,
+          6
+        ],
+        "dtype": "float16"
+      },
+      "costs": {
+        "shape": [
+          1000,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "weights": {
+        "shape": [
+          1000,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "plan": {
+        "shape": [
+          1000,
+          48,
+          6
+        ],
+        "dtype": "float32"
+      },
+      "survived": {
+        "shape": [],
+        "dtype": "bool"
+      },
+      "walks": {
+        "shape": [],
+        "dtype": "bool"
+      },
+      "cost": {
+        "shape": [],
+        "dtype": "float64"
+      }
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_full_pi_mpc_001/start_0.npz": {
+      "mpc": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float64"
+      },
+      "seed_0": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float64"
+      },
+      "seed_1": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float64"
+      }
+    },
+    "/Users/jaisel/Documents/mppi-gps/runs/2026-10-31_action_compatibility_k1_001/inputs/teachers/h4_r1_independent_00.npz": {
+      "states": {
+        "shape": [
+          1000,
+          19
+        ],
+        "dtype": "float64"
+      },
+      "terminal_state": {
+        "shape": [
+          19
+        ],
+        "dtype": "float64"
+      },
+      "observations": {
+        "shape": [
+          1000,
+          17
+        ],
+        "dtype": "float64"
+      },
+      "actions": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float64"
+      },
+      "warmstarts": {
+        "shape": [
+          1000,
+          9
+        ],
+        "dtype": "float64"
+      },
+      "terminal_warmstarts": {
+        "shape": [
+          9
+        ],
+        "dtype": "float64"
+      },
+      "integrations": {
+        "shape": [
+          1000,
+          91
+        ],
+        "dtype": "float64"
+      },
+      "terminal_integrations": {
+        "shape": [
+          91
+        ],
+        "dtype": "float64"
+      },
+      "costs": {
+        "shape": [
+          1000
+        ],
+        "dtype": "float64"
+      },
+      "velocities": {
+        "shape": [
+          1000
+        ],
+        "dtype": "float64"
+      },
+      "row_steps": {
+        "shape": [
+          1000
+        ],
+        "dtype": "int64"
+      },
+      "planner_nominal": {
+        "shape": [
+          1000,
+          48,
+          6
+        ],
+        "dtype": "float64"
+      },
+      "planner_rng_fingerprint": {
+        "shape": [
+          1000
+        ],
+        "dtype": "<U64"
+      },
+      "bank_digest": {
+        "shape": [
+          1000
+        ],
+        "dtype": "<U64"
+      },
+      "planner_initial_plan": {
+        "shape": [
+          1000
+        ],
+        "dtype": "bool"
+      },
+      "planner_context_available": {
+        "shape": [
+          1000
+        ],
+        "dtype": "bool"
+      },
+      "saved_predictions_h4_parent": {
+        "shape": [
+          1000,
+          6
+        ],
+        "dtype": "float32"
+      }
+    }
+  },
+  "partial_log_cases": [
+    {
+      "start": 0,
+      "planner_seed": 0,
+      "cost": 401.28863328981333,
+      "mpc_cost": 401.28863328981333,
+      "mpc_open_loop_survives": true,
+      "cost_ratio_to_mpc": 1.0,
+      "survives": true,
+      "walks": true,
+      "mean_speed": 1.453400717095828,
+      "settling": 0.008014194910437247,
+      "agreement_with_mpc": 1.0,
+      "source_elapsed_seconds": 287
+    },
+    {
+      "start": 0,
+      "planner_seed": 1,
+      "cost": 401.28863328981333,
+      "mpc_cost": 401.28863328981333,
+      "mpc_open_loop_survives": true,
+      "cost_ratio_to_mpc": 1.0,
+      "survives": true,
+      "walks": true,
+      "mean_speed": 1.453400717095828,
+      "settling": 0.015451488325167028,
+      "agreement_with_mpc": 1.0,
+      "source_elapsed_seconds": 583
+    },
+    {
+      "start": 1,
+      "planner_seed": 0,
+      "cost": 378.30951482694223,
+      "mpc_cost": 378.30951482694223,
+      "mpc_open_loop_survives": true,
+      "cost_ratio_to_mpc": 1.0,
+      "survives": true,
+      "walks": true,
+      "mean_speed": 1.4708544227372413,
+      "settling": 0.021519768832061185,
+      "agreement_with_mpc": 1.0,
+      "source_elapsed_seconds": 881
+    }
+  ],
+  "start0_action_comparison": {
+    "seed_0": {
+      "exact_mpc": true,
+      "max_abs_difference": 0.0,
+      "byte_equal_mpc": true
+    },
+    "seed_1": {
+      "exact_mpc": true,
+      "max_abs_difference": 0.0,
+      "byte_equal_mpc": true
+    }
+  },
+  "local_output": {
+    "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-11-03_full_pi_mpc_001",
+    "files": [
+      {
+        "name": "start_0.npz",
+        "bytes": 138379
+      }
+    ],
+    "summary_present": false
+  },
+  "remote_metadata_search": {
+    "roots_checked": [
+      "/home/jaisel/mppi-gps/runs",
+      "/home/jaisel/mppi-gps/.claude/worktrees/sac-continuation/runs"
+    ],
+    "matching_directories_found": 0,
+    "scope": "Read-only named project directories; no process inventory or command lines read. Actual remote output path remains unbound."
+  },
+  "work": {
+    "new_physics_controls": 0,
+    "new_neural_rows": 0,
+    "new_optimizer_steps": 0,
+    "new_experiments": 0,
+    "array_header_inspection_read_bytes": null
+  },
+  "limits": {
+    "logical_read_bytes": 536870912,
+    "wall_seconds": 1200
+  },
+  "limitations": [
+    "Current source is untracked and has no saved executable-source binding.",
+    "Full PI results are partial at this observation; full curves and summary are not yet locally available.",
+    "Measured timing is source log wall time, not independently metered CPU/GPU/physics census.",
+    "Original evidence and other branches were read only.",
+    "logical_read_and_hash_bytes counts explicit full-file hashing; additional NPZ header/array inspections were not separately metered. Their observed buffers remain under the finite review memory bound."
+  ]
+}
