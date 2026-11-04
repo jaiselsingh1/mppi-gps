@@ -114,6 +114,7 @@ for name in (
     "checkpoint_join_observation.json",
     "first_missing_anchor_observation.json",
     "round2_observation.json",
+    "round3_query_coverage_observation.json",
 ):
     if (art / name).exists():
         copy(art / name, "accounting/" + name)

@@ -1,0 +1,14 @@
+import hashlib,json,pathlib,time,shutil
+root=pathlib.Path(__file__).resolve().parents[2];out=root/'results/full_pi_alternating_001';start=time.monotonic();cpu=time.process_time();read_bytes=0
+source=pathlib.Path(__file__);shutil.copyfile(source,out/'accounting/source_transcripts/seal_publication.py.txt')
+excluded={'files_manifest.json','seal_receipt.json'}
+def binding(p):
+ global read_bytes
+ b=p.read_bytes();read_bytes+=len(b);return dict(bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+manifest={str(p.relative_to(out)):binding(p) for p in sorted(out.rglob('*')) if p.is_file() and str(p.relative_to(out)) not in excluded}
+(out/'files_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');m=binding(out/'files_manifest.json')
+assert set(manifest)=={str(p.relative_to(out)) for p in out.rglob('*') if p.is_file()}-excluded
+assert all(binding(out/name)==v for name,v in manifest.items())
+assert binding(out/'files_manifest.json')==m
+receipt=dict(schema='walker-full-pi-publication-seal-v2',attempt=2,passed=True,verified=True,files=len(manifest),payload_bytes=sum(v['bytes'] for v in manifest.values()),manifest=m,exclusions=sorted(excluded),preserved_failed_attempt='accounting/publication_seal_failure_001.json',source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),raw_source_commit='627d4329fad537e32b4662e2cebaba3896d58d17',hash_read_bytes_including_independent_verification=read_bytes,wall_seconds=time.monotonic()-start,cpu_seconds=time.process_time()-cpu,new_physics=0,new_inference=0,new_fitting=0)
+(out/'seal_receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt))

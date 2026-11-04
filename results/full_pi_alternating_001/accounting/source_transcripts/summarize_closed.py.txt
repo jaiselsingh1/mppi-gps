@@ -1,0 +1,40 @@
+import collections,hashlib,json,pathlib,time,zipfile
+root=pathlib.Path(__file__).resolve().parents[2];run=root/'runs/2026-11-03_full_pi_alternating_bounded_001';art=root/'artifacts/full_pi_alternating_2026-11-03'
+start=time.monotonic();cpu=time.process_time();reads=0
+
+def load(p):
+ global reads
+ b=p.read_bytes();reads+=len(b);return json.loads(b)
+
+def arrays(p):
+ global reads
+ reads+=p.stat().st_size
+ with zipfile.ZipFile(p) as z:return {name:hashlib.sha256(z.read(name)).hexdigest() for name in z.namelist()}
+rows=[];pairs=[];searches=[];works=[]
+for s in range(3):
+ sr=run/f'stream_{s}';works.append(load(sr/'work.json'))
+ for r in range(7):
+  paired={}
+  for a in ('zero','fixed'):
+   cell=sr/f'r{r:02d}_{a}';d=load(cell/'result.json');paired[a]=d
+   row=dict(stream=s,round=r,arm=a,pre_mse=d['pre_mse'],post_mse=d['post_mse'],walking=sum(e['walking'] for e in d['evaluation']),survival=sum(e['survived'] for e in d['evaluation']),mean_controls=sum(e['controls'] for e in d['evaluation'])/16,mean_cost=sum(e['cost'] for e in d['evaluation'])/16,confirmation_walking=sum(e['walking'] for e in d.get('confirmation',[])),confirmation_survival=sum(e['survived'] for e in d.get('confirmation',[])),teacher_costs=[e['cost'] for e in d['teacher']],teacher_walking=sum(e['walking'] for e in d['teacher']),available_queries=sum(q['available'] for q in d['queries']),qualified_queries=sum(q.get('walking',False) for q in d['queries']),missing_anchors=[q['anchor'] for q in d['queries'] if not q['available']])
+   rows.append(row)
+   if r:
+    for k in range(2):
+     v=load(cell/f'search_{k}/selection.json');searches.append(dict(stream=s,round=r,arm=a,slot=k,selected_iteration=v['selected']['iteration'],raw_best_iteration=v['raw_best']['iteration'],change=v['selected_change_rms'],gain=v['objective_relative_gain'],guard_changed_selection=v['raw_best_rejected']))
+  z,f=paired['zero'],paired['fixed']
+  p=dict(stream=s,round=r,policy_equal=z['policy_hash']==f['policy_hash'],optimizer_equal=z['optimizer_fingerprint']==f['optimizer_fingerprint'],evaluation_equal=z['evaluation']==f['evaluation'],queries_equal=z['queries']==f['queries'],confirmation_equal=z.get('confirmation')==f.get('confirmation'))
+  if r:p['fit_arrays_equal']=arrays(sr/f'r{r:02d}_zero/fit_arrays.npz')==arrays(sr/f'r{r:02d}_fixed/fit_arrays.npz')
+  pairs.append(p)
+counts=dict(sum((collections.Counter(w['completed']) for w in works),collections.Counter()))
+missing=[dict(stream=v['stream'],round=v['round'],arm=v['arm'],anchors=v['missing_anchors']) for v in rows if v['missing_anchors']]
+secondary=[]
+for s in range(3):
+ vals={a:{r:next(x for x in rows if (x['stream'],x['round'],x['arm'])==(s,r,a)) for r in range(7)} for a in ('zero','fixed')}
+ early=sum(vals['fixed'][r]['post_mse'] for r in (1,2))/2;late=sum(vals['fixed'][r]['post_mse'] for r in (5,6))/2;control=sum(vals['zero'][r]['post_mse'] for r in (5,6))/2
+ secondary.append(dict(stream=s,early_reconstruction=early,late_reconstruction=late,contraction=1-late/early,late_relative_to_control=late/control,reconstruction_secondary_pass=(late<=.8*early and late<=.9*control)))
+manifest=load(run/'files_manifest.json');actual={str(p.relative_to(run)) for p in run.rglob('*') if p.is_file()}
+result=dict(rows=rows,paired_identity=pairs,acquisition=searches,secondary=secondary,scientific_work=counts,worker_resources=works,raw_manifest_complete=actual==set(manifest)|{'files_manifest.json','seal_receipt.json'},raw_manifest_files=len(manifest),raw_manifest_bytes=sum(v['bytes'] for v in manifest.values()),available_queries=sum(x['available_queries'] for x in rows),qualified_queries=sum(x['qualified_queries'] for x in rows),missing_anchors=missing,counts_scope='Exact saved scalar reductions and NPY member hashes; no physics, inference or fitting',logical_read_bytes=reads,wall_seconds=time.monotonic()-start,cpu_seconds=time.process_time()-cpu,new_physics=0,new_inference=0,new_fitting=0)
+(art/'closed_summary_receipt.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps({k:v for k,v in result.items() if k not in ('rows','paired_identity','acquisition','worker_resources')}))
+print(json.dumps(dict(all_pair_checks=all(all(v for k,v in row.items() if k not in ('stream','round')) for row in pairs),retained_changes=sum(x['change']>0 for x in searches),final=[x for x in rows if x['round']==6])))

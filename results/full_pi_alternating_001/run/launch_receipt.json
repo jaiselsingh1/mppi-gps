@@ -1,0 +1,50 @@
+{
+  "commit": "627d432",
+  "interpreter": "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+  "source_manifest": {
+    "bytes": 30038,
+    "sha256": "91024c5806e0e24ebe81aa78c81d9d892c36a2047931eb30783899683a2d3a83"
+  },
+  "config": {
+    "bytes": 3143,
+    "sha256": "789078961866fbf07420ae0d3d3da07545df45d36298097b9ca27fb1db18958f"
+  },
+  "commands": [
+    [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-m",
+      "src.gps.mppi_gps.full_pi_alternating",
+      "run",
+      "--run",
+      "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001",
+      "--stream",
+      "0"
+    ],
+    [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-m",
+      "src.gps.mppi_gps.full_pi_alternating",
+      "run",
+      "--run",
+      "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001",
+      "--stream",
+      "1"
+    ],
+    [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-m",
+      "src.gps.mppi_gps.full_pi_alternating",
+      "run",
+      "--run",
+      "/Users/jaisel/Documents/workbench/mppi-full-pi-alternating-bounded/runs/2026-11-03_full_pi_alternating_bounded_001",
+      "--stream",
+      "2"
+    ]
+  ],
+  "concurrency": 3,
+  "native_threads": 4,
+  "torch_threads": 1,
+  "started_utc": "2026-11-03T22:08:34Z",
+  "deadline_seconds": 43200,
+  "gpu": false
+}

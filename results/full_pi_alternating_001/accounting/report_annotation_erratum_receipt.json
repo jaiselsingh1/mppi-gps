@@ -1,0 +1,11 @@
+{
+  "scope": "Annotation-only erratum to trace_report_001/supplement.json; original output and its source binding retained",
+  "field": "phase_accounting_note",
+  "incorrect": "The first round0 2000-row reconstruction is in initial",
+  "correct": "The first round0 2000-row reconstruction is in load_parent; initial contains initializer physics only. The second 2000-row reconstruction remains labelled r0_zero_student_queries. Raw phase counts are correct; accounting_rollup_receipt.json supplies the corrected per-arm allocation and joins exactly to all work totals.",
+  "cause": "Saved-only accounting reducer assumed the wrong shared-phase label, raised KeyError and was preserved before correction",
+  "scientific_evidence_changed": false,
+  "new_physics": 0,
+  "new_inference": 0,
+  "new_fitting": 0
+}

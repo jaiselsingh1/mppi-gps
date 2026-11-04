@@ -1,0 +1,35 @@
+import collections,json,pathlib,time
+root=pathlib.Path(__file__).resolve().parents[2];art=root/'artifacts/full_pi_alternating_2026-11-03';run=root/'runs/2026-11-03_full_pi_alternating_bounded_001';start=time.monotonic();cpu=time.process_time();reads=0
+
+def load(p):
+ global reads
+ b=p.read_bytes();reads+=len(b);return json.loads(b)
+science=load(art/'closed_summary_receipt.json');cfg=load(run/'config.json');audit=load(art/'audit_001/audit.json');join=load(art/'join_audit_001/audit.json');context=load(art/'query_context_check_001/work.json');pre=load(root/'docs/validation/full_pi_alternating_2026-11-03/prelaunch_checks.json')
+audits=dict(collections.Counter(audit['audit_work'])+collections.Counter(join['audit_work'])+collections.Counter(context['completed']))
+eng=pre['new_engineering_work'];known={}
+for field,key in [('model_controls','model_controls'),('native_controls','native_controls'),('physics_substeps','physics_substeps'),('neural_forward_rows','neural_rows'),('backward_rows','backward_rows'),('Adam_updates','optimizer_steps')]:known[key]=science['scientific_work'].get(key,0)+eng[field]+audits.get(key,0)
+receipts={p.name:load(p) for p in sorted(art.glob('*_process_receipt.json'))}
+monitor=art/'monitor_receipts.jsonl';b=monitor.read_bytes();reads+=len(b);monitor_rows=[json.loads(x) for x in b.splitlines()]
+source=load(art/'trace_report_001/supplement.json');phases=[]
+for s in source['accounting_by_phase']:
+ counts=s['exact_original_phase_counts'];initial=dict(collections.Counter(counts['initial'])+collections.Counter(counts['load_parent']))
+ # Known source-bound baseline phase labels: move only the two reconstruction predictions.
+ initial['neural_rows']-=2000;initial['prediction_calls']-=1
+ for r in range(7):
+  for a in ('zero','fixed'):
+   total=dict(sum((collections.Counter(v) for k,v in counts.items() if k.startswith(f'r{r}_{a}_')),collections.Counter()))
+   if r==0:
+    if a=='zero':total['neural_rows']-=2000;total['prediction_calls']-=1
+    total['neural_rows']+=2000;total['prediction_calls']+=1
+   phases.append(dict(stream=s['stream'],round=r,arm=a,counts=total))
+ # Above zero reconstruction transfer: subtract the fixed prediction from zero queries, then add own prediction.
+ shared=dict(stream=s['stream'],round=None,arm='shared_initialization',counts=initial);phases.append(shared)
+ observed=dict(sum((collections.Counter(x['counts']) for x in phases if x['stream']==s['stream']),collections.Counter()))
+ assert observed==science['worker_resources'][s['stream']]['completed']
+checks={k:science['scientific_work'][k]<=v for k,v in cfg['total_limits'].items() if k in science['scientific_work']}
+checks['scientific_raw_storage']=science['raw_manifest_bytes']+(run/'files_manifest.json').stat().st_size+(run/'seal_receipt.json').stat().st_size<=cfg['total_limits']['storage_bytes']
+checks['audit_controls']=audits.get('model_controls',0)+audits.get('native_controls',0)<=20000
+checks['audit_neural']=audits['neural_rows']<=100000000
+checks['engineering_controls_and_steps']=eng['model_controls']<=100000 and eng['native_controls']<=10000 and eng['Adam_updates']<=100
+result=dict(scientific=science['scientific_work'],implementation_checks=eng,audits=audits,known_new_work_combined_selected_units=known,analytic_control_evaluations=2304,per_arm_round_and_shared_counts=phases,phase_correction='Move 2000 rows/one prediction per round0 arm from the source-bound load_parent/preceding-query phase labels; exact totals preserved, original phase counts remain in supplement.json.',frozen_counter_checks=checks,worker_absolute_cpu_seconds=sum(w['usage']['user']+w['usage']['system'] for w in science['worker_resources']),worker_meter_cpu_seconds=sum(w['cpu_seconds'] for w in science['worker_resources']),audit_and_reporting_process_receipts=receipts,monitor=dict(observations=len(monitor_rows),wall_seconds=sum(x['wall_seconds'] for x in monitor_rows),cpu_seconds=sum(x['cpu_seconds'] for x in monitor_rows),logical_read_bytes=sum(x['logical_read_bytes'] for x in monitor_rows)),engineering_all_in_budget_certified=False,unknowns=['Fine-grained early tool/edit and assistant-reasoning cost','Coordinator CPU and closeout orchestration overhead','Complete library/OS IO and physical disk IO','Incremental Git storage, billing and energy','Historical parent/teacher costs beyond identified imported updates'],scope='Exact new scientific work plus recorded implementation/audit units; known process overhead separate, no all-in cost invented.',new_rollup_physics=0,new_rollup_inference=0,new_rollup_fitting=0,logical_read_bytes=reads,reader_wall_seconds=time.monotonic()-start,reader_cpu_seconds=time.process_time()-cpu)
+(art/'accounting_rollup_receipt.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(dict(checks=checks,known=known,audits=audits,phase_entries=len(phases),all_checks=all(checks.values()))))

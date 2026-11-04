@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "workers": [
+    {
+      "stream": 0,
+      "checks": {
+        "wall": true,
+        "cpu": true,
+        "rss": true,
+        "storage": true,
+        "no_partial": true
+      },
+      "logical_output_bytes": 8537715013
+    },
+    {
+      "stream": 1,
+      "checks": {
+        "wall": true,
+        "cpu": true,
+        "rss": true,
+        "storage": true,
+        "no_partial": true
+      },
+      "logical_output_bytes": 8606476816
+    },
+    {
+      "stream": 2,
+      "checks": {
+        "wall": true,
+        "cpu": true,
+        "rss": true,
+        "storage": true,
+        "no_partial": true
+      },
+      "logical_output_bytes": 8254413352
+    }
+  ],
+  "coordinator_wall_seconds": 12526.127299166052,
+  "worker_cpu_seconds_recorded": 132587.926221,
+  "supervisor_cpu_upper_bound_seconds": 12546.127299166052,
+  "upper_bound_scope": "Frozen supervisor is a single-thread standard-library polling/hash process; wall plus20s covers recorded seal interval. This conservative bound is not an exact measured supervisor CPU total.",
+  "all_in_engineering_certified": false,
+  "new_physics": 0,
+  "new_inference": 0,
+  "new_fitting": 0,
+  "reader_wall_seconds": 0.030974749999586493,
+  "reader_cpu_seconds": 0.030076
+}

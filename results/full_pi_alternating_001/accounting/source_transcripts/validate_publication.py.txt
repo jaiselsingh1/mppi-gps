@@ -1,0 +1,39 @@
+import gzip,hashlib,json,pathlib,re,time,urllib.parse
+root=pathlib.Path(__file__).resolve().parents[2];out=root/'results/full_pi_alternating_001';art=root/'artifacts/full_pi_alternating_2026-11-03';start=time.monotonic();cpu=time.process_time();read_bytes=0
+
+def data(p):
+ global read_bytes
+ b=p.read_bytes();read_bytes+=len(b);return b
+
+def bind_bytes(b):return dict(bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+origins=json.loads(data(out/'origins.json'));counts={};errors=[]
+for name,info in origins.items():
+ p=out/name;b=data(p);original=data(pathlib.Path(info['source']))
+ assert bind_bytes(original)==info['original'], name+' origin changed'
+ encoding=info['encoding'];counts[encoding]=counts.get(encoding,0)+1
+ if encoding=='exact':assert b==original,name
+ elif encoding=='gzip lossless':assert gzip.decompress(b)==original,name
+ else:assert json.loads(b)=={k:json.loads(original)[k] for k in json.loads(b)},name
+fits=[json.loads(gzip.decompress(data(p))) for p in out.glob('fits/*/*.gz')]
+assert len(fits)==36 and sum(len(f['learning_curve']) for f in fits)==9000
+assert all(f['optimizer_continued'] and f['completed_updates']==250 and not f['failed'] for f in fits)
+links=0
+for p in [root/'docs/full_pi_alternating_results.md',root/'docs/full_pi_alternating_protocol.md',root/'docs/full_pi_similarity_derivation.md',*out.rglob('*.md')]:
+ for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',data(p).decode()):
+  if target.startswith(('http:','https:','mailto:','#')):continue
+  target=urllib.parse.unquote(target.split('#')[0]);candidate=p.parent/target;links+=1
+  if not candidate.exists():errors.append(dict(file=str(p),target=target))
+assert not errors,errors
+run=root/'runs/2026-11-03_full_pi_alternating_bounded_001';m=json.loads(data(run/'files_manifest.json'));expected=set(m)|{'files_manifest.json','seal_receipt.json'}
+assert {str(p.relative_to(run)) for p in run.rglob('*') if p.is_file()}==expected
+for n in ('audit_001','join_audit_001'):assert json.loads(data(out/n/'audit.json'))['passed']
+science=json.loads(data(out/'accounting/closed_summary_receipt.json'));assert all(all(v for k,v in row.items() if k not in ('stream','round')) for row in science['paired_identity'])
+phases=json.loads(data(out/'accounting/accounting_rollup_receipt.json'));assert all(phases['frozen_counter_checks'].values())
+footprint={}
+for label,path in [('scientific_raw',run),('engineering_artifacts',art),('publication_capsule',out)]:footprint[label]=sum(p.stat().st_size for p in path.rglob('*') if p.is_file())
+other=0
+for p in root.rglob('*'):
+ if p.is_file() and not any(base==p or base in p.parents for base in (run,art,out)):other+=p.stat().st_size
+footprint['remaining_worktree_checkout_including_inherited_files_and_caches']=other
+result=dict(passed=True,origin_files_verified=len(origins),encodings=counts,fit_records=len(fits),preserved_update_points=9000,local_links_checked=links,raw_census_unchanged=True,paired_identity_checks=True,scientific_budget_checks=True,all_in_engineering_certified=False,logical_footprint_bytes=footprint,footprint_scope='Logical current worktree files; existing imported external inputs/runtime and shared Git database are separate. Includes inherited checked-out files; not incremental physical APFS allocation.',logical_validation_read_bytes=read_bytes,wall_seconds=time.monotonic()-start,cpu_seconds=time.process_time()-cpu,new_physics=0,new_inference=0,new_fitting=0)
+(out/'validation_receipt.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
