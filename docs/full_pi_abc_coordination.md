@@ -46,14 +46,17 @@ admit or reject teaching data. The proposal separates walking from retention
 and requires fair low-pass-cloning/DAgger accounting before superiority claims.
 Its prerequisites are unmet; no follow-up is launched.
 
+The [sealed owner publication](validation/full_pi_abc_coordination_2026-11-03/owner_closure.json)
+records final commit `f5198e1`, its one-page result, capsule and accounting.
+
 ## Appendix: shared accounting
 
 A/B/C and verification share 3,600 elapsed seconds and 3,600 aggregate CPU seconds.
 Completed work: **12,288 model controls, 6,730 native controls, 76,072 substeps,
 13,334 forward rows; zero fitting**. The pre-physics software failure and failed
-reviewer check remain preserved. Owner charge at native-audit closure was
-305.82 CPU seconds, including one 300-second preparation reservation. The full
-review/documentation allocation of 120 CPU/180 active elapsed seconds stays
-inside that wallet. Known reviewer CPU was 1.94 seconds; unmetered startup and
+reviewer check remain preserved. Final conservative CPU allocation was **545.82 seconds**: 300 preparation,
+120 publication, 120 review and 5.82 recorded research-process seconds. The
+owner reported a final precommit elapsed check of **2,993.58 seconds**, including
+an extra 180-second review reserve despite overlap, below the shared ceiling. Known reviewer CPU was 1.94 seconds; unmetered startup and
 source-review costs are not invented as zero or exact billing. Historical
 six-round and R0/P1.1 costs remain separate.

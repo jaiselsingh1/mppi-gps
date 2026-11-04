@@ -1,0 +1,97 @@
+{
+  "schema": "walker-abc-owner-final-publication-1",
+  "owner_branch": "codex/local-mppi-coupling-diagnosis",
+  "owner_final_commit": "f5198e1846b415b99199d8f1f42e180246a577d8",
+  "status": "SEALED_PREREQUISITE_FAILURE_NO_FITTING",
+  "publication": "External evidence on the owner branch; no merge or changes to its worktree.",
+  "evidence": {
+    "one_page_result": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/docs/local_coupling_result.md",
+      "bytes": 3516,
+      "sha256": "422808765f0fb94f9921e018f66f81cae90eb9e7cf387f371faa6153c04d43e5"
+    },
+    "appendix": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/docs/local_coupling_appendix.md",
+      "bytes": 11827,
+      "sha256": "f41e382ac935c9eb15575fca1b5dc88ccc4d0f4a623299a67a3869b5c04c6d27"
+    },
+    "capsule_readme": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/results/local_coupling_diagnosis_001/README.md",
+      "bytes": 2387,
+      "sha256": "7553243391d79435bcf68042e36be05f21cfc8a4df80911d1f5c9ba75e9a5f28"
+    },
+    "capsule_manifest": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/results/local_coupling_diagnosis_001/files_manifest.json",
+      "bytes": 8309,
+      "sha256": "70b48aadff11f9b0b87e4daf32cd6085dae59fbbeef1e4e0860037340a7a37d3"
+    },
+    "seal": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/results/local_coupling_diagnosis_001/seal_receipt.json",
+      "bytes": 321,
+      "sha256": "15b354384d774917301807fdb4aeca755d1a3924384715c89ebeb7390b5674c0"
+    },
+    "budget": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-local-coupling-diagnosis/results/local_coupling_diagnosis_001/validation_budget_receipt.json",
+      "bytes": 1665,
+      "sha256": "3e38353c1106e35eb873613ae5ba54b95a1ccdc235e0109bb0196ce2bd195054"
+    }
+  },
+  "final_budget_receipt": {
+    "passed": true,
+    "origin_files": 46,
+    "independent_review_files": 20,
+    "frozen_runner_commit": "56e9b046cbc86f046726b66b5e07d9741fef7eb3",
+    "frozen_runner": {
+      "bytes": 32960,
+      "sha256": "f9866c86e36e271a44adc40a470e337e6d060f85610f6c851782cb81ad14914d"
+    },
+    "new_work": {
+      "environment_constructions": 3,
+      "checkpoint_loads": 3,
+      "restores": 259,
+      "model_controls": 12288,
+      "physics_substeps": 76072,
+      "model_queries": 1,
+      "neural_rows": 13334,
+      "native_controls": 6730
+    },
+    "recorded_owner_research_cpu_seconds": 5.815439000000083,
+    "prep_CPU_reservation": 300,
+    "postprocessing_CPU_reservation": 120,
+    "review_CPU_reservation": 120,
+    "conservative_allocated_CPU_seconds": 545.8154390000001,
+    "conservative_global_elapsed_seconds": 2711.0934116840363,
+    "extra_review_elapsed_reservation": 180,
+    "conservative_elapsed_including_extra_reservation": 2891.0934116840363,
+    "elapsed_scope": "Global anchor already overlaps review; extra180seconds charged conservatively, not asserted measured",
+    "new_fitting": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "verification_wall_seconds": 0.03362516697961837,
+    "verification_cpu_seconds": 0.013553000000000003,
+    "unmeasured": "Exact tool/OS/assistant costs and earlier reviewer startup are not fabricated. Reservations are conservative host-work allocations, not measured bills.",
+    "source_versions": {
+      "preflight_failure": "1a70703026b5747c19de0b1d50050496b547a0fc",
+      "actual_calibration": "56e9b046cbc86f046726b66b5e07d9741fef7eb3"
+    },
+    "runtime_scope": "Declared runtime only; new execution-time native binary/environment receipt was not retained."
+  },
+  "capsule_seal_receipt": {
+    "passed": true,
+    "files": 53,
+    "payload_bytes": 3909413,
+    "manifest": {
+      "bytes": 8309,
+      "sha256": "70b48aadff11f9b0b87e4daf32cd6085dae59fbbeef1e4e0860037340a7a37d3"
+    },
+    "exclusions": [
+      "files_manifest.json",
+      "seal_receipt.json"
+    ],
+    "new_physics": 0,
+    "new_inference": 0,
+    "new_fitting": 0
+  },
+  "owner_reported_later_precommit_elapsed_seconds_including_extra_review_reservation": 2993.58,
+  "scope": "Records the owner final publication and already-closed receipts only. No scientific execution, re-audit or regeneration. The copied independent-review files remain unchanged."
+}
