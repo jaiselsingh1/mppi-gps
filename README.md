@@ -6,6 +6,8 @@ The [eight-round result](docs/local_coupling_multiround_l3_1_result.md) complete
 
 The [shared pilot brief and coordination log](docs/coordination/coupled_pilot_brief.md) connect the `sac-continuation` work. Our [evidence corrections and ownership response](docs/coordination/coupled_pilot_response.md) preserve contrary findings and distinguish proposed diagnostics from demonstrated learnability.
 
+The authorized [saved-bank calibration](docs/coupling_calibration_t1_result.md) selected mean-prefix coupling alpha31.7349. The [four-state controller check](docs/coupling_controller_t0_result.md) completed all16 comparisons: coupling reduced policy disagreement but caused a paired teacher fall. The declared destabilization rule stopped progression before fitting. These are 300-control teacher outcomes, not standalone student walking.
+
 The completed, independently audited [L2.0 result](docs/local_coupling_learning_l2_0_result.md) tested the actual H48 MPPI controller and matched policy learning. Alpha `.12` preserved local walking and improved teacher survival/cost, but all children still walked `0/16` on both fresh panels. Coupled data improved retention; the frozen walking criterion correctly prevented round two. [Protocol](docs/local_coupling_learning_l2_0_protocol.md), [evidence and curves](results/local_coupling_learning_l2_001/README.md), and [accounting](docs/local_coupling_learning_l2_0_accounting.md) preserve the entire result. Other branches remain unchanged.
 
 The [A/B/C review](docs/full_pi_abc_coordination.md) and failed six-round H1000 acquisition remain evidence. P1.1's 20-round H1000 experiment stays held; it is not resumed by L2.0. Historical failures, raw sources and accounting remain preserved.

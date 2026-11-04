@@ -1,0 +1,2066 @@
+{
+  "schema": "t0-independent-saved-cross-check-1",
+  "status": "PASSED_SAVED_ONLY_CROSS_CHECK",
+  "decision": {
+    "effective": true,
+    "destabilizing": true,
+    "verdict": "destabilizing",
+    "executed_action_rms_threshold": 0.01,
+    "matched_regressions": [
+      {
+        "index": 0,
+        "mode": "zero",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      },
+      {
+        "index": 0,
+        "mode": "shadow_carried",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      },
+      {
+        "index": 1,
+        "mode": "zero",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      },
+      {
+        "index": 1,
+        "mode": "shadow_carried",
+        "earlier_fall": true,
+        "lost_local_walking": true,
+        "lost_full_survival": true
+      },
+      {
+        "index": 2,
+        "mode": "zero",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      },
+      {
+        "index": 2,
+        "mode": "shadow_carried",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      },
+      {
+        "index": 3,
+        "mode": "zero",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      },
+      {
+        "index": 3,
+        "mode": "shadow_carried",
+        "earlier_fall": false,
+        "lost_local_walking": false,
+        "lost_full_survival": false
+      }
+    ]
+  },
+  "episodes": [
+    {
+      "index": 0,
+      "mode": "zero",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.23172168951004768,
+      "mean_velocity": 1.3867485754250046,
+      "raw_native_cost": 158.98523764813663,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 158.98523764813663,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.15908207902311336,
+      "mean_teacher_policy_action_mse": 0.277181233908524,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "8fe4e3c07da6b0b0c53db8333c454f00ae0b65d450952f08a9ac69793e2e8b55"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/manifest.json",
+        "bytes": 4530,
+        "sha256": "d2fa0615176d51bad5d0c410c8fd9553d2c554e5e3faa9663afefd3c79c3c138"
+      }
+    },
+    {
+      "index": 0,
+      "mode": "zero",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.2584772218132519,
+      "mean_velocity": 1.3427174234889643,
+      "raw_native_cost": 182.30310020417983,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 182.30310020417983,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.3280170967134471,
+      "mean_teacher_policy_action_mse": 0.18218385119262373,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "22f3a31dbba1bf6a30309641c5111e5a511e36f6d2a292f1e127e87e4d9fcb79"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/manifest.json",
+        "bytes": 4601,
+        "sha256": "056228d1bfe6bbfd2274c242d52ad622fa629ff331a65ef9cef92259fcc6b49a"
+      }
+    },
+    {
+      "index": 0,
+      "mode": "shadow_carried",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.24091247201659868,
+      "mean_velocity": 1.3810687672187574,
+      "raw_native_cost": 183.9873517494697,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 183.9873517494697,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.6726622013993898,
+      "mean_teacher_policy_action_mse": 0.32109176417709634,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "b6b55adfb59b060dfd8af33b782c13a5b5a3612ffa61aee176129aec99e443d2"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/manifest.json",
+        "bytes": 4838,
+        "sha256": "10f65d5a66facb7298b1c9df2c1d273d94a2830b0f9d6b9da2b9113e5b989f86"
+      }
+    },
+    {
+      "index": 0,
+      "mode": "shadow_carried",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.2604464412312296,
+      "mean_velocity": 1.3592713498659368,
+      "raw_native_cost": 198.22967811568472,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 198.22967811568472,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.6739472451231859,
+      "mean_teacher_policy_action_mse": 0.22284218367893957,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "1394625ea1bed0d1745de3c5969705d5a966cd6318de2d785e517bce4afa8ba1"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/manifest.json",
+        "bytes": 4913,
+        "sha256": "3024e31dbfc703cbf09a9cfa6110db093fa4645fd5aa52bdda6c46cfc331ed82"
+      }
+    },
+    {
+      "index": 1,
+      "mode": "zero",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.21741649631202936,
+      "mean_velocity": 1.3694443579116693,
+      "raw_native_cost": 165.86661212970728,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 165.86661212970728,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.10275753986946688,
+      "mean_teacher_policy_action_mse": 0.25013752946461243,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "86e752e890f32bbf906f0cb4a84f4407284624a25b508a77a2300cf64206f728"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/manifest.json",
+        "bytes": 4526,
+        "sha256": "fc8e47be368fb4e27805b9fac46089c0f456784e9a1f7768753426123cb9e497"
+      }
+    },
+    {
+      "index": 1,
+      "mode": "zero",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.2404909792514103,
+      "mean_velocity": 1.353106075242603,
+      "raw_native_cost": 184.5008962422323,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 184.5008962422323,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.08518610552014821,
+      "mean_teacher_policy_action_mse": 0.1876803231671538,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "498d41177615001d948190482ea7dff9f3b95e2b75f615d4488936f98e0899ee"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/manifest.json",
+        "bytes": 4597,
+        "sha256": "2444f4c7d2c1058474e3dbe7e83b9a5a8617c5c82701b6eb5c996e345a449934"
+      }
+    },
+    {
+      "index": 1,
+      "mode": "shadow_carried",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.20512509557240663,
+      "mean_velocity": 1.3718618146989028,
+      "raw_native_cost": 149.4706149706401,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 149.4706149706401,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.1747909677563605,
+      "mean_teacher_policy_action_mse": 0.2574447860425315,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "01b75441d31d29d8893b52b2ae9c445821c3b502f4b47e69f7393cce21476fb4"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/manifest.json",
+        "bytes": 4831,
+        "sha256": "05e7e530e6b84a03f47bba1e2d353c69d0640265c462c3f685ec94504537251a"
+      }
+    },
+    {
+      "index": 1,
+      "mode": "shadow_carried",
+      "alpha": 31.734901633936317,
+      "controls": 225,
+      "requested_controls": 300,
+      "fell": true,
+      "full_survival": false,
+      "walking": false,
+      "local_walking": false,
+      "velocity_mae": 0.48357286211362344,
+      "mean_velocity": 1.5604994232212999,
+      "raw_native_cost": 277.6061638095474,
+      "absorbing_tail_cost": 375.0,
+      "complete_cost": 652.6061638095474,
+      "native_fall_terminal": 20.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.11163237870714117,
+      "mean_teacher_policy_action_mse": 0.2132378468633972,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/trace.h5",
+        "bytes": 386888,
+        "sha256": "832e646964a430a158086f23532693d7dfdb3c4f1b347d939f60bfd199f571d2"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/manifest.json",
+        "bytes": 4908,
+        "sha256": "c39b0cbaaf3a47ce5e0aaaee280efba87ed58c7e11bbf8c179239a39ddfe9c7a"
+      }
+    },
+    {
+      "index": 2,
+      "mode": "zero",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.2131104406982627,
+      "mean_velocity": 1.3646631354012617,
+      "raw_native_cost": 159.83389305139372,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 159.83389305139372,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.5975608152013911,
+      "mean_teacher_policy_action_mse": 0.2944271364598286,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "57c3e7138ca28ce26160fd5f63c48d99920e6315220b3fb9cba5f51badd1eda7"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/manifest.json",
+        "bytes": 4523,
+        "sha256": "6a948e3d6729108fdfb06b6411bb41321028263e08400a5eea58f6d3a73ab7c5"
+      }
+    },
+    {
+      "index": 2,
+      "mode": "zero",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.2531771421533314,
+      "mean_velocity": 1.3486905015537223,
+      "raw_native_cost": 180.83766091135183,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 180.83766091135183,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.5957976947835496,
+      "mean_teacher_policy_action_mse": 0.1958898619679818,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "1d049cf544486a5be29c1950348a318a4f04cce00de39a6396d557bd3729574f"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/manifest.json",
+        "bytes": 4597,
+        "sha256": "34a2ae64c19d49554ae25f4c2070d453deaf13ea54224b44336a6f6685ef54a6"
+      }
+    },
+    {
+      "index": 2,
+      "mode": "shadow_carried",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": false,
+      "velocity_mae": 0.3031758150884354,
+      "mean_velocity": 1.3493894705293321,
+      "raw_native_cost": 225.858649925788,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 225.858649925788,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 1.2873006890392797,
+      "mean_teacher_policy_action_mse": 0.33326879291347195,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "63a2732d1e225ece9e0bfb3b00dac8f52f2a7e5324902936e4c83601e845e90b"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/manifest.json",
+        "bytes": 4827,
+        "sha256": "bd1f9bcfeddb829a9b1e8d47ebb0963a15eb962708b5f50833e68cd37fbb50f1"
+      }
+    },
+    {
+      "index": 2,
+      "mode": "shadow_carried",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.2498567003892875,
+      "mean_velocity": 1.3278975340251353,
+      "raw_native_cost": 191.12012397336818,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 191.12012397336818,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 1.248774212020956,
+      "mean_teacher_policy_action_mse": 0.20721046226320003,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "f466ba1408a256feb53a88addd37734e6512cbc9150a67bdd6df5592235ab055"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/manifest.json",
+        "bytes": 4906,
+        "sha256": "094c432772193dcb4475766e57a79b9b216a88f779235784d93d47f5e5c17af7"
+      }
+    },
+    {
+      "index": 3,
+      "mode": "zero",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.1379912564424984,
+      "mean_velocity": 1.4539993924294101,
+      "raw_native_cost": 113.18600380846986,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 113.18600380846986,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.06398385411354236,
+      "mean_teacher_policy_action_mse": 0.2463944344224517,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "e8b7b8819604a1f9f5a6715d501955a3b4424b0edb00a4e30959ab5d0fa1f2bb"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/manifest.json",
+        "bytes": 4526,
+        "sha256": "734f459e1fc6279a8d2a7cc63dab67e6002f2fbbc7c321b5677f167e0a309a54"
+      }
+    },
+    {
+      "index": 3,
+      "mode": "zero",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.1903458001240397,
+      "mean_velocity": 1.3901363812032332,
+      "raw_native_cost": 149.57343683075962,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 149.57343683075962,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.04911566727918229,
+      "mean_teacher_policy_action_mse": 0.2325405696447418,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "37720c833b3f608a428a18c8fb7b7e533d2dc20440de37977a5adb87b2fc3fe6"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/manifest.json",
+        "bytes": 4599,
+        "sha256": "4e0c7a365fe31dcf1e1288379418eb36808d1da88499bfc3decfa02df6805d33"
+      }
+    },
+    {
+      "index": 3,
+      "mode": "shadow_carried",
+      "alpha": 0.0,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.15748555366125247,
+      "mean_velocity": 1.4425338550494673,
+      "raw_native_cost": 129.62902318881987,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 129.62902318881987,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.3098795181496808,
+      "mean_teacher_policy_action_mse": 0.26761631468479985,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/trace.h5",
+        "bytes": 521456,
+        "sha256": "8a4d2b1e8f3502933bfd4dab98d0948eec1f8d7a1db141a96e0ee61c784514e9"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/manifest.json",
+        "bytes": 4838,
+        "sha256": "ceab9503e7bf9718e899050cf925f3ecdfb0b4d20da2644233aac91459924423"
+      }
+    },
+    {
+      "index": 3,
+      "mode": "shadow_carried",
+      "alpha": 31.734901633936317,
+      "controls": 300,
+      "requested_controls": 300,
+      "fell": false,
+      "full_survival": true,
+      "walking": false,
+      "local_walking": true,
+      "velocity_mae": 0.17967035473342122,
+      "mean_velocity": 1.3974448636193695,
+      "raw_native_cost": 139.60735463558146,
+      "absorbing_tail_cost": 0.0,
+      "complete_cost": 139.60735463558146,
+      "native_fall_terminal": 0.0,
+      "native_cost_component_max_error": 0.0,
+      "first_teacher_policy_action_mse": 0.3690195940060048,
+      "mean_teacher_policy_action_mse": 0.18860973111443824,
+      "trace": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/trace.h5",
+        "bytes": 521456,
+        "sha256": "4f7199fb0b7dda0a67ab797efb0e720097abc66be3f5e12effacc214eb3db8a3"
+      },
+      "manifest": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/manifest.json",
+        "bytes": 4912,
+        "sha256": "1eea11501a50bb14bd1d3d77bdb9f1547c517b1fe36026e5b32144728b678fe9"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "index": 0,
+      "left_mode": "zero",
+      "right_mode": "zero",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.2659118721572015,
+      "common_prefix_action_rms": 0.6382553995800637,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 75.2206277612423,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 0,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.6173936204805989,
+      "common_prefix_action_rms": 0.62081953737666,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 96.6179257024224,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 0,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.6191022696686395,
+      "common_prefix_action_rms": 0.6027600918443025,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 71.59101217293554,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 0,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.6839929745708482,
+      "common_prefix_action_rms": 0.6533440251941268,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 82.68782243663385,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 0,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.6871310256281762,
+      "common_prefix_action_rms": 0.6443112624142037,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 72.63866629169527,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 0,
+      "left_mode": "shadow_carried",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.005860842592024276,
+      "common_prefix_action_rms": 0.6083039939366416,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 100.1640013439125,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 1,
+      "left_mode": "zero",
+      "right_mode": "zero",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.05570987998310666,
+      "common_prefix_action_rms": 0.6174110402547539,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 78.21432934164866,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 1,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.49055704874392697,
+      "common_prefix_action_rms": 0.6482398977384188,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 89.91900449357983,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 1,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 225,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.550977667972662,
+      "common_prefix_action_rms": 0.6637123109369043,
+      "common_banks": 226,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 70.6187575367385,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 1,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.4613155102142404,
+      "common_prefix_action_rms": 0.6313585125789538,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 80.78503392687458,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 1,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 225,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.5078304978535463,
+      "common_prefix_action_rms": 0.6301941721741051,
+      "common_banks": 226,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 73.35767977453445,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 1,
+      "left_mode": "shadow_carried",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 225,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.28646191200091015,
+      "common_prefix_action_rms": 0.6361704593601387,
+      "common_banks": 226,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 87.43413019283452,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 2,
+      "left_mode": "zero",
+      "right_mode": "zero",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.024645968984891513,
+      "common_prefix_action_rms": 0.6121306593436131,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 80.96025588369295,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 2,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.6093737397902783,
+      "common_prefix_action_rms": 0.6651158197680811,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 78.62978141773941,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 2,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.5961536048709888,
+      "common_prefix_action_rms": 0.6208427748053811,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 58.44425971253766,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 2,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.6114843434924984,
+      "common_prefix_action_rms": 0.6627981687033363,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 57.81698676304922,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 2,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.5973592466896805,
+      "common_prefix_action_rms": 0.6103771428689813,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 62.90079488872026,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 2,
+      "left_mode": "shadow_carried",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.03895170629954007,
+      "common_prefix_action_rms": 0.6162516218161996,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 63.62857466942402,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 3,
+      "left_mode": "zero",
+      "right_mode": "zero",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.18877827712838346,
+      "common_prefix_action_rms": 0.6216427584737597,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 63.10688040554011,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 3,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.44749908273070055,
+      "common_prefix_action_rms": 0.6105524315220504,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 77.31819858519468,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 3,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.5132064681202521,
+      "common_prefix_action_rms": 0.5910115865554076,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 92.1048900848775,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 3,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 0.0,
+      "common_controls": 300,
+      "contrast": "joint_alpha_and_initialization",
+      "first_action_rms": 0.5409267869539981,
+      "common_prefix_action_rms": 0.632658095540416,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 81.24874494073279,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 3,
+      "left_mode": "zero",
+      "right_mode": "shadow_carried",
+      "left_alpha": 31.734901633936317,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "initialization_same_alpha",
+      "first_action_rms": 0.5898344255967237,
+      "common_prefix_action_rms": 0.6128244232675072,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 64.53550643374254,
+      "first_divergent_boundary_gt1e_10": 1
+    },
+    {
+      "index": 3,
+      "left_mode": "shadow_carried",
+      "right_mode": "shadow_carried",
+      "left_alpha": 0.0,
+      "right_alpha": 31.734901633936317,
+      "common_controls": 300,
+      "contrast": "alpha_same_initialization",
+      "first_action_rms": 0.12352437181437792,
+      "common_prefix_action_rms": 0.6086018883162362,
+      "common_banks": 301,
+      "matching_innovation_and_rng_prefix": true,
+      "post_initial_state_max_abs": 60.058582710528654,
+      "first_divergent_boundary_gt1e_10": 1
+    }
+  ],
+  "first_cloud_identities": [
+    {
+      "index": 0,
+      "mode": "zero",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 0,
+      "mode": "shadow_carried",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 1,
+      "mode": "zero",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 1,
+      "mode": "shadow_carried",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 2,
+      "mode": "zero",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 2,
+      "mode": "shadow_carried",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 3,
+      "mode": "zero",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    },
+    {
+      "index": 3,
+      "mode": "shadow_carried",
+      "first_pass_actions_posts_C_U_innovation_byte_exact": true
+    }
+  ],
+  "T1_saved_prediction_arithmetic": {
+    "banks": [
+      {
+        "bank": 0,
+        "binding": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_000/full_t000_p0.npz",
+          "bytes": 2478763,
+          "sha256": "4c57607c36df499c5f05efb95f80fb3ed83b0ad89627189de27f1cb920511d93"
+        },
+        "group": "000000",
+        "D_sum_max_arithmetic_error": 0.0,
+        "finite_candidates": 256,
+        "spread": {
+          "all": {
+            "cstd": 26.908889022371824,
+            "rstd": 0.19551328751589034,
+            "unit_ratio": 0.007265751007161323,
+            "candidates": 256
+          },
+          "competitive": {
+            "cstd": 22.739540693907838,
+            "rstd": 0.15675616602735104,
+            "unit_ratio": 0.006893550232056695,
+            "candidates": 32
+          }
+        }
+      },
+      {
+        "bank": 1,
+        "binding": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_000/full_t000_p1.npz",
+          "bytes": 2514909,
+          "sha256": "16b49312cd7457980721315968a5e27dd5e77cdd708b1eb0c0c6fa3dbe98a25c"
+        },
+        "group": "000001",
+        "D_sum_max_arithmetic_error": 0.0,
+        "finite_candidates": 256,
+        "spread": {
+          "all": {
+            "cstd": 41.82475646644476,
+            "rstd": 0.20318558930180308,
+            "unit_ratio": 0.004858022053632642,
+            "candidates": 256
+          },
+          "competitive": {
+            "cstd": 16.53804862925782,
+            "rstd": 0.11819748142099852,
+            "unit_ratio": 0.00714700289439788,
+            "candidates": 32
+          }
+        }
+      },
+      {
+        "bank": 2,
+        "binding": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_050/full_t000_p0.npz",
+          "bytes": 2435607,
+          "sha256": "d84bfe36a9f8f2f3a58da5785b72a28e53981e9ab8b38df0464e6dc4664dc2a6"
+        },
+        "group": "000000",
+        "D_sum_max_arithmetic_error": 0.0,
+        "finite_candidates": 256,
+        "spread": {
+          "all": {
+            "cstd": 16.276896559588952,
+            "rstd": 0.19551988586502678,
+            "unit_ratio": 0.01201211085597538,
+            "candidates": 256
+          },
+          "competitive": {
+            "cstd": 13.374717383470445,
+            "rstd": 0.15728167083233693,
+            "unit_ratio": 0.011759625741828258,
+            "candidates": 32
+          }
+        }
+      },
+      {
+        "bank": 3,
+        "binding": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_050/full_t000_p1.npz",
+          "bytes": 2438145,
+          "sha256": "e49e72eec175ac225dce28729b6bcabee37488f96c02f374599b2e9692ad2578"
+        },
+        "group": "000001",
+        "D_sum_max_arithmetic_error": 0.0,
+        "finite_candidates": 256,
+        "spread": {
+          "all": {
+            "cstd": 19.285568820453136,
+            "rstd": 0.22692945026809472,
+            "unit_ratio": 0.01176680098890455,
+            "candidates": 256
+          },
+          "competitive": {
+            "cstd": 18.60116059849615,
+            "rstd": 0.12845088063960386,
+            "unit_ratio": 0.00690553043501967,
+            "candidates": 32
+          }
+        }
+      },
+      {
+        "bank": 4,
+        "binding": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_100/full_t000_p0.npz",
+          "bytes": 2450956,
+          "sha256": "2b9b630226373fda1ae1c1de999660facbde854fcb5207ccffb6096b4fbaa825"
+        },
+        "group": "000000",
+        "D_sum_max_arithmetic_error": 0.0,
+        "finite_candidates": 256,
+        "spread": {
+          "all": {
+            "cstd": 16.993578465867554,
+            "rstd": 0.1680751190102142,
+            "unit_ratio": 0.009890507720183917,
+            "candidates": 256
+          },
+          "competitive": {
+            "cstd": 9.427135100662879,
+            "rstd": 0.15471321370764524,
+            "unit_ratio": 0.016411477299902746,
+            "candidates": 32
+          }
+        }
+      },
+      {
+        "bank": 5,
+        "binding": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_100/full_t000_p1.npz",
+          "bytes": 2481173,
+          "sha256": "30786c280583ba13f1badc05193ebd1376ec89723a2eeb3061ccdc1e31a18a03"
+        },
+        "group": "000001",
+        "D_sum_max_arithmetic_error": 0.0,
+        "finite_candidates": 256,
+        "spread": {
+          "all": {
+            "cstd": 17.732609029835086,
+            "rstd": 0.20861593950291948,
+            "unit_ratio": 0.011764537251789825,
+            "candidates": 256
+          },
+          "competitive": {
+            "cstd": 14.253393612831905,
+            "rstd": 0.19338652031224934,
+            "unit_ratio": 0.013567752744732259,
+            "candidates": 32
+          }
+        }
+      }
+    ],
+    "targets": {
+      "all/0.1": {
+        "alpha": 9.23572314252142,
+        "achieved_per_bank": [
+          0.06710446472463814,
+          0.04486734670761443,
+          0.1109405302230646,
+          0.10867491620666968,
+          0.09134599104258938,
+          0.10865400895741065
+        ],
+        "achieved_bank_equal_median": 0.1
+      },
+      "all/0.3": {
+        "alpha": 27.707169427564256,
+        "achieved_per_bank": [
+          0.20131339417391442,
+          0.13460204012284327,
+          0.33282159066919376,
+          0.32602474862000896,
+          0.27403797312776806,
+          0.32596202687223186
+        ],
+        "achieved_bank_equal_median": 0.29999999999999993
+      },
+      "all/1.0": {
+        "alpha": 92.3572314252142,
+        "achieved_per_bank": [
+          0.6710446472463814,
+          0.4486734670761442,
+          1.109405302230646,
+          1.0867491620666967,
+          0.9134599104258937,
+          1.0865400895741062
+        ],
+        "achieved_bank_equal_median": 1.0
+      },
+      "competitive/0.1": {
+        "alpha": 10.57830054464544,
+        "achieved_per_bank": [
+          0.07292204617430603,
+          0.07560314461039164,
+          0.1243968553896084,
+          0.07304877636183424,
+          0.1736055392599975,
+          0.14352376624921592
+        ],
+        "achieved_bank_equal_median": 0.10000000000000002
+      },
+      "competitive/0.3": {
+        "alpha": 31.734901633936317,
+        "achieved_per_bank": [
+          0.2187661385229181,
+          0.22680943383117488,
+          0.3731905661688252,
+          0.2191463290855027,
+          0.5208166177799924,
+          0.4305712987476477
+        ],
+        "achieved_bank_equal_median": 0.30000000000000004
+      },
+      "competitive/1.0": {
+        "alpha": 105.7830054464544,
+        "achieved_per_bank": [
+          0.7292204617430603,
+          0.7560314461039163,
+          1.2439685538960839,
+          0.7304877636183423,
+          1.7360553925999749,
+          1.4352376624921592
+        ],
+        "achieved_bank_equal_median": 1.0
+      }
+    },
+    "scope": "Same-actor saved prediction arithmetic; no new forwards or historical L3 audit closure"
+  },
+  "original_work_counts": {
+    "requested_checkpoint_loads": 20,
+    "requested_policy_constructions": 20,
+    "completed_checkpoint_loads": 20,
+    "completed_policy_constructions": 20,
+    "requested_environment_constructions": 20,
+    "completed_environment_constructions": 20,
+    "requested_restores": 24,
+    "requested_external_mj_forward_calls": 24,
+    "completed_restores": 24,
+    "completed_external_mj_forward_calls": 24,
+    "requested_native_controls": 4729,
+    "requested_physics_substeps": 233441764,
+    "completed_native_controls": 4729,
+    "completed_physics_substeps": 233441764,
+    "requested_model_controls": 58355712,
+    "requested_model_queries": 4749,
+    "completed_model_controls": 58355712,
+    "completed_model_queries": 4749,
+    "requested_neural_rows": 53219450,
+    "completed_neural_rows": 53219450
+  },
+  "original_supervisor_cpu_seconds": 2585.610043,
+  "reporter_comparison": {
+    "available": false
+  },
+  "inputs": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/launch.json",
+      "bytes": 1958,
+      "sha256": "c4dddabb60252341230ab88fc431d8679add1eef73f339dd687b8f6669ae4fb4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/coupling_calibration_t1_t0_1_0.json",
+      "bytes": 64639,
+      "sha256": "0590fb63d603846b331a9df79d7ab484b4f167ac1f5c9debd4f8696bdbb7c3b3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t1/result.json",
+      "bytes": 1888,
+      "sha256": "cc72d94a191573fcfcdc2ad1382a610728a52b2a26e1785fe2d4f3fa07f7d154"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/result.json",
+      "bytes": 16560,
+      "sha256": "56298ccd92b6f873a60a9cc5de7e9e0044a74424612219b9810a6b061a55f032"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_000/full_t000_p0.npz",
+      "bytes": 2478763,
+      "sha256": "4c57607c36df499c5f05efb95f80fb3ed83b0ad89627189de27f1cb920511d93"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_000/banks.h5",
+      "bytes": 48880,
+      "sha256": "d78a53893be3260f1058f086554b9f9d34c141ddd008d78c21b353502c914018"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_000/full_t000_p1.npz",
+      "bytes": 2514909,
+      "sha256": "16b49312cd7457980721315968a5e27dd5e77cdd708b1eb0c0c6fa3dbe98a25c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_050/full_t000_p0.npz",
+      "bytes": 2435607,
+      "sha256": "d84bfe36a9f8f2f3a58da5785b72a28e53981e9ab8b38df0464e6dc4664dc2a6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_050/banks.h5",
+      "bytes": 48880,
+      "sha256": "0b16e9722fcdced9eece44ecabeec1cc59fcff5910c12ca8b67e478e25f21b25"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_050/full_t000_p1.npz",
+      "bytes": 2438145,
+      "sha256": "e49e72eec175ac225dce28729b6bcabee37488f96c02f374599b2e9692ad2578"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_100/full_t000_p0.npz",
+      "bytes": 2450956,
+      "sha256": "2b9b630226373fda1ae1c1de999660facbde854fcb5207ccffb6096b4fbaa825"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_100/banks.h5",
+      "bytes": 48880,
+      "sha256": "3fb68442dbb6b45b56733fc05084585136fa4caca357cc2e689af3cdb1f14752"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/probes/r8_positive/anchor_100/full_t000_p1.npz",
+      "bytes": 2481173,
+      "sha256": "30786c280583ba13f1badc05193ebd1376ec89723a2eeb3061ccdc1e31a18a03"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/manifest.json",
+      "bytes": 4694,
+      "sha256": "6fd0f3f73a7ee0ae701ec628ab821c310247bc36d1e12dbede64249734cc0dd8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0.job.json",
+      "bytes": 2531,
+      "sha256": "654fa11e3ef9151b6799095c45699d90f11b1f21a50ff28ea89e8c7d49f83dc6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/fits/r8_positive/stream/policy.pt",
+      "bytes": 330810,
+      "sha256": "1d4896e2db4462f1c797db04a25a8d191f046f950d3e39ccb236a825ae3d0553"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_000.npz",
+      "bytes": 7003,
+      "sha256": "7df1ab8016fbcfdf056444c804aa3a5d30e7a55b962461eb4ca3e29cb935d2d3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/receipt.json",
+      "bytes": 996,
+      "sha256": "1dd0dc4993a4a469f47e5d97924e6478310820da2fdfe4c5bb7312c43632af08"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/source_transition_replay.h5",
+      "bytes": 23256,
+      "sha256": "1c4bc3bd7304a95d01d186640fbe37df97c89419db3ea2a34215d02b54587304"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/initial_plan.npz",
+      "bytes": 4059,
+      "sha256": "5dc3b0087be5adad551037f31997a162fd3a230950413bbec9d9f8c11838941b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_1/manifest.json",
+      "bytes": 4693,
+      "sha256": "13c0c0521a2be1dd5cefab3829ada81417a5259e08ad7d7fac8a87a2db112bcd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_1.job.json",
+      "bytes": 2531,
+      "sha256": "e4646197c1a2c269221aa53fe4bdc1d7200e87a70249be1a97d187a10f5232d9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_001.npz",
+      "bytes": 7000,
+      "sha256": "b67a14d4343c99ca776893b9cf857a037603ce0e3c0cc5dad8163ba48411cce5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_1/receipt.json",
+      "bytes": 996,
+      "sha256": "8b0d650715d8a3af8c238ae31b4c57e8ca63317979dd927d60c687bca170cb27"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_1/source_transition_replay.h5",
+      "bytes": 23256,
+      "sha256": "88d2abd5d4c9d0d4d6c22a612b93eef990d3ded87a948bfbca1c0e0f66bae5e4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_1/initial_plan.npz",
+      "bytes": 4052,
+      "sha256": "76dad2acf9dac0174f8bef3fd29b03784b39498f5295b14458ef6233e86691a7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_2/manifest.json",
+      "bytes": 4691,
+      "sha256": "8f1b1478d850981f15b16a384738d22518b301201d2d71db5a411a37ff8e44e3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_2.job.json",
+      "bytes": 2531,
+      "sha256": "063bfb8bd65f4a2227a87c2826abe107d3851d4690c17ac36273d1ce1288f9ce"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_002.npz",
+      "bytes": 6999,
+      "sha256": "ba7ea61499d403a829ef437fc318d16ebf857f9bb224beaf0c460e1a38626f09"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_2/receipt.json",
+      "bytes": 1006,
+      "sha256": "06b868b3d239c75fd0d503750892fac72f9fc9862d7642e9aa3924881fa81523"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_2/source_transition_replay.h5",
+      "bytes": 23256,
+      "sha256": "0e7e4ccf8ef4f2c0747cb68fab1121720afaf8b1ac7653b599143b15aa314c16"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_2/initial_plan.npz",
+      "bytes": 4058,
+      "sha256": "040231389d7221d33d715b2d1c83a609e22545788429487e3e96ae2f66f09875"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_3/manifest.json",
+      "bytes": 4693,
+      "sha256": "07a8c38b2972ef0bb32d8b1da9c3674b28ce7036050a169810389c6dde916e21"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_3.job.json",
+      "bytes": 2531,
+      "sha256": "6eafd18667fc22952460efd9dd139ff399f0354550c0af48f79d45f54eb1a902"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_003.npz",
+      "bytes": 6996,
+      "sha256": "152edb2c466617c2d3048596749a4eec2286ce8118ffcf975dcd9f2c6af1e254"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_3/receipt.json",
+      "bytes": 996,
+      "sha256": "ee22efaec46c03040e93ba3affeea92cfb6a4e280dcafe845508956dea8d8880"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_3/source_transition_replay.h5",
+      "bytes": 23256,
+      "sha256": "0450e171f75cf0cb13ced5d9a8c69c5b268d30b120b00f1c3a89688ae66762bc"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_3/initial_plan.npz",
+      "bytes": 4052,
+      "sha256": "d22e2aaf3aae1403bebea9679b7c8674f2714b3c06cb56a64170e99543f1c780"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/manifest.json",
+      "bytes": 4530,
+      "sha256": "d2fa0615176d51bad5d0c410c8fd9553d2c554e5e3faa9663afefd3c79c3c138"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0.job.json",
+      "bytes": 2201,
+      "sha256": "ba9ec9dd6e3e32b3bf3f2309ff0e6a33e5a0dccd72de65dffb88d76f1643497d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/receipt.json",
+      "bytes": 1020,
+      "sha256": "7c57e7f3cb9154562cf17c68c9425c9e741f81278f35854fc77e790dc24fc215"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "8fe4e3c07da6b0b0c53db8333c454f00ae0b65d450952f08a9ac69793e2e8b55"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "13d4dd75a68c5e05736c734b065425d69fb80defe2d85f5da170b12b1c794291"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/full_t000_p0.npz",
+      "bytes": 3024367,
+      "sha256": "dcd080072a0c71f06d5dafbaade4700dd900e4d702c48829447e77e72d6fa26f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_0/full_t000_p1.npz",
+      "bytes": 3116698,
+      "sha256": "2ee443af16c997bd83fa8ce8cfd97688592c539661a42348d8ad7e261b775ba8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/manifest.json",
+      "bytes": 4601,
+      "sha256": "056228d1bfe6bbfd2274c242d52ad622fa629ff331a65ef9cef92259fcc6b49a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339.job.json",
+      "bytes": 2228,
+      "sha256": "3e0f9d5669bee5eda808464b1bb288d6203e64caf31a471be0d4cb4beae7a564"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/receipt.json",
+      "bytes": 1028,
+      "sha256": "b7fef675101abe8fd30375f7708c9baf223e55a5a8cb71a9f4b983daa759e67d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "22f3a31dbba1bf6a30309641c5111e5a511e36f6d2a292f1e127e87e4d9fcb79"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "443b3daff086687fe9ffc28e14e2d2d2d2df84b0249e6f42e6ca7cdbf0f20d44"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/full_t000_p0.npz",
+      "bytes": 3024355,
+      "sha256": "3b329701e5d786f7cf43929663380be3edc608177af4496630a3b5dca98fb82b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_zero_31.7349016339/full_t000_p1.npz",
+      "bytes": 3108722,
+      "sha256": "1dc56b0dbaede38c1922ad5c6c12d59afd7f0090e4224be617ab6d5c9075337b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/manifest.json",
+      "bytes": 4838,
+      "sha256": "10f65d5a66facb7298b1c9df2c1d273d94a2830b0f9d6b9da2b9113e5b989f86"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0.job.json",
+      "bytes": 2469,
+      "sha256": "9e3dd0ea9ad0b212f65cf4126c7bf61bac446d8afdbf93ea95939d8d3e4bfefa"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/receipt.json",
+      "bytes": 1028,
+      "sha256": "879d3eebd07dce6c32c15bd5a61bda2246c1165e3ccd2ae9bb7859a8e85dfdf7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "b6b55adfb59b060dfd8af33b782c13a5b5a3612ffa61aee176129aec99e443d2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/executed_initial_plan.npz",
+      "bytes": 2413,
+      "sha256": "6387851638151d48fa2c6e86428dc3197875ed9910d45c16d6af2ea0fa5a8b46"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "000d9952e0acaf6a51f7805cf8e9cae38a9531ba7951c79d38b274270c8067d3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/full_t000_p0.npz",
+      "bytes": 3117624,
+      "sha256": "90b4475d6c722d0ab67704fb5341de2a21d0af757be12667bf2d935094c650e2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_0/full_t000_p1.npz",
+      "bytes": 3117616,
+      "sha256": "a085c0b2fe5d594824c8cd0e16d7b17a05177032acc985837a4fe0729e1f9d55"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/manifest.json",
+      "bytes": 4913,
+      "sha256": "3024e31dbfc703cbf09a9cfa6110db093fa4645fd5aa52bdda6c46cfc331ed82"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339.job.json",
+      "bytes": 2496,
+      "sha256": "793621180b62f63a5fa52ac4c476d7c225fc63630f9013495fdd81adca71d4b4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/receipt.json",
+      "bytes": 1020,
+      "sha256": "33a4c088048c067a099328b155561fc286ca928cc244afbdec8635efb7e0cf5f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "1394625ea1bed0d1745de3c5969705d5a966cd6318de2d785e517bce4afa8ba1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/executed_initial_plan.npz",
+      "bytes": 2413,
+      "sha256": "6387851638151d48fa2c6e86428dc3197875ed9910d45c16d6af2ea0fa5a8b46"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "0a1f00d7a37ed4af0dfab23a2e484b7f37d823cbe67e955ec5782a7f0c97cb6b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/full_t000_p0.npz",
+      "bytes": 3117604,
+      "sha256": "204b3d61eac2ae8cdff18bf26b57c2baf26edd3180d9df27ef7d10d747e8ece8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case0_shadow_carried_31.7349016339/full_t000_p1.npz",
+      "bytes": 3119028,
+      "sha256": "db9aa590626077010d7736ca355070e26416233145920444050e166465f2d707"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/manifest.json",
+      "bytes": 4526,
+      "sha256": "fc8e47be368fb4e27805b9fac46089c0f456784e9a1f7768753426123cb9e497"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0.job.json",
+      "bytes": 2201,
+      "sha256": "9e4253415557bc26e18b047aeb0dcf68b500ba51c0b6453689ef3f65d3589c0c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/receipt.json",
+      "bytes": 1020,
+      "sha256": "fca1289c9dd1c72b2129480c136ccaa13e16e89db0c088539d4badc85372decc"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "86e752e890f32bbf906f0cb4a84f4407284624a25b508a77a2300cf64206f728"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "10f93f98495117a786964b3e1702601db39b00eaa3954e319e6142c53909c8eb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/full_t000_p0.npz",
+      "bytes": 3016112,
+      "sha256": "ef89a4a73c82bb7a42a7430df9265cc0d7d53c84f9e63100801edf8dbc979fa0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_0/full_t000_p1.npz",
+      "bytes": 3037449,
+      "sha256": "841c5926ab9c6da9e60d5d3e1d5738968a61c218b54c6f5411d34d28e1085420"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/manifest.json",
+      "bytes": 4597,
+      "sha256": "2444f4c7d2c1058474e3dbe7e83b9a5a8617c5c82701b6eb5c996e345a449934"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339.job.json",
+      "bytes": 2228,
+      "sha256": "5e88b6ed56711b5f4333c955b2eabb34268e00dabea40f40090940c8eccd5b59"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/receipt.json",
+      "bytes": 1029,
+      "sha256": "1868ddd2f60d4264013232ad29ea6df2d70a216c3d7c3a5bec6d4c7e6db960a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "498d41177615001d948190482ea7dff9f3b95e2b75f615d4488936f98e0899ee"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "4a848594cb8bef23800e6f06827c9e049cc4f2ebe03c3b3916c5c0fd154a49a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/full_t000_p0.npz",
+      "bytes": 3016116,
+      "sha256": "f55ee7dd5834e8b0a5f2895638055834c54874d6c17eb36ff9ca2717412ce088"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_zero_31.7349016339/full_t000_p1.npz",
+      "bytes": 3037235,
+      "sha256": "e1778218fbc5c1ef24782aac08eb8eca21a52ee1ca9ac669f6f1589a470d5afa"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/manifest.json",
+      "bytes": 4831,
+      "sha256": "05e7e530e6b84a03f47bba1e2d353c69d0640265c462c3f685ec94504537251a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0.job.json",
+      "bytes": 2469,
+      "sha256": "76986c4e59499f0f39a31d3dfd39fc69a0bb4ac1d2ce8c454dd657871bc89ff1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/receipt.json",
+      "bytes": 1020,
+      "sha256": "9a8cb815e8efe09d1425315b17c9e8703f52a324de121a532c0f1c062f7e8e2a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "01b75441d31d29d8893b52b2ae9c445821c3b502f4b47e69f7393cce21476fb4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/executed_initial_plan.npz",
+      "bytes": 2416,
+      "sha256": "615e0f62caa63564963a15c844ab2d36582485645108cc032556f0d2651f1b6a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "6e01ec794a97a35c4b40b07b4f94eb0e5dbeb742c622034eabcc1d03909e1fa9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/full_t000_p0.npz",
+      "bytes": 3147409,
+      "sha256": "a19c82b089ad35118f842b17b218d40beaa3d9e857ce0c41ab75a0e7dd988795"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_0/full_t000_p1.npz",
+      "bytes": 3108203,
+      "sha256": "2a23a8625137cc0c0276ad92db5307a952a99cf5fec29e17a6cbf5b5a90e05e9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/manifest.json",
+      "bytes": 4908,
+      "sha256": "c39b0cbaaf3a47ce5e0aaaee280efba87ed58c7e11bbf8c179239a39ddfe9c7a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339.job.json",
+      "bytes": 2496,
+      "sha256": "19a8011c33e3abdaa249d6607c10e2ad3f1d79ca90f03c51e18e7ed96320c4a9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/receipt.json",
+      "bytes": 1019,
+      "sha256": "69b7815fee21bc11bb12963159ef4fb93ac9f8909d86efecd4b50f47903f14de"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/trace.h5",
+      "bytes": 386888,
+      "sha256": "832e646964a430a158086f23532693d7dfdb3c4f1b347d939f60bfd199f571d2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/executed_initial_plan.npz",
+      "bytes": 2416,
+      "sha256": "615e0f62caa63564963a15c844ab2d36582485645108cc032556f0d2651f1b6a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/banks.h5",
+      "bytes": 7078280,
+      "sha256": "2d74ce9a55879644ae4dbd9e0ffdb2fb706cedffc40ac96f13a68ae9ab27b739"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/full_t000_p0.npz",
+      "bytes": 3147416,
+      "sha256": "92dd76ff19aecfc0b56d087b49110b8acd8e0039c4bfb08f277e1246961c25a6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case1_shadow_carried_31.7349016339/full_t000_p1.npz",
+      "bytes": 3134216,
+      "sha256": "b71c86f69b5261f81d41b3dc621ef01e7811cbde84285a8b76f1cd978c3ccea6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/manifest.json",
+      "bytes": 4523,
+      "sha256": "6a948e3d6729108fdfb06b6411bb41321028263e08400a5eea58f6d3a73ab7c5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0.job.json",
+      "bytes": 2201,
+      "sha256": "f68ce1aa4e85bfae495b2750c737ff4f72cbd2aa0ce702573bf115be340dc3b5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/receipt.json",
+      "bytes": 1020,
+      "sha256": "087dc287af6433a46b3eb5cc27b3f024c6a22dae8c1ae3992a6cd133bcc9ff84"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "57c3e7138ca28ce26160fd5f63c48d99920e6315220b3fb9cba5f51badd1eda7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "479d348921bc0b3a9089651478bbadd94f1caead3ad68962e9d8cd5262409df2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/full_t000_p0.npz",
+      "bytes": 3019081,
+      "sha256": "c8aba4a7cbe3ad5294e6bbda02b0f0ff358ffb968f9ead033848f876d224842c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_0/full_t000_p1.npz",
+      "bytes": 3033064,
+      "sha256": "a7a4a470ec7b0f8cc54d694d2a9c3624719bc9ecac07ed6c9571e8712c6d76b9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/manifest.json",
+      "bytes": 4597,
+      "sha256": "34a2ae64c19d49554ae25f4c2070d453deaf13ea54224b44336a6f6685ef54a6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339.job.json",
+      "bytes": 2228,
+      "sha256": "c3185a59d4d71c7e469b48f3e3ad5c8fa194c2c9452a75f002b72722a9d92b1e"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/receipt.json",
+      "bytes": 1020,
+      "sha256": "3e8f33df38205c3d2678d1c3941f4f839488c3b81de70def6d33df499f68246a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "1d049cf544486a5be29c1950348a318a4f04cce00de39a6396d557bd3729574f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "a7185b3db271b6e23133e7ffaa2075f010f5d8e43630e62b4c72c2f7ebffc376"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/full_t000_p0.npz",
+      "bytes": 3019088,
+      "sha256": "90e1284c6c7d39806a3aebdf99f83b168c267059daf81b622d8617304501b1a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_zero_31.7349016339/full_t000_p1.npz",
+      "bytes": 3032972,
+      "sha256": "ad25f34cb45abf6eb2351763a9861cdefe2721cd5f0970545aac40674aa2d877"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/manifest.json",
+      "bytes": 4827,
+      "sha256": "bd1f9bcfeddb829a9b1e8d47ebb0963a15eb962708b5f50833e68cd37fbb50f1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0.job.json",
+      "bytes": 2469,
+      "sha256": "118048569f0db6e142831ff8638a9b8f9325b199bb10c57e430d4645f01c4203"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/receipt.json",
+      "bytes": 1028,
+      "sha256": "68b45559071f50af9cc9405949a5cda916abb47e2994e87a2ad909fa17b19038"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "63a2732d1e225ece9e0bfb3b00dac8f52f2a7e5324902936e4c83601e845e90b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/executed_initial_plan.npz",
+      "bytes": 2416,
+      "sha256": "706d88c4e80b583674dc393d9e6351c0d0a95b350042ef8060e916dd2ea2af6c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "fcd90fc70a63e380f2c389d18bd2c972b06c12c21595912408d8d4ad476cc8af"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/full_t000_p0.npz",
+      "bytes": 3053316,
+      "sha256": "461db2b708212d25472c5a86c06d85a840236e6f06359706996330ece27c513e"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_0/full_t000_p1.npz",
+      "bytes": 3057763,
+      "sha256": "d1cc20dd2642780ed0d3af6379648b47326df2ea28626c44b1428973aca08ec7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/manifest.json",
+      "bytes": 4906,
+      "sha256": "094c432772193dcb4475766e57a79b9b216a88f779235784d93d47f5e5c17af7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339.job.json",
+      "bytes": 2496,
+      "sha256": "cd364544f5ee1d38fdcc6f2e2e926bd7edc0304828abc61f667cc6b1c5f79d8f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/receipt.json",
+      "bytes": 1020,
+      "sha256": "30cb31055d063e06ee6ef008a0c72e98fb8db78f8a6ba8397fe2b1d2bcc3615f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "f466ba1408a256feb53a88addd37734e6512cbc9150a67bdd6df5592235ab055"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/executed_initial_plan.npz",
+      "bytes": 2416,
+      "sha256": "706d88c4e80b583674dc393d9e6351c0d0a95b350042ef8060e916dd2ea2af6c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "e9eb0de98cadd65dd279d1ed995a65e00e9cfe5c5a52f3f8d9bc7e43c8dff43f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/full_t000_p0.npz",
+      "bytes": 3053319,
+      "sha256": "d9c010ad37b2559e19e7423ded112562bbd17d6c0963ff271edf22b287431cb6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case2_shadow_carried_31.7349016339/full_t000_p1.npz",
+      "bytes": 3057616,
+      "sha256": "73d22c982a0c9825019d1e27644381755353584d907dd9003a9dfc4992698915"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/manifest.json",
+      "bytes": 4526,
+      "sha256": "734f459e1fc6279a8d2a7cc63dab67e6002f2fbbc7c321b5677f167e0a309a54"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0.job.json",
+      "bytes": 2201,
+      "sha256": "4a71736c713908b480c81d8ed7f8ee54451e262be504670079f3177c3632ed7a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/receipt.json",
+      "bytes": 1020,
+      "sha256": "c7a91be701b5a3b85145a3336fe88755e0eed0d1c3c6f1a9b320f0d9ac8be367"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "e8b7b8819604a1f9f5a6715d501955a3b4424b0edb00a4e30959ab5d0fa1f2bb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "8455ebebf5588836d47dbd14ae6ba4b70b9c4679b2300dc60964ec9b9e6e8010"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/full_t000_p0.npz",
+      "bytes": 3093191,
+      "sha256": "4d97bc46405b332f90e7502e36efe1a85131371a76ff01e2b4bcb97ed1cdc976"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_0/full_t000_p1.npz",
+      "bytes": 3092595,
+      "sha256": "6721404c85c547a8c41b2717c8bae9053bbcab11c6d6389d7723bb5227fcfd50"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/manifest.json",
+      "bytes": 4599,
+      "sha256": "4e0c7a365fe31dcf1e1288379418eb36808d1da88499bfc3decfa02df6805d33"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339.job.json",
+      "bytes": 2228,
+      "sha256": "73b7290e4c2d3f7e843db8513df5164a8ce22e1dd8c8a4f50ddf725b69b17fb2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/receipt.json",
+      "bytes": 1029,
+      "sha256": "863c7005a455f9fc66a77563a97481a983ff1d74b1138e1a188715a8c8b83660"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "37720c833b3f608a428a18c8fb7b7e533d2dc20440de37977a5adb87b2fc3fe6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/executed_initial_plan.npz",
+      "bytes": 215,
+      "sha256": "2bcc039a7739c3ccf1870a39dd283d3e123087f1019f4c9c00e18b2bef2b07a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "e501032359300a8a659321a27838cf9734953e312830375fa923aaeca736b9d3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/full_t000_p0.npz",
+      "bytes": 3093207,
+      "sha256": "74af6ba4aa83fdaebbf760f5bb50e74c63d2ff4028656b89c6213d8ee3bfbf85"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_zero_31.7349016339/full_t000_p1.npz",
+      "bytes": 3111102,
+      "sha256": "739d59be41d0c0232247c4232a76759fcfdfb8cb53b382b9a6259876ce0081c8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/manifest.json",
+      "bytes": 4838,
+      "sha256": "ceab9503e7bf9718e899050cf925f3ecdfb0b4d20da2644233aac91459924423"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0.job.json",
+      "bytes": 2469,
+      "sha256": "e59581a4ff18235f6f6ebbd2e196c9d4fb5cb54d4f8d18942f5bf77bb2d4c5f0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/receipt.json",
+      "bytes": 1028,
+      "sha256": "931b238a75dbbf18602467b9c23934bfea04f09d4b076679457e9112342029f0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/trace.h5",
+      "bytes": 521456,
+      "sha256": "8a4d2b1e8f3502933bfd4dab98d0948eec1f8d7a1db141a96e0ee61c784514e9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/executed_initial_plan.npz",
+      "bytes": 2412,
+      "sha256": "7764b88e14e08c58b92e9a9ea3a7fe33f40ef15839ed737c5f25b3392ee89706"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/banks.h5",
+      "bytes": 9426696,
+      "sha256": "ab86c56e7e7cbe59b9ee8dea4664d9d31fb2039135b5328fe55ba30f9a7bef7e"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/full_t000_p0.npz",
+      "bytes": 3140566,
+      "sha256": "b1493124afd6ecc2ad6ef4771e18e98b24bf2aef9eecf37f4010f651a39186a6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_0/full_t000_p1.npz",
+      "bytes": 3168233,
+      "sha256": "82c4e194858ff928a1ff29b46bd40bee4668d23f9baef52566dda4d7a9d94aa6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/manifest.json",
+      "bytes": 4912,
+      "sha256": "1eea11501a50bb14bd1d3d77bdb9f1547c517b1fe36026e5b32144728b678fe9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339.job.json",
+      "bytes": 2496,
+      "sha256": "65270022c8ac4b1f5d6b73579dbe615ea423cc5a2c9beced4d80bbf9349c1c99"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/receipt.json",
+      "bytes": 1021,
+      "sha256": "303347a716a122a5ac4581b4929857c21234b6290b68edfd8846fb0cbc1149f0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/trace.h5",
+      "bytes": 521456,
+      "sha256": "4f7199fb0b7dda0a67ab797efb0e720097abc66be3f5e12effacc214eb3db8a3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/executed_initial_plan.npz",
+      "bytes": 2412,
+      "sha256": "7764b88e14e08c58b92e9a9ea3a7fe33f40ef15839ed737c5f25b3392ee89706"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/banks.h5",
+      "bytes": 9426696,
+      "sha256": "9a1761f345aac006fdf2f82e4f68a485538204bd13aa1da1ed1129cf6b333771"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/full_t000_p0.npz",
+      "bytes": 3140559,
+      "sha256": "5e76391ae0b3357470f0bbcfe68fa552f36aa61e9bdc6c6f20e6a9627b9646ec"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/full_t000_p1.npz",
+      "bytes": 3165784,
+      "sha256": "42b6343ca413014a03c91f4a8a12444a72901fe6d0dc533110605b488de76231"
+    }
+  ],
+  "limitations": [
+    "No native replay or new physics; this checks the saved measurements and bindings.",
+    "No neural forwards; deployed actions are checked for saved indexing and arithmetic, not independently regenerated.",
+    "Common-prefix later innovation evidence is its saved RNG/fingerprint records; raw innovations are independently hashed for both first banks.",
+    "Four selected local contexts, not independent whole-task replications, learning evidence or closure of the separate L3 audit."
+  ],
+  "new_work": {
+    "physics_substeps": 0,
+    "model_queries": 0,
+    "neural_forwards": 0,
+    "policy_updates": 0
+  },
+  "verification_source": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/verification/verification_source.py",
+    "bytes": 23254,
+    "sha256": "94ef397a5cfe1e9cf53b0ea027f21df5cd183b720414c2a0cd63cf9b468a4a07"
+  },
+  "work": {
+    "cpu_seconds": 0.655801,
+    "wall_seconds": 0.67460533301346,
+    "child_cpu_cap_seconds": 17,
+    "physics_substeps": 0,
+    "neural_forwards": 0,
+    "policy_updates": 0
+  }
+}

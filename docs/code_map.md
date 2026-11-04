@@ -6,6 +6,8 @@ The current bounded local-controller loop shares one execution/learning stack: [
 
 `review reweight-local-bank` extends [the existing bank-review library](../src/gps/mppi_gps/bank_review.py) with saved float64 native C/D-bank reweighting and stock one-pass update reconstruction. It reuses [the review dispatcher](../src/gps/mppi_gps/research_review.py), preserves failed requests and counts zero physics/inference/fitting. This is distinct from the older FP16 SAC-bank label utility: neither is a pre-update teachability estimator. See the [mechanism-first workflow and commands](development.md#mechanism-first-investigations-after-the-current-bounded-loop).
 
+The completed calibration/controller block uses [same-actor saved-bank calibration](../src/gps/mppi_gps/coupling_calibration.py) (`study coupling-calibration`), [bounded orchestration](../src/gps/mppi_gps/coupling_controller_check.py) (`study coupling-controller-check`) and [the mean-prefix recorder](../src/gps/mppi_gps/coupling_warmstart_probe.py). The recorder calls the existing MPPI optimizer and native execution primitives; it adds the declared score, initial nominal and innovation evidence. [Saved-only reporting](../src/gps/mppi_gps/reporting/coupling_controller_check.py) is separate from execution. The [protocol](coupling_calibration_t1_t0_protocol.md) and [negative controller result](coupling_controller_t0_result.md) define the supported scope; no fitting or follow-up is part of this workflow.
+
 | Responsibility | Active implementation |
 |---|---|
 | Public CLI and study dispatch | [scripts/train_mppi_gps.py](../scripts/train_mppi_gps.py) |

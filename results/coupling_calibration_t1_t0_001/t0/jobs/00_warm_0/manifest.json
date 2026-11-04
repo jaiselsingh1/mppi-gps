@@ -1,0 +1,110 @@
+{
+  "schema": "coupling-warmstart-probe-1",
+  "status": "COMPLETED",
+  "kind": "prepare_warm",
+  "score_version": "PREFIX_MEAN_D_OVER_N_T0_1",
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/fits/r8_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "1d4896e2db4462f1c797db04a25a8d191f046f950d3e39ccb236a825ae3d0553"
+  },
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/coupling_calibration_t1_t0_1_0.json",
+    "bytes": 64639,
+    "sha256": "0590fb63d603846b331a9df79d7ab484b4f167ac1f5c9debd4f8696bdbb7c3b3"
+  },
+  "context": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_000.npz",
+    "bytes": 7003,
+    "sha256": "7df1ab8016fbcfdf056444c804aa3a5d30e7a55b962461eb4ca3e29cb935d2d3"
+  },
+  "seed": 2970001000,
+  "alpha": 0.0,
+  "physics_threads": 4,
+  "initial_context_fingerprint": "cb8d37151ab1ef699b24dacf6238b4adc8b4f31e967043512e81baef2e986705",
+  "actor_hash": "6c9524e5a7e145626b1910d7f448d99e2a4d3329f81abaa21c420bb006c526c4",
+  "normalization_fingerprint": "3207e296cfc27c1e5e75591c2553f39d996ce76d5d5bbb6590bb4a94490f4148",
+  "initial_plan": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/initial_plan.npz",
+    "bytes": 4059,
+    "sha256": "5dc3b0087be5adad551037f31997a162fd3a230950413bbec9d9f8c11838941b"
+  },
+  "shadow_recommendation": [
+    -0.23671377725641105,
+    -0.18042585873761768,
+    -0.28298460784290047,
+    0.2638750640605408,
+    -0.09217578801322729,
+    0.16267586311742335
+  ],
+  "actual_student_transition_action": [
+    -0.3058333098888397,
+    -0.3002989888191223,
+    0.558815598487854,
+    0.5961388349533081,
+    -0.058332741260528564,
+    0.5384005308151245
+  ],
+  "recommendation_was_executed": false,
+  "shadow_plan_shift_count": 1,
+  "shadow_plan_definition": "Independent two-pass MPPI at preceding student boundary; shifted once; actual student action connects to target context.",
+  "source_trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/evaluations/r8_positive_child/primary/2955000000/trace.h5",
+    "bytes": 573320,
+    "sha256": "018b9be7b98ca9f892dbaed7bd4df3d1d18101a796454a2beac675cb0797a90e"
+  },
+  "source_control": 100,
+  "preceding_context_fingerprint": "55d1a28c86d335dd7a7f9a50046e472a5e218871bd6f087022a09b59d35b87a1",
+  "source_transition_replay": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/source_transition_replay.h5",
+    "bytes": 23256,
+    "sha256": "1c4bc3bd7304a95d01d186640fbe37df97c89419db3ea2a34215d02b54587304"
+  },
+  "source_replay_max_errors": {
+    "states": 0.0,
+    "warmstarts": 0.0,
+    "integrations": 0.0,
+    "observations": 0.0,
+    "cost": 0.0
+  },
+  "banks": 2,
+  "full_banks": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/full_t000_p0.npz",
+      "bytes": 3027270,
+      "sha256": "a785d6fa88f6ec9266f754ee4524b8764c3779505214c37af5d90c037b2bb60f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/full_t000_p1.npz",
+      "bytes": 3097524,
+      "sha256": "90dcca3c2fd713aa66ce10e0e9a4ab10171797afd2f844c2cf2415b6b9b2dc0a"
+    }
+  ],
+  "bank_stats": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0/banks.h5",
+    "bytes": 66888,
+    "sha256": "97c2cc9ca358283ce6ad510b3617f8e24b22dbe330e613fbc12a46d225195cc9"
+  },
+  "work": {
+    "requested_checkpoint_loads": 1,
+    "requested_policy_constructions": 1,
+    "completed_checkpoint_loads": 1,
+    "completed_policy_constructions": 1,
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_restores": 2,
+    "requested_external_mj_forward_calls": 2,
+    "completed_restores": 2,
+    "completed_external_mj_forward_calls": 2,
+    "requested_native_controls": 1,
+    "requested_physics_substeps": 98308,
+    "completed_native_controls": 1,
+    "completed_physics_substeps": 98308,
+    "requested_model_controls": 24576,
+    "requested_model_queries": 2,
+    "completed_model_controls": 24576,
+    "completed_model_queries": 2,
+    "requested_neural_rows": 13886,
+    "completed_neural_rows": 13886
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "export": "/private/tmp/walker-coupling-t0-export-2l3hur4x",
+  "phases": [
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 0.6386979999999998,
+      "wall_seconds": 0.6769409169792198
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_coupling_calibration.py",
+        "tests/test_coupling_warmstart_probe.py",
+        "tests/test_coupling_controller_report.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 1.844046,
+      "wall_seconds": 1.9910579579882324
+    }
+  ],
+  "cpu_seconds": 2.518528,
+  "scope": "Clean staged Git export, no ignoredrun/inputdirectories; hash/link checks andsynthetic tests only. RawstudyreportrecomputationrequiresdeclaredexternalH5. Zero newphysics/inference/fitting."
+}

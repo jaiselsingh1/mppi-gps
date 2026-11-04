@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "phases": [
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps/coupling_calibration.py",
+        "src/gps/mppi_gps/coupling_controller_check.py",
+        "src/gps/mppi_gps/coupling_warmstart_probe.py",
+        "src/gps/mppi_gps/reporting/coupling_controller_check.py",
+        "tests/test_coupling_calibration.py",
+        "tests/test_coupling_warmstart_probe.py",
+        "tests/test_coupling_controller_report.py",
+        "scripts/train_mppi_gps.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 0.019714,
+      "wall_seconds": 0.04067550000036135
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_coupling_calibration.py",
+        "tests/test_coupling_warmstart_probe.py",
+        "tests/test_coupling_controller_report.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 1.8104609999999999,
+      "wall_seconds": 2.0890994170331396
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "coupling-calibration",
+        "--help"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 0.04771700000000023,
+      "wall_seconds": 0.07712425000499934
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "coupling-controller-check",
+        "--help"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 0.046664999999999734,
+      "wall_seconds": 0.0732577089802362
+    }
+  ],
+  "cpu_seconds": 1.9537099999999998,
+  "scope": "Syntheticsoftwaretests/help only; no nativephysics, policyforwards ortraining."
+}

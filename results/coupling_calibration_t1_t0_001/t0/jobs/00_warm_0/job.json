@@ -1,0 +1,70 @@
+{
+  "kind": "prepare_warm",
+  "out": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_0",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/coupling_calibration_t1_t0_1_0.json",
+    "bytes": 64639,
+    "sha256": "0590fb63d603846b331a9df79d7ab484b4f167ac1f5c9debd4f8696bdbb7c3b3"
+  },
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/fits/r8_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "1d4896e2db4462f1c797db04a25a8d191f046f950d3e39ccb236a825ae3d0553"
+  },
+  "context": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_000.npz",
+    "bytes": 7003,
+    "sha256": "7df1ab8016fbcfdf056444c804aa3a5d30e7a55b962461eb4ca3e29cb935d2d3"
+  },
+  "actor_hash": "6c9524e5a7e145626b1910d7f448d99e2a4d3329f81abaa21c420bb006c526c4",
+  "planner": {
+    "K": 256,
+    "H": 48,
+    "lam": 3.0,
+    "noise_sigma": 0.3,
+    "noise_lowpass_cutoff_hz": 23.4375,
+    "noise_lowpass_sample_rate_hz": 125.0,
+    "noise_lowpass_order": 2,
+    "use_is_correction": false,
+    "initial_iterations": 2
+  },
+  "task": {
+    "frame_skip": 4,
+    "cost_style": "target_velocity",
+    "target_velocity": 1.5,
+    "vel_cost_weight": 2.0,
+    "vertical_velocity_cost_weight": 0.5,
+    "angle_cost_weight": 0.1,
+    "unhealthy_cost_weight": 5.0,
+    "ctrl_cost_weight": 0.001,
+    "terminal_unhealthy_weight": 20.0,
+    "apply_terminal_cost_on_done": true
+  },
+  "physics_threads": 4,
+  "limits": {
+    "wall_seconds": 1800,
+    "output_bytes": 134217728,
+    "memory_bytes": 4294967296,
+    "checkpoint_loads": 1,
+    "policy_constructions": 1,
+    "environment_constructions": 1,
+    "restores": 4,
+    "external_mj_forward_calls": 4,
+    "model_controls": 24576,
+    "model_queries": 2,
+    "native_controls": 1,
+    "physics_substeps": 98308,
+    "neural_rows": 24577
+  },
+  "seed": 2970001000,
+  "alpha": 0.0,
+  "controls": 300,
+  "initial_plan_mode": "zero",
+  "initial_plan": null,
+  "source_trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/evaluations/r8_positive_child/primary/2955000000/trace.h5",
+    "bytes": 573320,
+    "sha256": "018b9be7b98ca9f892dbaed7bd4df3d1d18101a796454a2beac675cb0797a90e"
+  },
+  "control": 100
+}

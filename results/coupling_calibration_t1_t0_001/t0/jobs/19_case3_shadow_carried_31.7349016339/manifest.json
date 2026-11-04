@@ -1,0 +1,116 @@
+{
+  "schema": "coupling-warmstart-probe-1",
+  "status": "COMPLETED",
+  "kind": "controller",
+  "score_version": "PREFIX_MEAN_D_OVER_N_T0_1",
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/fits/r8_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "1d4896e2db4462f1c797db04a25a8d191f046f950d3e39ccb236a825ae3d0553"
+  },
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/coupling_calibration_t1_t0_1_0.json",
+    "bytes": 64639,
+    "sha256": "0590fb63d603846b331a9df79d7ab484b4f167ac1f5c9debd4f8696bdbb7c3b3"
+  },
+  "context": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/context_003.npz",
+    "bytes": 6996,
+    "sha256": "152edb2c466617c2d3048596749a4eec2286ce8118ffcf975dcd9f2c6af1e254"
+  },
+  "seed": 2970002003,
+  "alpha": 31.734901633936317,
+  "physics_threads": 4,
+  "initial_context_fingerprint": "4afd50913c139b0ade5aa4eeaf786af421c52e05e74db5fbf435043755fcf935",
+  "actor_hash": "6c9524e5a7e145626b1910d7f448d99e2a4d3329f81abaa21c420bb006c526c4",
+  "normalization_fingerprint": "3207e296cfc27c1e5e75591c2553f39d996ce76d5d5bbb6590bb4a94490f4148",
+  "outcome": {
+    "controls": 300,
+    "requested_controls": 300,
+    "fell": false,
+    "full_survival": true,
+    "walking": false,
+    "velocity_mae": 0.17967035473342122,
+    "mean_velocity": 1.3974448636193695,
+    "raw_native_cost": 139.60735463558146,
+    "absorbing_tail_cost": 0.0,
+    "complete_cost": 139.60735463558146,
+    "local_walking": true
+  },
+  "initial_plan_mode": "shadow_carried",
+  "initial_plan": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/warm_3/initial_plan.npz",
+    "bytes": 4052,
+    "sha256": "d22e2aaf3aae1403bebea9679b7c8674f2714b3c06cb56a64170e99543f1c780"
+  },
+  "executed_initial_plan": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/executed_initial_plan.npz",
+    "bytes": 2412,
+    "sha256": "7764b88e14e08c58b92e9a9ea3a7fe33f40ef15839ed737c5f25b3392ee89706"
+  },
+  "initial_plan_fingerprint": "1cb366bd0ed1f4a602307853771d452c14af9785345d98b7aadc5c77589df6ee",
+  "initial_two_passes": true,
+  "first_action": [
+    -0.4666436601394046,
+    -0.17887632777547974,
+    0.36396290878062354,
+    -0.9144653456197068,
+    0.5516668369269495,
+    -0.21148040730736223
+  ],
+  "first_policy_action": [
+    -0.15131469070911407,
+    0.14398989081382751,
+    0.4310455322265625,
+    0.4772861897945404,
+    0.486330509185791,
+    0.042884211987257004
+  ],
+  "first_action_gap_mse": 0.3690195940060048,
+  "mean_executed_action_gap_mse": 0.18860973111443824,
+  "trace": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/trace.h5",
+    "bytes": 521456,
+    "sha256": "4f7199fb0b7dda0a67ab797efb0e720097abc66be3f5e12effacc214eb3db8a3"
+  },
+  "banks": 301,
+  "full_banks": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/full_t000_p0.npz",
+      "bytes": 3140559,
+      "sha256": "5e76391ae0b3357470f0bbcfe68fa552f36aa61e9bdc6c6f20e6a9627b9646ec"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/full_t000_p1.npz",
+      "bytes": 3165784,
+      "sha256": "42b6343ca413014a03c91f4a8a12444a72901fe6d0dc533110605b488de76231"
+    }
+  ],
+  "bank_stats": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t0/case3_shadow_carried_31.7349016339/banks.h5",
+    "bytes": 9426696,
+    "sha256": "9a1761f345aac006fdf2f82e4f68a485538204bd13aa1da1ed1129cf6b333771"
+  },
+  "work": {
+    "requested_checkpoint_loads": 1,
+    "requested_policy_constructions": 1,
+    "completed_checkpoint_loads": 1,
+    "completed_policy_constructions": 1,
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_restores": 1,
+    "requested_external_mj_forward_calls": 1,
+    "completed_restores": 1,
+    "completed_external_mj_forward_calls": 1,
+    "requested_neural_rows": 3372761,
+    "completed_neural_rows": 3372761,
+    "requested_model_controls": 3698688,
+    "requested_physics_substeps": 14795952,
+    "requested_model_queries": 301,
+    "completed_model_controls": 3698688,
+    "completed_physics_substeps": 14795952,
+    "completed_model_queries": 301,
+    "requested_native_controls": 300,
+    "completed_native_controls": 300
+  }
+}

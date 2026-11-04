@@ -1,0 +1,50 @@
+{
+  "schema": "coupling-calibration-t1-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/coupling_calibration_t1_t0_1_0.json",
+    "bytes": 64639,
+    "sha256": "0590fb63d603846b331a9df79d7ab484b4f167ac1f5c9debd4f8696bdbb7c3b3"
+  },
+  "actor_hash": "6c9524e5a7e145626b1910d7f448d99e2a4d3329f81abaa21c420bb006c526c4",
+  "checkpoint": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/fits/r8_positive/stream/policy.pt",
+    "bytes": 330810,
+    "sha256": "1d4896e2db4462f1c797db04a25a8d191f046f950d3e39ccb236a825ae3d0553"
+  },
+  "alphas": {
+    "all": {
+      "0.1": 9.23572314252142,
+      "0.3": 27.707169427564256,
+      "1.0": 92.3572314252142
+    },
+    "competitive": {
+      "0.1": 10.57830054464544,
+      "0.3": 31.734901633936317,
+      "1.0": 105.7830054464544
+    }
+  },
+  "median_unit_ratios": {
+    "all": 0.010827522485986871,
+    "competitive": 0.009453314318113068
+  },
+  "selected_alpha": 31.734901633936317,
+  "selection": "Frozen competitive32, target .3; not chosen from execution or fitting.",
+  "results": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t1/per_bank.csv",
+    "bytes": 11375,
+    "sha256": "87330592a785c949ec1f73c402fc1c5265b9726d3cc9d0b806fc34cc04b8021f"
+  },
+  "measurements": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t1/measurements.npz",
+    "bytes": 124700,
+    "sha256": "1fe4d8c3070b148cefb594d096eace0b53955da1df365997a8e8cba34a22cb8a"
+  },
+  "work": {
+    "cpu_seconds": 0.030813000000000007,
+    "wall_seconds": 0.034420042007695884,
+    "physics_substeps": 0,
+    "neural_rows": 0,
+    "optimizer_updates": 0
+  }
+}
