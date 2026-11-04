@@ -1,0 +1,27 @@
+{
+  "schema": "local-coupling-l2-prelaunch-validation-1",
+  "status": "PASSED_PRELAUNCH_SOFTWARE_CHECKS_NATIVE_CHECK_DEFERRED_TO_FROZEN_RUN",
+  "tests": {
+    "controller_lifecycle_pure": "27 passed in1.12s (including19 then-current auditfixtures)",
+    "public_CLI_metadata": "47 passed in8.81s",
+    "new_controller_decisions": "8 passed in1.11s",
+    "learner": "10passed2.49s; pure terminal-observation followup2passed1.68s",
+    "audit_final_pure": "24 passed; no real inference except separate headproof",
+    "report_pure": "5 passed13.62s"
+  },
+  "ruff": "PASS src/gps/mppi_gps tests",
+  "real_preparation_units": {
+    "synthetic_adam_updates": 8,
+    "backward_rows": 2048,
+    "neural_rows": 2671,
+    "model_controls": 0,
+    "native_controls": 0,
+    "physics_substeps": 0
+  },
+  "scope": "The eight learner updates and16headforwardrows were executed once and preserved; no2000-update research fit/controller episode has run. Pure/mocked fixture counters are not native physics. No full-suite repeat of paid synthetic fitting.",
+  "freshness": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/reset_freshness.json",
+    "bytes": 1995,
+    "sha256": "f454e2c9d17a470162ae7256e8ca9acb1c568a7bfd82277c16a37671181d0967"
+  }
+}

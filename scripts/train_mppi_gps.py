@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 STUDIES = {
+    "local-coupling-loop": "src.gps.mppi_gps.experiments.local_coupling_loop",
     "trajectory-pi": "src.gps.mppi_gps.experiments.trajectory_pi",
     "guided-data": "src.gps.mppi_gps.experiments.guided_data_comparison",
     "learnability": "src.gps.mppi_gps.experiments.student_learnability",
