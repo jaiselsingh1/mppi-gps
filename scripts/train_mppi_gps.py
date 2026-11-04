@@ -17,6 +17,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 STUDIES = {
+    "coupling-calibration": "src.gps.mppi_gps.coupling_calibration",
+    "coupling-controller-check": "src.gps.mppi_gps.coupling_controller_check",
     "local-coupling-continuation": "src.gps.mppi_gps.experiments.local_coupling_multiround_continuation",
     "local-coupling-multiround": "src.gps.mppi_gps.experiments.local_coupling_multiround",
     "local-coupling-loop": "src.gps.mppi_gps.experiments.local_coupling_loop",

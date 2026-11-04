@@ -1,0 +1,25 @@
+{
+  "schema": "coupling-controller-launch-recipe-1",
+  "protocol": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/coupling_calibration_t1_t0_1_0.json",
+    "bytes": 64639,
+    "sha256": "0590fb63d603846b331a9df79d7ab484b4f167ac1f5c9debd4f8696bdbb7c3b3"
+  },
+  "calibration": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/t1/result.json",
+    "bytes": 1888,
+    "sha256": "cc72d94a191573fcfcdc2ad1382a610728a52b2a26e1785fe2d4f3fa07f7d154"
+  },
+  "selected_alpha": 31.734901633936317,
+  "rule": "Frozencompetitive32target.3, nooutcometuning",
+  "inventory": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_coupling_calibration_t1_t0_001/prepared/inventory.json",
+    "bytes": 68950,
+    "sha256": "8c03040b9a73b32e55ec8d066dee9460150fc43dd939ece1b31cd9fef5ce1d14"
+  },
+  "additional_observer_neural_rows": 4800,
+  "total_neural_rows_upper": 59282112,
+  "census_note": "Original protocol 59,277,312 forecast rows plus at most4,800 directly executed-state policy observations. This corrects only the work census before T0; no algorithm, source tolerance, alpha, budget or roster change.",
+  "job_order": "4shadow preparations, then context0..3\u00d7zero/shadow\u00d7alpha0/selected, serial childCPU sum hardcap3200",
+  "global_cpu_limit_seconds": 3600
+}
