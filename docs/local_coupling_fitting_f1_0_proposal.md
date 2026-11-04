@@ -19,7 +19,8 @@ First independently review the saved owner-predeclared B/C patterns, held-restar
 support and teacher competence, using the owner's original criteria. Bind all
 failures and costs. Missing or ambiguous qualification blocks freezing F1;
 it does not authorize acquisition, replacement restarts or relaxed gates.
-Action MSE is reported, **never an admission gate** or proof of teachability.
+Action MSE is reported; it cannot **alone admit or reject data** or establish
+teachability. Report the owner's frozen composite C criterion without rewriting it.
 Three-hundred-control survival/velocity outcomes do not certify 1,000-control
 walking. [W2](student_update_w2_results.md) already separates fitting and
 retention gains from walking.
