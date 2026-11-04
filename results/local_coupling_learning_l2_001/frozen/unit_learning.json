@@ -1,0 +1,2080 @@
+{
+  "schema": "local-coupling-unit-learning-preservation-1",
+  "status": "PRESERVED_COMPLETED_ENGINEERING_FIXTURE",
+  "kind": "Synthetic saved-array/learner tests; not W2 parent refitting or research acquisition",
+  "execution": {
+    "command": "/Users/jaisel/Documents/mppi-gps/.venv/bin/python -m pytest -q tests/test_local_coupling_learning.py",
+    "observed_exit_code": 0,
+    "observed_status": "10 passed in 2.49s",
+    "stdout_scope": "Status transcribed from completed tool result; no stdout file was originally captured",
+    "followup_command": "same pytest file -k terminal_observation or import_has",
+    "followup_status": "2 passed, 9 deselected in 1.68s",
+    "followup_fits": 0
+  },
+  "exact_counts": {
+    "synthetic_adam_updates": 8,
+    "synthetic_backward_rows": 2048,
+    "ledger_torch_forward_rows": 2653,
+    "outside_ledger_torch_forward_rows": 2,
+    "outside_ledger_scope": "Two scalar Policy.predict verification calls in fake-evaluation test; one per two saved controls",
+    "total_torch_forward_rows": 2655,
+    "mock_native_controls": 2,
+    "mock_physics_substeps": 8,
+    "actual_mujoco_native_controls": 0,
+    "actual_mujoco_model_controls": 0,
+    "actual_mujoco_physics_substeps": 0,
+    "research_2000_update_fits": 0
+  },
+  "continuation_scope": "Two paired two-update round-one fits followed by their own two-update round-two fits. Initial Adam/private-PCG proofs and shared index tapes verified; NOT a separate 2+2 versus 4 reference experiment.",
+  "incoming": {
+    "stream_files": {
+      "policy.pt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/incoming/policy.pt",
+        "bytes": 168944,
+        "sha256": "570279d4d199e5e76fd86606daa5eeb5dfb70a92066828ecd7aee037b7aeeedd"
+      },
+      "global_rng.pt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/incoming/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "stream.json": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/incoming/stream.json",
+        "bytes": 641,
+        "sha256": "a57cc615109e08955670800e16d9e6c4a4233aca14bfe6648b70a6038bfa59e1"
+      }
+    },
+    "configuration": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/config.json",
+      "bytes": 624,
+      "sha256": "5241e613a66ad7b418457eda74024d035d91f305471e61f29c7eea0e4f3e3a0c"
+    },
+    "origin": "New synthetic width128 native-feature actor with zero-update initial_stream; not the real W2 f801 checkpoint"
+  },
+  "fit_proofs": [
+    {
+      "name": "r1_a",
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/result.json",
+        "bytes": 7618,
+        "sha256": "f94a0287cb0c477d9cdbfbf8e5e05cffc54d738475cb3de9c1b0404668d73591"
+      },
+      "receipt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/receipt.json",
+        "bytes": 769,
+        "sha256": "9bf1a82c251731fe52dc5eefccef9e49d94d55bbbb7c7153304d4e3a3529481b"
+      },
+      "initial_state": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/initial_state.pt",
+        "bytes": 87369,
+        "sha256": "023c82ce4394a43a4c88d0eb64ab2fd7af8b525fdac7bb6daf5ff4e10ca55c1a"
+      },
+      "index_tape": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/index_tape.npz",
+        "bytes": 1278,
+        "sha256": "90937d65897c1aa220675df284626ac2c51588095ad0185cbc7767bd7c0380cf"
+      },
+      "index_rng": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/index_rng.jsonl",
+        "bytes": 998,
+        "sha256": "3a0b08160ef6695038aa80b4544252542cb975443dd002f6c482c8825e9071d7"
+      },
+      "stream_files": {
+        "policy.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/stream/policy.pt",
+          "bytes": 330746,
+          "sha256": "dc33c672e3234f528668dd960352e6f48ce2465171f5f15f3620b7ce5e4792e1"
+        },
+        "global_rng.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/stream/global_rng.pt",
+          "bytes": 14313,
+          "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+        },
+        "stream.json": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/stream/stream.json",
+          "bytes": 1074,
+          "sha256": "f83fb1b877cbae8eca6c787d847b72f358d82a1f5dcd4dbb78610dc3b5e6913c"
+        }
+      },
+      "before": {
+        "policy_hash": "fe0df9a691095dc154898b3b7712ac358e70f1f31ebfa851240032688a21fffe",
+        "optimizer_fingerprint": "9431a876dbca42095301be9e3a0e75e7ffb4a1bbf34cbc616f254c4567239b84",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "after": {
+        "policy_hash": "703bdf0b029f9ec65feba6c8f0e1d44a923a1c7af131599edd309035d1d32f4c",
+        "optimizer_fingerprint": "b5a634234326a900b40c37fdf72c49f43881ba0b2db20e93d76776d249713890",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "updates": 2,
+      "cumulative_updates": 2
+    },
+    {
+      "name": "r1_b",
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/result.json",
+        "bytes": 7618,
+        "sha256": "7fd58bae74338d0dbb9713ce2b9fe1e329608fcacf20a52b5ea5e8ec8fc8af2a"
+      },
+      "receipt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/receipt.json",
+        "bytes": 769,
+        "sha256": "7372c6dffb4fc6c7d50713bd79c18ef7600b8d47a2b527e3b054ecda3f96bddd"
+      },
+      "initial_state": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/initial_state.pt",
+        "bytes": 87369,
+        "sha256": "023c82ce4394a43a4c88d0eb64ab2fd7af8b525fdac7bb6daf5ff4e10ca55c1a"
+      },
+      "index_tape": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/index_tape.npz",
+        "bytes": 1278,
+        "sha256": "90937d65897c1aa220675df284626ac2c51588095ad0185cbc7767bd7c0380cf"
+      },
+      "index_rng": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/index_rng.jsonl",
+        "bytes": 998,
+        "sha256": "3a0b08160ef6695038aa80b4544252542cb975443dd002f6c482c8825e9071d7"
+      },
+      "stream_files": {
+        "policy.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/stream/policy.pt",
+          "bytes": 330746,
+          "sha256": "90641d668a67799d8695680b575756695819f743fd0bdecb6e0d5178d10a6565"
+        },
+        "global_rng.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/stream/global_rng.pt",
+          "bytes": 14313,
+          "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+        },
+        "stream.json": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/stream/stream.json",
+          "bytes": 1074,
+          "sha256": "2244fe393507afed3b8c451745ba99a4dcdf5a7a2d6a05bacbb47ad594d69f52"
+        }
+      },
+      "before": {
+        "policy_hash": "fe0df9a691095dc154898b3b7712ac358e70f1f31ebfa851240032688a21fffe",
+        "optimizer_fingerprint": "9431a876dbca42095301be9e3a0e75e7ffb4a1bbf34cbc616f254c4567239b84",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "after": {
+        "policy_hash": "d2c3fdea80e8904a98ede826b6bcaa091350ea20f15c9ee0c29722162ec89683",
+        "optimizer_fingerprint": "8108ee882e218a3c53782b05b5ecf63cf83e4da5ab34080307bec3f17de1fcfd",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "updates": 2,
+      "cumulative_updates": 2
+    },
+    {
+      "name": "r2_a",
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/result.json",
+        "bytes": 7619,
+        "sha256": "fb71ee62a068aa06abff9852c032fc5681405a8f2c9235b3c54e52bd8171fb49"
+      },
+      "receipt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/receipt.json",
+        "bytes": 770,
+        "sha256": "aaa770e34159e2c197cc17978b0d08a7d0cfbbaf6cd03693eaa8388d12a3bb10"
+      },
+      "initial_state": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/initial_state.pt",
+        "bytes": 248466,
+        "sha256": "3a35dfd23e1aeaf5f26316206b60204f3618dabdc3b408987e2a10e6bd897dbb"
+      },
+      "index_tape": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/index_tape.npz",
+        "bytes": 1277,
+        "sha256": "b22a975c748203a2ae6dad803d9d5186f35d400a7cdc19ecd19fd08d3e5265d6"
+      },
+      "index_rng": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/index_rng.jsonl",
+        "bytes": 1007,
+        "sha256": "c3a9677b06b1f57c7d9b8c3a26791a7b39657c3e02f81352ddc13ed63ec90caf"
+      },
+      "stream_files": {
+        "policy.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/stream/policy.pt",
+          "bytes": 330746,
+          "sha256": "01430353f721ffda764d2d353b8a640362af90a7f30a22820754da4ebabd3bac"
+        },
+        "global_rng.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/stream/global_rng.pt",
+          "bytes": 14313,
+          "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+        },
+        "stream.json": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/stream/stream.json",
+          "bytes": 1072,
+          "sha256": "55633b5a26c096929c17beec38de024df602d25d9e8bf1d6655b81f19dea50b1"
+        }
+      },
+      "before": {
+        "policy_hash": "703bdf0b029f9ec65feba6c8f0e1d44a923a1c7af131599edd309035d1d32f4c",
+        "optimizer_fingerprint": "b5a634234326a900b40c37fdf72c49f43881ba0b2db20e93d76776d249713890",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "after": {
+        "policy_hash": "a8381f1230230530a2d588cf5e11e7f17c5e446c518ddff691e6eb12afd539b2",
+        "optimizer_fingerprint": "12ca1e222454d9b600ee493c5eae0095c853647da436a2dd871a7a7c879d369d",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "updates": 2,
+      "cumulative_updates": 4
+    },
+    {
+      "name": "r2_b",
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/result.json",
+        "bytes": 7618,
+        "sha256": "6f02699656ddfe254380944130e55540b7a406aa969b55cef41cd98c6c85419c"
+      },
+      "receipt": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/receipt.json",
+        "bytes": 769,
+        "sha256": "e71318167eea9e1ccee2fcaf9034ae751b042a14de2c1d84f5895be08f870484"
+      },
+      "initial_state": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/initial_state.pt",
+        "bytes": 248466,
+        "sha256": "7275c0fe456e4e3e878f7ebdaea800ffaa348934e53c5f6ee308b5c6aeb6d7f8"
+      },
+      "index_tape": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/index_tape.npz",
+        "bytes": 1277,
+        "sha256": "b22a975c748203a2ae6dad803d9d5186f35d400a7cdc19ecd19fd08d3e5265d6"
+      },
+      "index_rng": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/index_rng.jsonl",
+        "bytes": 1007,
+        "sha256": "c3a9677b06b1f57c7d9b8c3a26791a7b39657c3e02f81352ddc13ed63ec90caf"
+      },
+      "stream_files": {
+        "policy.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/stream/policy.pt",
+          "bytes": 330746,
+          "sha256": "dc0518b12287fb58347dc21845ad83a2108b35da93a38dad25b36d44f437b9b9"
+        },
+        "global_rng.pt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/stream/global_rng.pt",
+          "bytes": 14313,
+          "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+        },
+        "stream.json": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/stream/stream.json",
+          "bytes": 1072,
+          "sha256": "813eb87bf2d7f1f773a695e05cf7d04b95ef212eb011d64dca6bc7d53fad4084"
+        }
+      },
+      "before": {
+        "policy_hash": "d2c3fdea80e8904a98ede826b6bcaa091350ea20f15c9ee0c29722162ec89683",
+        "optimizer_fingerprint": "8108ee882e218a3c53782b05b5ecf63cf83e4da5ab34080307bec3f17de1fcfd",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "after": {
+        "policy_hash": "3e2f8209829e1f8c8a36d317a43d8967f28ff74b393bef5b034257cb701f733b",
+        "optimizer_fingerprint": "5a871054fee692f0d5d74bed9acbcd97faf2c8051a236240d42117c740f10fcc",
+        "normalization": "91b2bb4160859dac80fd357dc60cac1675eda3d9d4a30667489e5981c1c957dc",
+        "private_torch": "499061d6e13dab388aa71f1077a28b8cc7c99e232958d42e7a43f43d8d9679bd",
+        "global_rng": "401b65fabad6a47518017953523912b611d827b1ada350d13c34f2655c6a0d32"
+      },
+      "updates": 2,
+      "cumulative_updates": 4
+    }
+  ],
+  "receipts": [
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/receipt.json",
+        "bytes": 455,
+        "sha256": "ebcf0358be61daed5bef5aeb0e0a77297c7b70b86593cf5bcc446ef575dab6db"
+      },
+      "status": "FAILED",
+      "counts": {
+        "requested_checkpoint_loads": 2,
+        "requested_policy_constructions": 1,
+        "completed_checkpoint_loads": 2,
+        "completed_policy_constructions": 1,
+        "requested_neural_rows": 67,
+        "completed_neural_rows": 67
+      },
+      "wall_seconds": 0.022354999964591116,
+      "cpu_seconds": 0.01879300000000006
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/receipt.json",
+        "bytes": 470,
+        "sha256": "904314484953c87d47ca529e67e790198a02913047897471065b86a94eae8d6c"
+      },
+      "status": "COMPLETED",
+      "counts": {
+        "requested_checkpoint_loads": 2,
+        "requested_policy_constructions": 1,
+        "completed_checkpoint_loads": 2,
+        "completed_policy_constructions": 1,
+        "requested_checkpoint_writes": 9,
+        "completed_checkpoint_writes": 9
+      },
+      "wall_seconds": 0.05111645796569064,
+      "cpu_seconds": 0.045723999999999876
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/receipt.json",
+        "bytes": 769,
+        "sha256": "9bf1a82c251731fe52dc5eefccef9e49d94d55bbbb7c7153304d4e3a3529481b"
+      },
+      "status": "COMPLETED",
+      "counts": {
+        "requested_checkpoint_loads": 4,
+        "requested_policy_constructions": 3,
+        "completed_checkpoint_loads": 4,
+        "completed_policy_constructions": 3,
+        "requested_neural_rows": 646,
+        "completed_neural_rows": 646,
+        "requested_optimizer_constructions": 1,
+        "requested_checkpoint_writes": 3,
+        "completed_checkpoint_writes": 3,
+        "requested_backward_rows": 512,
+        "completed_backward_rows": 512,
+        "requested_optimizer_steps": 2,
+        "completed_optimizer_steps": 2,
+        "completed_optimizer_constructions": 1
+      },
+      "wall_seconds": 0.10934179200557992,
+      "cpu_seconds": 0.08184600000000009
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/receipt.json",
+        "bytes": 769,
+        "sha256": "7372c6dffb4fc6c7d50713bd79c18ef7600b8d47a2b527e3b054ecda3f96bddd"
+      },
+      "status": "COMPLETED",
+      "counts": {
+        "requested_checkpoint_loads": 4,
+        "requested_policy_constructions": 3,
+        "completed_checkpoint_loads": 4,
+        "completed_policy_constructions": 3,
+        "requested_neural_rows": 646,
+        "completed_neural_rows": 646,
+        "requested_optimizer_constructions": 1,
+        "requested_checkpoint_writes": 3,
+        "completed_checkpoint_writes": 3,
+        "requested_backward_rows": 512,
+        "completed_backward_rows": 512,
+        "requested_optimizer_steps": 2,
+        "completed_optimizer_steps": 2,
+        "completed_optimizer_constructions": 1
+      },
+      "wall_seconds": 0.07019466604106128,
+      "cpu_seconds": 0.06103000000000014
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/receipt.json",
+        "bytes": 770,
+        "sha256": "aaa770e34159e2c197cc17978b0d08a7d0cfbbaf6cd03693eaa8388d12a3bb10"
+      },
+      "status": "COMPLETED",
+      "counts": {
+        "requested_checkpoint_loads": 4,
+        "requested_policy_constructions": 3,
+        "completed_checkpoint_loads": 4,
+        "completed_policy_constructions": 3,
+        "requested_neural_rows": 646,
+        "completed_neural_rows": 646,
+        "requested_optimizer_constructions": 1,
+        "requested_checkpoint_writes": 3,
+        "completed_checkpoint_writes": 3,
+        "requested_backward_rows": 512,
+        "completed_backward_rows": 512,
+        "requested_optimizer_steps": 2,
+        "completed_optimizer_steps": 2,
+        "completed_optimizer_constructions": 1
+      },
+      "wall_seconds": 0.06204479199368507,
+      "cpu_seconds": 0.055053999999999936
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/receipt.json",
+        "bytes": 769,
+        "sha256": "e71318167eea9e1ccee2fcaf9034ae751b042a14de2c1d84f5895be08f870484"
+      },
+      "status": "COMPLETED",
+      "counts": {
+        "requested_checkpoint_loads": 4,
+        "requested_policy_constructions": 3,
+        "completed_checkpoint_loads": 4,
+        "completed_policy_constructions": 3,
+        "requested_neural_rows": 646,
+        "completed_neural_rows": 646,
+        "requested_optimizer_constructions": 1,
+        "requested_checkpoint_writes": 3,
+        "completed_checkpoint_writes": 3,
+        "requested_backward_rows": 512,
+        "completed_backward_rows": 512,
+        "requested_optimizer_steps": 2,
+        "completed_optimizer_steps": 2,
+        "completed_optimizer_constructions": 1
+      },
+      "wall_seconds": 0.06974245799938217,
+      "cpu_seconds": 0.06148599999999993
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/mock_evaluation/receipt.json",
+        "bytes": 842,
+        "sha256": "51b468a7daa8aa39e464b4f0a42553602743d47b9b06c0ec81e09c63873ae559"
+      },
+      "status": "COMPLETED",
+      "counts": {
+        "requested_checkpoint_loads": 1,
+        "requested_policy_constructions": 1,
+        "completed_checkpoint_loads": 1,
+        "completed_policy_constructions": 1,
+        "requested_environment_constructions": 1,
+        "completed_environment_constructions": 1,
+        "requested_resets": 1,
+        "requested_external_mj_forward_calls": 2,
+        "completed_resets": 1,
+        "completed_external_mj_forward_calls": 2,
+        "requested_neural_rows": 2,
+        "completed_neural_rows": 2,
+        "requested_native_controls": 2,
+        "requested_physics_substeps": 8,
+        "completed_native_controls": 2,
+        "completed_physics_substeps": 8
+      },
+      "wall_seconds": 0.015887334011495113,
+      "cpu_seconds": 0.013290000000000024
+    },
+    {
+      "binding": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/wrong_arm_stop/receipt.json",
+        "bytes": 390,
+        "sha256": "f2bb4a0873620bb279e33cfb555895aec11d0e8538ffd7637da5490c7677287f"
+      },
+      "status": "FAILED",
+      "counts": {
+        "requested_checkpoint_loads": 2,
+        "requested_policy_constructions": 1,
+        "completed_checkpoint_loads": 2,
+        "completed_policy_constructions": 1
+      },
+      "wall_seconds": 0.017274999991059303,
+      "cpu_seconds": 0.011290000000000022
+    }
+  ],
+  "all_ledger_counts_including_mock_units": {
+    "requested_checkpoint_loads": 23,
+    "requested_policy_constructions": 16,
+    "completed_checkpoint_loads": 23,
+    "completed_policy_constructions": 16,
+    "requested_neural_rows": 2653,
+    "completed_neural_rows": 2653,
+    "requested_checkpoint_writes": 21,
+    "completed_checkpoint_writes": 21,
+    "requested_optimizer_constructions": 4,
+    "requested_backward_rows": 2048,
+    "completed_backward_rows": 2048,
+    "requested_optimizer_steps": 8,
+    "completed_optimizer_steps": 8,
+    "completed_optimizer_constructions": 4,
+    "requested_environment_constructions": 1,
+    "completed_environment_constructions": 1,
+    "requested_resets": 1,
+    "requested_external_mj_forward_calls": 2,
+    "completed_resets": 1,
+    "completed_external_mj_forward_calls": 2,
+    "requested_native_controls": 2,
+    "requested_physics_substeps": 8,
+    "completed_native_controls": 2,
+    "completed_physics_substeps": 8
+  },
+  "source_at_preservation": [
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/local_coupling_learning.py",
+        "bytes": 21385,
+        "sha256": "08f59a581ca11b28b828f9172e0943911592f19351904360feb83d038792d286"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/source_at_preservation/src/gps/mppi_gps/local_coupling_learning.py",
+        "bytes": 21385,
+        "sha256": "08f59a581ca11b28b828f9172e0943911592f19351904360feb83d038792d286"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/trajectory_pi_student.py",
+        "bytes": 18557,
+        "sha256": "4b5e9c06423c3bc1217995c0a2426c106a42f03975fe16b69297af78a0798faa"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/source_at_preservation/src/gps/mppi_gps/trajectory_pi_student.py",
+        "bytes": 18557,
+        "sha256": "4b5e9c06423c3bc1217995c0a2426c106a42f03975fe16b69297af78a0798faa"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/policy.py",
+        "bytes": 27021,
+        "sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/source_at_preservation/src/gps/mppi_gps/policy.py",
+        "bytes": 27021,
+        "sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/trajectory_pi_accounting.py",
+        "bytes": 5142,
+        "sha256": "dfc610bec18327f2a9e44f9b8336ab3064efb8771032d26f658988be755904dd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/source_at_preservation/src/gps/mppi_gps/trajectory_pi_accounting.py",
+        "bytes": 5142,
+        "sha256": "dfc610bec18327f2a9e44f9b8336ab3064efb8771032d26f658988be755904dd"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/trajectory_pi_native.py",
+        "bytes": 19463,
+        "sha256": "be715a1b9babe9357788265ab5cd9cd3481eb0467c801f53f40a90740ebcaff9"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/source_at_preservation/src/gps/mppi_gps/trajectory_pi_native.py",
+        "bytes": 19463,
+        "sha256": "be715a1b9babe9357788265ab5cd9cd3481eb0467c801f53f40a90740ebcaff9"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/tests/test_local_coupling_learning.py",
+        "bytes": 15325,
+        "sha256": "0eaa5dcb121693166e53ace2dca3bfb12b119be533a111ddca16e0d290ea410f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/source_at_preservation/tests/test_local_coupling_learning.py",
+        "bytes": 15325,
+        "sha256": "0eaa5dcb121693166e53ace2dca3bfb12b119be533a111ddca16e0d290ea410f"
+      }
+    }
+  ],
+  "source_scope": "Captured at preservation. The fitted continuation routines are unchanged since fixture execution; terminal-observation-only validation and test-runtime restoration were added afterward and separately checked without fitting.",
+  "raw_output_relocation": [
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/config.json",
+        "bytes": 624,
+        "sha256": "5241e613a66ad7b418457eda74024d035d91f305471e61f29c7eea0e4f3e3a0c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/config.json",
+        "bytes": 624,
+        "sha256": "5241e613a66ad7b418457eda74024d035d91f305471e61f29c7eea0e4f3e3a0c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/corpus/a.npz",
+        "bytes": 1083,
+        "sha256": "7cbae5355edba59b06b98d799abbbfef97c35890d3bf2b32b7f9ce3aa3f21000"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/corpus/a.npz",
+        "bytes": 1083,
+        "sha256": "7cbae5355edba59b06b98d799abbbfef97c35890d3bf2b32b7f9ce3aa3f21000"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/corpus/b.npz",
+        "bytes": 1079,
+        "sha256": "8d946daac0609b6fc266e5cbf124d3f359bf2fdab041cdb047f23c448d64e662"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/corpus/b.npz",
+        "bytes": 1079,
+        "sha256": "8d946daac0609b6fc266e5cbf124d3f359bf2fdab041cdb047f23c448d64e662"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/corpus/manifest.json",
+        "bytes": 6218,
+        "sha256": "aa89120ff566355d1596659385d15b84b7d66833fe356b9b1178d26fbb85befa"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/corpus/manifest.json",
+        "bytes": 6218,
+        "sha256": "aa89120ff566355d1596659385d15b84b7d66833fe356b9b1178d26fbb85befa"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/ledger.jsonl",
+        "bytes": 3460,
+        "sha256": "99c2f67760bb485b73b67680efbab698f06c7adf90bae72371234e27e2784827"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/ledger.jsonl",
+        "bytes": 3460,
+        "sha256": "99c2f67760bb485b73b67680efbab698f06c7adf90bae72371234e27e2784827"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/receipt.json",
+        "bytes": 470,
+        "sha256": "904314484953c87d47ca529e67e790198a02913047897471065b86a94eae8d6c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/receipt.json",
+        "bytes": 470,
+        "sha256": "904314484953c87d47ca529e67e790198a02913047897471065b86a94eae8d6c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/result.json",
+        "bytes": 3242,
+        "sha256": "566b930d514a4436821fc5f63ebd9e75d8bf2873c7d5ad9292d86a5b3b50ce2d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/result.json",
+        "bytes": 3242,
+        "sha256": "566b930d514a4436821fc5f63ebd9e75d8bf2873c7d5ad9292d86a5b3b50ce2d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream0/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream0/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream0/policy.pt",
+        "bytes": 169648,
+        "sha256": "34d8084d398f55a052d7d07b26cab6d275b8e4fe1641db62415277d6560325b5"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream0/policy.pt",
+        "bytes": 169648,
+        "sha256": "34d8084d398f55a052d7d07b26cab6d275b8e4fe1641db62415277d6560325b5"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream0/stream.json",
+        "bytes": 1224,
+        "sha256": "a3ca2981049e72a87abd91fd8a61c8fba296aeb752d6689dfd123cca15a7a11c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream0/stream.json",
+        "bytes": 1224,
+        "sha256": "a3ca2981049e72a87abd91fd8a61c8fba296aeb752d6689dfd123cca15a7a11c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream1/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream1/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream1/policy.pt",
+        "bytes": 169648,
+        "sha256": "191371049d1d842da382722bce90737cf52ffc90a32a5b6ccb1c53ac6a168a1b"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream1/policy.pt",
+        "bytes": 169648,
+        "sha256": "191371049d1d842da382722bce90737cf52ffc90a32a5b6ccb1c53ac6a168a1b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream1/stream.json",
+        "bytes": 1224,
+        "sha256": "9c94e2f4aaf3e681cf5d710d606a81a5e6fd4e33e10a1101135790fa0fb5e21d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream1/stream.json",
+        "bytes": 1224,
+        "sha256": "9c94e2f4aaf3e681cf5d710d606a81a5e6fd4e33e10a1101135790fa0fb5e21d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream2/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream2/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream2/policy.pt",
+        "bytes": 169648,
+        "sha256": "1ef4316bbca377a758d5a1dbf0c14785088a40fcb904be1885eff09276da712d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream2/policy.pt",
+        "bytes": 169648,
+        "sha256": "1ef4316bbca377a758d5a1dbf0c14785088a40fcb904be1885eff09276da712d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/forks/stream2/stream.json",
+        "bytes": 1224,
+        "sha256": "b4623a0dc8b6c88842debf2ce14d2cde15c57a609d7470e951f59f56e04b4bfa"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/forks/stream2/stream.json",
+        "bytes": 1224,
+        "sha256": "b4623a0dc8b6c88842debf2ce14d2cde15c57a609d7470e951f59f56e04b4bfa"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/held.npz",
+        "bytes": 4464,
+        "sha256": "06fb51f9855b889d7c5498bfd4c8cb4be2ab28e845ed52de6fd6d62bab945e8c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/held.npz",
+        "bytes": 4464,
+        "sha256": "06fb51f9855b889d7c5498bfd4c8cb4be2ab28e845ed52de6fd6d62bab945e8c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/incoming/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/incoming/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/incoming/policy.pt",
+        "bytes": 168944,
+        "sha256": "570279d4d199e5e76fd86606daa5eeb5dfb70a92066828ecd7aee037b7aeeedd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/incoming/policy.pt",
+        "bytes": 168944,
+        "sha256": "570279d4d199e5e76fd86606daa5eeb5dfb70a92066828ecd7aee037b7aeeedd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/incoming/stream.json",
+        "bytes": 641,
+        "sha256": "a57cc615109e08955670800e16d9e6c4a4233aca14bfe6648b70a6038bfa59e1"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/incoming/stream.json",
+        "bytes": 641,
+        "sha256": "a57cc615109e08955670800e16d9e6c4a4233aca14bfe6648b70a6038bfa59e1"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/after/cross.npz",
+        "bytes": 283,
+        "sha256": "72ca7f0d0270b872de1a64ac162d6c094e0525b69517dbbad9ee893e41ea4d83"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/after/cross.npz",
+        "bytes": 283,
+        "sha256": "72ca7f0d0270b872de1a64ac162d6c094e0525b69517dbbad9ee893e41ea4d83"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/after/held.npz",
+        "bytes": 498,
+        "sha256": "b9d13779e37751e402fffd66fa2790fa056734b9d8b00ab79fcbe67522802662"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/after/held.npz",
+        "bytes": 498,
+        "sha256": "b9d13779e37751e402fffd66fa2790fa056734b9d8b00ab79fcbe67522802662"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/after/own.npz",
+        "bytes": 281,
+        "sha256": "e593985256b9ea59db37f0dc07b1104021023995b4d5f724b3008761bd154bd4"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/after/own.npz",
+        "bytes": 281,
+        "sha256": "e593985256b9ea59db37f0dc07b1104021023995b4d5f724b3008761bd154bd4"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/before/cross.npz",
+        "bytes": 283,
+        "sha256": "131a1642b1fe35bdd482a90578c6e1b13da95e941c6b8eea783b30f3ff9e92f7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/before/cross.npz",
+        "bytes": 283,
+        "sha256": "131a1642b1fe35bdd482a90578c6e1b13da95e941c6b8eea783b30f3ff9e92f7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/before/held.npz",
+        "bytes": 497,
+        "sha256": "3e8a92fb41c6db9dadc6bf6ebc6cd7ab851c44732597ce3115fd54e7a5853d10"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/before/held.npz",
+        "bytes": 497,
+        "sha256": "3e8a92fb41c6db9dadc6bf6ebc6cd7ab851c44732597ce3115fd54e7a5853d10"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/before/own.npz",
+        "bytes": 282,
+        "sha256": "6e6d02619f499e2fb22ffbf7fd5c4e5bfd721dd6da2c5e116c2a1186385dbbe7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/before/own.npz",
+        "bytes": 282,
+        "sha256": "6e6d02619f499e2fb22ffbf7fd5c4e5bfd721dd6da2c5e116c2a1186385dbbe7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/fit.json",
+        "bytes": 1962,
+        "sha256": "5ef18684242e357ea840c55c4655336ada87f66667790d6438b4c5bdd82e296b"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/fit.json",
+        "bytes": 1962,
+        "sha256": "5ef18684242e357ea840c55c4655336ada87f66667790d6438b4c5bdd82e296b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/index_rng.jsonl",
+        "bytes": 998,
+        "sha256": "3a0b08160ef6695038aa80b4544252542cb975443dd002f6c482c8825e9071d7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/index_rng.jsonl",
+        "bytes": 998,
+        "sha256": "3a0b08160ef6695038aa80b4544252542cb975443dd002f6c482c8825e9071d7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/index_tape.npz",
+        "bytes": 1278,
+        "sha256": "90937d65897c1aa220675df284626ac2c51588095ad0185cbc7767bd7c0380cf"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/index_tape.npz",
+        "bytes": 1278,
+        "sha256": "90937d65897c1aa220675df284626ac2c51588095ad0185cbc7767bd7c0380cf"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/initial_state.pt",
+        "bytes": 87369,
+        "sha256": "023c82ce4394a43a4c88d0eb64ab2fd7af8b525fdac7bb6daf5ff4e10ca55c1a"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/initial_state.pt",
+        "bytes": 87369,
+        "sha256": "023c82ce4394a43a4c88d0eb64ab2fd7af8b525fdac7bb6daf5ff4e10ca55c1a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/job.json",
+        "bytes": 2158,
+        "sha256": "f2f9f70e2a35a243f624c1b299eea7549d6b76a8a88e0f91b1bf94a1652b5417"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/job.json",
+        "bytes": 2158,
+        "sha256": "f2f9f70e2a35a243f624c1b299eea7549d6b76a8a88e0f91b1bf94a1652b5417"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/ledger.jsonl",
+        "bytes": 6485,
+        "sha256": "d5cb8260408c678fcdbbd8962e4616ed961039559b96c112c25eefc791facba4"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/ledger.jsonl",
+        "bytes": 6485,
+        "sha256": "d5cb8260408c678fcdbbd8962e4616ed961039559b96c112c25eefc791facba4"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/receipt.json",
+        "bytes": 769,
+        "sha256": "9bf1a82c251731fe52dc5eefccef9e49d94d55bbbb7c7153304d4e3a3529481b"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/receipt.json",
+        "bytes": 769,
+        "sha256": "9bf1a82c251731fe52dc5eefccef9e49d94d55bbbb7c7153304d4e3a3529481b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/result.json",
+        "bytes": 7618,
+        "sha256": "f94a0287cb0c477d9cdbfbf8e5e05cffc54d738475cb3de9c1b0404668d73591"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/result.json",
+        "bytes": 7618,
+        "sha256": "f94a0287cb0c477d9cdbfbf8e5e05cffc54d738475cb3de9c1b0404668d73591"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "dc33c672e3234f528668dd960352e6f48ce2465171f5f15f3620b7ce5e4792e1"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "dc33c672e3234f528668dd960352e6f48ce2465171f5f15f3620b7ce5e4792e1"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_a/stream/stream.json",
+        "bytes": 1074,
+        "sha256": "f83fb1b877cbae8eca6c787d847b72f358d82a1f5dcd4dbb78610dc3b5e6913c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_a/stream/stream.json",
+        "bytes": 1074,
+        "sha256": "f83fb1b877cbae8eca6c787d847b72f358d82a1f5dcd4dbb78610dc3b5e6913c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/after/cross.npz",
+        "bytes": 283,
+        "sha256": "e4a1b84709f1be689f800f28e2b61c5be7d0ac67678cb85205718cbf18b96a81"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/after/cross.npz",
+        "bytes": 283,
+        "sha256": "e4a1b84709f1be689f800f28e2b61c5be7d0ac67678cb85205718cbf18b96a81"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/after/held.npz",
+        "bytes": 498,
+        "sha256": "3b858afb49c23e29f09c4b7703c33b9c8a0d141d447dd3f1d597d20570b33ff2"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/after/held.npz",
+        "bytes": 498,
+        "sha256": "3b858afb49c23e29f09c4b7703c33b9c8a0d141d447dd3f1d597d20570b33ff2"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/after/own.npz",
+        "bytes": 283,
+        "sha256": "5e55a6544a40a27c6a1014724f9f67d3cca654b5d22f62681edcb2d79dcaef62"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/after/own.npz",
+        "bytes": 283,
+        "sha256": "5e55a6544a40a27c6a1014724f9f67d3cca654b5d22f62681edcb2d79dcaef62"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/before/cross.npz",
+        "bytes": 282,
+        "sha256": "6e6d02619f499e2fb22ffbf7fd5c4e5bfd721dd6da2c5e116c2a1186385dbbe7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/before/cross.npz",
+        "bytes": 282,
+        "sha256": "6e6d02619f499e2fb22ffbf7fd5c4e5bfd721dd6da2c5e116c2a1186385dbbe7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/before/held.npz",
+        "bytes": 497,
+        "sha256": "3e8a92fb41c6db9dadc6bf6ebc6cd7ab851c44732597ce3115fd54e7a5853d10"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/before/held.npz",
+        "bytes": 497,
+        "sha256": "3e8a92fb41c6db9dadc6bf6ebc6cd7ab851c44732597ce3115fd54e7a5853d10"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/before/own.npz",
+        "bytes": 283,
+        "sha256": "131a1642b1fe35bdd482a90578c6e1b13da95e941c6b8eea783b30f3ff9e92f7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/before/own.npz",
+        "bytes": 283,
+        "sha256": "131a1642b1fe35bdd482a90578c6e1b13da95e941c6b8eea783b30f3ff9e92f7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/fit.json",
+        "bytes": 1955,
+        "sha256": "27476e5c25a2691a66b077751db1ffb794c8b2faf32fd0e5af2a7f419d879796"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/fit.json",
+        "bytes": 1955,
+        "sha256": "27476e5c25a2691a66b077751db1ffb794c8b2faf32fd0e5af2a7f419d879796"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/index_rng.jsonl",
+        "bytes": 998,
+        "sha256": "3a0b08160ef6695038aa80b4544252542cb975443dd002f6c482c8825e9071d7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/index_rng.jsonl",
+        "bytes": 998,
+        "sha256": "3a0b08160ef6695038aa80b4544252542cb975443dd002f6c482c8825e9071d7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/index_tape.npz",
+        "bytes": 1278,
+        "sha256": "90937d65897c1aa220675df284626ac2c51588095ad0185cbc7767bd7c0380cf"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/index_tape.npz",
+        "bytes": 1278,
+        "sha256": "90937d65897c1aa220675df284626ac2c51588095ad0185cbc7767bd7c0380cf"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/initial_state.pt",
+        "bytes": 87369,
+        "sha256": "023c82ce4394a43a4c88d0eb64ab2fd7af8b525fdac7bb6daf5ff4e10ca55c1a"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/initial_state.pt",
+        "bytes": 87369,
+        "sha256": "023c82ce4394a43a4c88d0eb64ab2fd7af8b525fdac7bb6daf5ff4e10ca55c1a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/job.json",
+        "bytes": 2158,
+        "sha256": "24d91fb9ee55cd830f9d20bf642665f234c040a935b0984e7d81066c8be20427"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/job.json",
+        "bytes": 2158,
+        "sha256": "24d91fb9ee55cd830f9d20bf642665f234c040a935b0984e7d81066c8be20427"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/ledger.jsonl",
+        "bytes": 6508,
+        "sha256": "4409e03e61ade6f3db2d3b3c7067b0bbb962fa22d051928202edaad299c8c87a"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/ledger.jsonl",
+        "bytes": 6508,
+        "sha256": "4409e03e61ade6f3db2d3b3c7067b0bbb962fa22d051928202edaad299c8c87a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/receipt.json",
+        "bytes": 769,
+        "sha256": "7372c6dffb4fc6c7d50713bd79c18ef7600b8d47a2b527e3b054ecda3f96bddd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/receipt.json",
+        "bytes": 769,
+        "sha256": "7372c6dffb4fc6c7d50713bd79c18ef7600b8d47a2b527e3b054ecda3f96bddd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/result.json",
+        "bytes": 7618,
+        "sha256": "7fd58bae74338d0dbb9713ce2b9fe1e329608fcacf20a52b5ea5e8ec8fc8af2a"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/result.json",
+        "bytes": 7618,
+        "sha256": "7fd58bae74338d0dbb9713ce2b9fe1e329608fcacf20a52b5ea5e8ec8fc8af2a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "90641d668a67799d8695680b575756695819f743fd0bdecb6e0d5178d10a6565"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "90641d668a67799d8695680b575756695819f743fd0bdecb6e0d5178d10a6565"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r1_b/stream/stream.json",
+        "bytes": 1074,
+        "sha256": "2244fe393507afed3b8c451745ba99a4dcdf5a7a2d6a05bacbb47ad594d69f52"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r1_b/stream/stream.json",
+        "bytes": 1074,
+        "sha256": "2244fe393507afed3b8c451745ba99a4dcdf5a7a2d6a05bacbb47ad594d69f52"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/after/cross.npz",
+        "bytes": 283,
+        "sha256": "bf50b3235cad5c401db70b3a1f3ceac748e21feb1ab915e43f139cd9353e51c4"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/after/cross.npz",
+        "bytes": 283,
+        "sha256": "bf50b3235cad5c401db70b3a1f3ceac748e21feb1ab915e43f139cd9353e51c4"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/after/held.npz",
+        "bytes": 497,
+        "sha256": "4fc0df46b9dfbf24b1fd04e3b24be90b35dfa47bfdf6d91fc25108bc71d053eb"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/after/held.npz",
+        "bytes": 497,
+        "sha256": "4fc0df46b9dfbf24b1fd04e3b24be90b35dfa47bfdf6d91fc25108bc71d053eb"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/after/own.npz",
+        "bytes": 282,
+        "sha256": "1d016113d9d413c94943e63b51cb36d134a14abb04f90242068ae41a8c595f47"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/after/own.npz",
+        "bytes": 282,
+        "sha256": "1d016113d9d413c94943e63b51cb36d134a14abb04f90242068ae41a8c595f47"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/before/cross.npz",
+        "bytes": 283,
+        "sha256": "72ca7f0d0270b872de1a64ac162d6c094e0525b69517dbbad9ee893e41ea4d83"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/before/cross.npz",
+        "bytes": 283,
+        "sha256": "72ca7f0d0270b872de1a64ac162d6c094e0525b69517dbbad9ee893e41ea4d83"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/before/held.npz",
+        "bytes": 498,
+        "sha256": "b9d13779e37751e402fffd66fa2790fa056734b9d8b00ab79fcbe67522802662"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/before/held.npz",
+        "bytes": 498,
+        "sha256": "b9d13779e37751e402fffd66fa2790fa056734b9d8b00ab79fcbe67522802662"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/before/own.npz",
+        "bytes": 281,
+        "sha256": "e593985256b9ea59db37f0dc07b1104021023995b4d5f724b3008761bd154bd4"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/before/own.npz",
+        "bytes": 281,
+        "sha256": "e593985256b9ea59db37f0dc07b1104021023995b4d5f724b3008761bd154bd4"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/fit.json",
+        "bytes": 1961,
+        "sha256": "40bccda59408514ab9145be81238fd0754fbe23390d99a7544995136d9a7487b"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/fit.json",
+        "bytes": 1961,
+        "sha256": "40bccda59408514ab9145be81238fd0754fbe23390d99a7544995136d9a7487b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/index_rng.jsonl",
+        "bytes": 1007,
+        "sha256": "c3a9677b06b1f57c7d9b8c3a26791a7b39657c3e02f81352ddc13ed63ec90caf"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/index_rng.jsonl",
+        "bytes": 1007,
+        "sha256": "c3a9677b06b1f57c7d9b8c3a26791a7b39657c3e02f81352ddc13ed63ec90caf"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/index_tape.npz",
+        "bytes": 1277,
+        "sha256": "b22a975c748203a2ae6dad803d9d5186f35d400a7cdc19ecd19fd08d3e5265d6"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/index_tape.npz",
+        "bytes": 1277,
+        "sha256": "b22a975c748203a2ae6dad803d9d5186f35d400a7cdc19ecd19fd08d3e5265d6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/initial_state.pt",
+        "bytes": 248466,
+        "sha256": "3a35dfd23e1aeaf5f26316206b60204f3618dabdc3b408987e2a10e6bd897dbb"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/initial_state.pt",
+        "bytes": 248466,
+        "sha256": "3a35dfd23e1aeaf5f26316206b60204f3618dabdc3b408987e2a10e6bd897dbb"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/job.json",
+        "bytes": 2156,
+        "sha256": "2daeaf939f0f37744e0ef7892c1a669df3d36ac7784c7208860f3e5d38118c1f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/job.json",
+        "bytes": 2156,
+        "sha256": "2daeaf939f0f37744e0ef7892c1a669df3d36ac7784c7208860f3e5d38118c1f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/ledger.jsonl",
+        "bytes": 6511,
+        "sha256": "35ce89267122115b5894193d025f1e4030fa8468f7f110b28530e2a82fdd9d2a"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/ledger.jsonl",
+        "bytes": 6511,
+        "sha256": "35ce89267122115b5894193d025f1e4030fa8468f7f110b28530e2a82fdd9d2a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/receipt.json",
+        "bytes": 770,
+        "sha256": "aaa770e34159e2c197cc17978b0d08a7d0cfbbaf6cd03693eaa8388d12a3bb10"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/receipt.json",
+        "bytes": 770,
+        "sha256": "aaa770e34159e2c197cc17978b0d08a7d0cfbbaf6cd03693eaa8388d12a3bb10"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/result.json",
+        "bytes": 7619,
+        "sha256": "fb71ee62a068aa06abff9852c032fc5681405a8f2c9235b3c54e52bd8171fb49"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/result.json",
+        "bytes": 7619,
+        "sha256": "fb71ee62a068aa06abff9852c032fc5681405a8f2c9235b3c54e52bd8171fb49"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "01430353f721ffda764d2d353b8a640362af90a7f30a22820754da4ebabd3bac"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "01430353f721ffda764d2d353b8a640362af90a7f30a22820754da4ebabd3bac"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_a/stream/stream.json",
+        "bytes": 1072,
+        "sha256": "55633b5a26c096929c17beec38de024df602d25d9e8bf1d6655b81f19dea50b1"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_a/stream/stream.json",
+        "bytes": 1072,
+        "sha256": "55633b5a26c096929c17beec38de024df602d25d9e8bf1d6655b81f19dea50b1"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/after/cross.npz",
+        "bytes": 282,
+        "sha256": "4844bc592a792b3af349af28237cdcf053fb22c8266c403190b6ca717568bf6d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/after/cross.npz",
+        "bytes": 282,
+        "sha256": "4844bc592a792b3af349af28237cdcf053fb22c8266c403190b6ca717568bf6d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/after/held.npz",
+        "bytes": 498,
+        "sha256": "ad1e1973fa3ba771c50449c66fbc478d3fff86702ca796fc4c83034f90cccff3"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/after/held.npz",
+        "bytes": 498,
+        "sha256": "ad1e1973fa3ba771c50449c66fbc478d3fff86702ca796fc4c83034f90cccff3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/after/own.npz",
+        "bytes": 283,
+        "sha256": "17852088dc9352242b867e31f6448a91d20f55e000d85f1e4a01ea1bc9924eba"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/after/own.npz",
+        "bytes": 283,
+        "sha256": "17852088dc9352242b867e31f6448a91d20f55e000d85f1e4a01ea1bc9924eba"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/before/cross.npz",
+        "bytes": 283,
+        "sha256": "e4a1b84709f1be689f800f28e2b61c5be7d0ac67678cb85205718cbf18b96a81"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/before/cross.npz",
+        "bytes": 283,
+        "sha256": "e4a1b84709f1be689f800f28e2b61c5be7d0ac67678cb85205718cbf18b96a81"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/before/held.npz",
+        "bytes": 498,
+        "sha256": "3b858afb49c23e29f09c4b7703c33b9c8a0d141d447dd3f1d597d20570b33ff2"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/before/held.npz",
+        "bytes": 498,
+        "sha256": "3b858afb49c23e29f09c4b7703c33b9c8a0d141d447dd3f1d597d20570b33ff2"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/before/own.npz",
+        "bytes": 283,
+        "sha256": "5e55a6544a40a27c6a1014724f9f67d3cca654b5d22f62681edcb2d79dcaef62"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/before/own.npz",
+        "bytes": 283,
+        "sha256": "5e55a6544a40a27c6a1014724f9f67d3cca654b5d22f62681edcb2d79dcaef62"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/fit.json",
+        "bytes": 1958,
+        "sha256": "3bc5eb990873ccfede84f031407fbe3d0de12208295ab926e04a46e0dc5fc668"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/fit.json",
+        "bytes": 1958,
+        "sha256": "3bc5eb990873ccfede84f031407fbe3d0de12208295ab926e04a46e0dc5fc668"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/index_rng.jsonl",
+        "bytes": 1007,
+        "sha256": "c3a9677b06b1f57c7d9b8c3a26791a7b39657c3e02f81352ddc13ed63ec90caf"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/index_rng.jsonl",
+        "bytes": 1007,
+        "sha256": "c3a9677b06b1f57c7d9b8c3a26791a7b39657c3e02f81352ddc13ed63ec90caf"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/index_tape.npz",
+        "bytes": 1277,
+        "sha256": "b22a975c748203a2ae6dad803d9d5186f35d400a7cdc19ecd19fd08d3e5265d6"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/index_tape.npz",
+        "bytes": 1277,
+        "sha256": "b22a975c748203a2ae6dad803d9d5186f35d400a7cdc19ecd19fd08d3e5265d6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/initial_state.pt",
+        "bytes": 248466,
+        "sha256": "7275c0fe456e4e3e878f7ebdaea800ffaa348934e53c5f6ee308b5c6aeb6d7f8"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/initial_state.pt",
+        "bytes": 248466,
+        "sha256": "7275c0fe456e4e3e878f7ebdaea800ffaa348934e53c5f6ee308b5c6aeb6d7f8"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/job.json",
+        "bytes": 2156,
+        "sha256": "1b437625b057eec90c09b6df4b2da6df9bf1ab9b74233431ad3721c56c7e583b"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/job.json",
+        "bytes": 2156,
+        "sha256": "1b437625b057eec90c09b6df4b2da6df9bf1ab9b74233431ad3721c56c7e583b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/ledger.jsonl",
+        "bytes": 6503,
+        "sha256": "1d68209092831be97beac1073195e5f392ee09776460d56f31c895a3e3635a3d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/ledger.jsonl",
+        "bytes": 6503,
+        "sha256": "1d68209092831be97beac1073195e5f392ee09776460d56f31c895a3e3635a3d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/receipt.json",
+        "bytes": 769,
+        "sha256": "e71318167eea9e1ccee2fcaf9034ae751b042a14de2c1d84f5895be08f870484"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/receipt.json",
+        "bytes": 769,
+        "sha256": "e71318167eea9e1ccee2fcaf9034ae751b042a14de2c1d84f5895be08f870484"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/result.json",
+        "bytes": 7618,
+        "sha256": "6f02699656ddfe254380944130e55540b7a406aa969b55cef41cd98c6c85419c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/result.json",
+        "bytes": 7618,
+        "sha256": "6f02699656ddfe254380944130e55540b7a406aa969b55cef41cd98c6c85419c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/stream/global_rng.pt",
+        "bytes": 14313,
+        "sha256": "97b9ab36916e1aea9ce3c2b554330c08cee51403e06172a2940b1b2cd87287cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "dc0518b12287fb58347dc21845ad83a2108b35da93a38dad25b36d44f437b9b9"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/stream/policy.pt",
+        "bytes": 330746,
+        "sha256": "dc0518b12287fb58347dc21845ad83a2108b35da93a38dad25b36d44f437b9b9"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/r2_b/stream/stream.json",
+        "bytes": 1072,
+        "sha256": "813eb87bf2d7f1f773a695e05cf7d04b95ef212eb011d64dca6bc7d53fad4084"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/r2_b/stream/stream.json",
+        "bytes": 1072,
+        "sha256": "813eb87bf2d7f1f773a695e05cf7d04b95ef212eb011d64dca6bc7d53fad4084"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a0.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a0.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a1.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a1.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a2.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a2.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a3.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a3.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a4.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a4.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a5.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a5.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a6.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a6.h5",
+        "bytes": 9760,
+        "sha256": "801ac2cd0cb3f3c0a68c63a66eb4a7f93dc27c08ebe5a16a8de23ead16d5ee0f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/a7.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/a7.h5",
+        "bytes": 10904,
+        "sha256": "421f4fd0f8a9637be6e4c1e1acee0eead3e5696b79a0a18d090c1ee5c139ea77"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b0.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b0.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b1.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b1.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b2.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b2.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b3.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b3.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b4.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b4.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b5.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b5.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b6.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b6.h5",
+        "bytes": 8616,
+        "sha256": "ccec8682a7246af70c66d6c0cb9bd0498b77458796fd7e7793f0e2d501630c2f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/l2-synthetic0/raw/b7.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/case/raw/b7.h5",
+        "bytes": 9760,
+        "sha256": "b4c18b57599488f4e753dba0b4ba1d77fd2c613b58c48aac49c39996656bd8ea"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/before/cross.npz",
+        "bytes": 283,
+        "sha256": "131a1642b1fe35bdd482a90578c6e1b13da95e941c6b8eea783b30f3ff9e92f7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/before/cross.npz",
+        "bytes": 283,
+        "sha256": "131a1642b1fe35bdd482a90578c6e1b13da95e941c6b8eea783b30f3ff9e92f7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/before/held.npz",
+        "bytes": 497,
+        "sha256": "3e8a92fb41c6db9dadc6bf6ebc6cd7ab851c44732597ce3115fd54e7a5853d10"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/before/held.npz",
+        "bytes": 497,
+        "sha256": "3e8a92fb41c6db9dadc6bf6ebc6cd7ab851c44732597ce3115fd54e7a5853d10"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/before/own.npz",
+        "bytes": 282,
+        "sha256": "6e6d02619f499e2fb22ffbf7fd5c4e5bfd721dd6da2c5e116c2a1186385dbbe7"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/before/own.npz",
+        "bytes": 282,
+        "sha256": "6e6d02619f499e2fb22ffbf7fd5c4e5bfd721dd6da2c5e116c2a1186385dbbe7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/index_rng.jsonl",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/index_rng.jsonl",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/index_tape.npz",
+        "bytes": 592,
+        "sha256": "c4be7ee33f5d71e3696eb63b85f8f4545ed2a784e17c92e9553c749a06fe673d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/index_tape.npz",
+        "bytes": 592,
+        "sha256": "c4be7ee33f5d71e3696eb63b85f8f4545ed2a784e17c92e9553c749a06fe673d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/job.json",
+        "bytes": 2176,
+        "sha256": "e32553307c168fcebaf607ef36d573de65f404def54b49b40fc0b93107a6cc7c"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/job.json",
+        "bytes": 2176,
+        "sha256": "e32553307c168fcebaf607ef36d573de65f404def54b49b40fc0b93107a6cc7c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/ledger.jsonl",
+        "bytes": 1996,
+        "sha256": "e11f1529e5887ccbbb3ee3a7fc9afe6ded1c7b16e431f5aa3cfcc150276e4727"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/ledger.jsonl",
+        "bytes": 1996,
+        "sha256": "e11f1529e5887ccbbb3ee3a7fc9afe6ded1c7b16e431f5aa3cfcc150276e4727"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/receipt.json",
+        "bytes": 455,
+        "sha256": "ebcf0358be61daed5bef5aeb0e0a77297c7b70b86593cf5bcc446ef575dab6db"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/receipt.json",
+        "bytes": 455,
+        "sha256": "ebcf0358be61daed5bef5aeb0e0a77297c7b70b86593cf5bcc446ef575dab6db"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_budget_rejects_before_ent0/budget/result.json",
+        "bytes": 4417,
+        "sha256": "a1976436f2429386937a50d215b3bcc81f6ac9f4873232aed67d1b31cefe0a17"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/budget_stop/result.json",
+        "bytes": 4417,
+        "sha256": "a1976436f2429386937a50d215b3bcc81f6ac9f4873232aed67d1b31cefe0a17"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_round_two_cannot_restart_0/wrong/index_tape.npz",
+        "bytes": 592,
+        "sha256": "c4be7ee33f5d71e3696eb63b85f8f4545ed2a784e17c92e9553c749a06fe673d"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/wrong_arm_stop/index_tape.npz",
+        "bytes": 592,
+        "sha256": "c4be7ee33f5d71e3696eb63b85f8f4545ed2a784e17c92e9553c749a06fe673d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_round_two_cannot_restart_0/wrong/job.json",
+        "bytes": 2175,
+        "sha256": "6062b5ff3db5d45e540633bc02c6b8bf3be8b753bbe61964dae81057a8329d2f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/wrong_arm_stop/job.json",
+        "bytes": 2175,
+        "sha256": "6062b5ff3db5d45e540633bc02c6b8bf3be8b753bbe61964dae81057a8329d2f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_round_two_cannot_restart_0/wrong/ledger.jsonl",
+        "bytes": 820,
+        "sha256": "4f0e116ac3a49893bff8aa2f4d595ccc50a68a923523de4c81b94d08965d0948"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/wrong_arm_stop/ledger.jsonl",
+        "bytes": 820,
+        "sha256": "4f0e116ac3a49893bff8aa2f4d595ccc50a68a923523de4c81b94d08965d0948"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_round_two_cannot_restart_0/wrong/receipt.json",
+        "bytes": 390,
+        "sha256": "f2bb4a0873620bb279e33cfb555895aec11d0e8538ffd7637da5490c7677287f"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/wrong_arm_stop/receipt.json",
+        "bytes": 390,
+        "sha256": "f2bb4a0873620bb279e33cfb555895aec11d0e8538ffd7637da5490c7677287f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_round_two_cannot_restart_0/wrong/result.json",
+        "bytes": 1503,
+        "sha256": "b5579a19e89b5ebaef8522e22797d7d93cb92fa59c0d73f5d164389aadf36117"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/wrong_arm_stop/result.json",
+        "bytes": 1503,
+        "sha256": "b5579a19e89b5ebaef8522e22797d7d93cb92fa59c0d73f5d164389aadf36117"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_torch_only_actor_and_nati0/evaluation/job.json",
+        "bytes": 1170,
+        "sha256": "d5d37d31ad2c03df45f1fb6e5d4e592c74bf530a4a8512f9586975a4ae945587"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/mock_evaluation/job.json",
+        "bytes": 1170,
+        "sha256": "d5d37d31ad2c03df45f1fb6e5d4e592c74bf530a4a8512f9586975a4ae945587"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_torch_only_actor_and_nati0/evaluation/ledger.jsonl",
+        "bytes": 3353,
+        "sha256": "24e4f3c14e026bdcc7ec4985d577c319cd55fb143e65537bd5d1e82e9e7c8322"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/mock_evaluation/ledger.jsonl",
+        "bytes": 3353,
+        "sha256": "24e4f3c14e026bdcc7ec4985d577c319cd55fb143e65537bd5d1e82e9e7c8322"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_torch_only_actor_and_nati0/evaluation/receipt.json",
+        "bytes": 842,
+        "sha256": "51b468a7daa8aa39e464b4f0a42553602743d47b9b06c0ec81e09c63873ae559"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/mock_evaluation/receipt.json",
+        "bytes": 842,
+        "sha256": "51b468a7daa8aa39e464b4f0a42553602743d47b9b06c0ec81e09c63873ae559"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_torch_only_actor_and_nati0/evaluation/result.json",
+        "bytes": 1682,
+        "sha256": "cbfba774744312bd20c9e2a88d7dbd370a69c89d51ffe1763ffb078b290dc3e9"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/mock_evaluation/result.json",
+        "bytes": 1682,
+        "sha256": "cbfba774744312bd20c9e2a88d7dbd370a69c89d51ffe1763ffb078b290dc3e9"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/var/folders/_0/b1bs31j14yvdxp683_2m8vwr0000gn/T/pytest-of-jaisel/pytest-598/test_torch_only_actor_and_nati0/evaluation/trace.h5",
+        "bytes": 23984,
+        "sha256": "1031b561e3f27c3ae0eb26c8695c01d46a762202bae74342f0adeb85edf775ea"
+      },
+      "preserved": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_learning/mock_evaluation/trace.h5",
+        "bytes": 23984,
+        "sha256": "1031b561e3f27c3ae0eb26c8695c01d46a762202bae74342f0adeb85edf775ea"
+      }
+    }
+  ],
+  "relocation_scope": "Original bytes/absolute paths are unmodified. Resolve original temporary paths using this exact hash-checked roster; preserved paths remain available after pytest cleanup.",
+  "engineering_timing": {
+    "sum_nested_receipt_wall_seconds": 0.4179574999725446,
+    "sum_nested_receipt_cpu_seconds": 0.3485130000000001,
+    "pytest_process_cpu_seconds": null,
+    "timing_scope": "Receipts are operation-local, not complete pytest wall/CPU; do not add nested costs to a measured outer total."
+  },
+  "physical_disk_io_bytes": null,
+  "preservation": {
+    "wall_seconds_before_summary": 0.11488591600209475,
+    "cpu_seconds_before_summary": 0.087862,
+    "copied_files": 123,
+    "copied_bytes": 3113302
+  },
+  "rerun_fits_for_preservation": false
+}

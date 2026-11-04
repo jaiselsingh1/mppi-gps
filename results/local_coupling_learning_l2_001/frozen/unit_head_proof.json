@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "scope": "Synthetic CPU Torch head mapping only; no learned checkpoint, physics or fitting",
+  "maximum_absolute_errors": {
+    "batch": 0.0,
+    "scalar": 0.0,
+    "producer_batch_vs_scalar": 1.862645149230957e-07
+  },
+  "tolerance": {
+    "rtol": 0,
+    "atol": 1e-06
+  },
+  "actual_forward_rows": 16,
+  "source_files": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/policy.py",
+      "bytes": 27021,
+      "sha256": "e12860aaf55cc602517462e29f6d24163391254ec36589df42fdb681560f8abc"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/src/gps/mppi_gps/audits/local_coupling_learning.py",
+      "bytes": 89812,
+      "sha256": "96e4b9d03219686b015ff110222edad34989e000346023adb1034760a4f03d37"
+    }
+  ],
+  "mapper_AST_sha256": {
+    "producer": {
+      "forward": "a2a24c544401e18fbc0cb452abd004fda57aa2994d206c390d39ab35afb59129",
+      "predict": "0b3e291a4adeeb5bc51603b590d7448ef3d4dfbfb6abca2e4886c02dd941cb04"
+    },
+    "independent": {
+      "predict": "ef972b62e383a9768330391b0c26adb11bd3d306960538a6082106f5c4fe3fd9"
+    }
+  },
+  "case": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_audit_head/case.npz",
+    "bytes": 76380,
+    "sha256": "bb304a65756d66c281d80f8191ef0563a5167727112d184107db0ca21a377f91"
+  },
+  "no_checkpoint_loads": true,
+  "no_physics": true,
+  "no_gradients": true,
+  "no_fitting": true,
+  "private_and_global_Torch_RNG_unchanged": true,
+  "procedure": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-03_local_coupling_learning_l2_001/engineering/unit_audit_head/check.py",
+    "bytes": 6612,
+    "sha256": "f59ba7db4be5d8d6aa445754f1a6a10dcafc1526c95ff728e021d2c881672cef"
+  }
+}
