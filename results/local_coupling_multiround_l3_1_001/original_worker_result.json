@@ -1,0 +1,84 @@
+{
+  "schema": "local-coupling-multiround-l3-result-1",
+  "status": "FAILED_STOPPED",
+  "planned_rounds": 8,
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source/configs/studies/local_coupling_multiround_l3_0.json",
+    "bytes": 22664,
+    "sha256": "d9532984ca562a069421fecdf6deb8382b553e27443cda15e2104daf0e5144db"
+  },
+  "prepared_manifest": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/prepared_manifest.json",
+    "bytes": 28863,
+    "sha256": "416958ef60ff54c8c9381b458a1454e9e9f029f9abdef1835a3a577408da2335"
+  },
+  "source_manifest": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source_manifest.json",
+    "bytes": 1828149,
+    "sha256": "6f80b9bfbc00ef0bd10e22c12cbbd4341f9fc674d3ffca4a5716d573f6d65d40"
+  },
+  "streams": [
+    {
+      "stream": 0,
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/progress/000061.json",
+        "bytes": 244126,
+        "sha256": "9f6c732a41495c626fff1299300dfcc72c7c6c6fb9549afc6bae03b1d8bef6b7"
+      }
+    },
+    {
+      "stream": 1,
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s1/progress/000058.json",
+        "bytes": 236734,
+        "sha256": "0d08d54c3ff91f0e710c48caf4e4d1510fa145c1ccf8085f84e7a851cb73688a"
+      }
+    },
+    {
+      "stream": 2,
+      "result": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/progress/000059.json",
+        "bytes": 239311,
+        "sha256": "00b5d49da726ce1092474539ae99c06d5f5412f0abfdac4c29dde11e55bd2dab"
+      }
+    }
+  ],
+  "accounting": {
+    "counts": {
+      "requested_checkpoint_loads": 628,
+      "requested_policy_constructions": 610,
+      "completed_checkpoint_loads": 628,
+      "completed_policy_constructions": 610,
+      "requested_environment_constructions": 556,
+      "completed_environment_constructions": 556,
+      "requested_resets": 384,
+      "requested_external_mj_forward_calls": 1302,
+      "completed_resets": 384,
+      "completed_external_mj_forward_calls": 1302,
+      "requested_neural_rows": 488308773,
+      "completed_neural_rows": 488308773,
+      "requested_native_controls": 142276,
+      "requested_physics_substeps": 2147970832,
+      "completed_native_controls": 142276,
+      "completed_physics_substeps": 2147970832,
+      "requested_restores": 534,
+      "completed_restores": 534,
+      "requested_model_controls": 536850432,
+      "requested_model_queries": 43689,
+      "completed_model_controls": 536850432,
+      "completed_model_queries": 43689,
+      "requested_optimizer_constructions": 18,
+      "requested_checkpoint_writes": 54,
+      "completed_checkpoint_writes": 54,
+      "requested_backward_rows": 9216000,
+      "completed_backward_rows": 9216000,
+      "requested_optimizer_steps": 36000,
+      "completed_optimizer_steps": 36000,
+      "completed_optimizer_constructions": 18
+    },
+    "reaped_stream_cpu_seconds": 10209.718827,
+    "coordinator_cpu_seconds": 0.95942,
+    "wall_seconds": 3069.789767291979
+  },
+  "error": "RuntimeError('Invalid stream execution s0 code1')"
+}

@@ -282,7 +282,7 @@ def test_round_two_cannot_restart_or_use_another_arms_child(tmp_path, pipeline):
     job = dict(pipeline["jobs"][(2, "a")], out=str(tmp_path / "wrong"), arm="b")
     result = learning.fit_job(job)
     assert result["result"]["status"] == "FAILED_STOPPED"
-    assert "same-arm round-one child" in result["result"]["error"]
+    assert "frozen same-arm continuation" in result["result"]["error"]
     assert result["receipt"]["counts"].get("completed_optimizer_steps", 0) == 0
 
 

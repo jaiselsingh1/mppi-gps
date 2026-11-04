@@ -991,11 +991,26 @@ def compare_native_discrepancy(
     )
 
 
-def audit_acquisition(audit: LearningAudit, directory: Path, expected: dict, config: dict) -> dict:
-    """Audit every stock update and the declared sparse full-physics-state roster."""
+def audit_acquisition(
+    audit: LearningAudit,
+    directory: Path,
+    expected: dict,
+    config: dict,
+    *,
+    result_override: dict | None = None,
+    native_prediction_checker=None,
+    closed_job_checker=None,
+) -> dict:
+    """Audit every stock update and the declared sparse full-physics-state roster.
+
+    Optional hooks are reserved for an independently certified numerical
+    validation amendment. Defaults retain the original strict L2/L3.0 contract;
+    callers must bind and audit any derived result before supplying it here.
+    """
     import h5py
 
-    job, result = audit.json(directory / "job.json"), audit.json(directory / "manifest.json")
+    job, saved_result = audit.json(directory / "job.json"), audit.json(directory / "manifest.json")
+    result = saved_result if result_override is None else result_override
     audit.need(
         result["schema"] == "local-coupling-episode-1" and result["status"] == "COMPLETED",
         "Closed controller episode, including physical falls",
@@ -1256,37 +1271,48 @@ def audit_acquisition(audit: LearningAudit, directory: Path, expected: dict, con
             replay["observations"][:-1],
             "Native replay pre-action prediction input",
         )
-        expected_prediction = audit.predict(payload, prediction["observations"]).astype(np.float64)
-        audit.close(
-            prediction["predictions"],
-            expected_prediction,
-            "Native replay deployed outputs",
-            atol=1e-6,
-        )
-        d = float(0.5 * np.sum((replay["actions"] - prediction["predictions"]) ** 2))
-        audit.close(row["D"], d, "Native replay D reduction", atol=1e-10)
-        audit.close(prediction["D"], d, "Native replay D file", atol=1e-10)
-        use = bank["mask"] & np.isfinite(bank["C"])[:, None]
-        audit.need(
-            int(use[candidate].sum()) == length,
-            "Native replay preserves the source executable-prefix length",
-        )
-        offset = int(use[:candidate].sum())
-        bank_prediction = bank["predictions"][offset : offset + length]
-        audit.equal(
-            prediction["expected_predictions"],
-            bank_prediction,
-            "Expected native predictions are the exact original full-bank slice",
-        )
-        metrics = compare_native_discrepancy(
-            audit,
-            actions=replay["actions"],
-            native_predictions=prediction["predictions"],
-            bank_predictions=bank_prediction,
-            bank_discrepancy=float(bank["D"][candidate]),
-            saved_action_error=float(prediction["action_max_error"]),
-            saved_D_tolerance=float(prediction["D_tolerance"]),
-        )
+        extra_prediction_rows = 0
+        if (
+            native_prediction_checker is not None
+            and row.get("comparison_version") == "MATCHED_GROUP_L3_1"
+        ):
+            metrics, extra_prediction_rows = native_prediction_checker(
+                audit, payload=payload, bank=bank, replay=replay, prediction=prediction, row=row
+            )
+        else:
+            expected_prediction = audit.predict(payload, prediction["observations"]).astype(
+                np.float64
+            )
+            audit.close(
+                prediction["predictions"],
+                expected_prediction,
+                "Native replay deployed outputs",
+                atol=1e-6,
+            )
+            d = float(0.5 * np.sum((replay["actions"] - prediction["predictions"]) ** 2))
+            audit.close(row["D"], d, "Native replay D reduction", atol=1e-10)
+            audit.close(prediction["D"], d, "Native replay D file", atol=1e-10)
+            use = bank["mask"] & np.isfinite(bank["C"])[:, None]
+            audit.need(
+                int(use[candidate].sum()) == length,
+                "Native replay preserves the source executable-prefix length",
+            )
+            offset = int(use[:candidate].sum())
+            bank_prediction = bank["predictions"][offset : offset + length]
+            audit.equal(
+                prediction["expected_predictions"],
+                bank_prediction,
+                "Expected native predictions are the exact original full-bank slice",
+            )
+            metrics = compare_native_discrepancy(
+                audit,
+                actions=replay["actions"],
+                native_predictions=prediction["predictions"],
+                bank_predictions=bank_prediction,
+                bank_discrepancy=float(bank["D"][candidate]),
+                saved_action_error=float(prediction["action_max_error"]),
+                saved_D_tolerance=float(prediction["D_tolerance"]),
+            )
         audit.close(
             row["action_max_error"],
             metrics["action_max_error"],
@@ -1307,7 +1333,7 @@ def audit_acquisition(audit: LearningAudit, directory: Path, expected: dict, con
             atol=1e-9,
         )
         replay_controls += length
-        replay_prediction_rows += length
+        replay_prediction_rows += length + extra_prediction_rows
     if job.get("replay_episode"):
         replay = load_arrays(audit, audit.bound(result["native_episode_replay"]))
         for key in ("states", "warmstarts", "integrations", "observations", "actions", "costs"):
@@ -1317,7 +1343,7 @@ def audit_acquisition(audit: LearningAudit, directory: Path, expected: dict, con
         replay_controls += n
     else:
         audit.need("native_episode_replay" not in result, "No undeclared extra episode replay")
-    ledger = _closed_job(audit, directory)
+    ledger = (closed_job_checker or _closed_job)(audit, directory)
     expected_work = dict(
         model_controls=rows * sampler.candidates * sampler.horizon,
         native_controls=n + replay_controls,

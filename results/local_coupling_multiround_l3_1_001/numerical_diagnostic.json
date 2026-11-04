@@ -1,0 +1,50 @@
+{
+  "schema": "l3-saved-numerical-failure-review-2",
+  "prefix_controls": 26,
+  "action_max_error": 1.066131517291069e-06,
+  "deployed_to_float64_max_error": 5.734399384782485e-07,
+  "bank_to_float64_max_error": 8.958105020919795e-07,
+  "D_bank": 25.397651816756493,
+  "D_native": 25.39764979360981,
+  "D_error": 2.023146684848598e-06,
+  "original_D_tolerance": 0.0003120001,
+  "state_max_error": 0.0,
+  "C_bank": 289.58921152576124,
+  "C_native": 289.58921152576124,
+  "C_error": 0.0,
+  "requested_forward_rows": 52,
+  "completed_forward_rows": 52,
+  "model_controls": 0,
+  "native_controls": 0,
+  "physics_substeps": 0,
+  "optimizer_steps": 0,
+  "gradients": 0,
+  "cpu_seconds": 0.505604,
+  "wall_seconds": 0.8079569159890525,
+  "inputs": {
+    "schema": "l3-bounded-saved-validation-review-2",
+    "checkpoint": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/fits/r3_independent/stream/policy.pt",
+      "bytes": 330810,
+      "sha256": "105fd14de51f4e3291a7be1b75159b0aa59958fd5cdba23b547d2e6be396f0d7"
+    },
+    "bank": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/full_t000_p0.npz",
+      "bytes": 2479121,
+      "sha256": "d0b14a833ad6ceb1755859ab450b6164cf5aa0d7ff3a46046ca806f7ffcdb7f0"
+    },
+    "replay": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/candidate_replay_0_255.h5",
+      "bytes": 51520,
+      "sha256": "24d9282a662c9b509f32d687aeb645e29ec74e3e5662121fc3b551f0474c0a1b"
+    },
+    "neural_row_budget": 96,
+    "model_controls": 0,
+    "native_controls": 0,
+    "optimizer_steps": 0,
+    "cpu_seconds": 30,
+    "wall_seconds": 60,
+    "output_bytes": 1048576,
+    "scope": "Samefailednativeprefix<=48rows: deployedprediction+float64reference, twopassesmax96rows chargedexistingauditbudget; no simulation/fitting or automaticrestart."
+  }
+}

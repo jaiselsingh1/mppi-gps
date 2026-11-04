@@ -1,0 +1,119 @@
+{
+  "schema": "local-coupling-multiround-supervisor-1",
+  "status": "CLOSED_UNCERTIFIED",
+  "worker": {
+    "schema": "trajectory-pi-phase-1",
+    "phase": "worker",
+    "argv": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "-m",
+      "src.gps.mppi_gps.local_coupling_multiround",
+      "--launch",
+      "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/launch.json"
+    ],
+    "pid": 16171,
+    "exit_code": 1,
+    "limit_error": null,
+    "remaining_group_terminated": false,
+    "wall_seconds": 3072.887292750005,
+    "process_tree_cpu_seconds": 31018.360963,
+    "supervisor_cpu_seconds": 359.301344,
+    "waited_children_cpu_seconds": 30659.100603,
+    "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+    "peak_sampled_tree_rss_bytes": 1555464192,
+    "stdout": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor/worker.stdout.log",
+    "stderr": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor/worker.stderr.log"
+  },
+  "audit": {
+    "schema": "trajectory-pi-phase-1",
+    "phase": "audit",
+    "argv": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/train_mppi_gps.py",
+      "study",
+      "local-coupling-multiround",
+      "audit",
+      "--base",
+      "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001"
+    ],
+    "pid": 21508,
+    "exit_code": 1,
+    "limit_error": null,
+    "remaining_group_terminated": false,
+    "wall_seconds": 2.8496094589936547,
+    "process_tree_cpu_seconds": 0.9013300000005984,
+    "supervisor_cpu_seconds": 0.7358140000000049,
+    "waited_children_cpu_seconds": 0.19929100000081235,
+    "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+    "peak_sampled_tree_rss_bytes": 1555464192,
+    "stdout": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor/audit.stdout.log",
+    "stderr": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor/audit.stderr.log"
+  },
+  "report": {
+    "schema": "trajectory-pi-phase-1",
+    "phase": "report",
+    "argv": [
+      "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+      "-B",
+      "scripts/train_mppi_gps.py",
+      "study",
+      "local-coupling-multiround",
+      "report",
+      "--base",
+      "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001"
+    ],
+    "pid": 21519,
+    "exit_code": 0,
+    "limit_error": null,
+    "remaining_group_terminated": false,
+    "wall_seconds": 16.54966079199221,
+    "process_tree_cpu_seconds": 15.980752999992546,
+    "supervisor_cpu_seconds": 2.2450450000000046,
+    "waited_children_cpu_seconds": 13.771138999996765,
+    "cpu_scope": "Own process tree and waited descendants; RUSAGE is a cross-check, not added twice. Externally orphaned/killed descendants may have unknown final increments.",
+    "peak_sampled_tree_rss_bytes": 1555464192,
+    "stdout": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor/report.stdout.log",
+    "stderr": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor/report.stderr.log"
+  },
+  "independent_audit": {
+    "schema": "local-coupling-multiround-independent-audit-1",
+    "stage": "final",
+    "passed": false,
+    "wall_seconds": 0.0012541660107672215,
+    "cpu_seconds": 0.0012129999999999919,
+    "requested_neural_rows": 0,
+    "completed_neural_rows": 0,
+    "unknown_partial_neural_rows": 0,
+    "model_controls": 0,
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "backward_rows": 0,
+    "optimizer_steps": 0,
+    "findings": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/audit/final/findings.json",
+      "bytes": 2703,
+      "sha256": "11c0a4d59a2543d99dd3373ba56d8873798c49e139cdb5780becb8ab0f4d0058"
+    },
+    "file_bindings": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/audit/final/file_bindings.json",
+      "bytes": 573,
+      "sha256": "3303e3d1ed8612be25cb672e89a048c6d4e7c69e8d63125b495b3455791d5e39"
+    },
+    "original_failure_preserved": true,
+    "limits": {
+      "wall_seconds": 5400,
+      "cpu_seconds": 7200,
+      "neural_rows": 40000000,
+      "output_bytes": 2147483648,
+      "memory_bytes": 6442450944
+    }
+  },
+  "active_pool_wall_seconds": 3092.2880039999727,
+  "peak_sampled_tree_rss_bytes": 1555464192,
+  "process_tree_cpu_seconds": 31035.351032999995,
+  "preparation_cpu_wall_reservation": 1800,
+  "scientific_retries": 0,
+  "full_rounds_required": 8
+}

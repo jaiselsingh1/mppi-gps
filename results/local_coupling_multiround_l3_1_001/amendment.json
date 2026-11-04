@@ -1,0 +1,1013 @@
+{
+  "schema": "local-coupling-continuation-amendment-1",
+  "version": "L3.1",
+  "launch_ready": true,
+  "parent_launch": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/launch.json",
+    "bytes": 1428,
+    "sha256": "e7d24e7b203da615d330c5ae2da4880ade2ba3c1855cacb4999fb55d3c4c7796"
+  },
+  "inventory": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/engineering/recovery_inventory_001.json",
+    "bytes": 116886,
+    "sha256": "f9c75a24fead27b2830a75d0e55db03925ff83c1b2372c4dfdaa5603cc548905"
+  },
+  "inputs": {
+    "parent_worker_result": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/progress/000001.json",
+      "bytes": 3494,
+      "sha256": "bf1e329de3bb4935c6eb6f5bf91d4ac81a76417d9854a4f1c529ab73f47d2514"
+    },
+    "parent_supervisor_result": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/supervisor_result.json",
+      "bytes": 5225,
+      "sha256": "3b35b885268987b2afc47fc40689f71b261156b48997410d4453a2f1531cc556"
+    },
+    "original_failure_manifest": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/manifest.json",
+      "bytes": 1929,
+      "sha256": "bbfd1eb3f77a374f60196b7f77119ad52b6901a8e79dccbc0966c9efbeafcb68"
+    },
+    "numerical_diagnostic": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/engineering/validation_failure_review_002/result.json",
+      "bytes": 2120,
+      "sha256": "41923a32f2cf1a9e5b857f3fb7fae649a37829c0fc848b06bc1b31af5530ffa4"
+    },
+    "original_failure_audit": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/audit/final/receipt.json",
+      "bytes": 1145,
+      "sha256": "8fd42731f1005dd1b335f206a9b1c35f3a99074e58982d4d75fc6662f4eaf2fa"
+    },
+    "original_science_config": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source/configs/studies/local_coupling_multiround_l3_0.json",
+      "bytes": 22664,
+      "sha256": "d9532984ca562a069421fecdf6deb8382b553e27443cda15e2104daf0e5144db"
+    }
+  },
+  "budget_antecedents": {
+    "worker_cpu_seconds": 31018.360963,
+    "global_cpu_seconds": 31035.856636999997,
+    "worker_wall_seconds": 3072.887292750005,
+    "global_wall_seconds": 3093.0959609159618,
+    "stream_cpu_seconds_upper": [
+      10840.113406999997,
+      10712.422422999996,
+      10727.434963
+    ],
+    "audit_cpu_seconds": 1.4069340000005983,
+    "audit_wall_seconds": 3.657566374982707,
+    "audit_neural_rows": 52,
+    "report_cpu_seconds": 15.980752999992546,
+    "report_wall_seconds": 16.54966079199221,
+    "original_output_directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001"
+  },
+  "scientific_changes": [],
+  "original_failure_retained": true,
+  "original_cross_group_contract_passed": false,
+  "comparison": {
+    "version": "MATCHED_GROUP_L3_1",
+    "action_atol": 1e-06,
+    "state_rtol": 0,
+    "state_atol": 1e-10,
+    "cost_atol": 1e-09,
+    "D_atol": "1e-10 + 2 * replay_actions.size * 1e-6",
+    "pre_action_inputs": "original full scoring group with native candidate prefix substituted at its original offset",
+    "cross_group_outputs": "preserved diagnostic; not an admission gate",
+    "scope": "same float32 computation grouping; does not establish general batch invariance"
+  },
+  "certificate": {
+    "physics": 0,
+    "model_queries": 0,
+    "gradients": 0,
+    "optimizer_updates": 0,
+    "max_neural_rows": 24672,
+    "max_wall_seconds": 600,
+    "max_output_bytes": 67108864,
+    "source_episode": {
+      "stream": 0,
+      "round": 4,
+      "arm": "independent",
+      "slot": 2
+    }
+  },
+  "continuation": {
+    "total_logical_rounds": 8,
+    "completed_rounds_reused": 3,
+    "remaining_rounds": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "refits_of_completed_parents": 0,
+    "reevaluations_of_completed_panels": 0,
+    "old_native_acquisition_prefix_controls_repeated": 0,
+    "unknown_interrupted_forecasts": 2,
+    "max_extra_repeated_model_controls": 24576,
+    "max_extra_repeated_physics_substeps": 98304,
+    "interrupted_inputs": [
+      {
+        "stream": 1,
+        "round": 4,
+        "arm": "independent",
+        "slot": 0,
+        "directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s1/acquisition/r4/independent/slot0",
+        "job": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s1/acquisition/r4/independent/slot0/job.json",
+          "bytes": 2488,
+          "sha256": "ea16568360ba47ccf28188a8695612eb17bb03bf205c15e7dc57a3b36c759589"
+        },
+        "ledger": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s1/acquisition/r4/independent/slot0/ledger.jsonl",
+          "bytes": 225114,
+          "sha256": "442f2f72ec5ce27776c75fbe3c0028d609626021c42407eeefe8e2cf5f4de82f"
+        },
+        "ledger_counts": {
+          "requested": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 1,
+            "restores": 1,
+            "model_controls": 2457600,
+            "model_queries": 200,
+            "physics_substeps": 9831192,
+            "neural_rows": 2269846,
+            "native_controls": 198
+          },
+          "completed": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 1,
+            "restores": 1,
+            "model_controls": 2445312,
+            "model_queries": 199,
+            "physics_substeps": 9782040,
+            "neural_rows": 2269846,
+            "native_controls": 198
+          },
+          "unknown_partial_upper": {
+            "model_controls": 12288,
+            "model_queries": 1,
+            "physics_substeps": 49152
+          },
+          "open_requests": [
+            {
+              "charges": {
+                "model_controls": 12288,
+                "model_queries": 1,
+                "physics_substeps": 49152
+              },
+              "event": "requested",
+              "id": 1198,
+              "operation": "native_forecast",
+              "wall_seconds": 40.1187253750395
+            }
+          ],
+          "failed_events": [],
+          "events": 1199,
+          "last_event": {
+            "charges": {
+              "model_controls": 12288,
+              "model_queries": 1,
+              "physics_substeps": 49152
+            },
+            "event": "requested",
+            "id": 1198,
+            "operation": "native_forecast",
+            "wall_seconds": 40.1187253750395
+          }
+        },
+        "classification": "INTERRUPTED_DURING_ONE_MODEL_FORECAST",
+        "native_controls": 198,
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s1/acquisition/r4/independent/slot0/trace.h5",
+          "bytes": 318752,
+          "sha256": "3fea30a70db236a5fc30c670888cc80647cad584841af35bc8c552d5c0cb945c"
+        },
+        "trace_shapes": {
+          "actions": [
+            198,
+            6
+          ],
+          "costs": [
+            198
+          ],
+          "integrations": [
+            199,
+            91
+          ],
+          "native_fall_cost": [
+            198
+          ],
+          "observations": [
+            199,
+            17
+          ],
+          "states": [
+            199,
+            19
+          ],
+          "warmstarts": [
+            199,
+            9
+          ]
+        },
+        "banks": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s1/acquisition/r4/independent/slot0/banks.h5",
+          "bytes": 4360304,
+          "sha256": "bbdb932a59503d34389237988a42e357de95029edbc2955995f40f87da1c2e1f"
+        },
+        "completed_banks": 199,
+        "last_bank_control": 197,
+        "last_bank_inner": 0,
+        "resume_context": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/engineering/recovery_inventory_001_s1_resume_context.npz",
+          "bytes": 4515,
+          "sha256": "07e700d11259d6a6c22e1d6583a8f4cef8c734e67be03e9051514c6484c63d05"
+        },
+        "resume_rng_state": {
+          "bit_generator": "PCG64",
+          "has_uint32": 0,
+          "state": {
+            "inc": 280506728481118855953526005717667629747,
+            "state": 115929275645354582918188493409138121690
+          },
+          "uinteger": 0
+        },
+        "readable_without_repair": true,
+        "no_native_prefix_reexecution_needed": true,
+        "necessary_extra_model_replay_upper": {
+          "model_controls": 12288,
+          "model_queries": 1,
+          "physics_substeps": 49152
+        },
+        "resume_rule": "RestorelastcompleteN+1boundary, actorfromsame10000-updateincomingcheckpoint, U_afterlastbank shiftedexactlyonce, privatePCG64rng_afterlastbank, _initial_planFalse, bank_countN+1; resumecontrolN. Regeneratetheonependingforecast; chargeitsoriginalunknownupperasinfraoverhead. Preserveoldfilesandwritecontinuationcopies."
+      },
+      {
+        "stream": 2,
+        "round": 4,
+        "arm": "independent",
+        "slot": 1,
+        "directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot1",
+        "job": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot1/job.json",
+          "bytes": 2489,
+          "sha256": "b835cf5f9173cc3552e023c86f92d11eb1d52af9085374f4b03e0cb8e5d977c3"
+        },
+        "ledger": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot1/ledger.jsonl",
+          "bytes": 171922,
+          "sha256": "5f8b7c8fa2b251dafb39959f514c1f4a74b57b852a52cb1b3c0c8a5c855ea701"
+        },
+        "ledger_counts": {
+          "requested": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 1,
+            "restores": 1,
+            "model_controls": 1880064,
+            "model_queries": 153,
+            "physics_substeps": 7520860,
+            "neural_rows": 1743607,
+            "native_controls": 151
+          },
+          "completed": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 1,
+            "restores": 1,
+            "model_controls": 1867776,
+            "model_queries": 152,
+            "physics_substeps": 7471708,
+            "neural_rows": 1743607,
+            "native_controls": 151
+          },
+          "unknown_partial_upper": {
+            "model_controls": 12288,
+            "model_queries": 1,
+            "physics_substeps": 49152
+          },
+          "open_requests": [
+            {
+              "charges": {
+                "model_controls": 12288,
+                "model_queries": 1,
+                "physics_substeps": 49152
+              },
+              "event": "requested",
+              "id": 916,
+              "operation": "native_forecast",
+              "wall_seconds": 30.398892665980384
+            }
+          ],
+          "failed_events": [],
+          "events": 917,
+          "last_event": {
+            "charges": {
+              "model_controls": 12288,
+              "model_queries": 1,
+              "physics_substeps": 49152
+            },
+            "event": "requested",
+            "id": 916,
+            "operation": "native_forecast",
+            "wall_seconds": 30.398892665980384
+          }
+        },
+        "classification": "INTERRUPTED_DURING_ONE_MODEL_FORECAST",
+        "native_controls": 151,
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot1/trace.h5",
+          "bytes": 247336,
+          "sha256": "626f91fc79a0f4fb1ef3615c25aa352cbaee35a5d6c1ce33fff3697f5355ab00"
+        },
+        "trace_shapes": {
+          "actions": [
+            151,
+            6
+          ],
+          "costs": [
+            151
+          ],
+          "integrations": [
+            152,
+            91
+          ],
+          "native_fall_cost": [
+            151
+          ],
+          "observations": [
+            152,
+            17
+          ],
+          "states": [
+            152,
+            19
+          ],
+          "warmstarts": [
+            152,
+            9
+          ]
+        },
+        "banks": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot1/banks.h5",
+          "bytes": 3328616,
+          "sha256": "65a864052518f082acbe3b1604f1abbf3b2265cc8b1daaf615684e2d76309a8e"
+        },
+        "completed_banks": 152,
+        "last_bank_control": 150,
+        "last_bank_inner": 0,
+        "resume_context": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/engineering/recovery_inventory_001_s2_resume_context.npz",
+          "bytes": 4520,
+          "sha256": "c1cc4a509019eeedfc838a254cbafb6b241270ca0689ba078862d9aa8528fe1d"
+        },
+        "resume_rng_state": {
+          "bit_generator": "PCG64",
+          "has_uint32": 0,
+          "state": {
+            "inc": 87902068465440643768330163159400296191,
+            "state": 115257532327937508546782640114892210801
+          },
+          "uinteger": 0
+        },
+        "readable_without_repair": true,
+        "no_native_prefix_reexecution_needed": true,
+        "necessary_extra_model_replay_upper": {
+          "model_controls": 12288,
+          "model_queries": 1,
+          "physics_substeps": 49152
+        },
+        "resume_rule": "RestorelastcompleteN+1boundary, actorfromsame10000-updateincomingcheckpoint, U_afterlastbank shiftedexactlyonce, privatePCG64rng_afterlastbank, _initial_planFalse, bank_countN+1; resumecontrolN. Regeneratetheonependingforecast; chargeitsoriginalunknownupperasinfraoverhead. Preserveoldfilesandwritecontinuationcopies."
+      }
+    ],
+    "reuse_closed_round4": [
+      {
+        "stream": 0,
+        "round": 4,
+        "arm": "independent",
+        "slot": 0,
+        "directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0",
+        "job": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0/job.json",
+          "bytes": 2488,
+          "sha256": "76a0a7644ce69f2d2f9fec495a78cadf02f0d0df9650040ddd2585101d38589b"
+        },
+        "ledger": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0/ledger.jsonl",
+          "bytes": 253757,
+          "sha256": "21e7ca98c03a9cdc19064aa0924013577a96d7be097ef80f683d03e2182f75a7"
+        },
+        "ledger_counts": {
+          "requested": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 4,
+            "restores": 4,
+            "model_controls": 1941504,
+            "model_queries": 158,
+            "physics_substeps": 7767412,
+            "neural_rows": 1485437,
+            "native_controls": 349
+          },
+          "completed": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 4,
+            "restores": 4,
+            "model_controls": 1941504,
+            "model_queries": 158,
+            "physics_substeps": 7767412,
+            "neural_rows": 1485437,
+            "native_controls": 349
+          },
+          "unknown_partial_upper": {},
+          "open_requests": [],
+          "failed_events": [],
+          "events": 1347,
+          "last_event": {
+            "event": "closed",
+            "id": 1346,
+            "receipt": {
+              "counts": {
+                "completed_checkpoint_loads": 1,
+                "completed_environment_constructions": 1,
+                "completed_external_mj_forward_calls": 4,
+                "completed_model_controls": 1941504,
+                "completed_model_queries": 158,
+                "completed_native_controls": 349,
+                "completed_neural_rows": 1485437,
+                "completed_physics_substeps": 7767412,
+                "completed_policy_constructions": 1,
+                "completed_restores": 4,
+                "requested_checkpoint_loads": 1,
+                "requested_environment_constructions": 1,
+                "requested_external_mj_forward_calls": 4,
+                "requested_model_controls": 1941504,
+                "requested_model_queries": 158,
+                "requested_native_controls": 349,
+                "requested_neural_rows": 1485437,
+                "requested_physics_substeps": 7767412,
+                "requested_policy_constructions": 1,
+                "requested_restores": 4
+              },
+              "cpu_seconds": 106.00329199999942,
+              "output_bytes_before_receipt": 11667341,
+              "peak_process_rss_bytes": 543473664,
+              "physical_disk_io_bytes": null,
+              "status": "COMPLETED",
+              "wall_seconds": 30.905648291052785
+            },
+            "wall_seconds": 30.906002791016363
+          }
+        },
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0/manifest.json",
+          "bytes": 5934,
+          "sha256": "9a4020b9c1bc6e8fd024f36f2fbd2f90c501485d2fe7bcdccaf0b6c886d6b472"
+        },
+        "receipt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0/receipt.json",
+          "bytes": 1027,
+          "sha256": "782f091c4e26975a3855016c2e0c676b0f9fbbf863fd7bcab7c9b9480a58cb5a"
+        },
+        "status": "COMPLETED",
+        "outcome": {
+          "controls": 157,
+          "requested_controls": 300,
+          "fell": true,
+          "full_survival": false,
+          "walking": false,
+          "velocity_mae": 0.41608533858235636,
+          "mean_velocity": 1.4211962448816318,
+          "raw_native_cost": 189.04322413828996,
+          "absorbing_tail_cost": 715.0,
+          "complete_cost": 904.0432241382899,
+          "local_walking": false
+        },
+        "already_imported": true,
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0/trace.h5",
+          "bytes": 254248,
+          "sha256": "c67add8ce60b7ad7982eb95f9c1f841705a38437f14719819d88803e6091e500"
+        },
+        "trace_shapes": {
+          "actions": [
+            157,
+            6
+          ],
+          "costs": [
+            157
+          ],
+          "integrations": [
+            158,
+            91
+          ],
+          "native_fall_cost": [
+            157
+          ],
+          "observations": [
+            158,
+            17
+          ],
+          "states": [
+            158,
+            19
+          ],
+          "warmstarts": [
+            158,
+            9
+          ]
+        },
+        "banks": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot0/banks.h5",
+          "bytes": 3460784,
+          "sha256": "edabf4b01aa15e7dc03b2729fe6e195e1603cc8c0053fc805b8d9a18dc8e143a"
+        }
+      },
+      {
+        "stream": 0,
+        "round": 4,
+        "arm": "independent",
+        "slot": 1,
+        "directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1",
+        "job": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1/job.json",
+          "bytes": 2489,
+          "sha256": "7e2573f83795dee4e099c7ef6b1258ffa4290b215acb4adfef1e227856b00e54"
+        },
+        "ledger": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1/ledger.jsonl",
+          "bytes": 354461,
+          "sha256": "1e81cf05a033b57de4e10fbfde0cab7f79bd6779d1aabda8379d6cf54990e3d0"
+        },
+        "ledger_counts": {
+          "requested": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 3,
+            "restores": 3,
+            "model_controls": 3698688,
+            "model_queries": 301,
+            "physics_substeps": 14796076,
+            "neural_rows": 3292313,
+            "native_controls": 331
+          },
+          "completed": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 3,
+            "restores": 3,
+            "model_controls": 3698688,
+            "model_queries": 301,
+            "physics_substeps": 14796076,
+            "neural_rows": 3292313,
+            "native_controls": 331
+          },
+          "unknown_partial_upper": {},
+          "open_requests": [],
+          "failed_events": [],
+          "events": 1881,
+          "last_event": {
+            "event": "closed",
+            "id": 1880,
+            "receipt": {
+              "counts": {
+                "completed_checkpoint_loads": 1,
+                "completed_environment_constructions": 1,
+                "completed_external_mj_forward_calls": 3,
+                "completed_model_controls": 3698688,
+                "completed_model_queries": 301,
+                "completed_native_controls": 331,
+                "completed_neural_rows": 3292313,
+                "completed_physics_substeps": 14796076,
+                "completed_policy_constructions": 1,
+                "completed_restores": 3,
+                "requested_checkpoint_loads": 1,
+                "requested_environment_constructions": 1,
+                "requested_external_mj_forward_calls": 3,
+                "requested_model_controls": 3698688,
+                "requested_model_queries": 301,
+                "requested_native_controls": 331,
+                "requested_neural_rows": 3292313,
+                "requested_physics_substeps": 14796076,
+                "requested_policy_constructions": 1,
+                "requested_restores": 3
+              },
+              "cpu_seconds": 198.0758620000015,
+              "output_bytes_before_receipt": 17660065,
+              "peak_process_rss_bytes": 543473664,
+              "physical_disk_io_bytes": null,
+              "status": "COMPLETED",
+              "wall_seconds": 57.90144391701324
+            },
+            "wall_seconds": 57.901556207973044
+          }
+        },
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1/manifest.json",
+          "bytes": 5589,
+          "sha256": "e8835a8dc3c338f3b2f3c214089659a40ae1d132496b3a46f48cd6b245179601"
+        },
+        "receipt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1/receipt.json",
+          "bytes": 1027,
+          "sha256": "70bbae912a9cbdd2250f9bd93e3a1e2bf83fefdf54ecf67e0b45beb8673737c9"
+        },
+        "status": "COMPLETED",
+        "outcome": {
+          "controls": 300,
+          "requested_controls": 300,
+          "fell": false,
+          "full_survival": true,
+          "walking": false,
+          "velocity_mae": 0.28108438164133565,
+          "mean_velocity": 1.3034292184343657,
+          "raw_native_cost": 203.93617180562705,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 203.93617180562705,
+          "local_walking": true
+        },
+        "already_imported": true,
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1/trace.h5",
+          "bytes": 470800,
+          "sha256": "c4a43766ffd200a8db2a896419854445a49b6f6bf2c68be65b218b483044b30a"
+        },
+        "trace_shapes": {
+          "actions": [
+            300,
+            6
+          ],
+          "costs": [
+            300
+          ],
+          "integrations": [
+            301,
+            91
+          ],
+          "native_fall_cost": [
+            300
+          ],
+          "observations": [
+            301,
+            17
+          ],
+          "states": [
+            301,
+            19
+          ],
+          "warmstarts": [
+            301,
+            9
+          ]
+        },
+        "banks": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot1/banks.h5",
+          "bytes": 6589392,
+          "sha256": "ab76941d26b178b45d5cca6bf0b348020340dc5393f6f1a8f55331ae3d15b172"
+        }
+      },
+      {
+        "stream": 2,
+        "round": 4,
+        "arm": "independent",
+        "slot": 0,
+        "directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0",
+        "job": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0/job.json",
+          "bytes": 2488,
+          "sha256": "d6dd68a3c4dd0487a4d35eeab6ae9fb59d3154489ae1debad3ba72e24b5caad2"
+        },
+        "ledger": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0/ledger.jsonl",
+          "bytes": 472394,
+          "sha256": "7eb3f4c92fd372b24b72e19080a36fd0dc9c6cb3f3519b7666f192560c3cf4fe"
+        },
+        "ledger_counts": {
+          "requested": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 4,
+            "restores": 4,
+            "model_controls": 3698688,
+            "model_queries": 301,
+            "physics_substeps": 14797320,
+            "neural_rows": 3356585,
+            "native_controls": 642
+          },
+          "completed": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 4,
+            "restores": 4,
+            "model_controls": 3698688,
+            "model_queries": 301,
+            "physics_substeps": 14797320,
+            "neural_rows": 3356585,
+            "native_controls": 642
+          },
+          "unknown_partial_upper": {},
+          "open_requests": [],
+          "failed_events": [],
+          "events": 2505,
+          "last_event": {
+            "event": "closed",
+            "id": 2504,
+            "receipt": {
+              "counts": {
+                "completed_checkpoint_loads": 1,
+                "completed_environment_constructions": 1,
+                "completed_external_mj_forward_calls": 4,
+                "completed_model_controls": 3698688,
+                "completed_model_queries": 301,
+                "completed_native_controls": 642,
+                "completed_neural_rows": 3356585,
+                "completed_physics_substeps": 14797320,
+                "completed_policy_constructions": 1,
+                "completed_restores": 4,
+                "requested_checkpoint_loads": 1,
+                "requested_environment_constructions": 1,
+                "requested_external_mj_forward_calls": 4,
+                "requested_model_controls": 3698688,
+                "requested_model_queries": 301,
+                "requested_native_controls": 642,
+                "requested_neural_rows": 3356585,
+                "requested_physics_substeps": 14797320,
+                "requested_policy_constructions": 1,
+                "requested_restores": 4
+              },
+              "cpu_seconds": 204.06258200000048,
+              "output_bytes_before_receipt": 18248903,
+              "peak_process_rss_bytes": 566280192,
+              "physical_disk_io_bytes": null,
+              "status": "COMPLETED",
+              "wall_seconds": 59.9282639590092
+            },
+            "wall_seconds": 59.92836633400293
+          }
+        },
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0/manifest.json",
+          "bytes": 5911,
+          "sha256": "a9af437cdfa64416f0aa7e4104511249cca85b1b31a32e9e9d3adf34df9c1a81"
+        },
+        "receipt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0/receipt.json",
+          "bytes": 1027,
+          "sha256": "ccae6dfa122cbf49dfb897f589dacbd09f32871dfd5cfd660ca82c1e2c556813"
+        },
+        "status": "COMPLETED",
+        "outcome": {
+          "controls": 300,
+          "requested_controls": 300,
+          "fell": false,
+          "full_survival": true,
+          "walking": false,
+          "velocity_mae": 0.2092992076952223,
+          "mean_velocity": 1.35496390890167,
+          "raw_native_cost": 170.19169727462383,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 170.19169727462383,
+          "local_walking": true
+        },
+        "already_imported": true,
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0/trace.h5",
+          "bytes": 470800,
+          "sha256": "9e2187fac5e926ded233429b1c7b1d4b08c3f6c98fa519dc910bbc1d436fe959"
+        },
+        "trace_shapes": {
+          "actions": [
+            300,
+            6
+          ],
+          "costs": [
+            300
+          ],
+          "integrations": [
+            301,
+            91
+          ],
+          "native_fall_cost": [
+            300
+          ],
+          "observations": [
+            301,
+            17
+          ],
+          "states": [
+            301,
+            19
+          ],
+          "warmstarts": [
+            301,
+            9
+          ]
+        },
+        "banks": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s2/acquisition/r4/independent/slot0/banks.h5",
+          "bytes": 6589392,
+          "sha256": "fec60e5aeefa6ac4b4f2f84d4c8845828572ac0c0ace78dc8e7d86af9ef9c410"
+        }
+      }
+    ],
+    "validation_only": [
+      {
+        "stream": 0,
+        "round": 4,
+        "arm": "independent",
+        "slot": 2,
+        "directory": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2",
+        "job": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/job.json",
+          "bytes": 2489,
+          "sha256": "df996aae3be8d5218b55da8b4caa34ddef9beb6258c8e94feaae6025bb6b39e7"
+        },
+        "ledger": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/ledger.jsonl",
+          "bytes": 361326,
+          "sha256": "4d81794491f5b2ebaff9d43cf3f01f9cf3914e447d7dfb016d17264bc4452aa3"
+        },
+        "ledger_counts": {
+          "requested": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 3,
+            "restores": 3,
+            "model_controls": 3698688,
+            "model_queries": 301,
+            "physics_substeps": 14796148,
+            "neural_rows": 3349711,
+            "native_controls": 349
+          },
+          "completed": {
+            "checkpoint_loads": 1,
+            "policy_constructions": 1,
+            "environment_constructions": 1,
+            "external_mj_forward_calls": 3,
+            "restores": 3,
+            "model_controls": 3698688,
+            "model_queries": 301,
+            "physics_substeps": 14796148,
+            "neural_rows": 3349711,
+            "native_controls": 349
+          },
+          "unknown_partial_upper": {},
+          "open_requests": [],
+          "failed_events": [],
+          "events": 1917,
+          "last_event": {
+            "event": "closed",
+            "id": 1916,
+            "receipt": {
+              "counts": {
+                "completed_checkpoint_loads": 1,
+                "completed_environment_constructions": 1,
+                "completed_external_mj_forward_calls": 3,
+                "completed_model_controls": 3698688,
+                "completed_model_queries": 301,
+                "completed_native_controls": 349,
+                "completed_neural_rows": 3349711,
+                "completed_physics_substeps": 14796148,
+                "completed_policy_constructions": 1,
+                "completed_restores": 3,
+                "requested_checkpoint_loads": 1,
+                "requested_environment_constructions": 1,
+                "requested_external_mj_forward_calls": 3,
+                "requested_model_controls": 3698688,
+                "requested_model_queries": 301,
+                "requested_native_controls": 349,
+                "requested_neural_rows": 3349711,
+                "requested_physics_substeps": 14796148,
+                "requested_policy_constructions": 1,
+                "requested_restores": 3
+              },
+              "cpu_seconds": 202.82710899999984,
+              "output_bytes_before_receipt": 17681162,
+              "peak_process_rss_bytes": 543473664,
+              "physical_disk_io_bytes": null,
+              "status": "FAILED",
+              "wall_seconds": 59.354168165999
+            },
+            "wall_seconds": 59.35428725002566
+          }
+        },
+        "manifest": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/manifest.json",
+          "bytes": 1929,
+          "sha256": "bbfd1eb3f77a374f60196b7f77119ad52b6901a8e79dccbc0966c9efbeafcb68"
+        },
+        "receipt": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/receipt.json",
+          "bytes": 1023,
+          "sha256": "7a6c17408d7dbb2f067608f723f06c04bb84d885f024e94f71e40eaa6f1bb8bb"
+        },
+        "status": "FAILED_STOPPED",
+        "outcome": {
+          "controls": 300,
+          "requested_controls": 300,
+          "fell": false,
+          "full_survival": true,
+          "walking": false,
+          "velocity_mae": 0.2892798914972419,
+          "mean_velocity": 1.3920071757551407,
+          "raw_native_cost": 225.14541384205486,
+          "absorbing_tail_cost": 0.0,
+          "complete_cost": 225.14541384205486,
+          "local_walking": true
+        },
+        "already_imported": true,
+        "trace": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/trace.h5",
+          "bytes": 470800,
+          "sha256": "0dff86c67af3cd9faae97377a7c44b8e286d56b44ac7c564a88cfe2a4fe63c98"
+        },
+        "trace_shapes": {
+          "actions": [
+            300,
+            6
+          ],
+          "costs": [
+            300
+          ],
+          "integrations": [
+            301,
+            91
+          ],
+          "native_fall_cost": [
+            300
+          ],
+          "observations": [
+            301,
+            17
+          ],
+          "states": [
+            301,
+            19
+          ],
+          "warmstarts": [
+            301,
+            9
+          ]
+        },
+        "banks": {
+          "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/banks.h5",
+          "bytes": 6589392,
+          "sha256": "dc2c517c334a6fe7643b0ba72e4f7834291b250c83335affff2d1829f6f28541"
+        },
+        "classification": "COMPLETE_PHYSICS_FAILED_CROSS_GROUP_VALIDATION_ONLY",
+        "error": "ValueError('Candidate/native deployed reconstruction mismatch')",
+        "native_replay_files": [
+          {
+            "file": {
+              "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/candidate_replay_0_0.h5",
+              "bytes": 48064,
+              "sha256": "b25d0dfc86e950b21e81acb8d1f5a4cf753f30c9dd437c50b1d3d1b3324ea129"
+            },
+            "controls": 23,
+            "boundaries": 24
+          },
+          {
+            "file": {
+              "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/worker/streams/s0/acquisition/r4/independent/slot2/candidate_replay_0_255.h5",
+              "bytes": 51520,
+              "sha256": "24d9282a662c9b509f32d687aeb645e29ec74e3e5662121fc3b551f0474c0a1b"
+            },
+            "controls": 26,
+            "boundaries": 27
+          }
+        ],
+        "missing_manifest_fields": [
+          "trace",
+          "bank_stats",
+          "native_candidate_checks"
+        ],
+        "notes": "Fulltrace/bankfiles exist andclosed; originalmanifest intentionallyremainsFAILED_STOPPED. Certificationmustcreateexplicitbindings foromittedtrace/bank/nativechecks, notmodifyoriginal. Outcomealreadyfailsfixedslotcostceiling, soeventualadmissionwouldfallback irrespectiveofthevalidationcheck."
+      }
+    ]
+  },
+  "limits": {
+    "original_total_budgets_unchanged": true,
+    "preparation_reservation_seconds": 1800,
+    "worker_remaining_cpu_seconds": 58981.639037,
+    "worker_remaining_pool_wall_seconds": 13127.112707249995,
+    "global_remaining_cpu_after_preparation": 67964.14336300001,
+    "global_remaining_pool_wall_after_preparation": 20306.90403908404,
+    "combined_original_and_continuation_output_bytes": 17179869184,
+    "max_audit_remaining_neural_rows": 39999948
+  },
+  "stopping_rule": "Only invalid execution, corrupted evidence, unrecoverable infrastructure or exhaustion of original frozen resources. Complete all eight logical rounds regardless of zero walking, weak fitting or regression."
+}

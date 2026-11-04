@@ -1,0 +1,86 @@
+{
+  "schema": "l3-1-software-validation-1",
+  "passed": true,
+  "commands": [
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_local_coupling_controller.py",
+        "tests/test_local_coupling_learning.py",
+        "tests/test_local_coupling_learning_audit.py",
+        "tests/test_local_coupling_multiround_metrics.py",
+        "tests/test_local_coupling_multiround_measurements.py",
+        "tests/test_local_coupling_multiround_audit.py",
+        "tests/test_local_coupling_multiround_lineage.py",
+        "tests/test_local_coupling_multiround_lifecycle.py",
+        "tests/test_local_coupling_multiround_report.py",
+        "tests/test_local_coupling_numeric_validation.py",
+        "tests/test_local_coupling_prefix_resume.py",
+        "tests/test_local_coupling_multiround_continuation.py",
+        "tests/test_local_coupling_multiround_continuation_audit.py",
+        "tests/test_local_coupling_continuation_cli.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 48.183575041999575,
+      "child_cpu_seconds": 45.698550999999995
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps/audits/local_coupling_learning.py",
+        "src/gps/mppi_gps/audits/local_coupling_multiround_continuation.py",
+        "src/gps/mppi_gps/local_coupling_numeric_validation.py",
+        "src/gps/mppi_gps/local_coupling_prefix_resume.py",
+        "src/gps/mppi_gps/local_coupling_multiround_continuation.py",
+        "src/gps/mppi_gps/experiments/local_coupling_multiround_continuation.py",
+        "scripts/train_mppi_gps.py",
+        "tests/test_local_coupling_controller.py",
+        "tests/test_local_coupling_learning.py",
+        "tests/test_local_coupling_learning_audit.py",
+        "tests/test_local_coupling_multiround_metrics.py",
+        "tests/test_local_coupling_multiround_measurements.py",
+        "tests/test_local_coupling_multiround_audit.py",
+        "tests/test_local_coupling_multiround_lineage.py",
+        "tests/test_local_coupling_multiround_lifecycle.py",
+        "tests/test_local_coupling_multiround_report.py",
+        "tests/test_local_coupling_numeric_validation.py",
+        "tests/test_local_coupling_prefix_resume.py",
+        "tests/test_local_coupling_multiround_continuation.py",
+        "tests/test_local_coupling_multiround_continuation_audit.py",
+        "tests/test_local_coupling_continuation_cli.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.016077457985375077,
+      "child_cpu_seconds": 0.019161000000007533
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.028874874988105148,
+      "child_cpu_seconds": 0.12091199999999347
+    }
+  ],
+  "scope": "Software tests, including isolated synthetic policies; no study inference, acquisition, evaluation or parent fitting. All engineering cost charged to the original one-time 1800-second preparation reservation.",
+  "synthetic_training_fixture": {
+    "adam_updates": 8,
+    "backward_rows": 2048
+  },
+  "previous_review": {
+    "focused_new_pure_tests": 45,
+    "first_combined_suite": "141 passed, 1 stale error-message assertion failed; preserved failure below",
+    "corrected_assertion": "Expected frozen same-arm continuation message; production learner unchanged",
+    "corrected_subset": "3 passed"
+  },
+  "study_physics": 0,
+  "study_adam_updates": 0,
+  "study_evaluation_episodes": 0
+}
