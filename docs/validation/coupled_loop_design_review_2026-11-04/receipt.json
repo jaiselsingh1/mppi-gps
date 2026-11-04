@@ -1,0 +1,56 @@
+{
+  "schema": "saved-review-clean-export-check-1",
+  "export": "/private/tmp/walker-review-export-og23022p",
+  "phases": [
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/check_repository.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 0.5862820000000002,
+      "wall_seconds": 0.6181942920084111
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "review",
+        "bank-figure",
+        "--help"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 0.025262999999999813,
+      "wall_seconds": 0.04079816699959338
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_local_bank_reweight.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 9.854293,
+      "wall_seconds": 10.452091916988138
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "results/coupled_loop_design_review_001/render_review.py"
+      ],
+      "exit_code": 0,
+      "cpu_seconds": 9.389379000000002,
+      "wall_seconds": 9.533340624999255
+    }
+  ],
+  "passed": true,
+  "capsule_figure_replays_identically": true,
+  "cpu_seconds": 19.899288000000002,
+  "wall_seconds": 20.646849957993254,
+  "physics": 0,
+  "neural_forwards": 0,
+  "optimizer_updates": 0,
+  "scope": "Software, portable hash/link checks and saved CSV rendering only; not an experiment audit."
+}

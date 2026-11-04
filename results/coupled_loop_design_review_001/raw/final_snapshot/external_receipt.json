@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "phases": [
+    {
+      "phase": "banks",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/bank_analysis.py"
+      ],
+      "exit_code": 0,
+      "error": null,
+      "cpu_seconds": 45.099769,
+      "wall_seconds": 47.60301804100163
+    },
+    {
+      "phase": "contexts",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts.py",
+        "--config",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+        "--out",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission"
+      ],
+      "exit_code": 0,
+      "error": null,
+      "cpu_seconds": 1.9083589999999968,
+      "wall_seconds": 2.2898047500057146
+    },
+    {
+      "phase": "bands",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/adapter.py"
+      ],
+      "exit_code": 0,
+      "error": null,
+      "cpu_seconds": 9.079321000000007,
+      "wall_seconds": 9.849482958030421
+    },
+    {
+      "phase": "cold",
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-B",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/review.py",
+        "--config",
+        "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+        "--cpu-cap",
+        "20"
+      ],
+      "exit_code": 0,
+      "error": null,
+      "cpu_seconds": 5.050121999999998,
+      "wall_seconds": 6.198396832973231
+    }
+  ],
+  "measured_child_cpu_seconds": 61.13757100000001,
+  "wall_seconds": 65.95418762497138,
+  "physics": 0,
+  "neural_forwards": 0,
+  "policy_updates": 0,
+  "source": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/finish_review.py",
+    "bytes": 5605,
+    "sha256": "2c89ee2c8fd79258f2c560841eb21741522adea85b99d777449aa429616d12fe"
+  },
+  "final_config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+    "bytes": 3931,
+    "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+  },
+  "scope": "Saved-only final roster extension; source formulas, native tolerances and running experiment unchanged. CPU charged to root review allocation."
+}

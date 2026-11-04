@@ -1,0 +1,1380 @@
+{
+  "content_hash": "d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426",
+  "first_occurrence": {
+    "first_stream": 2,
+    "first_round": 4,
+    "first_arm": "positive"
+  },
+  "primary": {
+    "burn_controls": 0,
+    "rows": 2400,
+    "episodes": 8,
+    "welch_nperseg": 300,
+    "welch_noverlap": 150,
+    "frequency_resolution_hz": 0.4166666666666667,
+    "above_5hz_welch_power_share": 0.5933426235772336,
+    "high_residual_variance_share": 0.5754701429669057,
+    "low_variance_share": 0.38433319379879294,
+    "neighbour": {
+      "gap100": {
+        "full": {
+          "r2": 0.10011788209221684,
+          "variance": 1.2651755290437559,
+          "mean_abs": 0.43445762249958053,
+          "neighbour_over_random": 0.7676689018195146
+        },
+        "low_5hz": {
+          "r2": 0.3373452339477623,
+          "variance": 0.48624895179346417,
+          "mean_abs": 0.3007993394617885,
+          "neighbour_over_random": 0.48414203990182886
+        },
+        "high_5hz": {
+          "r2": -0.07193876657642151,
+          "variance": 0.7280707425770407,
+          "mean_abs": 0.27452844681946154,
+          "neighbour_over_random": 0.9669940247881276
+        },
+        "median_nearest_distance": 1.834564890394157,
+        "max_nearest_distance": 4.916218104800327,
+        "missing_neighbours": 0
+      },
+      "episode_held_out": {
+        "full": {
+          "r2": 0.10188586845698966,
+          "variance": 1.2651755290437559,
+          "mean_abs": 0.43445762249958053,
+          "neighbour_over_random": 0.7667444028491776
+        },
+        "low_5hz": {
+          "r2": 0.33916883366636696,
+          "variance": 0.48624895179346417,
+          "mean_abs": 0.3007993394617885,
+          "neighbour_over_random": 0.4831793589804587
+        },
+        "high_5hz": {
+          "r2": -0.0715828750765728,
+          "variance": 0.7280707425770407,
+          "mean_abs": 0.27452844681946154,
+          "neighbour_over_random": 0.9669285141956313
+        },
+        "median_nearest_distance": 1.8348090348840225,
+        "max_nearest_distance": 4.916218104800327,
+        "missing_neighbours": 0
+      }
+    },
+    "spectrum": [
+      {
+        "frequency_hz": 0.0,
+        "mean_torque_psd": 0.005791490734347016
+      },
+      {
+        "frequency_hz": 0.4166666666666667,
+        "mean_torque_psd": 0.02588141367820288
+      },
+      {
+        "frequency_hz": 0.8333333333333334,
+        "mean_torque_psd": 0.035103239025070614
+      },
+      {
+        "frequency_hz": 1.25,
+        "mean_torque_psd": 0.038211878690225326
+      },
+      {
+        "frequency_hz": 1.6666666666666667,
+        "mean_torque_psd": 0.029672765901852367
+      },
+      {
+        "frequency_hz": 2.0833333333333335,
+        "mean_torque_psd": 0.017131835464452683
+      },
+      {
+        "frequency_hz": 2.5,
+        "mean_torque_psd": 0.013941513357900228
+      },
+      {
+        "frequency_hz": 2.916666666666667,
+        "mean_torque_psd": 0.014791862317084898
+      },
+      {
+        "frequency_hz": 3.3333333333333335,
+        "mean_torque_psd": 0.01290073757722165
+      },
+      {
+        "frequency_hz": 3.75,
+        "mean_torque_psd": 0.00857549497667714
+      },
+      {
+        "frequency_hz": 4.166666666666667,
+        "mean_torque_psd": 0.007715395396065706
+      },
+      {
+        "frequency_hz": 4.583333333333334,
+        "mean_torque_psd": 0.010311378438944696
+      },
+      {
+        "frequency_hz": 5.0,
+        "mean_torque_psd": 0.011470266094669437
+      },
+      {
+        "frequency_hz": 5.416666666666667,
+        "mean_torque_psd": 0.010070547816797983
+      },
+      {
+        "frequency_hz": 5.833333333333334,
+        "mean_torque_psd": 0.009881974487168994
+      },
+      {
+        "frequency_hz": 6.25,
+        "mean_torque_psd": 0.008122441728332697
+      },
+      {
+        "frequency_hz": 6.666666666666667,
+        "mean_torque_psd": 0.006236394081869337
+      },
+      {
+        "frequency_hz": 7.083333333333334,
+        "mean_torque_psd": 0.006968254012804884
+      },
+      {
+        "frequency_hz": 7.5,
+        "mean_torque_psd": 0.0070230823691558525
+      },
+      {
+        "frequency_hz": 7.916666666666667,
+        "mean_torque_psd": 0.006394392930106345
+      },
+      {
+        "frequency_hz": 8.333333333333334,
+        "mean_torque_psd": 0.00707363373529334
+      },
+      {
+        "frequency_hz": 8.75,
+        "mean_torque_psd": 0.00692644513859506
+      },
+      {
+        "frequency_hz": 9.166666666666668,
+        "mean_torque_psd": 0.005512980209768984
+      },
+      {
+        "frequency_hz": 9.583333333333334,
+        "mean_torque_psd": 0.0055207949685846264
+      },
+      {
+        "frequency_hz": 10.0,
+        "mean_torque_psd": 0.005131024195544519
+      },
+      {
+        "frequency_hz": 10.416666666666668,
+        "mean_torque_psd": 0.005586374919077921
+      },
+      {
+        "frequency_hz": 10.833333333333334,
+        "mean_torque_psd": 0.005912106669468322
+      },
+      {
+        "frequency_hz": 11.25,
+        "mean_torque_psd": 0.00610998446144561
+      },
+      {
+        "frequency_hz": 11.666666666666668,
+        "mean_torque_psd": 0.005874574996242008
+      },
+      {
+        "frequency_hz": 12.083333333333334,
+        "mean_torque_psd": 0.006888000494098712
+      },
+      {
+        "frequency_hz": 12.5,
+        "mean_torque_psd": 0.0067406955998157055
+      },
+      {
+        "frequency_hz": 12.916666666666668,
+        "mean_torque_psd": 0.005514890405535079
+      },
+      {
+        "frequency_hz": 13.333333333333334,
+        "mean_torque_psd": 0.005307621565978809
+      },
+      {
+        "frequency_hz": 13.75,
+        "mean_torque_psd": 0.005005156117920643
+      },
+      {
+        "frequency_hz": 14.166666666666668,
+        "mean_torque_psd": 0.0061659566894485965
+      },
+      {
+        "frequency_hz": 14.583333333333334,
+        "mean_torque_psd": 0.006210708344899047
+      },
+      {
+        "frequency_hz": 15.0,
+        "mean_torque_psd": 0.005147210697503362
+      },
+      {
+        "frequency_hz": 15.416666666666668,
+        "mean_torque_psd": 0.005514078063067474
+      },
+      {
+        "frequency_hz": 15.833333333333334,
+        "mean_torque_psd": 0.0064836988517381604
+      },
+      {
+        "frequency_hz": 16.25,
+        "mean_torque_psd": 0.006604011181324521
+      },
+      {
+        "frequency_hz": 16.666666666666668,
+        "mean_torque_psd": 0.005655167891369563
+      },
+      {
+        "frequency_hz": 17.083333333333336,
+        "mean_torque_psd": 0.005562150737524128
+      },
+      {
+        "frequency_hz": 17.5,
+        "mean_torque_psd": 0.00414997974691261
+      },
+      {
+        "frequency_hz": 17.916666666666668,
+        "mean_torque_psd": 0.003790944934258118
+      },
+      {
+        "frequency_hz": 18.333333333333336,
+        "mean_torque_psd": 0.0042219775113062335
+      },
+      {
+        "frequency_hz": 18.75,
+        "mean_torque_psd": 0.004270434523267646
+      },
+      {
+        "frequency_hz": 19.166666666666668,
+        "mean_torque_psd": 0.00402232530002428
+      },
+      {
+        "frequency_hz": 19.583333333333336,
+        "mean_torque_psd": 0.0039810928558953245
+      },
+      {
+        "frequency_hz": 20.0,
+        "mean_torque_psd": 0.003738293864783894
+      },
+      {
+        "frequency_hz": 20.416666666666668,
+        "mean_torque_psd": 0.004087920556868429
+      },
+      {
+        "frequency_hz": 20.833333333333336,
+        "mean_torque_psd": 0.003988888957527032
+      },
+      {
+        "frequency_hz": 21.25,
+        "mean_torque_psd": 0.004276121491461348
+      },
+      {
+        "frequency_hz": 21.666666666666668,
+        "mean_torque_psd": 0.004096906408655576
+      },
+      {
+        "frequency_hz": 22.083333333333336,
+        "mean_torque_psd": 0.003936020398522742
+      },
+      {
+        "frequency_hz": 22.5,
+        "mean_torque_psd": 0.0033677035567747098
+      },
+      {
+        "frequency_hz": 22.916666666666668,
+        "mean_torque_psd": 0.0029574554769209076
+      },
+      {
+        "frequency_hz": 23.333333333333336,
+        "mean_torque_psd": 0.0037227068625152386
+      },
+      {
+        "frequency_hz": 23.75,
+        "mean_torque_psd": 0.004031355972181877
+      },
+      {
+        "frequency_hz": 24.166666666666668,
+        "mean_torque_psd": 0.004104904626071367
+      },
+      {
+        "frequency_hz": 24.583333333333336,
+        "mean_torque_psd": 0.0041483323372023765
+      },
+      {
+        "frequency_hz": 25.0,
+        "mean_torque_psd": 0.003608395403516973
+      },
+      {
+        "frequency_hz": 25.416666666666668,
+        "mean_torque_psd": 0.002960180009779277
+      },
+      {
+        "frequency_hz": 25.833333333333336,
+        "mean_torque_psd": 0.0032790534699164153
+      },
+      {
+        "frequency_hz": 26.25,
+        "mean_torque_psd": 0.0028902409151762977
+      },
+      {
+        "frequency_hz": 26.666666666666668,
+        "mean_torque_psd": 0.002539411917220436
+      },
+      {
+        "frequency_hz": 27.083333333333336,
+        "mean_torque_psd": 0.002571117798590898
+      },
+      {
+        "frequency_hz": 27.5,
+        "mean_torque_psd": 0.0024797624390771817
+      },
+      {
+        "frequency_hz": 27.916666666666668,
+        "mean_torque_psd": 0.002235551291681412
+      },
+      {
+        "frequency_hz": 28.333333333333336,
+        "mean_torque_psd": 0.0018977472902615004
+      },
+      {
+        "frequency_hz": 28.75,
+        "mean_torque_psd": 0.001879360656375526
+      },
+      {
+        "frequency_hz": 29.166666666666668,
+        "mean_torque_psd": 0.0021358097413628927
+      },
+      {
+        "frequency_hz": 29.583333333333336,
+        "mean_torque_psd": 0.0019078277393870227
+      },
+      {
+        "frequency_hz": 30.0,
+        "mean_torque_psd": 0.002362999469691744
+      },
+      {
+        "frequency_hz": 30.416666666666668,
+        "mean_torque_psd": 0.0018349006766567102
+      },
+      {
+        "frequency_hz": 30.833333333333336,
+        "mean_torque_psd": 0.0016508517482484962
+      },
+      {
+        "frequency_hz": 31.25,
+        "mean_torque_psd": 0.0014710842001103325
+      },
+      {
+        "frequency_hz": 31.666666666666668,
+        "mean_torque_psd": 0.0017580631457356744
+      },
+      {
+        "frequency_hz": 32.083333333333336,
+        "mean_torque_psd": 0.002113177646955933
+      },
+      {
+        "frequency_hz": 32.5,
+        "mean_torque_psd": 0.0021961293875694407
+      },
+      {
+        "frequency_hz": 32.91666666666667,
+        "mean_torque_psd": 0.0019398647085708362
+      },
+      {
+        "frequency_hz": 33.333333333333336,
+        "mean_torque_psd": 0.0013943384491748466
+      },
+      {
+        "frequency_hz": 33.75,
+        "mean_torque_psd": 0.001036230463306109
+      },
+      {
+        "frequency_hz": 34.16666666666667,
+        "mean_torque_psd": 0.001035103737130138
+      },
+      {
+        "frequency_hz": 34.583333333333336,
+        "mean_torque_psd": 0.0010152087975663392
+      },
+      {
+        "frequency_hz": 35.0,
+        "mean_torque_psd": 0.0009708974761142378
+      },
+      {
+        "frequency_hz": 35.41666666666667,
+        "mean_torque_psd": 0.0009591921718902657
+      },
+      {
+        "frequency_hz": 35.833333333333336,
+        "mean_torque_psd": 0.0009049438835101091
+      },
+      {
+        "frequency_hz": 36.25,
+        "mean_torque_psd": 0.001149966956490981
+      },
+      {
+        "frequency_hz": 36.66666666666667,
+        "mean_torque_psd": 0.0012289035326285142
+      },
+      {
+        "frequency_hz": 37.083333333333336,
+        "mean_torque_psd": 0.0012269502159991982
+      },
+      {
+        "frequency_hz": 37.5,
+        "mean_torque_psd": 0.001145846811684863
+      },
+      {
+        "frequency_hz": 37.91666666666667,
+        "mean_torque_psd": 0.001162061933117809
+      },
+      {
+        "frequency_hz": 38.333333333333336,
+        "mean_torque_psd": 0.0010562259037818508
+      },
+      {
+        "frequency_hz": 38.75,
+        "mean_torque_psd": 0.0010219979458810117
+      },
+      {
+        "frequency_hz": 39.16666666666667,
+        "mean_torque_psd": 0.0008707466125310439
+      },
+      {
+        "frequency_hz": 39.583333333333336,
+        "mean_torque_psd": 0.0006337837601193306
+      },
+      {
+        "frequency_hz": 40.0,
+        "mean_torque_psd": 0.0006603549900810622
+      },
+      {
+        "frequency_hz": 40.41666666666667,
+        "mean_torque_psd": 0.0006556302256997632
+      },
+      {
+        "frequency_hz": 40.833333333333336,
+        "mean_torque_psd": 0.0006922156595553481
+      },
+      {
+        "frequency_hz": 41.25,
+        "mean_torque_psd": 0.0007069487549965435
+      },
+      {
+        "frequency_hz": 41.66666666666667,
+        "mean_torque_psd": 0.0006930486943404202
+      },
+      {
+        "frequency_hz": 42.083333333333336,
+        "mean_torque_psd": 0.000753464144799994
+      },
+      {
+        "frequency_hz": 42.5,
+        "mean_torque_psd": 0.0006287232536888144
+      },
+      {
+        "frequency_hz": 42.91666666666667,
+        "mean_torque_psd": 0.0004879865146125636
+      },
+      {
+        "frequency_hz": 43.333333333333336,
+        "mean_torque_psd": 0.0005035956882795587
+      },
+      {
+        "frequency_hz": 43.75,
+        "mean_torque_psd": 0.0004464730885852308
+      },
+      {
+        "frequency_hz": 44.16666666666667,
+        "mean_torque_psd": 0.0004145289528646169
+      },
+      {
+        "frequency_hz": 44.583333333333336,
+        "mean_torque_psd": 0.0004422050222873105
+      },
+      {
+        "frequency_hz": 45.0,
+        "mean_torque_psd": 0.00037419450622478914
+      },
+      {
+        "frequency_hz": 45.41666666666667,
+        "mean_torque_psd": 0.00037358476356526217
+      },
+      {
+        "frequency_hz": 45.833333333333336,
+        "mean_torque_psd": 0.00042502246669623054
+      },
+      {
+        "frequency_hz": 46.25,
+        "mean_torque_psd": 0.0004147598542708927
+      },
+      {
+        "frequency_hz": 46.66666666666667,
+        "mean_torque_psd": 0.00036878779650909726
+      },
+      {
+        "frequency_hz": 47.083333333333336,
+        "mean_torque_psd": 0.0004136912483300219
+      },
+      {
+        "frequency_hz": 47.5,
+        "mean_torque_psd": 0.0004004817607911655
+      },
+      {
+        "frequency_hz": 47.91666666666667,
+        "mean_torque_psd": 0.0004010891489638487
+      },
+      {
+        "frequency_hz": 48.333333333333336,
+        "mean_torque_psd": 0.00035345853408427227
+      },
+      {
+        "frequency_hz": 48.75,
+        "mean_torque_psd": 0.0002948778119389592
+      },
+      {
+        "frequency_hz": 49.16666666666667,
+        "mean_torque_psd": 0.00022911967757099948
+      },
+      {
+        "frequency_hz": 49.583333333333336,
+        "mean_torque_psd": 0.00027690148145721846
+      },
+      {
+        "frequency_hz": 50.0,
+        "mean_torque_psd": 0.0002616215116988058
+      },
+      {
+        "frequency_hz": 50.41666666666667,
+        "mean_torque_psd": 0.0002696138165022078
+      },
+      {
+        "frequency_hz": 50.833333333333336,
+        "mean_torque_psd": 0.00030105314966482537
+      },
+      {
+        "frequency_hz": 51.25,
+        "mean_torque_psd": 0.0002666488199600285
+      },
+      {
+        "frequency_hz": 51.66666666666667,
+        "mean_torque_psd": 0.00025624446625277037
+      },
+      {
+        "frequency_hz": 52.083333333333336,
+        "mean_torque_psd": 0.0002770523567176391
+      },
+      {
+        "frequency_hz": 52.5,
+        "mean_torque_psd": 0.0002517045055571592
+      },
+      {
+        "frequency_hz": 52.91666666666667,
+        "mean_torque_psd": 0.0002668458055699297
+      },
+      {
+        "frequency_hz": 53.333333333333336,
+        "mean_torque_psd": 0.00030483329032640356
+      },
+      {
+        "frequency_hz": 53.75,
+        "mean_torque_psd": 0.0002595760492251085
+      },
+      {
+        "frequency_hz": 54.16666666666667,
+        "mean_torque_psd": 0.00034427457823900354
+      },
+      {
+        "frequency_hz": 54.583333333333336,
+        "mean_torque_psd": 0.0003493677102671867
+      },
+      {
+        "frequency_hz": 55.0,
+        "mean_torque_psd": 0.0003524548507277308
+      },
+      {
+        "frequency_hz": 55.41666666666667,
+        "mean_torque_psd": 0.000303735886179971
+      },
+      {
+        "frequency_hz": 55.833333333333336,
+        "mean_torque_psd": 0.00019158844999250858
+      },
+      {
+        "frequency_hz": 56.25,
+        "mean_torque_psd": 0.00018759064155632012
+      },
+      {
+        "frequency_hz": 56.66666666666667,
+        "mean_torque_psd": 0.00022516224319869902
+      },
+      {
+        "frequency_hz": 57.083333333333336,
+        "mean_torque_psd": 0.00026417218868415485
+      },
+      {
+        "frequency_hz": 57.5,
+        "mean_torque_psd": 0.0002724837441481391
+      },
+      {
+        "frequency_hz": 57.91666666666667,
+        "mean_torque_psd": 0.0002628962156599785
+      },
+      {
+        "frequency_hz": 58.333333333333336,
+        "mean_torque_psd": 0.00021166028913468027
+      },
+      {
+        "frequency_hz": 58.75,
+        "mean_torque_psd": 0.00019166521304703982
+      },
+      {
+        "frequency_hz": 59.16666666666667,
+        "mean_torque_psd": 0.00020466644991239347
+      },
+      {
+        "frequency_hz": 59.583333333333336,
+        "mean_torque_psd": 0.00020953345984282127
+      },
+      {
+        "frequency_hz": 60.0,
+        "mean_torque_psd": 0.00024241376362423787
+      },
+      {
+        "frequency_hz": 60.41666666666667,
+        "mean_torque_psd": 0.000256538951354997
+      },
+      {
+        "frequency_hz": 60.833333333333336,
+        "mean_torque_psd": 0.0002352175758437805
+      },
+      {
+        "frequency_hz": 61.25,
+        "mean_torque_psd": 0.00023102737475419322
+      },
+      {
+        "frequency_hz": 61.66666666666667,
+        "mean_torque_psd": 0.0002108920291183638
+      },
+      {
+        "frequency_hz": 62.083333333333336,
+        "mean_torque_psd": 0.00021113057480185715
+      },
+      {
+        "frequency_hz": 62.5,
+        "mean_torque_psd": 0.00012778033592198947
+      }
+    ],
+    "conflict": {
+      "other_over_same_equal_distance_bin_mean": 1.0081733970859712,
+      "bins": [
+        {
+          "distance": [
+            0.04801192512024374,
+            1.5815042306730924
+          ],
+          "same_n": 0,
+          "other_n": 1920,
+          "same": null,
+          "other": 0.2698358670141171
+        },
+        {
+          "distance": [
+            1.5815042306730924,
+            2.0096344876051746
+          ],
+          "same_n": 4,
+          "other_n": 1916,
+          "same": 0.5588768197893661,
+          "other": 0.3057572983346742
+        },
+        {
+          "distance": [
+            2.0096344876051746,
+            2.3637585255193247
+          ],
+          "same_n": 9,
+          "other_n": 1911,
+          "same": 0.5854665887880186,
+          "other": 0.311720388728111
+        },
+        {
+          "distance": [
+            2.3637585255193247,
+            2.6551401489267605
+          ],
+          "same_n": 28,
+          "other_n": 1892,
+          "same": 0.2995585283265986,
+          "other": 0.32370240457766664
+        },
+        {
+          "distance": [
+            2.6551401489267605,
+            2.901468744387924
+          ],
+          "same_n": 47,
+          "other_n": 1873,
+          "same": 0.3592501568654252,
+          "other": 0.34656596469493955,
+          "ratio": 0.9646925911427308
+        },
+        {
+          "distance": [
+            2.901468744387924,
+            3.1686857844414007
+          ],
+          "same_n": 68,
+          "other_n": 1851,
+          "same": 0.38225940518078494,
+          "other": 0.38306354058195113,
+          "ratio": 1.002103637975332
+        },
+        {
+          "distance": [
+            3.1686857844414007,
+            3.473722938605103
+          ],
+          "same_n": 111,
+          "other_n": 1810,
+          "same": 0.426694448026495,
+          "other": 0.4012448524998262,
+          "ratio": 0.9403563940323674
+        },
+        {
+          "distance": [
+            3.473722938605103,
+            3.8295609741246026
+          ],
+          "same_n": 197,
+          "other_n": 1723,
+          "same": 0.43493541001014013,
+          "other": 0.415802061871817,
+          "ratio": 0.9560087596963488
+        },
+        {
+          "distance": [
+            3.8295609741246026,
+            4.434647916728533
+          ],
+          "same_n": 622,
+          "other_n": 1297,
+          "same": 0.3976695160168359,
+          "other": 0.43169407448923985,
+          "ratio": 1.08555988604106
+        },
+        {
+          "distance": [
+            4.434647916728533,
+            10.058763802356586
+          ],
+          "same_n": 1314,
+          "other_n": 607,
+          "same": 0.4167676987601007,
+          "other": 0.45857746488849055,
+          "ratio": 1.1003191136279884
+        }
+      ],
+      "bin_rule": "Original ten within-cell pooled distance quantiles; descriptive, not exact matching or fixed-support cross-arm comparison",
+      "same_nearest_distance_median": 4.515058632496272,
+      "other_nearest_distance_median": 2.755685955467262,
+      "averaging": {
+        "mean_abs_torque": 0.43445762249958053,
+        "same_walk": 0.6209051579983255,
+        "one_other_walk": 0.6527924830638592,
+        "all_other_walks": 0.6687497711335454
+      },
+      "no_validated_gait_conflict_threshold": true
+    }
+  },
+  "burn100": {
+    "burn_controls": 100,
+    "rows": 1600,
+    "episodes": 8,
+    "welch_nperseg": 200,
+    "welch_noverlap": 100,
+    "frequency_resolution_hz": 0.625,
+    "above_5hz_welch_power_share": 0.6855897239225742,
+    "high_residual_variance_share": 0.6032173058181014,
+    "low_variance_share": 0.35222412212181575,
+    "neighbour": {
+      "gap100": {
+        "full": {
+          "r2": 0.042200196566090975,
+          "variance": 1.3474031880055595,
+          "mean_abs": 0.43696431055694224,
+          "neighbour_over_random": 0.8116394992283907
+        },
+        "low_5hz": {
+          "r2": 0.2555131513572302,
+          "variance": 0.474587905039394,
+          "mean_abs": 0.2822785998687586,
+          "neighbour_over_random": 0.5309728083532639
+        },
+        "high_5hz": {
+          "r2": -0.0856704652574678,
+          "variance": 0.8127769209194343,
+          "mean_abs": 0.2956078844842971,
+          "neighbour_over_random": 0.9708370153540357
+        },
+        "median_nearest_distance": 2.0496711357099353,
+        "max_nearest_distance": 4.916218104800327,
+        "missing_neighbours": 0
+      },
+      "episode_held_out": {
+        "full": {
+          "r2": 0.04418643899593411,
+          "variance": 1.3474031880055595,
+          "mean_abs": 0.43696431055694224,
+          "neighbour_over_random": 0.8103404100145946
+        },
+        "low_5hz": {
+          "r2": 0.2580531547906557,
+          "variance": 0.474587905039394,
+          "mean_abs": 0.2822785998687586,
+          "neighbour_over_random": 0.5294939618777795
+        },
+        "high_5hz": {
+          "r2": -0.08527027269099152,
+          "variance": 0.8127769209194343,
+          "mean_abs": 0.2956078844842971,
+          "neighbour_over_random": 0.970749381124938
+        },
+        "median_nearest_distance": 2.0515191630946212,
+        "max_nearest_distance": 4.916218104800327,
+        "missing_neighbours": 0
+      }
+    },
+    "spectrum": [
+      {
+        "frequency_hz": 0.0,
+        "mean_torque_psd": 0.004952440880811302
+      },
+      {
+        "frequency_hz": 0.625,
+        "mean_torque_psd": 0.019344572823311867
+      },
+      {
+        "frequency_hz": 1.25,
+        "mean_torque_psd": 0.0181294426692633
+      },
+      {
+        "frequency_hz": 1.875,
+        "mean_torque_psd": 0.015995788161717005
+      },
+      {
+        "frequency_hz": 2.5,
+        "mean_torque_psd": 0.008356049721708754
+      },
+      {
+        "frequency_hz": 3.125,
+        "mean_torque_psd": 0.008025655427215785
+      },
+      {
+        "frequency_hz": 3.75,
+        "mean_torque_psd": 0.0068827362347522745
+      },
+      {
+        "frequency_hz": 4.375,
+        "mean_torque_psd": 0.009591310536948703
+      },
+      {
+        "frequency_hz": 5.0,
+        "mean_torque_psd": 0.010348566498149069
+      },
+      {
+        "frequency_hz": 5.625,
+        "mean_torque_psd": 0.00987846875781899
+      },
+      {
+        "frequency_hz": 6.25,
+        "mean_torque_psd": 0.0066203738184551116
+      },
+      {
+        "frequency_hz": 6.875,
+        "mean_torque_psd": 0.006733632927342842
+      },
+      {
+        "frequency_hz": 7.5,
+        "mean_torque_psd": 0.007693930765381684
+      },
+      {
+        "frequency_hz": 8.125,
+        "mean_torque_psd": 0.006566175045904298
+      },
+      {
+        "frequency_hz": 8.75,
+        "mean_torque_psd": 0.006429397439359008
+      },
+      {
+        "frequency_hz": 9.375,
+        "mean_torque_psd": 0.006275984263028585
+      },
+      {
+        "frequency_hz": 10.0,
+        "mean_torque_psd": 0.005501449766404978
+      },
+      {
+        "frequency_hz": 10.625,
+        "mean_torque_psd": 0.0051283064191614686
+      },
+      {
+        "frequency_hz": 11.25,
+        "mean_torque_psd": 0.005499605568850935
+      },
+      {
+        "frequency_hz": 11.875,
+        "mean_torque_psd": 0.007112736722360489
+      },
+      {
+        "frequency_hz": 12.5,
+        "mean_torque_psd": 0.0064493859835934265
+      },
+      {
+        "frequency_hz": 13.125,
+        "mean_torque_psd": 0.004626280581208685
+      },
+      {
+        "frequency_hz": 13.75,
+        "mean_torque_psd": 0.005158344699573885
+      },
+      {
+        "frequency_hz": 14.375,
+        "mean_torque_psd": 0.005584409282698316
+      },
+      {
+        "frequency_hz": 15.0,
+        "mean_torque_psd": 0.003818231218788453
+      },
+      {
+        "frequency_hz": 15.625,
+        "mean_torque_psd": 0.0052727801575626785
+      },
+      {
+        "frequency_hz": 16.25,
+        "mean_torque_psd": 0.006115807576618444
+      },
+      {
+        "frequency_hz": 16.875,
+        "mean_torque_psd": 0.005246767283379885
+      },
+      {
+        "frequency_hz": 17.5,
+        "mean_torque_psd": 0.004334828352339129
+      },
+      {
+        "frequency_hz": 18.125,
+        "mean_torque_psd": 0.004962293346305035
+      },
+      {
+        "frequency_hz": 18.75,
+        "mean_torque_psd": 0.0042979317798743635
+      },
+      {
+        "frequency_hz": 19.375,
+        "mean_torque_psd": 0.004312100138999596
+      },
+      {
+        "frequency_hz": 20.0,
+        "mean_torque_psd": 0.0040356288656021415
+      },
+      {
+        "frequency_hz": 20.625,
+        "mean_torque_psd": 0.0038631722857149684
+      },
+      {
+        "frequency_hz": 21.25,
+        "mean_torque_psd": 0.004274573955921423
+      },
+      {
+        "frequency_hz": 21.875,
+        "mean_torque_psd": 0.004950182213028949
+      },
+      {
+        "frequency_hz": 22.5,
+        "mean_torque_psd": 0.004384155849175451
+      },
+      {
+        "frequency_hz": 23.125,
+        "mean_torque_psd": 0.004047231029011254
+      },
+      {
+        "frequency_hz": 23.75,
+        "mean_torque_psd": 0.003929495976338752
+      },
+      {
+        "frequency_hz": 24.375,
+        "mean_torque_psd": 0.00465336445153099
+      },
+      {
+        "frequency_hz": 25.0,
+        "mean_torque_psd": 0.004048611193013569
+      },
+      {
+        "frequency_hz": 25.625,
+        "mean_torque_psd": 0.0028240822554606317
+      },
+      {
+        "frequency_hz": 26.25,
+        "mean_torque_psd": 0.0027066525318992715
+      },
+      {
+        "frequency_hz": 26.875,
+        "mean_torque_psd": 0.0025430650160181045
+      },
+      {
+        "frequency_hz": 27.5,
+        "mean_torque_psd": 0.0023982528781302014
+      },
+      {
+        "frequency_hz": 28.125,
+        "mean_torque_psd": 0.0017694783124444175
+      },
+      {
+        "frequency_hz": 28.75,
+        "mean_torque_psd": 0.0022795714913149273
+      },
+      {
+        "frequency_hz": 29.375,
+        "mean_torque_psd": 0.0017139356160638716
+      },
+      {
+        "frequency_hz": 30.0,
+        "mean_torque_psd": 0.0021607453302677966
+      },
+      {
+        "frequency_hz": 30.625,
+        "mean_torque_psd": 0.001643112613665741
+      },
+      {
+        "frequency_hz": 31.25,
+        "mean_torque_psd": 0.0016988745968911046
+      },
+      {
+        "frequency_hz": 31.875,
+        "mean_torque_psd": 0.0018933721768525401
+      },
+      {
+        "frequency_hz": 32.5,
+        "mean_torque_psd": 0.00200072109034146
+      },
+      {
+        "frequency_hz": 33.125,
+        "mean_torque_psd": 0.0017014807181956854
+      },
+      {
+        "frequency_hz": 33.75,
+        "mean_torque_psd": 0.0012649313373168114
+      },
+      {
+        "frequency_hz": 34.375,
+        "mean_torque_psd": 0.001033345180471555
+      },
+      {
+        "frequency_hz": 35.0,
+        "mean_torque_psd": 0.0010783774147213277
+      },
+      {
+        "frequency_hz": 35.625,
+        "mean_torque_psd": 0.0009336895738108653
+      },
+      {
+        "frequency_hz": 36.25,
+        "mean_torque_psd": 0.0009944493198954588
+      },
+      {
+        "frequency_hz": 36.875,
+        "mean_torque_psd": 0.001172391411909851
+      },
+      {
+        "frequency_hz": 37.5,
+        "mean_torque_psd": 0.0012673307546972132
+      },
+      {
+        "frequency_hz": 38.125,
+        "mean_torque_psd": 0.0011846173307371304
+      },
+      {
+        "frequency_hz": 38.75,
+        "mean_torque_psd": 0.0009667770212576385
+      },
+      {
+        "frequency_hz": 39.375,
+        "mean_torque_psd": 0.0007518113470517074
+      },
+      {
+        "frequency_hz": 40.0,
+        "mean_torque_psd": 0.0005987161839006308
+      },
+      {
+        "frequency_hz": 40.625,
+        "mean_torque_psd": 0.00059566242090234
+      },
+      {
+        "frequency_hz": 41.25,
+        "mean_torque_psd": 0.0006617718980286142
+      },
+      {
+        "frequency_hz": 41.875,
+        "mean_torque_psd": 0.0007004835942391576
+      },
+      {
+        "frequency_hz": 42.5,
+        "mean_torque_psd": 0.00056186536744371
+      },
+      {
+        "frequency_hz": 43.125,
+        "mean_torque_psd": 0.0005292147539390465
+      },
+      {
+        "frequency_hz": 43.75,
+        "mean_torque_psd": 0.00048282418114175353
+      },
+      {
+        "frequency_hz": 44.375,
+        "mean_torque_psd": 0.0004664116401258471
+      },
+      {
+        "frequency_hz": 45.0,
+        "mean_torque_psd": 0.0004126417835016436
+      },
+      {
+        "frequency_hz": 45.625,
+        "mean_torque_psd": 0.0003834031198494584
+      },
+      {
+        "frequency_hz": 46.25,
+        "mean_torque_psd": 0.00043044168373610186
+      },
+      {
+        "frequency_hz": 46.875,
+        "mean_torque_psd": 0.0003355965553958491
+      },
+      {
+        "frequency_hz": 47.5,
+        "mean_torque_psd": 0.00034881762527061633
+      },
+      {
+        "frequency_hz": 48.125,
+        "mean_torque_psd": 0.0003392190109122044
+      },
+      {
+        "frequency_hz": 48.75,
+        "mean_torque_psd": 0.000266204937402101
+      },
+      {
+        "frequency_hz": 49.375,
+        "mean_torque_psd": 0.00023940796677591097
+      },
+      {
+        "frequency_hz": 50.0,
+        "mean_torque_psd": 0.00019625312889356812
+      },
+      {
+        "frequency_hz": 50.625,
+        "mean_torque_psd": 0.00020519988204151346
+      },
+      {
+        "frequency_hz": 51.25,
+        "mean_torque_psd": 0.0002107462443494563
+      },
+      {
+        "frequency_hz": 51.875,
+        "mean_torque_psd": 0.0002469026135023967
+      },
+      {
+        "frequency_hz": 52.5,
+        "mean_torque_psd": 0.00020592506185546588
+      },
+      {
+        "frequency_hz": 53.125,
+        "mean_torque_psd": 0.0002717331905976429
+      },
+      {
+        "frequency_hz": 53.75,
+        "mean_torque_psd": 0.00026967606029589756
+      },
+      {
+        "frequency_hz": 54.375,
+        "mean_torque_psd": 0.00023582598927832901
+      },
+      {
+        "frequency_hz": 55.0,
+        "mean_torque_psd": 0.0002534967968062412
+      },
+      {
+        "frequency_hz": 55.625,
+        "mean_torque_psd": 0.0002599107989973372
+      },
+      {
+        "frequency_hz": 56.25,
+        "mean_torque_psd": 0.0001486858367416539
+      },
+      {
+        "frequency_hz": 56.875,
+        "mean_torque_psd": 0.00019685400143680743
+      },
+      {
+        "frequency_hz": 57.5,
+        "mean_torque_psd": 0.00024358668788318553
+      },
+      {
+        "frequency_hz": 58.125,
+        "mean_torque_psd": 0.00019994606557978
+      },
+      {
+        "frequency_hz": 58.75,
+        "mean_torque_psd": 0.00020119420447099924
+      },
+      {
+        "frequency_hz": 59.375,
+        "mean_torque_psd": 0.00019950554857745703
+      },
+      {
+        "frequency_hz": 60.0,
+        "mean_torque_psd": 0.0002230881040877366
+      },
+      {
+        "frequency_hz": 60.625,
+        "mean_torque_psd": 0.0001828545878581057
+      },
+      {
+        "frequency_hz": 61.25,
+        "mean_torque_psd": 0.0002087872107716468
+      },
+      {
+        "frequency_hz": 61.875,
+        "mean_torque_psd": 0.00020952171061390404
+      },
+      {
+        "frequency_hz": 62.5,
+        "mean_torque_psd": 9.34969615139196e-05
+      }
+    ],
+    "conflict": {
+      "other_over_same_equal_distance_bin_mean": 1.07299554057707,
+      "bins": [
+        {
+          "distance": [
+            0.5503558938815811,
+            1.7509278116755314
+          ],
+          "same_n": 0,
+          "other_n": 1280,
+          "same": null,
+          "other": 0.31978919263981076
+        },
+        {
+          "distance": [
+            1.7509278116755314,
+            2.213180045728994
+          ],
+          "same_n": 8,
+          "other_n": 1272,
+          "same": 0.5660209267321424,
+          "other": 0.3371855690863844
+        },
+        {
+          "distance": [
+            2.213180045728994,
+            2.5887476847271804
+          ],
+          "same_n": 21,
+          "other_n": 1259,
+          "same": 0.38899885288839076,
+          "other": 0.36113541239701785
+        },
+        {
+          "distance": [
+            2.5887476847271804,
+            2.875800216283999
+          ],
+          "same_n": 46,
+          "other_n": 1234,
+          "same": 0.3299051681300988,
+          "other": 0.37924176238566276,
+          "ratio": 1.149547806526353
+        },
+        {
+          "distance": [
+            2.875800216283999,
+            3.1560593574756
+          ],
+          "same_n": 65,
+          "other_n": 1215,
+          "same": 0.34806531453352585,
+          "other": 0.4115213688118912,
+          "ratio": 1.1823107664818846
+        },
+        {
+          "distance": [
+            3.1560593574756,
+            3.4266479564672725
+          ],
+          "same_n": 59,
+          "other_n": 1220,
+          "same": 0.42169551398369687,
+          "other": 0.41753206590500247,
+          "ratio": 0.9901268855355778
+        },
+        {
+          "distance": [
+            3.4266479564672725,
+            3.688225524686631
+          ],
+          "same_n": 105,
+          "other_n": 1176,
+          "same": 0.44224385700642005,
+          "other": 0.44282315549889284,
+          "ratio": 1.0013099073809506
+        },
+        {
+          "distance": [
+            3.688225524686631,
+            4.002517123787952
+          ],
+          "same_n": 168,
+          "other_n": 1112,
+          "same": 0.4456097027568525,
+          "other": 0.43785278657326115,
+          "ratio": 0.9825925779093191
+        },
+        {
+          "distance": [
+            4.002517123787952,
+            4.499598555940184
+          ],
+          "same_n": 377,
+          "other_n": 903,
+          "same": 0.4055982853444505,
+          "other": 0.4679694402700853,
+          "ratio": 1.1537756868786233
+        },
+        {
+          "distance": [
+            4.499598555940184,
+            8.181998389642281
+          ],
+          "same_n": 751,
+          "other_n": 529,
+          "same": 0.457403156254818,
+          "other": 0.4808702953186255,
+          "ratio": 1.051305153326782
+        }
+      ],
+      "bin_rule": "Original ten within-cell pooled distance quantiles; descriptive, not exact matching or fixed-support cross-arm comparison",
+      "same_nearest_distance_median": 4.448163698099428,
+      "other_nearest_distance_median": 3.0033951023710004,
+      "averaging": {
+        "same_walk": null,
+        "reason": "Fewer than K finite same-episode neighbours",
+        "missing_query_rows": 144
+      },
+      "no_validated_gait_conflict_threshold": true
+    }
+  }
+}

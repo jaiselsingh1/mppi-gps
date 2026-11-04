@@ -1,0 +1,79 @@
+{
+  "schema": "saved-loop-design-review-1",
+  "source_commit": "6dada7d73c0e82fa06239ebedea6c477dccad652",
+  "original_run": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001",
+  "continuation_run": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001",
+  "snapshot_roster": [
+    {
+      "stream": 0,
+      "snapshot": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/progress/000057.json",
+        "bytes": 454695,
+        "sha256": "603fea5b80340d3246df6e4eef77b6fdf176d1105268d6c07f432a81ea6f2894"
+      },
+      "completed_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "stream": 1,
+      "snapshot": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s1/progress/000053.json",
+        "bytes": 417666,
+        "sha256": "c229050a1092c86ee7060a53df3faab27710434ebf9a10e4f8b43b9175735a41"
+      },
+      "completed_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "stream": 2,
+      "snapshot": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s2/progress/000053.json",
+        "bytes": 419940,
+        "sha256": "35212d8cf912c8783098b250e764dcb925626d3c62f5dad47e1a4c2f476ff2b0"
+      },
+      "completed_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "roster_rule": "All completed rounds at each immutable snapshot; initial review through round5, append subsequently closed planned rounds up to8 without changing analysis rules. Never treat incomplete rounds as zero outcomes.",
+  "limits": {
+    "aggregate_cpu_seconds": 1800,
+    "root_cpu_seconds": 900,
+    "spectrum_conflict_cpu_seconds": 360,
+    "contexts_admission_cpu_seconds": 360,
+    "cold_start_cpu_seconds": 120,
+    "integration_cpu_reserve": 60,
+    "physics": 0,
+    "model_queries": 0,
+    "neural_forwards": 0,
+    "policy_updates": 0,
+    "output_bytes": 536870912
+  },
+  "analysis": {
+    "prefix_score_same_alpha": "D/N at alpha .12, same lambda3",
+    "prefix_score_scale_matched": "H*D/N at alpha .12 with H48; preserves full-horizon penalty magnitude",
+    "D_length_regression": "pooled and within-bank-demeaned OLS; descriptive, not proof of causal fall incentive",
+    "new_unique_rows": "exact input-target row bytes versus previous and cumulative retained data, also new observation-only rows",
+    "fall_support": "terminal fall boundary and last pre-action boundary; fixed original W2 normalization; current and cumulative actual training support; held set excluded",
+    "spectra": "all300-control episodes primary; preserve episode boundaries. Welch nperseg300/noverlap150 needed because original450/225 does not fit300. Original burn100 sensitivity nperseg200/noverlap100; no temporal concatenation.",
+    "neighbour_bands": "original distance-exclusion and whole-episode-held-out control; >=K finite neighbours required, fixed W2 normalization for comparison. Report missing/negative R2, do not apply admission gates."
+  },
+  "status": "FROZEN_SAVED_ONLY_REVIEW",
+  "began_unix": 1793820780.4295511
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "saved-review-budget-transfer-1",
+  "authority": "Parent agent explicit allocation on2026-11-04",
+  "aggregate_review_cpu_ceiling_seconds": 1800,
+  "root_cpu_reserve_before_seconds": 900,
+  "root_cpu_reserve_after_seconds": 870,
+  "cold_start_cpu_ceiling_before_seconds": 120,
+  "cold_start_cpu_ceiling_after_seconds": 150,
+  "additional_cpu_seconds": 30,
+  "one_rerun_cpu_hard_cap_seconds": 25,
+  "command_reserve_seconds": 5,
+  "first_failed_attempt_actual_cpu_seconds": null,
+  "first_failed_attempt_cpu_hard_upper_seconds": 120,
+  "physics_substeps": 0,
+  "model_queries": 0,
+  "neural_forwards": 0,
+  "policy_updates": 0,
+  "note": "The120-second upper bound is retained as uncertainty; it is not an assertion that120 CPU seconds were actually spent. One saved-only rerun is permitted. No tests, audits or experiments are launched."
+}

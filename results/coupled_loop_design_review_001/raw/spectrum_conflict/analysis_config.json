@@ -1,0 +1,64 @@
+{
+  "schema": "l3-saved-spectrum-conflict-adapter-1",
+  "review_config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/config.json",
+    "bytes": 3429,
+    "sha256": "e58ddd39e5504bd1b87dbbe3092ee92a8101ca5816e9bfeff21a73e2a334d340"
+  },
+  "source_ref": "sac-continuation",
+  "source_commit": "d563712c0ac3c4983eb9727b51eed55f8b42313e",
+  "archived_sources": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/action_spectrum.original.py",
+      "bytes": 10704,
+      "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/label_conflict.original.py",
+      "bytes": 12928,
+      "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+    }
+  ],
+  "adapter": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/adapter.py",
+    "bytes": 14581,
+    "sha256": "11967e1fe56b56669183d3fc805b66728cbc49d101baea3fc8fa7c8ac922b84a"
+  },
+  "primary": {
+    "first": 0,
+    "nperseg": 300,
+    "noverlap": 150
+  },
+  "sensitivity": {
+    "first": 100,
+    "nperseg": 200,
+    "noverlap": 100
+  },
+  "fs_hz": 125,
+  "cutoff_hz": 5,
+  "knn": 10,
+  "normalization": "Actual retained W2 mean/std tensors loaded read-only from first initial checkpoint; frozen across all arms/rounds",
+  "neighbours": [
+    "Original same-episode exclusion abs(delta step)<100",
+    "Whole source episode held out"
+  ],
+  "conflict": "Original nearest-1 conditional action disagreement other/same, ten within-cell pooled distance bins; original10-neighbour attenuation only where >=10 finite eligible neighbours",
+  "source_adaptations": [
+    "AST-extract exact saved-array function bodies; never import CLI or LegacySACActor",
+    "Welch450/225 invalid for300 rows; use frozen300/150 and200/100",
+    "Fixed5Hz cutoff replaces data-dependent SAC gait cutoff; no SAC inference",
+    "Fixed inherited W2 normalization replaces per-corpus pooled statistics",
+    "Guard insufficient finite neighbours, preserve missing K-means",
+    "No original gait-conflict or intent/jitter classification thresholds applied",
+    "Cache exact observation/action/row-id hashes; repeated corpus references are not replications"
+  ],
+  "limits": {
+    "cpu_seconds_total": 360,
+    "cpu_seconds_adapter": 355,
+    "command_cpu_reserve_seconds": 5,
+    "neural_forwards": 0,
+    "physics": 0,
+    "fitting": 0
+  },
+  "status": "FROZEN_BEFORE_EXECUTION"
+}

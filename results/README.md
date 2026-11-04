@@ -4,6 +4,8 @@ These small evidence capsules make the completed Walker studies and explicitly u
 
 | Study | Capsule | Outcome |
 |---|---|---|
+| Eight-round local MPPI–policy loop | [completed result](local_coupling_multiround_l3_1_001/completion_001/README.md) | All eight rounds completed; final walking 0/192 and coupled survival 2/96. Final audit failed; original failures and exact curves preserved. Alpha zero is static refitting. |
+| Saved loop design review | [raw tables and counterfactual weights](coupled_loop_design_review_001/README.md) | Fixed restart provenance, byte-identical control labels, admission/novelty, fall support, spectra, fitting and all bank reweights. No new physics, inference or fitting. |
 | L2.0 actual local controller and matched learning | [local_coupling_learning_l2_001](local_coupling_learning_l2_001/README.md) | Audited complete: alpha .12 improved local survival/cost and changed experience; all children 0/16 walking on both panels. Retention gains only; conditional R2 not triggered. |
 | P1.0 fixed-alpha full-trajectory PI | [trajectory_pi_p1_001](trajectory_pi_p1_001/README.md) | First replay prerequisite failed; audited stop before PI, policy forwards, fitting or standalone evaluations. Similarity hypothesis remains untested. |
 | v3.1 fixed guided-data comparison | [guided_data_v3_1](guided_data_v3_1/README.md) | No walking student; guided lost independent survival benefit |

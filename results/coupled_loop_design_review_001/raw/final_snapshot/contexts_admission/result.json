@@ -1,0 +1,404 @@
+{
+  "schema": "saved-loop-contexts-admission-review-1",
+  "status": "COMPLETED",
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+    "bytes": 3931,
+    "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+  },
+  "source": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts.py",
+    "bytes": 20947,
+    "sha256": "8252561258054c01d9ed05837a43db12e3a6d129081b14503b3c54efab274de3"
+  },
+  "snapshots": [
+    {
+      "stream": 0,
+      "snapshot": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s0/progress/000098.json",
+        "bytes": 640594,
+        "sha256": "cee11c7191d6885c315abfc9fe24254c8517996096850a99c0a50e6acccbaa0c"
+      },
+      "completed_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "stream": 1,
+      "snapshot": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s1/progress/000100.json",
+        "bytes": 641770,
+        "sha256": "7c39b7760fc051f0aa863a12ddf12aa1ce29acf64d2421e1d476da8ebf1c5e04"
+      },
+      "completed_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "stream": 2,
+      "snapshot": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_1_001/worker/streams/s2/progress/000099.json",
+        "bytes": 641574,
+        "sha256": "33a2c772d6c8168a1386d4b5f702cb671dcfb171fce3ca240488ee9c1b7d1cd3"
+      },
+      "completed_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    }
+  ],
+  "restart_source_episodes": 1,
+  "restart_contexts": 8,
+  "admission_counts": {
+    "s0_independent": {
+      "fallback": 24,
+      "admitted_changed": 5,
+      "admitted_identical": 35
+    },
+    "s0_positive": {
+      "admitted_changed": 41,
+      "fallback": 23
+    },
+    "s1_independent": {
+      "admitted_changed": 6,
+      "fallback": 16,
+      "admitted_identical": 42
+    },
+    "s1_positive": {
+      "fallback": 29,
+      "admitted_changed": 35
+    },
+    "s2_independent": {
+      "fallback": 32,
+      "admitted_changed": 4,
+      "admitted_identical": 28
+    },
+    "s2_positive": {
+      "admitted_changed": 44,
+      "fallback": 20
+    }
+  },
+  "completed_admission_rows": 384,
+  "corpus_novelty_rows": 96,
+  "fall_support_queries": 380,
+  "support_summaries": [
+    {
+      "stream": 0,
+      "arm": "independent",
+      "round": 8,
+      "kind": "last_pre_action",
+      "current2400": {
+        "n": 32,
+        "min": 0.8745886830792086,
+        "median": 1.6138033703026704,
+        "mean": 1.577926930981683,
+        "p95": 2.040687511856624,
+        "max": 2.520679398731837
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.8745886830792086,
+        "median": 1.4834904297695126,
+        "mean": 1.4856110271541658,
+        "p95": 1.9766935037373974,
+        "max": 2.432789506613179
+      }
+    },
+    {
+      "stream": 0,
+      "arm": "independent",
+      "round": 8,
+      "kind": "terminal_fall",
+      "current2400": {
+        "n": 32,
+        "min": 0.8937250415580171,
+        "median": 1.6641265212927747,
+        "mean": 1.6359811087153822,
+        "p95": 2.078886403735346,
+        "max": 3.0568968440885973
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.8896434272898669,
+        "median": 1.5205801669440506,
+        "mean": 1.54788379307735,
+        "p95": 1.9016085050928941,
+        "max": 3.003619312415531
+      }
+    },
+    {
+      "stream": 0,
+      "arm": "positive",
+      "round": 8,
+      "kind": "last_pre_action",
+      "current2400": {
+        "n": 31,
+        "min": 0.9155970138736096,
+        "median": 1.4388586173892803,
+        "mean": 1.5630044721431136,
+        "p95": 2.5291808691942306,
+        "max": 2.550549340821978
+      },
+      "ancestral_union": {
+        "n": 31,
+        "min": 0.8751358145120909,
+        "median": 1.387877943940434,
+        "mean": 1.4833914395424188,
+        "p95": 2.5271106432637582,
+        "max": 2.547901803087532
+      }
+    },
+    {
+      "stream": 0,
+      "arm": "positive",
+      "round": 8,
+      "kind": "terminal_fall",
+      "current2400": {
+        "n": 31,
+        "min": 0.8127378149647518,
+        "median": 1.4374678723555805,
+        "mean": 1.592270345365791,
+        "p95": 2.5175634873856954,
+        "max": 2.6541381693622927
+      },
+      "ancestral_union": {
+        "n": 31,
+        "min": 0.8127378149647518,
+        "median": 1.4374678723555805,
+        "mean": 1.5136833932400122,
+        "p95": 2.5175634873856954,
+        "max": 2.6541381693622927
+      }
+    },
+    {
+      "stream": 1,
+      "arm": "independent",
+      "round": 8,
+      "kind": "last_pre_action",
+      "current2400": {
+        "n": 32,
+        "min": 0.8706370799520324,
+        "median": 1.8056213628112237,
+        "mean": 1.8448879707665151,
+        "p95": 3.0533905550980855,
+        "max": 3.995817878439052
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.8706370799520324,
+        "median": 1.5773293973632074,
+        "mean": 1.7892219450587825,
+        "p95": 3.0533905550980855,
+        "max": 3.8586676066150543
+      }
+    },
+    {
+      "stream": 1,
+      "arm": "independent",
+      "round": 8,
+      "kind": "terminal_fall",
+      "current2400": {
+        "n": 32,
+        "min": 0.8860212829544266,
+        "median": 1.8461988600882497,
+        "mean": 1.910318890343992,
+        "p95": 3.0766739345147873,
+        "max": 4.564168452943674
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.8860212829544266,
+        "median": 1.7169104077921724,
+        "mean": 1.8372070687271598,
+        "p95": 3.0766739345147873,
+        "max": 4.352821107848731
+      }
+    },
+    {
+      "stream": 1,
+      "arm": "positive",
+      "round": 8,
+      "kind": "last_pre_action",
+      "current2400": {
+        "n": 32,
+        "min": 0.3979985083547391,
+        "median": 1.9727202202796268,
+        "mean": 1.8808148930267423,
+        "p95": 3.0514447972324783,
+        "max": 3.118466269280976
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.31384169626534175,
+        "median": 1.9647379757158838,
+        "mean": 1.7921892591631114,
+        "p95": 2.8053286872709,
+        "max": 2.9789353367746862
+      }
+    },
+    {
+      "stream": 1,
+      "arm": "positive",
+      "round": 8,
+      "kind": "terminal_fall",
+      "current2400": {
+        "n": 32,
+        "min": 0.3777126655611708,
+        "median": 2.028569466488486,
+        "mean": 1.9080008114839302,
+        "p95": 3.028860707141451,
+        "max": 3.19222800073724
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.36783666974159995,
+        "median": 2.028569466488486,
+        "mean": 1.8183439483520478,
+        "p95": 2.794836614180925,
+        "max": 2.906413960721399
+      }
+    },
+    {
+      "stream": 2,
+      "arm": "independent",
+      "round": 8,
+      "kind": "last_pre_action",
+      "current2400": {
+        "n": 32,
+        "min": 0.9720567819352899,
+        "median": 1.7645715496350434,
+        "mean": 1.8187589536952304,
+        "p95": 2.995564463866816,
+        "max": 3.809729266124033
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.9720567819352899,
+        "median": 1.6309172885763608,
+        "mean": 1.7459691592340008,
+        "p95": 2.930925714364458,
+        "max": 3.7485626128021767
+      }
+    },
+    {
+      "stream": 2,
+      "arm": "independent",
+      "round": 8,
+      "kind": "terminal_fall",
+      "current2400": {
+        "n": 32,
+        "min": 1.0148285149719125,
+        "median": 1.802358985581575,
+        "mean": 1.879228845252939,
+        "p95": 3.267897119270554,
+        "max": 4.631351745060239
+      },
+      "ancestral_union": {
+        "n": 32,
+        "min": 0.9987284381745086,
+        "median": 1.639610836314264,
+        "mean": 1.800203899037589,
+        "p95": 3.072946147213872,
+        "max": 4.5263357895826735
+      }
+    },
+    {
+      "stream": 2,
+      "arm": "positive",
+      "round": 8,
+      "kind": "last_pre_action",
+      "current2400": {
+        "n": 31,
+        "min": 0.9821075986592406,
+        "median": 1.4144640899337195,
+        "mean": 1.517517357270161,
+        "p95": 2.0759344060442317,
+        "max": 2.109430820001969
+      },
+      "ancestral_union": {
+        "n": 31,
+        "min": 0.922804489565491,
+        "median": 1.3377358005637248,
+        "mean": 1.4112022285594643,
+        "p95": 1.9226130916026145,
+        "max": 1.9481073985204451
+      }
+    },
+    {
+      "stream": 2,
+      "arm": "positive",
+      "round": 8,
+      "kind": "terminal_fall",
+      "current2400": {
+        "n": 31,
+        "min": 0.9800537981411215,
+        "median": 1.4881864102836426,
+        "mean": 1.5730809719595427,
+        "p95": 2.1498011553042193,
+        "max": 2.184798634618349
+      },
+      "ancestral_union": {
+        "n": 31,
+        "min": 0.9218402372563579,
+        "median": 1.4097343321610667,
+        "mean": 1.460843417800087,
+        "p95": 1.9878080161545786,
+        "max": 1.9991623377319991
+      }
+    }
+  ],
+  "latest_nonfall_episodes": [
+    {
+      "stream": 0,
+      "arm": "positive",
+      "round": 8,
+      "panel": "confirmation",
+      "reset_seed": 2956000012,
+      "fell": false,
+      "controls": 1000,
+      "terminal_fall_support": null
+    },
+    {
+      "stream": 2,
+      "arm": "positive",
+      "round": 8,
+      "panel": "primary",
+      "reset_seed": 2955000001,
+      "fell": false,
+      "controls": 1000,
+      "terminal_fall_support": null
+    }
+  ],
+  "limitations": [
+    "Saved-data descriptive review; not an independent experiment audit and not a new admission gate.",
+    "Nearest standardized distance describes support; no calibrated threshold establishes recovery, causal failure or teachability.",
+    "Ancestral support means data supplied to each ancestor fit, not proof every unique row was sampled by its minibatch stream.",
+    "Current round is latest complete within each frozen snapshot; different streams can be at different completed rounds. Pending rounds are not zero outcomes.",
+    "Exact byte novelty is shown separately for stored raw FP64 and actual learner FP32 inputs/targets. Exact temporal neighbors may be correlated; these are counts, not independent tasks.",
+    "The eight acquisition contexts originate from a single fixed W2s0-u2000 student episode and do not cover eight independent source trajectories."
+  ],
+  "new_physics": 0,
+  "new_model_queries": 0,
+  "new_neural_forwards": 0,
+  "new_policy_updates": 0
+}

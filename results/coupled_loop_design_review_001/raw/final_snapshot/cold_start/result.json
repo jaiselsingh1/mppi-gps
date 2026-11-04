@@ -1,0 +1,644 @@
+{
+  "schema": "saved-cold-start-refinement-review-1",
+  "status": "COMPLETED_SAVED_ONLY_REVIEW",
+  "review_config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+    "bytes": 3931,
+    "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+  },
+  "source_commit": "6dada7d73c0e82fa06239ebedea6c477dccad652",
+  "complete_acquisition_episodes": 384,
+  "full_300_control_survivors": 359,
+  "observed_probe_anchors": 157,
+  "missing_probe_anchors": 5,
+  "acquisition_initial_contexts": 8,
+  "fixed_acquisition_slots": 8,
+  "acquisition_contexts_match_eight_fixed_slots": true,
+  "all_zero_first_nominals": true,
+  "all_second_nominals_are_unshifted_first_updates": true,
+  "all_refinements_same_complete_context": true,
+  "all_refinements_use_different_successive_rng": true,
+  "true_same_context_same_rng_zero_vs_warm_contrasts": [],
+  "grouped_summary": {
+    "independent/all_completed_attempts": {
+      "episodes": 192,
+      "local_walking": 160,
+      "measures": {
+        "C_min_first": {
+          "n": 192,
+          "mean": 189.44741514498767,
+          "median": 191.43878169385897,
+          "minimum": 155.75630771496162,
+          "maximum": 210.93644694021103,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "C_min_second": {
+          "n": 192,
+          "mean": 173.77743909103614,
+          "median": 172.29209935774395,
+          "minimum": 143.1071230457868,
+          "maximum": 215.56267799496158,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "C_min_delta_second_minus_first": {
+          "n": 192,
+          "mean": -15.669976053951553,
+          "median": -13.894373273641392,
+          "minimum": -40.62636537133744,
+          "maximum": 20.108489731695528,
+          "decreases": 168,
+          "equal": 0,
+          "increases": 24
+        },
+        "survival_first": {
+          "n": 192,
+          "mean": 0.026692708333333332,
+          "median": 0.0234375,
+          "minimum": 0.01171875,
+          "maximum": 0.0625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "survival_second": {
+          "n": 192,
+          "mean": 0.15706380208333334,
+          "median": 0.15234375,
+          "minimum": 0.0390625,
+          "maximum": 0.4140625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "survival_delta_second_minus_first": {
+          "n": 192,
+          "mean": 0.13037109375,
+          "median": 0.123046875,
+          "minimum": 0.015625,
+          "maximum": 0.375,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "ESS_first": {
+          "n": 192,
+          "mean": 1.2627758406290146,
+          "median": 1.0566277493386735,
+          "minimum": 1.0000001694977512,
+          "maximum": 2.2919983841095846,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "ESS_second": {
+          "n": 192,
+          "mean": 1.933365800725116,
+          "median": 1.6618620702072944,
+          "minimum": 1.0028160670490514,
+          "maximum": 7.135214266247109,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "ESS_delta_second_minus_first": {
+          "n": 192,
+          "mean": 0.6705899600961017,
+          "median": 0.649088353915618,
+          "minimum": -1.2078832468565415,
+          "maximum": 5.603888949032822,
+          "decreases": 48,
+          "equal": 0,
+          "increases": 144
+        },
+        "first_action_RMS_first": {
+          "n": 192,
+          "mean": 0.24404424395962732,
+          "median": 0.2366840975180976,
+          "minimum": 0.109162854127004,
+          "maximum": 0.4183206167123879,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "first_action_RMS_second": {
+          "n": 192,
+          "mean": 0.300640399792476,
+          "median": 0.3123665722882314,
+          "minimum": 0.11009424795148658,
+          "maximum": 0.4704539700432356,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "first_action_refinement_delta_RMS": {
+          "n": 192,
+          "mean": 0.21774648763447324,
+          "median": 0.20145064404272323,
+          "minimum": 0.08737053193507803,
+          "maximum": 0.4213261967273904,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "fall_weight_first": {
+          "n": 192,
+          "mean": 7.920581632076267e-05,
+          "median": 3.5136334232577093e-06,
+          "minimum": 1.5527960601962072e-10,
+          "maximum": 0.0005331065408202834,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "fall_weight_second": {
+          "n": 192,
+          "mean": 0.0004195210831546284,
+          "median": 4.277724547160525e-07,
+          "minimum": 1.820250752074474e-11,
+          "maximum": 0.008441317167439738,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        }
+      }
+    },
+    "independent/full_300_control_survivors": {
+      "episodes": 176,
+      "local_walking": 160,
+      "measures": {
+        "C_min_first": {
+          "n": 176,
+          "mean": 190.19103334606973,
+          "median": 191.43878169385897,
+          "minimum": 157.57363667549532,
+          "maximum": 210.93644694021103,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "C_min_second": {
+          "n": 176,
+          "mean": 174.26134440777912,
+          "median": 172.29209935774395,
+          "minimum": 148.75258404677015,
+          "maximum": 215.56267799496158,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "C_min_delta_second_minus_first": {
+          "n": 176,
+          "mean": -15.929688938290646,
+          "median": -15.945206910386759,
+          "minimum": -40.62636537133744,
+          "maximum": 20.108489731695528,
+          "decreases": 152,
+          "equal": 0,
+          "increases": 24
+        },
+        "survival_first": {
+          "n": 176,
+          "mean": 0.026455965909090908,
+          "median": 0.021484375,
+          "minimum": 0.01171875,
+          "maximum": 0.0625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "survival_second": {
+          "n": 176,
+          "mean": 0.16370738636363635,
+          "median": 0.16015625,
+          "minimum": 0.05078125,
+          "maximum": 0.4140625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "survival_delta_second_minus_first": {
+          "n": 176,
+          "mean": 0.13725142045454544,
+          "median": 0.1328125,
+          "minimum": 0.02734375,
+          "maximum": 0.375,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "ESS_first": {
+          "n": 176,
+          "mean": 1.2812423964759072,
+          "median": 1.0556412003052187,
+          "minimum": 1.0000001694977512,
+          "maximum": 2.2919983841095846,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "ESS_second": {
+          "n": 176,
+          "mean": 1.9218993347060063,
+          "median": 1.6351364473336965,
+          "minimum": 1.0028160670490514,
+          "maximum": 7.135214266247109,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "ESS_delta_second_minus_first": {
+          "n": 176,
+          "mean": 0.6406569382300991,
+          "median": 0.5565548453859074,
+          "minimum": -1.2078832468565415,
+          "maximum": 5.603888949032822,
+          "decreases": 48,
+          "equal": 0,
+          "increases": 128
+        },
+        "first_action_RMS_first": {
+          "n": 176,
+          "mean": 0.24533878146860638,
+          "median": 0.2366840975180976,
+          "minimum": 0.109162854127004,
+          "maximum": 0.4183206167123879,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "first_action_RMS_second": {
+          "n": 176,
+          "mean": 0.30328020066210803,
+          "median": 0.3257398268523022,
+          "minimum": 0.11009424795148658,
+          "maximum": 0.4704539700432356,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "first_action_refinement_delta_RMS": {
+          "n": 176,
+          "mean": 0.22355020092569358,
+          "median": 0.21284467346669883,
+          "minimum": 0.08737053193507803,
+          "maximum": 0.4213261967273904,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "fall_weight_first": {
+          "n": 176,
+          "mean": 8.617483168954131e-05,
+          "median": 4.691150083967929e-06,
+          "minimum": 1.1467823086116218e-09,
+          "maximum": 0.0005331065408202834,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        },
+        "fall_weight_second": {
+          "n": 176,
+          "mean": 0.00045764203681909407,
+          "median": 5.039045330083735e-07,
+          "minimum": 2.5946088302599443e-11,
+          "maximum": 0.008441317167439738,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 176
+        }
+      }
+    },
+    "positive/all_completed_attempts": {
+      "episodes": 192,
+      "local_walking": 170,
+      "measures": {
+        "C_min_first": {
+          "n": 192,
+          "mean": 189.44741514498767,
+          "median": 191.43878169385897,
+          "minimum": 155.75630771496162,
+          "maximum": 210.93644694021103,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "C_min_second": {
+          "n": 192,
+          "mean": 174.5027178038052,
+          "median": 172.28590302037532,
+          "minimum": 142.11562133990958,
+          "maximum": 215.59564263716854,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "C_min_delta_second_minus_first": {
+          "n": 192,
+          "mean": -14.944697341182497,
+          "median": -14.598471670272971,
+          "minimum": -40.66125802067137,
+          "maximum": 20.108385412887486,
+          "decreases": 168,
+          "equal": 0,
+          "increases": 24
+        },
+        "survival_first": {
+          "n": 192,
+          "mean": 0.026692708333333332,
+          "median": 0.0234375,
+          "minimum": 0.01171875,
+          "maximum": 0.0625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "survival_second": {
+          "n": 192,
+          "mean": 0.15537516276041666,
+          "median": 0.146484375,
+          "minimum": 0.0390625,
+          "maximum": 0.4140625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "survival_delta_second_minus_first": {
+          "n": 192,
+          "mean": 0.12868245442708334,
+          "median": 0.12109375,
+          "minimum": 0.015625,
+          "maximum": 0.375,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "ESS_first": {
+          "n": 192,
+          "mean": 1.2346539448331517,
+          "median": 1.0520231902833488,
+          "minimum": 1.0000000885591493,
+          "maximum": 2.1325126215308106,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "ESS_second": {
+          "n": 192,
+          "mean": 2.068460553603829,
+          "median": 1.720216009473928,
+          "minimum": 1.002346808548657,
+          "maximum": 6.631722591650488,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "ESS_delta_second_minus_first": {
+          "n": 192,
+          "mean": 0.8338066087706775,
+          "median": 0.600196560463543,
+          "minimum": -1.084841993252278,
+          "maximum": 5.177831366493646,
+          "decreases": 30,
+          "equal": 0,
+          "increases": 162
+        },
+        "first_action_RMS_first": {
+          "n": 192,
+          "mean": 0.24673816158288217,
+          "median": 0.2403728997685438,
+          "minimum": 0.10012443897990701,
+          "maximum": 0.41901123408133484,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "first_action_RMS_second": {
+          "n": 192,
+          "mean": 0.2960749032528435,
+          "median": 0.31121923257621553,
+          "minimum": 0.11034409638390887,
+          "maximum": 0.47302709772160756,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "first_action_refinement_delta_RMS": {
+          "n": 192,
+          "mean": 0.20644775685107186,
+          "median": 0.19069488754718894,
+          "minimum": 0.07994864820799738,
+          "maximum": 0.43658551836967285,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "fall_weight_first": {
+          "n": 192,
+          "mean": 0.00010484579074730335,
+          "median": 3.782242960246136e-06,
+          "minimum": 9.863805181165804e-11,
+          "maximum": 0.0009352700919540332,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        },
+        "fall_weight_second": {
+          "n": 192,
+          "mean": 0.0004035165786595226,
+          "median": 2.6873659315973605e-07,
+          "minimum": 3.3076572919809134e-12,
+          "maximum": 0.00916768630639006,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 192
+        }
+      }
+    },
+    "positive/full_300_control_survivors": {
+      "episodes": 183,
+      "local_walking": 170,
+      "measures": {
+        "C_min_first": {
+          "n": 183,
+          "mean": 189.05514947892684,
+          "median": 191.13778807531483,
+          "minimum": 155.75630771496162,
+          "maximum": 210.93644694021103,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "C_min_second": {
+          "n": 183,
+          "mean": 174.41057604772374,
+          "median": 171.79674662331314,
+          "minimum": 142.11562133990958,
+          "maximum": 215.59564263716854,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "C_min_delta_second_minus_first": {
+          "n": 183,
+          "mean": -14.644573431203112,
+          "median": -14.598414743691677,
+          "minimum": -40.65104143694833,
+          "maximum": 20.108385412887486,
+          "decreases": 160,
+          "equal": 0,
+          "increases": 23
+        },
+        "survival_first": {
+          "n": 183,
+          "mean": 0.027023565573770492,
+          "median": 0.0234375,
+          "minimum": 0.01171875,
+          "maximum": 0.0625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "survival_second": {
+          "n": 183,
+          "mean": 0.1559511612021858,
+          "median": 0.1484375,
+          "minimum": 0.0390625,
+          "maximum": 0.4140625,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "survival_delta_second_minus_first": {
+          "n": 183,
+          "mean": 0.1289275956284153,
+          "median": 0.12109375,
+          "minimum": 0.015625,
+          "maximum": 0.375,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "ESS_first": {
+          "n": 183,
+          "mean": 1.2350824442872086,
+          "median": 1.065547217391673,
+          "minimum": 1.0000000885591493,
+          "maximum": 2.1325126215308106,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "ESS_second": {
+          "n": 183,
+          "mean": 2.0878792082992503,
+          "median": 1.7431216315157612,
+          "minimum": 1.002346808548657,
+          "maximum": 6.631722591650488,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "ESS_delta_second_minus_first": {
+          "n": 183,
+          "mean": 0.8527967640120417,
+          "median": 0.5967167709479584,
+          "minimum": -1.084841993252278,
+          "maximum": 5.177831366493646,
+          "decreases": 28,
+          "equal": 0,
+          "increases": 155
+        },
+        "first_action_RMS_first": {
+          "n": 183,
+          "mean": 0.2445224872054969,
+          "median": 0.23643298414465264,
+          "minimum": 0.10012443897990701,
+          "maximum": 0.41901123408133484,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "first_action_RMS_second": {
+          "n": 183,
+          "mean": 0.29474235643158275,
+          "median": 0.3108294614379854,
+          "minimum": 0.11034409638390887,
+          "maximum": 0.47302709772160756,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "first_action_refinement_delta_RMS": {
+          "n": 183,
+          "mean": 0.20596223563948998,
+          "median": 0.19032871328585296,
+          "minimum": 0.07994864820799738,
+          "maximum": 0.432603044166652,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "fall_weight_first": {
+          "n": 183,
+          "mean": 0.00010042200157449385,
+          "median": 2.2459864698335475e-06,
+          "minimum": 9.863805181165804e-11,
+          "maximum": 0.00086794056307241,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        },
+        "fall_weight_second": {
+          "n": 183,
+          "mean": 0.00038537872545611415,
+          "median": 2.7331385519759903e-07,
+          "minimum": 3.3076572919809134e-12,
+          "maximum": 0.00916768630639006,
+          "decreases": 0,
+          "equal": 0,
+          "increases": 183
+        }
+      }
+    }
+  },
+  "interpretation": [
+    "Each acquisition cold-starts its carried H48 torque plan at exact zero, performs two same-context initial refinements, executes the second update's first action, then shifts once per executed control.",
+    "Pass two uses pass one's full unshifted updated plan, but consumes the next random draw. Its observed changes combine plan refinement and changed samples; they do not isolate a warm-start causal effect.",
+    "The acquisition block always starts at the same eight prepared student contexts. Current standalone evaluation states feed independent scratch-MPPI probes only; neither those queried actions nor those contexts enter the retained acquisition corpus.",
+    "Data retention chooses the latest competent full300-control episode per fixed slot, otherwise retaining old experience. This is not corrective acquisition at newly visited states.",
+    "Repeated independent solves reuse the fixed stream-slot planner seed, so repeated rounds are not independent cold-start replications."
+  ],
+  "minimal_future_test": "One saved complete restart context, one fixed actor/alpha and private RNG snapshot, compare exactly one H48/K256 refinement from zero U versus a predefined valid nonzero carried U, sharing the exact innovations and native runtime; freeze both initial plans and record the full candidate banks and executed continuation. Do not interpret the existing successive-draw two-pass comparison as that test.",
+  "limitations": [
+    "A saved-data design review, not an independent audit or a new controller experiment.",
+    "Candidate cost minima, sample survival and ESS describe sampled banks; they are not executed-policy outcomes.",
+    "Only the bound immutable snapshot roster is included; incomplete and later rounds are not assigned zero outcomes.",
+    "No initial-plan causal contrast or additional teacher exploration was launched."
+  ],
+  "source_bindings": {
+    "src/mppi/mppi.py": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source/src/mppi/mppi.py",
+      "bytes": 19384,
+      "sha256": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99"
+    },
+    "src/gps/mppi_gps/local_coupling_multiround.py": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source/src/gps/mppi_gps/local_coupling_multiround.py",
+      "bytes": 24269,
+      "sha256": "4d161bea91a5b431ad7a7a4ca819605d75098c036186d12c1b5d516fd7e0f375"
+    },
+    "src/gps/mppi_gps/local_coupling_multiround_measurements.py": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source/src/gps/mppi_gps/local_coupling_multiround_measurements.py",
+      "bytes": 13489,
+      "sha256": "64e1fe7ef405d8b4dffd87b8f6542934f454e51538f7df67e11a772624356c53"
+    },
+    "src/gps/mppi_gps/local_coupling_controller.py": {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_local_coupling_multiround_l3_001/source/src/gps/mppi_gps/local_coupling_controller.py",
+      "bytes": 14002,
+      "sha256": "469b04a16930451ad819758cdaeddf7553892a8c93f708c2a48d46a9745fe0a9"
+    }
+  }
+}

@@ -1,0 +1,3439 @@
+{
+  "schema": "saved-loop-design-review-capsule-1",
+  "scope": "Exact saved review outputs; source arrays/checkpoints and experiment evidence remain external. No new audit or experiment.",
+  "original_review_root": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001",
+  "final_config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+    "bytes": 3931,
+    "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+  },
+  "final_external_receipt": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/external_receipt.json",
+    "bytes": 2966,
+    "sha256": "654b0eebfce49833b530065303f001169f7858d6604f3e07fe72dcc6cf5dada3"
+  },
+  "preserved_sources": [
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/admission_reasons.csv",
+        "bytes": 97257,
+        "sha256": "fe4442e2bd75115595d728a3e8f29a15d6f4ce5a58e851bbb8c8bc22be1d8df5"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_reasons.csv",
+        "bytes": 97257,
+        "sha256": "fe4442e2bd75115595d728a3e8f29a15d6f4ce5a58e851bbb8c8bc22be1d8df5"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/admission_reasons.json",
+        "bytes": 289,
+        "sha256": "54a75f30c2a74046e75d68c38bf7286e8cb95d6cdfd0fa95a72e900b248fc896"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_reasons.json",
+        "bytes": 289,
+        "sha256": "54a75f30c2a74046e75d68c38bf7286e8cb95d6cdfd0fa95a72e900b248fc896"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/admission_table.csv",
+        "bytes": 1264,
+        "sha256": "cbab0f8523fe094296d0ee68da6b0b52bc5770384a730e1de947ff551a985eae"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_table.csv",
+        "bytes": 1264,
+        "sha256": "cbab0f8523fe094296d0ee68da6b0b52bc5770384a730e1de947ff551a985eae"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/admission_table.md",
+        "bytes": 825,
+        "sha256": "ef8f0c068a37cdcaf94d0c4b7111db8fbd808adbdfd75853f420111365dacb59"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_table.md",
+        "bytes": 825,
+        "sha256": "ef8f0c068a37cdcaf94d0c4b7111db8fbd808adbdfd75853f420111365dacb59"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/bank_analysis.external.json",
+        "bytes": 443,
+        "sha256": "45c51c33ef0fc8e10a6d7f9fda489d084d6c5c404fbf5b0eba7c6dce6135f4b7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.external.json",
+        "bytes": 443,
+        "sha256": "45c51c33ef0fc8e10a6d7f9fda489d084d6c5c404fbf5b0eba7c6dce6135f4b7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/bank_analysis.py",
+        "bytes": 10995,
+        "sha256": "95e06820ff0457b96a3d30b9a69d78bb52d1d618ffabedb3e0a7c037a46d1ade"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.py",
+        "bytes": 10995,
+        "sha256": "95e06820ff0457b96a3d30b9a69d78bb52d1d618ffabedb3e0a7c037a46d1ade"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/bank_analysis.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/bank_analysis.stdout.log",
+        "bytes": 31704,
+        "sha256": "45870b16ab843bbcc5da45a0f048728d4e2ceaf6340a5cf1ad8ebe2d1ff7be60"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.stdout.log",
+        "bytes": 31704,
+        "sha256": "45870b16ab843bbcc5da45a0f048728d4e2ceaf6340a5cf1ad8ebe2d1ff7be60"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/D_length_regressions.json",
+        "bytes": 6722,
+        "sha256": "ecf9db80ff0b89b609d73da5427b88d1736f7f3ff9331561d42eaad84550e154"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/D_length_regressions.json",
+        "bytes": 6722,
+        "sha256": "ecf9db80ff0b89b609d73da5427b88d1736f7f3ff9331561d42eaad84550e154"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/earlier_slot_costs.csv",
+        "bytes": 702,
+        "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/earlier_slot_costs.csv",
+        "bytes": 702,
+        "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/fit_mse.csv",
+        "bytes": 6054,
+        "sha256": "5bffaf51feca59af15c4516dd073d57f386aca93a1d69b29d0732cc1089d0768"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/fit_mse.csv",
+        "bytes": 6054,
+        "sha256": "5bffaf51feca59af15c4516dd073d57f386aca93a1d69b29d0732cc1089d0768"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/inputs.json",
+        "bytes": 245677,
+        "sha256": "78f510876e111c5f9d91a811a13cc3c16a9a67e7c063a203b303271e4e30f09a"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/inputs.json",
+        "bytes": 245677,
+        "sha256": "78f510876e111c5f9d91a811a13cc3c16a9a67e7c063a203b303271e4e30f09a"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/per_bank.csv",
+        "bytes": 28675380,
+        "sha256": "a87adf71169e8a8e9bd1f038a432a28d296e167c70be01a42a6fbfcebbf4fe62"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/per_bank.csv.gz",
+        "bytes": 5003613,
+        "sha256": "e8ff0035cbb25935066bcfe6851eaa8d496d7f4c60e9b5fd54483b20334cdb99"
+      },
+      "encoding": "gzip",
+      "decoded_sha256": "a87adf71169e8a8e9bd1f038a432a28d296e167c70be01a42a6fbfcebbf4fe62",
+      "decoded_bytes": 28675380
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/per_cell.csv",
+        "bytes": 3004,
+        "sha256": "1431ba4466d50a7e5a21f14523747606419eda9a4ff388bd7ebe7695cb251c8b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/per_cell.csv",
+        "bytes": 3004,
+        "sha256": "1431ba4466d50a7e5a21f14523747606419eda9a4ff388bd7ebe7695cb251c8b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/receipt.json",
+        "bytes": 203,
+        "sha256": "ca672b81f9c77bd1f9ec9bb892ceb8ca34f724ab67eebb124827fa45df3131df"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/receipt.json",
+        "bytes": 203,
+        "sha256": "ca672b81f9c77bd1f9ec9bb892ceb8ca34f724ab67eebb124827fa45df3131df"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/banks_and_fit/summary.json",
+        "bytes": 7985,
+        "sha256": "1aeebbd2503adfe35f2a73819e7cb66e8159ed786a7b33b95a04172878d350c4"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/summary.json",
+        "bytes": 7985,
+        "sha256": "1aeebbd2503adfe35f2a73819e7cb66e8159ed786a7b33b95a04172878d350c4"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/budget_transfer_001.json",
+        "bytes": 413,
+        "sha256": "3e75f56810959286236e04e5649668265deda022ec9023fb2830b0bcd10025cb"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/budget_transfer_001.json",
+        "bytes": 413,
+        "sha256": "3e75f56810959286236e04e5649668265deda022ec9023fb2830b0bcd10025cb"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/accounting.json",
+        "bytes": 5329,
+        "sha256": "98e935f3af96514ca5e10a72d3f5d2d107d820e3792ddd458e4c49847c1e9889"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/accounting.json",
+        "bytes": 5329,
+        "sha256": "98e935f3af96514ca5e10a72d3f5d2d107d820e3792ddd458e4c49847c1e9889"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/budget_transfer.json",
+        "bytes": 854,
+        "sha256": "0e86967d10ac410dcfe9051c9bc20b0f62f76b5ec1bf60b2d1c15e1886065010"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/budget_transfer.json",
+        "bytes": 854,
+        "sha256": "0e86967d10ac410dcfe9051c9bc20b0f62f76b5ec1bf60b2d1c15e1886065010"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/closure_manifest.json",
+        "bytes": 5970,
+        "sha256": "7f1333ec5e0a13a38a0c92c89a35a0c177ac5d9235bde854501cc2e8b29051b7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/closure_manifest.json",
+        "bytes": 5970,
+        "sha256": "7f1333ec5e0a13a38a0c92c89a35a0c177ac5d9235bde854501cc2e8b29051b7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/design_notes.md",
+        "bytes": 1986,
+        "sha256": "3d1c59a8eb9af035d05637cae8351e95d3288450dbab322b42de41ef3ceba537"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/design_notes.md",
+        "bytes": 1986,
+        "sha256": "3d1c59a8eb9af035d05637cae8351e95d3288450dbab322b42de41ef3ceba537"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/episodes.csv",
+        "bytes": 483937,
+        "sha256": "b00f1a44d639d0d8fc209e131e1311f12213d44eca092b9361ed25935f1c4a24"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/episodes.csv",
+        "bytes": 483937,
+        "sha256": "b00f1a44d639d0d8fc209e131e1311f12213d44eca092b9361ed25935f1c4a24"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/failure_001.json",
+        "bytes": 817,
+        "sha256": "b9a05d5c803575e7aa621778bc9772a26f5fc676babd2297eb12e632c1bfa19c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/failure_001.json",
+        "bytes": 817,
+        "sha256": "b9a05d5c803575e7aa621778bc9772a26f5fc676babd2297eb12e632c1bfa19c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/findings.md",
+        "bytes": 2707,
+        "sha256": "3a452eac0e4586a7227e9325ccfe4076230bcc162b8a284377761e6fee2b4f19"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/findings.md",
+        "bytes": 2707,
+        "sha256": "3a452eac0e4586a7227e9325ccfe4076230bcc162b8a284377761e6fee2b4f19"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/inputs.json",
+        "bytes": 510857,
+        "sha256": "4a97a7c521f10befa48b1217b094355650daaf09cbc84cc8a3a6b55c6291c3f1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/inputs.json",
+        "bytes": 510857,
+        "sha256": "4a97a7c521f10befa48b1217b094355650daaf09cbc84cc8a3a6b55c6291c3f1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/measurement_probes.csv",
+        "bytes": 181968,
+        "sha256": "48f4f5b07620b268e27d45269041cca965c41dc1f971acaf2fc6d0fc01016d86"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/measurement_probes.csv",
+        "bytes": 181968,
+        "sha256": "48f4f5b07620b268e27d45269041cca965c41dc1f971acaf2fc6d0fc01016d86"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/missing_probe_anchors.json",
+        "bytes": 923,
+        "sha256": "41579f079c79b7c2441dde2c80c6a0154cedb1eddc19920e6a0590e1c64f3d95"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/missing_probe_anchors.json",
+        "bytes": 923,
+        "sha256": "41579f079c79b7c2441dde2c80c6a0154cedb1eddc19920e6a0590e1c64f3d95"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/prelaunch_failed.stderr.log",
+        "bytes": 458,
+        "sha256": "14d8f2e746d3f1bf6fa3206078587c143eb40089d5d8440bc1f71b6244a5356d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed.stderr.log",
+        "bytes": 458,
+        "sha256": "14d8f2e746d3f1bf6fa3206078587c143eb40089d5d8440bc1f71b6244a5356d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/prelaunch_failed.stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed.stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/prelaunch_failed_launcher.py",
+        "bytes": 2264,
+        "sha256": "a69e1e28dd920024c90ab2a029d8d4478cd4fb1564f75e43c648ed690a2b0247"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed_launcher.py",
+        "bytes": 2264,
+        "sha256": "a69e1e28dd920024c90ab2a029d8d4478cd4fb1564f75e43c648ed690a2b0247"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/prelaunch_failed_resource_receipt.json",
+        "bytes": 706,
+        "sha256": "d7de87edb2bdb59b9c07c4b0d4517aeace8d1603256d6109f88592badd7e7d21"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed_resource_receipt.json",
+        "bytes": 706,
+        "sha256": "d7de87edb2bdb59b9c07c4b0d4517aeace8d1603256d6109f88592badd7e7d21"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/refinement_arrays.npz",
+        "bytes": 1707665,
+        "sha256": "244345e501a400f781da7d425978710785e5e0726e69434da4b3791eca6825b4"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/refinement_arrays.npz",
+        "bytes": 1707665,
+        "sha256": "244345e501a400f781da7d425978710785e5e0726e69434da4b3791eca6825b4"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/rerun.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/rerun.stdout.log",
+        "bytes": 100,
+        "sha256": "e2b0c00b3e051e8e26cf6e84e88334f58089a5ebdfc835538dd69ce405bbd1b0"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun.stdout.log",
+        "bytes": 100,
+        "sha256": "e2b0c00b3e051e8e26cf6e84e88334f58089a5ebdfc835538dd69ce405bbd1b0"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/rerun_launcher.py",
+        "bytes": 2426,
+        "sha256": "843de69de568d940511407fedc2673fec829e30568c47fac2e95b8a4b17b5ba7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun_launcher.py",
+        "bytes": 2426,
+        "sha256": "843de69de568d940511407fedc2673fec829e30568c47fac2e95b8a4b17b5ba7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/rerun_resource_receipt.json",
+        "bytes": 691,
+        "sha256": "fc6c10ca7046ed3bafa563d6a72d0330c2badad99070d2531a9a32afc47b2485"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun_resource_receipt.json",
+        "bytes": 691,
+        "sha256": "fc6c10ca7046ed3bafa563d6a72d0330c2badad99070d2531a9a32afc47b2485"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/result.json",
+        "bytes": 21297,
+        "sha256": "c428b62ba41740bbb494334958c63e9d90a5442fe8623ca96104c2c5f38ccbd7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/result.json",
+        "bytes": 21297,
+        "sha256": "c428b62ba41740bbb494334958c63e9d90a5442fe8623ca96104c2c5f38ccbd7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/review.failed_001.py",
+        "bytes": 18118,
+        "sha256": "ac24c63b432ad0ad3749b2a01e53679383abaac2772751b0bb0fcaefdfcfc90c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/review.failed_001.py",
+        "bytes": 18118,
+        "sha256": "ac24c63b432ad0ad3749b2a01e53679383abaac2772751b0bb0fcaefdfcfc90c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/cold_start/review.py",
+        "bytes": 18382,
+        "sha256": "74449ddbeb82e1a0b86e78394c5e639cbd204f99da495361fd223795578feacc"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/review.py",
+        "bytes": 18382,
+        "sha256": "74449ddbeb82e1a0b86e78394c5e639cbd204f99da495361fd223795578feacc"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/config.json",
+        "bytes": 3429,
+        "sha256": "e58ddd39e5504bd1b87dbbe3092ee92a8101ca5816e9bfeff21a73e2a334d340"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/config.json",
+        "bytes": 3429,
+        "sha256": "e58ddd39e5504bd1b87dbbe3092ee92a8101ca5816e9bfeff21a73e2a334d340"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_001/failure.json",
+        "bytes": 512,
+        "sha256": "29ef25a9d24f804dfa9b3d3d62efcc1d55694da227dc990dde895b217f6b529d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_001/failure.json",
+        "bytes": 512,
+        "sha256": "29ef25a9d24f804dfa9b3d3d62efcc1d55694da227dc990dde895b217f6b529d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_001/normalization_used.npz",
+        "bytes": 636,
+        "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_001/normalization_used.npz",
+        "bytes": 636,
+        "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_001/restart_provenance.json",
+        "bytes": 9122,
+        "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_001/restart_provenance.json",
+        "bytes": 9122,
+        "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/accounting.json",
+        "bytes": 297,
+        "sha256": "7ec571eb6c107b2f79c2f21142705f05ebd9eac27799f108ec0e7b4033ff0316"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/accounting.json",
+        "bytes": 297,
+        "sha256": "7ec571eb6c107b2f79c2f21142705f05ebd9eac27799f108ec0e7b4033ff0316"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/admissions.csv",
+        "bytes": 92932,
+        "sha256": "3d9bc0e8152c14ce44afc25c6015bdde093780bcd66b3eb26f3aebdcaf9064dc"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/admissions.csv",
+        "bytes": 92932,
+        "sha256": "3d9bc0e8152c14ce44afc25c6015bdde093780bcd66b3eb26f3aebdcaf9064dc"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/corpus_novelty.csv",
+        "bytes": 13189,
+        "sha256": "6f1e4f7ccacfbe930f86dd92aaa8cc9b72a061d51316b396ca1ad6c80f388303"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/corpus_novelty.csv",
+        "bytes": 13189,
+        "sha256": "6f1e4f7ccacfbe930f86dd92aaa8cc9b72a061d51316b396ca1ad6c80f388303"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/dataset_rosters.json",
+        "bytes": 20825,
+        "sha256": "3fe718db7e945d77b41dccb83f8b83774c010fa38e052e21d2ff4a29135697b5"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/dataset_rosters.json",
+        "bytes": 20825,
+        "sha256": "3fe718db7e945d77b41dccb83f8b83774c010fa38e052e21d2ff4a29135697b5"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/fall_support.csv",
+        "bytes": 49684,
+        "sha256": "4f5470ade96ce92e57171616d4043970579c2be205ddede061581e96aa051fdf"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/fall_support.csv",
+        "bytes": 49684,
+        "sha256": "4f5470ade96ce92e57171616d4043970579c2be205ddede061581e96aa051fdf"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/normalization_used.npz",
+        "bytes": 636,
+        "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/normalization_used.npz",
+        "bytes": 636,
+        "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/pending_rounds.json",
+        "bytes": 1281,
+        "sha256": "1c91dee0e5e5d5e95ba53b5f3df2460a4814bf7c72b1b3105ffbd8b6d9b70c5b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/pending_rounds.json",
+        "bytes": 1281,
+        "sha256": "1c91dee0e5e5d5e95ba53b5f3df2460a4814bf7c72b1b3105ffbd8b6d9b70c5b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/restart_provenance.json",
+        "bytes": 9122,
+        "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/restart_provenance.json",
+        "bytes": 9122,
+        "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/result.json",
+        "bytes": 10468,
+        "sha256": "42f15d390741719e8504255ef679d02a02baa8a90200ebd7eadb5097555fec39"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/result.json",
+        "bytes": 10468,
+        "sha256": "42f15d390741719e8504255ef679d02a02baa8a90200ebd7eadb5097555fec39"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/source_bindings.json",
+        "bytes": 186142,
+        "sha256": "92521fb86f00466f833f2de3acf83ea77153c2810c2224c8042a5e88663cf235"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/source_bindings.json",
+        "bytes": 186142,
+        "sha256": "92521fb86f00466f833f2de3acf83ea77153c2810c2224c8042a5e88663cf235"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_s0_independent.npz",
+        "bytes": 5753,
+        "sha256": "47681a52b75337c25ee77833f4d82fcc8d05e78ac665e19294ccd53afac2afe2"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s0_independent.npz",
+        "bytes": 5753,
+        "sha256": "47681a52b75337c25ee77833f4d82fcc8d05e78ac665e19294ccd53afac2afe2"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_s0_positive.npz",
+        "bytes": 5633,
+        "sha256": "0555d40a85e35fb63b4e2bbdaad94ba99148c787bdf536e1e7bbe4e949de5788"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s0_positive.npz",
+        "bytes": 5633,
+        "sha256": "0555d40a85e35fb63b4e2bbdaad94ba99148c787bdf536e1e7bbe4e949de5788"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_s1_independent.npz",
+        "bytes": 5691,
+        "sha256": "3b803d5e704d32d0e3854b1255c552788f475fcfdedab24dcd84c358c8a64487"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s1_independent.npz",
+        "bytes": 5691,
+        "sha256": "3b803d5e704d32d0e3854b1255c552788f475fcfdedab24dcd84c358c8a64487"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_s1_positive.npz",
+        "bytes": 5768,
+        "sha256": "7ceea367e450efaa5429a54c19fb066873ce01dbbc966251180c13de6af76519"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s1_positive.npz",
+        "bytes": 5768,
+        "sha256": "7ceea367e450efaa5429a54c19fb066873ce01dbbc966251180c13de6af76519"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_s2_independent.npz",
+        "bytes": 5733,
+        "sha256": "660032670bedf2a07f4439b1331350e923377aca3b398b82da6c779503d830a8"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s2_independent.npz",
+        "bytes": 5733,
+        "sha256": "660032670bedf2a07f4439b1331350e923377aca3b398b82da6c779503d830a8"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_s2_positive.npz",
+        "bytes": 5780,
+        "sha256": "7fdf4defff3cf7b3c29708af18ed122d971cf7c82a73e52312f5b7d976677331"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s2_positive.npz",
+        "bytes": 5780,
+        "sha256": "7fdf4defff3cf7b3c29708af18ed122d971cf7c82a73e52312f5b7d976677331"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/result_002/support_summary.json",
+        "bytes": 6221,
+        "sha256": "152d1e9a4a269b7e02ceff07f35a4665ea074746d03d4109e8af13460add6141"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_summary.json",
+        "bytes": 6221,
+        "sha256": "152d1e9a4a269b7e02ceff07f35a4665ea074746d03d4109e8af13460add6141"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/source_001.py",
+        "bytes": 20503,
+        "sha256": "3f34a676a76646c78f0f47b0462d4f38f9a67d7532768606c65affb0b3172dd0"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/source_001.py",
+        "bytes": 20503,
+        "sha256": "3f34a676a76646c78f0f47b0462d4f38f9a67d7532768606c65affb0b3172dd0"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/source_002.py",
+        "bytes": 20895,
+        "sha256": "bb65f2756840aaa34e044cbad3b9352245807f008d83a9ba5e83e9dcc61d8268"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/source_002.py",
+        "bytes": 20895,
+        "sha256": "bb65f2756840aaa34e044cbad3b9352245807f008d83a9ba5e83e9dcc61d8268"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/contexts_admission/summary_001.md",
+        "bytes": 3757,
+        "sha256": "5d49ffab5093bd78511480cf7b5e2b3a4ba28bf5c81cc6950d859fa2d0a26a5b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/summary_001.md",
+        "bytes": 3757,
+        "sha256": "5d49ffab5093bd78511480cf7b5e2b3a4ba28bf5c81cc6950d859fa2d0a26a5b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/bands.external.json",
+        "bytes": 362,
+        "sha256": "cef6874f5ee0d15dbe798657ecccb50c39814d5c5b8eac82dc363df1b9c7df5b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bands.external.json",
+        "bytes": 362,
+        "sha256": "cef6874f5ee0d15dbe798657ecccb50c39814d5c5b8eac82dc363df1b9c7df5b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/bands.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bands.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/bands.stdout.log",
+        "bytes": 1439,
+        "sha256": "8140d6ae888d894ab8ecde5ce32f3302306608c40a7789194ae7c7d2cd7046bd"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bands.stdout.log",
+        "bytes": 1439,
+        "sha256": "8140d6ae888d894ab8ecde5ce32f3302306608c40a7789194ae7c7d2cd7046bd"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/bank_analysis.py",
+        "bytes": 10995,
+        "sha256": "df9235fe51b2c3afca5d348e0e75d16ae34fd2e4327f4413b3bf67df64963ff2"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bank_analysis.py",
+        "bytes": 10995,
+        "sha256": "df9235fe51b2c3afca5d348e0e75d16ae34fd2e4327f4413b3bf67df64963ff2"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks.external.json",
+        "bytes": 342,
+        "sha256": "8160cc87894419516e8b42bdf0c99b36d4f325d55ba61d10ab1921b17891ccf9"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks.external.json",
+        "bytes": 342,
+        "sha256": "8160cc87894419516e8b42bdf0c99b36d4f325d55ba61d10ab1921b17891ccf9"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks.stdout.log",
+        "bytes": 47716,
+        "sha256": "4d3c6f3ba3a1a6113c8e4b7d7f8491ef54dbd788d75f868d0cfa839e819ef1d4"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks.stdout.log",
+        "bytes": 47716,
+        "sha256": "4d3c6f3ba3a1a6113c8e4b7d7f8491ef54dbd788d75f868d0cfa839e819ef1d4"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/D_length_regressions.json",
+        "bytes": 9883,
+        "sha256": "76bc0076edab79b676cb8a9145c888b2eb5bcb55d3e65797ea9c1716555f696d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/D_length_regressions.json",
+        "bytes": 9883,
+        "sha256": "76bc0076edab79b676cb8a9145c888b2eb5bcb55d3e65797ea9c1716555f696d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/earlier_slot_costs.csv",
+        "bytes": 702,
+        "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/earlier_slot_costs.csv",
+        "bytes": 702,
+        "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/fit_mse.csv",
+        "bytes": 9008,
+        "sha256": "c01dba115ecb1ae61b80c91a99da740a3ab6a17cff0d5fdfa50506f3c5797cae"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/fit_mse.csv",
+        "bytes": 9008,
+        "sha256": "c01dba115ecb1ae61b80c91a99da740a3ab6a17cff0d5fdfa50506f3c5797cae"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/inputs.json",
+        "bytes": 361821,
+        "sha256": "f9969e210ce2c4c3dc4fb6498c2b41f7cacef149267047db208aebaa05c60ca2"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/inputs.json",
+        "bytes": 361821,
+        "sha256": "f9969e210ce2c4c3dc4fb6498c2b41f7cacef149267047db208aebaa05c60ca2"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/per_bank.csv",
+        "bytes": 43070859,
+        "sha256": "872d104435179a396fbcb62abae9adb2921a1899b7e4919dda8e08ad9d8c1fc8"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/per_bank.csv.gz",
+        "bytes": 7505496,
+        "sha256": "04c44046048ca71cbcc298890ab6f62fc97346b749e749700070737666fbfebb"
+      },
+      "encoding": "gzip",
+      "decoded_sha256": "872d104435179a396fbcb62abae9adb2921a1899b7e4919dda8e08ad9d8c1fc8",
+      "decoded_bytes": 43070859
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/per_cell.csv",
+        "bytes": 4416,
+        "sha256": "1adb289aba5d96f7656e5fcca679b8381b7b23ce7033334fac9600c74c775fe1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/per_cell.csv",
+        "bytes": 4416,
+        "sha256": "1adb289aba5d96f7656e5fcca679b8381b7b23ce7033334fac9600c74c775fe1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/receipt.json",
+        "bytes": 213,
+        "sha256": "979e586969fd8de358de51d80af3a4ec669c1ad90adfd693e5751b37cb5d0847"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/receipt.json",
+        "bytes": 213,
+        "sha256": "979e586969fd8de358de51d80af3a4ec669c1ad90adfd693e5751b37cb5d0847"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/summary.json",
+        "bytes": 11371,
+        "sha256": "76f16653c5ef03400893d5788008a735c50c22fe93571b1d30159e08d4996cee"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/summary.json",
+        "bytes": 11371,
+        "sha256": "76f16653c5ef03400893d5788008a735c50c22fe93571b1d30159e08d4996cee"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold.external.json",
+        "bytes": 527,
+        "sha256": "72e15db13cbb4ce471bdfe72196e39d1db96d8da165849310b67609357ebe010"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold.external.json",
+        "bytes": 527,
+        "sha256": "72e15db13cbb4ce471bdfe72196e39d1db96d8da165849310b67609357ebe010"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold.stdout.log",
+        "bytes": 100,
+        "sha256": "cb1b3a7af344564a2e918df6ea4658c0cdcc63c02307e8b730b4f19aaee9fe83"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold.stdout.log",
+        "bytes": 100,
+        "sha256": "cb1b3a7af344564a2e918df6ea4658c0cdcc63c02307e8b730b4f19aaee9fe83"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/accounting.json",
+        "bytes": 2533,
+        "sha256": "9ed9fc76548272ec2ba7d3b0d2aabe05b00d4ac0aaf62435bbc82c55032c093b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/accounting.json",
+        "bytes": 2533,
+        "sha256": "9ed9fc76548272ec2ba7d3b0d2aabe05b00d4ac0aaf62435bbc82c55032c093b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/episodes.csv",
+        "bytes": 725681,
+        "sha256": "cab117639ce85b7ef8f31de46ef5fc4360bb85e7ecdc3e87cd1701e6bcf78eb6"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/episodes.csv",
+        "bytes": 725681,
+        "sha256": "cab117639ce85b7ef8f31de46ef5fc4360bb85e7ecdc3e87cd1701e6bcf78eb6"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/inputs.json",
+        "bytes": 754372,
+        "sha256": "b8e8b9f117acb1e04b9323ee72e3e1ca2093acb962c1a4569b9ef1ae1e502925"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/inputs.json",
+        "bytes": 754372,
+        "sha256": "b8e8b9f117acb1e04b9323ee72e3e1ca2093acb962c1a4569b9ef1ae1e502925"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/measurement_probes.csv",
+        "bytes": 254780,
+        "sha256": "825bae21e023775d6b5354ac6b64dd6c63321fd8345cfddf0cec2f62a69022cd"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/measurement_probes.csv",
+        "bytes": 254780,
+        "sha256": "825bae21e023775d6b5354ac6b64dd6c63321fd8345cfddf0cec2f62a69022cd"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/missing_probe_anchors.json",
+        "bytes": 2307,
+        "sha256": "ff4890b52188ad5520d2e93450ec5de7c714fb409bebc399af2eccf39e1e0a95"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/missing_probe_anchors.json",
+        "bytes": 2307,
+        "sha256": "ff4890b52188ad5520d2e93450ec5de7c714fb409bebc399af2eccf39e1e0a95"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/refinement_arrays.npz",
+        "bytes": 2558844,
+        "sha256": "bef2a9221f00c05f9ae9e49e67d6e3a3c6354450f6f5c127c9532bcc9fb86cb2"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/refinement_arrays.npz",
+        "bytes": 2558844,
+        "sha256": "bef2a9221f00c05f9ae9e49e67d6e3a3c6354450f6f5c127c9532bcc9fb86cb2"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/result.json",
+        "bytes": 21337,
+        "sha256": "a40799526f1a3dba8ce066433356a7fd90bef8111245352b36561e13a4ce0f9c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/result.json",
+        "bytes": 21337,
+        "sha256": "a40799526f1a3dba8ce066433356a7fd90bef8111245352b36561e13a4ce0f9c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/cold_start/review.py",
+        "bytes": 18382,
+        "sha256": "74449ddbeb82e1a0b86e78394c5e639cbd204f99da495361fd223795578feacc"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/review.py",
+        "bytes": 18382,
+        "sha256": "74449ddbeb82e1a0b86e78394c5e639cbd204f99da495361fd223795578feacc"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/config.json",
+        "bytes": 3931,
+        "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/config.json",
+        "bytes": 3931,
+        "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts.external.json",
+        "bytes": 648,
+        "sha256": "8a35288630f324117120b93ac98b87ac4044fbef919984e25220877898c0e1bd"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.external.json",
+        "bytes": 648,
+        "sha256": "8a35288630f324117120b93ac98b87ac4044fbef919984e25220877898c0e1bd"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts.py",
+        "bytes": 20947,
+        "sha256": "8252561258054c01d9ed05837a43db12e3a6d129081b14503b3c54efab274de3"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.py",
+        "bytes": 20947,
+        "sha256": "8252561258054c01d9ed05837a43db12e3a6d129081b14503b3c54efab274de3"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts.stdout.log",
+        "bytes": 896,
+        "sha256": "49a93d8da4dce5470e87d73e2d703dab484f92b15a6a7e3c7fd5b8152dd6366e"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.stdout.log",
+        "bytes": 896,
+        "sha256": "49a93d8da4dce5470e87d73e2d703dab484f92b15a6a7e3c7fd5b8152dd6366e"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/accounting.json",
+        "bytes": 297,
+        "sha256": "be033e72108ce0dbc34fd2d54398987bc6757bde7c78234b2f888b6c442a49b0"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/accounting.json",
+        "bytes": 297,
+        "sha256": "be033e72108ce0dbc34fd2d54398987bc6757bde7c78234b2f888b6c442a49b0"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/admissions.csv",
+        "bytes": 139302,
+        "sha256": "516f037a9abd7b18ae4f352de241f86c73a5a978e7c99525fd0159fdb04fcd88"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/admissions.csv",
+        "bytes": 139302,
+        "sha256": "516f037a9abd7b18ae4f352de241f86c73a5a978e7c99525fd0159fdb04fcd88"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/corpus_novelty.csv",
+        "bytes": 19581,
+        "sha256": "d7dffb718add3f88561c1dd3c24c6f831e5bbb8e0955db3b463d805bf4230025"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/corpus_novelty.csv",
+        "bytes": 19581,
+        "sha256": "d7dffb718add3f88561c1dd3c24c6f831e5bbb8e0955db3b463d805bf4230025"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/dataset_rosters.json",
+        "bytes": 26457,
+        "sha256": "221341d350b565d83a76de4fe3b9956507ae166918a12c1c325be02dd708e9a7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/dataset_rosters.json",
+        "bytes": 26457,
+        "sha256": "221341d350b565d83a76de4fe3b9956507ae166918a12c1c325be02dd708e9a7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/fall_support.csv",
+        "bytes": 99049,
+        "sha256": "d8a4edd0e26234be78d2f67f381b8c49d52b4cca54c2751b6d00f1e140cac2ee"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/fall_support.csv",
+        "bytes": 99049,
+        "sha256": "d8a4edd0e26234be78d2f67f381b8c49d52b4cca54c2751b6d00f1e140cac2ee"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/normalization_used.npz",
+        "bytes": 636,
+        "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/normalization_used.npz",
+        "bytes": 636,
+        "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/pending_rounds.json",
+        "bytes": 1197,
+        "sha256": "46cbaa56d2f71fa6fa6cba8b3c38280ebad10f619768e00628037529967d79fb"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/pending_rounds.json",
+        "bytes": 1197,
+        "sha256": "46cbaa56d2f71fa6fa6cba8b3c38280ebad10f619768e00628037529967d79fb"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/restart_provenance.json",
+        "bytes": 9122,
+        "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/restart_provenance.json",
+        "bytes": 9122,
+        "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/result.json",
+        "bytes": 11000,
+        "sha256": "d8aa70420077f53ab1a57a7802ce40dcfa9c5157ada7ae8c9f32e9ac3ed4cd3c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/result.json",
+        "bytes": 11000,
+        "sha256": "d8aa70420077f53ab1a57a7802ce40dcfa9c5157ada7ae8c9f32e9ac3ed4cd3c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/source_bindings.json",
+        "bytes": 300834,
+        "sha256": "d666278d1f02e82b3ec599dd8f22b1526d1461cc66303bd4da2a0a86bd62e4ef"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/source_bindings.json",
+        "bytes": 300834,
+        "sha256": "d666278d1f02e82b3ec599dd8f22b1526d1461cc66303bd4da2a0a86bd62e4ef"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_s0_independent.npz",
+        "bytes": 10129,
+        "sha256": "ffc83f2a6ef960d4c6eaba1206b6ef1b0e8204a30179dfd2477096f1608c5ff1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s0_independent.npz",
+        "bytes": 10129,
+        "sha256": "ffc83f2a6ef960d4c6eaba1206b6ef1b0e8204a30179dfd2477096f1608c5ff1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_s0_positive.npz",
+        "bytes": 10083,
+        "sha256": "20e11af74e12a944c3f4240d9f0b963111379b6a1187db6e40b4e8197291c239"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s0_positive.npz",
+        "bytes": 10083,
+        "sha256": "20e11af74e12a944c3f4240d9f0b963111379b6a1187db6e40b4e8197291c239"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_s1_independent.npz",
+        "bytes": 10002,
+        "sha256": "e1cf8982320b576dd06073c68d602d44fa72c0b015faabd414538914aa25c4e8"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s1_independent.npz",
+        "bytes": 10002,
+        "sha256": "e1cf8982320b576dd06073c68d602d44fa72c0b015faabd414538914aa25c4e8"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_s1_positive.npz",
+        "bytes": 10387,
+        "sha256": "ccefcd105cd98217f38d0bab21351fc5a5019f16aa33da28323b17a34312243d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s1_positive.npz",
+        "bytes": 10387,
+        "sha256": "ccefcd105cd98217f38d0bab21351fc5a5019f16aa33da28323b17a34312243d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_s2_independent.npz",
+        "bytes": 10127,
+        "sha256": "39a25ad30d4040768e9794059a7d5ab22fa953929546f674c5b0092a0cba5b0c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s2_independent.npz",
+        "bytes": 10127,
+        "sha256": "39a25ad30d4040768e9794059a7d5ab22fa953929546f674c5b0092a0cba5b0c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_s2_positive.npz",
+        "bytes": 10133,
+        "sha256": "bcae8faa253dd69f42301baf2f95e0f20a6716099829ddad70102a6b9c10bd9f"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s2_positive.npz",
+        "bytes": 10133,
+        "sha256": "bcae8faa253dd69f42301baf2f95e0f20a6716099829ddad70102a6b9c10bd9f"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/contexts_admission/support_summary.json",
+        "bytes": 6221,
+        "sha256": "f67b0b411b89991252b626b602044f7a6d8c725de4ecd111a39f3c2d713ff2e3"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_summary.json",
+        "bytes": 6221,
+        "sha256": "f67b0b411b89991252b626b602044f7a6d8c725de4ecd111a39f3c2d713ff2e3"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/external_receipt.json",
+        "bytes": 2966,
+        "sha256": "654b0eebfce49833b530065303f001169f7858d6604f3e07fe72dcc6cf5dada3"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/external_receipt.json",
+        "bytes": 2966,
+        "sha256": "654b0eebfce49833b530065303f001169f7858d6604f3e07fe72dcc6cf5dada3"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/action_spectrum.original.py",
+        "bytes": 10704,
+        "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/action_spectrum.original.py",
+        "bytes": 10704,
+        "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/adapter.py",
+        "bytes": 14607,
+        "sha256": "a86ff65b54b431efc24afd28883324f1b22bf764459b2d556771d02a21bb1d6c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/adapter.py",
+        "bytes": 14607,
+        "sha256": "a86ff65b54b431efc24afd28883324f1b22bf764459b2d556771d02a21bb1d6c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/analysis_config.json",
+        "bytes": 2926,
+        "sha256": "5081bb4d7bacae67a8d2b301b3674b5ccb89f5de8d4141d6a74c029ce240203e"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/analysis_config.json",
+        "bytes": 2926,
+        "sha256": "5081bb4d7bacae67a8d2b301b3674b5ccb89f5de8d4141d6a74c029ce240203e"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_0a7f091d0686d8b141f997cd928ed435c7b91ceb75c81aa67d32818a0f9d6349.json",
+        "bytes": 36409,
+        "sha256": "2c4ce167a044702d2a14616bc69cf1bdf9efbf6ccab5939e602c8e782f5dea95"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_0a7f091d0686d8b141f997cd928ed435c7b91ceb75c81aa67d32818a0f9d6349.json",
+        "bytes": 36409,
+        "sha256": "2c4ce167a044702d2a14616bc69cf1bdf9efbf6ccab5939e602c8e782f5dea95"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_10bd084220812338965abd5530d23a071a64620902fe28449e6869eaa784ac4f.json",
+        "bytes": 36464,
+        "sha256": "06ae02b96a6f43b0f2d3f1f77d4a6455a16dd599d64650cbb94646430b31a72b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_10bd084220812338965abd5530d23a071a64620902fe28449e6869eaa784ac4f.json",
+        "bytes": 36464,
+        "sha256": "06ae02b96a6f43b0f2d3f1f77d4a6455a16dd599d64650cbb94646430b31a72b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_124c912a637d66335ccbbc9c58946ccd85af6cc30bed876ff41401d46270c53c.json",
+        "bytes": 36583,
+        "sha256": "accd337c9b1d8df079ca4cc805527b831a6f00b38e03316ea14b6f8514efae03"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_124c912a637d66335ccbbc9c58946ccd85af6cc30bed876ff41401d46270c53c.json",
+        "bytes": 36583,
+        "sha256": "accd337c9b1d8df079ca4cc805527b831a6f00b38e03316ea14b6f8514efae03"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_188f967a17cfc678455eafdda064b3d9d2d2052da4bbc885cdd2d1c1e060732e.json",
+        "bytes": 36580,
+        "sha256": "97d5a07e29a4a6aecdb861bdad945a675287af6c86782ba49ef7cc59b75d6e81"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_188f967a17cfc678455eafdda064b3d9d2d2052da4bbc885cdd2d1c1e060732e.json",
+        "bytes": 36580,
+        "sha256": "97d5a07e29a4a6aecdb861bdad945a675287af6c86782ba49ef7cc59b75d6e81"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_1937efaeac00868bf80dc491bb7a55351d1ff9f09d8291f699948c1a4341dc27.json",
+        "bytes": 36423,
+        "sha256": "dd77a6a479e08267b2794d89c78b6b65ba31fbd3862ae815d127c6a2a23fcc21"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_1937efaeac00868bf80dc491bb7a55351d1ff9f09d8291f699948c1a4341dc27.json",
+        "bytes": 36423,
+        "sha256": "dd77a6a479e08267b2794d89c78b6b65ba31fbd3862ae815d127c6a2a23fcc21"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_2326f1d2fc0dd4e8216eb3b429061581bd81b42570afc3447cb1c47669ec4114.json",
+        "bytes": 36701,
+        "sha256": "da4ea42a37d2ca518f9fbb1987a22a0f609e12d77178108a293efd8c6e22c018"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_2326f1d2fc0dd4e8216eb3b429061581bd81b42570afc3447cb1c47669ec4114.json",
+        "bytes": 36701,
+        "sha256": "da4ea42a37d2ca518f9fbb1987a22a0f609e12d77178108a293efd8c6e22c018"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_2d122ba69b69d4a46ef06c4a6b3bebec2ceb0ea0ae8191830d9568d51015599a.json",
+        "bytes": 36614,
+        "sha256": "6a553f16ce909284b970a0add0dc3ea8c8ee017e0a49fe144feb61f2c09ffd75"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_2d122ba69b69d4a46ef06c4a6b3bebec2ceb0ea0ae8191830d9568d51015599a.json",
+        "bytes": 36614,
+        "sha256": "6a553f16ce909284b970a0add0dc3ea8c8ee017e0a49fe144feb61f2c09ffd75"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_2f1e5f46445dcc3f544abf78f088bca13511e435f929154cbe349ba74483b421.json",
+        "bytes": 36324,
+        "sha256": "2c38d0a87002fbf490e80e42bb79d8057c045d2bd7abd7994997ad8777f7c37d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_2f1e5f46445dcc3f544abf78f088bca13511e435f929154cbe349ba74483b421.json",
+        "bytes": 36324,
+        "sha256": "2c38d0a87002fbf490e80e42bb79d8057c045d2bd7abd7994997ad8777f7c37d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_41f82d264d46c24c4482bcbe7d2fa45039d86481fa68f0b456bec7c53fe5c373.json",
+        "bytes": 36588,
+        "sha256": "99e8cff4efccc572349cf7d5925c7b6b8bf9f849bce755b3cded40a2d4dacc94"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_41f82d264d46c24c4482bcbe7d2fa45039d86481fa68f0b456bec7c53fe5c373.json",
+        "bytes": 36588,
+        "sha256": "99e8cff4efccc572349cf7d5925c7b6b8bf9f849bce755b3cded40a2d4dacc94"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_4731321bec2b52d2b39b79f4387d56f3636b82ca689169d95982e1f4441202aa.json",
+        "bytes": 36477,
+        "sha256": "b375aeceef689c0fa2cf18a7da702a9f1e38db62f1cfe4813b8a6185c874ae23"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_4731321bec2b52d2b39b79f4387d56f3636b82ca689169d95982e1f4441202aa.json",
+        "bytes": 36477,
+        "sha256": "b375aeceef689c0fa2cf18a7da702a9f1e38db62f1cfe4813b8a6185c874ae23"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_57e0c3d994cd5e5972e5ed8fd91abf8f682915d43eeccf30fd8211297760a89b.json",
+        "bytes": 36646,
+        "sha256": "0845317dfb712b2504500be2c05b7d5fffe74b18818234094b7bed05c57edca7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_57e0c3d994cd5e5972e5ed8fd91abf8f682915d43eeccf30fd8211297760a89b.json",
+        "bytes": 36646,
+        "sha256": "0845317dfb712b2504500be2c05b7d5fffe74b18818234094b7bed05c57edca7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_5d9d3bfdf4582a97e8f243fd152ec33b8920b0d055f0ae29cff32f47343d2a88.json",
+        "bytes": 36434,
+        "sha256": "fb8021eff523261b4b07cf04bd1caaea0ef1a7b2968e22375ef82ad7314a3f3d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_5d9d3bfdf4582a97e8f243fd152ec33b8920b0d055f0ae29cff32f47343d2a88.json",
+        "bytes": 36434,
+        "sha256": "fb8021eff523261b4b07cf04bd1caaea0ef1a7b2968e22375ef82ad7314a3f3d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_5db12cb7ac0ee66d2c167dd02b97e9266503e1609ae23b777705d43414272be0.json",
+        "bytes": 36275,
+        "sha256": "b867b498b09f095c545b791dd8037ce345e691b981d1009691f1e3a1728c3dd6"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_5db12cb7ac0ee66d2c167dd02b97e9266503e1609ae23b777705d43414272be0.json",
+        "bytes": 36275,
+        "sha256": "b867b498b09f095c545b791dd8037ce345e691b981d1009691f1e3a1728c3dd6"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_6061d63519a7a2aa8b7dae9cc935367862028d74baf3eb9af205ddb91ff2140d.json",
+        "bytes": 36626,
+        "sha256": "9320d8bf7b22e22682e9397e2d51ad82862f73df0012983258546bd7e39af5e4"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_6061d63519a7a2aa8b7dae9cc935367862028d74baf3eb9af205ddb91ff2140d.json",
+        "bytes": 36626,
+        "sha256": "9320d8bf7b22e22682e9397e2d51ad82862f73df0012983258546bd7e39af5e4"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_64a4f0ee400fea213b116b37e98414a98503bf2b715cddb60f058b49657e0b9b.json",
+        "bytes": 36611,
+        "sha256": "dc2127e33679d412a73e1c9415b4688f9edf9451304e3fdd1a2a88e609440231"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_64a4f0ee400fea213b116b37e98414a98503bf2b715cddb60f058b49657e0b9b.json",
+        "bytes": 36611,
+        "sha256": "dc2127e33679d412a73e1c9415b4688f9edf9451304e3fdd1a2a88e609440231"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_89953f7677ac1b1f30066de06de05a7c7d2d68a8a1101132927418792844262f.json",
+        "bytes": 36651,
+        "sha256": "b07659ad3c92ef71016c9b5d19b92bedfc08e9bea144abb804f0bc65320933e7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_89953f7677ac1b1f30066de06de05a7c7d2d68a8a1101132927418792844262f.json",
+        "bytes": 36651,
+        "sha256": "b07659ad3c92ef71016c9b5d19b92bedfc08e9bea144abb804f0bc65320933e7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_a310cd2d336699f2afe4775eb25e19c9eb66f44dfdd7c9e49bc0781c031db0a2.json",
+        "bytes": 36433,
+        "sha256": "2d6db31872d5189d627d699316cc80f00d2969a2f7a3c0afaa1c0885baef1321"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_a310cd2d336699f2afe4775eb25e19c9eb66f44dfdd7c9e49bc0781c031db0a2.json",
+        "bytes": 36433,
+        "sha256": "2d6db31872d5189d627d699316cc80f00d2969a2f7a3c0afaa1c0885baef1321"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_a8c032d23e057901af9e08b7632a408ed0cd335e688a3774dd2b76a1e5e1c322.json",
+        "bytes": 36510,
+        "sha256": "bee73e806ad4a42b9342acef691f2924b26d3b2150612f6073815986a24a3dbd"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_a8c032d23e057901af9e08b7632a408ed0cd335e688a3774dd2b76a1e5e1c322.json",
+        "bytes": 36510,
+        "sha256": "bee73e806ad4a42b9342acef691f2924b26d3b2150612f6073815986a24a3dbd"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_aa8a0ce69d6854a7d8cddd37e6c910b224766567caa2992143cfe982e0778d68.json",
+        "bytes": 36642,
+        "sha256": "b94afe8d65718afd2129a48494d134e76a5e30f4392c9ede877c5df818efe948"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_aa8a0ce69d6854a7d8cddd37e6c910b224766567caa2992143cfe982e0778d68.json",
+        "bytes": 36642,
+        "sha256": "b94afe8d65718afd2129a48494d134e76a5e30f4392c9ede877c5df818efe948"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_ae6bb91567efcd0c9ae381549d09bec66f218fb709690f64a564babe81ec7c2a.json",
+        "bytes": 36386,
+        "sha256": "2628f9faba7f1b4bef4950c9cac809e32e0a0de2fe4adea2866b48342fcea7bb"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_ae6bb91567efcd0c9ae381549d09bec66f218fb709690f64a564babe81ec7c2a.json",
+        "bytes": 36386,
+        "sha256": "2628f9faba7f1b4bef4950c9cac809e32e0a0de2fe4adea2866b48342fcea7bb"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_b4045a254e60c42495628ea2d73472d3799090dac3a86d97ea608abf21b4b99f.json",
+        "bytes": 36557,
+        "sha256": "408ec45294e845157a80c3fe396d64a79536f6919b6cfcdd1d29ceeac852a59f"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_b4045a254e60c42495628ea2d73472d3799090dac3a86d97ea608abf21b4b99f.json",
+        "bytes": 36557,
+        "sha256": "408ec45294e845157a80c3fe396d64a79536f6919b6cfcdd1d29ceeac852a59f"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_bc61c278e4962fd21fcf7731aa410db513631163bc1a3fe1f1860e2c97b3fb1f.json",
+        "bytes": 36510,
+        "sha256": "6ff7c2858c5db9b90cd4cf8d89199c74d782f3e160b392e01f53e52413ed422f"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_bc61c278e4962fd21fcf7731aa410db513631163bc1a3fe1f1860e2c97b3fb1f.json",
+        "bytes": 36510,
+        "sha256": "6ff7c2858c5db9b90cd4cf8d89199c74d782f3e160b392e01f53e52413ed422f"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_d7149902bf665116ef41f53bb1d81222dd1d341920c9a1e230b75082107f3fbd.json",
+        "bytes": 36562,
+        "sha256": "26547a8fb77ddba8b8fcedf8d715fd18cfe20a5bc9532a419577efcd07b2da79"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_d7149902bf665116ef41f53bb1d81222dd1d341920c9a1e230b75082107f3fbd.json",
+        "bytes": 36562,
+        "sha256": "26547a8fb77ddba8b8fcedf8d715fd18cfe20a5bc9532a419577efcd07b2da79"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_d7b53fc6b5b1a62f289aecf024aa13b074c8d11f9dd1d0514dd8a1f58ec43a83.json",
+        "bytes": 36557,
+        "sha256": "d0f366ee580edb20f981c715ed66253a3877e40df3677321d833cd260ee67df1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_d7b53fc6b5b1a62f289aecf024aa13b074c8d11f9dd1d0514dd8a1f58ec43a83.json",
+        "bytes": 36557,
+        "sha256": "d0f366ee580edb20f981c715ed66253a3877e40df3677321d833cd260ee67df1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426.json",
+        "bytes": 36366,
+        "sha256": "4cd462a03f2194d644a0c9995f1134b8885c19dc89bdd0af425db1bc1c8ce51c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426.json",
+        "bytes": 36366,
+        "sha256": "4cd462a03f2194d644a0c9995f1134b8885c19dc89bdd0af425db1bc1c8ce51c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_e158d1286ca6eace95ef55c0ff70626704f73bb9eaa52e71010700d76ce62299.json",
+        "bytes": 36557,
+        "sha256": "a9b42a1f6a639ddc2b21017cd4a29bc085ea440b1743c0bf4fc9d3820809ef84"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_e158d1286ca6eace95ef55c0ff70626704f73bb9eaa52e71010700d76ce62299.json",
+        "bytes": 36557,
+        "sha256": "a9b42a1f6a639ddc2b21017cd4a29bc085ea440b1743c0bf4fc9d3820809ef84"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/corpus_e19b6f0848a65128a99be8abb968a96b39de9115d5ec60cfe968b86b4b54af91.json",
+        "bytes": 36460,
+        "sha256": "43ab5ecc80410506d1e5a2aabc8ffd75cf600313ae20db18d34dd77e94b9f41a"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_e19b6f0848a65128a99be8abb968a96b39de9115d5ec60cfe968b86b4b54af91.json",
+        "bytes": 36460,
+        "sha256": "43ab5ecc80410506d1e5a2aabc8ffd75cf600313ae20db18d34dd77e94b9f41a"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/file_bindings.json",
+        "bytes": 185232,
+        "sha256": "7078ed9fba89ef5e4cdab780060a986bcc78260cc1726ed228623e200dc09658"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/file_bindings.json",
+        "bytes": 185232,
+        "sha256": "7078ed9fba89ef5e4cdab780060a986bcc78260cc1726ed228623e200dc09658"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/fixed_normalization.npz",
+        "bytes": 580,
+        "sha256": "a24b8ecabad9d885f5feedf7f327616a7b86b4639ae0bdea569cf7511b7b7583"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/fixed_normalization.npz",
+        "bytes": 580,
+        "sha256": "a24b8ecabad9d885f5feedf7f327616a7b86b4639ae0bdea569cf7511b7b7583"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/label_conflict.original.py",
+        "bytes": 12928,
+        "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/label_conflict.original.py",
+        "bytes": 12928,
+        "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/metrics.csv",
+        "bytes": 38120,
+        "sha256": "bd18de5d22b82f59cc83738c37e8cd853ef7ab3fa145a34b5e72ee59fd053e5d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/metrics.csv",
+        "bytes": 38120,
+        "sha256": "bd18de5d22b82f59cc83738c37e8cd853ef7ab3fa145a34b5e72ee59fd053e5d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/progress.json",
+        "bytes": 192,
+        "sha256": "dc3d0808ad0f17265e0ea12cc5018e533ab8a81d65be39758935ad48406d5eca"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/progress.json",
+        "bytes": 192,
+        "sha256": "dc3d0808ad0f17265e0ea12cc5018e533ab8a81d65be39758935ad48406d5eca"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/raw_metrics.json",
+        "bytes": 1353466,
+        "sha256": "8f069a3044a13f9a596a327d6496bd868a2b9e7062afff2bdc2f355098e6277c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/raw_metrics.json",
+        "bytes": 1353466,
+        "sha256": "8f069a3044a13f9a596a327d6496bd868a2b9e7062afff2bdc2f355098e6277c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/spectrum_conflict/receipt.json",
+        "bytes": 1439,
+        "sha256": "8140d6ae888d894ab8ecde5ce32f3302306608c40a7789194ae7c7d2cd7046bd"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/receipt.json",
+        "bytes": 1439,
+        "sha256": "8140d6ae888d894ab8ecde5ce32f3302306608c40a7789194ae7c7d2cd7046bd"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/finish_review.py",
+        "bytes": 5605,
+        "sha256": "2c89ee2c8fd79258f2c560841eb21741522adea85b99d777449aa429616d12fe"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/finish_review.py",
+        "bytes": 5605,
+        "sha256": "2c89ee2c8fd79258f2c560841eb21741522adea85b99d777449aa429616d12fe"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/probe_representation_note.json",
+        "bytes": 67916,
+        "sha256": "310e3b0352d4d172f923c7cecc9724d737989eb721922bc8b94c1586ca7c325f"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/probe_representation_note.json",
+        "bytes": 67916,
+        "sha256": "310e3b0352d4d172f923c7cecc9724d737989eb721922bc8b94c1586ca7c325f"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/action_spectrum.original.py",
+        "bytes": 10704,
+        "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/action_spectrum.original.py",
+        "bytes": 10704,
+        "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/adapter.py",
+        "bytes": 14581,
+        "sha256": "11967e1fe56b56669183d3fc805b66728cbc49d101baea3fc8fa7c8ac922b84a"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/adapter.py",
+        "bytes": 14581,
+        "sha256": "11967e1fe56b56669183d3fc805b66728cbc49d101baea3fc8fa7c8ac922b84a"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/analysis_config.json",
+        "bytes": 2724,
+        "sha256": "1be86c7a0515e84069771dd82ad98fcdde90753228a70ac5734a6270e10bc949"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/analysis_config.json",
+        "bytes": 2724,
+        "sha256": "1be86c7a0515e84069771dd82ad98fcdde90753228a70ac5734a6270e10bc949"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/closure.stdout.log",
+        "bytes": 7114,
+        "sha256": "838c890a93d75424452f8162f3b48e97dc85d795d5fbda3bb700cdedfde86f6f"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/closure.stdout.log",
+        "bytes": 7114,
+        "sha256": "838c890a93d75424452f8162f3b48e97dc85d795d5fbda3bb700cdedfde86f6f"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_0a7f091d0686d8b141f997cd928ed435c7b91ceb75c81aa67d32818a0f9d6349.json",
+        "bytes": 36409,
+        "sha256": "2c4ce167a044702d2a14616bc69cf1bdf9efbf6ccab5939e602c8e782f5dea95"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_0a7f091d0686d8b141f997cd928ed435c7b91ceb75c81aa67d32818a0f9d6349.json",
+        "bytes": 36409,
+        "sha256": "2c4ce167a044702d2a14616bc69cf1bdf9efbf6ccab5939e602c8e782f5dea95"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_10bd084220812338965abd5530d23a071a64620902fe28449e6869eaa784ac4f.json",
+        "bytes": 36464,
+        "sha256": "06ae02b96a6f43b0f2d3f1f77d4a6455a16dd599d64650cbb94646430b31a72b"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_10bd084220812338965abd5530d23a071a64620902fe28449e6869eaa784ac4f.json",
+        "bytes": 36464,
+        "sha256": "06ae02b96a6f43b0f2d3f1f77d4a6455a16dd599d64650cbb94646430b31a72b"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_188f967a17cfc678455eafdda064b3d9d2d2052da4bbc885cdd2d1c1e060732e.json",
+        "bytes": 36580,
+        "sha256": "97d5a07e29a4a6aecdb861bdad945a675287af6c86782ba49ef7cc59b75d6e81"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_188f967a17cfc678455eafdda064b3d9d2d2052da4bbc885cdd2d1c1e060732e.json",
+        "bytes": 36580,
+        "sha256": "97d5a07e29a4a6aecdb861bdad945a675287af6c86782ba49ef7cc59b75d6e81"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_2326f1d2fc0dd4e8216eb3b429061581bd81b42570afc3447cb1c47669ec4114.json",
+        "bytes": 36701,
+        "sha256": "da4ea42a37d2ca518f9fbb1987a22a0f609e12d77178108a293efd8c6e22c018"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_2326f1d2fc0dd4e8216eb3b429061581bd81b42570afc3447cb1c47669ec4114.json",
+        "bytes": 36701,
+        "sha256": "da4ea42a37d2ca518f9fbb1987a22a0f609e12d77178108a293efd8c6e22c018"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_2d122ba69b69d4a46ef06c4a6b3bebec2ceb0ea0ae8191830d9568d51015599a.json",
+        "bytes": 36614,
+        "sha256": "6a553f16ce909284b970a0add0dc3ea8c8ee017e0a49fe144feb61f2c09ffd75"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_2d122ba69b69d4a46ef06c4a6b3bebec2ceb0ea0ae8191830d9568d51015599a.json",
+        "bytes": 36614,
+        "sha256": "6a553f16ce909284b970a0add0dc3ea8c8ee017e0a49fe144feb61f2c09ffd75"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_41f82d264d46c24c4482bcbe7d2fa45039d86481fa68f0b456bec7c53fe5c373.json",
+        "bytes": 36588,
+        "sha256": "99e8cff4efccc572349cf7d5925c7b6b8bf9f849bce755b3cded40a2d4dacc94"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_41f82d264d46c24c4482bcbe7d2fa45039d86481fa68f0b456bec7c53fe5c373.json",
+        "bytes": 36588,
+        "sha256": "99e8cff4efccc572349cf7d5925c7b6b8bf9f849bce755b3cded40a2d4dacc94"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_57e0c3d994cd5e5972e5ed8fd91abf8f682915d43eeccf30fd8211297760a89b.json",
+        "bytes": 36646,
+        "sha256": "0845317dfb712b2504500be2c05b7d5fffe74b18818234094b7bed05c57edca7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_57e0c3d994cd5e5972e5ed8fd91abf8f682915d43eeccf30fd8211297760a89b.json",
+        "bytes": 36646,
+        "sha256": "0845317dfb712b2504500be2c05b7d5fffe74b18818234094b7bed05c57edca7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_5d9d3bfdf4582a97e8f243fd152ec33b8920b0d055f0ae29cff32f47343d2a88.json",
+        "bytes": 36434,
+        "sha256": "fb8021eff523261b4b07cf04bd1caaea0ef1a7b2968e22375ef82ad7314a3f3d"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_5d9d3bfdf4582a97e8f243fd152ec33b8920b0d055f0ae29cff32f47343d2a88.json",
+        "bytes": 36434,
+        "sha256": "fb8021eff523261b4b07cf04bd1caaea0ef1a7b2968e22375ef82ad7314a3f3d"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_5db12cb7ac0ee66d2c167dd02b97e9266503e1609ae23b777705d43414272be0.json",
+        "bytes": 36275,
+        "sha256": "b867b498b09f095c545b791dd8037ce345e691b981d1009691f1e3a1728c3dd6"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_5db12cb7ac0ee66d2c167dd02b97e9266503e1609ae23b777705d43414272be0.json",
+        "bytes": 36275,
+        "sha256": "b867b498b09f095c545b791dd8037ce345e691b981d1009691f1e3a1728c3dd6"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_6061d63519a7a2aa8b7dae9cc935367862028d74baf3eb9af205ddb91ff2140d.json",
+        "bytes": 36626,
+        "sha256": "9320d8bf7b22e22682e9397e2d51ad82862f73df0012983258546bd7e39af5e4"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_6061d63519a7a2aa8b7dae9cc935367862028d74baf3eb9af205ddb91ff2140d.json",
+        "bytes": 36626,
+        "sha256": "9320d8bf7b22e22682e9397e2d51ad82862f73df0012983258546bd7e39af5e4"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_64a4f0ee400fea213b116b37e98414a98503bf2b715cddb60f058b49657e0b9b.json",
+        "bytes": 36611,
+        "sha256": "dc2127e33679d412a73e1c9415b4688f9edf9451304e3fdd1a2a88e609440231"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_64a4f0ee400fea213b116b37e98414a98503bf2b715cddb60f058b49657e0b9b.json",
+        "bytes": 36611,
+        "sha256": "dc2127e33679d412a73e1c9415b4688f9edf9451304e3fdd1a2a88e609440231"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_89953f7677ac1b1f30066de06de05a7c7d2d68a8a1101132927418792844262f.json",
+        "bytes": 36651,
+        "sha256": "b07659ad3c92ef71016c9b5d19b92bedfc08e9bea144abb804f0bc65320933e7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_89953f7677ac1b1f30066de06de05a7c7d2d68a8a1101132927418792844262f.json",
+        "bytes": 36651,
+        "sha256": "b07659ad3c92ef71016c9b5d19b92bedfc08e9bea144abb804f0bc65320933e7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_a310cd2d336699f2afe4775eb25e19c9eb66f44dfdd7c9e49bc0781c031db0a2.json",
+        "bytes": 36433,
+        "sha256": "2d6db31872d5189d627d699316cc80f00d2969a2f7a3c0afaa1c0885baef1321"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_a310cd2d336699f2afe4775eb25e19c9eb66f44dfdd7c9e49bc0781c031db0a2.json",
+        "bytes": 36433,
+        "sha256": "2d6db31872d5189d627d699316cc80f00d2969a2f7a3c0afaa1c0885baef1321"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_a8c032d23e057901af9e08b7632a408ed0cd335e688a3774dd2b76a1e5e1c322.json",
+        "bytes": 36510,
+        "sha256": "bee73e806ad4a42b9342acef691f2924b26d3b2150612f6073815986a24a3dbd"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_a8c032d23e057901af9e08b7632a408ed0cd335e688a3774dd2b76a1e5e1c322.json",
+        "bytes": 36510,
+        "sha256": "bee73e806ad4a42b9342acef691f2924b26d3b2150612f6073815986a24a3dbd"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_aa8a0ce69d6854a7d8cddd37e6c910b224766567caa2992143cfe982e0778d68.json",
+        "bytes": 36642,
+        "sha256": "b94afe8d65718afd2129a48494d134e76a5e30f4392c9ede877c5df818efe948"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_aa8a0ce69d6854a7d8cddd37e6c910b224766567caa2992143cfe982e0778d68.json",
+        "bytes": 36642,
+        "sha256": "b94afe8d65718afd2129a48494d134e76a5e30f4392c9ede877c5df818efe948"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_ae6bb91567efcd0c9ae381549d09bec66f218fb709690f64a564babe81ec7c2a.json",
+        "bytes": 36386,
+        "sha256": "2628f9faba7f1b4bef4950c9cac809e32e0a0de2fe4adea2866b48342fcea7bb"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_ae6bb91567efcd0c9ae381549d09bec66f218fb709690f64a564babe81ec7c2a.json",
+        "bytes": 36386,
+        "sha256": "2628f9faba7f1b4bef4950c9cac809e32e0a0de2fe4adea2866b48342fcea7bb"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_b4045a254e60c42495628ea2d73472d3799090dac3a86d97ea608abf21b4b99f.json",
+        "bytes": 36557,
+        "sha256": "408ec45294e845157a80c3fe396d64a79536f6919b6cfcdd1d29ceeac852a59f"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_b4045a254e60c42495628ea2d73472d3799090dac3a86d97ea608abf21b4b99f.json",
+        "bytes": 36557,
+        "sha256": "408ec45294e845157a80c3fe396d64a79536f6919b6cfcdd1d29ceeac852a59f"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_d7b53fc6b5b1a62f289aecf024aa13b074c8d11f9dd1d0514dd8a1f58ec43a83.json",
+        "bytes": 36557,
+        "sha256": "d0f366ee580edb20f981c715ed66253a3877e40df3677321d833cd260ee67df1"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_d7b53fc6b5b1a62f289aecf024aa13b074c8d11f9dd1d0514dd8a1f58ec43a83.json",
+        "bytes": 36557,
+        "sha256": "d0f366ee580edb20f981c715ed66253a3877e40df3677321d833cd260ee67df1"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/corpus_d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426.json",
+        "bytes": 36366,
+        "sha256": "4cd462a03f2194d644a0c9995f1134b8885c19dc89bdd0af425db1bc1c8ce51c"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426.json",
+        "bytes": 36366,
+        "sha256": "4cd462a03f2194d644a0c9995f1134b8885c19dc89bdd0af425db1bc1c8ce51c"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/file_bindings.json",
+        "bytes": 124696,
+        "sha256": "2640a6dc3e2734c3d6fbca83a22d7eeafc7512a6d0206d7bcaedb57cc25d95d5"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/file_bindings.json",
+        "bytes": 124696,
+        "sha256": "2640a6dc3e2734c3d6fbca83a22d7eeafc7512a6d0206d7bcaedb57cc25d95d5"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/finish_receipt.py",
+        "bytes": 4504,
+        "sha256": "be41cb4cfcb0d2677d2b51012647ad36b04cae81fb347aedd515e461978170fa"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/finish_receipt.py",
+        "bytes": 4504,
+        "sha256": "be41cb4cfcb0d2677d2b51012647ad36b04cae81fb347aedd515e461978170fa"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/fixed_normalization.npz",
+        "bytes": 580,
+        "sha256": "a24b8ecabad9d885f5feedf7f327616a7b86b4639ae0bdea569cf7511b7b7583"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/fixed_normalization.npz",
+        "bytes": 580,
+        "sha256": "a24b8ecabad9d885f5feedf7f327616a7b86b4639ae0bdea569cf7511b7b7583"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/label_conflict.original.py",
+        "bytes": 12928,
+        "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/label_conflict.original.py",
+        "bytes": 12928,
+        "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/metrics.csv",
+        "bytes": 25529,
+        "sha256": "7505b9bbdceff529b78219d7f359f3e8315c88475cdb74e3894a838bf44a0c67"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/metrics.csv",
+        "bytes": 25529,
+        "sha256": "7505b9bbdceff529b78219d7f359f3e8315c88475cdb74e3894a838bf44a0c67"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/progress.json",
+        "bytes": 192,
+        "sha256": "5f89b5bd9a519b1805da3a0e6680cd282a60a16ea3ffe0c3dd9029635022d995"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/progress.json",
+        "bytes": 192,
+        "sha256": "5f89b5bd9a519b1805da3a0e6680cd282a60a16ea3ffe0c3dd9029635022d995"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/raw_metrics.json",
+        "bytes": 944580,
+        "sha256": "2e1322bbd66be52e47a97572ba9a371b396f16d7626ca6dd6d89a70db14eefd5"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/raw_metrics.json",
+        "bytes": 944580,
+        "sha256": "2e1322bbd66be52e47a97572ba9a371b396f16d7626ca6dd6d89a70db14eefd5"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/receipt.json",
+        "bytes": 3731,
+        "sha256": "a5d161e3312f39392d810b8eddfd67e734de4e917e94ef3a0aee71be7e543ff4"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/receipt.json",
+        "bytes": 3731,
+        "sha256": "a5d161e3312f39392d810b8eddfd67e734de4e917e94ef3a0aee71be7e543ff4"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/stderr.log",
+        "bytes": 1706,
+        "sha256": "60315d426cce692af07d2807ac96f4f90dbd6cf644412bbd103884b9009b3fac"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/stderr.log",
+        "bytes": 1706,
+        "sha256": "60315d426cce692af07d2807ac96f4f90dbd6cf644412bbd103884b9009b3fac"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "encoding": "identity"
+    },
+    {
+      "original": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/summary.csv",
+        "bytes": 6054,
+        "sha256": "a425cd8ef572953a3e808328e428459b48d5ca9eec5a2a8ca46d835c5fc951df"
+      },
+      "capsule": {
+        "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/summary.csv",
+        "bytes": 6054,
+        "sha256": "a425cd8ef572953a3e808328e428459b48d5ca9eec5a2a8ca46d835c5fc951df"
+      },
+      "encoding": "identity"
+    }
+  ],
+  "final_per_bank_decoded": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/final_snapshot/banks_and_fit/per_bank.csv",
+    "bytes": 43070859,
+    "sha256": "872d104435179a396fbcb62abae9adb2921a1899b7e4919dda8e08ad9d8c1fc8"
+  },
+  "original_audit_failure_preserved": true,
+  "capsule_files": [
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/README.md",
+      "bytes": 4336,
+      "sha256": "d5ecc4d5030c453e02c8f4d50f436ffdf3f33b9574488a887ec45da1b7ae0c0d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/accounting.json",
+      "bytes": 2353,
+      "sha256": "9333f9d4d24053486a5f848b9ae4a0daa6648b37412a7725bea10517bb2a3b9a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/admission_table.md",
+      "bytes": 3432,
+      "sha256": "b12e6a6f4d991bcf5935c1a05345b777f6c1f0038a3c5dfe9c2f32d36ef8e375"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/admissions.csv",
+      "bytes": 139302,
+      "sha256": "516f037a9abd7b18ae4f352de241f86c73a5a978e7c99525fd0159fdb04fcd88"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/build_capsule.py",
+      "bytes": 7976,
+      "sha256": "67bbcf21fadbfbb8eb96225844084971ba2b42acda9f7c7f47939ac12e1b1ead"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/cold_start.csv",
+      "bytes": 725681,
+      "sha256": "cab117639ce85b7ef8f31de46ef5fc4360bb85e7ecdc3e87cd1701e6bcf78eb6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/corpus_novelty.csv",
+      "bytes": 19581,
+      "sha256": "d7dffb718add3f88561c1dd3c24c6f831e5bbb8e0955db3b463d805bf4230025"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/earlier_slot_costs.csv",
+      "bytes": 702,
+      "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/fall_support.csv",
+      "bytes": 99049,
+      "sha256": "d8a4edd0e26234be78d2f67f381b8c49d52b4cca54c2751b6d00f1e140cac2ee"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/fit_and_predictability.png",
+      "bytes": 102329,
+      "sha256": "fe50ba4c1b992b064f6d8f6ad038a6ac3a81e6cb43d89f9bae48da66ce95a2f8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/fit_mse.csv",
+      "bytes": 9008,
+      "sha256": "c01dba115ecb1ae61b80c91a99da740a3ab6a17cff0d5fdfa50506f3c5797cae"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/per_bank.csv.gz",
+      "bytes": 7505496,
+      "sha256": "04c44046048ca71cbcc298890ab6f62fc97346b749e749700070737666fbfebb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/per_cell.csv",
+      "bytes": 4416,
+      "sha256": "1adb289aba5d96f7656e5fcca679b8381b7b23ce7033334fac9600c74c775fe1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/probe_initialization.csv",
+      "bytes": 254780,
+      "sha256": "825bae21e023775d6b5354ac6b64dd6c63321fd8345cfddf0cec2f62a69022cd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_reasons.csv",
+      "bytes": 97257,
+      "sha256": "fe4442e2bd75115595d728a3e8f29a15d6f4ce5a58e851bbb8c8bc22be1d8df5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_reasons.json",
+      "bytes": 289,
+      "sha256": "54a75f30c2a74046e75d68c38bf7286e8cb95d6cdfd0fa95a72e900b248fc896"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_table.csv",
+      "bytes": 1264,
+      "sha256": "cbab0f8523fe094296d0ee68da6b0b52bc5770384a730e1de947ff551a985eae"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/admission_table.md",
+      "bytes": 825,
+      "sha256": "ef8f0c068a37cdcaf94d0c4b7111db8fbd808adbdfd75853f420111365dacb59"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.external.json",
+      "bytes": 443,
+      "sha256": "45c51c33ef0fc8e10a6d7f9fda489d084d6c5c404fbf5b0eba7c6dce6135f4b7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.py",
+      "bytes": 10995,
+      "sha256": "95e06820ff0457b96a3d30b9a69d78bb52d1d618ffabedb3e0a7c037a46d1ade"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/bank_analysis.stdout.log",
+      "bytes": 31704,
+      "sha256": "45870b16ab843bbcc5da45a0f048728d4e2ceaf6340a5cf1ad8ebe2d1ff7be60"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/D_length_regressions.json",
+      "bytes": 6722,
+      "sha256": "ecf9db80ff0b89b609d73da5427b88d1736f7f3ff9331561d42eaad84550e154"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/earlier_slot_costs.csv",
+      "bytes": 702,
+      "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/fit_mse.csv",
+      "bytes": 6054,
+      "sha256": "5bffaf51feca59af15c4516dd073d57f386aca93a1d69b29d0732cc1089d0768"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/inputs.json",
+      "bytes": 245677,
+      "sha256": "78f510876e111c5f9d91a811a13cc3c16a9a67e7c063a203b303271e4e30f09a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/per_bank.csv.gz",
+      "bytes": 5003613,
+      "sha256": "e8ff0035cbb25935066bcfe6851eaa8d496d7f4c60e9b5fd54483b20334cdb99"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/per_cell.csv",
+      "bytes": 3004,
+      "sha256": "1431ba4466d50a7e5a21f14523747606419eda9a4ff388bd7ebe7695cb251c8b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/receipt.json",
+      "bytes": 203,
+      "sha256": "ca672b81f9c77bd1f9ec9bb892ceb8ca34f724ab67eebb124827fa45df3131df"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/banks_and_fit/summary.json",
+      "bytes": 7985,
+      "sha256": "1aeebbd2503adfe35f2a73819e7cb66e8159ed786a7b33b95a04172878d350c4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/budget_transfer_001.json",
+      "bytes": 413,
+      "sha256": "3e75f56810959286236e04e5649668265deda022ec9023fb2830b0bcd10025cb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/accounting.json",
+      "bytes": 5329,
+      "sha256": "98e935f3af96514ca5e10a72d3f5d2d107d820e3792ddd458e4c49847c1e9889"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/budget_transfer.json",
+      "bytes": 854,
+      "sha256": "0e86967d10ac410dcfe9051c9bc20b0f62f76b5ec1bf60b2d1c15e1886065010"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/closure_manifest.json",
+      "bytes": 5970,
+      "sha256": "7f1333ec5e0a13a38a0c92c89a35a0c177ac5d9235bde854501cc2e8b29051b7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/design_notes.md",
+      "bytes": 1986,
+      "sha256": "3d1c59a8eb9af035d05637cae8351e95d3288450dbab322b42de41ef3ceba537"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/episodes.csv",
+      "bytes": 483937,
+      "sha256": "b00f1a44d639d0d8fc209e131e1311f12213d44eca092b9361ed25935f1c4a24"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/failure_001.json",
+      "bytes": 817,
+      "sha256": "b9a05d5c803575e7aa621778bc9772a26f5fc676babd2297eb12e632c1bfa19c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/findings.md",
+      "bytes": 2707,
+      "sha256": "3a452eac0e4586a7227e9325ccfe4076230bcc162b8a284377761e6fee2b4f19"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/inputs.json",
+      "bytes": 510857,
+      "sha256": "4a97a7c521f10befa48b1217b094355650daaf09cbc84cc8a3a6b55c6291c3f1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/measurement_probes.csv",
+      "bytes": 181968,
+      "sha256": "48f4f5b07620b268e27d45269041cca965c41dc1f971acaf2fc6d0fc01016d86"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/missing_probe_anchors.json",
+      "bytes": 923,
+      "sha256": "41579f079c79b7c2441dde2c80c6a0154cedb1eddc19920e6a0590e1c64f3d95"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed.stderr.log",
+      "bytes": 458,
+      "sha256": "14d8f2e746d3f1bf6fa3206078587c143eb40089d5d8440bc1f71b6244a5356d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed_launcher.py",
+      "bytes": 2264,
+      "sha256": "a69e1e28dd920024c90ab2a029d8d4478cd4fb1564f75e43c648ed690a2b0247"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/prelaunch_failed_resource_receipt.json",
+      "bytes": 706,
+      "sha256": "d7de87edb2bdb59b9c07c4b0d4517aeace8d1603256d6109f88592badd7e7d21"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/refinement_arrays.npz",
+      "bytes": 1707665,
+      "sha256": "244345e501a400f781da7d425978710785e5e0726e69434da4b3791eca6825b4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun.stdout.log",
+      "bytes": 100,
+      "sha256": "e2b0c00b3e051e8e26cf6e84e88334f58089a5ebdfc835538dd69ce405bbd1b0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun_launcher.py",
+      "bytes": 2426,
+      "sha256": "843de69de568d940511407fedc2673fec829e30568c47fac2e95b8a4b17b5ba7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/rerun_resource_receipt.json",
+      "bytes": 691,
+      "sha256": "fc6c10ca7046ed3bafa563d6a72d0330c2badad99070d2531a9a32afc47b2485"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/result.json",
+      "bytes": 21297,
+      "sha256": "c428b62ba41740bbb494334958c63e9d90a5442fe8623ca96104c2c5f38ccbd7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/review.failed_001.py",
+      "bytes": 18118,
+      "sha256": "ac24c63b432ad0ad3749b2a01e53679383abaac2772751b0bb0fcaefdfcfc90c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/cold_start/review.py",
+      "bytes": 18382,
+      "sha256": "74449ddbeb82e1a0b86e78394c5e639cbd204f99da495361fd223795578feacc"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/config.json",
+      "bytes": 3429,
+      "sha256": "e58ddd39e5504bd1b87dbbe3092ee92a8101ca5816e9bfeff21a73e2a334d340"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_001/failure.json",
+      "bytes": 512,
+      "sha256": "29ef25a9d24f804dfa9b3d3d62efcc1d55694da227dc990dde895b217f6b529d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_001/normalization_used.npz",
+      "bytes": 636,
+      "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_001/restart_provenance.json",
+      "bytes": 9122,
+      "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/accounting.json",
+      "bytes": 297,
+      "sha256": "7ec571eb6c107b2f79c2f21142705f05ebd9eac27799f108ec0e7b4033ff0316"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/admissions.csv",
+      "bytes": 92932,
+      "sha256": "3d9bc0e8152c14ce44afc25c6015bdde093780bcd66b3eb26f3aebdcaf9064dc"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/corpus_novelty.csv",
+      "bytes": 13189,
+      "sha256": "6f1e4f7ccacfbe930f86dd92aaa8cc9b72a061d51316b396ca1ad6c80f388303"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/dataset_rosters.json",
+      "bytes": 20825,
+      "sha256": "3fe718db7e945d77b41dccb83f8b83774c010fa38e052e21d2ff4a29135697b5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/fall_support.csv",
+      "bytes": 49684,
+      "sha256": "4f5470ade96ce92e57171616d4043970579c2be205ddede061581e96aa051fdf"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/normalization_used.npz",
+      "bytes": 636,
+      "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/pending_rounds.json",
+      "bytes": 1281,
+      "sha256": "1c91dee0e5e5d5e95ba53b5f3df2460a4814bf7c72b1b3105ffbd8b6d9b70c5b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/restart_provenance.json",
+      "bytes": 9122,
+      "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/result.json",
+      "bytes": 10468,
+      "sha256": "42f15d390741719e8504255ef679d02a02baa8a90200ebd7eadb5097555fec39"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/source_bindings.json",
+      "bytes": 186142,
+      "sha256": "92521fb86f00466f833f2de3acf83ea77153c2810c2224c8042a5e88663cf235"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s0_independent.npz",
+      "bytes": 5753,
+      "sha256": "47681a52b75337c25ee77833f4d82fcc8d05e78ac665e19294ccd53afac2afe2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s0_positive.npz",
+      "bytes": 5633,
+      "sha256": "0555d40a85e35fb63b4e2bbdaad94ba99148c787bdf536e1e7bbe4e949de5788"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s1_independent.npz",
+      "bytes": 5691,
+      "sha256": "3b803d5e704d32d0e3854b1255c552788f475fcfdedab24dcd84c358c8a64487"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s1_positive.npz",
+      "bytes": 5768,
+      "sha256": "7ceea367e450efaa5429a54c19fb066873ce01dbbc966251180c13de6af76519"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s2_independent.npz",
+      "bytes": 5733,
+      "sha256": "660032670bedf2a07f4439b1331350e923377aca3b398b82da6c779503d830a8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_s2_positive.npz",
+      "bytes": 5780,
+      "sha256": "7fdf4defff3cf7b3c29708af18ed122d971cf7c82a73e52312f5b7d976677331"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/result_002/support_summary.json",
+      "bytes": 6221,
+      "sha256": "152d1e9a4a269b7e02ceff07f35a4665ea074746d03d4109e8af13460add6141"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/source_001.py",
+      "bytes": 20503,
+      "sha256": "3f34a676a76646c78f0f47b0462d4f38f9a67d7532768606c65affb0b3172dd0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/source_002.py",
+      "bytes": 20895,
+      "sha256": "bb65f2756840aaa34e044cbad3b9352245807f008d83a9ba5e83e9dcc61d8268"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/contexts_admission/summary_001.md",
+      "bytes": 3757,
+      "sha256": "5d49ffab5093bd78511480cf7b5e2b3a4ba28bf5c81cc6950d859fa2d0a26a5b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bands.external.json",
+      "bytes": 362,
+      "sha256": "cef6874f5ee0d15dbe798657ecccb50c39814d5c5b8eac82dc363df1b9c7df5b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bands.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bands.stdout.log",
+      "bytes": 1439,
+      "sha256": "8140d6ae888d894ab8ecde5ce32f3302306608c40a7789194ae7c7d2cd7046bd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/bank_analysis.py",
+      "bytes": 10995,
+      "sha256": "df9235fe51b2c3afca5d348e0e75d16ae34fd2e4327f4413b3bf67df64963ff2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks.external.json",
+      "bytes": 342,
+      "sha256": "8160cc87894419516e8b42bdf0c99b36d4f325d55ba61d10ab1921b17891ccf9"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks.stdout.log",
+      "bytes": 47716,
+      "sha256": "4d3c6f3ba3a1a6113c8e4b7d7f8491ef54dbd788d75f868d0cfa839e819ef1d4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/D_length_regressions.json",
+      "bytes": 9883,
+      "sha256": "76bc0076edab79b676cb8a9145c888b2eb5bcb55d3e65797ea9c1716555f696d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/earlier_slot_costs.csv",
+      "bytes": 702,
+      "sha256": "ce044f08ad76c9a4ed841e1acc8b67751ca6771dfd3c0585bdec9cef078e5461"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/fit_mse.csv",
+      "bytes": 9008,
+      "sha256": "c01dba115ecb1ae61b80c91a99da740a3ab6a17cff0d5fdfa50506f3c5797cae"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/inputs.json",
+      "bytes": 361821,
+      "sha256": "f9969e210ce2c4c3dc4fb6498c2b41f7cacef149267047db208aebaa05c60ca2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/per_bank.csv.gz",
+      "bytes": 7505496,
+      "sha256": "04c44046048ca71cbcc298890ab6f62fc97346b749e749700070737666fbfebb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/per_cell.csv",
+      "bytes": 4416,
+      "sha256": "1adb289aba5d96f7656e5fcca679b8381b7b23ce7033334fac9600c74c775fe1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/receipt.json",
+      "bytes": 213,
+      "sha256": "979e586969fd8de358de51d80af3a4ec669c1ad90adfd693e5751b37cb5d0847"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/banks_and_fit/summary.json",
+      "bytes": 11371,
+      "sha256": "76f16653c5ef03400893d5788008a735c50c22fe93571b1d30159e08d4996cee"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold.external.json",
+      "bytes": 527,
+      "sha256": "72e15db13cbb4ce471bdfe72196e39d1db96d8da165849310b67609357ebe010"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold.stdout.log",
+      "bytes": 100,
+      "sha256": "cb1b3a7af344564a2e918df6ea4658c0cdcc63c02307e8b730b4f19aaee9fe83"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/accounting.json",
+      "bytes": 2533,
+      "sha256": "9ed9fc76548272ec2ba7d3b0d2aabe05b00d4ac0aaf62435bbc82c55032c093b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/episodes.csv",
+      "bytes": 725681,
+      "sha256": "cab117639ce85b7ef8f31de46ef5fc4360bb85e7ecdc3e87cd1701e6bcf78eb6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/inputs.json",
+      "bytes": 754372,
+      "sha256": "b8e8b9f117acb1e04b9323ee72e3e1ca2093acb962c1a4569b9ef1ae1e502925"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/measurement_probes.csv",
+      "bytes": 254780,
+      "sha256": "825bae21e023775d6b5354ac6b64dd6c63321fd8345cfddf0cec2f62a69022cd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/missing_probe_anchors.json",
+      "bytes": 2307,
+      "sha256": "ff4890b52188ad5520d2e93450ec5de7c714fb409bebc399af2eccf39e1e0a95"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/refinement_arrays.npz",
+      "bytes": 2558844,
+      "sha256": "bef2a9221f00c05f9ae9e49e67d6e3a3c6354450f6f5c127c9532bcc9fb86cb2"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/result.json",
+      "bytes": 21337,
+      "sha256": "a40799526f1a3dba8ce066433356a7fd90bef8111245352b36561e13a4ce0f9c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/cold_start/review.py",
+      "bytes": 18382,
+      "sha256": "74449ddbeb82e1a0b86e78394c5e639cbd204f99da495361fd223795578feacc"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/config.json",
+      "bytes": 3931,
+      "sha256": "3d92b648ecd4df5013d4ad76a7d2581efa9f164b2e7f60e380c579fc64666b19"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.external.json",
+      "bytes": 648,
+      "sha256": "8a35288630f324117120b93ac98b87ac4044fbef919984e25220877898c0e1bd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.py",
+      "bytes": 20947,
+      "sha256": "8252561258054c01d9ed05837a43db12e3a6d129081b14503b3c54efab274de3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts.stdout.log",
+      "bytes": 896,
+      "sha256": "49a93d8da4dce5470e87d73e2d703dab484f92b15a6a7e3c7fd5b8152dd6366e"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/accounting.json",
+      "bytes": 297,
+      "sha256": "be033e72108ce0dbc34fd2d54398987bc6757bde7c78234b2f888b6c442a49b0"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/admissions.csv",
+      "bytes": 139302,
+      "sha256": "516f037a9abd7b18ae4f352de241f86c73a5a978e7c99525fd0159fdb04fcd88"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/corpus_novelty.csv",
+      "bytes": 19581,
+      "sha256": "d7dffb718add3f88561c1dd3c24c6f831e5bbb8e0955db3b463d805bf4230025"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/dataset_rosters.json",
+      "bytes": 26457,
+      "sha256": "221341d350b565d83a76de4fe3b9956507ae166918a12c1c325be02dd708e9a7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/fall_support.csv",
+      "bytes": 99049,
+      "sha256": "d8a4edd0e26234be78d2f67f381b8c49d52b4cca54c2751b6d00f1e140cac2ee"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/normalization_used.npz",
+      "bytes": 636,
+      "sha256": "652fb44b1796ecf685c631ed86d1c9c9909580fffed29bbb0d339f140ae4ae73"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/pending_rounds.json",
+      "bytes": 1197,
+      "sha256": "46cbaa56d2f71fa6fa6cba8b3c38280ebad10f619768e00628037529967d79fb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/restart_provenance.json",
+      "bytes": 9122,
+      "sha256": "c4ca55e45b98c2654589b642e9063e1aebb5a2af92296bf49dcbc11de23742c1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/result.json",
+      "bytes": 11000,
+      "sha256": "d8aa70420077f53ab1a57a7802ce40dcfa9c5157ada7ae8c9f32e9ac3ed4cd3c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/source_bindings.json",
+      "bytes": 300834,
+      "sha256": "d666278d1f02e82b3ec599dd8f22b1526d1461cc66303bd4da2a0a86bd62e4ef"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s0_independent.npz",
+      "bytes": 10129,
+      "sha256": "ffc83f2a6ef960d4c6eaba1206b6ef1b0e8204a30179dfd2477096f1608c5ff1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s0_positive.npz",
+      "bytes": 10083,
+      "sha256": "20e11af74e12a944c3f4240d9f0b963111379b6a1187db6e40b4e8197291c239"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s1_independent.npz",
+      "bytes": 10002,
+      "sha256": "e1cf8982320b576dd06073c68d602d44fa72c0b015faabd414538914aa25c4e8"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s1_positive.npz",
+      "bytes": 10387,
+      "sha256": "ccefcd105cd98217f38d0bab21351fc5a5019f16aa33da28323b17a34312243d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s2_independent.npz",
+      "bytes": 10127,
+      "sha256": "39a25ad30d4040768e9794059a7d5ab22fa953929546f674c5b0092a0cba5b0c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_s2_positive.npz",
+      "bytes": 10133,
+      "sha256": "bcae8faa253dd69f42301baf2f95e0f20a6716099829ddad70102a6b9c10bd9f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/contexts_admission/support_summary.json",
+      "bytes": 6221,
+      "sha256": "f67b0b411b89991252b626b602044f7a6d8c725de4ecd111a39f3c2d713ff2e3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/external_receipt.json",
+      "bytes": 2966,
+      "sha256": "654b0eebfce49833b530065303f001169f7858d6604f3e07fe72dcc6cf5dada3"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/action_spectrum.original.py",
+      "bytes": 10704,
+      "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/adapter.py",
+      "bytes": 14607,
+      "sha256": "a86ff65b54b431efc24afd28883324f1b22bf764459b2d556771d02a21bb1d6c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/analysis_config.json",
+      "bytes": 2926,
+      "sha256": "5081bb4d7bacae67a8d2b301b3674b5ccb89f5de8d4141d6a74c029ce240203e"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_0a7f091d0686d8b141f997cd928ed435c7b91ceb75c81aa67d32818a0f9d6349.json",
+      "bytes": 36409,
+      "sha256": "2c4ce167a044702d2a14616bc69cf1bdf9efbf6ccab5939e602c8e782f5dea95"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_10bd084220812338965abd5530d23a071a64620902fe28449e6869eaa784ac4f.json",
+      "bytes": 36464,
+      "sha256": "06ae02b96a6f43b0f2d3f1f77d4a6455a16dd599d64650cbb94646430b31a72b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_124c912a637d66335ccbbc9c58946ccd85af6cc30bed876ff41401d46270c53c.json",
+      "bytes": 36583,
+      "sha256": "accd337c9b1d8df079ca4cc805527b831a6f00b38e03316ea14b6f8514efae03"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_188f967a17cfc678455eafdda064b3d9d2d2052da4bbc885cdd2d1c1e060732e.json",
+      "bytes": 36580,
+      "sha256": "97d5a07e29a4a6aecdb861bdad945a675287af6c86782ba49ef7cc59b75d6e81"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_1937efaeac00868bf80dc491bb7a55351d1ff9f09d8291f699948c1a4341dc27.json",
+      "bytes": 36423,
+      "sha256": "dd77a6a479e08267b2794d89c78b6b65ba31fbd3862ae815d127c6a2a23fcc21"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_2326f1d2fc0dd4e8216eb3b429061581bd81b42570afc3447cb1c47669ec4114.json",
+      "bytes": 36701,
+      "sha256": "da4ea42a37d2ca518f9fbb1987a22a0f609e12d77178108a293efd8c6e22c018"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_2d122ba69b69d4a46ef06c4a6b3bebec2ceb0ea0ae8191830d9568d51015599a.json",
+      "bytes": 36614,
+      "sha256": "6a553f16ce909284b970a0add0dc3ea8c8ee017e0a49fe144feb61f2c09ffd75"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_2f1e5f46445dcc3f544abf78f088bca13511e435f929154cbe349ba74483b421.json",
+      "bytes": 36324,
+      "sha256": "2c38d0a87002fbf490e80e42bb79d8057c045d2bd7abd7994997ad8777f7c37d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_41f82d264d46c24c4482bcbe7d2fa45039d86481fa68f0b456bec7c53fe5c373.json",
+      "bytes": 36588,
+      "sha256": "99e8cff4efccc572349cf7d5925c7b6b8bf9f849bce755b3cded40a2d4dacc94"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_4731321bec2b52d2b39b79f4387d56f3636b82ca689169d95982e1f4441202aa.json",
+      "bytes": 36477,
+      "sha256": "b375aeceef689c0fa2cf18a7da702a9f1e38db62f1cfe4813b8a6185c874ae23"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_57e0c3d994cd5e5972e5ed8fd91abf8f682915d43eeccf30fd8211297760a89b.json",
+      "bytes": 36646,
+      "sha256": "0845317dfb712b2504500be2c05b7d5fffe74b18818234094b7bed05c57edca7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_5d9d3bfdf4582a97e8f243fd152ec33b8920b0d055f0ae29cff32f47343d2a88.json",
+      "bytes": 36434,
+      "sha256": "fb8021eff523261b4b07cf04bd1caaea0ef1a7b2968e22375ef82ad7314a3f3d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_5db12cb7ac0ee66d2c167dd02b97e9266503e1609ae23b777705d43414272be0.json",
+      "bytes": 36275,
+      "sha256": "b867b498b09f095c545b791dd8037ce345e691b981d1009691f1e3a1728c3dd6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_6061d63519a7a2aa8b7dae9cc935367862028d74baf3eb9af205ddb91ff2140d.json",
+      "bytes": 36626,
+      "sha256": "9320d8bf7b22e22682e9397e2d51ad82862f73df0012983258546bd7e39af5e4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_64a4f0ee400fea213b116b37e98414a98503bf2b715cddb60f058b49657e0b9b.json",
+      "bytes": 36611,
+      "sha256": "dc2127e33679d412a73e1c9415b4688f9edf9451304e3fdd1a2a88e609440231"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_89953f7677ac1b1f30066de06de05a7c7d2d68a8a1101132927418792844262f.json",
+      "bytes": 36651,
+      "sha256": "b07659ad3c92ef71016c9b5d19b92bedfc08e9bea144abb804f0bc65320933e7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_a310cd2d336699f2afe4775eb25e19c9eb66f44dfdd7c9e49bc0781c031db0a2.json",
+      "bytes": 36433,
+      "sha256": "2d6db31872d5189d627d699316cc80f00d2969a2f7a3c0afaa1c0885baef1321"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_a8c032d23e057901af9e08b7632a408ed0cd335e688a3774dd2b76a1e5e1c322.json",
+      "bytes": 36510,
+      "sha256": "bee73e806ad4a42b9342acef691f2924b26d3b2150612f6073815986a24a3dbd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_aa8a0ce69d6854a7d8cddd37e6c910b224766567caa2992143cfe982e0778d68.json",
+      "bytes": 36642,
+      "sha256": "b94afe8d65718afd2129a48494d134e76a5e30f4392c9ede877c5df818efe948"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_ae6bb91567efcd0c9ae381549d09bec66f218fb709690f64a564babe81ec7c2a.json",
+      "bytes": 36386,
+      "sha256": "2628f9faba7f1b4bef4950c9cac809e32e0a0de2fe4adea2866b48342fcea7bb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_b4045a254e60c42495628ea2d73472d3799090dac3a86d97ea608abf21b4b99f.json",
+      "bytes": 36557,
+      "sha256": "408ec45294e845157a80c3fe396d64a79536f6919b6cfcdd1d29ceeac852a59f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_bc61c278e4962fd21fcf7731aa410db513631163bc1a3fe1f1860e2c97b3fb1f.json",
+      "bytes": 36510,
+      "sha256": "6ff7c2858c5db9b90cd4cf8d89199c74d782f3e160b392e01f53e52413ed422f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_d7149902bf665116ef41f53bb1d81222dd1d341920c9a1e230b75082107f3fbd.json",
+      "bytes": 36562,
+      "sha256": "26547a8fb77ddba8b8fcedf8d715fd18cfe20a5bc9532a419577efcd07b2da79"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_d7b53fc6b5b1a62f289aecf024aa13b074c8d11f9dd1d0514dd8a1f58ec43a83.json",
+      "bytes": 36557,
+      "sha256": "d0f366ee580edb20f981c715ed66253a3877e40df3677321d833cd260ee67df1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426.json",
+      "bytes": 36366,
+      "sha256": "4cd462a03f2194d644a0c9995f1134b8885c19dc89bdd0af425db1bc1c8ce51c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_e158d1286ca6eace95ef55c0ff70626704f73bb9eaa52e71010700d76ce62299.json",
+      "bytes": 36557,
+      "sha256": "a9b42a1f6a639ddc2b21017cd4a29bc085ea440b1743c0bf4fc9d3820809ef84"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/corpus_e19b6f0848a65128a99be8abb968a96b39de9115d5ec60cfe968b86b4b54af91.json",
+      "bytes": 36460,
+      "sha256": "43ab5ecc80410506d1e5a2aabc8ffd75cf600313ae20db18d34dd77e94b9f41a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/file_bindings.json",
+      "bytes": 185232,
+      "sha256": "7078ed9fba89ef5e4cdab780060a986bcc78260cc1726ed228623e200dc09658"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/fixed_normalization.npz",
+      "bytes": 580,
+      "sha256": "a24b8ecabad9d885f5feedf7f327616a7b86b4639ae0bdea569cf7511b7b7583"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/label_conflict.original.py",
+      "bytes": 12928,
+      "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/metrics.csv",
+      "bytes": 38120,
+      "sha256": "bd18de5d22b82f59cc83738c37e8cd853ef7ab3fa145a34b5e72ee59fd053e5d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/progress.json",
+      "bytes": 192,
+      "sha256": "dc3d0808ad0f17265e0ea12cc5018e533ab8a81d65be39758935ad48406d5eca"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/raw_metrics.json",
+      "bytes": 1353466,
+      "sha256": "8f069a3044a13f9a596a327d6496bd868a2b9e7062afff2bdc2f355098e6277c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/final_snapshot/spectrum_conflict/receipt.json",
+      "bytes": 1439,
+      "sha256": "8140d6ae888d894ab8ecde5ce32f3302306608c40a7789194ae7c7d2cd7046bd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/finish_review.py",
+      "bytes": 5605,
+      "sha256": "2c89ee2c8fd79258f2c560841eb21741522adea85b99d777449aa429616d12fe"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/probe_representation_note.json",
+      "bytes": 67916,
+      "sha256": "310e3b0352d4d172f923c7cecc9724d737989eb721922bc8b94c1586ca7c325f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/action_spectrum.original.py",
+      "bytes": 10704,
+      "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/adapter.py",
+      "bytes": 14581,
+      "sha256": "11967e1fe56b56669183d3fc805b66728cbc49d101baea3fc8fa7c8ac922b84a"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/analysis_config.json",
+      "bytes": 2724,
+      "sha256": "1be86c7a0515e84069771dd82ad98fcdde90753228a70ac5734a6270e10bc949"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/closure.stdout.log",
+      "bytes": 7114,
+      "sha256": "838c890a93d75424452f8162f3b48e97dc85d795d5fbda3bb700cdedfde86f6f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_0a7f091d0686d8b141f997cd928ed435c7b91ceb75c81aa67d32818a0f9d6349.json",
+      "bytes": 36409,
+      "sha256": "2c4ce167a044702d2a14616bc69cf1bdf9efbf6ccab5939e602c8e782f5dea95"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_10bd084220812338965abd5530d23a071a64620902fe28449e6869eaa784ac4f.json",
+      "bytes": 36464,
+      "sha256": "06ae02b96a6f43b0f2d3f1f77d4a6455a16dd599d64650cbb94646430b31a72b"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_188f967a17cfc678455eafdda064b3d9d2d2052da4bbc885cdd2d1c1e060732e.json",
+      "bytes": 36580,
+      "sha256": "97d5a07e29a4a6aecdb861bdad945a675287af6c86782ba49ef7cc59b75d6e81"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_2326f1d2fc0dd4e8216eb3b429061581bd81b42570afc3447cb1c47669ec4114.json",
+      "bytes": 36701,
+      "sha256": "da4ea42a37d2ca518f9fbb1987a22a0f609e12d77178108a293efd8c6e22c018"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_2d122ba69b69d4a46ef06c4a6b3bebec2ceb0ea0ae8191830d9568d51015599a.json",
+      "bytes": 36614,
+      "sha256": "6a553f16ce909284b970a0add0dc3ea8c8ee017e0a49fe144feb61f2c09ffd75"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_41f82d264d46c24c4482bcbe7d2fa45039d86481fa68f0b456bec7c53fe5c373.json",
+      "bytes": 36588,
+      "sha256": "99e8cff4efccc572349cf7d5925c7b6b8bf9f849bce755b3cded40a2d4dacc94"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_57e0c3d994cd5e5972e5ed8fd91abf8f682915d43eeccf30fd8211297760a89b.json",
+      "bytes": 36646,
+      "sha256": "0845317dfb712b2504500be2c05b7d5fffe74b18818234094b7bed05c57edca7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_5d9d3bfdf4582a97e8f243fd152ec33b8920b0d055f0ae29cff32f47343d2a88.json",
+      "bytes": 36434,
+      "sha256": "fb8021eff523261b4b07cf04bd1caaea0ef1a7b2968e22375ef82ad7314a3f3d"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_5db12cb7ac0ee66d2c167dd02b97e9266503e1609ae23b777705d43414272be0.json",
+      "bytes": 36275,
+      "sha256": "b867b498b09f095c545b791dd8037ce345e691b981d1009691f1e3a1728c3dd6"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_6061d63519a7a2aa8b7dae9cc935367862028d74baf3eb9af205ddb91ff2140d.json",
+      "bytes": 36626,
+      "sha256": "9320d8bf7b22e22682e9397e2d51ad82862f73df0012983258546bd7e39af5e4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_64a4f0ee400fea213b116b37e98414a98503bf2b715cddb60f058b49657e0b9b.json",
+      "bytes": 36611,
+      "sha256": "dc2127e33679d412a73e1c9415b4688f9edf9451304e3fdd1a2a88e609440231"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_89953f7677ac1b1f30066de06de05a7c7d2d68a8a1101132927418792844262f.json",
+      "bytes": 36651,
+      "sha256": "b07659ad3c92ef71016c9b5d19b92bedfc08e9bea144abb804f0bc65320933e7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_a310cd2d336699f2afe4775eb25e19c9eb66f44dfdd7c9e49bc0781c031db0a2.json",
+      "bytes": 36433,
+      "sha256": "2d6db31872d5189d627d699316cc80f00d2969a2f7a3c0afaa1c0885baef1321"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_a8c032d23e057901af9e08b7632a408ed0cd335e688a3774dd2b76a1e5e1c322.json",
+      "bytes": 36510,
+      "sha256": "bee73e806ad4a42b9342acef691f2924b26d3b2150612f6073815986a24a3dbd"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_aa8a0ce69d6854a7d8cddd37e6c910b224766567caa2992143cfe982e0778d68.json",
+      "bytes": 36642,
+      "sha256": "b94afe8d65718afd2129a48494d134e76a5e30f4392c9ede877c5df818efe948"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_ae6bb91567efcd0c9ae381549d09bec66f218fb709690f64a564babe81ec7c2a.json",
+      "bytes": 36386,
+      "sha256": "2628f9faba7f1b4bef4950c9cac809e32e0a0de2fe4adea2866b48342fcea7bb"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_b4045a254e60c42495628ea2d73472d3799090dac3a86d97ea608abf21b4b99f.json",
+      "bytes": 36557,
+      "sha256": "408ec45294e845157a80c3fe396d64a79536f6919b6cfcdd1d29ceeac852a59f"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_d7b53fc6b5b1a62f289aecf024aa13b074c8d11f9dd1d0514dd8a1f58ec43a83.json",
+      "bytes": 36557,
+      "sha256": "d0f366ee580edb20f981c715ed66253a3877e40df3677321d833cd260ee67df1"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/corpus_d80df7718069a29da4a7ba27665987ac1874ac4a4f474deafe7c16b686464426.json",
+      "bytes": 36366,
+      "sha256": "4cd462a03f2194d644a0c9995f1134b8885c19dc89bdd0af425db1bc1c8ce51c"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/file_bindings.json",
+      "bytes": 124696,
+      "sha256": "2640a6dc3e2734c3d6fbca83a22d7eeafc7512a6d0206d7bcaedb57cc25d95d5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/finish_receipt.py",
+      "bytes": 4504,
+      "sha256": "be41cb4cfcb0d2677d2b51012647ad36b04cae81fb347aedd515e461978170fa"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/fixed_normalization.npz",
+      "bytes": 580,
+      "sha256": "a24b8ecabad9d885f5feedf7f327616a7b86b4639ae0bdea569cf7511b7b7583"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/label_conflict.original.py",
+      "bytes": 12928,
+      "sha256": "6250248139ccd3a622191fd351205fe8768e4055ec72a61efea2390f5dae90f7"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/metrics.csv",
+      "bytes": 25529,
+      "sha256": "7505b9bbdceff529b78219d7f359f3e8315c88475cdb74e3894a838bf44a0c67"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/progress.json",
+      "bytes": 192,
+      "sha256": "5f89b5bd9a519b1805da3a0e6680cd282a60a16ea3ffe0c3dd9029635022d995"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/raw_metrics.json",
+      "bytes": 944580,
+      "sha256": "2e1322bbd66be52e47a97572ba9a371b396f16d7626ca6dd6d89a70db14eefd5"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/receipt.json",
+      "bytes": 3731,
+      "sha256": "a5d161e3312f39392d810b8eddfd67e734de4e917e94ef3a0aee71be7e543ff4"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/stderr.log",
+      "bytes": 1706,
+      "sha256": "60315d426cce692af07d2807ac96f4f90dbd6cf644412bbd103884b9009b3fac"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/raw/spectrum_conflict/summary.csv",
+      "bytes": 6054,
+      "sha256": "a425cd8ef572953a3e808328e428459b48d5ca9eec5a2a8ca46d835c5fc951df"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/render_review.py",
+      "bytes": 2777,
+      "sha256": "241936786e952c3d34900794fa4f60ab54bfc57fc0ec7de87ab14ee41bb13cdf"
+    },
+    {
+      "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/results/coupled_loop_design_review_001/spectra.csv",
+      "bytes": 38120,
+      "sha256": "bd18de5d22b82f59cc83738c37e8cd853ef7ab3fa145a34b5e72ee59fd053e5d"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "l3-saved-spectrum-conflict-review-completion-1",
+  "status": "METRICS_COMPLETE_METADATA_RECOVERED",
+  "original_adapter_exit_status": 1,
+  "original_error": "Final receipt JSON serialization of Path, after raw_metrics.json and metrics.csv were written",
+  "original_error_log": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/stderr.log",
+    "bytes": 1706,
+    "sha256": "60315d426cce692af07d2807ac96f4f90dbd6cf644412bbd103884b9009b3fac"
+  },
+  "scientific_measurements_repeated": 0,
+  "cells": 32,
+  "unique_corpora": 19,
+  "cached_references": 13,
+  "windows": [
+    "primary",
+    "burn100"
+  ],
+  "raw_metrics": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/raw_metrics.json",
+    "bytes": 944580,
+    "sha256": "2e1322bbd66be52e47a97572ba9a371b396f16d7626ca6dd6d89a70db14eefd5"
+  },
+  "metrics_csv": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/metrics.csv",
+    "bytes": 25529,
+    "sha256": "7505b9bbdceff529b78219d7f359f3e8315c88475cdb74e3894a838bf44a0c67"
+  },
+  "summary_csv": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/summary.csv",
+    "bytes": 6054,
+    "sha256": "a425cd8ef572953a3e808328e428459b48d5ca9eec5a2a8ca46d835c5fc951df"
+  },
+  "file_bindings": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/file_bindings.json",
+    "bytes": 124696,
+    "sha256": "2640a6dc3e2734c3d6fbca83a22d7eeafc7512a6d0206d7bcaedb57cc25d95d5"
+  },
+  "original_adapter": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/adapter.py",
+    "bytes": 14581,
+    "sha256": "11967e1fe56b56669183d3fc805b66728cbc49d101baea3fc8fa7c8ac922b84a"
+  },
+  "closure_source": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/finish_receipt.py",
+    "bytes": 4504,
+    "sha256": "be41cb4cfcb0d2677d2b51012647ad36b04cae81fb347aedd515e461978170fa"
+  },
+  "config": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_loop_design_review_001/spectrum_conflict/analysis_config.json",
+    "bytes": 2724,
+    "sha256": "1be86c7a0515e84069771dd82ad98fcdde90753228a70ac5734a6270e10bc949"
+  },
+  "paid_cpu_seconds_lower_bound_at_last_progress": 8.234683,
+  "final_adapter_cpu_seconds": null,
+  "original_adapter_cpu_hard_upper_seconds": 355,
+  "command_and_metadata_closure_cpu_reservation_seconds": 5,
+  "conservative_aggregate_cpu_charge_seconds": 360,
+  "exact_final_cpu_counter_unavailable": true,
+  "closure_cpu_seconds": 0.033225,
+  "closure_wall_seconds": 0.00989012501668185,
+  "physics_substeps": 0,
+  "model_queries": 0,
+  "native_controls": 0,
+  "neural_forward_rows": 0,
+  "policy_updates": 0,
+  "limitations": [
+    "Descriptive saved-array diagnostics, not a learning/admission gate or a causal claim",
+    "Burn100 sensitivity marks 144 of1600 same-episode query K-means missing; nearest1 metrics retain a finite eligible neighbour",
+    "Frequency windows are2.4s primary/1.6s sensitivity; gait-frequency resolution is limited",
+    "Repeated corpora are cached references, not independent task replications",
+    "Distance bins are original within-cell quantiles; pairwise differences remain susceptible to support-distribution changes",
+    "No new SAC reference predictions or reference-matched ranking"
+  ]
+}
+PRIMARY_COMMON3STREAMS_R1_R5
+{"window": "primary", "round": 1, "arm": "independent", "streams": 3, "above5_power_share": 0.6075110309847985, "r2_full_gap100": 0.06831977734522603, "r2_low_gap100": 0.30882250097170966, "r2_high_gap100": -0.0828377629084917, "r2_full_episode_held_out": 0.06400396506039478, "r2_low_episode_held_out": 0.30418828772862117, "r2_high_episode_held_out": -0.08506334545649286, "conflict_other_over_same": 1.0433957594177492, "held_mse_after": 0.2495873863610714, "own_mse_after": 0.09257284419486086, "mean_nearest_distance_episode_held_out": 1.9891538618143014}
+{"window": "primary", "round": 1, "arm": "positive", "streams": 3, "above5_power_share": 0.6013466759802587, "r2_full_gap100": 0.10270226540436023, "r2_low_gap100": 0.37831850455277344, "r2_high_gap100": -0.0800453766303868, "r2_full_episode_held_out": 0.09999342704011431, "r2_low_episode_held_out": 0.37273981838319314, "r2_high_episode_held_out": -0.08047097344393017, "conflict_other_over_same": 1.024726010595433, "held_mse_after": 0.23935251378690156, "own_mse_after": 0.09745992015767141, "mean_nearest_distance_episode_held_out": 1.9075914439399424}
+{"window": "primary", "round": 5, "arm": "independent", "streams": 3, "above5_power_share": 0.6075110309847985, "r2_full_gap100": 0.06831977734522603, "r2_low_gap100": 0.30882250097170966, "r2_high_gap100": -0.0828377629084917, "r2_full_episode_held_out": 0.06400396506039478, "r2_low_episode_held_out": 0.30418828772862117, "r2_high_episode_held_out": -0.08506334545649286, "conflict_other_over_same": 1.0433957594177492, "held_mse_after": 0.37141657101640524, "own_mse_after": 0.037578042606267445, "mean_nearest_distance_episode_held_out": 1.9891538618143014}
+{"window": "primary", "round": 5, "arm": "positive", "streams": 3, "above5_power_share": 0.6149663790821187, "r2_full_gap100": 0.06879165647739494, "r2_low_gap100": 0.2933366668256185, "r2_high_gap100": -0.08369346159508557, "r2_full_episode_held_out": 0.06693262881074431, "r2_low_episode_held_out": 0.2898031789958931, "r2_high_episode_held_out": -0.08360342591099752, "conflict_other_over_same": 1.108768445528641, "held_mse_after": 0.27610527728750894, "own_mse_after": 0.07619456509945473, "mean_nearest_distance_episode_held_out": 1.9006551356446468}
+{"window": "primary", "round": 6, "arm": "independent", "streams": 1, "above5_power_share": 0.6182365069263064, "r2_full_gap100": 0.06703967881793615, "r2_low_gap100": 0.307259080527741, "r2_high_gap100": -0.07277919420171086, "r2_full_episode_held_out": 0.0634777746026931, "r2_low_episode_held_out": 0.2992272547930346, "r2_high_episode_held_out": -0.07270629720969723, "conflict_other_over_same": 1.0570744288298028, "held_mse_after": 0.38658928402696674, "own_mse_after": 0.030793321757915115, "mean_nearest_distance_episode_held_out": 2.1930777614458883}
+{"window": "primary", "round": 6, "arm": "positive", "streams": 1, "above5_power_share": 0.617106937091808, "r2_full_gap100": 0.080384653783796, "r2_low_gap100": 0.34700928106469187, "r2_high_gap100": -0.0938668091386834, "r2_full_episode_held_out": 0.07835061030166324, "r2_low_episode_held_out": 0.3421606916644525, "r2_high_episode_held_out": -0.09356201975381873, "conflict_other_over_same": 1.0973633731377848, "held_mse_after": 0.28928167220042034, "own_mse_after": 0.07479999879882394, "mean_nearest_distance_episode_held_out": 1.6674057016872934}

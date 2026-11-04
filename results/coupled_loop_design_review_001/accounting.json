@@ -1,0 +1,69 @@
+{
+  "schema": "saved-loop-design-review-cost-appendix-1",
+  "scope": "Review and publication only; underlying original experiments retain separate costs and failures",
+  "frozen_aggregate_cpu_limit_seconds": 1800,
+  "phases": [
+    {
+      "phase": "initial bank analysis",
+      "measured_cpu_seconds": 40.578696,
+      "charged_cpu_upper_seconds": 40.578696,
+      "receipt": "raw/bank_analysis.external.json"
+    },
+    {
+      "phase": "initial spectrum including metadata serialization failure",
+      "measured_cpu_lower_seconds": 8.234683,
+      "measured_final_cpu_seconds": null,
+      "charged_cpu_upper_seconds": 360,
+      "receipt": "raw/spectrum_conflict/receipt.json"
+    },
+    {
+      "phase": "initial contexts including failed preparation",
+      "measured_success_cpu_seconds": 1.722186,
+      "failed_cpu_seconds": null,
+      "failed_wall_seconds": 0.443468,
+      "charged_cpu_upper_seconds": 30
+    },
+    {
+      "phase": "initial cold-start including bounded unmetered attempt",
+      "measured_success_cpu_seconds": 9.495215,
+      "unmetered_attempt_cpu_upper_seconds": 120,
+      "charged_cpu_upper_seconds": 129.495215,
+      "receipt": "raw/cold_start/accounting.json"
+    },
+    {
+      "phase": "complete final saved-array extension",
+      "measured_cpu_seconds": 61.137571,
+      "charged_cpu_upper_seconds": 61.137571,
+      "receipt": "raw/final_snapshot/external_receipt.json"
+    },
+    {
+      "phase": "saved probe representation inspection",
+      "measured_cpu_seconds": 0.062986,
+      "charged_cpu_upper_seconds": 0.062986,
+      "receipt": "raw/probe_representation_note.json"
+    },
+    {
+      "phase": "capsule publication and figure",
+      "charged_cpu_upper_seconds": 60,
+      "measured_cpu_receipt": "publication_receipt.json"
+    },
+    {
+      "phase": "evidence inventory publication",
+      "measured_cpu_seconds": 1.705,
+      "charged_cpu_upper_seconds": 1.705
+    },
+    {
+      "phase": "remaining root bookkeeping and software checks",
+      "measured_cpu_seconds": null,
+      "charged_cpu_upper_seconds": 120
+    }
+  ],
+  "conservative_total_cpu_upper_seconds": 802.979468,
+  "charges_are_not_all_measured_cpu": true,
+  "initial_failures_preserved": true,
+  "new_physics": 0,
+  "new_model_queries": 0,
+  "new_neural_forwards": 0,
+  "new_policy_updates": 0,
+  "new_experiment_audits": 0
+}
