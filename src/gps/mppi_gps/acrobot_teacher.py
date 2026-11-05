@@ -22,7 +22,7 @@ import sys
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import numpy as np
 
@@ -355,7 +355,13 @@ def _save_array(group: Any, name: str, value: np.ndarray, budget: Budget) -> Non
 
 
 def _preflight(
-    mj: Any, env: Any, group: Any, budget: Budget, config: dict[str, Any]
+    mj: Any,
+    env: Any,
+    group: Any,
+    budget: Budget,
+    config: dict[str, Any],
+    *,
+    include_terminal_cost: bool = False,
 ) -> dict[str, Any]:
     """36 controls: original, complete-context replay, and one native batch replay."""
     from src.envs.acrobot import tip_position
@@ -424,7 +430,12 @@ def _preflight(
     _save_array(group, "batch_cost", cost, budget)
     _save_array(group, "actions", actions, budget)
     _assert_close(states[0], expected["states"][1:], "batch states", atol)
-    _assert_close(cost, expected["costs"].sum(keepdims=True), "batch total cost", atol)
+    expected_total = expected["costs"].sum(keepdims=True)
+    if include_terminal_cost:
+        terminal = np.asarray(env.terminal_cost(expected["states"][-1:]), dtype=np.float64)
+        _save_array(group, "terminal_cost", terminal, budget)
+        expected_total = expected_total + terminal
+    _assert_close(cost, expected_total, "batch total cost", atol)
     group.attrs["status"] = "PASSED"
     return {
         "status": "PASSED",
@@ -448,6 +459,11 @@ def _run_trial(
     recipe_index: int,
     trial_index: int,
     out: Path,
+    *,
+    controls: int = 500,
+    initial_state: np.ndarray | None = None,
+    metrics_fn: Callable[[Any, np.ndarray, np.ndarray, np.ndarray], dict[str, Any]] | None = None,
+    bank_callback: Callable[[Any, Any, Any, np.ndarray, Budget], None] | None = None,
 ) -> dict[str, Any]:
     """Record every optimization pass and every executed control, including failed trials."""
     import h5py
@@ -459,9 +475,17 @@ def _run_trial(
         reset_seed=seed_pair["reset_seed"],
         planner_seed=seed_pair["planner_seed"],
     )
-    env.reset(seed=seed_pair["reset_seed"])
+    if initial_state is None:
+        env.reset(seed=seed_pair["reset_seed"])
+    else:
+        env.reset(state=np.asarray(initial_state, dtype=np.float64))
+        group.attrs["initialization"] = "frozen_full_state"
     budget.work.resets += 1
-    budget.work.forwards += 2
+    budget.work.forwards += 2 if initial_state is None else 1
+    if initial_state is not None:
+        expected_state = np.asarray(initial_state, dtype=np.float64)
+        if env.get_state().tobytes() != expected_state.tobytes():
+            raise InvalidExecution("The frozen initial state was not restored byte-exactly.")
     context = _capture(mj, env)
     lengths = {key: value.shape for key, value in context.items()}
     datasets = {}
@@ -520,6 +544,8 @@ def _run_trial(
                 _save_array(pass_group, name, value, budget)
             pass_group.attrs["neff"] = result[1]["n_eff"]
             pass_group.attrs["lam"] = result[1]["lam"]
+            if bank_callback is not None:
+                bank_callback(pass_group, env, self, state, budget)
             active["pass"] += 1
             return result
 
@@ -527,7 +553,7 @@ def _run_trial(
     try:
         planner = RecordedMPPI(env, MPPIConfig(**recipe["planner"]))
         planner.reset(seed=seed_pair["planner_seed"])
-        for t in range(500):
+        for t in range(controls):
             budget.check()
             before = _capture(mj, env)
             observation = env._get_obs()
@@ -577,7 +603,12 @@ def _run_trial(
                     ),
                     flush=True,
                 )
-        metrics = episode_metrics(datasets["states"][1:], datasets["costs"][:], env._dt)
+        if metrics_fn is None:
+            metrics = episode_metrics(datasets["states"][1:], datasets["costs"][:], env._dt)
+        else:
+            metrics = metrics_fn(
+                env, datasets["states"][1:], datasets["costs"][:], datasets["actions"][:]
+            )
         result = {
             "stage": stage,
             "recipe_index": recipe_index,

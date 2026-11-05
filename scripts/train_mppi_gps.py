@@ -17,6 +17,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 STUDIES = {
+    "acrobot-energy-probe": "src.gps.mppi_gps.acrobot_energy_probe",
+    "acrobot-energy-report": "src.gps.mppi_gps.reporting.acrobot_energy_probe",
     "acrobot-teacher": "src.gps.mppi_gps.acrobot_teacher",
     "acrobot-teacher-report": "src.gps.mppi_gps.reporting.acrobot_teacher",
     "coupling-calibration": "src.gps.mppi_gps.coupling_calibration",
