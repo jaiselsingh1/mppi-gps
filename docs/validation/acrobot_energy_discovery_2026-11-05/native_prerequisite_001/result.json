@@ -1,0 +1,131 @@
+{
+  "protocol": "acrobot-energy-discovery-probe",
+  "version": "1.1",
+  "part": "preflight",
+  "status": "PASSED",
+  "profiles": [
+    {
+      "name": "dense",
+      "threads": 2,
+      "status": "PASSED",
+      "controls": 36,
+      "physics_substeps": 72,
+      "rtol": 0,
+      "atol": 1e-10,
+      "restoration_atol": 0
+    },
+    {
+      "name": "energy_matched",
+      "threads": 4,
+      "status": "PASSED",
+      "controls": 36,
+      "physics_substeps": 72,
+      "rtol": 0,
+      "atol": 1e-10,
+      "restoration_atol": 0
+    },
+    {
+      "name": "energy_double",
+      "threads": 4,
+      "status": "PASSED",
+      "controls": 36,
+      "physics_substeps": 72,
+      "rtol": 0,
+      "atol": 1e-10,
+      "restoration_atol": 0
+    }
+  ],
+  "native_energy_validation_attempted": true,
+  "native_energy_validation_complete": true,
+  "energy_validation": {
+    "status": "PASSED",
+    "maximum_absolute_error": 1.1368683772161603e-13,
+    "model_parameters": {
+      "m1": 1.0,
+      "m2": 1.0,
+      "c1": 0.5,
+      "c2": 0.5,
+      "l1": 1.0,
+      "I1": 0.0955703125,
+      "I2": 0.09530365719649561,
+      "gravity": 9.81,
+      "pivot_height": 2.0,
+      "damping1": 0.05,
+      "damping2": 0.05,
+      "armature1": 0.0,
+      "armature2": 0.0,
+      "gear": 2.0
+    },
+    "model_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+    "rtol": 0,
+    "atol": 1e-10,
+    "new_physics_controls": 0,
+    "physics_substeps": 0,
+    "native_forwards": 33,
+    "native_energy_pos_calls": 32,
+    "native_energy_vel_calls": 32,
+    "native_state_sets": 34,
+    "native_state_gets": 2,
+    "incoming_context_restored_exactly": true
+  },
+  "work": {
+    "native_controls_attempted": 0,
+    "native_controls_completed": 0,
+    "verification_controls_attempted": 108,
+    "verification_controls_completed": 108,
+    "forecast_controls_attempted": 0,
+    "forecast_controls_completed": 0,
+    "model_queries_attempted": 0,
+    "model_queries_completed": 0,
+    "physics_substeps_attempted": 216,
+    "physics_substeps_completed": 216,
+    "restores_attempted": 4,
+    "restores_completed": 4,
+    "resets": 12,
+    "forwards": 51,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "possible_partial_energy_validation": false,
+  "unknown_partial_work": {
+    "native_controls": 0,
+    "verification_controls": 0,
+    "forecast_controls": 0,
+    "model_queries": 0,
+    "physics_substeps": 0,
+    "restores": 0
+  },
+  "evidence": {
+    "evidence.h5": {
+      "sha256": "a4ecdffc514dc0d8eeb3f1aed45d7c8ceaba3c31734e81bfe2d14c0d2c81613a",
+      "bytes": 66296
+    },
+    "config.json": {
+      "sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176",
+      "bytes": 11794
+    },
+    "trials.jsonl": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "energy_validation.json": {
+      "sha256": "4fbbbeef35c2be191c8be8aaf0ff7d2483993a106100bfc83e4cc1a1c73e991c",
+      "bytes": 745
+    },
+    "environment.json": {
+      "sha256": "969353fce64294c9e5cfb9a09ec84e90403ef763e70c2ea89b43d98740217d41",
+      "bytes": 395
+    },
+    "inputs.json": {
+      "sha256": "95a633ba36edaadae6d16af8d653d643fe4da5356b71c6efc56894e840ebe91d",
+      "bytes": 3313
+    }
+  },
+  "resources": {
+    "cpu_seconds": 0.274218682,
+    "wall_seconds": 0.3157953969985101,
+    "rss_bytes": 154861568,
+    "output_bytes": 82543
+  }
+}
