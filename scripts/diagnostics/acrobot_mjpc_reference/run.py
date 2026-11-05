@@ -124,15 +124,21 @@ def prepare(repository: Path, directory: Path) -> None:
     )
 
 
-def execute(repository: Path, directory: Path, sdk: Path) -> None:
-    config = json.loads((directory / "frozen_inputs.json").read_text())
+def execute(
+    repository: Path, directory: Path, sdk: Path, output_name: str, bindings_name: str
+) -> None:
+    if Path(bindings_name).name != bindings_name:
+        raise ValueError("bindings name must be one file component")
+    config = json.loads((directory / bindings_name).read_text())
     for name, expected in config["source_file_sha256"].items():
         if sha256(directory / "source" / name) != expected:
             raise ValueError(f"changed official source: {name}")
     for name, expected in config["input_file_sha256"].items():
         if sha256(directory / name) != expected:
             raise ValueError(f"changed frozen input: {name}")
-    output = directory / "execution"
+    if Path(output_name).name != output_name:
+        raise ValueError("output name must be one directory component")
+    output = directory / output_name
     output.mkdir()
     receipt: dict = {"build": [], "runs": [], "complete": False}
 
@@ -216,13 +222,18 @@ def main() -> None:
     parser.add_argument("--repository", type=Path, required=True)
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--sdk", type=Path)
+    parser.add_argument("--output-name", default="execution")
+    parser.add_argument("--bindings-name", default="frozen_inputs.json")
     args = parser.parse_args()
     if args.stage == "prepare":
         prepare(args.repository.resolve(), args.directory.resolve())
     else:
         if args.sdk is None:
             parser.error("execute requires --sdk")
-        execute(args.repository.resolve(), args.directory.resolve(), args.sdk.resolve())
+        execute(
+            args.repository.resolve(), args.directory.resolve(), args.sdk.resolve(),
+            args.output_name, args.bindings_name,
+        )
 
 
 if __name__ == "__main__":

@@ -30,6 +30,7 @@ set(MJPC_FILES task.cc norm.cc trajectory.cc utilities.cc threadpool.cc
 list(TRANSFORM MJPC_FILES PREPEND "${MJPC_SOURCE}/mjpc/")
 add_library(reference_core STATIC ${MJPC_FILES})
 target_include_directories(reference_core PUBLIC "${MJPC_SOURCE}")
+target_compile_options(reference_core PRIVATE "-include" "${CMAKE_CURRENT_SOURCE_DIR}/compat.h")
 # Calls are redirected; downloaded upstream source bytes stay intact.
 target_compile_definitions(reference_core PRIVATE
   SOURCE_DIR="${MJPC_SOURCE}"

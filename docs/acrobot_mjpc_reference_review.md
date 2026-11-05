@@ -44,3 +44,7 @@ The [configuration](../configs/acrobot_mjpc_reference_v1.json), [driver](../scri
 6. Report peak height, first crossing, final two-second minimum, strict final-height >3.8 m success and both costs separately. This limited roster is not the standard dm_control random-start benchmark, minimum-time optimum or SOS certificate. No tuning or learning follows automatically.
 
 Protocol/source bindings must be committed before build. Worker output is create-only under /home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/. A failed build is a compatibility/infrastructure result, not a failed teacher.
+
+## Version 1.1 compatibility repair
+
+The first isolated build failed after 27.318854 wall seconds with zero physics: current MJPC uses the old eight-argument mj_ray call in its Ground helper; MuJoCo 3.6 requires a ninth normal-output argument. The original build logs and receipt remain unchanged. Version 1.1 supplies an inline compatibility overload passing a null normal pointer, without modifying any downloaded source or Acrobot dynamics. Ground is unused by Acrobot. The fresh rebuild has at most 1,172 wall seconds, so total builds remain below the original 1,200-second ceiling. The native budget, inputs, planner recipe, costs, derivative gate and roster are unchanged.
