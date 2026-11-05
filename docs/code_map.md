@@ -8,6 +8,14 @@ The current bounded local-controller loop shares one execution/learning stack: [
 
 The completed calibration/controller block uses [same-actor saved-bank calibration](../src/gps/mppi_gps/coupling_calibration.py) (`study coupling-calibration`), [bounded orchestration](../src/gps/mppi_gps/coupling_controller_check.py) (`study coupling-controller-check`) and [the mean-prefix recorder](../src/gps/mppi_gps/coupling_warmstart_probe.py). The recorder calls the existing MPPI optimizer and native execution primitives; it adds the declared score, initial nominal and innovation evidence. [Saved-only reporting](../src/gps/mppi_gps/reporting/coupling_controller_check.py) is separate from execution. The [protocol](coupling_calibration_t1_t0_protocol.md) and [negative controller result](coupling_controller_t0_result.md) define the supported scope; no fitting or follow-up is part of this workflow.
 
+The [Acrobot port](acrobot_controller_loop.md) starts with the [dense native task](../src/envs/acrobot.py)
+and a [bounded teacher prerequisite](../src/gps/mppi_gps/acrobot_teacher.py)
+(`study acrobot-teacher`). It calls the stock MPPI planner. Its
+[independent saved-array report](../src/gps/mppi_gps/reporting/acrobot_teacher.py)
+(`study acrobot-teacher-report`) runs no physics or fitting. The original feedback-controller
+loop is [preserved byte-for-byte](../archive/controller_loop_handoff-2026-11-04/README.md);
+it is not replaced by another optimizer. Teacher qualification precedes any learning launch.
+
 | Responsibility | Active implementation |
 |---|---|
 | Public CLI and study dispatch | [scripts/train_mppi_gps.py](../scripts/train_mppi_gps.py) |

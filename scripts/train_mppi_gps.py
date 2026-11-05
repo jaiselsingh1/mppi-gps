@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 
 STUDIES = {
     "acrobot-teacher": "src.gps.mppi_gps.acrobot_teacher",
+    "acrobot-teacher-report": "src.gps.mppi_gps.reporting.acrobot_teacher",
     "coupling-calibration": "src.gps.mppi_gps.coupling_calibration",
     "coupling-controller-check": "src.gps.mppi_gps.coupling_controller_check",
     "local-coupling-continuation": "src.gps.mppi_gps.experiments.local_coupling_multiround_continuation",

@@ -37,6 +37,20 @@ is authoritative. Its asset hashes bind the original XML and three includes. Thi
 model has **zero angles upright and `(pi, 0)` hanging**, reversing the handoff's
 angle example. Raw angles remain unwrapped; no sine/cosine observation change.
 
+Supported commands from the checkout root:
+
+```sh
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+python scripts/train_mppi_gps.py study acrobot-teacher \
+  --config configs/studies/acrobot_controller_teacher_v1_0.json --out FRESH_WORKER_DIRECTORY
+python scripts/train_mppi_gps.py study acrobot-teacher-report \
+  --config configs/studies/acrobot_controller_teacher_v1_0.json \
+  --run SAVED_WORKER_DIRECTORY --out FRESH_REPORT_DIRECTORY
+```
+
+Execution is bound to the declared Linux package versions; the report uses only
+saved arrays. A new output directory is required for either command.
+
 - Native timestep 0.01 s, frame skip 2: 50 Hz, 500 controls = 10 s. Private reset
   draws add independent Gaussian standard deviation 0.05 to both positions and
   velocities about `(pi, 0, 0, 0)`.
