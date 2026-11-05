@@ -130,7 +130,8 @@ int main(int argc, char** argv) {
     std::unique_ptr<mjModel, decltype(&mj_deleteModel)> original(
         mj_loadXML(argv[3], nullptr, error, sizeof(error)), mj_deleteModel);
     Require(bool(original), error);
-    Require(mj_version() == 360 && model->opt.integrator == mjINT_RK4 &&
+    Require(mj_version() == mjVERSION_HEADER && std::string(mj_versionString()) == "3.6.0" &&
+            model->opt.integrator == mjINT_RK4 &&
             model->opt.timestep == .01 && model->nq == 2 && model->nu == 1,
             "runtime/model binding mismatch");
     Require(model->actuator_gear[0] == 2 && model->actuator_ctrlrange[0] == -1 &&
