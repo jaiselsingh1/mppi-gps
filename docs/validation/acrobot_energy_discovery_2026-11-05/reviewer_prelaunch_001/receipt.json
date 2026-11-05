@@ -1,0 +1,75 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_acrobot_controller_task.py",
+        "tests/test_acrobot_teacher.py",
+        "tests/test_acrobot_teacher_report.py",
+        "tests/test_acrobot_energy.py",
+        "tests/test_acrobot_energy_probe.py",
+        "tests/test_acrobot_energy_report.py",
+        "tests/test_research_cli.py",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_model_geometry_and_control_contract",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_reset_seed_is_private_and_state_restore_exact",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_sequential_and_batch_post_costs_agree",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps/reporting/acrobot_energy_probe.py",
+        "src/gps/mppi_gps/reporting/acrobot_energy_figures.py",
+        "tests/test_acrobot_energy_report.py",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "format",
+        "--check",
+        "src/gps/mppi_gps/reporting/acrobot_energy_probe.py",
+        "src/gps/mppi_gps/reporting/acrobot_energy_figures.py",
+        "tests/test_acrobot_energy_report.py",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    }
+  ],
+  "cpu_seconds": 1.122538,
+  "wall_seconds": 1.2940557079855353,
+  "files": {
+    "src/gps/mppi_gps/reporting/acrobot_energy_probe.py": {
+      "sha256": "054a45570e551bce94274c2ceb00bdd1efb6fe972044d14c78ae632fee18e90f",
+      "bytes": 59582
+    },
+    "src/gps/mppi_gps/reporting/acrobot_energy_figures.py": {
+      "sha256": "82eb059b696594595c86d01b46f4817b884de7eda106bc8ed4c1cd7c62b7385c",
+      "bytes": 17008
+    },
+    "tests/test_acrobot_energy_report.py": {
+      "sha256": "d86257a431671a978e9366bb688c09c2b6ec81e086adb546cff66aa3b635c667",
+      "bytes": 15542
+    },
+    "src/gps/mppi_gps/acrobot_energy_completion.py": {
+      "sha256": "cca1b14bf9487139bb47c952cc71b9a0fe247db571939d80abc5e7dac2e023ae",
+      "bytes": 16363
+    },
+    "tests/test_acrobot_energy_completion.py": {
+      "sha256": "bdd6a9f7362144738c15633a255182865eb92bc7fc811d25930c002bc040cf10",
+      "bytes": 4540
+    }
+  },
+  "new_physics_controls": 0,
+  "new_fitting_updates": 0
+}

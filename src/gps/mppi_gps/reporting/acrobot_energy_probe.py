@@ -381,7 +381,14 @@ def _check_sources(audit: SavedAudit, run: Path, config: Path, spec: dict, resul
         )
 
 
-def _check_work(audit: SavedAudit, result: dict, expected: dict[str, int], limits: dict) -> None:
+def _check_work(
+    audit: SavedAudit,
+    result: dict,
+    expected: dict[str, int],
+    limits: dict,
+    *,
+    historical_storage_stop: bool = False,
+) -> None:
     work = result["work"]
     for name, number in expected.items():
         for suffix in ("attempted", "completed"):
@@ -395,7 +402,17 @@ def _check_work(audit: SavedAudit, result: dict, expected: dict[str, int], limit
             all(value == 0 for value in partial.values()), "No unresolved partial native calls"
         )
     for key in ("cpu_seconds", "wall_seconds", "output_bytes", "rss_bytes"):
-        audit.check(result["resources"][key] < limits[key], "Resource ceiling: " + key)
+        if key == "output_bytes" and historical_storage_stop:
+            prefix = "ResourceLimit: Frozen output_bytes budget exhausted: "
+            error = str(result.get("error", ""))
+            audit.check(
+                result["status"] == "STOPPED_RESOURCES" and error.startswith(prefix),
+                "Preserved original storage failure",
+            )
+            failed_bytes = int(error.removeprefix(prefix).split(" >= ", 1)[0])
+            audit.check(failed_bytes >= limits[key], "Historical storage ceiling was exceeded")
+        else:
+            audit.check(result["resources"][key] < limits[key], "Resource ceiling: " + key)
 
 
 def _verify_preflight(audit: SavedAudit, spec: dict, config: Path) -> dict:
@@ -638,17 +655,25 @@ def _verify_part(
     rows: list[dict],
     traces: list[tuple],
     pass_rows: list[dict],
+    *,
+    run_name: str | None = None,
+    trial_indices: tuple[int, ...] | None = None,
+    accepted_status: str | None = None,
+    partial_index: int | None = None,
+    limits_override: dict | None = None,
 ) -> dict:
     import h5py
 
-    run = audit.base / part
+    run = audit.base / (run_name or part)
     result = audit.load(run / "result.json")
     valid_statuses = (
         {"COMPLETED_NEAR_UPRIGHT_PROBE"}
         if part == "near-upright"
         else {"TEACHER_PROBLEM_STOP", "PROMISING_TEACHER_PROBE_ONLY"}
     )
-    audit.check(result["status"] in valid_statuses, "Complete part: " + part)
+    if accepted_status is not None:
+        valid_statuses = {accepted_status}
+    audit.check(result["status"] in valid_statuses, "Declared part status: " + run.name)
     audit.check(audit.load(run / "config.json") == spec, "Part configuration: " + part)
     _check_sources(audit, run, config, spec, result)
     binding = result.get("preflight_binding", {})
@@ -663,21 +688,33 @@ def _verify_part(
     audit.check(binding.get("config_sha256") == sha(config), "Prerequisite configuration hash")
     audit.check(binding.get("new_physics_repeated") == 0, "No repeated prerequisite physics")
     part_cfg = spec["parts"][part]
+    selected_indices = (
+        tuple(range(len(part_cfg["starts"]))) if trial_indices is None else trial_indices
+    )
+    completed_indices = tuple(x for x in selected_indices if x != partial_index)
     environment = audit.load(run / "environment.json")
     audit.check(environment["physics_threads"] == part_cfg["threads"], "Physics threads: " + part)
     native, forecast, queries = 0, 0, 0
     receipts = result.get("trials", result.get("episodes", []))
     audit.check(
-        len(receipts) == len(part_cfg["variants"]) * len(part_cfg["starts"]),
+        len(receipts) == len(part_cfg["variants"]) * len(completed_indices),
         "Complete trial-receipt roster",
     )
+    partial_measurement = None
+    incomplete_banks = []
     with h5py.File(audit.consume(run / "evidence.h5"), "r") as raw:
         audit.check(raw.attrs["status"] == result["status"], "HDF5 completion binding: " + part)
         for vi, variant in enumerate(part_cfg["variants"]):
             for si, seeds in enumerate(part_cfg["starts"]):
+                if si not in selected_indices:
+                    continue
                 path = f"trials/variant_{vi}/trial_{si}"
                 group = raw[path]
-                audit.check(group.attrs["status"] == "COMPLETED", path + ": complete")
+                partial = si == partial_index
+                audit.check(
+                    group.attrs["status"] == ("STOPPED" if partial else "COMPLETED"),
+                    path + ": preserved episode status",
+                )
                 for key, value in (
                     ("recipe", variant["name"]),
                     ("reset_seed", seeds["reset_seed"]),
@@ -695,7 +732,12 @@ def _verify_part(
                     weight=variant.get("energy_weight", 0),
                     observations=group["pre_action_observations"][:],
                 )
-                audit.check(measurement["complete"], "Full episode before classification")
+                audit.check(
+                    measurement["complete"] != partial,
+                    "Full episode before classification or explicitly excluded partial prefix",
+                )
+                if partial:
+                    audit.check(len(actions) == 429, "Original paid partial-prefix length")
                 context_arrays = {}
                 for key in ("warmstarts", "integration"):
                     array = group[key][:]
@@ -704,14 +746,19 @@ def _verify_part(
                         len(array) == len(actions) + 1 and np.isfinite(array).all(),
                         "Complete context " + key,
                     )
-                audit.same(
-                    group.attrs["task_cost"], measurement["task_cost"], "Episode objective receipt"
-                )
-                audit.check(
-                    bool(group.attrs["success"]) == measurement["success"], "Height outcome receipt"
-                )
+                if not partial:
+                    audit.same(
+                        group.attrs["task_cost"],
+                        measurement["task_cost"],
+                        "Episode objective receipt",
+                    )
+                    audit.check(
+                        bool(group.attrs["success"]) == measurement["success"],
+                        "Height outcome receipt",
+                    )
                 row = dict(
                     part=part,
+                    evidence_run=run.name,
                     variant=variant["name"],
                     variant_index=vi,
                     trial_index=si,
@@ -719,7 +766,7 @@ def _verify_part(
                     planner_seed=seeds["planner_seed"],
                     **measurement,
                 )
-                if receipts:
+                if receipts and not partial:
                     receipt = next(
                         x for x in receipts if x["recipe_index"] == vi and x["trial_index"] == si
                     )
@@ -729,7 +776,10 @@ def _verify_part(
                 previous = None
                 rng = np.random.default_rng(seeds["planner_seed"])
                 banks = group["planning"]
-                audit.check(len(banks) == len(actions), "One recorded plan per control")
+                audit.check(
+                    len(banks) == len(actions) + int(partial),
+                    "Executed plans plus declared unexecuted partial bank",
+                )
                 for t in range(len(actions)):
                     bank = banks[f"control_{t:04d}"]
                     audit.same(
@@ -746,6 +796,7 @@ def _verify_part(
                     for p in range(count):
                         identity = dict(
                             part=part,
+                            evidence_run=run.name,
                             variant=variant["name"],
                             trial_index=si,
                             control=t,
@@ -770,8 +821,30 @@ def _verify_part(
                     audit.same(actions[t], previous[0], "Executed optimized action", exact=True)
                     previous = np.concatenate([previous[1:], previous[-1:]])
                 native += len(actions)
-                rows.append(row)
-                traces.append((row, states, actions, components))
+                if partial:
+                    # The worker charged one additional complete native batch before the
+                    # output guard fired. Its partially written diagnostic bank is preserved,
+                    # but neither its update nor an unexecuted action is fabricated here.
+                    pending = banks[f"control_{len(actions):04d}"]
+                    inventory = {}
+                    pending.visititems(
+                        lambda name, value: inventory.update(
+                            {name: dict(shape=list(value.shape), dtype=str(value.dtype))}
+                        )
+                        if isinstance(value, h5py.Dataset)
+                        else None
+                    )
+                    incomplete_banks.append(
+                        dict(
+                            path=pending.name, datasets=inventory, numerical_update_certified=False
+                        )
+                    )
+                    queries += 1
+                    forecast += planner["K"] * planner["H"]
+                    partial_measurement = row
+                else:
+                    rows.append(row)
+                    traces.append((row, states, actions, components))
     expected = dict(
         native_controls=native,
         forecast_controls=forecast,
@@ -780,11 +853,275 @@ def _verify_part(
         physics_substeps=(native + forecast) * spec["task"]["frame_skip"],
         restores=0,
     )
-    _check_work(audit, result, expected, part_cfg["limits"])
-    return dict(result=result, expected=expected)
+    _check_work(
+        audit,
+        result,
+        expected,
+        limits_override or part_cfg["limits"],
+        historical_storage_stop=partial_index is not None,
+    )
+    return dict(
+        result=result,
+        expected=expected,
+        partial_measurement=partial_measurement,
+        incomplete_banks=incomplete_banks,
+    )
 
 
-def render(base: Path, config: Path, out: Path, cpu_seconds: float = 180) -> dict:
+def verify_repeated_prefix(
+    audit: SavedAudit, previous: Any, completion: Any, receipt: dict
+) -> dict:
+    """Check a fresh deterministic repeat, not a restored continuation claim."""
+    audit.check(
+        receipt.get("status") == "PASSED"
+        and receipt.get("controls") == 429
+        and receipt.get("previous_paid_queries") == 432
+        and receipt.get("rtol") == 0
+        and receipt.get("atol") == REPLAY_ATOL,
+        "Frozen deterministic-repeat contract",
+    )
+    errors = {}
+    for name in (
+        "states",
+        "warmstarts",
+        "integration",
+        "actions",
+        "costs",
+        "pre_action_observations",
+    ):
+        count = 430 if name in ("states", "warmstarts", "integration") else 429
+        old, new = np.asarray(previous[name][:count]), np.asarray(completion[name][:count])
+        audit.check(len(old) == len(new) == count, "Repeated-prefix rows: " + name)
+        audit.same(new, old, "Repeated-prefix strict replay: " + name, replay=True)
+        maximum = float(np.abs(new - old).max(initial=0))
+        field = receipt["fields"][name]
+        audit.check(
+            field["passed"]
+            and field["rows"] == count
+            and field["shape"] == list(old.shape)
+            and field["dtype"] == str(old.dtype)
+            and field["previous_array_raw_bytes_sha256"] == array_sha(old)
+            and field["completion_array_raw_bytes_sha256"] == array_sha(new),
+            "Repeated-prefix recorded array bindings: " + name,
+        )
+        audit.same(
+            field["maximum_absolute_error"], maximum, "Repeated-prefix error receipt", exact=True
+        )
+        errors[name] = maximum
+    return errors
+
+
+def _verify_near(
+    audit: SavedAudit,
+    spec: dict,
+    config: Path,
+    rows: list[dict],
+    traces: list[tuple],
+    passes: list[dict],
+    recovery_config: Path | None = None,
+) -> dict:
+    """Compose complete measurements while retaining all failed and repeated work."""
+    import h5py
+
+    completion_dir = audit.base / "near-upright-completion"
+    if not completion_dir.exists():
+        audit.check(recovery_config is None, "No recovery configuration without saved completion")
+        return _verify_part(audit, "near-upright", spec, config, rows, traces, passes)
+    audit.check(
+        recovery_config is not None,
+        "Storage completion requires explicit frozen recovery configuration",
+    )
+    assert recovery_config is not None
+    amendment = audit.load(completion_dir / "amendment.json")
+    audit.check(
+        audit.load(recovery_config) == amendment
+        and sha(recovery_config) == sha(completion_dir / "amendment.json"),
+        "Saved completion binds the separately frozen recovery protocol",
+    )
+    audit.check(
+        amendment["protocol"] == "acrobot-near-upright-storage-completion"
+        and amendment["version"] == "1.1R"
+        and amendment["retained_trial_indices"] == [0, 1]
+        and amendment["completion_trial_indices"] == [2, 3]
+        and amendment["partial_controls"] == 429
+        and amendment["prefix_atol"] == REPLAY_ATOL
+        and amendment["no_new_scientific_conditions"],
+        "Explicit storage-only completion protocol",
+    )
+    audit.check(
+        amendment["limits"]
+        == dict(
+            cpu_seconds=635,
+            wall_seconds=1400,
+            output_bytes=128 * 1024**2,
+            rss_bytes=4 * 1024**3,
+            native_controls=1000,
+            forecast_controls=38553600,
+            physics_substeps=77109200,
+        )
+        and amendment["expected_previous_controls"] == 1429
+        and amendment["expected_previous_queries"] == 1436,
+        "Predeclared remaining budget and previous-work bindings",
+    )
+    original_dir = audit.base / "near-upright"
+    audit.check(
+        sha(config) == amendment["original_config_sha256"], "Original scientific inputs unchanged"
+    )
+    audit.check(
+        sha(original_dir / "result.json") == amendment["previous_result_sha256"]
+        and sha(original_dir / "evidence.h5") == amendment["previous_evidence_sha256"],
+        "Original failure bytes preserved",
+    )
+    manifest = audit.load(audit.base / "source/source_manifest.json")
+    audit.check(
+        sha(audit.base / "source/source_manifest.json")
+        == amendment["frozen_source_manifest_sha256"]
+        and manifest["source_commit"] == amendment["frozen_worker_source_commit"],
+        "Completion executes the original frozen worker, separate from current reviewer",
+    )
+    original = _verify_part(
+        audit,
+        "near-upright",
+        spec,
+        config,
+        rows,
+        traces,
+        passes,
+        trial_indices=(0, 1, 2),
+        accepted_status="STOPPED_RESOURCES",
+        partial_index=2,
+    )
+    completion = _verify_part(
+        audit,
+        "near-upright",
+        spec,
+        config,
+        rows,
+        traces,
+        passes,
+        run_name="near-upright-completion",
+        trial_indices=(2, 3),
+        accepted_status="COMPLETED_NEAR_UPRIGHT_RECOVERY",
+        limits_override=amendment["limits"],
+    )
+    old, new = original["result"], completion["result"]
+    audit.check(
+        new["original_failure_preserved"]
+        and new["retained_original_trial_indices"] == [0, 1]
+        and new["completed_trial_indices"] == [2, 3]
+        and new["prior_work"] == old["work"]
+        and new["prior_resources"] == old["resources"],
+        "Overlay retains completed old cases and preserves the paid failed prefix",
+    )
+    for filename in ("inputs.json", "environment.json", "config.json"):
+        audit.check(
+            audit.load(completion_dir / filename) == audit.load(original_dir / filename),
+            "Original native source/runtime bindings unchanged: " + filename,
+        )
+    bindings = audit.load(completion_dir / "recovery_bindings.json")
+    for name in (
+        "frozen_source_manifest_sha256",
+        "previous_result_sha256",
+        "previous_evidence_sha256",
+    ):
+        audit.check(bindings[name] == amendment[name], "Recovery binding: " + name)
+    audit.check(
+        bindings["protocol_sha256"] == sha(completion_dir / "amendment.json")
+        and bindings["wrapper_sha256"] == sha(completion_dir / "wrapper_source.py")
+        and bindings["remaining_limits"] == amendment["limits"],
+        "Separately preserved wrapper and remaining limits",
+    )
+    prefix_receipt = audit.load(completion_dir / "prefix_check.json")
+    with (
+        h5py.File(original_dir / "evidence.h5", "r") as previous_raw,
+        h5py.File(completion_dir / "evidence.h5", "r") as completion_raw,
+    ):
+        prefix_errors = verify_repeated_prefix(
+            audit,
+            previous_raw["trials/variant_0/trial_2"],
+            completion_raw["trials/variant_0/trial_2"],
+            prefix_receipt,
+        )
+    paid = {
+        key: original["expected"][key] + completion["expected"][key] for key in original["expected"]
+    }
+    duplicate = dict(
+        native_controls=429,
+        forecast_controls=16588800,
+        model_queries=432,
+        verification_controls=0,
+        physics_substeps=33178458,
+        restores=0,
+    )
+    audit.check(
+        new["partial_repeat"]
+        == {
+            key: duplicate[key]
+            for key in ("native_controls", "forecast_controls", "model_queries", "physics_substeps")
+        },
+        "Repeated-prefix paid census",
+    )
+    for name, number in old["work"].items():
+        audit.check(
+            new["cumulative_paid_work"][name] == number + new["work"][name],
+            "Cumulative paid work includes original failure: " + name,
+        )
+    shared = amendment["shared_limits"]
+    audit.check(
+        shared["original_physics_substeps"] == spec["shared_limits"]["physics_substeps"]
+        and shared["additional_repeated_physics_substeps"] == duplicate["physics_substeps"]
+        and shared["amended_physics_substeps"]
+        == shared["original_physics_substeps"] + duplicate["physics_substeps"],
+        "Explicit repeated-work amendment, original resource ceiling retained",
+    )
+    audit.check(
+        shared["cpu_seconds"] == spec["shared_limits"]["cpu_seconds"]
+        and shared["output_bytes"] == spec["shared_limits"]["output_bytes"],
+        "Shared time and storage ceilings remain unchanged",
+    )
+    resources = {
+        name: max(old["resources"][name], new["resources"][name])
+        if name == "rss_bytes"
+        else old["resources"][name] + new["resources"][name]
+        for name in old["resources"]
+    }
+    for name in ("cpu_seconds", "wall_seconds"):
+        audit.check(
+            resources[name] < spec["parts"]["near-upright"]["limits"][name],
+            "Completion does not reset the original paid time budget: " + name,
+        )
+    return dict(
+        result=dict(status=new["status"], resources=resources),
+        expected=paid,
+        canonical_work={key: paid[key] - duplicate[key] for key in paid},
+        recovery=dict(
+            protocol="1.1R",
+            original_status=old["status"],
+            original_failure_preserved=True,
+            original_error=old["error"],
+            original_work=original["expected"],
+            completion_work=completion["expected"],
+            repeated_partial_work=duplicate,
+            canonical_work={key: paid[key] - duplicate[key] for key in paid},
+            paid_work=paid,
+            prefix_maximum_absolute_errors=prefix_errors,
+            original_partial_measurements=original["partial_measurement"],
+            original_incomplete_banks=original["incomplete_banks"],
+            original_resource_receipt=old["resources"],
+            completion_resource_receipt=new["resources"],
+            shared_limits=shared,
+        ),
+    )
+
+
+def render(
+    base: Path,
+    config: Path,
+    out: Path,
+    cpu_seconds: float = 180,
+    *,
+    recovery_config: Path | None = None,
+) -> dict:
     """Verify a closed saved study; failures retain a non-certifying result."""
     base, config, out = base.resolve(), config.resolve(), out.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -812,10 +1149,10 @@ def render(base: Path, config: Path, out: Path, cpu_seconds: float = 180) -> dic
             "Unknown frozen probe",
         )
         preflight = _verify_preflight(audit, spec, config)
-        parts = {
-            name: _verify_part(audit, name, spec, config, rows, traces, passes)
-            for name in ("near-upright", "energy")
-        }
+        parts = dict(
+            near_upright=_verify_near(audit, spec, config, rows, traces, passes, recovery_config),
+            energy=_verify_part(audit, "energy", spec, config, rows, traces, passes),
+        )
         selected = decision(rows, spec)
         expected_status = (
             "PROMISING_TEACHER_PROBE_ONLY"
@@ -840,10 +1177,23 @@ def render(base: Path, config: Path, out: Path, cpu_seconds: float = 180) -> dic
                 "physics_substeps",
             )
         }
-        audit.check(
-            totals["physics_substeps"] <= spec["shared_limits"]["physics_substeps"],
-            "Shared physics cap",
+        recovery = parts["near_upright"].get("recovery")
+        physics_ceiling = (
+            recovery["shared_limits"]["amended_physics_substeps"]
+            if recovery
+            else spec["shared_limits"]["physics_substeps"]
         )
+        audit.check(
+            totals["physics_substeps"] <= physics_ceiling, "Explicit shared paid physics cap"
+        )
+        if recovery:
+            result["storage_completion"] = recovery
+            result["limitations"].append(
+                "The original near-upright output cap failed and remains recorded. Complete cases0/1 "
+                "plus separately repeated cases2/3 form the canonical roster. The paid429-control "
+                "prefix and its unexecuted partially written bank are billed separately; the "
+                "incomplete bank is inventoried, not numerically certified."
+            )
         write_csv(out / "episodes.csv", rows)
         write_csv(out / "planner_passes.csv", passes)
         _plot(out / "figure.png", traces)
@@ -963,6 +1313,23 @@ def _report(path: Path, rows: list[dict], audit: dict) -> None:
         "2/2 result still requires a fresh 9/10 teacher qualification before any learning-loop claim.",
         "",
     ]
+    if "storage_completion" in audit:
+        recovery = audit["storage_completion"]
+        lines += [
+            "The original near-upright run exceeded its storage limit after two complete episodes "
+            "and429 controls of the third. It remains an unchanged failure. A separately frozen "
+            "storage-only completion repeated the third start, matched all429 saved controls and "
+            "contexts at the original strict tolerance, then ran the fourth start. This is a fresh "
+            "deterministic repeat, not a resumed simulator state.",
+            "",
+            "Accounting appendix: near-upright canonical episodes use "
+            f"{recovery['canonical_work']['native_controls']:,} executed controls; all paid near-upright "
+            f"work includes{recovery['paid_work']['native_controls']:,} executed controls and "
+            f"{recovery['paid_work']['physics_substeps']:,} physics substeps. The repeated partial "
+            "prefix is charged once in the paid census and excluded from the canonical outcome roster. "
+            "Its final unexecuted, partially written bank remains available but uncertified.",
+            "",
+        ]
     path.write_text("\n".join(lines))
 
 
@@ -970,10 +1337,17 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--config", type=Path, required=True)
+    parser.add_argument(
+        "--recovery-config",
+        type=Path,
+        help="Separately frozen1.1R amendment; required for a saved near-upright-completion overlay",
+    )
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--cpu-seconds", type=float, default=180)
     args = parser.parse_args(argv)
-    result = render(args.base, args.config, args.out, args.cpu_seconds)
+    result = render(
+        args.base, args.config, args.out, args.cpu_seconds, recovery_config=args.recovery_config
+    )
     print(
         json.dumps(
             {

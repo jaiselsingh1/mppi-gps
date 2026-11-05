@@ -106,6 +106,104 @@ def test_declared_numeric_bound_is_not_changed_after_error():
         audit.same(expected + 1e-9, expected, "Replay keeps strict tolerance", replay=True)
 
 
+def repeated_prefix_fixture():
+    old = dict(
+        states=states_at_pose(429),
+        warmstarts=np.zeros((430, 2)),
+        integration=np.zeros((430, 28)),
+        actions=np.zeros((429, 1)),
+        costs=np.zeros(429),
+        pre_action_observations=np.zeros((429, 4)),
+    )
+    new = {name: value.copy() for name, value in old.items()}
+    new["actions"][100] += 1e-11
+    fields = {
+        name: dict(
+            rows=len(value),
+            shape=list(value.shape),
+            dtype=str(value.dtype),
+            maximum_absolute_error=float(np.abs(new[name] - value).max(initial=0)),
+            passed=True,
+            previous_array_raw_bytes_sha256=report.array_sha(value),
+            completion_array_raw_bytes_sha256=report.array_sha(new[name]),
+        )
+        for name, value in old.items()
+    }
+    receipt = dict(
+        status="PASSED", controls=429, previous_paid_queries=432, rtol=0, atol=1e-10, fields=fields
+    )
+    return old, new, receipt
+
+
+def test_recovery_prefix_uses_strict_tolerance_and_separate_array_hashes():
+    old, new, receipt = repeated_prefix_fixture()
+    result = report.verify_repeated_prefix(report.SavedAudit(Path("."), 10), old, new, receipt)
+    assert result["actions"] == 1e-11
+    assert (
+        receipt["fields"]["actions"]["previous_array_raw_bytes_sha256"]
+        != receipt["fields"]["actions"]["completion_array_raw_bytes_sha256"]
+    )
+    new["integration"][429, 0] = 1.1e-10
+    with pytest.raises(ValueError, match="Repeated-prefix strict replay"):
+        report.verify_repeated_prefix(report.SavedAudit(Path("."), 10), old, new, receipt)
+
+
+def test_recovery_prefix_rejects_missing_rows_or_false_recorded_bindings():
+    old, new, receipt = repeated_prefix_fixture()
+    new["warmstarts"] = new["warmstarts"][:-1]
+    with pytest.raises(ValueError, match="Repeated-prefix rows"):
+        report.verify_repeated_prefix(report.SavedAudit(Path("."), 10), old, new, receipt)
+    old, new, receipt = repeated_prefix_fixture()
+    receipt["fields"]["costs"]["previous_array_raw_bytes_sha256"] = "wrong"
+    with pytest.raises(ValueError, match="recorded array bindings"):
+        report.verify_repeated_prefix(report.SavedAudit(Path("."), 10), old, new, receipt)
+
+
+def test_historical_storage_failure_is_preserved_not_reclassified_as_passed_cap():
+    work = dict(
+        native_controls=1429,
+        model_queries=1436,
+        forecast_controls=55142400,
+        physics_substeps=110287658,
+        verification_controls=0,
+        restores=0,
+    )
+    result = dict(
+        status="STOPPED_RESOURCES",
+        error="ResourceLimit: Frozen output_bytes budget exhausted: 134227501 >= 134217728.",
+        work={
+            name + "_" + suffix: number
+            for name, number in work.items()
+            for suffix in ("attempted", "completed")
+        },
+        unknown_partial_work={name: 0 for name in work},
+        resources=dict(
+            cpu_seconds=559.9, wall_seconds=300.6, rss_bytes=216096768, output_bytes=133955405
+        ),
+    )
+    result["work"].update(network_forwards=0, backward_calls=0, optimizer_updates=0)
+    limits = dict(
+        cpu_seconds=1200, wall_seconds=1800, rss_bytes=4 * 1024**3, output_bytes=128 * 1024**2
+    )
+    audit = report.SavedAudit(Path("."), 10)
+    report._check_work(audit, result, work, limits, historical_storage_stop=True)
+    assert "Historical storage ceiling was exceeded" in audit.checks
+    assert "Resource ceiling: output_bytes" not in audit.checks
+    result["status"] = "COMPLETED"
+    with pytest.raises(ValueError, match="Preserved original storage failure"):
+        report._check_work(
+            report.SavedAudit(Path("."), 10), result, work, limits, historical_storage_stop=True
+        )
+
+
+def test_saved_completion_requires_explicit_frozen_amendment(tmp_path):
+    (tmp_path / "near-upright-completion").mkdir()
+    with pytest.raises(ValueError, match="explicit frozen recovery configuration"):
+        report._verify_near(
+            report.SavedAudit(tmp_path, 10), {}, tmp_path / "config.json", [], [], []
+        )
+
+
 def roster():
     config = dict(
         parts={
