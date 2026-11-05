@@ -351,6 +351,187 @@ over the 3 seeds: how many seeds walk from >= 16 of 32 standing starts in >= 9
 of rounds 21-30; the first round each seed walks from >= 16; the mean final
 policy score. "A pull beats cloning" if it has more walking seeds than none, or
 the same number and a mean final score >= 0.1 higher.
+
+Added after the seeded test (carry-on 3 of 3 seeds walking from standing,
+cloning 2 of 3, action 0 of 3; but every walking policy recovers from only 2-15
+of 51 held-out mid-walk states: its data is one start-up path into one cycle):
+--visit-every now also works with --cycle (Kendall's "init new traj from
+somewhere along previous trajectories" / "learning trajs from states the policy
+visits"): visited trajectories are improved like any trajectory (their own pull
+weight; with --pull carry-on, the carry-on pull) and fit with the walks. Runs:
+the carry-on recipe plus --visit-every 2 --visit-new 2 --visit-max 8, seeds 1-3,
+30 rounds, threads 4 / 2 math. Decision rule: held-out mid-walk recovery at
+least doubles against the carry-on seeds (13, 11, 2 of 51) with standing walking
+intact (>= 16 of 32 in >= 9 of rounds 21-30). Kill rule: no seed walks from
+standing by round 15 (the carry-on seeds walked by rounds 9-12).
+
+Added after the seed counts (2026-11-05: carry-on 4 of 6 seeds walking or
+pending, none 4 of 6, motion 1 of 3, visited states 1 of 3): whether a seed
+walks is decided by --accept-if-better, not by the pull. Every stuck seed sat at
+the score floor (0.08-0.09: the policy falls within about 1.5 s; plain cloning
+of the same walks stays at 0.084-0.092 from 2,000 to 20,000 updates) and had its
+refit rejected for 12-29 rounds in a row (carry-on seed 6: accepted once, round
+1; visited-state seeds 1 and 3: never). Carry-on seed 1 walked after its round-1
+refit tied the starting score (0.090 >= 0.090) and was kept; its visited-state
+twin's round-1 refit scored just below and was rejected, and that policy never
+changed again. Each rejection restores the old parameters, so the next refit
+starts from them again and training never accumulates: on the flat floor the
+ratchet keeps whichever score was luckiest and discards everything after it.
+--learner (with --accept-if-better): the gate known from AlphaGo Zero's
+evaluator, where training continues from the latest network and only the
+player that is used changes when it is beaten. The learner guides the
+trajectories (the pull, the score weights and --copy-low use the learner and
+its score) and every round's refit continues from the learner's own
+parameters; the deployed copy, which is judged and saved, is replaced only when
+the learner's task score is at least the deployed score (the user's rule, "the
+policy shouldn't update its params if it doesn't get better at the task",
+applied to the policy that is used). Logged: policy_score (the deployed copy),
+learner_score, proposal_score (every round's refit, kept or not; now also
+without --learner). Runs: the carry-on recipe (--pull carry-on --cycle --gate
+--score --copy-low 200 --fit-updates 2000 --accept-if-better --settle
+--judge-every 1, shared start-up 188, 4 nearby starts) plus --learner, seeds 1-6,
+30 rounds, threads 4 / 2 math. Readings fixed before the runs: "--learner
+removes the lock-in" if at least 5 of 6 seeds walk (>= 16 of 32 from standing in
+>= 9 of rounds 21-30; the deployed copy) and seed 6, stuck without it, is among
+them. Kill rule: stop the arm at round 15 if fewer of its seeds walk then than
+without --learner at round 15 (4: seeds 1-4).
+
+The old-rule pull test ended level: carry-on 4 of 6 seeds walking (1-4), no
+pull 4 of 6 (2, 3, 5, 6); the accept rule's early luck picked the seeds. With
+--learner, carry-on had 5 of 6 seeds walking by round 9 (seeds 4-6 at 30-32 of
+32 at round 15). The pull comparison again, without the confound: --pull none
+--learner, seeds 1-6, otherwise as the carry-on --learner runs. Readings fixed
+before the runs: "carry-on beats no pull" if it has at least 2 more walking
+seeds (>= 16 of 32 in >= 9 of rounds 21-30), or the same number and a mean
+gap_after_fit over rounds 21-30 of its walking seeds at most half of no pull's
+(the policy and MPPI converge: under the old rule carry-on's walkers sat at
+0.008-0.010 against no pull's 0.04-0.06). Kill rule: a seed not walking by
+round 22.
+
+Added after the --learner runs (carry-on: all 6 seeds walked by round 11, but
+only the deployed copies: once a learner walked, the next refits dropped it
+back, e.g. seed 4 0.643 -> 0.100, seed 3's deployed 1.0 against its learner
+0.19): fragility_probe showed that refitting a walking learner on its own
+actions never breaks it (0.48-0.80, actions moving 0.0003 rms), while refitting
+it on the next round's walks does (seed 4: median 0.17 from 0.643; seed 5: 0.31
+from 0.663; actions moving 0.08-0.09 rms), and the walks it was fit on keep it
+(0.78). The data moves once the policy walks: with the walking learner as the
+guide, the carrier's competence rose 0.1 -> 0.89, its score-weighted pull
+became strong, the start-up changed and every walk joined the cycle at control
+390 instead of 222, a different mix of the data. Refitting on (1 - s) MPPI's
+targets + s the walking policy's own (s its score) kept it (seed 4: 0.85;
+seed 5: 0.57). --mix (with --learner): Kendall's rule on the policy's side,
+"the worse it does at the task, the less mppi needs to copy it (and the more it
+should copy mppi)": every refit's targets, actions and slopes, are (1 - s)
+MPPI's + s the deployed policy's own (mixed_targets; for squared losses the
+same as weighting the two fits by 1 - s and s), s = the deployed copy's task
+score. Runs: carry-on --learner --mix, seeds 1-6, 30 rounds, otherwise as the
+carry-on --learner runs. Readings fixed before the runs: per seed, "the loop's
+policy stays competent" if the learner scores at least half the deployed copy
+in >= 8 of rounds 21-30 (the learner is the loop's policy: MPPI is pulled toward
+it); "--mix keeps the loop's policy walking" if at least 3 more seeds meet that
+than in the --learner carry-on runs, with no fewer seeds walking from standing
+(the deployed copy, >= 16 of 32 in >= 9 of rounds 21-30). Kill rule: stop the
+arm at round 15 if fewer than 4 of its seeds walk from standing.
+
+Readings (2026-11-05). --learner carry-on: 6 of 6 seeds walk (10 of rounds
+21-30 each, seed 6 among them): "--learner removes the lock-in" holds; the
+learner kept at least half the deployed score in >= 8 of rounds 21-30 in 0 of
+6 seeds (final learners 0.10-0.31, deployed 0.64-1.0); mean gap of the walkers
+0.0109. --learner --pull none: 5 of 6 (seed 2 stopped at round 23, best 13 of
+32), learner competent in 0, gap 0.0100. "Carry-on beats no pull" does not hold
+(one more walking seed, the same gap): with the lock-in removed, the explicit
+pull term adds nothing measured here (toward-policy proposals, gain mixing and
+slopes stay in both). --mix at rounds 10-16: the learner tracks the deployed
+copy in 5 of 6 seeds (seed 4 0.75-0.90 against 0.904; seed 3 0.744-0.769
+against 0.769). Since the pull is not what works: --pull none --learner --mix,
+seeds 1-6, otherwise as the carry-on --mix runs. Readings fixed before the
+runs: "the pull adds nothing with --mix" if no pull has within one as many
+seeds that walk and within one as many with a competent learner as carry-on
+--mix, and a mean gap of its walkers at most 2x carry-on's; otherwise the pull
+helps. Kill rule as carry-on --mix.
+
+Readings, carry-on --learner --mix (figure: plot_ratchet.py, learner against
+learner + mix): 6 of 6 seeds walk from standing (10 of rounds 21-30 each); the
+learner keeps at least half the deployed score in >= 8 of rounds 21-30 in 4 of 6
+seeds (1, 3, 4, 6; final learner/deployed 0.948/0.962, 0.671/0.804,
+0.898/0.904, 0.616/0.649) against 0 of 6 without --mix: "--mix keeps the loop's
+policy walking" holds. Mean gap of the walkers 0.0204 (median 0.0136) against
+0.0109: the learner leans on its own deployed copy, so it sits farther from
+MPPI's walks. Seeds 2 and 5 keep the old failure later and smaller: seed 5's
+learner tracked the deployed copy (0.67-0.70) through round 21, then MPPI's
+walks moved away from it (gap before the fit 0.01 -> 0.066, 0.124 at round 22,
+the cycle itself steady at 0.0003: the start-up and continuations moved) and the
+30% of MPPI in its targets took it to 0.25-0.36. With a competent policy, MPPI
+still moves its walks far from it for task cost: the trajectory side of the pull
+is not limited by how good the policy is.
+
+--pull none --learner --mix: 6 of 6 walk, learner competent in 4 of 6 (1, 2,
+3, 5; three end at 1.0 deployed and learner), mean gap 0.0257 (carry-on --mix
+0.0204), held-out mid-walk 11.5 of 51 on average (11.7): "the pull adds nothing
+with --mix" holds. Carry-on's strides were more regular (stride change
+0.01-0.08 against 0.07-0.54, its seed 5 aside), not a reading fixed before.
+
+The late failures follow the join: seed 5's walks were each fit with a gap
+that tracks where they joined the cycle (0.004-0.006 at control 222,
+0.02-0.034 at 390-440, 0.21-0.27 at 973, where a walk is nearly all the
+carrier's continuation, MPPI's round-0 walk, never updated). But
+fragility_probe, refitting seed 5's round-21 learner on the round-22 walks
+with actions only, kept it walking with mixed targets whether anchored to
+itself (0.684) or to the deployed copy (0.70), and leaving the continuation out
+did not help (0.446): the probe leaves out the loop's slopes and nearby-start
+rows and does not reproduce the loop's 0.306. --save-fit saves every refit's
+exact inputs (fit_<r>.npz: rows, mixed targets and slopes, settings), so a
+refit can be replayed from learner_<r-1>.pt (checked: parameter difference 0.0).
+Runs: the two seeds that lost their learner late, carry-on --mix seed 5 and
+--pull none --mix seed 6, again with --save-fit on the machine each ran on.
+
+Replays (replay_ablation.py; each exact replay reproduced the loop's learner,
+parameter difference 0.0). No-pull --mix seed 6, round 14 (0.712 -> 0.261, the
+walks joining early at control 222 with a normal gap): other minibatch seeds
+0.28-0.47 (not luck), no slopes 0.109, walks only 0.299, half the updates 0.299,
+targets leaning 90% on the deployed copy instead of 71% 0.714. Round 19 (the
+learner already at 0.48 against the deployed 0.727): every variant 0.11-0.12,
+leaning 90% 0.221. Fitting part of the way toward MPPI's walks breaks a walking
+policy even on clean data, and so does fitting toward a different walking
+policy: MPPI's walks never take up the policy's gait, and targets that mix two
+gaits walk with neither. Carry-on --mix seed 5, round 22 (0.668 -> 0.306, most
+walks joining late, 390-973, so mostly the stale continuation): other minibatch
+seeds 0.39-0.55 (median 0.46: the exact draw was unlucky), no slopes 0.705,
+leaning 90% 0.684, half the updates 0.546, walks only 0.359: here the stale
+continuation's slope targets (LQR gains around MPPI's round-0 walk) break it
+(fragility_probe's actions-only refit had kept it for this reason). Two routes,
+one cause: targets that are not the policy's own behaviour (MPPI's actions from
+another gait; slopes from a stale MPPI walk). --adopt (with --cycle --learner): Kendall's "policy
+pulls mppi towards it" done by MPPI taking up the policy's gait. After a round
+whose refit replaced the deployed copy with a score of at least 1 / --budget
+(its 8 s walks cost at most --budget times MPPI's), the deployed policy is run
+alone from every training start (own_walks); if every walk stays up within its
+limit, those walks become MPPI's trajectories, and the cycle, the
+continuations and the carrier are rebuilt from them as at the start
+(build_cycle); otherwise nothing changes and the reason is logged. MPPI then
+improves the policy's own gait. Checked with the no-pull --mix seed 3 deployed
+copy (score 1.0): its walks cost 0.83-0.95x MPPI's, its stride locks (residual
+1.5e-15), all six walks join at control 228 with a gap to the policy of 0.0036.
+Runs: --pull none --learner --mix --adopt --save-fit, seeds 1-6, otherwise as
+the no-pull --mix runs. Readings fixed before the runs: "MPPI and the policy
+converge" if all 6 seeds walk, the learner is competent (>= half the deployed
+score in >= 8 of rounds 21-30) in at least 5, and the mean gap of the walkers
+over rounds 21-30 is at most half of no-pull --mix's (0.0257). Kill rule: stop
+the arm at round 15 if fewer than 4 seeds walk.
+
+Readings, --pull none --learner --mix --adopt: 6 of 6 seeds walk (10 of rounds
+21-30 each), the learner is competent in 6 of 6 (10, 10, 10, 10, 10 and 9 of
+rounds 21-30), mean gap of the walkers 0.0093 (median 0.0086): "MPPI and the
+policy converge" holds. Against the other arms (6 seeds each; walking, learner
+competent, mean gap, held-out mid-walk of 51): --learner carry-on 6, 0, 0.0109,
+13.0; --learner no pull 5, 0, 0.0100, 13.4; --mix carry-on 6, 4, 0.0204, 11.7;
+--mix no pull 6, 4, 0.0257, 11.5; --mix --adopt 6, 6, 0.0093, 13.5. Seeds 1 and
+3 end with the learner and the deployed copy both at 1.0 (cheaper than MPPI's
+own walks); every seed was adopted (first at rounds 8-19; seed 1 refused twice
+and seed 4 once, each time for a fall from 1 of the 6 starts). Held-out
+mid-walk recovery is unchanged (13.5 of 51): the data is still one start-up
+into one cycle.
 """
 
 from __future__ import annotations
@@ -375,7 +556,7 @@ from scripts.diagnostics.feedback_fit import slopes
 from scripts.diagnostics.feedback_rollouts import closed_loop, linearize, lqr
 from scripts.diagnostics.feedback_tube import capped
 from scripts.diagnostics.loop_task import WALKER
-from scripts.diagnostics.pulls import carry_on_pull
+from scripts.diagnostics.pulls import carry_on_pull, motion_pull
 from scripts.diagnostics.similarity_loop import R, discrepancy, search
 from scripts.diagnostics.slope_fit import fit_rows
 from scripts.diagnostics.stride_cycle import (
@@ -405,6 +586,8 @@ JOIN_TRIES, JOIN_NEAR, JOIN_MAX = 5, 0.5, 1.0  # join places tried; preferred, f
 JOIN_EARLY = 500  # a walk "joins early" if it is on the cycle by this control
 PULL = {"kind": "action"}  # --pull: what the trajectories are pulled toward (set by main)
 SEED = {"s": 0}  # --seed: shifts every random draw of the loop (0: as before; set by main)
+ANCHOR = {"policy": None, "s": 0.0}  # --mix: refit targets lean on this policy by its score s
+SAVE_FIT = {"dir": None, "round": None}  # --save-fit: every refit's exact inputs (set by main)
 
 
 def parts(env, policy, xbar, u, scale, spec):
@@ -555,10 +738,16 @@ def improve(
     similarity = None
     if PULL["kind"] == "none":
         alpha = 0.0  # cloning: the trajectories improve the task alone
-    elif PULL["kind"] == "carry-on" and alpha > 0:
-        # toward states the policy can carry on from (pull_bench's winner), weighted so that at the
-        # start of the search it equals the action pull it replaces (same gate, cap and dual)
-        base = carry_on_pull(env, spec, policy, start, scale, periodic)
+    elif PULL["kind"] in ("carry-on", "motion") and alpha > 0:
+        # carry-on: toward states the policy can carry on from (pull_bench's winner); motion: toward
+        # the policy's own rollout from the trajectory's start while it stays up (the bench's
+        # second); weighted so that at the start of the search each equals the action pull it
+        # replaces (same gate, cap and dual)
+        base = (
+            carry_on_pull(env, spec, policy, start, scale, periodic)
+            if PULL["kind"] == "carry-on"
+            else motion_pull(env, spec, policy, start, scale, len(u))
+        )
         D_c = float(base(states[None], u[None]).sum())
         weight = alpha * D / max(D_c, 0.05)  # floor: a policy that already carries on
 
@@ -616,6 +805,56 @@ def improve(
     return u2, s2, K2, row, extra_rows
 
 
+def own_walks(env, spec, policy, starts, length, budgets):
+    """The policy alone from every start for `length` controls: [(u, states)], or the reason it
+    cannot stand in for MPPI's walks (a fall, or a walk over its cost limit)."""
+    from scripts.diagnostics.feedback_rollouts import step
+
+    x = np.array(starts, dtype=float)
+    us, xs, up = [], [], np.ones(len(x), bool)
+    for _ in range(length):
+        u = np.clip(policy.predict(spec.observation(x).astype(np.float32)).astype(float), -1, 1)
+        x = step(env, x, u)
+        up &= env._is_healthy(x[:, 2], x[:, 3])
+        us.append(u)
+        xs.append(x.copy())
+    if not up.all():
+        return f"falls from {int((~up).sum())} of {len(up)} starts"
+    us, xs = np.stack(us, 1), np.stack(xs, 1)
+    costs = step_costs(env, xs, us).sum(1)
+    over = [k for k in range(len(starts)) if costs[k] > budgets[k]]
+    if over:
+        return f"over the limit from starts {over}"
+    return [(us[k], xs[k]) for k in range(len(starts))]
+
+
+def mixed_targets(anchor, s, spec, X, U, K, SC):
+    """Targets (1 - s) MPPI + s anchor for actions and slopes (--mix; s = the anchor's score).
+
+    For squared losses this is the same as weighting the fit to MPPI's rows by 1 - s and the fit
+    to the anchor policy's own actions and slopes by s. Slopes are compared in fit_rows' units:
+    the fit drives J * factor toward -K on the observed coordinates, so the anchor's K is
+    -(its J * factor)."""
+    import torch
+    from torch.func import jacrev, vmap
+
+    obs = torch.tensor(spec.observation(X).astype(np.float32))
+    factor = torch.tensor(spec.slope_factor(X, SC).astype(np.float32))
+    mean, std = anchor.observation_mean.cpu(), anchor.observation_std.cpu()
+    net = anchor.network.cpu()
+
+    def act(o):
+        return net((o - mean) / std)
+
+    with torch.no_grad():
+        own = act(obs).numpy().astype(np.float64)
+    J = torch.cat([vmap(jacrev(act))(obs[i : i + 4096]) for i in range(0, len(obs), 4096)])
+    J = (J * factor[:, None, :]).detach().numpy().astype(np.float64)
+    K = K.copy()
+    K[:, :, spec.observed - 1] = (1.0 - s) * K[:, :, spec.observed - 1] - s * J
+    return (1.0 - s) * U + s * own, K
+
+
 def refit(
     policy, spec, starts, found, gains, row_scales, extra_rows, r, fit_updates, rows, settle=False
 ):
@@ -629,12 +868,23 @@ def refit(
         acts.append(u_e)
         ks.append(k_e)
         scs.append(np.broadcast_to(sc, (len(u_e), len(sc))))
+    X, U, Ks, SC = (np.concatenate(a) for a in (xb, acts, ks, scs))
+    if ANCHOR["policy"] is not None and ANCHOR["s"] > 0.0:
+        U, Ks = mixed_targets(ANCHOR["policy"], ANCHOR["s"], spec, X, U, Ks, SC)
+    if SAVE_FIT["dir"] is not None:  # the exact rows, targets and settings of this refit
+        np.savez_compressed(
+            SAVE_FIT["dir"] / f"fit_{SAVE_FIT['round']}.npz",
+            X=X.astype(np.float32), U=U.astype(np.float32), K=Ks.astype(np.float32),
+            SC=SC.astype(np.float32), updates=fit_updates, seed=r + 1000 * SEED["s"],
+            settle=settle, mix_s=ANCHOR["s"] if ANCHOR["policy"] is not None else 0.0,
+            walk_rows=np.array([len(u) for u in acts[: len(found)]]),
+        )  # fmt: skip
     policy = fit_rows(
         policy,
-        np.concatenate(xb),
-        np.concatenate(acts),
-        np.concatenate(ks),
-        np.concatenate(scs),
+        X,
+        U,
+        Ks,
+        SC,
         SLOPE,
         updates=fit_updates,
         seed=r + 1000 * SEED["s"],
@@ -975,6 +1225,7 @@ def cycle_round(
     cycle_budget,
     settle=False,
     gate=None,
+    fit_more=(),
 ):
     """One round with one start-up and one cycle shared by every walk.
 
@@ -1104,6 +1355,7 @@ def cycle_round(
     if not built:  # nothing walks this round: keep the policy
         row_y["gap_after_fit"] = None
         return found, policy, rows, row_c, row_y, cycle
+    extra_rows = list(extra_rows) + list(fit_more)  # visited trajectories (--visit-every)
     policy = refit(
         policy,
         spec,
@@ -1508,11 +1760,29 @@ def main() -> int:
         help="keep a refit only if the policy's task score does not drop",
     )
     parser.add_argument(
+        "--learner",
+        action="store_true",
+        help="with --accept-if-better: the learner keeps its refits; only the deployed copy waits",
+    )
+    parser.add_argument(
+        "--adopt",
+        action="store_true",
+        help="with --cycle --learner: a new deployed policy within the limit becomes MPPI's walks",
+    )
+    parser.add_argument(
+        "--save-fit", action="store_true", help="save every refit's exact inputs (fit_<r>.npz)"
+    )
+    parser.add_argument(
+        "--mix",
+        action="store_true",
+        help="with --learner: refit targets (1 - s) MPPI + s deployed policy, s its task score",
+    )
+    parser.add_argument(
         "--seed", type=int, default=0, help="shifts every random draw of the loop (0: as before)"
     )
     parser.add_argument(
         "--pull",
-        choices=("action", "carry-on", "none"),
+        choices=("action", "carry-on", "motion", "none"),
         default="action",
         help="what the trajectories are pulled toward",
     )
@@ -1525,8 +1795,8 @@ def main() -> int:
     args = parser.parse_args()
     if args.visit_every > 0 and args.task != "walker":
         parser.error("--visit-every is walker only")
-    if args.cycle and (args.task != "walker" or args.shared_startup <= 0 or args.visit_every > 0):
-        parser.error("--cycle needs --task walker and --shared-startup, without --visit-every")
+    if args.cycle and (args.task != "walker" or args.shared_startup <= 0):
+        parser.error("--cycle needs --task walker and --shared-startup")
     started = time.perf_counter()
     args.out.mkdir(parents=True, exist_ok=False)
     setup = point_task if args.task == "point" else walker_task
@@ -1550,6 +1820,12 @@ def main() -> int:
         parser.error("--score, --copy-low and --accept-if-better are walker only")
     if args.score and not args.gate:
         parser.error("--score modifies --gate")
+    if args.learner and not args.accept_if_better:
+        parser.error("--learner modifies --accept-if-better")
+    if args.mix and not args.learner:
+        parser.error("--mix modifies --learner")
+    if args.adopt and not (args.learner and args.cycle):
+        parser.error("--adopt needs --learner and --cycle")
     gate = (score if args.score else competence) if args.gate else None
     PULL["kind"] = args.pull
     SEED["s"] = args.seed
@@ -1587,34 +1863,47 @@ def main() -> int:
             env, spec, starts, current, scales, args.shared_startup
         )
     cycle, cycle_info = None, {}
+
+    def build_cycle(walks, cycle_scale):
+        """The shared cycle and the continuations from walks [(u, states)], as at the start:
+        the most repeatable stride locked into a cycle, each walk's continuation after the
+        start-up with its capped LQR gains. A string (the reason) if the stride does not lock."""
+        xbars = [np.concatenate([x[None], st[:-1]]) for x, (_, st) in zip(starts, walks)]
+        w, a, b, change = best_stride(
+            [(xb, u) for xb, (u, _) in zip(xbars, walks)], Section(xbars), first=W
+        )
+        cyc = locked(
+            env,
+            spec,
+            xbars[w][a:b],
+            walks[w][0][a:b],
+            cycle_scale,
+            lambda xb, uu: periodic_gains(env, xb, uu, cycle_scale, CAP),
+        )
+        if not isinstance(cyc, dict):
+            return cyc
+        trans = []
+        for k, xb in enumerate(xbars):
+            u = walks[k][0]
+            K = capped(lqr(*linearize(env, xb, u, scales[k]), R, spec.free), CAP)
+            trans.append((xb[W:], u[W:], K[W:], scales[k]))
+        source = dict(walk=int(w), controls=[int(a), int(b)], section_change=change)
+        return cyc, trans, source
+
     if args.cycle:
         W = args.shared_startup
         xbars0 = [np.concatenate([x[None], st[:-1]]) for x, (_, st) in zip(starts, current)]
         cycle_scale = np.concatenate(xbars0)[:, 1:].std(0) + 1e-6
-        w, a, b, change = best_stride(
-            [(xb, u) for xb, (u, _) in zip(xbars0, current)], Section(xbars0), first=W
-        )
-        cycle = locked(
-            env,
-            spec,
-            xbars0[w][a:b],
-            current[w][0][a:b],
-            cycle_scale,
-            lambda xb, uu: periodic_gains(env, xb, uu, cycle_scale, CAP),
-        )
-        if not isinstance(cycle, dict):
-            raise SystemExit(f"the most repeatable stride does not lock into a cycle: {cycle}")
+        built0 = build_cycle(current, cycle_scale)
+        if not isinstance(built0, tuple):
+            raise SystemExit(f"the most repeatable stride does not lock into a cycle: {built0}")
+        cycle, transients, source = built0
         mppi_per_control = float(np.mean(c0) / len(current[0][0]))
         cycle_budget = args.budget * mppi_per_control * len(cycle["u"])
         cycle_cost0 = cycle["cost"]
-        transients = []
-        for k, xb in enumerate(xbars0):
-            u = current[k][0]
-            K = capped(lqr(*linearize(env, xb, u, scales[k]), R, spec.free), CAP)
-            transients.append((xb[W:], u[W:], K[W:], scales[k]))
         alphas.append(None)  # the cycle's pull weight (index len(starts))
         cycle_info = dict(
-            cycle_source=dict(walk=int(w), controls=[int(a), int(b)], section_change=change),
+            cycle_source=source,
             cycle_residual=cycle["residual"],
             cycle_cost_per_control_vs_mppi=cycle["cost"] / len(cycle["u"]) / mppi_per_control,
         )
@@ -1622,6 +1911,12 @@ def main() -> int:
     if args.copy_low is not None or args.accept_if_better:
         policy_score = task_score(policy)
         cycle_info["policy_score"] = policy_score
+    # --learner: `policy` is the learner (it guides the trajectories and is refit from its own
+    # parameters every round); `deployed` is the copy that is judged and saved, replaced only
+    # when the learner scores at least as well. Without --learner they are the same policy.
+    deployed, deployed_score = (
+        (copy.deepcopy(policy), policy_score) if args.learner else (None, None)
+    )
     rows = [
         dict(round=0, carrier=carrier, carrier_scores=carrier_scores, **cycle_info, **judge(policy))
     ]
@@ -1629,13 +1924,19 @@ def main() -> int:
     for r in range(1, args.rounds + 1):
         visit_stats = None
         fit_r = fit_updates
+        if args.save_fit:
+            SAVE_FIT.update(dir=args.out, round=r)
+        if args.mix:  # the better the deployed policy does, the less the learner copies MPPI
+            ANCHOR.update(
+                policy=copy.deepcopy(deployed), s=float(min(max(deployed_score, 0.0), 1.0))
+            )
         if args.copy_low is not None:  # copy MPPI harder the worse the policy does (Kendall)
             fit_r = int(round(fit_updates * (1.0 - policy_score) + args.copy_low * policy_score))
         if args.visit_every > 0 and (r - 1) % args.visit_every == 0:
             made, visit_stats = visit(policy, current, r, args.visit_new, visit_length)
             for m in made:
-                m.update(id=born, born=r, budget=args.budget * m["c0"])
-                alphas.append(None)  # index len(starts) + id, used only by this trajectory
+                alphas.append(None)  # this trajectory's own pull-weight slot
+                m.update(id=born, born=r, budget=args.budget * m["c0"], k=len(alphas) - 1)
                 visits.append(m)
                 born += 1
             visits = visits[-args.visit_max :] if args.visit_max > 0 else []
@@ -1652,7 +1953,7 @@ def main() -> int:
                 policy,
                 v["budget"],
                 r,
-                len(starts) + v["id"],
+                v["k"],
                 alphas,
                 eps,
                 None,
@@ -1685,6 +1986,7 @@ def main() -> int:
                 cycle_budget,
                 args.settle,
                 gate,
+                fit_more,
             )
         elif carrier is None:
             current, policy, per = controller_round(
@@ -1725,8 +2027,13 @@ def main() -> int:
                 args.settle,
                 gate,
             )
-        accepted_policy = None
-        if args.accept_if_better:  # no update unless the policy gets better at the task
+        accepted_policy = new_score = None
+        if args.accept_if_better and args.learner:  # the deployed copy waits for a better learner
+            new_score = policy_score = task_score(policy)
+            accepted_policy = bool(new_score >= deployed_score)
+            if accepted_policy:
+                deployed, deployed_score = copy.deepcopy(policy), new_score
+        elif args.accept_if_better:  # no update unless the policy gets better at the task
             new_score = task_score(policy)
             accepted_policy = bool(new_score >= policy_score)
             if accepted_policy:
@@ -1735,6 +2042,7 @@ def main() -> int:
                 policy = guiding
         elif policy_score is not None:
             policy_score = task_score(policy)
+        shown = deployed if args.learner else policy  # the policy that is judged and saved
         if cycle is not None:
             built = [x for x in per if x["walks"]]
             summary_r = dict(
@@ -1784,10 +2092,10 @@ def main() -> int:
                     {k: row_c[k] for k in ("gamma", "moved", "start_robustness", "competence")}
                 ),
             )
-            rows.append(dict(**summary_r, **(judge(policy) if every(r) else {})))
+            rows.append(dict(**summary_r, **(judge(shown) if every(r) else {})))
         else:
             rows.append(
-                dict(**summarize(r, per, budgets, c0), **(judge(policy) if every(r) else {}))
+                dict(**summarize(r, per, budgets, c0), **(judge(shown) if every(r) else {}))
             )
         on_path = spec.observation(
             np.concatenate(
@@ -1799,8 +2107,13 @@ def main() -> int:
         )
         if policy_score is not None:
             rows[-1].update(
-                policy_score=policy_score, policy_accepted=accepted_policy, fit_updates_used=fit_r
+                policy_score=deployed_score if args.learner else policy_score,
+                policy_accepted=accepted_policy,
+                fit_updates_used=fit_r,
+                proposal_score=new_score,  # this round's refit, kept or not
             )
+            if args.learner:
+                rows[-1]["learner_score"] = policy_score
         rows[-1]["trajectories"] = per
         if args.visit_every > 0:
             for v, row in zip(visits, visit_rows):
@@ -1829,7 +2142,9 @@ def main() -> int:
             "s",
             flush=True,
         )
-        torch.save(policy.state_dict(), args.out / f"policy_{r}.pt")
+        torch.save(shown.state_dict(), args.out / f"policy_{r}.pt")
+        if args.learner:
+            torch.save(policy.state_dict(), args.out / f"learner_{r}.pt")
         np.savez_compressed(
             args.out / f"round_{r}.npz",
             **{f"controls_{k}": u for k, (u, _) in enumerate(current)},
@@ -1845,6 +2160,25 @@ def main() -> int:
                 )
             ),
         )
+        if args.adopt and accepted_policy and deployed_score >= 1.0 / args.budget:
+            # MPPI adopts the new deployed policy's gait: its own walks replace MPPI's, and the
+            # cycle, continuations and carrier are rebuilt from them as at the start
+            got = own_walks(env, spec, deployed, starts, len(current[0][0]), budgets)
+            built = build_cycle(got, cycle_scale) if isinstance(got, list) else got
+            if isinstance(built, tuple):
+                current = got
+                cycle, transients, source = built
+                cycle_budget = args.budget * mppi_per_control * len(cycle["u"])
+                cycle_cost0 = cycle["cost"]
+                carrier, carrier_scores = choose_carrier(env, spec, starts, current, scales, W)
+                alphas[:] = [None] * len(alphas)
+                adopted = dict(round=r, adopted=True, cycle_source=source, carrier=carrier,
+                               cycle_cost_per_control_vs_mppi=cycle["cost"] / len(cycle["u"])
+                               / mppi_per_control)  # fmt: skip
+            else:
+                adopted = dict(round=r, adopted=False, reason=str(built))
+            rows[-1]["adoption"] = adopted
+            print("adoption", adopted, flush=True)
     last = rows[-1]
     readings = dict(
         converges_as_controllers=bool(last["mean_gamma"] >= 0.9 and last["gap_before_fit"] <= eps)
@@ -1886,6 +2220,9 @@ def main() -> int:
         score=args.score,
         copy_low=args.copy_low,
         accept_if_better=args.accept_if_better,
+        learner=args.learner,
+        mix=args.mix,
+        adopt=args.adopt,
         pull=args.pull,
         seed=args.seed,
         rows=rows,
