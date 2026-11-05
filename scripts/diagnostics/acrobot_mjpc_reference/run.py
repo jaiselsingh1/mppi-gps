@@ -9,12 +9,12 @@ import argparse
 import hashlib
 import json
 import os
-from pathlib import Path
 import re
 import signal
 import struct
 import subprocess
 import time
+from pathlib import Path
 
 
 def sha256(path: Path) -> str:

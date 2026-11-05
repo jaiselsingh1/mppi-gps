@@ -73,7 +73,7 @@ extern "C" void reference_counted_mj_step(const mjModel* model, mjData* data) {
 }
 
 extern "C" void reference_rk4_transitionFD(
-    const mjModel* model, mjData* data, mjtNum epsilon, mjtBool centered,
+    const mjModel* model, mjData* data, mjtNum epsilon, mjtByte centered,
     mjtNum* A, mjtNum* B, mjtNum* C, mjtNum* D) {
   // Deliberately limited to this two-hinge, no-activation-state model.
   if (model->nq != 2 || model->nv != 2 || model->nu != 1 || model->na != 0) {
