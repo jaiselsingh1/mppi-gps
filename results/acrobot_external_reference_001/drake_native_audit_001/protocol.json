@@ -1,0 +1,43 @@
+{
+  "version": "drake-native-saved-review-0.1",
+  "frozen_utc": "2026-11-05T21:58:57.359510+00:00",
+  "bindings": [
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/preparation.json",
+      "sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_native_v1_1_1/results.json",
+      "sha256": "6f29b314996209569fc929d64581d85e47f5c5ded10058d6e9c1dd7078e0b2cc"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_native_v1_1_1/evidence.h5",
+      "sha256": "edea3d454214bef8d29f05650ad95b5ee7bcaba2d460ccc811a07978ee0c3e3f"
+    },
+    {
+      "path": "configs/acrobot_drake_reference_v1_1_1.json",
+      "sha256": "dfff1d9d80ff62abdce8620bf8aef716950cba9874c3ca24bfe19ab6af3ec1f2"
+    },
+    {
+      "path": "configs/studies/acrobot_attractor_v1_0.json",
+      "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405"
+    }
+  ],
+  "limits": {
+    "cpu_seconds": 60,
+    "output_bytes": 8388608,
+    "new_physics": 0,
+    "new_solver_calls": 0
+  },
+  "measurements": [
+    "All3000preactionstate\u2192independentlyderivedphysicaltorque\u2192clippednormalizedactions",
+    "Allpostactionnativecosts and heights",
+    "Completeinitialcontextbytebindings,N+1states/time",
+    "6episodeoutcomes,saturation and6000substepcountreconciliation"
+  ],
+  "tolerance": {
+    "rtol": 0,
+    "atol": 1e-10
+  },
+  "stop": "Changedinputs,missingrequiredrows,nonfinitearrays orresourceexhaustion; no reruns"
+}

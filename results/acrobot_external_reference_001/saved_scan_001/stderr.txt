@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_external_reference_001/saved_scan_001/scan_saved.py", line 80, in <module>
+    ii=cp['selected_indices'][...];sa=cp['selected_actions'][...];ss=cp['selected_states'][...];selected=len(ii);fs['selected_trace_slots']+=selected;fs['selected_unique_candidates']+=len(set(ii.tolist()));t['selected_state_array_elements']+=ss.size
+                                      ~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/h5py/_hl/group.py", line 407, in __getitem__
+    return self._get(name)
+           ^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/Users/jaisel/Documents/mppi-gps/.venv/lib/python3.11/site-packages/h5py/_hl/group.py", line 421, in _get
+    oid = h5o.open(self.id, self._e(name), lapl=lapl)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5o.pyx", line 255, in h5py.h5o.open
+KeyError: "Unable to synchronously open object (object 'selected_actions' doesn't exist)"

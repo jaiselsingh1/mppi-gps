@@ -1,0 +1,56 @@
+{
+  "status": "SENSOR_TIMING_CONCERN_REFUTED_BY_EXACT_SOURCE",
+  "native_mujoco": "3.6.0",
+  "findings": [
+    "mj_step first calls mj_forward at current state with sensors enabled.",
+    "RK4 intermediate stages call mj_forwardSkip with skipsensor=1, so none overwrites sensordata.",
+    "Final RK4 advance updates physical state/time but does not recompute sensors; sensordata remains pre-action.",
+    "MJPC copies those pre-action residuals immediately after mj_step. Terminal residual uses direct mj_forward at terminal state.",
+    "Adapter C/D finite differences read exactly those pre-action sensors, including C-only terminal evaluation.",
+    "Interior/one-sided boundary gold using after-step sensors therefore tests intended sensor map; shared timing error not found."
+  ],
+  "analytic_expected_jacobian_cases": 40,
+  "analytic_C_equations": [
+    [
+      "sin(q0)+sin(q0+q1)",
+      "sin(q0+q1)",
+      0,
+      0
+    ],
+    [
+      "-cos(q0)-cos(q0+q1)",
+      "-cos(q0+q1)",
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "analytic_D_first5": [
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "new_physics_steps": 0,
+  "new_solver_calls": 0,
+  "numeric_gold_comparison": "Not performed here; full analytic expected C/D for all40frozen boundary cases saved for owner/independent verifier.",
+  "completed_epoch": 1793916269.315705
+}

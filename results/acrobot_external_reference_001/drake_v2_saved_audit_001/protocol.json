@@ -1,0 +1,48 @@
+{
+  "version": "drake-v2-saved-review-0.1",
+  "frozen_utc": "2026-11-05T22:06:10.804645+00:00",
+  "bindings": [
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/preparation.json",
+      "sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_native_v2_0/evidence.h5",
+      "sha256": "34b39513669ef88782df02c7668d9f0f7873c2c84adb98fa3f43462fb161cf7f"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_native_v2_0/results.json",
+      "sha256": "fa7fe69e27cb4840f43e2952b3fd90d35f0a971a50616ea8f0efb5f71f3007c0"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_native_v2_0/comparison_to_strict_join.json",
+      "sha256": "1988ab5e4d2ac2b082dc7ed092e784b4029461ce6ba2c6c40b8af19229b973e7"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_native_v1_1_1/evidence.h5",
+      "sha256": "edea3d454214bef8d29f05650ad95b5ee7bcaba2d460ccc811a07978ee0c3e3f"
+    },
+    {
+      "path": "configs/acrobot_drake_reference_v2_0.json",
+      "sha256": "35c778b81248638237f9da9393e49c87ce3cfbfacc430193206be6640469ef57"
+    }
+  ],
+  "limits": {
+    "cpu_seconds": 60,
+    "output_bytes": 8388608,
+    "new_physics_controls": 0,
+    "new_solver_calls": 0
+  },
+  "scope": [
+    "Twohybridepisodes1000preactioncontrollerdecisions",
+    "Independentrawtorque/action,cost,height,clipping,switchentries/exits",
+    "Byteidentityandaction/statechangesagainstpreservedstricthandoff",
+    "SameK/P/model/contextand1000controls/2000substepaccounting"
+  ],
+  "tolerance": {
+    "rtol": 0,
+    "atol": 1e-10
+  },
+  "known_caveat": "xPxdot scalarcrossruntime1ULPresidualnotcertifiedat1e-10; reportwithoutrelaxation",
+  "stop": "Changedbindings,invalidarraysorresources; no physics,recoveryortolerancechanges"
+}

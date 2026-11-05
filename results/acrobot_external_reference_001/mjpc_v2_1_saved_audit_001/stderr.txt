@@ -1,0 +1,9 @@
+fatal: not a git repository (or any of the parent directories): .git
+Traceback (most recent call last):
+  File "<stdin>", line 23, in <module>
+  File "/home/jaisel/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jaisel/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/source', 'rev-parse', 'HEAD']' returned non-zero exit status 128.

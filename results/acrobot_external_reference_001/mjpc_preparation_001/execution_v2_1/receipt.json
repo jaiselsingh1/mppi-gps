@@ -1,0 +1,211 @@
+{
+  "build": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/driver_v2_1/scripts/diagnostics/acrobot_mjpc_reference",
+        "-B",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v2_1/build",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DMJPC_SOURCE=/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/source",
+        "-DMUJOCO_SDK=/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.018334947999392
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v2_1/build",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 30.491739295001025
+    }
+  ],
+  "runs": [
+    {
+      "mode": "validate-boundaries",
+      "context": 0,
+      "exit_code": 0,
+      "output_prefix": "validate-boundaries_0",
+      "wall_seconds": 0.2732231119989592,
+      "steps": 1080
+    },
+    {
+      "mode": "sampling",
+      "context": 0,
+      "exit_code": 0,
+      "output_prefix": "sampling_0",
+      "wall_seconds": 0.8168508570015547,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 1,
+      "exit_code": 0,
+      "output_prefix": "sampling_1",
+      "wall_seconds": 0.8162335109991545,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 2,
+      "exit_code": 0,
+      "output_prefix": "sampling_2",
+      "wall_seconds": 0.8068987730002846,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 3,
+      "exit_code": 0,
+      "output_prefix": "sampling_3",
+      "wall_seconds": 0.8132600089993502,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 4,
+      "exit_code": 0,
+      "output_prefix": "sampling_4",
+      "wall_seconds": 0.8131058100007067,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 5,
+      "exit_code": 0,
+      "output_prefix": "sampling_5",
+      "wall_seconds": 0.8203284919982252,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 6,
+      "exit_code": 0,
+      "output_prefix": "sampling_6",
+      "wall_seconds": 0.823217047000071,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 7,
+      "exit_code": 0,
+      "output_prefix": "sampling_7",
+      "wall_seconds": 0.8170343050005613,
+      "steps": 501000
+    },
+    {
+      "mode": "ilqg",
+      "context": 0,
+      "exit_code": 0,
+      "output_prefix": "ilqg_0",
+      "wall_seconds": 2.1942735339980572,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 1,
+      "exit_code": 0,
+      "output_prefix": "ilqg_1",
+      "wall_seconds": 2.194956455998181,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 2,
+      "exit_code": 0,
+      "output_prefix": "ilqg_2",
+      "wall_seconds": 1.9201685759981046,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 3,
+      "exit_code": 0,
+      "output_prefix": "ilqg_3",
+      "wall_seconds": 2.1848491329983517,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 4,
+      "exit_code": 0,
+      "output_prefix": "ilqg_4",
+      "wall_seconds": 2.1852505649985687,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 5,
+      "exit_code": 0,
+      "output_prefix": "ilqg_5",
+      "wall_seconds": 2.174763286999223,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 6,
+      "exit_code": 0,
+      "output_prefix": "ilqg_6",
+      "wall_seconds": 2.1839834229976987,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 7,
+      "exit_code": 0,
+      "output_prefix": "ilqg_7",
+      "wall_seconds": 2.1849515499998233,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 0,
+      "exit_code": 0,
+      "output_prefix": "corrected-historical-ilqg_0",
+      "wall_seconds": 2.189068682000652,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 1,
+      "exit_code": 0,
+      "output_prefix": "corrected-historical-ilqg_1",
+      "wall_seconds": 2.1855275710004207,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 2,
+      "exit_code": 0,
+      "output_prefix": "corrected-historical-ilqg_2",
+      "wall_seconds": 2.1823221249978815,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 3,
+      "exit_code": 0,
+      "output_prefix": "corrected-historical-ilqg_3",
+      "wall_seconds": 2.1763280179984577,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 4,
+      "exit_code": 0,
+      "output_prefix": "corrected-historical-ilqg_4",
+      "wall_seconds": 2.190533023000171,
+      "steps": 1303750
+    }
+  ],
+  "complete": true,
+  "native_steps": 20957830,
+  "native_wall_seconds": 34.95727899600024,
+  "all_output_bytes": 1068607255
+}

@@ -1,0 +1,66 @@
+{
+  "status": "DESIGN_REVIEW_COMPLETE_WITH_SUBSTANTIVE_ADAPTER_FINDING",
+  "files_at_review": {
+    "docs/acrobot_external_reference_protocol.md": {
+      "sha256": "46d92b4f71f0ca1b62d025ab8f7b72adf600aa40c3b245c0ebea4657e1abb6a5",
+      "bytes": 8023
+    },
+    "docs/acrobot_external_reference_results.md": {
+      "sha256": "6a951d2647dced6d2c48c703eff769b33cbf77899adeaf16cac4fbb9d9fa0f23",
+      "bytes": 3770
+    },
+    "docs/acrobot_drake_sos_reference_review.md": {
+      "sha256": "053c64eb24b29aa0cb79af7ee4df36e8e20febb2872436369cde6b33eb14a0d4",
+      "bytes": 14940
+    },
+    "docs/acrobot_mjpc_reference_review.md": {
+      "sha256": "4874963587f4bdcedf4ee170f498dc2e107fb40f585a7f2852e80faca8437873",
+      "bytes": 11729
+    },
+    "src/gps/mppi_gps/acrobot_drake_reference.py": {
+      "sha256": "49092f04cc2b35a47f139050d8f353e907af56b643f0115450dc1751d94d7517",
+      "bytes": 14057
+    },
+    "src/gps/mppi_gps/references/acrobot_collocation.py": {
+      "sha256": "3ba08d326b334bc6148ee5c5bc00c36d3013e1ae07d5c26a4370af03fad7603f",
+      "bytes": 17249
+    },
+    "scripts/diagnostics/acrobot_mjpc_reference/main.cc": {
+      "sha256": "57ae59aaac4743013c14d0181867a227fb1f70594d56b9dc6e6d074f0d9a03ad",
+      "bytes": 12699
+    },
+    "scripts/diagnostics/acrobot_mjpc_reference/CMakeLists.txt": {
+      "sha256": "1b620cd0875d8ad4d9065dc6e2ad4cba58961f997d13129be6184b1ede39361c",
+      "bytes": 2196
+    }
+  },
+  "new_physics_steps": 0,
+  "new_solver_calls": 0,
+  "new_builds": 0,
+  "findings": [
+    {
+      "id": "FD_CONTROL_LIMIT_CONTRACT",
+      "severity": "invalidates strong negative iLQG inference",
+      "evidence": "reference_rk4_transitionFD always samples u+epsilon; frozen16interiorcontrols avoid saturation. Official3.6stepFD uses inward one-sided differences at upper limit. Sampling unaffected."
+    },
+    {
+      "id": "DRAKE_JOIN_CHANGED",
+      "severity": "limits interpretation",
+      "evidence": "Stockthreshold1e3 versus adapted1.6401953694e-12 on new P; 0/2 fails do not isolate torque limit or show same-model energy-shaping infeasible."
+    },
+    {
+      "id": "COLLOCATION_NO_FEASIBLE_REFERENCE",
+      "severity": "unresolved requested ground truth",
+      "evidence": "0/9coarsefeasible; no fine/nativeoptimal replay. No minimum time/cost/infeasibility established."
+    },
+    {
+      "id": "CERT_SCOPE",
+      "severity": "valid narrow claim",
+      "evidence": "Exact rational quadratic positivity plus analytic trig remainder proves tiny nominal continuous-time unsaturated local region only, not deployed50Hz/RK4 funnel."
+    }
+  ],
+  "protocol_amendments": "Setup repairs versioned; future bound-aware derivative repair needs own frozen source/control-limit gate before physics; current outputs preserved. Standard100Hz8startcheck is originaluserrequiredbenchmark, not a single-factor50vs100contrast because starts also differ.",
+  "completed_epoch": 1793916044.963381,
+  "review_process_cpu_seconds": 0.034067,
+  "cost_scope": "PythonreceiptwriterCPUonly; shell/tool/webreviewtimingnotinstrumented. No claim exact total engineeringCPU."
+}

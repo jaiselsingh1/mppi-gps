@@ -1,0 +1,31 @@
+{
+  "build": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/driver/scripts/diagnostics/acrobot_mjpc_reference",
+        "-B",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution/build",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DMJPC_SOURCE=/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/source",
+        "-DMUJOCO_SDK=/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.27299712599779
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution/build",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 2,
+      "wall_seconds": 25.045856977001677
+    }
+  ],
+  "runs": [],
+  "complete": false
+}

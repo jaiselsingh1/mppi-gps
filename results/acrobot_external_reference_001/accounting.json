@@ -1,0 +1,64 @@
+{
+  "scope": "New external-reference investigation only; prior MPPI studies remain paid ancestry and are not charged twice.",
+  "counted_native_integration_steps": 29989868,
+  "counted_MJPC_steps": 29981836,
+  "Drake_controller_steps": 8000,
+  "native_equation_parity_steps": 32,
+  "warmstart_native_steps": 0,
+  "executed_native_episode_steps": 39000,
+  "verification_native_steps": 1368,
+  "MJPC_forecast_integration_steps": 29949500,
+  "logical_executed_controls": 27500,
+  "complete_native_episodes": 39,
+  "completed_CARE_solves": 1,
+  "completed_SDP_solves": 1,
+  "coarse_IPOPT_attempts": 9,
+  "warmstart_IPOPT_attempts": 2,
+  "warmstart_attempts_with_final_saved_candidate": 1,
+  "network_forwards": 0,
+  "fitting_updates": 0,
+  "own_MPPI_reexecutions": 0,
+  "MJCPlimits": {
+    "build_wall_total": 156.30349579800895,
+    "native_wall_total": 50.52760571199906,
+    "CPU": "unmeasured; child affinity gives 4*wall upper bound, not an actual measurement"
+  },
+  "warmstart": {
+    "stages": [
+      {
+        "stage": "solve",
+        "command": [
+          "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/casadi_env/bin/python",
+          "-m",
+          "src.gps.mppi_gps.references.acrobot_warmstart",
+          "solve",
+          "--config",
+          "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/source/configs/studies/acrobot_collocation_warmstart_v2_0.json",
+          "--preparation",
+          "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/preparation",
+          "--authorization",
+          "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/authorization.json",
+          "--out",
+          "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/solves"
+        ],
+        "returncode": -9,
+        "status": null,
+        "wall_seconds": 360.11786806099917,
+        "user_seconds": 359.973184,
+        "system_seconds": 0.07901,
+        "maximum_child_rss_kib": 206952,
+        "output_bytes": 22419014
+      }
+    ],
+    "complete": false,
+    "source_commit": "3ada4cff80155b60fe768af3fc41a50ea4201f39",
+    "wall_seconds": 360.1188703629996,
+    "output_bytes": 22420176
+  },
+  "limitations": [
+    "Explicit mj_forward calls and all symbolic derivative operations were not separately instrumented.",
+    "MJPC CPU and some early failed metadata/setup timing were not recorded; they are not reconstructed as exact measurements.",
+    "The original saved-scan global CPU cap cannot be independently certified because exception paths omitted cumulative timing; original failures and individual limits remain.",
+    "The warmstart hard CPU stop charged360.052194seconds, .052194seconds beyond nominal360 due observed termination granularity. No resume/native replay followed."
+  ]
+}

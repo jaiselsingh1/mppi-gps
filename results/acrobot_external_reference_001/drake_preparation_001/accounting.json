@@ -1,0 +1,221 @@
+{
+  "protocol": "acrobot-drake-reference-v1.1.1",
+  "successful_preparation_source_commit": "5e56ead",
+  "native_parity_source_commit": "16f2ea3",
+  "source_scope": "create-only source exports on robopil5090; no existing branch/environment modifications",
+  "paid_counts": {
+    "successful_CARE_solves": 1,
+    "successful_quadratic_SDP_solves": 1,
+    "native_controller_episodes": 6,
+    "native_controls": 3000,
+    "physics_substeps": 6000,
+    "zero_time_Drake_EOM_evaluations": 32,
+    "zero_time_analytic_EOM_evaluations": 32,
+    "MPPI_queries": 0,
+    "fitting_updates": 0
+  },
+  "engineering_counts": {
+    "local_unit_test_runs": 2,
+    "SciPy_CARE_solves_in_unit_tests": 2,
+    "nonlinear_derivative_checks_in_unit_tests": 64,
+    "failed_wheel_installs": 1,
+    "failed_API_preparation": 1,
+    "failed_API_preparation_CARE_SDP_physics": 0
+  },
+  "setup_success": {
+    "protocol": "acrobot-drake-reference-v1.1",
+    "cap_wall_seconds": 600,
+    "cap_storage_bytes": 2147483648,
+    "status": "COMPLETED",
+    "error": null,
+    "elapsed_wall_seconds": 10.309004819999245,
+    "environment_bytes": 634821725
+  },
+  "resource_receipts": {
+    "drake_preparation_v1_1.log": {
+      "user_cpu_seconds": "0.19",
+      "system_cpu_seconds": "0.01",
+      "elapsed_wall": "0:00.19",
+      "maximum_RSS_KiB": "119520",
+      "exit_status": "1"
+    },
+    "drake_preparation_v1_1_1.log": {
+      "user_cpu_seconds": "0.36",
+      "system_cpu_seconds": "0.02",
+      "elapsed_wall": "0:00.26",
+      "maximum_RSS_KiB": "143080",
+      "exit_status": "0"
+    },
+    "drake_nonlinear_parity_v1_1_1.log": {
+      "user_cpu_seconds": "0.23",
+      "system_cpu_seconds": "0.01",
+      "elapsed_wall": "0:00.19",
+      "maximum_RSS_KiB": "117656",
+      "exit_status": "0"
+    },
+    "drake_native_v1_1_1.log": {
+      "user_cpu_seconds": "0.51",
+      "system_cpu_seconds": "0.03",
+      "elapsed_wall": "0:00.49",
+      "maximum_RSS_KiB": "103912",
+      "exit_status": "0"
+    }
+  },
+  "files": [
+    {
+      "path": "drake_api_v1_1_1.json",
+      "bytes": 508,
+      "sha256": "5a4cf01fecbef25256ddac76482a714a00cbba6c689c5ba104d3a9d4bf246145"
+    },
+    {
+      "path": "drake_install_v1_1.json",
+      "bytes": 232,
+      "sha256": "725d8497885e4eff0ddfe22709a5e735a0b7de33444b894820eaba3c178cade5"
+    },
+    {
+      "path": "drake_native_v1_1_1/evidence.h5",
+      "bytes": 998496,
+      "sha256": "edea3d454214bef8d29f05650ad95b5ee7bcaba2d460ccc811a07978ee0c3e3f"
+    },
+    {
+      "path": "drake_native_v1_1_1/results.json",
+      "bytes": 2900,
+      "sha256": "6f29b314996209569fc929d64581d85e47f5c5ded10058d6e9c1dd7078e0b2cc"
+    },
+    {
+      "path": "drake_native_v1_1_1/trials.jsonl",
+      "bytes": 1759,
+      "sha256": "4d0be3a9a3fb23bdee381e6bbc760b9929b5c4c2b6b1be6b982a1d9f17442f95"
+    },
+    {
+      "path": "drake_native_v1_1_1.log",
+      "bytes": 1324,
+      "sha256": "4b3314bf2c60dbd710743d11bf4f85847b46c57d022727e7f9c4e91e06027863"
+    },
+    {
+      "path": "drake_nonlinear_parity_v1_1_1/parity.json",
+      "bytes": 19606,
+      "sha256": "65301566ea684d6ba65ff180423af7b6af374e69bf70d8df75eb34800dbb96c0"
+    },
+    {
+      "path": "drake_nonlinear_parity_v1_1_1.log",
+      "bytes": 1162,
+      "sha256": "b458d5999c9732b2965e1ccc7301abae4e9b2f46f0aa54c7585261ae3c8ccac8"
+    },
+    {
+      "path": "drake_preparation_v1_1.log",
+      "bytes": 1798,
+      "sha256": "7838bbf792369498d7cc7027566f3d8a1f154b4f80190abe78d035672e5e6109"
+    },
+    {
+      "path": "drake_preparation_v1_1_1.log",
+      "bytes": 1079,
+      "sha256": "96ba31e9b7604e772fd1baf883cad006e43653bb0794d36148b727ebc8a275cf"
+    },
+    {
+      "path": "drake_runtime_v1_1.json",
+      "bytes": 384,
+      "sha256": "ab961d086ed1e45e64b2bbf8cf425455f1e2989bde29beec062665abc3ac3b5c"
+    },
+    {
+      "path": "examples__acrobot__acrobot_params.h",
+      "bytes": 14447,
+      "sha256": "fedcb6cace6d38fbbf1f245f82641d5e06a434142a4c83f1ea800e5f1c22d43c"
+    },
+    {
+      "path": "examples__acrobot__acrobot_plant.cc",
+      "bytes": 7853,
+      "sha256": "3e30d0b736781b81eb41f9ea4f08629e501c617c20ba05289fb73c24c1e056fa"
+    },
+    {
+      "path": "examples__acrobot__acrobot_plant.h",
+      "bytes": 5128,
+      "sha256": "a493546a4f048c97f78bc43282fdb66dc55043764c0d057a36ee91857044cf77"
+    },
+    {
+      "path": "examples__acrobot__spong_controller.h",
+      "bytes": 6696,
+      "sha256": "0e7682f98e49159a7e2acef1d5263a7c958862adb02d30e506e720abc18abcbe"
+    },
+    {
+      "path": "examples__acrobot__spong_controller_params.h",
+      "bytes": 8486,
+      "sha256": "0a8db20967c6e0cbfdabda2e2f3f203b9a4d34b0e339e854d299cb2c74f73ac7"
+    },
+    {
+      "path": "install_failure_v1_0.json",
+      "bytes": 801,
+      "sha256": "866c2aa8adf732f4449a626e943f94ae924fd4f44a76393d2d9410cac1c55d6c"
+    },
+    {
+      "path": "preparation.json",
+      "bytes": 11665,
+      "sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983"
+    },
+    {
+      "path": "source_manifest.json",
+      "bytes": 3482,
+      "sha256": "ba7d1ba03dc5c2f460865b687c73f859e1e5d913f8ca6e7dc9ace26d29998d40"
+    },
+    {
+      "path": "systems__analysis__region_of_attraction.cc",
+      "bytes": 15021,
+      "sha256": "1064ac5658897c7b196087516c2d992df95ad5d217a2758424c226f498b6a7f7"
+    },
+    {
+      "path": "systems__analysis__region_of_attraction.h",
+      "bytes": 5277,
+      "sha256": "bb16deeb5dc3c2f33bc208871f8a0ed3342bb34ac8af182d05a93ff72b62feb8"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__acrobot_params.h",
+      "bytes": 14447,
+      "sha256": "fedcb6cace6d38fbbf1f245f82641d5e06a434142a4c83f1ea800e5f1c22d43c"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__acrobot_params.h.diff",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__acrobot_plant.cc",
+      "bytes": 7853,
+      "sha256": "3e30d0b736781b81eb41f9ea4f08629e501c617c20ba05289fb73c24c1e056fa"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__acrobot_plant.cc.diff",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__spong_controller.h",
+      "bytes": 6696,
+      "sha256": "0e7682f98e49159a7e2acef1d5263a7c958862adb02d30e506e720abc18abcbe"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__spong_controller.h.diff",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__spong_controller_params.h",
+      "bytes": 8486,
+      "sha256": "0a8db20967c6e0cbfdabda2e2f3f203b9a4d34b0e339e854d299cb2c74f73ac7"
+    },
+    {
+      "path": "v1_51_1__examples__acrobot__spong_controller_params.h.diff",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "v1_51_1_source_comparison.json",
+      "bytes": 1330,
+      "sha256": "9559ec29f00340c5537ebad98fcc522f7b5e4ec59a80fde506576816ddeef07a"
+    }
+  ],
+  "known_missing_costs": [
+    "Failed v1.0 wheel install exception occurred before installer wrote elapsed time; do not infer exact process timing.",
+    "SSH/network transfer costs have no per-transfer CPU accounting. Archive transfer bytes and retained output sizes are measurable."
+  ],
+  "local_retained_bytes": 1146916
+}

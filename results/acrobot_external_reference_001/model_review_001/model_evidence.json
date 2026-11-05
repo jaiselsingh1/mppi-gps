@@ -1,0 +1,193 @@
+{
+  "upstream_commit": "f1f91e0309e5df81bf7a3ee83849ebcee86779d8",
+  "physical_xml_structurally_equal_after_removing_local_sensor": true,
+  "removed_local_sensors": [
+    [
+      "sensor",
+      [],
+      [
+        [
+          "framepos",
+          [
+            [
+              "name",
+              "tip_pos"
+            ],
+            [
+              "objname",
+              "tip"
+            ],
+            [
+              "objtype",
+              "site"
+            ]
+          ],
+          []
+        ]
+      ]
+    ]
+  ],
+  "common_assets": [
+    {
+      "name": "visual.xml",
+      "bytes_equal": true,
+      "ours_sha256": "1e338ca511de35b902c4ca944d857c23fe4e7a5aea46a475cdc317dd454245b0",
+      "upstream_sha256": "1e338ca511de35b902c4ca944d857c23fe4e7a5aea46a475cdc317dd454245b0"
+    },
+    {
+      "name": "skybox.xml",
+      "bytes_equal": true,
+      "ours_sha256": "71db77c7c88dd4e1b54eb394deecfba673bbf539d110de68aa229dee00abf107",
+      "upstream_sha256": "71db77c7c88dd4e1b54eb394deecfba673bbf539d110de68aa229dee00abf107"
+    },
+    {
+      "name": "materials.xml",
+      "bytes_equal": true,
+      "ours_sha256": "83ee4f7d3f0c9b3003ad121c2c35169a32a922c437321278f27db60d577ccfac",
+      "upstream_sha256": "83ee4f7d3f0c9b3003ad121c2c35169a32a922c437321278f27db60d577ccfac"
+    }
+  ],
+  "compiled_parameters_source": "runs/2026-11-05_acrobot_energy_discovery_001/preflight/energy_validation.json",
+  "parameters": {
+    "m1": 1.0,
+    "m2": 1.0,
+    "c1": 0.5,
+    "c2": 0.5,
+    "l1": 1.0,
+    "I1": 0.0955703125,
+    "I2": 0.09530365719649561,
+    "gravity": 9.81,
+    "pivot_height": 2.0,
+    "damping1": 0.05,
+    "damping2": 0.05,
+    "armature1": 0.0,
+    "armature2": 0.0,
+    "gear": 2.0
+  },
+  "M_upright": [
+    [
+      2.6908739696964954,
+      0.8453036571964956
+    ],
+    [
+      0.8453036571964956,
+      0.3453036571964956
+    ]
+  ],
+  "gravity_stiffness_upright": [
+    [
+      19.62,
+      4.905
+    ],
+    [
+      4.905,
+      4.905
+    ]
+  ],
+  "continuous_A": [
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    [
+      12.247304803866387,
+      -11.42662256712291,
+      -0.08044147934417024,
+      0.19692081234236503
+    ],
+    [
+      -15.776524308308872,
+      42.177270764049155,
+      0.19692081234236505,
+      -0.6268624103449049
+    ]
+  ],
+  "continuous_B_normalized_input": [
+    [
+      0.0
+    ],
+    [
+      0.0
+    ],
+    [
+      -7.876832493694601
+    ],
+    [
+      25.074496413796194
+    ]
+  ],
+  "upright_energy_j": 58.86,
+  "hanging_energy_j": 19.62,
+  "energy_raise_j": 39.24,
+  "maximum_elbow_torque_nm": 2,
+  "static_elbow_angle_necessary_bound_rad": 0.41998548194158275,
+  "historical_starts_lqr_demand": [
+    {
+      "reset_seed": 3022000000,
+      "state": [
+        0.0,
+        0.062143394476914096,
+        0.09584055023906225,
+        0.03851238629141512,
+        -0.017933166139770525
+      ],
+      "initial_lqr_normalized_unclipped": 20.045644400674735,
+      "initial_lqr_physical_torque_unclipped_nm": 40.09128880134947,
+      "shoulder_gravity_nm": -1.6855433760404188,
+      "elbow_gravity_nm": -0.7716917769996098
+    },
+    {
+      "reset_seed": 3022000001,
+      "state": [
+        0.0,
+        -0.004636631530719969,
+        -0.02561005188824252,
+        0.0003560468250879351,
+        0.01828223345584171
+      ],
+      "initial_lqr_normalized_unclipped": -1.8473715566651219,
+      "initial_lqr_physical_torque_unclipped_nm": -3.6947431133302437,
+      "shoulder_gravity_nm": 0.21656515023304146,
+      "elbow_gravity_nm": 0.14833736172327863
+    },
+    {
+      "reset_seed": 3022000002,
+      "state": [
+        0.0,
+        -0.08544375933069705,
+        0.04866972206303771,
+        0.01177305504521027,
+        -0.04280017611270967
+      ],
+      "initial_lqr_normalized_unclipped": -14.798804810894904,
+      "initial_lqr_physical_torque_unclipped_nm": -29.597609621789807,
+      "shoulder_gravity_nm": 1.4361116233983187,
+      "elbow_gravity_nm": 0.18033600075907086
+    },
+    {
+      "reset_seed": 3022000003,
+      "state": [
+        0.0,
+        0.06403037597239514,
+        -0.07338293126629013,
+        0.05958441395590334,
+        -0.049032420637468446
+      ],
+      "initial_lqr_normalized_unclipped": 12.432585118017816,
+      "initial_lqr_physical_torque_unclipped_nm": 24.86517023603563,
+      "shoulder_gravity_nm": -0.89568967544003,
+      "elbow_gravity_nm": 0.04587361494665909
+    }
+  ],
+  "new_physics_controls": 0,
+  "new_native_forwards": 0,
+  "analysis_cpu_seconds": 0.001112999999999996
+}

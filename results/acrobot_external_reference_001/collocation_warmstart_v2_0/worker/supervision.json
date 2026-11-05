@@ -1,0 +1,32 @@
+{
+  "stages": [
+    {
+      "stage": "solve",
+      "command": [
+        "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/casadi_env/bin/python",
+        "-m",
+        "src.gps.mppi_gps.references.acrobot_warmstart",
+        "solve",
+        "--config",
+        "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/source/configs/studies/acrobot_collocation_warmstart_v2_0.json",
+        "--preparation",
+        "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/preparation",
+        "--authorization",
+        "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/authorization.json",
+        "--out",
+        "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0/solves"
+      ],
+      "returncode": -9,
+      "status": null,
+      "wall_seconds": 360.11786806099917,
+      "user_seconds": 359.973184,
+      "system_seconds": 0.07901,
+      "maximum_child_rss_kib": 206952,
+      "output_bytes": 22419014
+    }
+  ],
+  "complete": false,
+  "source_commit": "3ada4cff80155b60fe768af3fc41a50ea4201f39",
+  "wall_seconds": 360.1188703629996,
+  "output_bytes": 22420176
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_external_reference_001/drake_certificate_audit_001/audit_certificate.py", line 5, in <module>
+    if hashlib.sha256(source.read_bytes()).hexdigest()!=proto['source_sha256']:raise RuntimeError('Certificate source changed after frozen review binding')
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Certificate source changed after frozen review binding

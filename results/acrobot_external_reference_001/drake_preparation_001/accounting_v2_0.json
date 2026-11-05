@@ -1,0 +1,49 @@
+{
+  "protocol": "acrobot-drake-reference-v2.0",
+  "reason": "official handoff source-faithfulness correction, not parameter tuning",
+  "prior_accounting_sha256": "547bbdace58f86d61d7d09a133dbe8130051c53278a6ac4048910015c34eea2c",
+  "frozen_source_commit": "3b11514",
+  "configuration_sha256": "35c778b81248638237f9da9393e49c87ce3cfbfacc430193206be6640469ef57",
+  "new_work": {
+    "native_controls": 1000,
+    "physics_substeps": 2000,
+    "CARE_solves": 0,
+    "SDP_solves": 0,
+    "MPPI_queries": 0,
+    "fitting_updates": 0,
+    "worker_process_wall_seconds": 0.3,
+    "worker_CPU_seconds": 0.31,
+    "maximum_RSS_KiB": 103552
+  },
+  "cumulative_controller_work": {
+    "episodes": 8,
+    "native_controls": 4000,
+    "physics_substeps": 8000,
+    "CARE_solves": 1,
+    "SDP_solves": 1
+  },
+  "files": [
+    {
+      "path": "drake_native_v2_0/comparison_to_strict_join.json",
+      "bytes": 1861,
+      "sha256": "1988ab5e4d2ac2b082dc7ed092e784b4029461ce6ba2c6c40b8af19229b973e7"
+    },
+    {
+      "path": "drake_native_v2_0/evidence.h5",
+      "bytes": 335896,
+      "sha256": "34b39513669ef88782df02c7668d9f0f7873c2c84adb98fa3f43462fb161cf7f"
+    },
+    {
+      "path": "drake_native_v2_0/results.json",
+      "bytes": 1750,
+      "sha256": "fa7fe69e27cb4840f43e2952b3fd90d35f0a971a50616ea8f0efb5f71f3007c0"
+    },
+    {
+      "path": "drake_native_v2_0/trials.jsonl",
+      "bytes": 833,
+      "sha256": "0db2d91aafc04c94eb5238213d0f3f946bb16551bfa07a58538522156d002eeb"
+    }
+  ],
+  "retained_output_bytes": 340340,
+  "engineering": "One strict-threshold boundary unit test, zero CARE/SDP/physics; source export and transfer overhead retained separately in launch receipts."
+}

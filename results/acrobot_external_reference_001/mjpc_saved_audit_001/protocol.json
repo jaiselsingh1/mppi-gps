@@ -1,0 +1,27 @@
+{
+  "version": "mjpc-saved-review-0.1",
+  "frozen_utc": "2026-11-05T22:01:16.765196+00:00",
+  "worker_input": "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v1_3",
+  "binding_config_path": "configs/acrobot_mjpc_reference_bindings_v1_3.json",
+  "binding_config_sha256": "ae06279c72482444ef77aa4d1978d93409c781ad4a7f7eeae673305949bc4671",
+  "driver_commit": "16f2ea3",
+  "limits": {
+    "cpu_seconds": 60,
+    "rss_bytes": 1073741824,
+    "output_bytes": 8388608,
+    "new_physics_controls": 0,
+    "new_solver_calls": 0
+  },
+  "scope": [
+    "All10CSV501rowexecutedtraces andoutcomes,post-actionprojectcost,officialpreactioncost",
+    "All25000savedcandidatebinaryheaders+states/actions/residuals/times/costs streamedoneatatime",
+    "Source/model/contextinputhashes",
+    "Plannerstepcounterincrements,16derivativegates,12jobreceipt roster,cumulativebudgets"
+  ],
+  "tolerances": {
+    "saved_array_arithmetic_atol": 1e-10,
+    "rtol": 0,
+    "declared_derivative_gate": 0.0001
+  },
+  "stop": "No physics/replanning; reportanymissing/invalidbindingsorcounters, frozenresourcesstop"
+}

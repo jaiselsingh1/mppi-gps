@@ -1,0 +1,55 @@
+{
+  "status": "PASS_WITH_MISSING_PARTIAL_RECORD",
+  "files": [
+    {
+      "file": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright/evidence.h5",
+      "complete_banks": 1435,
+      "slots": 2870,
+      "post_controls": 430500,
+      "missing_banks": 1,
+      "bank_count": 1436
+    },
+    {
+      "file": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright-completion/evidence.h5",
+      "complete_banks": 1004,
+      "slots": 2008,
+      "post_controls": 301200,
+      "missing_banks": 0,
+      "bank_count": 1004
+    },
+    {
+      "file": "runs/2026-11-05_acrobot_energy_discovery_001/energy/evidence.h5",
+      "complete_banks": 3612,
+      "slots": 7224,
+      "post_controls": 2648800,
+      "missing_banks": 0,
+      "bank_count": 3612
+    }
+  ],
+  "retained_trace_slots_checked": 12102,
+  "retained_post_action_control_states_checked": 3380500,
+  "maximum_errors": {
+    "primary_cost": 1.8189894035458565e-12,
+    "terminal_cost": 2.842170943040401e-14,
+    "running_component_sums": 1.8189894035458565e-12,
+    "energy_component_sums": 7.275957614183426e-12,
+    "tip_peak_height": 8.881784197001252e-16,
+    "tip_final_window_minimum_height": 4.440892098500626e-16
+  },
+  "failures": [],
+  "missing_evidence": [
+    {
+      "file": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright/evidence.h5",
+      "bank": "/trials/variant_0/trial_2/planning/control_0429/pass_000",
+      "missing": [
+        "components/selected_states",
+        "components/selected_actions"
+      ]
+    }
+  ],
+  "new_physics_controls": 0,
+  "new_fits": 0,
+  "independent_cpu_seconds": 3.624731,
+  "wall_seconds": 7.154334958002437,
+  "scope": "All complete retained selected traces, not all candidates. Tip geometry is independently derived from saved angles and checked against retained geometric aggregates; no unretained native positions invented."
+}

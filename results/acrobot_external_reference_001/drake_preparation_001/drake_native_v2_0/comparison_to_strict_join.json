@@ -1,0 +1,65 @@
+{
+  "source_commit": "3b11514",
+  "protocol_sha256": "35c778b81248638237f9da9393e49c87ce3cfbfacc430193206be6640469ef57",
+  "comparisons": [
+    {
+      "id": "swing_0",
+      "old_cost": 5488.905463246854,
+      "new_cost": 5488.905463246854,
+      "delta_cost": 0.0,
+      "action_arrays_byte_identical": true,
+      "state_arrays_byte_identical": true,
+      "first_changed_action_control": null,
+      "changed_action_controls": 0,
+      "maximum_absolute_action_change": 0.0,
+      "balance_control_indices": [],
+      "minimum_threshold_distance": 1784.21395044597,
+      "old_minimum_local_value": 2784.21395044597,
+      "new_minimum_local_value": 2784.21395044597,
+      "joint_angle_trace_max_abs_difference": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "swing_1",
+      "old_cost": 5432.699455282171,
+      "new_cost": 5444.984118525667,
+      "delta_cost": 12.284663243496652,
+      "action_arrays_byte_identical": false,
+      "state_arrays_byte_identical": false,
+      "first_changed_action_control": 287,
+      "changed_action_controls": 6,
+      "maximum_absolute_action_change": 2.0,
+      "balance_control_indices": [
+        194,
+        195,
+        196,
+        215,
+        287,
+        379
+      ],
+      "minimum_threshold_distance": 14.470353333428534,
+      "old_minimum_local_value": 74.54850694541514,
+      "new_minimum_local_value": 74.54850694541514,
+      "joint_angle_trace_max_abs_difference": [
+        0.08348720504885554,
+        0.29883076285449306
+      ]
+    }
+  ],
+  "cost_receipt": {
+    "user_cpu_seconds": "0.29",
+    "system_cpu_seconds": "0.02",
+    "elapsed_wall": "0:00.30",
+    "maximum_RSS_KiB": "103552"
+  },
+  "counts": {
+    "native_controls": 1000,
+    "physics_substeps": 2000,
+    "CARE_solves": 0,
+    "SDP_solves": 0,
+    "comparison_queries": 0
+  },
+  "retained_output_bytes": 338479
+}

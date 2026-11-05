@@ -1,0 +1,170 @@
+{
+  "path": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-27_bidirectional_native_pfl_001",
+  "input_hashes": {
+    "pfl_result.json": "b6f53bdc8b611a46ca84342e2ca2cb6295ec301512890d9320cc48a8a3f41376",
+    "audit_001.json": "229c3c05e70cd30c0f78353ada527379c3be4be293cf8ed68229ace2438a84d8",
+    "native_parity.json": "3b1e423761becb7bf0e0ea2d77c2c0b709f73f7b8691dec14077703e8b538289"
+  },
+  "top_fields": {
+    "actor_inference_rows": 0,
+    "adam_steps": 0,
+    "all_traces_excluded_from_teacher": true,
+    "budget_matches_paid_ledger": true,
+    "error": null,
+    "final_admissible": 0,
+    "gradient_optimizer_used": false,
+    "inherited_logger_attempt_controls": 352848,
+    "native_reference_pass": false,
+    "numerical_control_optimization_used": false,
+    "parent_source_fingerprint": "8390a461bd31212126382034c74cb7a316bf636f5c9dd2db75fead32f778d1ca",
+    "reference_wall_seconds": 11.658408124931157,
+    "schema": "native-collocated-pfl-reference-result-v1",
+    "scientific_scope": "Classical instantaneous collocated PFL with saturation and sampled native execution; actual qualification only. No GPS/MPPIcoverage/actor/efficiency/task-infeasibility conclusion.",
+    "selected_controller": null,
+    "source_fingerprint": "6da5b3d5a8fc530eb9ae06e844371625056d4ffc709d29f3b6140d37f751d250",
+    "status": "complete",
+    "stopped_at": "no_qualifying_nominal_pfl_controller",
+    "task_hash": "12ed555d2204f74c44ca2775f37543e17adcc3509f623cdc33760df81a0a62ae",
+    "teacher_promotion_performed": false,
+    "within_declared_bounds": true
+  },
+  "controllers": [
+    {
+      "gain_triple": [
+        1.0,
+        1.0,
+        0.1
+      ],
+      "index": 0,
+      "episodes": [
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210000",
+          "cost": 1896.914779158663,
+          "episode_id": "pfl0_nominal_210000",
+          "local": false
+        },
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210001",
+          "cost": 1898.6859172148127,
+          "episode_id": "pfl0_nominal_210001",
+          "local": false
+        }
+      ]
+    },
+    {
+      "gain_triple": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "index": 1,
+      "episodes": [
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210000",
+          "cost": 1727.1181088362396,
+          "episode_id": "pfl1_nominal_210000",
+          "local": false
+        },
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210001",
+          "cost": 1705.3248533583173,
+          "episode_id": "pfl1_nominal_210001",
+          "local": false
+        }
+      ]
+    },
+    {
+      "gain_triple": [
+        4.0,
+        2.0,
+        0.1
+      ],
+      "index": 2,
+      "episodes": [
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210000",
+          "cost": 1897.7058340504962,
+          "episode_id": "pfl2_nominal_210000",
+          "local": false
+        },
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210001",
+          "cost": 1898.921343213838,
+          "episode_id": "pfl2_nominal_210001",
+          "local": false
+        }
+      ]
+    },
+    {
+      "gain_triple": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "index": 3,
+      "episodes": [
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210000",
+          "cost": 1671.533778334629,
+          "episode_id": "pfl3_nominal_210000",
+          "local": false
+        },
+        {
+          "admissible": false,
+          "capture": false,
+          "complete": true,
+          "context_id": "ordinary:210001",
+          "cost": 1686.2466206566353,
+          "episode_id": "pfl3_nominal_210001",
+          "local": false
+        }
+      ]
+    }
+  ],
+  "audit": {
+    "additional_actor_inference_rows": 0,
+    "additional_care_solves": 0,
+    "additional_fits": 0,
+    "additional_mass_expansions": 0,
+    "additional_mj_forward_calls": 0,
+    "additional_optimizer_calls": 0,
+    "additional_physics_controls": 0,
+    "arithmetic_valid": true,
+    "auditor_sha256": "8e3e970ac5883ea718b728d003821067b34093081ca9bb3b5479c320da4ba7b6",
+    "native_reference_pass": false,
+    "run": "/Users/jaisel/Documents/mppi-gps/runs/2026-10-27_bidirectional_native_pfl_001",
+    "schema": "independent-native-collocated-pfl-audit-v1",
+    "scientific_verdict": "FAIL",
+    "status": "PASS",
+    "wall_seconds": 35.59776591695845
+  },
+  "native_parity": {
+    "interpretation": "Fixed instantaneous native-law parity only; no feasibility/controller success certificate",
+    "mj_forward_calls": 24,
+    "mj_fullM_calls": 24,
+    "new_integration_controls": 0,
+    "passed": true,
+    "target_energy": 58.86
+  }
+}

@@ -31,8 +31,7 @@ def summarize(directory: Path, output: Path) -> None:
             timestep = rows[1]["time"] - rows[0]["time"]
             expected_controls = round(10 / timestep)
             complete = (
-                len(rows) == expected_controls + 1
-                and rows[-1]["control"] == expected_controls
+                len(rows) == expected_controls + 1 and rows[-1]["control"] == expected_controls
             )
             # Project cost convention: the executed action at t is charged
             # alongside its resulting state at t+1. Never use the next action.
@@ -51,10 +50,9 @@ def summarize(directory: Path, output: Path) -> None:
                 # Exact dm_control dense swingup tolerance: target radius .2m,
                 # margin1, gaussian sigmoid, value_at_margin .1.
                 official_reward_sum += (
-                    1.0 if distance <= 0.2
-                    else math.exp(
-                        -0.5 * ((distance - 0.2) * math.sqrt(-2 * math.log(0.1))) ** 2
-                    )
+                    1.0
+                    if distance <= 0.2
+                    else math.exp(-0.5 * ((distance - 0.2) * math.sqrt(-2 * math.log(0.1))) ** 2)
                 )
                 before_x = math.sin(before["q0"]) + math.sin(before["q0"] + before["q1"])
                 official_pre_cost += (
@@ -80,7 +78,8 @@ def summarize(directory: Path, output: Path) -> None:
                     "native_post_action_cost_time_integral": timestep * native_post_cost,
                     "mjpc_pre_action_cost_sum": official_pre_cost,
                     "dm_control_dense_swingup_reward_sum": official_reward_sum,
-                    "dm_control_dense_swingup_reward_mean": official_reward_sum / max(1, len(rows)-1),
+                    "dm_control_dense_swingup_reward_mean": official_reward_sum
+                    / max(1, len(rows) - 1),
                     "last_counted_step": rows[-1]["steps"],
                     "max_abs_control": max(abs(row["u"]) for row in rows[:-1]),
                     "csv_sha256": file_hash(path),

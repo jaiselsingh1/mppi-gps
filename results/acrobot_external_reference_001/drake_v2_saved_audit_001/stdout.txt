@@ -1,0 +1,102 @@
+{
+  "status": "FAIL",
+  "rows": [
+    {
+      "id": "swing_0",
+      "mode": "hybrid",
+      "reset_seed": 3022000100,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0695511731127056,
+      "final2s_minimum_height": 0.03877816999444739,
+      "native_task_cost": 5488.905463246854,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.996,
+      "clip_count": 498,
+      "errors": {
+        "raw_torque": 2.3874235921539366e-12,
+        "normalized_action": 6.838973831690964e-14,
+        "cost": 3.552713678800501e-15,
+        "energy": 1.7763568394002505e-14,
+        "local_value": 1.1641532182693481e-10
+      },
+      "handoff_and_comparison": {
+        "balance_controls": 0,
+        "balance_entries": 0,
+        "balance_exits": 0,
+        "first_balance_control": null,
+        "action_arrays_byte_identical": true,
+        "state_arrays_byte_identical": true,
+        "first_changed_action_control": null,
+        "changed_action_controls": 0,
+        "maximum_absolute_action_change": 0.0,
+        "balance_control_indices": [],
+        "minimum_threshold_distance": 1784.21395044597,
+        "joint_angle_trace_max_abs_difference": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "id": "swing_1",
+      "mode": "hybrid",
+      "reset_seed": 3022000101,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0431767140645274,
+      "final2s_minimum_height": 0.05316555605979978,
+      "native_task_cost": 5444.984118525667,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.998,
+      "clip_count": 499,
+      "errors": {
+        "raw_torque": 4.433786671143025e-12,
+        "normalized_action": 5.240252676230739e-14,
+        "cost": 3.552713678800501e-15,
+        "energy": 3.197442310920451e-14,
+        "local_value": 1.1641532182693481e-10
+      },
+      "handoff_and_comparison": {
+        "balance_controls": 6,
+        "balance_entries": 4,
+        "balance_exits": 4,
+        "first_balance_control": 194,
+        "action_arrays_byte_identical": false,
+        "state_arrays_byte_identical": false,
+        "first_changed_action_control": 287,
+        "changed_action_controls": 6,
+        "maximum_absolute_action_change": 2.0,
+        "balance_control_indices": [
+          194,
+          195,
+          196,
+          215,
+          287,
+          379
+        ],
+        "minimum_threshold_distance": 14.470353333428534,
+        "joint_angle_trace_max_abs_difference": [
+          0.08348720504885554,
+          0.29883076285449306
+        ]
+      }
+    }
+  ],
+  "failures": [
+    {
+      "check": "local_value",
+      "context": "swing_0"
+    },
+    {
+      "check": "local_value",
+      "context": "swing_1"
+    }
+  ],
+  "total_controls_checked": 1000,
+  "original_physics_substeps_reconciled": 2000,
+  "new_physics_controls": 0,
+  "new_solver_calls": 0,
+  "independent_cpu_seconds": 0.0065800000000000025,
+  "scope": "Recomputes saved controller/action/cost/outcome and binding arithmetic only. Does not independently replay states or certify the sampled closed-loop dynamics. Native construction/zero-time forward work is outside the2000integration-step count and not measured by this receipt."
+}

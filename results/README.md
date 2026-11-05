@@ -4,6 +4,7 @@ These small evidence capsules make the completed Walker studies and explicitly u
 
 | Study | Capsule | Outcome |
 |---|---|---|
+| Acrobot identical-model external references | [evidence, source and accounting](acrobot_external_reference_001/README.md) | Dynamics and retained candidates checked; corrected MJPC iLQG holds3/8 standard starts but fails hanging. Drake port0/2 swing-up. Offline feasibility remains unverified under the frozen caps; no learning or original-MPPI retuning. |
 | Acrobot transient–join–attractor | [evidence and accounting](acrobot_attractor_001/README.md) | Local LQR confirmation128/128; historical capture1/4. ESS32 holds0/4; swing-up joins0/2 despite improved reach/cost. Audit passed79,612checks; original finalization failure preserved. No qualification or learning. |
 | Acrobot near-upright and energy-shaped discovery | [evidence and accounting](acrobot_energy_discovery_001/README.md) | 0/4 near-upright holds; three energy recipes each 0/2, no executed 3.8 m crossing. Saved review passed 667,386 checks; recording/checker failures retained. Teacher problem, no learning loop tested. |
 | Acrobot controller-loop teacher prerequisite | [evidence and accounting](acrobot_controller_teacher_001/README.md) | All 16 episodes completed; selected MPPI balanced from 0/10 fresh starts, maximum sampled height 2.107 m against 3.8 m required. Saved review passed; no learning or alternating loop ran. |

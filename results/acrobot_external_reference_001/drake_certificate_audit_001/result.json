@@ -1,0 +1,122 @@
+{
+  "status": "PASS_EXACT_CONTINUOUS_CERTIFICATE",
+  "preparation_path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/preparation.json",
+  "preparation_sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983",
+  "source_sha256": "49092f04cc2b35a47f139050d8f353e907af56b643f0115450dc1751d94d7517",
+  "checks": [
+    {
+      "check": "P_symmetric",
+      "passed": true
+    },
+    {
+      "check": "P_positive_exact",
+      "passed": true
+    },
+    {
+      "check": "Qc_symmetric",
+      "passed": true
+    },
+    {
+      "check": "Qc_positive_exact",
+      "passed": true
+    },
+    {
+      "check": "gram_exact_formula",
+      "passed": true
+    },
+    {
+      "check": "gram_LDL_identity_exact",
+      "passed": true
+    },
+    {
+      "check": "gram_LDL_diagonal_positive",
+      "passed": true
+    },
+    {
+      "check": "gram_independent_positive",
+      "passed": true
+    },
+    {
+      "check": "mass_lower_exact",
+      "passed": true
+    },
+    {
+      "check": "perturbed_mass_lower_positive",
+      "passed": true
+    },
+    {
+      "check": "remainder_B_exact",
+      "passed": true
+    },
+    {
+      "check": "gamma_exact",
+      "passed": true
+    },
+    {
+      "check": "CARE_residual_exact",
+      "passed": true
+    },
+    {
+      "check": "Qlower_exact",
+      "passed": true
+    },
+    {
+      "check": "remainder_margin",
+      "passed": true
+    },
+    {
+      "check": "ellipsoid_containment_exact",
+      "passed": true
+    },
+    {
+      "check": "torque_bound_exact",
+      "passed": true
+    },
+    {
+      "check": "torque_margin",
+      "passed": true
+    },
+    {
+      "check": "physical_input_gain",
+      "passed": true
+    },
+    {
+      "check": "CARE_one",
+      "passed": true
+    },
+    {
+      "check": "SDP_one",
+      "passed": true
+    },
+    {
+      "check": "no_native_controls",
+      "passed": true
+    }
+  ],
+  "radius": 6.103515625e-06,
+  "level": 1.6401953694227502e-12,
+  "torque_upper_bound_nm": 0.0033378396072041793,
+  "mass_lower_on_ball": 0.07069097272408681,
+  "gamma": 0.14981879869321005,
+  "Qcl_lower": 0.9999996618663798,
+  "P_inverse_infinity_norm": 22.71247906139981,
+  "SOS_saved": {
+    "solver": "CSDP",
+    "status": "SolutionResult.kSolutionFound",
+    "max_coefficient_residual": 8.731149137020111e-11,
+    "minimum_gram_eigenvalue": 0.8501812013836677
+  },
+  "claim": "Sufficient invariant attracting ellipsoid for exact nominal continuous dynamics with continuously recomputed unsaturated local feedback. Quadratic SOS Gram is exact-rational positive; nonlinear trigonometric remainder is bounded analytically.",
+  "not_certified": [
+    "50Hz sample-and-hold",
+    "RK4 numerical map",
+    "global Spong swing-up",
+    "entry into this tiny ellipsoid",
+    "parameter/state-estimation uncertainty",
+    "a large useful recovery region"
+  ],
+  "new_CARE_solves": 0,
+  "new_SDP_solves": 0,
+  "new_physics_controls": 0,
+  "independent_cpu_seconds": 0.001340000000000001
+}

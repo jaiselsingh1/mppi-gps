@@ -1,0 +1,26 @@
+{
+  "version": "model-review-0.1",
+  "created_utc": "2026-11-05T21:39:42.325531+00:00",
+  "purpose": "Read-only upstream/model and saved candidate retention review",
+  "limits": {
+    "analysis_cpu_seconds": 15,
+    "output_bytes": 16777216,
+    "new_physics_controls": 0,
+    "new_fits": 0,
+    "new_evaluations": 0
+  },
+  "sources": [
+    "assets/acrobot.xml",
+    "src/gps/mppi_gps/acrobot_energy.py",
+    "src/gps/mppi_gps/attractor_lqr.py",
+    "runs/2026-11-05_acrobot_attractor_001",
+    "runs/2026-11-05_acrobot_energy_discovery_001",
+    "https://github.com/google-deepmind/dm_control"
+  ],
+  "rules": [
+    "Preserve existing files",
+    "Do not execute physics or import native simulator",
+    "No model/controller source edits",
+    "Missing raw candidate states are not regenerated"
+  ]
+}

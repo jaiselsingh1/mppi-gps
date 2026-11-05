@@ -1,0 +1,118 @@
+{
+  "status": "PASS_SAVED_ARITHMETIC_REVIEW_OF_RESOURCE_STOPPED_ROUTE",
+  "checks": 78,
+  "failures": [],
+  "remote_source_and_prefix_hashes_checked": 19,
+  "manifest_sha256": "de4fcfa92debe6d88bee7d4fcbdf4b0ed10dcd682a08e9d3c0a25299bd59f1fe",
+  "prefixes": [
+    {
+      "prefix": 0,
+      "all_source_states_considered": 601,
+      "selected_control": 569,
+      "selected_native_time": 11.379999999999802,
+      "fixed_duration": 11.38,
+      "intervals": 1138,
+      "selected_score": 7.117596627761433,
+      "native_endpoints_byte_exact": true,
+      "initial_guess_RK4_defect": 3.552713678800501e-15,
+      "initial_guess_terminal_error": 2.597344656589495,
+      "initial_guess_torque_max_nm": 1.8280820986282447,
+      "terminal_winding": [
+        12.566370614359172,
+        31.41592653589793,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "prefix": 1,
+      "all_source_states_considered": 601,
+      "selected_control": 508,
+      "selected_native_time": 10.159999999999828,
+      "fixed_duration": 10.16,
+      "intervals": 1016,
+      "selected_score": 7.565426061213537,
+      "native_endpoints_byte_exact": true,
+      "initial_guess_RK4_defect": 3.552713678800501e-15,
+      "initial_guess_terminal_error": 6.2967897439586284,
+      "initial_guess_torque_max_nm": 1.8476647097614973,
+      "terminal_winding": [
+        0.0,
+        18.84955592153876,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "candidate_prefix0": {
+    "duration": 11.38,
+    "intervals": 1138,
+    "max_RK4_defect": 0.0022246092933997375,
+    "max_RK4_defect_by_coordinate": [
+      3.861550002426384e-06,
+      1.0993414150561875e-05,
+      0.000775965894041164,
+      0.0022246092933997375
+    ],
+    "constraint_vector_error": 3.552713678800501e-15,
+    "constraint_max_violation": 0.0022246092933997375,
+    "initial_error": 0.0,
+    "terminal_error": 0.0,
+    "max_torque_nm": 1.999935421610028,
+    "strict_torque_bound_pass": true,
+    "effort_Nm2_seconds": 12.86594101483187,
+    "feasible": false,
+    "IPOPT_iterations": 805,
+    "IPOPT_status": "Maximum_CpuTime_Exceeded",
+    "attempt_CPU_seconds": 181.32487974600002,
+    "IPOPT_CPU_seconds": 180.114441,
+    "CasADi_function_call_counts": {
+      "n_call_callback_fun": 0,
+      "n_call_nlp_f": 2277,
+      "n_call_nlp_g": 2277,
+      "n_call_nlp_grad": 0,
+      "n_call_nlp_grad_f": 807,
+      "n_call_nlp_hess_l": 802,
+      "n_call_nlp_jac_g": 810,
+      "n_call_total": 1
+    },
+    "IPOPT_console_counts": {
+      "objective": 2277,
+      "objective_gradient": 806,
+      "equalities": 2277,
+      "inequalities": 2277,
+      "equality_Jacobian": 809,
+      "inequality_Jacobian": 809,
+      "Lagrangian_Hessian": 805
+    },
+    "counter_scope_note": "CombinedCasADigcallsarenotdouble-countedasequality+inequalityevaluations;consoleandcallbackcounterdefinitionsdifferandarebothpreserved."
+  },
+  "second_attempt": {
+    "initial_guess_saved": true,
+    "last_printed_iteration_index": 911,
+    "final_candidate_saved": false,
+    "final_stats_saved": false,
+    "feasibility_unknown": true,
+    "no_recovery_performed": true
+  },
+  "resource_stop": {
+    "returncode": -9,
+    "child_user_CPU_seconds": 359.973184,
+    "child_system_CPU_seconds": 0.07901,
+    "total_measured_child_CPU_seconds": 360.052194,
+    "hard_CPU_limit_seconds": 360,
+    "measured_accounting_overrun_seconds": 0.05219399999998586,
+    "wall_seconds": 360.1188703629996,
+    "output_bytes": 22420176,
+    "maximum_child_RSS_KiB": 206952,
+    "interpretation": "HardCPUresourceexhaustionpreserved;measuredCPUisreportedactual,notroundeddownorclaimedstrictlyunder360.No secondfinaliterateorfeasibilityresultinferred."
+  },
+  "native_replays": 0,
+  "new_native_steps_in_investigation": 0,
+  "new_native_steps_in_audit": 0,
+  "new_optimizer_calls_in_audit": 0,
+  "nominal_saved_constraint_EOM_rows_evaluated": 13168,
+  "audit_CPU_seconds": 0.02330299999999999,
+  "audit_wall_seconds": 0.036510582955088466,
+  "scientific_verdict": "Thisboundedtwo-initializationrouteproducednofeasibleorverifiednative-executingreference. Prefix0hasstrictlyboundedtorquesbutfailsfineconstraints;prefix1isunknownafterCPUstop. Nophysicalinfeasibility,minimumtimeoroptimalcostclaimfollows."
+}

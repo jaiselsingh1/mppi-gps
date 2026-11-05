@@ -1,0 +1,97 @@
+{
+  "status": "COMPLETED",
+  "runtime": {
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "mujoco": "3.6.0",
+    "h5py": "3.16.0",
+    "python": "3.11.16"
+  },
+  "config_sha256": "dfff1d9d80ff62abdce8620bf8aef716950cba9874c3ca24bfe19ab6af3ec1f2",
+  "preparation_sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983",
+  "rows": [
+    {
+      "id": "balance_0",
+      "mode": "balance",
+      "reset_seed": 3022000000,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 3.984976428475822,
+      "final2s_minimum_height": 0.0009621028518402852,
+      "native_task_cost": 4877.352619131397,
+      "entered_continuous_region": false,
+      "clipped_fraction": 1.0
+    },
+    {
+      "id": "balance_1",
+      "mode": "balance",
+      "reset_seed": 3022000001,
+      "controls": 500,
+      "height_hold_success": true,
+      "maximum_height": 4.0,
+      "final2s_minimum_height": 4.0,
+      "native_task_cost": 0.76942613813014,
+      "entered_continuous_region": true,
+      "clipped_fraction": 0.002
+    },
+    {
+      "id": "balance_2",
+      "mode": "balance",
+      "reset_seed": 3022000002,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 3.9956589897501016,
+      "final2s_minimum_height": 0.00024171294292241186,
+      "native_task_cost": 4548.2313115620345,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.998
+    },
+    {
+      "id": "balance_3",
+      "mode": "balance",
+      "reset_seed": 3022000003,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 3.9982527708446294,
+      "final2s_minimum_height": 0.013182591023468637,
+      "native_task_cost": 3216.745937266787,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.994
+    },
+    {
+      "id": "swing_0",
+      "mode": "hybrid",
+      "reset_seed": 3022000100,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0695511731127056,
+      "final2s_minimum_height": 0.03877816999444739,
+      "native_task_cost": 5488.905463246854,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.996
+    },
+    {
+      "id": "swing_1",
+      "mode": "hybrid",
+      "reset_seed": 3022000101,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0431767140645274,
+      "final2s_minimum_height": 0.041922678740399344,
+      "native_task_cost": 5432.699455282171,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.998
+    }
+  ],
+  "counts": {
+    "episodes_completed": 6,
+    "native_controls": 3000,
+    "physics_substeps": 6000,
+    "restores_attempted": 6,
+    "CARE_solves": 0,
+    "SDP_solves": 0,
+    "MPPI_queries": 0
+  },
+  "wall_seconds": 0.29553488699821173,
+  "certificate_scope": "continuous feedback only; these native results are empirical sample-and-hold/RK4 validation"
+}

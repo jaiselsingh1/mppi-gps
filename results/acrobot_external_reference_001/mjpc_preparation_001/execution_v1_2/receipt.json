@@ -1,0 +1,40 @@
+{
+  "build": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/driver_v1_2/scripts/diagnostics/acrobot_mjpc_reference",
+        "-B",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v1_2/build",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DMJPC_SOURCE=/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/source",
+        "-DMUJOCO_SDK=/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.019555651000701
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v1_2/build",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 30.761307160002616
+    }
+  ],
+  "runs": [
+    {
+      "mode": "stock-rk4-prerequisite",
+      "context": 0,
+      "exit_code": 71,
+      "wall_seconds": 0.2743344659975264,
+      "steps": 0
+    }
+  ],
+  "complete": false,
+  "stop": "unmodified RK4 failure prerequisite unresolved"
+}

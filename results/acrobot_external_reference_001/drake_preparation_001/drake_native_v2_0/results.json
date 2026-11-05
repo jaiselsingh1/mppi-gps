@@ -1,0 +1,59 @@
+{
+  "status": "COMPLETED",
+  "runtime": {
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "mujoco": "3.6.0",
+    "h5py": "3.16.0",
+    "python": "3.11.16"
+  },
+  "config_sha256": "35c778b81248638237f9da9393e49c87ce3cfbfacc430193206be6640469ef57",
+  "preparation_sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983",
+  "rows": [
+    {
+      "id": "swing_0",
+      "mode": "hybrid",
+      "reset_seed": 3022000100,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0695511731127056,
+      "final2s_minimum_height": 0.03877816999444739,
+      "native_task_cost": 5488.905463246854,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.996,
+      "clipped_controls": 498,
+      "balance_controls": 0,
+      "balance_entries": 0,
+      "balance_exits": 0,
+      "first_balance_control": null
+    },
+    {
+      "id": "swing_1",
+      "mode": "hybrid",
+      "reset_seed": 3022000101,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0431767140645274,
+      "final2s_minimum_height": 0.05316555605979978,
+      "native_task_cost": 5444.984118525667,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.998,
+      "clipped_controls": 499,
+      "balance_controls": 6,
+      "balance_entries": 4,
+      "balance_exits": 4,
+      "first_balance_control": 194
+    }
+  ],
+  "counts": {
+    "episodes_completed": 2,
+    "native_controls": 1000,
+    "physics_substeps": 2000,
+    "restores_attempted": 2,
+    "CARE_solves": 0,
+    "SDP_solves": 0,
+    "MPPI_queries": 0
+  },
+  "wall_seconds": 0.10956239799998002,
+  "certificate_scope": "continuous feedback only; these native results are empirical sample-and-hold/RK4 validation"
+}

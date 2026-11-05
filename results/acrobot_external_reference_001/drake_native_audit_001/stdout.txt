@@ -1,0 +1,153 @@
+{
+  "status": "FAIL",
+  "rows": [
+    {
+      "id": "balance_0",
+      "mode": "balance",
+      "reset_seed": 3022000000,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 3.984976428475822,
+      "final2s_minimum_height": 0.0009621028518402852,
+      "native_task_cost": 4877.352619131397,
+      "entered_continuous_region": false,
+      "clipped_fraction": 1.0,
+      "clip_count": 500,
+      "errors": {
+        "raw_torque": 2.2737367544323206e-13,
+        "normalized_action": 0.0,
+        "cost": 3.552713678800501e-15,
+        "energy": 1.4210854715202004e-14,
+        "local_value": 1.7462298274040222e-10
+      }
+    },
+    {
+      "id": "balance_1",
+      "mode": "balance",
+      "reset_seed": 3022000001,
+      "controls": 500,
+      "height_hold_success": true,
+      "maximum_height": 4.0,
+      "final2s_minimum_height": 4.0,
+      "native_task_cost": 0.76942613813014,
+      "entered_continuous_region": true,
+      "clipped_fraction": 0.002,
+      "clip_count": 1,
+      "errors": {
+        "raw_torque": 9.658940314238862e-15,
+        "normalized_action": 4.829470157119431e-15,
+        "cost": 3.469446951953614e-18,
+        "energy": 0.0,
+        "local_value": 5.750955267558311e-14
+      }
+    },
+    {
+      "id": "balance_2",
+      "mode": "balance",
+      "reset_seed": 3022000002,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 3.9956589897501016,
+      "final2s_minimum_height": 0.00024171294292241186,
+      "native_task_cost": 4548.2313115620345,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.998,
+      "clip_count": 499,
+      "errors": {
+        "raw_torque": 4.547473508864641e-13,
+        "normalized_action": 6.328271240363392e-15,
+        "cost": 7.105427357601002e-15,
+        "energy": 1.4210854715202004e-14,
+        "local_value": 2.3283064365386963e-10
+      }
+    },
+    {
+      "id": "balance_3",
+      "mode": "balance",
+      "reset_seed": 3022000003,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 3.9982527708446294,
+      "final2s_minimum_height": 0.013182591023468637,
+      "native_task_cost": 3216.745937266787,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.994,
+      "clip_count": 497,
+      "errors": {
+        "raw_torque": 4.547473508864641e-13,
+        "normalized_action": 5.717648576819556e-14,
+        "cost": 3.552713678800501e-15,
+        "energy": 2.1316282072803006e-14,
+        "local_value": 1.7462298274040222e-10
+      }
+    },
+    {
+      "id": "swing_0",
+      "mode": "hybrid",
+      "reset_seed": 3022000100,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0695511731127056,
+      "final2s_minimum_height": 0.03877816999444739,
+      "native_task_cost": 5488.905463246854,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.996,
+      "clip_count": 498,
+      "errors": {
+        "raw_torque": 2.3874235921539366e-12,
+        "normalized_action": 6.838973831690964e-14,
+        "cost": 3.552713678800501e-15,
+        "energy": 1.7763568394002505e-14,
+        "local_value": 2.3283064365386963e-10
+      }
+    },
+    {
+      "id": "swing_1",
+      "mode": "hybrid",
+      "reset_seed": 3022000101,
+      "controls": 500,
+      "height_hold_success": false,
+      "maximum_height": 2.0431767140645274,
+      "final2s_minimum_height": 0.041922678740399344,
+      "native_task_cost": 5432.699455282171,
+      "entered_continuous_region": false,
+      "clipped_fraction": 0.998,
+      "clip_count": 499,
+      "errors": {
+        "raw_torque": 4.433786671143025e-12,
+        "normalized_action": 5.240252676230739e-14,
+        "cost": 3.552713678800501e-15,
+        "energy": 3.197442310920451e-14,
+        "local_value": 2.3283064365386963e-10
+      }
+    }
+  ],
+  "failures": [
+    {
+      "check": "local_value",
+      "context": "balance_0"
+    },
+    {
+      "check": "local_value",
+      "context": "balance_2"
+    },
+    {
+      "check": "local_value",
+      "context": "balance_3"
+    },
+    {
+      "check": "local_value",
+      "context": "swing_0"
+    },
+    {
+      "check": "local_value",
+      "context": "swing_1"
+    }
+  ],
+  "total_controls_checked": 3000,
+  "original_physics_substeps_reconciled": 6000,
+  "new_physics_controls": 0,
+  "new_solver_calls": 0,
+  "independent_cpu_seconds": 0.0072469999999999896,
+  "scope": "Recomputes saved controller/action/cost/outcome and binding arithmetic only. Does not independently replay states or certify the sampled closed-loop dynamics. Native construction/zero-time forward work is outside the6000integration-step count and not measured by this receipt."
+}

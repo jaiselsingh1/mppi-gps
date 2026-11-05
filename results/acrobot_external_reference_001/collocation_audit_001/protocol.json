@@ -1,0 +1,22 @@
+{
+  "version": "collocation-saved-audit-0.1",
+  "frozen_utc": "2026-11-05T21:49:03.383720+00:00",
+  "input": "robopil5090:/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_v1_0",
+  "source_commit": "ed3b954",
+  "limits": {
+    "cpu_seconds": 60,
+    "rss_bytes": 1073741824,
+    "output_bytes": 8388608,
+    "new_physics_controls": 0,
+    "new_solver_calls": 0,
+    "new_fits": 0
+  },
+  "checks": [
+    "Saved source/binding checksums",
+    "Hermite-Simpson constraints recomputed from saved states,torques,timesteps using independent exact model equations",
+    "Endpoint and torque residuals",
+    "Solver status,iteration and timing counts from raw logs",
+    "Distinguish optimization failure from implementation defect"
+  ],
+  "stop": "Any input mutation or budgets exhausted; no new solver or physics calls"
+}

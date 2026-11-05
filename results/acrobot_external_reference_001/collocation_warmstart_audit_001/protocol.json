@@ -1,0 +1,62 @@
+{
+  "version": "warmstart-v2-saved-review-0.1",
+  "frozen_utc": "2026-11-05T22:27:08.021944+00:00",
+  "source_commit": "3ada4cff80155b60fe768af3fc41a50ea4201f39",
+  "remote_root": "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0",
+  "bindings": [
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/authorization.json",
+      "sha256": "a03d070a1cfd29045af1431e7a2f539427e0eb60cf46b25a6e57812b36aeb264"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/preparation_r1/manifest.json",
+      "sha256": "de4fcfa92debe6d88bee7d4fcbdf4b0ed10dcd682a08e9d3c0a25299bd59f1fe"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/worker/supervision.json",
+      "sha256": "a56c39914db2609bae8e63eb141e1ee655e1d0a26fe9699e40802845d2490b30"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/worker/solves/runtime.json",
+      "sha256": "dcca8d333b506981a40cb773e7fb67a710337ead9f643b3d80df287d18f2a7e1"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/worker/solves/prefix_0/result.json",
+      "sha256": "09bbaa0a553a642f0fcb53540514333a1dd0b92f08c15bc59f8f95783003467d"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/worker/solves/prefix_0/candidate.npz",
+      "sha256": "6c3fee709723172831c22d0bd0f669bc0c8b6b81f91f7d376ee186070a760eb5"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/worker/solves/initial_guess_0.npz",
+      "sha256": "cb8f64804b50bcda480dee6b4dcabebd0b7078068adde2a902606e131085af3d"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_warmstart_v2_0/worker/solves/initial_guess_1.npz",
+      "sha256": "3d263c7e9ad317af7e9ae3800d9a3e7d9469cfe2b36c53485bd85348be95e5f6"
+    }
+  ],
+  "limits": {
+    "cpu_seconds": 60,
+    "wall_seconds": 120,
+    "output_bytes": 8388608,
+    "new_native_physics_steps": 0,
+    "new_optimizer_calls": 0
+  },
+  "measurements": [
+    "Bothprefixes earliestminselectionoverall601savedstates andfullinitialcontexts againstoriginalH5",
+    "Bothfineinitialguesses byte-exactnativeendpoints,savedtorqueholdandterminalwinding",
+    "IndependentnominalRK4constraintarithmeticforstoredguesses andprefix0debugcandidate,no simulatorcalls",
+    "Fullstrict\u00b12physicaltorque/duration/endpoint/feasibilitybounds",
+    "Source/preparation/authruntimebindingslocallyandremotehashes",
+    "Firstsolver805iterationsandglobalCPUresourceexhaustion; secondincomplete911logindexnotrecovered"
+  ],
+  "tolerance": {
+    "arithmetic_atol": 1e-10,
+    "feasibility_atol": 1e-08,
+    "rtol": 0,
+    "strict_torque_bound_nm": 2
+  },
+  "stop": "Resource/inputvalidityfailure; preserveincompleteprefix1asmissing. No optimizer/native replayorfinal-iterate recovery"
+}

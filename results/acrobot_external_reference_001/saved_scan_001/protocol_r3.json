@@ -1,0 +1,19 @@
+{
+  "version": "saved-bank-scan-0.1-R3",
+  "frozen_utc": "2026-11-05T21:47:27.843869+00:00",
+  "status_of_parent": "R2 stopped at output limit; original failure retained",
+  "limits": {
+    "cpu_seconds": 10,
+    "wall_seconds": 60,
+    "aggregate_output_bytes": 16777216,
+    "rss_bytes": 536870912,
+    "new_physics": 0
+  },
+  "scope": [
+    "Losslessly gzip generated JSONL prefix, verify decompressed SHA256 against original then remove redundant uncompressed copy",
+    "Parse completed bank measurements; do not rerun them",
+    "Complete only banks absent from R2 JSONL (148expected) using previous saved RNG-after state",
+    "Inspect first action-hash mismatch against saved selected arrays; do not relax hash equality"
+  ],
+  "prior_attempt_cpu": "Not captured because exceptions preceded final summary. Caps were enforced; precise CPU use unavailable. Remaining recovery10CPU seconds; no new physics."
+}

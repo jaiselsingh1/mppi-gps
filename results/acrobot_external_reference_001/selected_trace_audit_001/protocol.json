@@ -1,0 +1,28 @@
+{
+  "version": "selected-trace-saved-review-0.1",
+  "frozen_utc": "2026-11-05T21:56:28.193525+00:00",
+  "roster": [
+    "runs/2026-11-05_acrobot_energy_discovery_001/near-upright/evidence.h5",
+    "runs/2026-11-05_acrobot_energy_discovery_001/near-upright-completion/evidence.h5",
+    "runs/2026-11-05_acrobot_energy_discovery_001/energy/evidence.h5"
+  ],
+  "source_cost_sha256": "9a5cc8d17d433ba7457236bfe692574b6d987833efe7aebbaef4f765c3868119",
+  "limits": {
+    "cpu_seconds": 60,
+    "wall_seconds": 120,
+    "output_bytes": 8388608,
+    "rss_bytes": 1073741824,
+    "new_physics": 0
+  },
+  "measurements": [
+    "Every retained full selected state/action trace:finite,indexing,tipgeometry,independently written running and terminal objective",
+    "Compare each selected cost with saved candidate-cost index",
+    "Compare per-term sums,energyterminal,heightaggregates"
+  ],
+  "tolerance": {
+    "primary_rtol": 0,
+    "primary_atol": 1e-10,
+    "inherited_grouping_allowance": "1e-10+64*eps*max(1,abs(primary))"
+  },
+  "stop": "Input/source mutation or resource exhaustion; preserve partial historical records as missing, never fill in"
+}

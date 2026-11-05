@@ -1,0 +1,72 @@
+{
+  "version": "saved-bank-scan-0.1",
+  "frozen_utc": "2026-11-05T21:42:45.046792+00:00",
+  "limits": {
+    "cpu_seconds": 180,
+    "wall_seconds": 300,
+    "output_bytes": 16777216,
+    "rss_bytes": 536870912,
+    "new_physics_controls": 0,
+    "new_fits": 0
+  },
+  "roster": [
+    {
+      "path": "runs/2026-11-04_acrobot_controller_teacher_001/worker/evidence.h5",
+      "bytes": 91909280,
+      "mtime_ns": 1793855043000000000,
+      "config_path": "runs/2026-11-04_acrobot_controller_teacher_001/worker/config.json",
+      "config_sha256": "1bc5ddba11005535c7f5ed0488b3c696da76adf33cb820ee5d9d9d11471b6828"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright/evidence.h5",
+      "bytes": 133937936,
+      "mtime_ns": 1793859061000000000,
+      "config_path": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright/config.json",
+      "config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright-completion/evidence.h5",
+      "bytes": 93658168,
+      "mtime_ns": 1793860182000000000,
+      "config_path": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright-completion/config.json",
+      "config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_energy_discovery_001/energy/evidence.h5",
+      "bytes": 639998552,
+      "mtime_ns": 1793860830000000000,
+      "config_path": "runs/2026-11-05_acrobot_energy_discovery_001/energy/config.json",
+      "config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_attractor_001/near/evidence.h5",
+      "bytes": 23227648,
+      "mtime_ns": 1793906755000000000,
+      "config_path": "runs/2026-11-05_acrobot_attractor_001/near/config.json",
+      "config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405"
+    },
+    {
+      "path": "runs/2026-11-05_acrobot_attractor_001/swing-development/evidence.h5",
+      "bytes": 21736720,
+      "mtime_ns": 1793907378000000000,
+      "config_path": "runs/2026-11-05_acrobot_attractor_001/swing-development/config.json",
+      "config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405"
+    }
+  ],
+  "measurements": [
+    "every retained bank cost/weight finite, normalized, softmin exact-formula consistency",
+    "candidate action reconstruction from private planner stream and nominal; exact saved action-array hash when present",
+    "RNG continuation consistency when retained",
+    "weighted nominal update consistency",
+    "selected state/action availability and finite-array checks",
+    "complete candidate scalar/aggregate component checks",
+    "executed trace indexing and retained episode contexts"
+  ],
+  "rules": [
+    "No new simulation",
+    "No source or historical result edits",
+    "Mark incomplete historical bank unavailable; do not silently omit",
+    "No new controls or cost tolerance changes; numerical comparison1e-10 inherited"
+  ],
+  "pass": "Record all checks and missing evidence; no global teacher correctness inference"
+}

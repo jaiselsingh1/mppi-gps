@@ -1,0 +1,122 @@
+{
+  "status": "MEASUREMENTS_CONFIRMED_WITH_PRESERVED_REPRODUCTION_QUALIFICATIONS",
+  "parent_audit_status_unchanged": "FAIL",
+  "parent_failed_comparisons_preserved": [
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_0"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_2"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_3"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_4"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_5"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_6"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "sampling_7"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_0"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_2"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_3"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_4"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_5"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_6"
+    },
+    {
+      "check": "standard_reset_seed",
+      "detail": "ilqg_7"
+    },
+    {
+      "check": "summary_final_2s_minimum_height",
+      "detail": "ilqg_0"
+    },
+    {
+      "check": "summary_final_2s_minimum_height",
+      "detail": "ilqg_4"
+    },
+    {
+      "check": "summary_final_2s_minimum_height",
+      "detail": "corrected-historical-ilqg_2"
+    }
+  ],
+  "derivative_candidate_binding_count_checks_confirmed": true,
+  "design_review_analytic_C_error_all80": 9.937166442208767e-07,
+  "design_review_analytic_D_error_all80": 2.8755664516211255e-11,
+  "frozen_MJPC_window_contract": "all recorded boundaries at time>=8-1e-10; includes8.00s",
+  "window_comparisons": [
+    {
+      "name": "ilqg_0",
+      "frozen_MJPC_inclusive_boundary_count": 201,
+      "frozen_MJPC_minimum": 3.999999824513126,
+      "core_balanced_lastN_POST_count": 200,
+      "core_balanced_lastN_POST_minimum": 3.9999998404604047,
+      "owner_minimum_matches_frozen_MJPC": true,
+      "walking_flags_identical": true
+    },
+    {
+      "name": "ilqg_4",
+      "frozen_MJPC_inclusive_boundary_count": 201,
+      "frozen_MJPC_minimum": 3.999842443520444,
+      "core_balanced_lastN_POST_count": 200,
+      "core_balanced_lastN_POST_minimum": 3.9998430892587797,
+      "owner_minimum_matches_frozen_MJPC": true,
+      "walking_flags_identical": true
+    },
+    {
+      "name": "corrected-historical-ilqg_2",
+      "frozen_MJPC_inclusive_boundary_count": 101,
+      "frozen_MJPC_minimum": 3.9999949506352706,
+      "core_balanced_lastN_POST_count": 100,
+      "core_balanced_lastN_POST_minimum": 3.999995452500547,
+      "owner_minimum_matches_frozen_MJPC": true,
+      "walking_flags_identical": true
+    }
+  ],
+  "seed_regeneration_max_absolute_error_worker": 4.440892098500626e-16,
+  "worker_seed_regeneration_byte_check": "failed7of8contexts; bytegateunchanged, not numericalcauseidentified",
+  "primary_frozen_context_to_execution_binding": "all16standardCSVinitialstatesexactlymatcharchivedfullcontexts",
+  "origin_generation_metadata": {
+    "python": "3.11.15 (main, Mar 25 2026, 02:58:47) [Clang 22.1.1 ]",
+    "numpy": "2.4.3",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "generator": "numpy.random.RandomState(seed).uniform(-numpy.pi,numpy.pi,2)",
+    "context_inputs": "explicit frozen little-endianfloat64 vectors authoritative"
+  },
+  "new_physics_controls": 0,
+  "new_planner_calls": 0,
+  "CPU_seconds": 0.011754,
+  "interpretation": "Threewindowcomparisonfailureswerereviewercontractmismatch: ownersummarymatchesfrozenMJPCinclusiveendpointdefinition; corebalancedPOSTonlydefinitionhasdifferentminima,butallholdflagsagree. No toleranceorphysicalcriterionamended. Workerregenerationbyteidentityisnotclaimed; frozenvectorsandoriginruntimecheckarepreserved."
+}

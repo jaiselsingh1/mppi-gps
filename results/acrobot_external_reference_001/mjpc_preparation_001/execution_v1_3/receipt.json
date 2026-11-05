@@ -1,0 +1,119 @@
+{
+  "build": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/driver_v1_3/scripts/diagnostics/acrobot_mjpc_reference",
+        "-B",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v1_3/build",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DMJPC_SOURCE=/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/source",
+        "-DMUJOCO_SDK=/home/jaisel/mppi-gps/.venv/lib/python3.11/site-packages/mujoco"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.2903629680004087
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_external_reference_v1_0_001/mjpc/preparation/execution_v1_3/build",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 29.977246713002387
+    }
+  ],
+  "runs": [
+    {
+      "mode": "stock-rk4-prerequisite",
+      "context": 0,
+      "exit_code": 1,
+      "wall_seconds": 0.2747398860010435,
+      "steps": 0
+    },
+    {
+      "mode": "validate-derivatives",
+      "context": 0,
+      "exit_code": 0,
+      "wall_seconds": 0.2747638670007291,
+      "steps": 256
+    },
+    {
+      "mode": "sampling",
+      "context": 0,
+      "exit_code": 0,
+      "wall_seconds": 0.818231058998208,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 1,
+      "exit_code": 0,
+      "wall_seconds": 0.8194170790011412,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 2,
+      "exit_code": 0,
+      "wall_seconds": 0.8162775090022478,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 3,
+      "exit_code": 0,
+      "wall_seconds": 0.818936780000513,
+      "steps": 501000
+    },
+    {
+      "mode": "sampling",
+      "context": 4,
+      "exit_code": 0,
+      "wall_seconds": 0.8180047790010576,
+      "steps": 501000
+    },
+    {
+      "mode": "ilqg",
+      "context": 0,
+      "exit_code": 0,
+      "wall_seconds": 2.1617765500013775,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 1,
+      "exit_code": 0,
+      "wall_seconds": 1.9150837550005235,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 2,
+      "exit_code": 0,
+      "wall_seconds": 2.1990945720026502,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 3,
+      "exit_code": 0,
+      "wall_seconds": 2.186756050999975,
+      "steps": 1303750
+    },
+    {
+      "mode": "ilqg",
+      "context": 4,
+      "exit_code": 0,
+      "wall_seconds": 2.1875682919999235,
+      "steps": 1303750
+    }
+  ],
+  "complete": true,
+  "native_steps": 9024006,
+  "native_wall_seconds": 15.29599225000129,
+  "all_output_bytes": 533603033
+}

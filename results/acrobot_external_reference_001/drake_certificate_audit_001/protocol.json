@@ -1,0 +1,20 @@
+{
+  "version": "drake-certificate-review-0.1",
+  "frozen_utc": "2026-11-05T21:51:16.147130+00:00",
+  "source": "src/gps/mppi_gps/acrobot_drake_reference.py",
+  "source_sha256": "363f9a4ab6d0960333d46e79ae00d87079277fd9924e4246be5582682c908153",
+  "limits": {
+    "cpu_seconds": 60,
+    "output_bytes": 8388608,
+    "new_physics_controls": 0,
+    "new_CARE_solves": 0,
+    "new_SDP_solves": 0
+  },
+  "scope": [
+    "Independently derive each exact-nonlinear remainder/norm bound",
+    "Verify preserved rational certificate identities and strict positivity from saved preparation output",
+    "Explicitly distinguish ideal continuous feedback from sample-and-hold and RK4",
+    "Check torque and ellipse-containment units and assumptions"
+  ],
+  "stop": "Source changes or missing saved preparation \u2192 report limited source review; no regeneration of solver outputs"
+}

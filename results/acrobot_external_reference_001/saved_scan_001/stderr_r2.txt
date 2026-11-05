@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_external_reference_001/saved_scan_001/scan_saved_r2.py", line 61, in <module>
+    cap();b=cg[passname];bctx={**ctx,'bank':b.name};fs['banks']+=1;t['banks']+=1
+    ^^^^^
+  File "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_external_reference_001/saved_scan_001/scan_saved_r2.py", line 27, in cap
+    if sum(p.stat().st_size for p in OUT.rglob('*') if p.is_file())>16777216:raise RuntimeError('Frozen output budget exhausted')
+                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Frozen output budget exhausted
