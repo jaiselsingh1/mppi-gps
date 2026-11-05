@@ -1,0 +1,64 @@
+{
+  "measured_worker_cpu_seconds": 3079.28,
+  "internal_worker_cpu_seconds": 3079.163694537,
+  "worker_wall_seconds": 1600.059155588,
+  "worker_peak_rss_bytes": 227352576,
+  "worker_output_bytes_at_closure": 91929266,
+  "worker_work": {
+    "native_controls_attempted": 8000,
+    "native_controls_completed": 8000,
+    "verification_controls_attempted": 36,
+    "verification_controls_completed": 36,
+    "forecast_controls_attempted": 385536000,
+    "forecast_controls_completed": 385536000,
+    "model_queries_attempted": 8032,
+    "model_queries_completed": 8032,
+    "physics_substeps_attempted": 771088072,
+    "physics_substeps_completed": 771088072,
+    "restores_attempted": 1,
+    "restores_completed": 1,
+    "resets": 20,
+    "forwards": 38,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "external_native_validation": {
+    "native_controls": 12,
+    "forecast_controls": 12,
+    "physics_substeps": 48,
+    "receipt": "docs/validation/acrobot_controller_teacher_2026-11-04/prelaunch_001/receipt.json"
+  },
+  "total_study_physics_substeps": 771088120,
+  "report_cpu_seconds": 2.5445930000000003,
+  "original_caps": {
+    "worker_cpu_seconds": 10800,
+    "other_validation_and_engineering_cpu_seconds": 120,
+    "saved_reporting_cpu_seconds": 180,
+    "total_cpu_seconds": 11100,
+    "worker_wall_seconds": 7200,
+    "output_bytes": 536870912
+  },
+  "conservative_reservation_based_cpu_upper_seconds": 3379.28,
+  "accounting_note": "The full120s engineering/validation and180s reporting reservations are charged conservatively. Their measured receipts are components, not added a second time. Clean export charged its full20s reservation because export child CPU was not isolated. Pure reading, transfer, formatting and publication are engineering; no other research jobs are charged to this study.",
+  "unknown_partial_work": {
+    "model_queries": 0,
+    "native_controls": 0,
+    "verification_controls": 0,
+    "forecast_controls": 0,
+    "physics_substeps": 0
+  },
+  "learning": {
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "transfer": {
+    "archive": "/private/tmp/acrobot_teacher_v1_0_outputs_001.tar.gz",
+    "sha256": "0254e146a3e7c4a3fc0fe092056e4b345e80330d7a4b347d460eb7697c2e099e",
+    "bytes": 45352621,
+    "files": 12,
+    "source": "robopil5090:/home/jaisel/mppi-gps-codex-acrobot/2026-11-04_teacher_v1_0_001",
+    "physics_repeated": 0
+  }
+}

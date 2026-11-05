@@ -12,10 +12,35 @@ from types import SimpleNamespace
 import pytest
 
 from scripts import train_mppi_gps
-from scripts.check_repository import check_binding
+from scripts.check_repository import check_archives, check_binding
 from src.gps.mppi_gps.inspection import format_inspection, inspect_run
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.mark.parametrize("modern", [False, True])
+def test_archive_checker_preserves_distinct_snapshot_rosters(tmp_path, modern):
+    archive = tmp_path / "archive/example"
+    archive.mkdir(parents=True)
+    payload = archive / "source.py"
+    payload.write_bytes(b"# immutable source\n")
+    path_key = "snapshot_path" if modern else "file"
+    manifest = {
+        "schema": "controller-loop-handoff-snapshot-v1" if modern else "historical",
+        "files": [
+            {
+                path_key: payload.name,
+                "sha256": hashlib.sha256(payload.read_bytes()).hexdigest(),
+                "bytes": payload.stat().st_size,
+            }
+        ],
+    }
+    (archive / "manifest.json").write_text(json.dumps(manifest))
+    errors = []
+    assert check_archives(tmp_path, errors) == 1 and errors == []
+    payload.write_bytes(b"# modified\n")
+    check_archives(tmp_path, errors)
+    assert errors
 
 
 @pytest.fixture

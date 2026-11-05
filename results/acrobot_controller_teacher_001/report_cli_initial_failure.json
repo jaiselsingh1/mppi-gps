@@ -1,0 +1,11 @@
+{
+  "stage": "prepublication smoke",
+  "status": "FAILED",
+  "command": "python scripts/train_mppi_gps.py study acrobot-teacher-report --help",
+  "error": "TypeError: main() takes 0 positional arguments but 1 was given",
+  "cause": "New reporter main did not accept forwarded argv; corrected before any actual saved-result audit.",
+  "fix": "main(argv=None), public-dispatcher smoke regression and explicit nonzero failed-audit exit",
+  "new_physics": 0,
+  "new_fits": 0,
+  "worker_source_affected": false
+}

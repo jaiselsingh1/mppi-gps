@@ -1,6 +1,7 @@
 # Acrobot controller-loop port
 
-Status: teacher prerequisite prepared; no learning loop launched. Work stays on
+Status: [teacher prerequisite failed, 0/10 fresh starts](acrobot_controller_teacher_result.md);
+no learning loop launched. Work stays on
 `codex/full-trajectory-pi`. The other branch and its running jobs are untouched.
 
 ## Question and first decision

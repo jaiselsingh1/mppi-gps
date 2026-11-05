@@ -78,7 +78,13 @@ def check_archives(root: Path, errors: list[str]) -> int:
     for path in sorted((root / "archive").glob("*/manifest.json")):
         manifest = json.loads(path.read_text())
         for binding in manifest.get("files", []):
-            check_binding(path.parent, binding["file"], binding, errors)
+            name = binding.get("file")
+            if name is None and manifest.get("schema") == "controller-loop-handoff-snapshot-v1":
+                name = binding.get("snapshot_path")
+            if not isinstance(name, str):
+                errors.append(f"Missing archive payload path: {path.relative_to(root)}")
+                continue
+            check_binding(path.parent, name, binding, errors)
             count += 1
     if not count:
         errors.append("No sealed historical source files found")

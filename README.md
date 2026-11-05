@@ -2,6 +2,8 @@
 
 The goal is a cheap standalone walking policy taught by competent MPPI search, with feedback from learning improving subsequent acquisition. The central open question is **pre-update teachability**: can a score predict what the student will execute after a fixed learning update?
 
+The requested [Acrobot controller-loop port](docs/acrobot_controller_loop.md) stopped at its teacher prerequisite: [0/10 fresh starts balanced](docs/acrobot_controller_teacher_result.md). All sixteen teacher episodes and the saved-evidence review completed. No Acrobot policy was fitted or alternating loop launched; the preserved controller-loop implementation remains the route after teacher qualification.
+
 The [eight-round result](docs/local_coupling_multiround_l3_1_result.md) completed its planned alternation: final standalone walking was 0/192, with retention in two coupled episodes. Its final audit failed and remains uncertified. The [saved-evidence design review](docs/coupled_loop_design_review.md) finds real changes to coupled teacher experience, but fixed historical restarts and a static-refitting alpha-zero control. It proposes a current-student corrective-data comparison; no follow-up is launched.
 
 The [shared pilot brief and coordination log](docs/coordination/coupled_pilot_brief.md) connect the `sac-continuation` work. Our [evidence corrections and ownership response](docs/coordination/coupled_pilot_response.md) preserve contrary findings and distinguish proposed diagnostics from demonstrated learnability.

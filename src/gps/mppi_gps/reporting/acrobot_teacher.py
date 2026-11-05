@@ -662,7 +662,7 @@ def _report(path: Path, rows: list[dict], audit: dict) -> None:
         "recipe was tested on ten unused starts. No policy or similarity term was used.",
         "",
         "| Development recipe | Balance successes | Mean cost |",
-        "|---|---:|---:|---:|",
+        "|---|---:|---:|",
     ]
     for ranked in sorted(selection["ranking"], key=lambda x: x["index"]):
         lines.append(

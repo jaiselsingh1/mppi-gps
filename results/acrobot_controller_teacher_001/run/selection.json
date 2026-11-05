@@ -1,0 +1,161 @@
+{
+  "rule": "maximize development successes, then minimize mean native task cost, then recipe index",
+  "selected_recipe_index": 0,
+  "recipe": {
+    "name": "three_second_white",
+    "planner": {
+      "K": 256,
+      "lam": 3.0,
+      "noise_sigma": 0.6,
+      "use_is_correction": false,
+      "initial_iterations": 3,
+      "H": 150
+    }
+  },
+  "development": [
+    {
+      "stage": "development",
+      "recipe_index": 0,
+      "recipe": "three_second_white",
+      "trial_index": 0,
+      "reset_seed": 3021000000,
+      "planner_seed": 3021010000,
+      "controls": 500,
+      "success": false,
+      "task_cost": 4297.688247424036,
+      "first_tip_above_threshold_seconds": null,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 0.0,
+      "final_window_minimum_height": 1.6074936334902163,
+      "final_window_velocity_rms": 0.9506769847397507,
+      "terminal_angles_raw": [
+        3.5266444038582763,
+        10.04687549976978
+      ],
+      "terminal_winding": [
+        1,
+        2
+      ]
+    },
+    {
+      "stage": "development",
+      "recipe_index": 0,
+      "recipe": "three_second_white",
+      "trial_index": 1,
+      "reset_seed": 3021000001,
+      "planner_seed": 3021010001,
+      "controls": 500,
+      "success": false,
+      "task_cost": 4257.049101717439,
+      "first_tip_above_threshold_seconds": null,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 0.0,
+      "final_window_minimum_height": 1.9990670710132337,
+      "final_window_velocity_rms": 0.9035123703652627,
+      "terminal_angles_raw": [
+        2.7113857009082385,
+        -21.88313078837871
+      ],
+      "terminal_winding": [
+        0,
+        -3
+      ]
+    },
+    {
+      "stage": "development",
+      "recipe_index": 1,
+      "recipe": "six_second_smooth",
+      "trial_index": 0,
+      "reset_seed": 3021000000,
+      "planner_seed": 3021010000,
+      "controls": 500,
+      "success": false,
+      "task_cost": 4302.399744626688,
+      "first_tip_above_threshold_seconds": null,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 0.0,
+      "final_window_minimum_height": 0.010419120062615361,
+      "final_window_velocity_rms": 7.07363318003997,
+      "terminal_angles_raw": [
+        3.815712486631922,
+        8.699128430003519
+      ],
+      "terminal_winding": [
+        1,
+        1
+      ]
+    },
+    {
+      "stage": "development",
+      "recipe_index": 1,
+      "recipe": "six_second_smooth",
+      "trial_index": 1,
+      "reset_seed": 3021000001,
+      "planner_seed": 3021010001,
+      "controls": 500,
+      "success": false,
+      "task_cost": 4294.348137630827,
+      "first_tip_above_threshold_seconds": null,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 0.0,
+      "final_window_minimum_height": 0.009590529555589034,
+      "final_window_velocity_rms": 5.124376571666527,
+      "terminal_angles_raw": [
+        -0.08603422350497428,
+        2.578401812355004
+      ],
+      "terminal_winding": [
+        0,
+        0
+      ]
+    },
+    {
+      "stage": "development",
+      "recipe_index": 2,
+      "recipe": "six_second_smooth_wide",
+      "trial_index": 0,
+      "reset_seed": 3021000000,
+      "planner_seed": 3021010000,
+      "controls": 500,
+      "success": false,
+      "task_cost": 4541.296618386847,
+      "first_tip_above_threshold_seconds": null,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 0.0,
+      "final_window_minimum_height": 0.13514081510372167,
+      "final_window_velocity_rms": 5.426599642546563,
+      "terminal_angles_raw": [
+        -0.5400212355116705,
+        8.666386443021796
+      ],
+      "terminal_winding": [
+        0,
+        1
+      ]
+    },
+    {
+      "stage": "development",
+      "recipe_index": 2,
+      "recipe": "six_second_smooth_wide",
+      "trial_index": 1,
+      "reset_seed": 3021000001,
+      "planner_seed": 3021010001,
+      "controls": 500,
+      "success": false,
+      "task_cost": 4089.0230032122427,
+      "first_tip_above_threshold_seconds": null,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 0.0,
+      "final_window_minimum_height": 0.032681245560406746,
+      "final_window_velocity_rms": 5.076019877641253,
+      "terminal_angles_raw": [
+        1.38162855187244,
+        -26.769471406592462
+      ],
+      "terminal_winding": [
+        0,
+        -4
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "check_count": 136918,
+  "limitations": [
+    "Saved-array audit only: no physics, neural inference, fitting or MPPI queries were repeated.",
+    "Height-only final-two-second success is not a hidden low-speed capture requirement.",
+    "Full candidate state/action arrays were not recorded; candidate task costs and weighted nominal updates cannot be independently re-executed from these compact banks.",
+    "Attempt counters are worker receipts. Completed calls are corroborated by saved arrays; unobserved partial work cannot be certified or assigned fabricated measurements."
+  ],
+  "maximum_cost_error": 3.552713678800501e-15,
+  "new_fitting_updates": 0,
+  "new_network_forwards": 0,
+  "new_physics_controls": 0,
+  "recomputed_work": {
+    "forecast_controls": 385536000,
+    "model_queries": 8032,
+    "native_controls": 8000,
+    "physics_substeps": 771088072,
+    "restores": 1,
+    "verification_controls": 36
+  },
+  "report_cpu_seconds": 2.5445930000000003,
+  "scientific_verdict": "teacher prerequisite failed; no similarity mechanism or learning tested",
+  "selection": {
+    "gate_passed": false,
+    "qualification_episodes": 10,
+    "qualification_successes": 0,
+    "ranking": [
+      {
+        "index": 0,
+        "mean_cost": 4277.368674570737,
+        "recipe": "three_second_white",
+        "successes": 0
+      },
+      {
+        "index": 1,
+        "mean_cost": 4298.373941128757,
+        "recipe": "six_second_smooth",
+        "successes": 0
+      },
+      {
+        "index": 2,
+        "mean_cost": 4315.159810799545,
+        "recipe": "six_second_smooth_wide",
+        "successes": 0
+      }
+    ],
+    "selected_recipe": "three_second_white"
+  },
+  "status": "PASSED",
+  "worker_resources": {
+    "cpu_seconds": 3079.163694537,
+    "output_bytes": 91929266,
+    "rss_bytes": 227352576,
+    "wall_seconds": 1600.059155588
+  },
+  "full_saved_audit": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_acrobot_controller_teacher_001/report_001/independent_audit.json",
+    "sha256": "5301c1cd882f4ed0c60c22f8014b4c6ca81cd3cd7a0440d734b7bfe86a480c6c",
+    "bytes": 7822310
+  },
+  "summary_scope": "Compact exact-field extraction of the completed saved-array audit; full check names and consumed-input roster remain external. No certification is invented by this extraction."
+}

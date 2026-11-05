@@ -1,0 +1,86 @@
+{
+  "status": "PASSED",
+  "source_commit": "d5e074c1309944520b7b3060e139c67c115621c4",
+  "source": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-04_acrobot_controller_teacher_001/clean_export_validation_001/source",
+  "tracked_payloads": 321,
+  "tracked_payload_bytes": 9454587,
+  "source_manifest_sha256": "3191f21edd661cf2f8aaa6a10b524e3e70557d9cf069fcc410e1ee10ef0cce1d",
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_acrobot_controller_task.py",
+    "tests/test_acrobot_teacher.py",
+    "tests/test_acrobot_teacher_report.py",
+    "tests/test_research_cli.py",
+    "--deselect",
+    "tests/test_acrobot_controller_task.py::test_native_model_geometry_and_control_contract",
+    "--deselect",
+    "tests/test_acrobot_controller_task.py::test_native_reset_seed_is_private_and_state_restore_exact",
+    "--deselect",
+    "tests/test_acrobot_controller_task.py::test_native_sequential_and_batch_post_costs_agree"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "timeout_seconds": 25,
+  "child_cpu_seconds": 0.9394119999999999,
+  "controller_cpu_seconds": 0.418725,
+  "wall_seconds": 4.415686457999982,
+  "deselected_native_tests": [
+    "tests/test_acrobot_controller_task.py::test_native_model_geometry_and_control_contract",
+    "tests/test_acrobot_controller_task.py::test_native_reset_seed_is_private_and_state_restore_exact",
+    "tests/test_acrobot_controller_task.py::test_native_sequential_and_batch_post_costs_agree"
+  ],
+  "new_physics_substeps": 0,
+  "new_inference": 0,
+  "new_fitting_updates": 0,
+  "historical_handoff_payloads_verified": 31,
+  "historical_handoff_manifest_sha256": "3bdbc185644e635e278348833b118674236ec9b543b4eb5076911fc06a79adae",
+  "documentation_links": [
+    {
+      "document": "docs/acrobot_controller_loop.md",
+      "label": "original instructions",
+      "target": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/archive/controller_loop_handoff-2026-11-04/reference/untracked/controller_loop_acrobot_instructions.md"
+    },
+    {
+      "document": "docs/acrobot_controller_loop.md",
+      "label": "handoff snapshot",
+      "target": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/archive/controller_loop_handoff-2026-11-04/README.md"
+    },
+    {
+      "document": "docs/acrobot_controller_loop.md",
+      "label": "configuration",
+      "target": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/acrobot_controller_teacher_v1_0.json"
+    }
+  ],
+  "core_source_compatibility": [
+    {
+      "path": "src/envs/mujoco_env.py",
+      "sha256_by_commit": {
+        "1476010b89b31ee6c05aaae8d3f7476ba8302e7f": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a",
+        "8e566ba": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a",
+        "d5e074c1309944520b7b3060e139c67c115621c4": "1abf27853b56288d7371d92db1d993a6437a194a50446b34c04c7f6620dd662a"
+      },
+      "byte_unchanged": true
+    },
+    {
+      "path": "src/envs/walker2d.py",
+      "sha256_by_commit": {
+        "1476010b89b31ee6c05aaae8d3f7476ba8302e7f": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6",
+        "8e566ba": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6",
+        "d5e074c1309944520b7b3060e139c67c115621c4": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6"
+      },
+      "byte_unchanged": true
+    },
+    {
+      "path": "src/mppi/mppi.py",
+      "sha256_by_commit": {
+        "1476010b89b31ee6c05aaae8d3f7476ba8302e7f": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99",
+        "8e566ba": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99",
+        "d5e074c1309944520b7b3060e139c67c115621c4": "0368614152155a63cf41919fcbe5a8c1d2caee79f3144e106c806f3922cfec99"
+      },
+      "byte_unchanged": true
+    }
+  ]
+}

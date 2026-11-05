@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "branch": "codex/full-trajectory-pi",
+  "source_commit": "8e566ba37dc962b5ac3293b1f67a3a73ecfe87d8",
+  "worker": "robopil5090",
+  "remote_root": "/home/jaisel/mppi-gps-codex-acrobot/2026-11-04_teacher_v1_0_001",
+  "source_manifest_sha256": "060855507e69470885c1142740b47239063d7a4f36acf1feec969c76ffe0418e",
+  "config_sha256": "1bc5ddba11005535c7f5ed0488b3c696da76adf33cb820ee5d9d9d11471b6828",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "command": [
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "-m",
+    "src.gps.mppi_gps.acrobot_teacher",
+    "--config",
+    "configs/studies/acrobot_controller_teacher_v1_0.json",
+    "--out",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-04_teacher_v1_0_001/worker"
+  ],
+  "concurrency": "two native physics threads; one math thread; nice 10; no other job touched",
+  "prelaunch_validation_sha256": "8f32aa203dd7ad17d3875490e0899e864b8e98fdbf425899db7e1a610a2feb17",
+  "worker_pid": 101405,
+  "launch_tool_session": 32530
+}
