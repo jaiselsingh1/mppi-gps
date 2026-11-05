@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "format",
+        "--check",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    }
+  ],
+  "cpu_seconds": 0.247487,
+  "wall_seconds": 0.33054754097247496,
+  "new_physics": 0,
+  "new_fitting": 0
+}
