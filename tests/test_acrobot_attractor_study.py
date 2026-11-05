@@ -1,4 +1,6 @@
 import json
+import sys
+from types import SimpleNamespace
 from pathlib import Path
 
 import h5py
@@ -84,3 +86,46 @@ def test_frozen_roster_census_and_no_learning():
     assert lqr["limits"]["native_controls"] == cases * 500 + 37 + 12
     physics = sum(x["limits"]["physics_substeps"] for x in spec["stages"].values())
     assert physics + lqr["limits"]["physics_substeps"] == spec["shared_limits"]["physics_substeps"]
+
+
+def test_lock_lifecycle_preserves_initial_packet_before_final_seal(tmp_path, monkeypatch):
+    """Exercise create-only finalization without any native execution."""
+    from src.gps.mppi_gps import acrobot_attractor_study as study
+    from src.gps.mppi_gps.attractor_lqr import solve_lqr
+
+    class FakeEnv:
+        def __init__(self, **kwargs):
+            pass
+
+        def reset(self, **kwargs):
+            pass
+
+        def close(self):
+            pass
+
+    monkeypatch.setitem(
+        sys.modules, "mujoco", SimpleNamespace(mjtState=SimpleNamespace(mjSTATE_INTEGRATION=0))
+    )
+    monkeypatch.setitem(sys.modules, "src.envs.acrobot", SimpleNamespace(Acrobot=FakeEnv))
+    locked = solve_lqr(*upright_linearization())
+    monkeypatch.setattr(study, "native_linearization", lambda *args: dict(locked))
+    monkeypatch.setattr(study, "record_lqr", lambda *args: dict(captured=True, height_success=True))
+    config = dict(
+        lqr=dict(
+            historical_starts=[],
+            shell_factors=[0.25, 1, 4, 16],
+            axis_angles=[0.01],
+            axis_velocities=[0.05],
+            grid_states=[],
+            confirmation_boundary_seed=1,
+            confirmation_interior_seed=2,
+            confirmation_radius_seed=3,
+        )
+    )
+    budget = SimpleNamespace(work=SimpleNamespace(resets=0, forwards=0), observations=lambda: {})
+    result = study.lqr_stage(config, tmp_path, budget)
+    initial = json.loads((tmp_path / "lqr_initial.json").read_text())
+    final = json.loads((tmp_path / "lqr.json").read_text())
+    assert result["join_validation_passed"]
+    assert "rho" not in initial and "rho" in final
+    assert initial["K"] == final["K"] and initial["P"] == final["P"]

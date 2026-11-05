@@ -248,7 +248,7 @@ def lqr_stage(config: dict, out: Path, budget: Budget) -> dict:
             locked = native_linearization(
                 env, mujoco, raw.create_group("linearization"), budget, spec
             )
-            write(out / "lqr.json", plain(locked))
+            write(out / "lqr_initial.json", plain(locked))
             roster = [
                 dict(
                     id=f"historical_{i}",
