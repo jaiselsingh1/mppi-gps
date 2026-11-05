@@ -52,3 +52,19 @@ The first isolated build failed after 27.318854 wall seconds with zero physics: 
 Version 1.1 then compiled the entire official core, but the final driver failed: the installed 3.6 derivative signature uses mjtByte, whereas newer web documentation uses mjtBool. Version 1.2 corrects this external declaration to the exact SDK type. The failed build and its 31.426095 wall seconds remain preserved, with zero physics. Remaining build budget is 1,141 seconds; all scientific inputs and rules remain unchanged.
 
 Version 1.2 built successfully in 32.780863 seconds. Its first prerequisite stopped before any physics because the external driver incorrectly assumed an old version-number encoding (360); the installed SDK and library both report 3006000. Version 1.3 corrects this binding implementation to require exact version string 3.6.0 and header/library integer equality. This does not relax a physical gate. Its fresh rebuild has 1,108 wall seconds; remaining native wall budget is 1,199 seconds after preserving the 0.274334-second, zero-step failed prerequisite.
+
+## Version 1.3 completed result
+
+All ten episodes completed. Sampling held none of the four historical near-upright starts; iLQG held one. Neither swung up from the preserved hanging start: peaks were 2.75784 m (Sampling) and 2.20380 m (iLQG). The derivative adapter passed all 16 held-out checks, with worst A/B/C/D errors 3.6542e-7 / 2.2204e-10 / 9.9487e-7 / 3.3307e-11. Native execution cost 15.295992 wall seconds and exactly 9,024,006 counted steps. Thus the chosen external recipe is not yet a working swing-up reference on the identical runtime. It establishes neither infeasibility nor a unique failure cause.
+
+## Version 2: required standard-start metric
+
+The historical 50 Hz roster does not answer the user's separate request for the standard dm_control metric on standard starts. The parent authorized this separately frozen completion stage, not a resumption or tuning of version 1.3.
+
+- Eight exact reset seeds 2026110500 through 2026110507, each using RandomState(seed).uniform(-pi,pi,2), zero velocities and full zero ancillary context. Both planners use the same reset contexts.
+- Control is now the standard 100 Hz, held for one 0.01-second RK4 step; replanning remains 25 Hz, every four native steps. This changes control timing and roster together to the external standard and is not a causal one-variable comparison with version 1.3.
+- Model, residual cost, horizon, spline/noise recipe, planner algorithms and validated derivative adapter remain unchanged. The source/model/derivative validation is reused without repeating validation physics.
+- Limits: fresh build at most 120 wall seconds within the original remaining build allowance; native stage at most 300 wall seconds, four cores, 16,000,000 counted steps and 2 GiB output. Static census is 14,438,000 steps. No tuning or follow-up follows failures.
+- Reward is computed after each of 1,000 native steps using the official dense swingup tolerance: target radius .2 m, margin 1 m, Gaussian sigmoid and value .1 at the margin. Report reward mean/sum and final two-second height hold separately. Eight starts provide a small standard-distribution check, not a full published benchmark.
+
+Official metric/reset source is pinned dm_control f1f91e0309e5df81bf7a3ee83849ebcee86779d8. Exact rewards.py SHA256 is 009f02389fd2af84b2955324707638e79a0e18b6a540dd7c254abf5096e157f3. [Acrobot task](https://github.com/google-deepmind/dm_control/blob/f1f91e0309e5df81bf7a3ee83849ebcee86779d8/dm_control/suite/acrobot.py), [tolerance implementation](https://github.com/google-deepmind/dm_control/blob/f1f91e0309e5df81bf7a3ee83849ebcee86779d8/dm_control/utils/rewards.py), [frozen version 2 recipe](../configs/acrobot_mjpc_reference_v2.json), [exact bindings](../configs/acrobot_mjpc_reference_bindings_v2.json).

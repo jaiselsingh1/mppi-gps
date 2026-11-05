@@ -85,6 +85,32 @@ or exhausted cap ends that route and retains its partial evidence.
 
 ## Closure
 
+### Required standard-start external check, addendum v2.0
+
+The five-context MJPC roster completed without a swing-up reference; it remains
+unchanged. It does not answer the user's separate request for the official
+dm_control metric on standard starts. Before any such controls execute, freeze
+eight private `RandomState` seeds 2026110500 through 2026110507, the two uniform
+joint angles in [-pi,pi), zero velocity and their full native initial contexts.
+Run both existing MJPC planners on all eight for ten seconds at **100 Hz**,
+holding each action for one native RK4 step and replanning every four steps.
+Costs, model, horizon, noise, optimization effort and the validated derivative
+adapter remain fixed. This is the upstream action rate; the earlier 50 Hz
+results remain separately identified. There is no new MPPI experiment or tuning.
+
+Reserve at most 120 additional build wall seconds (within the original remaining
+build allowance), **16,000,000 additional native steps, 300 wall seconds and
+2 GiB output**. The measured prior roster cost was 9,024,006 steps and about
+15 seconds; the new roster is expected to use approximately 14.44 million steps.
+This reservation uses the unused parent 65-minute numerical allowance; total
+study storage still cannot exceed 8 GiB. Reuse unchanged derivative/model checks,
+bind their earlier receipts, and stop on invalid binding, nonfinite execution,
+evidence corruption or exhausted resources. Ordinary task failures complete the
+roster. Report official reward mean and sum, first reach and final hold
+separately. Eight starts are a small external check, not a reproduction of a
+published aggregate score. No differential swaps or learning follow unless a
+working reference is established and their own bounded protocol is frozen.
+
 Publish raw saved-candidate coverage, EOM/linearization, native reference traces,
 dm_control metric definitions, any actual certificates with verifier, failures
 and receipts. Distinguish feasibility from optimality and a controller trajectory

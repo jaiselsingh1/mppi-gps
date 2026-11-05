@@ -1,0 +1,556 @@
+{
+  "protocol": "acrobot-mjpc-standard-start-metric",
+  "version": "2.0",
+  "mjpc_commit": "ff572a21e7c2bf9fda62e1862a758da7e9a8719b",
+  "abseil_commit": "fb3621f4f897824c0dbe0615fa94543df6192f30",
+  "original_xml_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+  "runtime": "MuJoCo 3.6.0 existing worker wheel; header and library must agree",
+  "build_wall_seconds": 120,
+  "build_output_bytes": 2147483648,
+  "native_wall_seconds": 300,
+  "native_output_bytes": 2147483648,
+  "native_step_limit": 16000000,
+  "cpu_affinity_count": 4,
+  "model": {
+    "native_timestep": 0.01,
+    "integrator": "RK4",
+    "normalized_control_range": [
+      -1,
+      1
+    ],
+    "gear": 2,
+    "external_force_noise": 0
+  },
+  "planner_recipe": {
+    "horizon_seconds": 2,
+    "prediction_native_steps": 200,
+    "trajectory_states": 201,
+    "control_hold_native_steps": 1,
+    "replan_native_steps": 4,
+    "initial_iterations": 1,
+    "iterations_per_replan": 1,
+    "sampling_trajectories": 10,
+    "sampling_spline_points": 10,
+    "sampling_exploration": 0.05,
+    "sampling_interpolation": "upstream default cubic",
+    "ilqg_num_rollouts": 10,
+    "ilqg_derivative_adapter": "RK4 native steps; forward FD 1e-6; same sensor outputs as trajectory rollout",
+    "all_other_settings": "unmodified official defaults"
+  },
+  "cost": {
+    "name": "official MJPC Acrobot residuals and quadratic norms",
+    "formula": "25*(tip_z_error^2+tip_x_error^2)+0.5*(v0^2+v1^2)+0.025*u^2",
+    "trajectory_aggregation": "upstream mean over all 201 states, including final repeated action",
+    "native_project_dense_cost_reported_separately": true
+  },
+  "roster": {
+    "planners": [
+      "sampling",
+      "ilqg"
+    ],
+    "starts": "dm_control RandomState(seed).uniform(-pi,pi,2), zero velocities",
+    "seeds": [
+      2026110500,
+      2026110501,
+      2026110502,
+      2026110503,
+      2026110504,
+      2026110505,
+      2026110506,
+      2026110507
+    ],
+    "seconds_each": 10,
+    "executed_controls_each": 1000,
+    "native_steps_each": 1000,
+    "planning_iterations_each": 250,
+    "random_seed": "reset seeds paired; official Sampling RNG has no exposed seed; preserve actual banks"
+  },
+  "prerequisites": {
+    "stock_rk4": "one unmodified mjd_transitionFD call must preserve its unsupported-RK4 failure",
+    "adapter_validation": "16 declared deterministic held-out states; direct native centered differences at 1e-5 against adapter forward 1e-6, max absolute A/B/C/D error <=1e-4",
+    "model_check": "original XML and instrumentation differ only in custom numerics and user sensors; mass/inertia/gear/limits/RK4/timestep also checked in executable",
+    "reused": "v1.3 stockRK4 failure,16heldoutA/B/C/D validation, physicalarray identity; no repeated validation physics"
+  },
+  "outcomes": {
+    "hold": "all recorded heights for final 2 seconds strictly greater than 3.8m",
+    "swing_up": "same final-height test; report peak and first crossing separately",
+    "source_metric": "exact official dm_control dense swingup reward on post-step states at100Hz; eight starts only",
+    "reward_formula": "exp(log(.1)*max(sqrt(tip_x^2+(4-tip_z)^2)-.2,0)^2)",
+    "source_commit": "dm_controlf1f91e0309e5df81bf7a3ee83849ebcee86779d8"
+  },
+  "stopping": {
+    "ordinary_task_failure": "continue entire roster",
+    "stop": [
+      "source or model mismatch",
+      "derivative validity failure",
+      "nonfinite physics",
+      "broken evidence writes",
+      "frozen resource exhaustion"
+    ],
+    "followups": "none; no tuning or learning"
+  },
+  "evidence": {
+    "candidate_arrays": "every Sampling trajectory and every final iLQG line-search trajectory exposed after each OptimizePolicy call; iLQG nominal-phase candidates overwritten internally are not falsely claimed preserved",
+    "binary_layout": "native little-endian float64, repeated records: control,candidate,horizon,total_return,failure then states[horizon,4], actions[horizon,1], residual[horizon,5], times[horizon], costs[horizon]",
+    "executed": "1001states at.01s includingterminal; exact samecost/indexing/interface,controlheldonenativestep",
+    "failures": "original log and partial candidate/execution files retained"
+  },
+  "compatibility_repair": "forced-include legacy mj_ray overload passing null new normal output; Acrobot does not call Ground; source bytes unchanged; derivative flag type corrected to exact installed SDK mjtByte; version binding corrected to exact3.6.0 string plus header/library equality",
+  "preserved_build_failures": [
+    {
+      "version": "1.0",
+      "build_wall_seconds": 27.318854102999467,
+      "physics_steps": 0,
+      "cause": "mj_ray 8-argument call vs MuJoCo3.6 9-argument API",
+      "path": "preparation/execution/receipt.json"
+    },
+    {
+      "version": "1.1",
+      "build_wall_seconds": 31.426094960002956,
+      "physics_steps": 0,
+      "cause": "adapter declaration mjtBool from current docs versus installed3.6mjtByte signature",
+      "path": "preparation/execution_v1_1/receipt.json"
+    }
+  ],
+  "preserved_prerequisite_failure": {
+    "version": "1.2",
+    "build_wall_seconds": 32.78086281100332,
+    "native_wall_seconds": 0.2743344659975264,
+    "physics_steps": 0,
+    "cause": "driver guard wrongly assumed legacy version integer360; installed header/library integer3006000",
+    "path": "preparation/execution_v1_2/receipt.json"
+  },
+  "model_directory": "model_v2",
+  "reuse_prerequisites": {
+    "source": "execution_v1_3",
+    "derivative_gate_max_error": 0.0001,
+    "same_model_derivative_code": true
+  },
+  "planned_step_census": 14438000,
+  "starts": [
+    {
+      "reset_seed": 2026110500,
+      "initial_state": [
+        0,
+        0.062257569567094405,
+        0.5288406117478361,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.062257569567094405,
+          0.5288406117478361,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.062257569567094405,
+          0.5288406117478361,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110501,
+      "initial_state": [
+        0,
+        -2.1483204495578025,
+        -2.402565867174197,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          -2.1483204495578025,
+          -2.402565867174197,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          -2.1483204495578025,
+          -2.402565867174197,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110502,
+      "initial_state": [
+        0,
+        0.9707770878204223,
+        -2.774140769754294,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.9707770878204223,
+          -2.774140769754294,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.9707770878204223,
+          -2.774140769754294,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110503,
+      "initial_state": [
+        0,
+        0.5609126771013617,
+        2.011453822548684,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.5609126771013617,
+          2.011453822548684,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.5609126771013617,
+          2.011453822548684,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110504,
+      "initial_state": [
+        0,
+        0.3889364996335956,
+        -2.131776485250088,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.3889364996335956,
+          -2.131776485250088,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.3889364996335956,
+          -2.131776485250088,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110505,
+      "initial_state": [
+        0,
+        1.7935270923696272,
+        2.106284472060628,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          1.7935270923696272,
+          2.106284472060628,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          1.7935270923696272,
+          2.106284472060628,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110506,
+      "initial_state": [
+        0,
+        2.936317405593828,
+        2.3809585073715813,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          2.936317405593828,
+          2.3809585073715813,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          2.936317405593828,
+          2.3809585073715813,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110507,
+      "initial_state": [
+        0,
+        -0.835259424350038,
+        0.2899504656404927,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          -0.835259424350038,
+          0.2899504656404927,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          -0.835259424350038,
+          0.2899504656404927,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ]
+}

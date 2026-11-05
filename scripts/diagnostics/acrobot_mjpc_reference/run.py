@@ -169,8 +169,15 @@ def execute(
     build_size = size_bytes(output)
     native_started = time.monotonic()
     used_steps = 0
-    jobs = [("stock-rk4-prerequisite", 0), ("validate-derivatives", 0)]
-    jobs += [(planner, index) for planner in ("sampling", "ilqg") for index in range(5)]
+    model_directory = config.get("model_directory", "model")
+    jobs = [] if config.get("reuse_prerequisites") else [
+        ("stock-rk4-prerequisite", 0), ("validate-derivatives", 0)
+    ]
+    jobs += [
+        (planner, index)
+        for planner in ("sampling", "ilqg")
+        for index in range(len(config["starts"]))
+    ]
     for mode, index in jobs:
         remaining_seconds = config["native_wall_seconds"] - (
             time.monotonic() - native_started
@@ -183,11 +190,12 @@ def execute(
         name = f"{mode}_{index}"
         command = [
             str(output / "build/acrobot_mjpc_reference"), mode,
-            str(directory / "model/instrumented.xml"),
-            str(directory / "model/original.xml"),
-            str(directory / f"model/context_{index}.f64"),
+            str(directory / model_directory / "instrumented.xml"),
+            str(directory / model_directory / "original.xml"),
+            str(directory / model_directory / f"context_{index}.f64"),
             str(output / name), str(remaining_steps),
             str(max(1, int(remaining_seconds))),
+            str(config["planner_recipe"]["control_hold_native_steps"]),
         ]
         code, elapsed = supervised(
             command, output / f"{name}.log", output, remaining_seconds,

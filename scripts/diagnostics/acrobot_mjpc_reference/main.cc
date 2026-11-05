@@ -116,10 +116,13 @@ extern "C" void reference_rk4_transitionFD(
 }
 
 int main(int argc, char** argv) {
-  // mode xml original_xml context.bin output_prefix remaining_steps wall_seconds
-  if (argc != 8) return 2;
+  // mode xml original_xml context.bin output_prefix steps wall_seconds [hold]
+  if (argc != 8 && argc != 9) return 2;
   try {
     std::string mode = argv[1];
+    int control_hold = argc == 9 ? std::stoi(argv[8]) : 2;
+    Require(control_hold == 1 || control_hold == 2, "invalid control hold");
+    int controls = 1000 / control_hold;
     step_limit = std::stoull(argv[6]);
     deadline = std::chrono::steady_clock::now() +
                std::chrono::seconds(std::stoi(argv[7]));
@@ -225,10 +228,10 @@ int main(int argc, char** argv) {
       std::ofstream candidates(std::string(argv[5]) + ".candidates.f64",
                                std::ios::binary);
       trace << "control,time,q0,q1,v0,v1,u,tip_height,native_dense_cost,mjpc_cost,steps\n";
-      for (int control = 0; control <= 500; ++control) {
+      for (int control = 0; control <= controls; ++control) {
         mj_forward(model.get(), data.get());
         state.Set(model.get(), data.get());
-        if (control < 500 && control % 2 == 0) {
+        if (control < controls && control % (4 / control_hold) == 0) {
           planner->SetState(state);
           planner->OptimizePolicy(201, pool);
           for (int candidate = 0; candidate < 10; ++candidate) {
@@ -238,7 +241,7 @@ int main(int argc, char** argv) {
             WriteTrajectory(candidates, control, candidate, trajectory);
           }
         }
-        if (control < 500)
+        if (control < controls)
           planner->ActionFromPolicy(data->ctrl, state.state().data(), data->time, false);
         mj_forward(model.get(), data.get());
         int tip = mj_name2id(model.get(), mjOBJ_SITE, "tip");
@@ -255,9 +258,9 @@ int main(int argc, char** argv) {
         Require(std::isfinite(dense) && std::isfinite(data->ctrl[0]) &&
                 std::abs(data->ctrl[0]) <= 1.0000000001,
                 "invalid executed state/action");
-        if (control == 500) break;
-        reference_counted_mj_step(model.get(), data.get());
-        reference_counted_mj_step(model.get(), data.get());
+        if (control == controls) break;
+        for (int substep = 0; substep < control_hold; ++substep)
+          reference_counted_mj_step(model.get(), data.get());
       }
     }
     std::cout << "complete steps=" << step_count.load()
