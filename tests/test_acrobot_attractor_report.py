@@ -1,6 +1,8 @@
 """Saved-only contracts for fixed-point, capture and native planner evidence."""
 
+import copy
 import importlib
+import json
 import sys
 
 import numpy as np
@@ -158,3 +160,69 @@ def test_report_retains_missing_input_failure_without_physics(tmp_path):
     assert got["status"] == "FAILED_OR_INCOMPLETE"
     assert got["new_physics_controls"] == 0
     assert (tmp_path / "report/independent_audit.json").exists()
+
+
+def test_recovered_certificate_counts_native_work_only_as_inherited(tmp_path):
+    protocol = dict(
+        original_error_exact="FileExistsError: frozen",
+        original_files={"evidence.h5": {"sha256": "native"}},
+    )
+    original = dict(
+        status="STOPPED_INVALID_EXECUTION",
+        error=protocol["original_error_exact"],
+        work={"native_controls_completed": 181000},
+    )
+    packet = dict(join_validation_passed=True, K=[[1, 2, 3, 4]])
+    recovered = dict(
+        lqr=packet,
+        original_failure_preserved=True,
+        original_status=original["status"],
+        original_error=original["error"],
+        inherited_work=original["work"],
+        original_bindings=protocol["original_files"],
+        work={"native_controls_completed": 0},
+        new_physics_controls=0,
+        new_network_forwards=0,
+        new_fitting_updates=0,
+        recovery_cpu_seconds=1.5,
+        status="VERIFIED_EMPIRICAL_JOIN_REGION",
+        join_validation_passed=True,
+    )
+    report.check_recovery_metadata(
+        report.Review(tmp_path, 10), recovered, original, packet, protocol
+    )
+    for field, value in [
+        ("work", {"native_controls_completed": 181000}),
+        ("original_status", "PASSED"),
+        ("lqr", dict(packet, K=[[0, 0, 0, 0]])),
+        ("status", "FAILED_BASIN_CONFIRMATION"),
+    ]:
+        altered = copy.deepcopy(recovered)
+        altered[field] = value
+        with pytest.raises(ValueError):
+            report.check_recovery_metadata(
+                report.Review(tmp_path, 10), altered, original, packet, protocol
+            )
+
+
+def test_controller_binds_explicit_recovered_lock_instead_of_initial_packet(tmp_path):
+    old = tmp_path / "lqr.json"
+    old.write_text('{"unfinalized":true}')
+    recovered = tmp_path / "recovered-lqr.json"
+    packet = dict(K=[[1, 2, 3, 4]], rho=2.0)
+    recovered.write_text(json.dumps(packet))
+    result = {"lqr_binding": {"sha256": report.digest(recovered)}}
+    report.verify_lock_binding(report.Review(tmp_path, 10), result, packet, recovered)
+    with pytest.raises(ValueError, match="Bound retained"):
+        report.verify_lock_binding(report.Review(tmp_path, 10), result, packet, old)
+
+
+def test_recovery_aware_full_review_cannot_reset_remaining_cpu_budget(tmp_path):
+    cfg = tmp_path / "config.json"
+    cfg.write_text("{}")
+    result = report.render(
+        tmp_path, cfg, tmp_path / "review", cpu_seconds=111, recovery_protocol=tmp_path / "r1.json"
+    )
+    assert result["status"] == "FAILED_OR_INCOMPLETE"
+    assert "110CPU" in result["error"]
+    assert result["new_physics_controls"] == 0

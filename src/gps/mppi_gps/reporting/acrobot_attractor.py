@@ -457,7 +457,112 @@ def lqr_roster(cfg: dict, packet: dict, rho: float | None = None) -> list[dict]:
     return rows
 
 
-def check_lqr(review: Review, cfg: dict, config_path: Path, rows: list[dict]) -> tuple[dict, dict]:
+def check_recovery_metadata(
+    review: Review, recovered: dict, original: dict, packet: dict, protocol: dict
+) -> None:
+    """A recovered certificate inherits paid science; it never replaces its failure."""
+    review.check(recovered["lqr"] == packet, "Independently derived recovered controller packet")
+    review.check(
+        recovered["original_failure_preserved"]
+        and recovered["original_status"] == original["status"] == "STOPPED_INVALID_EXECUTION"
+        and recovered["original_error"] == original["error"] == protocol["original_error_exact"],
+        "Original finalization failure remains recorded",
+    )
+    review.check(
+        recovered["inherited_work"] == original["work"]
+        and recovered["original_bindings"] == protocol["original_files"],
+        "Recovered metadata inherits exactly the original evidence and work",
+    )
+    review.check(not any(recovered["work"].values()), "Zero new native work in saved recovery")
+    for key in ("new_physics_controls", "new_network_forwards", "new_fitting_updates"):
+        review.check(recovered[key] == 0, "Zero recovery work: " + key)
+    review.check(recovered["recovery_cpu_seconds"] <= 20, "Frozen saved-recovery CPU allocation")
+    expected = (
+        "VERIFIED_EMPIRICAL_JOIN_REGION"
+        if packet["join_validation_passed"]
+        else "FAILED_BASIN_CONFIRMATION"
+    )
+    review.check(
+        recovered["status"] == expected
+        and recovered["join_validation_passed"] == packet["join_validation_passed"],
+        "Recovery cannot bypass the scientific confirmation gate",
+    )
+
+
+def check_recovered_lqr(
+    review: Review, cfg: dict, config_path: Path, rows: list[dict], protocol_path: Path
+) -> tuple[dict, dict]:
+    from src.gps.mppi_gps.reporting import acrobot_attractor_recovery as recovery
+
+    protocol = review.load(protocol_path)
+    review.check(
+        protocol["protocol"] == "acrobot-attractor-lock-finalization-recovery"
+        and protocol["version"] == "R1",
+        "Explicit saved-finalization recovery protocol",
+    )
+    # R1 ran these immutable support files. The active final reviewer is a later
+    # version and must not be substituted for its preserved source identity.
+    support = review.base / "recovery-support-source"
+    manifest = review.load(support / "manifest.json")
+    for name, binding in manifest["files"].items():
+        path = support / name
+        review.check(
+            path.stat().st_size == binding["bytes"]
+            and digest(review.consume(path)) == binding["sha256"],
+            "Preserved R1 support payload: " + name,
+        )
+    review.check(
+        digest(support / "protocol.json") == digest(protocol_path), "Exact R1 protocol copy"
+    )
+    folder = support / "src/gps/mppi_gps/reporting"
+    review.check(
+        digest(folder / "acrobot_attractor.py") == protocol["reviewer_sha256"]
+        and digest(folder / "acrobot_attractor_recovery.py") == protocol["helper_sha256"],
+        "R1 source hashes refer to preserved R1 implementations",
+    )
+    review.check(
+        digest(Path(recovery.__file__)) == protocol["helper_sha256"],
+        "Unchanged recovery verifier mathematics",
+    )
+    packet, original, measured, details = recovery.verify_saved(review, config_path, protocol)
+    certificate = review.base / "recovered-lqr"
+    recovered = review.load(certificate / "result.json")
+    stored_packet = review.load(certificate / "lqr.json")
+    review.check(
+        stored_packet == packet, "Recovered packet equals independently recomputed metadata"
+    )
+    review.check(
+        digest(certificate / "config.json") == digest(config_path)
+        and review.load(certificate / "config.json") == cfg,
+        "Recovered bundle retains the original configuration bytes",
+    )
+    review.check(
+        recovered["recovery_protocol_sha256"] == digest(protocol_path),
+        "Recovery result binds the exact R1 protocol",
+    )
+    check_recovery_metadata(review, recovered, original, packet, protocol)
+    rows.extend(dict(stage="lqr", **row) for row in measured)
+    return dict(
+        status=recovered["status"],
+        original_status=original["status"],
+        original_error=original["error"],
+        recovery_native_work=recovered["work"],
+        math=details["math"],
+        join_validation_passed=packet["join_validation_passed"],
+        selected_rho=packet["selected_rho"],
+        work=details["recomputed_inherited_work"],
+    ), packet
+
+
+def check_lqr(
+    review: Review,
+    cfg: dict,
+    config_path: Path,
+    rows: list[dict],
+    recovery_protocol: Path | None = None,
+) -> tuple[dict, dict]:
+    if recovery_protocol is not None:
+        return check_recovered_lqr(review, cfg, config_path, rows, recovery_protocol)
     import h5py
 
     run = review.base / "lqr"
@@ -662,6 +767,14 @@ def check_handoff(review: Review, prefix: Any, suffix: Any, p: np.ndarray, rho: 
     return dict(join_control=int(reached[0]), join_V=float(v[-1]), join_rho=rho)
 
 
+def verify_lock_binding(review: Review, result: dict, packet: dict, lock_path: Path) -> None:
+    review.check(
+        result["lqr_binding"]["sha256"] == digest(review.consume(lock_path))
+        and review.load(lock_path) == packet,
+        "Bound retained upright controller",
+    )
+
+
 def check_mppi(
     review: Review,
     stage: str,
@@ -670,6 +783,8 @@ def check_mppi(
     packet: dict,
     rows: list[dict],
     banks: list[dict],
+    *,
+    lqr_path: Path | None = None,
 ) -> dict:
     import h5py
 
@@ -685,10 +800,8 @@ def check_mppi(
         else {"COMPLETED_ADAPTIVE_TEMPERATURE_PROBE"}
     )
     review.check(result["status"] in valid, "Closed controller stage: " + stage)
-    review.check(
-        result["lqr_binding"]["sha256"] == digest(review.base / "lqr/lqr.json"),
-        "Bound retained upright controller",
-    )
+    lock_path = lqr_path if lqr_path is not None else review.base / "lqr/lqr.json"
+    verify_lock_binding(review, result, packet, lock_path)
     native = forecast = queries = successes = 0
     with h5py.File(review.consume(run / "evidence.h5"), "r") as raw:
         review.check(raw.attrs["status"] == result["status"], "Controller H5 status")
@@ -813,7 +926,13 @@ def check_mppi(
 
 
 def render(
-    base: Path, config: Path, out: Path, *, previous: Path | None = None, cpu_seconds: float = 120
+    base: Path,
+    config: Path,
+    out: Path,
+    *,
+    previous: Path | None = None,
+    cpu_seconds: float = 110,
+    recovery_protocol: Path | None = None,
 ) -> dict:
     base, config, out = base.resolve(), config.resolve(), out.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -830,13 +949,19 @@ def render(
     )
     rows, banks = [], []
     try:
-        require(0 < cpu_seconds <= 120, "Frozen120CPU-second saved-review allocation")
+        maximum_cpu = 110 if recovery_protocol is not None else 120
+        require(
+            0 < cpu_seconds <= maximum_cpu, f"Frozen{maximum_cpu}CPU-second saved-review allocation"
+        )
         cfg = review.load(config)
         review.check(
             cfg["protocol"] == "acrobot-transient-attractor" and cfg["version"] == "1.0",
             "Frozen protocol version",
         )
-        lqr, packet = check_lqr(review, cfg, config, rows)
+        lqr, packet = check_lqr(review, cfg, config, rows, recovery_protocol)
+        lock_path = (
+            base / ("recovered-lqr" if recovery_protocol is not None else "lqr") / "lqr.json"
+        )
         parts = {"lqr": lqr}
         if not lqr["join_validation_passed"]:
             review.check(
@@ -849,7 +974,9 @@ def render(
                     (base / stage / "result.json").is_file(),
                     "Required authorized stage completed: " + stage,
                 )
-                parts[stage] = check_mppi(review, stage, cfg, config, packet, rows, banks)
+                parts[stage] = check_mppi(
+                    review, stage, cfg, config, packet, rows, banks, lqr_path=lock_path
+                )
                 if stage == "swing-development" and parts[stage]["status"] != "PASSED_JOIN_GATE":
                     review.check(
                         not (base / "swing-qualification").exists(),
@@ -903,10 +1030,16 @@ def main(argv: list[str] | None = None) -> int:
     for name in ("base", "config", "out"):
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--previous", type=Path)
-    parser.add_argument("--cpu-seconds", type=float, default=120)
+    parser.add_argument("--recovery-protocol", type=Path)
+    parser.add_argument("--cpu-seconds", type=float, default=110)
     args = parser.parse_args(argv)
     result = render(
-        args.base, args.config, args.out, previous=args.previous, cpu_seconds=args.cpu_seconds
+        args.base,
+        args.config,
+        args.out,
+        previous=args.previous,
+        cpu_seconds=args.cpu_seconds,
+        recovery_protocol=args.recovery_protocol,
     )
     print(
         json.dumps(
