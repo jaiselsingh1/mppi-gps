@@ -1,0 +1,47 @@
+{
+  "protocol": "acrobot-drake-reference",
+  "version": "1.1",
+  "amends": "v1.0 dependency binding only; failed unavailable-wheel attempt retained",
+  "drake_version": "1.51.1",
+  "python": "3.11.16",
+  "official_reference_tag": "v1.51.1",
+  "formula_comparison": "plant.cc, plant params, Spong controller and gains are byte-identical to retained1610676d38df7854153cd04e1ba32e286fd617b1",
+  "model_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+  "attractor_context_config": "configs/studies/acrobot_attractor_v1_0.json",
+  "attractor_context_config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+  "mechanism_unchanged": {
+    "ke": 5,
+    "kp": 50,
+    "kd": 5,
+    "torque_limit_Nm": 2,
+    "balance_Q": [
+      10,
+      10,
+      1,
+      1
+    ],
+    "balance_R": 1,
+    "join": "certified local rho; continuous-time claim only"
+  },
+  "limits": {
+    "setup_seconds": 600,
+    "setup_storage_bytes": 2147483648,
+    "preparation_seconds": 1200,
+    "preparation_cpu_cores": 2,
+    "preparation_output_bytes": 1073741824,
+    "CARE_solves": 1,
+    "SDP_solves": 1,
+    "native_controls": 3000,
+    "physics_substeps": 6000,
+    "native_seconds": 600,
+    "native_output_bytes": 67108864
+  },
+  "native_roster": {
+    "near_upright": "all4 lqr.historical_starts; balance only",
+    "swing_up": "all2 stages.swing-development.starts; hybrid",
+    "duration_seconds_each": 10,
+    "control_dt": 0.02
+  },
+  "stop": "unavailable dependencies, binding mismatch, invalid physics/evidence or exhausted resources; no tuning or new starts",
+  "success": "both swing starts join and final2s>=3.8m; allother outcomes retained"
+}

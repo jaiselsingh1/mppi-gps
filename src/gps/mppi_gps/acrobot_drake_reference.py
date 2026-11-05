@@ -9,6 +9,7 @@ or controller tuning occurs in this module's preparation command.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.metadata
 import json
 import time
@@ -219,10 +220,14 @@ def local_certificate(gain: np.ndarray, value: np.ndarray) -> dict:
     }
 
 
-def prepare(output: Path) -> None:
+def prepare(output: Path, config_path: Path) -> None:
     """One bounded Drake CARE + one quadratic SDP; no physics integration."""
     started = time.monotonic()
     output.mkdir(parents=True, exist_ok=False)
+    config = json.loads(config_path.read_text())
+    version = importlib.metadata.version("drake")
+    if version != config["drake_version"]:
+        raise RuntimeError("Installed Drake differs from frozen dependency binding")
     from pydrake.examples import AcrobotPlant
     from pydrake.solvers import CsdpSolver, MathematicalProgram
     from pydrake.systems.controllers import LinearQuadraticRegulator
@@ -272,7 +277,8 @@ def prepare(output: Path) -> None:
     if residual > 1e-7 or mineigen < -1e-7:
         raise RuntimeError("SOS numerical validation failed")
     record = {
-        "protocol": "acrobot-drake-reference-v1.0",
+        "protocol": "acrobot-drake-reference-v" + config["version"],
+        "config_sha256": hashlib.sha256(config_path.read_bytes()).hexdigest(),
         "model_sha256": MODEL_SHA256,
         "model_parameters": MODEL_PARAMETERS,
         "drake_version": importlib.metadata.version("drake"),
@@ -302,5 +308,8 @@ def prepare(output: Path) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--config", type=Path, default=Path("configs/acrobot_drake_reference_v1_1.json")
+    )
     args = parser.parse_args()
-    prepare(args.output)
+    prepare(args.output, args.config)
