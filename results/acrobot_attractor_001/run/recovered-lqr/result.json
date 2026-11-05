@@ -1,0 +1,298 @@
+{
+  "status": "VERIFIED_EMPIRICAL_JOIN_REGION",
+  "original_failure_preserved": true,
+  "new_physics_controls": 0,
+  "new_network_forwards": 0,
+  "new_fitting_updates": 0,
+  "protocol": "acrobot-transient-attractor",
+  "version": "1.0",
+  "stage": "lqr",
+  "status_scope": "Saved-only finalization recovery; original native execution status remains failed",
+  "original_status": "STOPPED_INVALID_EXECUTION",
+  "original_error": "FileExistsError: [Errno 17] File exists: '/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr/lqr.json'",
+  "lqr": {
+    "A": [
+      [
+        1.0024462164876549,
+        -0.0022771934877270205,
+        0.02000026111767773,
+        2.40729761704915e-05
+      ],
+      [
+        -0.0031446570373196243,
+        1.0084103334012477,
+        1.8287666861937063e-05,
+        0.019931099525623133
+      ],
+      [
+        0.24456950617134834,
+        -0.2275201026011474,
+        1.0008421063661026,
+        0.001646183734755058
+      ],
+      [
+        -0.31421950152705386,
+        0.8404304150493118,
+        0.0007787201851659532,
+        0.9959198775340176
+      ]
+    ],
+    "B": [
+      [
+        -0.001570504986555231
+      ],
+      [
+        0.004999794854551138
+      ],
+      [
+        -0.15693508889944416
+      ],
+      [
+        0.49961823468968
+      ]
+    ],
+    "Q": [
+      [
+        4.0,
+        2.0,
+        0.0,
+        0.0
+      ],
+      [
+        2.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.01,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.01
+      ]
+    ],
+    "R": [
+      [
+        0.01
+      ]
+    ],
+    "P": [
+      [
+        7654.99575386123,
+        2192.717450210549,
+        2714.2411064125213,
+        846.7718465793206
+      ],
+      [
+        2192.717450210549,
+        631.3581717700623,
+        774.8430922897019,
+        241.86435222737595
+      ],
+      [
+        2714.2411064125213,
+        774.8430922897019,
+        966.1851865523838,
+        301.35623456532886
+      ],
+      [
+        846.7718465793206,
+        241.86435222737595,
+        301.35623456532886,
+        94.02513414141846
+      ]
+    ],
+    "K": [
+      [
+        -202.16072726617946,
+        -52.405543425567615,
+        -74.21063322074605,
+        -22.188726155623357
+      ]
+    ],
+    "closed_loop_eigenvalues_real_imag": [
+      [
+        0.576970738943037,
+        0.0
+      ],
+      [
+        0.9359943104216799,
+        0.0189779207252859
+      ],
+      [
+        0.9359943104216799,
+        -0.0189779207252859
+      ],
+      [
+        0.9428215802180137,
+        0.0
+      ]
+    ],
+    "spectral_radius": 0.9428215802180137,
+    "dare_relative_residual": 4.615820170858568e-15,
+    "unsaturated_rho": 0.02766077723354886,
+    "action_bound": 1.0,
+    "model_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+    "analytic_A": [
+      [
+        1.002446216487655,
+        -0.002277193487731207,
+        0.020000261117677727,
+        2.4072976170490442e-05
+      ],
+      [
+        -0.0031446570373201547,
+        1.00841033340126,
+        1.828766686193707e-05,
+        0.01993109952562314
+      ],
+      [
+        0.2445695061713895,
+        -0.22752010260156785,
+        1.0008421063661026,
+        0.0016461837347548993
+      ],
+      [
+        -0.31421950152710715,
+        0.8404304150505539,
+        0.0007787201851659523,
+        0.995919877534018
+      ]
+    ],
+    "analytic_B": [
+      [
+        -0.0015705049865552322
+      ],
+      [
+        0.004999794854551142
+      ],
+      [
+        -0.15693508889944424
+      ],
+      [
+        0.49961823468968025
+      ]
+    ],
+    "finite_difference_max_errors": [
+      1.2421175199506251e-12,
+      2.7755575615628914e-16,
+      3.107514245925813e-13,
+      2.7755575615628914e-16
+    ],
+    "heldout_prediction_max_error": 6.776673541980874e-15,
+    "rho": 0.11064310893419543,
+    "selected_rho": 0.11064310893419543,
+    "selected_shell_factor": 4.0,
+    "coordinate_projections": [
+      0.1681723146241926,
+      0.3042052138712148,
+      0.7540748425548913,
+      2.1131438530436997
+    ],
+    "join_validation_passed": true,
+    "shells": [
+      {
+        "factor": 0.25,
+        "captures": 24,
+        "count": 24
+      },
+      {
+        "factor": 1.0,
+        "captures": 24,
+        "count": 24
+      },
+      {
+        "factor": 4.0,
+        "captures": 24,
+        "count": 24
+      },
+      {
+        "factor": 16.0,
+        "captures": 18,
+        "count": 24
+      }
+    ]
+  },
+  "join_validation_passed": true,
+  "inherited_work": {
+    "native_controls_attempted": 181000,
+    "native_controls_completed": 181000,
+    "verification_controls_attempted": 49,
+    "verification_controls_completed": 49,
+    "forecast_controls_attempted": 0,
+    "forecast_controls_completed": 0,
+    "model_queries_attempted": 0,
+    "model_queries_completed": 0,
+    "physics_substeps_attempted": 362098,
+    "physics_substeps_completed": 362098,
+    "restores_attempted": 1,
+    "restores_completed": 1,
+    "resets": 399,
+    "forwards": 399,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "work": {
+    "native_controls_attempted": 0,
+    "native_controls_completed": 0,
+    "verification_controls_attempted": 0,
+    "verification_controls_completed": 0,
+    "forecast_controls_attempted": 0,
+    "forecast_controls_completed": 0,
+    "model_queries_attempted": 0,
+    "model_queries_completed": 0,
+    "physics_substeps_attempted": 0,
+    "physics_substeps_completed": 0,
+    "restores_attempted": 0,
+    "restores_completed": 0,
+    "resets": 0,
+    "forwards": 0,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "historical_captures": 1,
+  "confirmation_captures": 128,
+  "recovery_protocol_sha256": "d441c309d8f7980859ab45947dede74746e239c40e83906897207c030a799367",
+  "original_bindings": {
+    "config.json": {
+      "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+      "bytes": 30815
+    },
+    "result.json": {
+      "sha256": "91086ca4d212d4e36f8e855e584d7471f3fd00d018e5e048d745699665c5862e",
+      "bytes": 2199
+    },
+    "evidence.h5": {
+      "sha256": "ad185e9d5589e621c7f121cdfe1a53c145b72a903c90a3d548db4c78ea158f0e",
+      "bytes": 62387768
+    },
+    "lqr.json": {
+      "sha256": "ede47616477a486f183b399253e107114ec61929b320de8467fbce3cf2ecd472",
+      "bytes": 2964
+    }
+  },
+  "math": {
+    "spectral_radius": 0.9428215802180137,
+    "dare_relative_residual": 4.615820170858568e-15,
+    "analytic_native_error": 1.2421175199506251e-12,
+    "unsaturated_rho": 0.02766077723354886
+  },
+  "recomputed_inherited_work": {
+    "native_controls": 181000,
+    "verification_controls": 49,
+    "forecast_controls": 0,
+    "model_queries": 0,
+    "physics_substeps": 362098,
+    "restores": 1
+  },
+  "recovery_cpu_seconds": 1.402697944,
+  "checks": 10703
+}

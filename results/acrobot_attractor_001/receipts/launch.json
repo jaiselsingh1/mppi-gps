@@ -1,0 +1,22 @@
+{
+  "protocol": "acrobot-transient-attractor",
+  "version": "1.0",
+  "source_commit": "a12b207924aec6215abf5577c47726b9a5dc1ba4",
+  "config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+  "source_manifest_sha256": "10763639d5651447ac91400ebbf89a68aacf59a43dffca7bfa95777cbe563b65",
+  "worker": "robopil5090",
+  "remote_root": "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001",
+  "interpreter": "/home/jaisel/mppi-gps/.venv/bin/python",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "stage_order": [
+    "lqr",
+    "near",
+    "swing-development",
+    "conditional swing-qualification"
+  ],
+  "no_learning": true
+}

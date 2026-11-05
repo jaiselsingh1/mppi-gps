@@ -1,0 +1,24 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_acrobot_attractor_study.py:1:1
+   |
+ 1 | / import json
+ 2 | | import sys
+ 3 | | from types import SimpleNamespace
+ 4 | | from pathlib import Path
+ 5 | |
+ 6 | | import h5py
+ 7 | | import numpy as np
+ 8 | |
+ 9 | | from src.gps.mppi_gps.acrobot_attractor_study import (
+10 | |     capture_metrics,
+11 | |     native_linearization,
+12 | |     select_shell,
+13 | | )
+14 | | from src.gps.mppi_gps.acrobot_teacher import Budget
+15 | | from src.gps.mppi_gps.attractor_lqr import upright_linearization
+   | |________________________________________________________________^
+   |
+help: Organize imports
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

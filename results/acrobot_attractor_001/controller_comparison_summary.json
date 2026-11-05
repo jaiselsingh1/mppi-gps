@@ -1,0 +1,188 @@
+{
+  "rows": [
+    {
+      "stage": "near",
+      "index": 0,
+      "objective": "same original dense cost",
+      "lambda3": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 1149.530936512714,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.9999283123901126,
+        "ess_minimum": 1.0,
+        "ess_median": 1.005349173364798,
+        "ess_maximum": 3.8986425631775625
+      },
+      "ess32": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 761.9060762995753,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.999988111461834,
+        "ess_minimum": 31.999999999999858,
+        "ess_median": 32.0,
+        "ess_maximum": 32.000000000000114
+      }
+    },
+    {
+      "stage": "near",
+      "index": 1,
+      "objective": "same original dense cost",
+      "lambda3": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 570.2395298847048,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.999996056359042,
+        "ess_minimum": 1.0,
+        "ess_median": 1.000648241283728,
+        "ess_maximum": 3.5293049064740476
+      },
+      "ess32": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 676.5648060312872,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.9999697840494246,
+        "ess_minimum": 31.999999999999872,
+        "ess_median": 31.999999999999993,
+        "ess_maximum": 32.00000000000012
+      }
+    },
+    {
+      "stage": "near",
+      "index": 2,
+      "objective": "same original dense cost",
+      "lambda3": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 660.7918167255335,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.999966541350392,
+        "ess_minimum": 1.0,
+        "ess_median": 1.0010744460094203,
+        "ess_maximum": 2.798029148918492
+      },
+      "ess32": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 715.6339300422699,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.99999523137452,
+        "ess_minimum": 31.999999999999872,
+        "ess_median": 32.0,
+        "ess_maximum": 32.000000000000114
+      }
+    },
+    {
+      "stage": "near",
+      "index": 3,
+      "objective": "same original dense cost",
+      "lambda3": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 660.4677563010404,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.999944674718919,
+        "ess_minimum": 1.0,
+        "ess_median": 1.0021403807510405,
+        "ess_maximum": 2.963948126909335
+      },
+      "ess32": {
+        "controls": 500,
+        "duration_seconds": 9.999999999999831,
+        "running_cost": 745.8870747780455,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.999980991360242,
+        "ess_minimum": 31.99999999999988,
+        "ess_median": 32.0,
+        "ess_maximum": 32.00000000000011
+      }
+    },
+    {
+      "stage": "swing-development",
+      "index": 0,
+      "objective": "energy-shaped prefix and same energy-cost LQR suffix",
+      "historical_fixed_temperature": {
+        "controls": 600,
+        "duration_seconds": 11.999999999999789,
+        "running_cost": 4730.919632707131,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.5042494754072266,
+        "ess_minimum": 1.0,
+        "ess_median": 1.0,
+        "ess_maximum": 1.999231349462847,
+        "task_cost_with_one_terminal": 4774.1350445306425,
+        "minimum_V_over_already_frozen_rho": 85.986177270062,
+        "first_entry_control": null,
+        "scope": "Retrospective grading under independently frozen R1 join region; did not select that region."
+      },
+      "current_prefix_minimum_V_over_frozen_rho": 64.32932603145304,
+      "initial_bank_comparison": {
+        "candidate_costs_maximum_absolute_difference": 0.0,
+        "nominal_before_maximum_absolute_difference": 0.0
+      },
+      "mppi_prefix": {
+        "controls": 600,
+        "duration_seconds": 11.999999999999789,
+        "running_cost": 4309.54997065508,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.835547449937694,
+        "ess_minimum": 31.99999999999993,
+        "ess_median": 31.999999999999993,
+        "ess_maximum": 32.00000000000006
+      },
+      "lqr_suffix": null,
+      "joined": false,
+      "join_control": null,
+      "hybrid_task_cost": 4360.329344905198,
+      "running_cost": 4309.54997065508,
+      "single_final_terminal_cost": 50.77937425011771
+    },
+    {
+      "stage": "swing-development",
+      "index": 1,
+      "objective": "energy-shaped prefix and same energy-cost LQR suffix",
+      "historical_fixed_temperature": {
+        "controls": 600,
+        "duration_seconds": 11.999999999999789,
+        "running_cost": 5018.064582555482,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.652124317070562,
+        "ess_minimum": 1.0,
+        "ess_median": 1.0,
+        "ess_maximum": 2.2939858944443596,
+        "task_cost_with_one_terminal": 5032.905982605381,
+        "minimum_V_over_already_frozen_rho": 2878.440412544625,
+        "first_entry_control": null,
+        "scope": "Retrospective grading under independently frozen R1 join region; did not select that region."
+      },
+      "current_prefix_minimum_V_over_frozen_rho": 68.37683913702249,
+      "initial_bank_comparison": {
+        "candidate_costs_maximum_absolute_difference": 0.0,
+        "nominal_before_maximum_absolute_difference": 0.0
+      },
+      "mppi_prefix": {
+        "controls": 600,
+        "duration_seconds": 11.999999999999789,
+        "running_cost": 4329.578769321646,
+        "final_two_second_height_hold": false,
+        "maximum_height": 3.9015215357690374,
+        "ess_minimum": 31.999999999999915,
+        "ess_median": 31.999999999999993,
+        "ess_maximum": 32.00000000000008
+      },
+      "lqr_suffix": null,
+      "joined": false,
+      "join_control": null,
+      "hybrid_task_cost": 4384.740951738968,
+      "running_cost": 4329.578769321646,
+      "single_final_terminal_cost": 55.16218241732164
+    }
+  ],
+  "pairing_scope": "Identical restart states; only the original first bank is paired. Later candidates/contexts change with executed controls.",
+  "missing_post_prefix_states_fabricated": false,
+  "nonlinear_basin_proof": false,
+  "logarithm_plot_floor": 1e-300
+}

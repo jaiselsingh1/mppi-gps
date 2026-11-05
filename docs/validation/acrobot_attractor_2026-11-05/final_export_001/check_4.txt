@@ -1,0 +1,20 @@
+usage: train_mppi_gps.py [-h] --base BASE --config CONFIG --out OUT
+                         [--previous PREVIOUS]
+                         [--recovery-protocol RECOVERY_PROTOCOL]
+                         [--cpu-seconds CPU_SECONDS]
+
+Independent saved-only review of Acrobot's locked upright and basin joins.
+This reviewer imports no simulator, planner or worker mathematics. It derives
+the local native-map Jacobian, Riccati checks, deployed torques,
+height/capture outcomes and adaptive MPPI weights from recorded arrays. Finite
+basin probes remain empirical evidence, not a nonlinear invariant-set
+certificate.
+
+options:
+  -h, --help            show this help message and exit
+  --base BASE
+  --config CONFIG
+  --out OUT
+  --previous PREVIOUS
+  --recovery-protocol RECOVERY_PROTOCOL
+  --cpu-seconds CPU_SECONDS

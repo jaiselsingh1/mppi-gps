@@ -1,0 +1,31 @@
+{
+  "stage": "lqr",
+  "command": [
+    "/usr/bin/time",
+    "-v",
+    "-o",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr.process.txt",
+    "nice",
+    "-n",
+    "10",
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "-m",
+    "src.gps.mppi_gps.acrobot_attractor_study",
+    "--config",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/source/configs/studies/acrobot_attractor_v1_0.json",
+    "--stage",
+    "lqr",
+    "--out",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr"
+  ],
+  "source_commit": "a12b207924aec6215abf5577c47726b9a5dc1ba4",
+  "config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_unix": 1793905801.9509382,
+  "supervisor_sha256": "2bc600f24932474d5e502b566e50497b2b7d6f9565727bd92b850f13a1cc52a4"
+}

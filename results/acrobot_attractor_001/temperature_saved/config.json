@@ -1,0 +1,52 @@
+{
+  "protocol": "acrobot-attractor-saved-temperature-review",
+  "version": "1.0",
+  "budget": {
+    "cpu_seconds": 30,
+    "output_bytes": 8388608,
+    "new_physics": 0,
+    "new_fitting": 0,
+    "new_network_forwards": 0
+  },
+  "input_roster": [
+    {
+      "raw": "runs/2026-11-05_acrobot_energy_discovery_001/near-upright/evidence.h5",
+      "sha256": "964086110c008603f183082b7928ab6bc8d769424321afd6772418683009560a",
+      "trial": "trials/variant_0/trial_0",
+      "control_indices": [
+        0,
+        25,
+        50,
+        75,
+        100,
+        125,
+        150,
+        175,
+        200,
+        225,
+        250,
+        275,
+        300,
+        325,
+        350,
+        375,
+        400,
+        425,
+        450,
+        475
+      ],
+      "refinement": 0
+    }
+  ],
+  "config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176",
+  "incoming_actor": null,
+  "K": 256,
+  "H": 150,
+  "fixed_temperature": 3.0,
+  "target_ess": 32.0,
+  "target_ess_fraction": 0.125,
+  "independent_temperature_rule": "120 log-bisections using explicit exponential weights; bracket spread*1e-12 to spread*1e12",
+  "stock_temperature_rule": "src.utils.math.temperature_for_neff_fraction:60 log-bisections; bracket spread*1e-8 to spread*1e8",
+  "tests_before_arithmetic": "Require exactly declared20banks finiteK256 costs, recordedlambda3, savedweightsreproduce; compare independenttargetESS32 tostockformula; no result-dependentbank selection",
+  "stop": "Any bad binding, nonfinite costs, absentbank, mismatchbeyond1e-10weights/ESS, exhausted30CPUor8MiB stops savedreview."
+}

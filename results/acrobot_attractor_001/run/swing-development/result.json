@@ -1,0 +1,178 @@
+{
+  "protocol": "acrobot-transient-attractor",
+  "version": "1.0",
+  "stage": "swing-development",
+  "status": "FAILED_JOIN_GATE",
+  "policy_fits": 0,
+  "lqr_binding": {
+    "path": "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/recovered-lqr/lqr.json",
+    "sha256": "b28bcc27fdfe5aacdd54893f660c8ad3725a6f3debc8c38311b1c5d6b94cd8f2"
+  },
+  "trials": [
+    {
+      "stage": "swing-development",
+      "trial_index": 0,
+      "reset_seed": 3022000100,
+      "planner_seed": 3022010100,
+      "success": false,
+      "joined": false,
+      "join_control": null,
+      "join_V": null,
+      "join_rho": 0.11064310893419543,
+      "mppi_controls": 600,
+      "lqr_controls": 0,
+      "total_controls": 600,
+      "task_cost": 4360.329344905198,
+      "native_running_cost_sum": 4309.54997065508,
+      "episode_terminal_cost": 50.77937425011771,
+      "original_dense_cost_sum": 5943.642004069167,
+      "lqr_final_height_hold": false,
+      "mppi_prefix_metrics": {
+        "stage": "swing-development",
+        "recipe_index": 0,
+        "recipe": "energy_6s_ess32_lqr_join",
+        "trial_index": 0,
+        "reset_seed": 3022000100,
+        "planner_seed": 3022010100,
+        "controls": 600,
+        "success": false,
+        "height_hold_success": false,
+        "task_cost": 4360.329344905198,
+        "native_running_cost_sum": 4309.54997065508,
+        "episode_terminal_cost": 50.77937425011771,
+        "original_dense_cost_sum": 5943.642004069167,
+        "maximum_tip_height": 3.835547449937694,
+        "final_window_minimum_height": 0.013452158879076248,
+        "longest_height_interval_seconds": 0.12,
+        "time_balanced_seconds": 0.12,
+        "final_window_velocity_rms": 3.5087946051452508,
+        "terminal_total_energy": 58.74960089774629,
+        "terminal_potential": 49.486446920583404,
+        "terminal_kinetic": 9.263153977162883,
+        "success_scope": "MPPI acquisition reaches the verified LQR join level"
+      },
+      "lqr_suffix_metrics": null
+    },
+    {
+      "stage": "swing-development",
+      "trial_index": 1,
+      "reset_seed": 3022000101,
+      "planner_seed": 3022010101,
+      "success": false,
+      "joined": false,
+      "join_control": null,
+      "join_V": null,
+      "join_rho": 0.11064310893419543,
+      "mppi_controls": 600,
+      "lqr_controls": 0,
+      "total_controls": 600,
+      "task_cost": 4384.740951738968,
+      "native_running_cost_sum": 4329.578769321646,
+      "episode_terminal_cost": 55.16218241732164,
+      "original_dense_cost_sum": 5522.62212128534,
+      "lqr_final_height_hold": false,
+      "mppi_prefix_metrics": {
+        "stage": "swing-development",
+        "recipe_index": 0,
+        "recipe": "energy_6s_ess32_lqr_join",
+        "trial_index": 1,
+        "reset_seed": 3022000101,
+        "planner_seed": 3022010101,
+        "controls": 600,
+        "success": false,
+        "height_hold_success": false,
+        "task_cost": 4384.740951738968,
+        "native_running_cost_sum": 4329.578769321646,
+        "episode_terminal_cost": 55.16218241732164,
+        "original_dense_cost_sum": 5522.62212128534,
+        "maximum_tip_height": 3.9015215357690374,
+        "final_window_minimum_height": 1.9054760081842974,
+        "longest_height_interval_seconds": 0.18,
+        "time_balanced_seconds": 0.36,
+        "final_window_velocity_rms": 4.1135239671713615,
+        "terminal_total_energy": 59.11987743156365,
+        "terminal_potential": 43.05188688529386,
+        "terminal_kinetic": 16.06799054626979,
+        "success_scope": "MPPI acquisition reaches the verified LQR join level"
+      },
+      "lqr_suffix_metrics": null
+    }
+  ],
+  "successes": 0,
+  "joins": 0,
+  "bank_count": 1204,
+  "target_ess": 32.0,
+  "weighting_validated": true,
+  "unreachable_tie_banks": 0,
+  "ess_minimum": 31.999999999999915,
+  "ess_maximum": 32.00000000000008,
+  "temperature_minimum": 2.8341430465996176,
+  "temperature_maximum": 72.93350804310799,
+  "learning_or_loop_launched": false,
+  "required": 2,
+  "additional_evidence": {
+    "hybrid_trials.jsonl": {
+      "sha256": "dc2a88f8c36499340c624ea3aea1a63bd021a68693136af502a4d457336f4e56",
+      "bytes": 2656
+    }
+  },
+  "work": {
+    "native_controls_attempted": 1200,
+    "native_controls_completed": 1200,
+    "verification_controls_attempted": 0,
+    "verification_controls_completed": 0,
+    "forecast_controls_attempted": 184934400,
+    "forecast_controls_completed": 184934400,
+    "model_queries_attempted": 1204,
+    "model_queries_completed": 1204,
+    "physics_substeps_attempted": 369871200,
+    "physics_substeps_completed": 369871200,
+    "restores_attempted": 0,
+    "restores_completed": 0,
+    "resets": 4,
+    "forwards": 4,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "unknown_partial_work": {
+    "native_controls": 0,
+    "verification_controls": 0,
+    "forecast_controls": 0,
+    "model_queries": 0,
+    "physics_substeps": 0,
+    "restores": 0
+  },
+  "evidence": {
+    "evidence.h5": {
+      "sha256": "fbcefa80e3274c84da6ca114de868545c151f861c87d373723854768f2794261",
+      "bytes": 21736720
+    },
+    "config.json": {
+      "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+      "bytes": 30815
+    },
+    "trials.jsonl": {
+      "sha256": "9a66b17c62c281ebf7f21b7c868d383260b2b65a44604f8f3f008458b0371d92",
+      "bytes": 1608
+    },
+    "hybrid_trials.jsonl": {
+      "sha256": "dc2a88f8c36499340c624ea3aea1a63bd021a68693136af502a4d457336f4e56",
+      "bytes": 2656
+    },
+    "environment.json": {
+      "sha256": "8219ecb183df880d3aca498d1c1513526881b98cdc6e977f84ce8dcf037a6461",
+      "bytes": 395
+    },
+    "inputs.json": {
+      "sha256": "6f357b78541da946e6b787bb012fef799aba57046ae143806478f31a7d568e61",
+      "bytes": 3306
+    }
+  },
+  "resources": {
+    "cpu_seconds": 2058.959102488,
+    "wall_seconds": 566.5343392150007,
+    "rss_bytes": 279736320,
+    "output_bytes": 21775500
+  }
+}

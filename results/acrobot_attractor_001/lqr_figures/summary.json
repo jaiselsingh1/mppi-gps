@@ -1,0 +1,197 @@
+{
+  "groups": {
+    "confirm_boundary": {
+      "tested": 64,
+      "captured": 64
+    },
+    "confirm_interior": {
+      "tested": 64,
+      "captured": 64
+    },
+    "equilibrium": {
+      "tested": 1,
+      "captured": 1
+    },
+    "historical": {
+      "tested": 4,
+      "captured": 1
+    },
+    "joint_grid": {
+      "tested": 81,
+      "captured": 5
+    },
+    "marginal": {
+      "tested": 52,
+      "captured": 10
+    },
+    "shell": {
+      "tested": 96,
+      "captured": 90
+    }
+  },
+  "shell_calibration": [
+    {
+      "factor": 0.25,
+      "tested": 24,
+      "captured": 24
+    },
+    {
+      "factor": 1.0,
+      "tested": 24,
+      "captured": 24
+    },
+    {
+      "factor": 4.0,
+      "tested": 24,
+      "captured": 24
+    },
+    {
+      "factor": 16.0,
+      "tested": 24,
+      "captured": 18
+    }
+  ],
+  "selected_contiguous_shell_factor": 4.0,
+  "candidate_join_rho": 0.11064310893419543,
+  "marginal_tests": [
+    {
+      "coordinate": 0,
+      "unit": "rad",
+      "captured_test_values": [
+        -0.01,
+        0.01
+      ],
+      "failed_test_values": [
+        -0.5,
+        -0.35,
+        -0.2,
+        -0.1,
+        -0.05,
+        -0.025,
+        0.025,
+        0.05,
+        0.1,
+        0.2,
+        0.35,
+        0.5
+      ]
+    },
+    {
+      "coordinate": 1,
+      "unit": "rad",
+      "captured_test_values": [
+        -0.025,
+        -0.01,
+        0.01,
+        0.025
+      ],
+      "failed_test_values": [
+        -0.5,
+        -0.35,
+        -0.2,
+        -0.1,
+        -0.05,
+        0.05,
+        0.1,
+        0.2,
+        0.35,
+        0.5
+      ]
+    },
+    {
+      "coordinate": 2,
+      "unit": "rad/s",
+      "captured_test_values": [],
+      "failed_test_values": [
+        -2.0,
+        -1.0,
+        -0.5,
+        -0.25,
+        -0.1,
+        -0.05,
+        0.05,
+        0.1,
+        0.25,
+        0.5,
+        1.0,
+        2.0
+      ]
+    },
+    {
+      "coordinate": 3,
+      "unit": "rad/s",
+      "captured_test_values": [
+        -0.1,
+        -0.05,
+        0.05,
+        0.1
+      ],
+      "failed_test_values": [
+        -2.0,
+        -1.0,
+        -0.5,
+        -0.25,
+        0.25,
+        0.5,
+        1.0,
+        2.0
+      ]
+    }
+  ],
+  "candidate_level_coordinate_projections": [
+    0.16817231462420923,
+    0.3042052138712452,
+    0.7540748425550557,
+    2.1131438530440687
+  ],
+  "projections_are_not_a_joint_capture_box": true,
+  "captured_initial_coordinate_min": [
+    -0.30062767629012055,
+    -0.5170437993622512,
+    -1.4179120312103162,
+    -4.226287706087399
+  ],
+  "captured_initial_coordinate_max": [
+    0.30062767629012055,
+    0.5170437993622512,
+    1.4179120312103162,
+    4.226287706087399
+  ],
+  "historical": [
+    {
+      "id": "historical_0",
+      "captured": false,
+      "height_success": false,
+      "clipped_fraction": 1.0,
+      "final_angle_max": 3.140813175497479,
+      "final_velocity_max": 4.713738168723756
+    },
+    {
+      "id": "historical_1",
+      "captured": true,
+      "height_success": true,
+      "clipped_fraction": 0.004,
+      "final_angle_max": 2.559552569891821e-11,
+      "final_velocity_max": 6.891577071826093e-11
+    },
+    {
+      "id": "historical_2",
+      "captured": false,
+      "height_success": false,
+      "clipped_fraction": 0.998,
+      "final_angle_max": 3.1350392371392584,
+      "final_velocity_max": 13.894120017427435
+    },
+    {
+      "id": "historical_3",
+      "captured": false,
+      "height_success": false,
+      "clipped_fraction": 0.996,
+      "final_angle_max": 3.139798998825878,
+      "final_velocity_max": 24.106742141328485
+    }
+  ],
+  "total_cases": 362,
+  "capture_count": 235,
+  "interpretation": "Finite deterministic shell/grid and random held-out probes; not a nonlinear basin proof. Coordinate extrema describe tested correlated states only."
+}

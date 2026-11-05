@@ -2,6 +2,20 @@
 
 The active package namespace is `src.gps.mppi_gps`. Study and reporting scripts retain their historical paths as thin wrappers; reusable code imports library modules rather than another experiment script.
 
+The [transient–attractor study](acrobot_attractor_results.md) uses
+[pure LQR/local-coordinate math](../src/gps/mppi_gps/attractor_lqr.py),
+[bounded native basin execution](../src/gps/mppi_gps/acrobot_attractor_study.py)
+(`study acrobot-attractor`) and
+[MPPI plus same-context LQR handoff](../src/gps/mppi_gps/acrobot_attractor_controller.py).
+The existing MPPI recorder has one optional post-action stop hook; its default
+behavior is unchanged. [Independent saved review](../src/gps/mppi_gps/reporting/acrobot_attractor.py)
+(`study acrobot-attractor-report`) and the
+[saved-only finalization helper](../src/gps/mppi_gps/reporting/acrobot_attractor_recovery.py)
+are separate from physics. [Plots](../src/gps/mppi_gps/reporting/acrobot_attractor_figures.py)
+use recorded states. Exact `c13d14c` reference sources are
+[archived read-only](../archive/transient_attractor_reference-2026-11-05/README.md);
+no other branch was edited or merged.
+
 The current bounded local-controller loop shares one execution/learning stack: [recorded native MPPI](../src/gps/mppi_gps/local_coupling_controller.py), [paired fitting and standalone execution](../src/gps/mppi_gps/local_coupling_learning.py), [full contexts and traces](../src/gps/mppi_gps/trajectory_pi_native.py), and [metered work](../src/gps/mppi_gps/trajectory_pi_accounting.py). [L3 orchestration](../src/gps/mppi_gps/local_coupling_multiround.py) retains the eight-round scientific recipe. `study local-coupling-continuation` adds only the explicitly versioned [L3.1 continuation](../src/gps/mppi_gps/local_coupling_multiround_continuation.py), [matched-batch check](../src/gps/mppi_gps/local_coupling_numeric_validation.py), [interrupted-prefix adapter](../src/gps/mppi_gps/local_coupling_prefix_resume.py) and [independent auditor](../src/gps/mppi_gps/audits/local_coupling_multiround_continuation.py). The [amendment](local_coupling_multiround_l3_1_amendment.md) preserves the original failure; it does not implement another planner. Workers use their frozen export, not subsequent reporting edits in this checkout.
 
 `review reweight-local-bank` extends [the existing bank-review library](../src/gps/mppi_gps/bank_review.py) with saved float64 native C/D-bank reweighting and stock one-pass update reconstruction. It reuses [the review dispatcher](../src/gps/mppi_gps/research_review.py), preserves failed requests and counts zero physics/inference/fitting. This is distinct from the older FP16 SAC-bank label utility: neither is a pre-update teachability estimator. See the [mechanism-first workflow and commands](development.md#mechanism-first-investigations-after-the-current-bounded-loop).

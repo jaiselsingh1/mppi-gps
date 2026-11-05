@@ -1,5 +1,9 @@
 # Acrobot: energy shaping did not clear the teacher gate
 
+Subsequent evidence: the [transient–attractor study](acrobot_attractor_results.md)
+executed the proposed LQR positive control, normalized MPPI weights and tested
+basin-entry acquisition. The original finite result below remains preserved.
+
 **All three energy recipes failed both hanging starts; none of the six executions
 reached 3.8 m. The original controller also failed all four near-upright holds.**
 The declared kill rule applies: this is an Acrobot teacher-control problem, not

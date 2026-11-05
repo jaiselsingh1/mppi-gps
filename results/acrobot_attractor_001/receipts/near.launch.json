@@ -1,0 +1,38 @@
+{
+  "stage": "near",
+  "command": [
+    "/usr/bin/time",
+    "-v",
+    "-o",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/near.process.txt",
+    "nice",
+    "-n",
+    "10",
+    "/home/jaisel/mppi-gps/.venv/bin/python",
+    "-m",
+    "src.gps.mppi_gps.acrobot_attractor_study",
+    "--config",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/source/configs/studies/acrobot_attractor_v1_0.json",
+    "--stage",
+    "near",
+    "--out",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/near",
+    "--lqr",
+    "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/recovered-lqr/lqr.json"
+  ],
+  "source_commit": "a12b207924aec6215abf5577c47726b9a5dc1ba4",
+  "config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_unix": 1793906305.5832226,
+  "supervisor_sha256": "8eae7e411e1a0e534b17b00e5113c80b087508d7e0f8aa53fa82254e67c66524",
+  "recovered_lock_binding": {
+    "lqr.json": "b28bcc27fdfe5aacdd54893f660c8ad3725a6f3debc8c38311b1c5d6b94cd8f2",
+    "result.json": "169225afa5493c282a36e3510cde4ac6e096d8b1e7ce4cfa35dbe1f826e87ec6",
+    "config.json": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405"
+  }
+}

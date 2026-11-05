@@ -1,0 +1,171 @@
+{
+  "protocol": "acrobot-transient-attractor",
+  "version": "1.0",
+  "stage": "near",
+  "status": "COMPLETED_ADAPTIVE_TEMPERATURE_PROBE",
+  "policy_fits": 0,
+  "lqr_binding": {
+    "path": "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/recovered-lqr/lqr.json",
+    "sha256": "b28bcc27fdfe5aacdd54893f660c8ad3725a6f3debc8c38311b1c5d6b94cd8f2"
+  },
+  "trials": [
+    {
+      "stage": "near",
+      "recipe_index": 0,
+      "recipe": "dense_ess32",
+      "trial_index": 0,
+      "reset_seed": 3022000000,
+      "planner_seed": 3022010000,
+      "controls": 500,
+      "success": false,
+      "height_hold_success": false,
+      "task_cost": 761.9060762995753,
+      "native_running_cost_sum": 761.9060762995753,
+      "episode_terminal_cost": 0.0,
+      "original_dense_cost_sum": 761.9060762995753,
+      "maximum_tip_height": 3.999988111461834,
+      "final_window_minimum_height": 2.0000003483874385,
+      "longest_height_interval_seconds": 0.48,
+      "time_balanced_seconds": 2.9,
+      "final_window_velocity_rms": 3.6943455214838656,
+      "terminal_total_energy": 58.434793288367594,
+      "terminal_potential": 56.069724391755294,
+      "terminal_kinetic": 2.365068896612302
+    },
+    {
+      "stage": "near",
+      "recipe_index": 0,
+      "recipe": "dense_ess32",
+      "trial_index": 1,
+      "reset_seed": 3022000001,
+      "planner_seed": 3022010001,
+      "controls": 500,
+      "success": false,
+      "height_hold_success": false,
+      "task_cost": 676.5648060312872,
+      "native_running_cost_sum": 676.5648060312872,
+      "episode_terminal_cost": 0.0,
+      "original_dense_cost_sum": 676.5648060312872,
+      "maximum_tip_height": 3.9999697840494246,
+      "final_window_minimum_height": 2.000087898649153,
+      "longest_height_interval_seconds": 1.2,
+      "time_balanced_seconds": 3.6,
+      "final_window_velocity_rms": 3.325242545593058,
+      "terminal_total_energy": 59.210745545124595,
+      "terminal_potential": 58.76094738491826,
+      "terminal_kinetic": 0.4497981602063328
+    },
+    {
+      "stage": "near",
+      "recipe_index": 0,
+      "recipe": "dense_ess32",
+      "trial_index": 2,
+      "reset_seed": 3022000002,
+      "planner_seed": 3022010002,
+      "controls": 500,
+      "success": false,
+      "height_hold_success": false,
+      "task_cost": 715.6339300422699,
+      "native_running_cost_sum": 715.6339300422699,
+      "episode_terminal_cost": 0.0,
+      "original_dense_cost_sum": 715.6339300422699,
+      "maximum_tip_height": 3.99999523137452,
+      "final_window_minimum_height": 2.0004021916737833,
+      "longest_height_interval_seconds": 0.52,
+      "time_balanced_seconds": 3.58,
+      "final_window_velocity_rms": 3.8634660661003877,
+      "terminal_total_energy": 58.72791562752303,
+      "terminal_potential": 50.03678971681806,
+      "terminal_kinetic": 8.691125910704965
+    },
+    {
+      "stage": "near",
+      "recipe_index": 0,
+      "recipe": "dense_ess32",
+      "trial_index": 3,
+      "reset_seed": 3022000003,
+      "planner_seed": 3022010003,
+      "controls": 500,
+      "success": false,
+      "height_hold_success": false,
+      "task_cost": 745.8870747780455,
+      "native_running_cost_sum": 745.8870747780455,
+      "episode_terminal_cost": 0.0,
+      "original_dense_cost_sum": 745.8870747780455,
+      "maximum_tip_height": 3.999980991360242,
+      "final_window_minimum_height": 1.9999993019185611,
+      "longest_height_interval_seconds": 0.54,
+      "time_balanced_seconds": 3.14,
+      "final_window_velocity_rms": 3.5845708971329135,
+      "terminal_total_energy": 58.42991129322776,
+      "terminal_potential": 52.92578147227295,
+      "terminal_kinetic": 5.504129820954806
+    }
+  ],
+  "successes": 0,
+  "bank_count": 2008,
+  "target_ess": 32.0,
+  "weighting_validated": true,
+  "unreachable_tie_banks": 0,
+  "ess_minimum": 31.999999999999858,
+  "ess_maximum": 32.00000000000012,
+  "temperature_minimum": 34.61345031764915,
+  "temperature_maximum": 156.8610258914895,
+  "learning_or_loop_launched": false,
+  "additional_evidence": {},
+  "work": {
+    "native_controls_attempted": 2000,
+    "native_controls_completed": 2000,
+    "verification_controls_attempted": 0,
+    "verification_controls_completed": 0,
+    "forecast_controls_attempted": 77107200,
+    "forecast_controls_completed": 77107200,
+    "model_queries_attempted": 2008,
+    "model_queries_completed": 2008,
+    "physics_substeps_attempted": 154218400,
+    "physics_substeps_completed": 154218400,
+    "restores_attempted": 0,
+    "restores_completed": 0,
+    "resets": 8,
+    "forwards": 8,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "unknown_partial_work": {
+    "native_controls": 0,
+    "verification_controls": 0,
+    "forecast_controls": 0,
+    "model_queries": 0,
+    "physics_substeps": 0,
+    "restores": 0
+  },
+  "evidence": {
+    "evidence.h5": {
+      "sha256": "9b7a4c85c6888ca1b6e446cf9383a1a2f2fd427f637253a3bbe15b2afc01ba01",
+      "bytes": 23227648
+    },
+    "config.json": {
+      "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+      "bytes": 30815
+    },
+    "trials.jsonl": {
+      "sha256": "bd9f0621ad9e4c76b93ace265e6265918b4ffb341e9c76b94c8e6deccde74f6e",
+      "bytes": 2759
+    },
+    "environment.json": {
+      "sha256": "969353fce64294c9e5cfb9a09ec84e90403ef763e70c2ea89b43d98740217d41",
+      "bytes": 395
+    },
+    "inputs.json": {
+      "sha256": "6f357b78541da946e6b787bb012fef799aba57046ae143806478f31a7d568e61",
+      "bytes": 3306
+    }
+  },
+  "resources": {
+    "cpu_seconds": 861.660544621,
+    "wall_seconds": 449.382025859999,
+    "rss_bytes": 216080384,
+    "output_bytes": 23264923
+  }
+}

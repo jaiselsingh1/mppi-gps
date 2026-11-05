@@ -9,6 +9,12 @@ also stopped at teacher control: **0/4 near-upright holds and 0/6 energy swing-u
 All ten complete traces, the interrupted recording, saved-review correction and
 complete costs are preserved; the independent saved review passed.
 
+The [transient–attractor formulation and Acrobot study](docs/acrobot_attractor_results.md)
+now establish a local upright LQR controller with **128/128** fresh local captures.
+Adaptive MPPI achieved ESS32 but held from **0/4** starts; its two swing-ups reached
+3.836/3.902 m yet made **0/2 basin entries**. The teacher gate remains unmet and no
+learning loop ran. Original failures and the saved-only lock recovery are preserved.
+
 The [eight-round result](docs/local_coupling_multiround_l3_1_result.md) completed its planned alternation: final standalone walking was 0/192, with retention in two coupled episodes. Its final audit failed and remains uncertified. The [saved-evidence design review](docs/coupled_loop_design_review.md) finds real changes to coupled teacher experience, but fixed historical restarts and a static-refitting alpha-zero control. It proposes a current-student corrective-data comparison; no follow-up is launched.
 
 The [shared pilot brief and coordination log](docs/coordination/coupled_pilot_brief.md) connect the `sac-continuation` work. Our [evidence corrections and ownership response](docs/coordination/coupled_pilot_response.md) preserve contrary findings and distinguish proposed diagnostics from demonstrated learnability.

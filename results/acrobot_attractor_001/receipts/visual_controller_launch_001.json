@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-m",
+    "src.gps.mppi_gps.reporting.acrobot_attractor_figures",
+    "--base",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_attractor_001",
+    "--previous",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001",
+    "--locked",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_attractor_001/recovered-lqr/lqr.json",
+    "--out",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_attractor_001/visual_controller_001"
+  ],
+  "source_sha256": "6b42117c2ce33aade331ef687b189a68df73493ea25e5bec41f4eddca350a870",
+  "child_cpu_limit_seconds": 4,
+  "allocation_cpu_seconds": 5,
+  "new_physics_controls": 0,
+  "prior_arithmetic_cpu_seconds": 0.002099,
+  "prior_pure_validation_and_preparation_cpu_upper_seconds": 0.3,
+  "no_automatic_retry": true
+}

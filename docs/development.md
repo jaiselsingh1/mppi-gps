@@ -1,5 +1,53 @@
 # Development and debugging
 
+## Transient–attractor study
+
+Read the [formulation](transient_attractor_formulation.md),
+[result](acrobot_attractor_results.md) and [frozen protocol](acrobot_attractor_protocol.md).
+The public `study acrobot-attractor --help` command lists the native stages without
+launching one. Useful breakpoints are `native_linearization`, `record_lqr`,
+`_bank_recorder`, the post-action join predicate in `run_swingup`, and
+`record_lqr_trace`. Inspect PRE observations, raw versus clipped torque, V/rho,
+the complete handoff context, ESS and the actual chosen temperature.
+
+The experiment executed its `a12b207` export. The active checkout's subsequent
+`lqr_initial.json` naming correction does not rewrite that worker. The original
+failed finalization and [R1 recovered certificate](acrobot_attractor_finalization_r1.md)
+have distinct provenance. Remaining native stages used the original worker and
+configuration, binding `recovered-lqr/lqr.json` explicitly. Do not overwrite a
+frozen output directory to reproduce the run.
+
+Portable metadata inspection needs no ignored raw arrays:
+
+```sh
+uv run python scripts/train_mppi_gps.py inspect \
+  --run results/acrobot_attractor_001 --verify
+uv run python scripts/train_mppi_gps.py study acrobot-attractor-report --help
+```
+
+The capsule's generic `run/result.json` alias is the **last transient worker**;
+combined costs and gates are in `complete_accounting.json` and the compact audit.
+Generic missing `manifest.json`/`input_manifest.json` notices reflect this worker's
+`source_manifest.json`/`inputs.json` contract; metadata is not invented to hide them.
+
+Full saved review requires the indexed raw inputs and the pinned origin-host
+runtime. Derived basin states have byte-level bindings, so reproduce that runtime
+rather than silently broadening tolerances on another platform. From its sealed
+full-review support source, use a fresh output directory:
+
+```sh
+python -m src.gps.mppi_gps.reporting.acrobot_attractor \
+  --base /path/to/2026-11-05_attractor_v1_0_001 \
+  --config /path/to/source/configs/studies/acrobot_attractor_v1_0.json \
+  --recovery-protocol /path/to/recovery-support-source/protocol.json \
+  --previous /path/to/2026-11-05_energy_discovery_v1_1_001 \
+  --out /tmp/acrobot-full-saved-review-fresh --cpu-seconds 110
+```
+
+That command repeats no physics, inference or fitting. A failed join never creates
+a fictitious LQR suffix. The inspector, full saved review, and recorded-state
+figures are distinct from native replay or another research experiment.
+
 Run commands from the checkout root. The public entry point is [train_mppi_gps.py](../scripts/train_mppi_gps.py); [the code map](code_map.md) separates preparation, execution, fitting, reporting and audit responsibilities. The package remains `src.gps.mppi_gps` so historical callers and script paths continue to work.
 
 ## A first debugging session

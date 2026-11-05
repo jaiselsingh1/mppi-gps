@@ -1,7 +1,7 @@
 import json
 import sys
-from types import SimpleNamespace
 from pathlib import Path
+from types import SimpleNamespace
 
 import h5py
 import numpy as np

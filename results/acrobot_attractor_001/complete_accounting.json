@@ -1,0 +1,192 @@
+{
+  "schema": "acrobot-attractor-complete-accounting-v1",
+  "scope": "New native fixed-point/basin, adaptive temperature and transient development stages; zero-physics finalization, saved reviews, figures, tests and supporting work",
+  "native_source_commit": "a12b207924aec6215abf5577c47726b9a5dc1ba4",
+  "config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+  "final_reviewer_commit": "b9fd7fbfa8422bbe78b85f27a1d80cc4c54cef07",
+  "paid_episode_attempts": 368,
+  "complete_native_episode_traces": 368,
+  "paid_work": {
+    "native_controls_attempted": 184200,
+    "native_controls_completed": 184200,
+    "verification_controls_attempted": 49,
+    "verification_controls_completed": 49,
+    "forecast_controls_attempted": 262041600,
+    "forecast_controls_completed": 262041600,
+    "model_queries_attempted": 3212,
+    "model_queries_completed": 3212,
+    "physics_substeps_attempted": 524451698,
+    "physics_substeps_completed": 524451698,
+    "restores_attempted": 1,
+    "restores_completed": 1,
+    "resets": 411,
+    "forwards": 411,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "independently_recomputed_work": {
+    "native_controls": 184200,
+    "verification_controls": 49,
+    "forecast_controls": 262041600,
+    "model_queries": 3212,
+    "physics_substeps": 524451698
+  },
+  "unknown_partial_physics": 0,
+  "native_worker_process_resources": {
+    "lqr": {
+      "user_cpu_seconds": 23.69,
+      "system_cpu_seconds": 2.68,
+      "maximum_rss_bytes": 141254656,
+      "total_cpu_seconds": 26.37
+    },
+    "near": {
+      "user_cpu_seconds": 860.71,
+      "system_cpu_seconds": 1.3,
+      "maximum_rss_bytes": 216342528,
+      "total_cpu_seconds": 862.01
+    },
+    "swing-development": {
+      "user_cpu_seconds": 2053.73,
+      "system_cpu_seconds": 5.51,
+      "maximum_rss_bytes": 279736320,
+      "total_cpu_seconds": 2059.2400000000002
+    }
+  },
+  "native_worker_cpu_seconds_external": 2947.6200000000003,
+  "native_worker_resources_internal": {
+    "lqr": {
+      "cpu_seconds": 26.144319712999998,
+      "wall_seconds": 26.85587472000043,
+      "rss_bytes": 141254656,
+      "output_bytes": 62630826
+    },
+    "near": {
+      "cpu_seconds": 861.660544621,
+      "wall_seconds": 449.382025859999,
+      "rss_bytes": 216080384,
+      "output_bytes": 23264923
+    },
+    "swing-development": {
+      "cpu_seconds": 2058.959102488,
+      "wall_seconds": 566.5343392150007,
+      "rss_bytes": 279736320,
+      "output_bytes": 21775500
+    }
+  },
+  "support_charges_cpu_seconds": {
+    "saved_temperature_review": 30,
+    "recovery_full_audit_and_tests": 150,
+    "engineering_figures_transfers_publication": 120
+  },
+  "support_charges_are_reservations_not_measured_use": true,
+  "conservative_total_cpu_seconds": 3247.6200000000003,
+  "shared_cpu_limit_seconds": 16000,
+  "shared_output_limit_bytes": 2147483648,
+  "shared_physics_limit_substeps": 2373812498,
+  "observed_saved_recovery": {
+    "exit_code": 0,
+    "wall_seconds": 1.516525143999388,
+    "child_cpu_seconds": 1.483945,
+    "new_physics": 0,
+    "automatic_retry": false
+  },
+  "observed_final_saved_review": {
+    "exit_code": 0,
+    "wall_seconds": 10.141970365000816,
+    "child_cpu_seconds": 10.112292,
+    "new_physics": 0,
+    "automatic_retry": false
+  },
+  "observed_temperature_review": {
+    "exit_code": 0,
+    "complete_child_cpu_seconds": 9.574739000000001,
+    "wall_seconds": 10.307121417019516,
+    "new_physics_controls": 0
+  },
+  "observed_lqr_figures": {
+    "status": "PASSED",
+    "render_cpu_seconds": 2.227791,
+    "earlier_inspection_cpu_bound_seconds": 0.6,
+    "total_charged_upper_cpu_seconds": 2.827791,
+    "allocation_seconds": 5,
+    "preferred_version": "visual_lqr_002",
+    "original_preserved": true,
+    "summary_byte_identical": true,
+    "basin_png_byte_identical": true,
+    "format_change": "Torque display converts normalized u to physical2u Nm; metrics/curves/physics unchanged",
+    "new_physics_controls": 0,
+    "source_sha256": "d4ced06e40f2094e3db372a0c0cc5188d78fe3b4f9513634743883fe08c87705",
+    "inputs_sha256": {
+      "evidence.h5": {
+        "bytes": 62387768,
+        "sha256": "ad185e9d5589e621c7f121cdfe1a53c145b72a903c90a3d548db4c78ea158f0e"
+      },
+      "lqr.json": {
+        "bytes": 2964,
+        "sha256": "ede47616477a486f183b399253e107114ec61929b320de8467fbce3cf2ecd472"
+      },
+      "config.json": {
+        "bytes": 30815,
+        "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405"
+      }
+    }
+  },
+  "unlaunched": {
+    "swing_qualification": {
+      "episodes": 10,
+      "max_cpu_seconds": 11000,
+      "max_forecast_controls": 924672000,
+      "max_native_controls": 8000,
+      "max_physics_substeps": 1849360000,
+      "reason": "Development0/2failedfrozen2/2rule",
+      "paid_work": 0
+    },
+    "learning_loop": {
+      "policy_fits": 0,
+      "network_forwards": 0,
+      "gradients": 0,
+      "optimizer_updates": 0
+    }
+  },
+  "unexecuted_lqr_suffix_controls": 400,
+  "preserved_failure": {
+    "stage": "lqr",
+    "status": "STOPPED_INVALID_EXECUTION",
+    "error": "FileExistsError: [Errno 17] File exists: '/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr/lqr.json'",
+    "physics_complete_before_failure": true,
+    "repeated_physics_for_recovery": 0
+  },
+  "inherited_evidence_cost_scope": "Previous near/energy recordings are reused; prior costs stay separately preserved in results/acrobot_energy_discovery_001/complete_accounting.json and are not double-charged as new work.",
+  "audit": {
+    "status": "PASSED",
+    "checks": 79612,
+    "sha256": "621985cb3b48eef1dfcf20e665ffbad870dac4487fa5d5d0edb32b8dd8f68bb9",
+    "new_physics": 0
+  },
+  "hardware": {
+    "worker": "robopil5090",
+    "native_threads_lqr_near": 2,
+    "native_threads_swing": 4,
+    "math_threads": 1,
+    "other_jobs_untouched": true
+  },
+  "observed_controller_figures": {
+    "returncode": 0,
+    "child_cpu_seconds": 1.9888849999999998,
+    "wrapper_cpu_seconds": 0.0013680000000000012,
+    "wall_seconds": 3.1888295839889906,
+    "new_physics_controls": 0,
+    "conservative_charged_cpu_seconds": 2.2923519999999997
+  },
+  "storage": {
+    "remote_run_bytes_observed": 115504012,
+    "remote_run_files_observed": 384,
+    "local_run_bytes_observed_before_final_publication": 116944758,
+    "capsule_bytes_observed_before_final_seal": 2195413,
+    "source_and_support_packets_bytes_local_tmp": 1390101,
+    "additional_publication_reservation_bytes": 8388608,
+    "third_raw_archive_retained": false,
+    "accounted_upper_bytes": 244422892
+  }
+}

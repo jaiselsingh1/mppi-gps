@@ -1,0 +1,73 @@
+{
+  "protocol": "acrobot-transient-attractor",
+  "version": "1.0",
+  "stage": "lqr",
+  "status": "STOPPED_INVALID_EXECUTION",
+  "policy_fits": 0,
+  "error": "FileExistsError: [Errno 17] File exists: '/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr/lqr.json'",
+  "additional_evidence": {
+    "lqr.json": {
+      "sha256": "ede47616477a486f183b399253e107114ec61929b320de8467fbce3cf2ecd472",
+      "bytes": 2964
+    }
+  },
+  "work": {
+    "native_controls_attempted": 181000,
+    "native_controls_completed": 181000,
+    "verification_controls_attempted": 49,
+    "verification_controls_completed": 49,
+    "forecast_controls_attempted": 0,
+    "forecast_controls_completed": 0,
+    "model_queries_attempted": 0,
+    "model_queries_completed": 0,
+    "physics_substeps_attempted": 362098,
+    "physics_substeps_completed": 362098,
+    "restores_attempted": 1,
+    "restores_completed": 1,
+    "resets": 399,
+    "forwards": 399,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "unknown_partial_work": {
+    "native_controls": 0,
+    "verification_controls": 0,
+    "forecast_controls": 0,
+    "model_queries": 0,
+    "physics_substeps": 0,
+    "restores": 0
+  },
+  "evidence": {
+    "evidence.h5": {
+      "sha256": "ad185e9d5589e621c7f121cdfe1a53c145b72a903c90a3d548db4c78ea158f0e",
+      "bytes": 62387768
+    },
+    "config.json": {
+      "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+      "bytes": 30815
+    },
+    "trials.jsonl": {
+      "sha256": "ed8356af762dc476d88d144a2b8fb66372ed3d71abf114417830a270f4ac0051",
+      "bytes": 205578
+    },
+    "environment.json": {
+      "sha256": "969353fce64294c9e5cfb9a09ec84e90403ef763e70c2ea89b43d98740217d41",
+      "bytes": 395
+    },
+    "lqr.json": {
+      "sha256": "ede47616477a486f183b399253e107114ec61929b320de8467fbce3cf2ecd472",
+      "bytes": 2964
+    },
+    "inputs.json": {
+      "sha256": "6f357b78541da946e6b787bb012fef799aba57046ae143806478f31a7d568e61",
+      "bytes": 3306
+    }
+  },
+  "resources": {
+    "cpu_seconds": 26.144319712999998,
+    "wall_seconds": 26.85587472000043,
+    "rss_bytes": 141254656,
+    "output_bytes": 62630826
+  }
+}

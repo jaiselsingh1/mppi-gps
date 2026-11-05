@@ -1,5 +1,13 @@
 # Research and development guide
 
+The [transient–attractor formulation](transient_attractor_formulation.md) maps
+Walker's cycle machinery to fixed points and periodic orbits. Its
+[Acrobot result](acrobot_attractor_results.md), [frozen protocol](acrobot_attractor_protocol.md),
+[saved-only recovery](acrobot_attractor_finalization_r1.md),
+[accounting](acrobot_attractor_accounting.md) and
+[capsule](../results/acrobot_attractor_001/README.md) separate successful local
+stabilization from unsuccessful transient acquisition. The learning loop remains gated.
+
 The [Acrobot teacher probe result](acrobot_energy_discovery_result.md) covers the
 near-upright balance check and three energy-shaped discovery recipes. Read its
 [frozen protocol](acrobot_energy_discovery_protocol.md),

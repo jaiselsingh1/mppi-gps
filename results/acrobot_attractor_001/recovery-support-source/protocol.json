@@ -1,0 +1,45 @@
+{
+  "protocol": "acrobot-attractor-lock-finalization-recovery",
+  "version": "R1",
+  "original_worker_commit": "a12b207924aec6215abf5577c47726b9a5dc1ba4",
+  "original_source_manifest_sha256": "10763639d5651447ac91400ebbf89a68aacf59a43dffca7bfa95777cbe563b65",
+  "original_error_exact": "FileExistsError: [Errno 17] File exists: '/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr/lqr.json'",
+  "original_files": {
+    "config.json": {
+      "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+      "bytes": 30815
+    },
+    "result.json": {
+      "sha256": "91086ca4d212d4e36f8e855e584d7471f3fd00d018e5e048d745699665c5862e",
+      "bytes": 2199
+    },
+    "evidence.h5": {
+      "sha256": "ad185e9d5589e621c7f121cdfe1a53c145b72a903c90a3d548db4c78ea158f0e",
+      "bytes": 62387768
+    },
+    "lqr.json": {
+      "sha256": "ede47616477a486f183b399253e107114ec61929b320de8467fbce3cf2ecd472",
+      "bytes": 2964
+    }
+  },
+  "output_name": "recovered-lqr",
+  "limits": {
+    "cpu_seconds": 20,
+    "wall_seconds": 120,
+    "output_bytes": 8388608,
+    "native_controls": 0,
+    "physics_substeps": 0,
+    "network_forwards": 0,
+    "optimizer_updates": 0
+  },
+  "rules": [
+    "Original failed output and source remain unchanged.",
+    "Recompute all362trace outcomes, nativeFD/replay/gain bindings,234calibration and128confirmation states beforecreatingnewcertificate.",
+    "OriginalP/KandnativeA/B unchanged; deriveonlymissingpredeclaredlevel-setmetadata.",
+    "No physics, fitting or evaluations repeated.",
+    "Continue onlyoriginalfrozenMPPIstages usinga12b207worker+cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405configuration, withnewexplicitlyboundcertificatepath.",
+    "Supportbudget split20CPUfinalization,110CPUfullsavedreview,20CPUtests withinoriginal150CPUreservation."
+  ],
+  "helper_sha256": "8a29452f1484b4741b7ce9f56d367d42f6ac93024fe97678889fd3d71f05d3f8",
+  "reviewer_sha256": "4b85b693ea6a0cee13b5658b0a87bce2c1d2526925462c74e9358e7eff9f8dc8"
+}

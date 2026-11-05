@@ -1,5 +1,16 @@
 # Evidence availability
 
+The [Acrobot transient–attractor capsule](../results/acrobot_attractor_001/README.md)
+publishes original failed finalization, the distinct recovered lock, native
+controller outcomes, comparisons and final audit. Full worker arrays are mirrored
+at `runs/2026-11-05_acrobot_attractor_001` in the research worktree and
+`/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001` on `robopil5090`.
+[Its external index](../results/acrobot_attractor_001/external_evidence.json) gives
+sizes, checksums and availability. Saved review ran on the pinned worker runtime
+to preserve byte checks on derived basin starts; compact inspection and figures
+are portable. No qualification or learning evidence is missing: those stages were
+not triggered, and their result files were not fabricated.
+
 A clean checkout contains active source, tests, recipes, historical source archives, reports and exact evidence capsules, including interrupted studies and the separate C1 fault/recovery records. Raw arrays, checkpoints, ledgers, NPZ training inputs, videos and most full frozen run trees remain outside Git. K1.1 includes its entire new metadata-only run; K1.2 includes its new run except the compact raw archive and work journal. No historical evidence was deleted.
 
 The [Acrobot energy-probe capsule](../results/acrobot_energy_discovery_001/README.md)

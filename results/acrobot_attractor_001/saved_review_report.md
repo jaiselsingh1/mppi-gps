@@ -1,0 +1,87 @@
+# Acrobot attractor saved review
+
+{
+  "status": "PASSED",
+  "new_physics_controls": 0,
+  "new_network_forwards": 0,
+  "new_fitting_updates": 0,
+  "parts": {
+    "lqr": {
+      "status": "VERIFIED_EMPIRICAL_JOIN_REGION",
+      "original_status": "STOPPED_INVALID_EXECUTION",
+      "original_error": "FileExistsError: [Errno 17] File exists: '/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_attractor_v1_0_001/lqr/lqr.json'",
+      "recovery_native_work": {
+        "native_controls_attempted": 0,
+        "native_controls_completed": 0,
+        "verification_controls_attempted": 0,
+        "verification_controls_completed": 0,
+        "forecast_controls_attempted": 0,
+        "forecast_controls_completed": 0,
+        "model_queries_attempted": 0,
+        "model_queries_completed": 0,
+        "physics_substeps_attempted": 0,
+        "physics_substeps_completed": 0,
+        "restores_attempted": 0,
+        "restores_completed": 0,
+        "resets": 0,
+        "forwards": 0,
+        "network_forwards": 0,
+        "backward_calls": 0,
+        "optimizer_updates": 0
+      },
+      "math": {
+        "spectral_radius": 0.9428215802180137,
+        "dare_relative_residual": 4.615820170858568e-15,
+        "analytic_native_error": 1.2421175199506251e-12,
+        "unsaturated_rho": 0.02766077723354886
+      },
+      "join_validation_passed": true,
+      "selected_rho": 0.11064310893419543,
+      "work": {
+        "native_controls": 181000,
+        "verification_controls": 49,
+        "forecast_controls": 0,
+        "model_queries": 0,
+        "physics_substeps": 362098,
+        "restores": 1
+      }
+    },
+    "near": {
+      "status": "COMPLETED_ADAPTIVE_TEMPERATURE_PROBE",
+      "successes": 0,
+      "episodes": 4,
+      "work": {
+        "native_controls": 2000,
+        "verification_controls": 0,
+        "forecast_controls": 77107200,
+        "model_queries": 2008,
+        "physics_substeps": 154218400,
+        "restores": 0
+      }
+    },
+    "swing-development": {
+      "status": "FAILED_JOIN_GATE",
+      "successes": 0,
+      "episodes": 2,
+      "work": {
+        "native_controls": 1200,
+        "verification_controls": 0,
+        "forecast_controls": 184934400,
+        "model_queries": 1204,
+        "physics_substeps": 369871200,
+        "restores": 0
+      }
+    }
+  },
+  "recomputed_work": {
+    "native_controls": 184200,
+    "verification_controls": 49,
+    "forecast_controls": 262041600,
+    "model_queries": 3212,
+    "physics_substeps": 524451698
+  },
+  "teacher_qualified": false,
+  "learning_loop_tested": false,
+  "check_count": 79612,
+  "review_cpu_seconds": 10.022929667000001
+}
