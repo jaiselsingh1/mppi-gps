@@ -265,10 +265,23 @@ def prepare(output: Path, config_path: Path) -> None:
     }
     for name, key in mapping.items():
         getattr(params, "set_" + name)(MODEL_PARAMETERS[key])
-    params.set_l2(1.0)
+    # Python 1.51.1 does not bind set_l2 although the C++ vector includes it.
+    # Use its documented BasicVector index (kL2=3), retaining all other values.
+    parameters = params.CopyToVector()
+    parameters[3] = 1.0
+    params.SetFromVector(parameters)
     context.get_mutable_continuous_state_vector().SetFromVector([np.pi, 0.0, 0.0, 0.0])
     plant.get_input_port(0).FixValue(context, [0.0])
     linear = Linearize(plant, context)
+    from src.gps.mppi_gps.attractor_lqr import upright_continuous_linearization
+
+    analytic_a, analytic_b = upright_continuous_linearization()
+    jacobian_error = max(
+        float(np.max(np.abs(linear.A() - analytic_a))),
+        float(np.max(np.abs(linear.B() - analytic_b / 2))),
+    )
+    if jacobian_error > 1e-10:
+        raise ValueError("Parameterized Drake upright linearization disagrees")
     q = np.diag([10.0, 10.0, 1.0, 1.0])
     r = np.array([[1.0]])
     gain, value = LinearQuadraticRegulator(linear.A(), linear.B(), q, r)
@@ -305,6 +318,8 @@ def prepare(output: Path, config_path: Path) -> None:
         "P": value.tolist(),
         "A": linear.A().tolist(),
         "B_physical": linear.B().tolist(),
+        "linearization_max_absolute_error": jacobian_error,
+        "drake_parameter_vector": params.CopyToVector().tolist(),
         "certificate": cert,
         "SOS": {
             "solver": "CSDP",
