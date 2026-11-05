@@ -1,0 +1,149 @@
+{
+  "protocol": "acrobot-controller-teacher-prerequisite",
+  "version": "1.0",
+  "task": {
+    "reset_std": 0.05,
+    "frame_skip": 2,
+    "controls": 500,
+    "balance_seconds": 2.0,
+    "balance_height": 3.8
+  },
+  "threads": 2,
+  "math_threads": 1,
+  "recipes": [
+    {
+      "name": "three_second_white",
+      "planner": {
+        "K": 256,
+        "lam": 3.0,
+        "noise_sigma": 0.6,
+        "use_is_correction": false,
+        "initial_iterations": 3,
+        "H": 150
+      }
+    },
+    {
+      "name": "six_second_smooth",
+      "planner": {
+        "K": 256,
+        "lam": 3.0,
+        "noise_sigma": 0.6,
+        "use_is_correction": false,
+        "initial_iterations": 3,
+        "H": 300,
+        "noise_lowpass_cutoff_hz": 2.0,
+        "noise_lowpass_sample_rate_hz": 50.0,
+        "noise_lowpass_order": 2
+      }
+    },
+    {
+      "name": "six_second_smooth_wide",
+      "planner": {
+        "K": 256,
+        "lam": 3.0,
+        "noise_sigma": 1.0,
+        "use_is_correction": false,
+        "initial_iterations": 3,
+        "H": 300,
+        "noise_lowpass_cutoff_hz": 2.0,
+        "noise_lowpass_sample_rate_hz": 50.0,
+        "noise_lowpass_order": 2
+      }
+    }
+  ],
+  "development": [
+    {
+      "reset_seed": 3021000000,
+      "planner_seed": 3021010000
+    },
+    {
+      "reset_seed": 3021000001,
+      "planner_seed": 3021010001
+    }
+  ],
+  "qualification": [
+    {
+      "reset_seed": 3021000100,
+      "planner_seed": 3021010100
+    },
+    {
+      "reset_seed": 3021000101,
+      "planner_seed": 3021010101
+    },
+    {
+      "reset_seed": 3021000102,
+      "planner_seed": 3021010102
+    },
+    {
+      "reset_seed": 3021000103,
+      "planner_seed": 3021010103
+    },
+    {
+      "reset_seed": 3021000104,
+      "planner_seed": 3021010104
+    },
+    {
+      "reset_seed": 3021000105,
+      "planner_seed": 3021010105
+    },
+    {
+      "reset_seed": 3021000106,
+      "planner_seed": 3021010106
+    },
+    {
+      "reset_seed": 3021000107,
+      "planner_seed": 3021010107
+    },
+    {
+      "reset_seed": 3021000108,
+      "planner_seed": 3021010108
+    },
+    {
+      "reset_seed": 3021000109,
+      "planner_seed": 3021010109
+    }
+  ],
+  "preflight": {
+    "seed": 3021000999,
+    "controls": 12,
+    "atol": 1e-10
+  },
+  "limits": {
+    "cpu_seconds": 10800,
+    "wall_seconds": 7200,
+    "output_bytes": 536870912,
+    "rss_bytes": 4294967296,
+    "native_controls": 8036,
+    "forecast_controls": 578304036,
+    "physics_substeps": 1156624144
+  },
+  "bindings": [
+    {
+      "path": "assets/acrobot.xml",
+      "sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe"
+    },
+    {
+      "path": "assets/common/visual.xml",
+      "sha256": "1e338ca511de35b902c4ca944d857c23fe4e7a5aea46a475cdc317dd454245b0"
+    },
+    {
+      "path": "assets/common/materials.xml",
+      "sha256": "83ee4f7d3f0c9b3003ad121c2c35169a32a922c437321278f27db60d577ccfac"
+    },
+    {
+      "path": "assets/common/skybox.xml",
+      "sha256": "71db77c7c88dd4e1b54eb394deecfba673bbf539d110de68aa229dee00abf107"
+    }
+  ],
+  "expected_environment": {
+    "python": "3.11.16",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "mujoco": "3.6.0",
+    "h5py": "3.16.0"
+  },
+  "selection": "maximize development successes, then minimize mean native task cost, then recipe index",
+  "qualification_successes_required": 9,
+  "qualification_episode_count": 10,
+  "recording": "all failures retained; N+1 contexts, pre-action observations and complete executed controls; no fitting"
+}

@@ -1,0 +1,935 @@
+{
+  "schema": "controller-loop-handoff-snapshot-v1",
+  "snapshot_date": "2026-11-04",
+  "source_branch": "sac-continuation",
+  "source_commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+  "entry_points": [
+    "scripts/diagnostics/controller_loop.py",
+    "scripts/diagnostics/plot_controller_loop.py"
+  ],
+  "diagnostic_closure_count": 28,
+  "capture_rule": "Recursive AST-discovered scripts.diagnostics imports at the fixed Git commit; lazy imports included, cycles visited once. External imports are listed, not vendored. Live/untracked reference bytes are separately labelled.",
+  "external_import_modules": [
+    "__future__",
+    "argparse",
+    "copy",
+    "dataclasses",
+    "importlib",
+    "itertools",
+    "json",
+    "math",
+    "matplotlib",
+    "matplotlib.pyplot",
+    "mujoco",
+    "numpy",
+    "pathlib",
+    "scipy",
+    "scipy.spatial",
+    "scripts.runners",
+    "src.envs.mujoco_env",
+    "src.envs.walker2d",
+    "src.gps.mppi_gps",
+    "src.gps.mppi_gps.diagnostic_policies",
+    "src.gps.mppi_gps.policy",
+    "src.mppi.mppi",
+    "src.utils.config",
+    "src.utils.rollout_data",
+    "src.utils.trace_replay",
+    "sys",
+    "time",
+    "torch",
+    "torch.func",
+    "typing"
+  ],
+  "diagnostic_import_edges": [
+    {
+      "importer": "scripts/diagnostics/action_spectrum.py",
+      "line": 44,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 373,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 374,
+      "dependency": "scripts/diagnostics/feedback_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 375,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 376,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 377,
+      "dependency": "scripts/diagnostics/loop_task.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 378,
+      "dependency": "scripts/diagnostics/pulls.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 379,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 380,
+      "dependency": "scripts/diagnostics/slope_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 381,
+      "dependency": "scripts/diagnostics/stride_cycle.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 388,
+      "dependency": "scripts/diagnostics/trajectory_pi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1149,
+      "dependency": "scripts/diagnostics/point_mass_check.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1235,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1236,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1237,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1238,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1239,
+      "dependency": "scripts/diagnostics/policy_survival.py"
+    },
+    {
+      "importer": "scripts/diagnostics/controller_loop.py",
+      "line": 1240,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/coupled_mppi.py",
+      "line": 46,
+      "dependency": "scripts/diagnostics/action_spectrum.py"
+    },
+    {
+      "importer": "scripts/diagnostics/coupled_mppi.py",
+      "line": 47,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/coupled_mppi.py",
+      "line": 48,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/coupled_mppi.py",
+      "line": 49,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/coupled_mppi.py",
+      "line": 50,
+      "dependency": "scripts/diagnostics/student_failure.py"
+    },
+    {
+      "importer": "scripts/diagnostics/coupled_mppi.py",
+      "line": 51,
+      "dependency": "scripts/diagnostics/student_positive_control.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 63,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 64,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 65,
+      "dependency": "scripts/diagnostics/loop_task.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 66,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 67,
+      "dependency": "scripts/diagnostics/policy_decomposition.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 68,
+      "dependency": "scripts/diagnostics/policy_drift.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 69,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 70,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_fit.py",
+      "line": 71,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_rollouts.py",
+      "line": 44,
+      "dependency": "scripts/diagnostics/trajectory_pi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_tube.py",
+      "line": 55,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_tube.py",
+      "line": 56,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/feedback_tube.py",
+      "line": 57,
+      "dependency": "scripts/diagnostics/trajectory_pi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/loop_task.py",
+      "line": 22,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/loop_task.py",
+      "line": 23,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/noise_cutoff.py",
+      "line": 40,
+      "dependency": "scripts/diagnostics/action_spectrum.py"
+    },
+    {
+      "importer": "scripts/diagnostics/noise_cutoff.py",
+      "line": 41,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/plot_controller_loop.py",
+      "line": 32,
+      "dependency": "scripts/diagnostics/plot_similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/point_mass_check.py",
+      "line": 71,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/point_mass_check.py",
+      "line": 72,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/point_mass_check.py",
+      "line": 73,
+      "dependency": "scripts/diagnostics/loop_task.py"
+    },
+    {
+      "importer": "scripts/diagnostics/point_mass_check.py",
+      "line": 74,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/point_mass_check.py",
+      "line": 75,
+      "dependency": "scripts/diagnostics/slope_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/point_mass_check.py",
+      "line": 76,
+      "dependency": "scripts/diagnostics/trajectory_pi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_decomposition.py",
+      "line": 70,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_decomposition.py",
+      "line": 71,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_decomposition.py",
+      "line": 72,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_decomposition.py",
+      "line": 73,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_decomposition.py",
+      "line": 74,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_decomposition.py",
+      "line": 75,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_drift.py",
+      "line": 36,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_drift.py",
+      "line": 37,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_drift.py",
+      "line": 38,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_drift.py",
+      "line": 39,
+      "dependency": "scripts/diagnostics/plot_similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_drift.py",
+      "line": 40,
+      "dependency": "scripts/diagnostics/policy_decomposition.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_drift.py",
+      "line": 41,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_picks.py",
+      "line": 57,
+      "dependency": "scripts/diagnostics/action_spectrum.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_picks.py",
+      "line": 58,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_picks.py",
+      "line": 59,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_picks.py",
+      "line": 60,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_picks.py",
+      "line": 61,
+      "dependency": "scripts/diagnostics/stability_terminal.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_picks.py",
+      "line": 62,
+      "dependency": "scripts/diagnostics/student_positive_control.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_survival.py",
+      "line": 29,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_survival.py",
+      "line": 30,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_survival.py",
+      "line": 31,
+      "dependency": "scripts/diagnostics/policy_drift.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_survival.py",
+      "line": 32,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_survival.py",
+      "line": 33,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/policy_survival.py",
+      "line": 34,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/pulls.py",
+      "line": 9,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 217,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 218,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 219,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 220,
+      "dependency": "scripts/diagnostics/loop_task.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 221,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 222,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 223,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 224,
+      "dependency": "scripts/diagnostics/stability_terminal.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 225,
+      "dependency": "scripts/diagnostics/student_positive_control.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 226,
+      "dependency": "scripts/diagnostics/trajectory_pi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 487,
+      "dependency": "scripts/diagnostics/slope_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 583,
+      "dependency": "scripts/diagnostics/feedback_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 653,
+      "dependency": "scripts/diagnostics/slope_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/similarity_loop.py",
+      "line": 677,
+      "dependency": "scripts/diagnostics/walk_agreement.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 62,
+      "dependency": "scripts/diagnostics/feedback_fit.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 63,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 64,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 65,
+      "dependency": "scripts/diagnostics/loop_task.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 66,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 67,
+      "dependency": "scripts/diagnostics/policy_drift.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 68,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/slope_fit.py",
+      "line": 69,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/smooth_teacher_students.py",
+      "line": 42,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stability_terminal.py",
+      "line": 49,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stability_terminal.py",
+      "line": 50,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stability_terminal.py",
+      "line": 51,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stability_terminal.py",
+      "line": 52,
+      "dependency": "scripts/diagnostics/student_failure.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stability_terminal.py",
+      "line": 53,
+      "dependency": "scripts/diagnostics/student_positive_control.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stability_terminal.py",
+      "line": 54,
+      "dependency": "scripts/diagnostics/takeover_terminal.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 102,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 103,
+      "dependency": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 123,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 155,
+      "dependency": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 156,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 157,
+      "dependency": "scripts/diagnostics/policy_drift.py"
+    },
+    {
+      "importer": "scripts/diagnostics/stride_cycle.py",
+      "line": 158,
+      "dependency": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_failure.py",
+      "line": 41,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_failure.py",
+      "line": 42,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_positive_control.py",
+      "line": 44,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_positive_control.py",
+      "line": 45,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_positive_control.py",
+      "line": 46,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_positive_control.py",
+      "line": 54,
+      "dependency": "scripts/diagnostics/student_failure.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_positive_control.py",
+      "line": 55,
+      "dependency": "scripts/diagnostics/student_takeover.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_takeover.py",
+      "line": 39,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/student_takeover.py",
+      "line": 40,
+      "dependency": "scripts/diagnostics/student_failure.py"
+    },
+    {
+      "importer": "scripts/diagnostics/takeover_terminal.py",
+      "line": 46,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/takeover_terminal.py",
+      "line": 47,
+      "dependency": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "importer": "scripts/diagnostics/takeover_terminal.py",
+      "line": 48,
+      "dependency": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "importer": "scripts/diagnostics/takeover_terminal.py",
+      "line": 49,
+      "dependency": "scripts/diagnostics/student_failure.py"
+    },
+    {
+      "importer": "scripts/diagnostics/takeover_terminal.py",
+      "line": 50,
+      "dependency": "scripts/diagnostics/student_positive_control.py"
+    },
+    {
+      "importer": "scripts/diagnostics/trajectory_pi.py",
+      "line": 51,
+      "dependency": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "importer": "scripts/diagnostics/walk_agreement.py",
+      "line": 43,
+      "dependency": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "importer": "scripts/diagnostics/walk_agreement.py",
+      "line": 44,
+      "dependency": "scripts/diagnostics/plot_similarity_loop.py"
+    },
+    {
+      "importer": "scripts/diagnostics/walk_agreement.py",
+      "line": 45,
+      "dependency": "scripts/diagnostics/similarity_loop.py"
+    }
+  ],
+  "files": [
+    {
+      "snapshot_path": "git/scripts/diagnostics/action_spectrum.py",
+      "bytes": 10704,
+      "sha256": "834e6e18f2f2d77c267b2c4e006e9429e553666b0754827c4d438963cf120c08",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/action_spectrum.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/controller_loop.py",
+      "bytes": 85523,
+      "sha256": "96979eba7b3b6d8d486fdd49f9fd6b60a5c6ecc8cee67b55929d21d65847ea18",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/controller_loop.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/coupled_mppi.py",
+      "bytes": 10450,
+      "sha256": "b12d3f9052e6efcf97e73c1a72e39a0f08065251de3a2bf5514fd8022ba672d2",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/coupled_mppi.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/feedback_fit.py",
+      "bytes": 9672,
+      "sha256": "6795feb6ebc28fa01ed2de4e2181afb05219a855340e3816b1ad4a15af5b18c1",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/feedback_fit.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/feedback_rollouts.py",
+      "bytes": 6749,
+      "sha256": "8823a1a951e301ea0860a69269381231b172f4d66903c8cd94d958248595d7ae",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/feedback_rollouts.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/feedback_tube.py",
+      "bytes": 8192,
+      "sha256": "95ce4b282a7571760fe62c893fb4b6cf5a41bbea56468d82b08b64cada44a29d",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/feedback_tube.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/loop_task.py",
+      "bytes": 2028,
+      "sha256": "3c724c153551ce98e43e026e8fad86f5df218605620adf573015699f666c07cc",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/loop_task.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/noise_cutoff.py",
+      "bytes": 7324,
+      "sha256": "28e445c96b219616dda904ecc8ebef6df5d4099264f92c5e05bb6bd81b3d0cff",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/noise_cutoff.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/plot_controller_loop.py",
+      "bytes": 5849,
+      "sha256": "96a7deaecdc6c2545f352aa48fa21a1128aed327571a7163e8d1806d3a8a2bff",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/plot_controller_loop.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/plot_similarity_loop.py",
+      "bytes": 3582,
+      "sha256": "4d530a263bf0d71d796d6b0aa80ff9ad816643cf2d3ef86fe86e9088ca83de8c",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/plot_similarity_loop.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/point_mass_check.py",
+      "bytes": 14168,
+      "sha256": "33901e556334797c10b269127d0be6cce281c6e21d7de6dc1cbae20c070daa33",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/point_mass_check.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/policy_decomposition.py",
+      "bytes": 9645,
+      "sha256": "d1da2a617120210ff9f2e0e10ef3232d3d4a08a4ceb2d9328cbfcd91a21be136",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/policy_decomposition.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/policy_drift.py",
+      "bytes": 7775,
+      "sha256": "da35b7d0427fc336367b55d4e005b5bf05fbf50da0ba7033b4c406b9199f0751",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/policy_drift.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/policy_picks.py",
+      "bytes": 10262,
+      "sha256": "e472b07c7f98aa9920dcde721220aa5feb569d3602459d2562287ab1101b26d2",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/policy_picks.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/policy_survival.py",
+      "bytes": 3807,
+      "sha256": "9d4caeeef7b8aabe4ded3cd23d3181daedaebcda669346d0bea32306c31d0282",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/policy_survival.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/pulls.py",
+      "bytes": 3167,
+      "sha256": "45b877715237f5dfc7ba485325f15e7cceb2959ced1a4388ade087131cd6cdc1",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/pulls.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/sac_continuation.py",
+      "bytes": 802,
+      "sha256": "58a5da4127402c2c0e71a6ab159a03936770da79b9f5ebeac89f3b75f605e1d1",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/sac_continuation.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/similarity_loop.py",
+      "bytes": 36182,
+      "sha256": "bd1ac5c75efd5c42e21412df6f00d8094f217003f864f7f3b3f956379a275bb5",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/similarity_loop.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/slope_fit.py",
+      "bytes": 9720,
+      "sha256": "31b12051207dc16502bf386815d8015ddedd0c2cad7d1863a781d5e9c0012713",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/slope_fit.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/smooth_teacher_students.py",
+      "bytes": 8367,
+      "sha256": "71f27adcd78c693e03c73221ec0680170cebcecd6090de3dd1a0a15bb76f7d42",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/smooth_teacher_students.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/stability_terminal.py",
+      "bytes": 12197,
+      "sha256": "fcae6b70be33b9721e5f3071ef354aa2bfe12f52bda6f15970cd0835cf696850",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/stability_terminal.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/stride_cycle.py",
+      "bytes": 8684,
+      "sha256": "95606e0a8307bec42853c5bfff4cbdb9cc5d5b05e7488d7636cdb2e941a34644",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/stride_cycle.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/student_failure.py",
+      "bytes": 15040,
+      "sha256": "eb9626761b8751cd57bc235b2deb4efaeff73b40da13d39dd5acc0bf465baf6e",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/student_failure.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/student_positive_control.py",
+      "bytes": 8707,
+      "sha256": "72fa8460394e153c4eb3bf73c3c16f16b29f49444c4373306148379fcf1d5133",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/student_positive_control.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/student_takeover.py",
+      "bytes": 6884,
+      "sha256": "5453b774549f046b873e70c2cc9f213b4550e5dd25a43783c525168c08080cce",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/student_takeover.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/takeover_terminal.py",
+      "bytes": 9572,
+      "sha256": "f2ff5d25e459b4fcce98ec79f131c323950c45bec655414c11ad5d12f5f22a1d",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/takeover_terminal.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/trajectory_pi.py",
+      "bytes": 8146,
+      "sha256": "39df475ceda8f10309edc254758d2177fbaeb431092b434fcd010a49706b9681",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/trajectory_pi.py"
+    },
+    {
+      "snapshot_path": "git/scripts/diagnostics/walk_agreement.py",
+      "bytes": 6113,
+      "sha256": "0e056208de4e4fe36858a1ba8facf04537749cbb6f2f3e8378ca8d44f9ebaab9",
+      "source_kind": "git-commit",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "scripts/diagnostics/walk_agreement.py"
+    },
+    {
+      "snapshot_path": "reference/git/src/envs/walker2d.py",
+      "bytes": 9411,
+      "sha256": "1ade23d8fd8f6162cbbf3fd4d86c161726ebbbd5fdd0058c64df31f1b5f9b5c6",
+      "source_kind": "git-commit-reference-only",
+      "commit": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "repository_path": "src/envs/walker2d.py"
+    },
+    {
+      "snapshot_path": "reference/modified/src/envs/walker2d.py",
+      "bytes": 9449,
+      "sha256": "125026ed5cfcd0cc76ea536f455ec791a2f5498d72404a7b2bdc35d6c5c53f57",
+      "source_kind": "live-modified-reference-only",
+      "absolute_source_path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/src/envs/walker2d.py",
+      "source_branch": "sac-continuation",
+      "source_HEAD_at_capture": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "tracked_commit_bytes": false
+    },
+    {
+      "snapshot_path": "reference/untracked/controller_loop_acrobot_instructions.md",
+      "bytes": 16968,
+      "sha256": "bbc6bc0bba7ebae017b0c7d4043c9c7b924bd396874abe7707bb69f369ab236f",
+      "source_kind": "untracked-handoff-document",
+      "absolute_source_path": "/Users/jaisel/Documents/mppi-gps/.claude/worktrees/sac-continuation/docs/controller_loop_acrobot_instructions.md",
+      "source_branch": "sac-continuation",
+      "source_HEAD_at_capture": "aa54790d1f5598888b1deb2557b3d0db4f9b9179",
+      "tracked_commit_bytes": false
+    }
+  ]
+}
