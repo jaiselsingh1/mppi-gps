@@ -51,6 +51,12 @@ def mechanics(error: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]:
 def spong_action(
     full_state: np.ndarray, gain: np.ndarray, value: np.ndarray, balance_level: float
 ) -> float:
+    return spong_control(full_state, gain, value, balance_level)["action"]
+
+
+def spong_control(
+    full_state: np.ndarray, gain: np.ndarray, value: np.ndarray, balance_level: float
+) -> dict:
     """Official Spong equation/gains with our plant, torque cap, certified join.
 
     Return normalized motor input. The energy zero differs from MuJoCo's by
@@ -58,7 +64,10 @@ def spong_action(
     """
     error = np.asarray(full_state, dtype=float)[1:].copy()
     error[:2] = (error[:2] + np.pi) % (2 * np.pi) - np.pi
-    if float(error @ value @ error) <= balance_level:
+    local_value = float(error @ value @ error)
+    balanced = local_value <= balance_level
+    _, _, energy = mechanics(np.asarray(full_state, dtype=float)[1:])
+    if balanced:
         torque = -float((gain @ error).item())
     else:
         # Drake's PFL uses the original (unwrapped) elbow coordinate.
@@ -73,7 +82,13 @@ def spong_action(
         desired_acceleration = -50.0 * original[1] - 5.0 * original[3]
         pfl_torque = (inverse[0, 1] * bias[0] + desired_acceleration) / inverse[1, 1] + bias[1]
         torque = energy_torque + pfl_torque
-    return float(np.clip(torque, -2.0, 2.0) / 2.0)
+    return {
+        "action": float(np.clip(torque, -2.0, 2.0) / 2.0),
+        "raw_torque": float(torque),
+        "energy": energy,
+        "balance": balanced,
+        "local_value": local_value,
+    }
 
 
 def _matrix(value):
