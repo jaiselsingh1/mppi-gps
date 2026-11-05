@@ -339,7 +339,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
-        "--config", type=Path, default=Path("configs/acrobot_drake_reference_v1_1.json")
+        "--config", type=Path, default=Path("configs/acrobot_drake_reference_v1_1_1.json")
     )
     args = parser.parse_args()
     prepare(args.output, args.config)
