@@ -1,0 +1,23 @@
+	Command being timed: "/home/jaisel/mppi-gps/.venv/bin/python -c import json,pathlib,os,sys,runpy; p=pathlib.Path("/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05"); assert json.loads((p/"drake_nonlinear_parity_v1_1_1/parity.json").read_text())["passed"]; os.chdir(p/"drake_reference_native_v1_1_1"); sys.argv=["acrobot_drake_native","--config",str(p/"drake_reference_native_v1_1_1/configs/acrobot_drake_reference_v1_1_1.json"),"--preparation",str(p/"drake_prepared_v1_1_1/preparation.json"),"--output",str(p/"drake_native_v1_1_1")]; runpy.run_module("src.gps.mppi_gps.acrobot_drake_native",run_name="__main__")"
+	User time (seconds): 0.51
+	System time (seconds): 0.03
+	Percent of CPU this job got: 110%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 103912
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 19231
+	Voluntary context switches: 28
+	Involuntary context switches: 23
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2248
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
