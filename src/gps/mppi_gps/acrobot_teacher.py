@@ -464,6 +464,7 @@ def _run_trial(
     initial_state: np.ndarray | None = None,
     metrics_fn: Callable[[Any, np.ndarray, np.ndarray, np.ndarray], dict[str, Any]] | None = None,
     bank_callback: Callable[[Any, Any, Any, np.ndarray, Budget], None] | None = None,
+    stop_after_action: Callable[[Any, Any, int], bool] | None = None,
 ) -> dict[str, Any]:
     """Record every optimization pass and every executed control, including failed trials."""
     import h5py
@@ -603,6 +604,14 @@ def _run_trial(
                     ),
                     flush=True,
                 )
+            if stop_after_action is not None:
+                # A controller handoff can happen only after the paid action and
+                # its complete resulting context have been durably recorded.
+                group.file.flush()
+                if stop_after_action(env, group, t + 1):
+                    group.attrs["stopped_after_action"] = t + 1
+                    group.file.flush()
+                    break
         if metrics_fn is None:
             metrics = episode_metrics(datasets["states"][1:], datasets["costs"][:], env._dt)
         else:
