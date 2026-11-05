@@ -1,0 +1,20 @@
+usage: acrobot_warmstart.py [-h] --config CONFIG --out OUT
+                            [--preparation PREPARATION]
+                            [--solve-dir SOLVE_DIR]
+                            [--authorization AUTHORIZATION]
+                            {prepare,solve,native}
+
+Two frozen saved-prefix initializations of the existing Acrobot optimizer.
+Preparation reads saved arrays only. Solver and native stages are independent,
+create-only commands; neither constructs or changes an MPPI controller.
+
+positional arguments:
+  {prepare,solve,native}
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG
+  --out OUT
+  --preparation PREPARATION
+  --solve-dir SOLVE_DIR
+  --authorization AUTHORIZATION

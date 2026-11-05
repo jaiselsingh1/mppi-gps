@@ -76,3 +76,9 @@ The native/optimizer source was committed before each launch on
 `codex/full-trajectory-pi`. The other branches and user jobs were untouched.
 Source-compatible repairs have distinct exports, bindings and failure receipts.
 No historical manifest, frozen configuration or raw result was rewritten.
+
+A [clean Git export](validation/acrobot_external_reference_2026-11-05/clean_export_001/receipt.json)
+with no ignored raw directories passed175 related tests (three native tests
+explicitly deselected), Ruff, capsule/archive/link checks, CLI help and all four
+saved-evidence figure replays. Validation ran no research physics. Native
+reference prerequisites and their charged execution are documented above.

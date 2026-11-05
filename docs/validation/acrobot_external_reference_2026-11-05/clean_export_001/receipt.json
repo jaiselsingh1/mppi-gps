@@ -1,0 +1,88 @@
+{
+  "source_commit": "3e604b995ba49b80ba11fc6e1adc035a6031438a",
+  "export_directory": "/private/tmp/acrobot-external-clean-3e604b9",
+  "ignored_raw_directories_present": false,
+  "commands": [
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_attractor_lqr.py",
+        "tests/test_acrobot_attractor_study.py",
+        "tests/test_acrobot_attractor_controller.py",
+        "tests/test_acrobot_attractor_report.py",
+        "tests/test_acrobot_attractor_recovery.py",
+        "tests/test_acrobot_teacher.py",
+        "tests/test_acrobot_teacher_report.py",
+        "tests/test_acrobot_energy.py",
+        "tests/test_acrobot_energy_probe.py",
+        "tests/test_acrobot_energy_report.py",
+        "tests/test_research_cli.py",
+        "tests/test_preserved_capsule_schema.py",
+        "tests/test_acrobot_controller_task.py",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_model_geometry_and_control_contract",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_reset_seed_is_private_and_state_restore_exact",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_sequential_and_batch_post_costs_agree",
+        "tests/test_acrobot_drake_reference.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.1347185419872403
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/check_repository.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.6760657079867087
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "src.gps.mppi_gps.reporting.acrobot_external_figures",
+        "--run",
+        "results/acrobot_external_reference_001",
+        "--output",
+        "/private/tmp/acrobot-external-clean-3e604b9/replayed-figures"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.1605023340089247
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "src.gps.mppi_gps.references.acrobot_warmstart",
+        "--help"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.07776399998692796
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src",
+        "scripts",
+        "tests"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.08015150000574067
+    }
+  ],
+  "research_physics": 0,
+  "plot_files": [
+    "drake_executed_motion.pdf",
+    "drake_executed_motion.png",
+    "folded_pose_motion.pdf",
+    "folded_pose_motion.png",
+    "mjpc_outcomes.pdf",
+    "mjpc_outcomes.png",
+    "receipt.json",
+    "weighting_and_feasibility.pdf",
+    "weighting_and_feasibility.png"
+  ]
+}
