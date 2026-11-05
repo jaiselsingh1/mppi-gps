@@ -1,0 +1,1020 @@
+{
+  "protocol": "acrobot-mjpc-standard-start-metric",
+  "version": "2.1",
+  "mjpc_commit": "ff572a21e7c2bf9fda62e1862a758da7e9a8719b",
+  "abseil_commit": "fb3621f4f897824c0dbe0615fa94543df6192f30",
+  "original_xml_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+  "runtime": "MuJoCo 3.6.0 existing worker wheel; header and library must agree",
+  "build_wall_seconds": 120,
+  "build_output_bytes": 2147483648,
+  "native_wall_seconds": 300,
+  "native_output_bytes": 2147483648,
+  "native_step_limit": 21000000,
+  "cpu_affinity_count": 4,
+  "model": {
+    "native_timestep": 0.01,
+    "integrator": "RK4",
+    "normalized_control_range": [
+      -1,
+      1
+    ],
+    "gear": 2,
+    "external_force_noise": 0
+  },
+  "planner_recipe": {
+    "horizon_seconds": 2,
+    "prediction_native_steps": 200,
+    "trajectory_states": 201,
+    "control_hold_native_steps": 1,
+    "replan_native_steps": 4,
+    "initial_iterations": 1,
+    "iterations_per_replan": 1,
+    "sampling_trajectories": 10,
+    "sampling_spline_points": 10,
+    "sampling_exploration": 0.05,
+    "sampling_interpolation": "upstream default cubic",
+    "ilqg_num_rollouts": 10,
+    "ilqg_derivative_adapter": "actual RK4 step; epsilon1e-6; official3.6range-aware inward control difference atlimits, centeredwhenbothfeasible",
+    "all_other_settings": "unmodified official defaults"
+  },
+  "cost": {
+    "name": "official MJPC Acrobot residuals and quadratic norms",
+    "formula": "25*(tip_z_error^2+tip_x_error^2)+0.5*(v0^2+v1^2)+0.025*u^2",
+    "trajectory_aggregation": "upstream mean over all 201 states, including final repeated action",
+    "native_project_dense_cost_reported_separately": true,
+    "unchanged_from": "v1.3"
+  },
+  "roster": {
+    "planners": [
+      "sampling",
+      "ilqg"
+    ],
+    "starts": "dm_control RandomState(seed).uniform(-pi,pi,2), zero velocities",
+    "seeds": [
+      2026110500,
+      2026110501,
+      2026110502,
+      2026110503,
+      2026110504,
+      2026110505,
+      2026110506,
+      2026110507
+    ],
+    "seconds_each": 10,
+    "executed_controls_each": 1000,
+    "native_steps_each": 1000,
+    "planning_iterations_each": 250,
+    "random_seed": "reset seeds paired; official Sampling RNG has no exposed seed; preserve actual banks"
+  },
+  "prerequisites": {
+    "stock_rk4": "one unmodified mjd_transitionFD call must preserve its unsupported-RK4 failure",
+    "adapter_validation": "16 declared deterministic held-out states; direct native centered differences at 1e-5 against adapter forward 1e-6, max absolute A/B/C/D error <=1e-4",
+    "model_check": "original XML and instrumentation differ only in custom numerics and user sensors; mass/inertia/gear/limits/RK4/timestep also checked in executable",
+    "reused": "v1.3 stockRK4 failure,16heldoutA/B/C/D validation, physicalarray identity; no repeated validation physics"
+  },
+  "outcomes": {
+    "hold": "all recorded heights for final 2 seconds strictly greater than 3.8m",
+    "swing_up": "same final-height test; report peak and first crossing separately",
+    "source_metric": "exact official dm_control dense swingup reward on post-step states at100Hz; eight starts only",
+    "reward_formula": "exp(log(.1)*max(sqrt(tip_x^2+(4-tip_z)^2)-.2,0)^2)",
+    "source_commit": "dm_controlf1f91e0309e5df81bf7a3ee83849ebcee86779d8"
+  },
+  "stopping": {
+    "ordinary_task_failure": "continue entire roster",
+    "stop": [
+      "source or model mismatch",
+      "derivative validity failure",
+      "nonfinite physics",
+      "broken evidence writes",
+      "frozen resource exhaustion"
+    ],
+    "followups": "none; no tuning or learning"
+  },
+  "evidence": {
+    "candidate_arrays": "every Sampling trajectory and every final iLQG line-search trajectory exposed after each OptimizePolicy call; iLQG nominal-phase candidates overwritten internally are not falsely claimed preserved",
+    "binary_layout": "native little-endian float64, repeated records: control,candidate,horizon,total_return,failure then states[horizon,4], actions[horizon,1], residual[horizon,5], times[horizon], costs[horizon]",
+    "executed": "1001states at.01s includingterminal; exact samecost/indexing/interface,controlheldonenativestep",
+    "failures": "original log and partial candidate/execution files retained"
+  },
+  "compatibility_repair": "forced-include legacy mj_ray overload passing null new normal output; Acrobot does not call Ground; source bytes unchanged; derivative flag type corrected to exact installed SDK mjtByte; version binding corrected to exact3.6.0 string plus header/library equality",
+  "preserved_build_failures": [
+    {
+      "version": "1.0",
+      "build_wall_seconds": 27.318854102999467,
+      "physics_steps": 0,
+      "cause": "mj_ray 8-argument call vs MuJoCo3.6 9-argument API",
+      "path": "preparation/execution/receipt.json"
+    },
+    {
+      "version": "1.1",
+      "build_wall_seconds": 31.426094960002956,
+      "physics_steps": 0,
+      "cause": "adapter declaration mjtBool from current docs versus installed3.6mjtByte signature",
+      "path": "preparation/execution_v1_1/receipt.json"
+    }
+  ],
+  "preserved_prerequisite_failure": {
+    "version": "1.2",
+    "build_wall_seconds": 32.78086281100332,
+    "native_wall_seconds": 0.2743344659975264,
+    "physics_steps": 0,
+    "cause": "driver guard wrongly assumed legacy version integer360; installed header/library integer3006000",
+    "path": "preparation/execution_v1_2/receipt.json"
+  },
+  "model_directory": "model_v2",
+  "reuse_prerequisites": {
+    "stock_rk4_failure": "execution_v1_3",
+    "model_identity": "execution_v1_3 and zero-stepcheck",
+    "derivative_contract": "new40caseboundarygate replaces insufficient interior-only gate"
+  },
+  "planned_step_census": 20957830,
+  "starts": [
+    {
+      "reset_seed": 2026110500,
+      "initial_state": [
+        0,
+        0.062257569567094405,
+        0.5288406117478361,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.062257569567094405,
+          0.5288406117478361,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.062257569567094405,
+          0.5288406117478361,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110501,
+      "initial_state": [
+        0,
+        -2.1483204495578025,
+        -2.402565867174197,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          -2.1483204495578025,
+          -2.402565867174197,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          -2.1483204495578025,
+          -2.402565867174197,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110502,
+      "initial_state": [
+        0,
+        0.9707770878204223,
+        -2.774140769754294,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.9707770878204223,
+          -2.774140769754294,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.9707770878204223,
+          -2.774140769754294,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110503,
+      "initial_state": [
+        0,
+        0.5609126771013617,
+        2.011453822548684,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.5609126771013617,
+          2.011453822548684,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.5609126771013617,
+          2.011453822548684,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110504,
+      "initial_state": [
+        0,
+        0.3889364996335956,
+        -2.131776485250088,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          0.3889364996335956,
+          -2.131776485250088,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          0.3889364996335956,
+          -2.131776485250088,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110505,
+      "initial_state": [
+        0,
+        1.7935270923696272,
+        2.106284472060628,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          1.7935270923696272,
+          2.106284472060628,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          1.7935270923696272,
+          2.106284472060628,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110506,
+      "initial_state": [
+        0,
+        2.936317405593828,
+        2.3809585073715813,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          2.936317405593828,
+          2.3809585073715813,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          2.936317405593828,
+          2.3809585073715813,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "reset_seed": 2026110507,
+      "initial_state": [
+        0,
+        -0.835259424350038,
+        0.2899504656404927,
+        0,
+        0
+      ],
+      "initial_context": {
+        "states": [
+          0,
+          -0.835259424350038,
+          0.2899504656404927,
+          0,
+          0
+        ],
+        "warmstarts": [
+          0,
+          0
+        ],
+        "integration": [
+          0.0,
+          -0.835259424350038,
+          0.2899504656404927,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "boundary_gate": {
+    "input_file": "boundary_cases_v2_1.f64",
+    "cases": [
+      {
+        "case": 0,
+        "state": [
+          0.0,
+          0.158935464636049,
+          1.3,
+          1.2419374358632878
+        ],
+        "control": -1
+      },
+      {
+        "case": 1,
+        "state": [
+          0.0,
+          0.158935464636049,
+          1.3,
+          1.2419374358632878
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 2,
+        "state": [
+          0.0,
+          0.158935464636049,
+          1.3,
+          1.2419374358632878
+        ],
+        "control": 0
+      },
+      {
+        "case": 3,
+        "state": [
+          0.0,
+          0.158935464636049,
+          1.3,
+          1.2419374358632878
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 4,
+        "state": [
+          0.0,
+          0.158935464636049,
+          1.3,
+          1.2419374358632878
+        ],
+        "control": 1
+      },
+      {
+        "case": 5,
+        "state": [
+          0.7933318483619749,
+          0.7570400701499316,
+          0.5896749578532505,
+          0.22095728577031307
+        ],
+        "control": -1
+      },
+      {
+        "case": 6,
+        "state": [
+          0.7933318483619749,
+          0.7570400701499316,
+          0.5896749578532505,
+          0.22095728577031307
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 7,
+        "state": [
+          0.7933318483619749,
+          0.7570400701499316,
+          0.5896749578532505,
+          0.22095728577031307
+        ],
+        "control": 0
+      },
+      {
+        "case": 8,
+        "state": [
+          0.7933318483619749,
+          0.7570400701499316,
+          0.5896749578532505,
+          0.22095728577031307
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 9,
+        "state": [
+          0.7933318483619749,
+          0.7570400701499316,
+          0.5896749578532505,
+          0.22095728577031307
+        ],
+        "control": 1
+      },
+      {
+        "case": 10,
+        "state": [
+          -0.204432881621465,
+          -0.354016354635882,
+          -0.7650514524319496,
+          -1.0414867002110137
+        ],
+        "control": -1
+      },
+      {
+        "case": 11,
+        "state": [
+          -0.204432881621465,
+          -0.354016354635882,
+          -0.7650514524319496,
+          -1.0414867002110137
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 12,
+        "state": [
+          -0.204432881621465,
+          -0.354016354635882,
+          -0.7650514524319496,
+          -1.0414867002110137
+        ],
+        "control": 0
+      },
+      {
+        "case": 13,
+        "state": [
+          -0.204432881621465,
+          -0.354016354635882,
+          -0.7650514524319496,
+          -1.0414867002110137
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 14,
+        "state": [
+          -0.204432881621465,
+          -0.354016354635882,
+          -0.7650514524319496,
+          -1.0414867002110137
+        ],
+        "control": 1
+      },
+      {
+        "case": 15,
+        "state": [
+          -0.740651745862186,
+          -0.665813953779121,
+          -1.2837237008815243,
+          -1.1657859412343912
+        ],
+        "control": -1
+      },
+      {
+        "case": 16,
+        "state": [
+          -0.740651745862186,
+          -0.665813953779121,
+          -1.2837237008815243,
+          -1.1657859412343912
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 17,
+        "state": [
+          -0.740651745862186,
+          -0.665813953779121,
+          -1.2837237008815243,
+          -1.1657859412343912
+        ],
+        "control": 0
+      },
+      {
+        "case": 18,
+        "state": [
+          -0.740651745862186,
+          -0.665813953779121,
+          -1.2837237008815243,
+          -1.1657859412343912
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 19,
+        "state": [
+          -0.740651745862186,
+          -0.665813953779121,
+          -1.2837237008815243,
+          -1.1657859412343912
+        ],
+        "control": 1
+      },
+      {
+        "case": 20,
+        "state": [
+          0.39529068091088654,
+          0.5255892789750313,
+          -0.3995327309719452,
+          -0.016105262501757728
+        ],
+        "control": -1
+      },
+      {
+        "case": 21,
+        "state": [
+          0.39529068091088654,
+          0.5255892789750313,
+          -0.3995327309719452,
+          -0.016105262501757728
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 22,
+        "state": [
+          0.39529068091088654,
+          0.5255892789750313,
+          -0.3995327309719452,
+          -0.016105262501757728
+        ],
+        "control": 0
+      },
+      {
+        "case": 23,
+        "state": [
+          0.39529068091088654,
+          0.5255892789750313,
+          -0.3995327309719452,
+          -0.016105262501757728
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 24,
+        "state": [
+          0.39529068091088654,
+          0.5255892789750313,
+          -0.3995327309719452,
+          -0.016105262501757728
+        ],
+        "control": 1
+      },
+      {
+        "case": 25,
+        "state": [
+          0.6387896900987923,
+          0.5303753840657467,
+          0.921270706578638,
+          1.1511753720237146
+        ],
+        "control": -1
+      },
+      {
+        "case": 26,
+        "state": [
+          0.6387896900987923,
+          0.5303753840657467,
+          0.921270706578638,
+          1.1511753720237146
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 27,
+        "state": [
+          0.6387896900987923,
+          0.5303753840657467,
+          0.921270706578638,
+          1.1511753720237146
+        ],
+        "control": 0
+      },
+      {
+        "case": 28,
+        "state": [
+          0.6387896900987923,
+          0.5303753840657467,
+          0.921270706578638,
+          1.1511753720237146
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 29,
+        "state": [
+          0.6387896900987923,
+          0.5303753840657467,
+          0.921270706578638,
+          1.1511753720237146
+        ],
+        "control": 1
+      },
+      {
+        "case": 30,
+        "state": [
+          -0.5598997500748338,
+          -0.6622611752685222,
+          1.235302369546088,
+          1.0604426301629641
+        ],
+        "control": -1
+      },
+      {
+        "case": 31,
+        "state": [
+          -0.5598997500748338,
+          -0.6622611752685222,
+          1.235302369546088,
+          1.0604426301629641
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 32,
+        "state": [
+          -0.5598997500748338,
+          -0.6622611752685222,
+          1.235302369546088,
+          1.0604426301629641
+        ],
+        "control": 0
+      },
+      {
+        "case": 33,
+        "state": [
+          -0.5598997500748338,
+          -0.6622611752685222,
+          1.235302369546088,
+          1.0604426301629641
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 34,
+        "state": [
+          -0.5598997500748338,
+          -0.6622611752685222,
+          1.235302369546088,
+          1.0604426301629641
+        ],
+        "control": 1
+      },
+      {
+        "case": 35,
+        "state": [
+          -0.4945096897896266,
+          -0.3597179716276812,
+          0.1993860206492225,
+          -0.1891500439511999
+        ],
+        "control": -1
+      },
+      {
+        "case": 36,
+        "state": [
+          -0.4945096897896266,
+          -0.3597179716276812,
+          0.1993860206492225,
+          -0.1891500439511999
+        ],
+        "control": -0.9999995
+      },
+      {
+        "case": 37,
+        "state": [
+          -0.4945096897896266,
+          -0.3597179716276812,
+          0.1993860206492225,
+          -0.1891500439511999
+        ],
+        "control": 0
+      },
+      {
+        "case": 38,
+        "state": [
+          -0.4945096897896266,
+          -0.3597179716276812,
+          0.1993860206492225,
+          -0.1891500439511999
+        ],
+        "control": 0.9999995
+      },
+      {
+        "case": 39,
+        "state": [
+          -0.4945096897896266,
+          -0.3597179716276812,
+          0.1993860206492225,
+          -0.1891500439511999
+        ],
+        "control": 1
+      }
+    ],
+    "adapter_epsilon": 1e-06,
+    "modes": [
+      "forward",
+      "centered"
+    ],
+    "reference": "separate centered1e-5 forstates/interiorcontrol; feasible three-point one-sided1e-5 forboundarycontrol",
+    "max_absolute_error_per_block": 0.0001,
+    "native_steps": 1080,
+    "probe_layout": "float64 record case,variant(0forward1centered2gold),coordinate,delta; before_integration[28]; after_integration[28]; sensor[8]",
+    "matrix_layout": "float64 record case,centered,u,q0,q1,v0,v1; adapter_A16,gold_A16,adapter_B4,gold_B4,adapter_C32,gold_C32,adapter_D8,gold_D8; analytic_pre_action_C[5,4],analytic_pre_action_D[5]",
+    "primary_source": "https://github.com/google-deepmind/mujoco/blob/3.6.0/src/engine/engine_derivative_fd.c#L312",
+    "analytic_sensor_gate": "first5 residual C/D rows checked against analytic PRE-action tip Jacobian, velocity identities and normalized-control identity; same1e-4 tolerance; no additionalphysics"
+  },
+  "sdk_file_sha256": {
+    "libmujoco.so.3.6.0": "385ae719dde65acffdb0a66605e43fa0c680cb8b331fc4dfe26b39ab3f5630ff",
+    "include/mujoco/mujoco.h": "be2befbc1f4f24eef062886e4b079603bc7a00153b1861a97a02dbd0c1c9a1b2"
+  },
+  "extra_jobs": [
+    {
+      "mode": "ilqg",
+      "context": 0,
+      "model_directory": "model",
+      "control_hold_native_steps": 2,
+      "output_prefix": "corrected-historical-ilqg_0"
+    },
+    {
+      "mode": "ilqg",
+      "context": 1,
+      "model_directory": "model",
+      "control_hold_native_steps": 2,
+      "output_prefix": "corrected-historical-ilqg_1"
+    },
+    {
+      "mode": "ilqg",
+      "context": 2,
+      "model_directory": "model",
+      "control_hold_native_steps": 2,
+      "output_prefix": "corrected-historical-ilqg_2"
+    },
+    {
+      "mode": "ilqg",
+      "context": 3,
+      "model_directory": "model",
+      "control_hold_native_steps": 2,
+      "output_prefix": "corrected-historical-ilqg_3"
+    },
+    {
+      "mode": "ilqg",
+      "context": 4,
+      "model_directory": "model",
+      "control_hold_native_steps": 2,
+      "output_prefix": "corrected-historical-ilqg_4"
+    }
+  ],
+  "prior_evidence_status": {
+    "execution_v1_3_sampling": "valid saved negative",
+    "execution_v1_3_ilqg": "INVALID_EXTERNAL_REFERENCE_CONTRACT: non-range-aware FD at+1",
+    "version2": "not launched; source/protocol preserved"
+  }
+}

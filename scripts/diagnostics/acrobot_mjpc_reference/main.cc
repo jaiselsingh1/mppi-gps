@@ -11,9 +11,11 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "mjpc/planners/ilqg/planner.h"
@@ -27,6 +29,10 @@ std::atomic<std::uint64_t> step_count{0};
 std::uint64_t step_limit = 10000000;
 auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(1200);
 mjpc::Acrobot* active_task = nullptr;
+// Serial derivative-gate evidence only. Planning leaves this null.
+std::ofstream* probe_evidence = nullptr;
+int probe_case = 0, probe_variant = 0, probe_coordinate = 0;
+double probe_delta = 0;
 
 void Sensor(const mjModel* model, mjData* data, int stage) {
   if (stage == mjSTAGE_ACC && active_task)
@@ -69,7 +75,27 @@ extern "C" void reference_counted_mj_step(const mjModel* model, mjData* data) {
     std::cerr << "RESOURCE_STOP count=" << count << '\n';
     std::_Exit(70);  // never throw through the native worker pool
   }
+  std::vector<double> before;
+  if (probe_evidence) {
+    before.resize(mj_stateSize(model, mjSTATE_INTEGRATION));
+    mj_getState(model, data, before.data(), mjSTATE_INTEGRATION);
+  }
   mj_step(model, data);
+  if (probe_evidence) {
+    double metadata[] = {double(probe_case), double(probe_variant),
+                         double(probe_coordinate), probe_delta};
+    std::vector<double> after(before.size());
+    mj_getState(model, data, after.data(), mjSTATE_INTEGRATION);
+    for (const auto* values : {&before, &after}) {
+      if (values == &before)
+        probe_evidence->write(reinterpret_cast<const char*>(metadata), sizeof(metadata));
+      probe_evidence->write(reinterpret_cast<const char*>(values->data()),
+                            values->size() * sizeof(double));
+    }
+    probe_evidence->write(reinterpret_cast<const char*>(data->sensordata),
+                          model->nsensordata * sizeof(double));
+    if (!*probe_evidence) std::_Exit(71);
+  }
 }
 
 extern "C" void reference_rk4_transitionFD(
@@ -88,6 +114,10 @@ extern "C" void reference_rk4_transitionFD(
     if (coordinate < 2) scratch->qpos[coordinate] += delta;
     else if (coordinate < 4) scratch->qvel[coordinate - 2] += delta;
     else scratch->ctrl[0] += delta;
+    if (probe_evidence) {
+      probe_coordinate = coordinate;
+      probe_delta = delta;
+    }
     reference_counted_mj_step(model, scratch.get());
     std::vector<double> values(4 + sensor_count);
     std::copy_n(scratch->qpos, 2, values.begin());
@@ -99,9 +129,17 @@ extern "C" void reference_rk4_transitionFD(
   for (int coordinate = 0; coordinate < 5; ++coordinate) {
     bool state_coordinate = coordinate < 4;
     if (state_coordinate ? !(A || C) : !(B || D)) continue;
-    auto plus = evaluate(coordinate, epsilon);
-    auto minus = centered ? evaluate(coordinate, -epsilon) : base;
-    double denominator = centered ? 2 * epsilon : epsilon;
+    bool forward = true, backward = centered;
+    if (!state_coordinate && model->actuator_ctrllimited[0]) {
+      const double* bounds = model->actuator_ctrlrange;
+      double control = data->ctrl[0];
+      forward = control >= bounds[0] && control + epsilon <= bounds[1];
+      backward = (centered || !forward) &&
+                 control - epsilon >= bounds[0] && control <= bounds[1];
+    }
+    auto plus = forward ? evaluate(coordinate, epsilon) : base;
+    auto minus = backward ? evaluate(coordinate, -epsilon) : base;
+    double denominator = forward && backward ? 2 * epsilon : epsilon;
     for (int row = 0; row < 4 + sensor_count; ++row) {
       double value = (plus[row] - minus[row]) / denominator;
       if (row < 4) {
@@ -117,10 +155,10 @@ extern "C" void reference_rk4_transitionFD(
 
 int main(int argc, char** argv) {
   // mode xml original_xml context.bin output_prefix steps wall_seconds [hold]
-  if (argc != 8 && argc != 9) return 2;
+  if (argc != 8 && argc != 9 && argc != 10) return 2;
   try {
     std::string mode = argv[1];
-    int control_hold = argc == 9 ? std::stoi(argv[8]) : 2;
+    int control_hold = argc >= 9 ? std::stoi(argv[8]) : 2;
     Require(control_hold == 1 || control_hold == 2, "invalid control hold");
     int controls = 1000 / control_hold;
     step_limit = std::stoull(argv[6]);
@@ -166,7 +204,109 @@ int main(int argc, char** argv) {
     }
     std::ofstream trace(std::string(argv[5]) + ".csv");
     trace << std::setprecision(17);
-    if (mode == "validate-derivatives") {
+    if (mode == "validate-boundaries") {
+      trace << "case,centered,control,A_error,B_error,C_error,D_error,C_analytic_error,D_analytic_error\n";
+      std::ofstream probes(std::string(argv[5]) + ".probes.f64", std::ios::binary);
+      std::ofstream matrices(std::string(argv[5]) + ".matrices.f64", std::ios::binary);
+      probe_evidence = &probes;
+      Require(argc == 10, "boundary gate requires frozen probe inputs");
+      std::ifstream gate_inputs(argv[9], std::ios::binary);
+      for (int sample = 0; sample < 40; ++sample) {
+          double values[5];
+          gate_inputs.read(reinterpret_cast<char*>(values), sizeof(values));
+          Require(bool(gate_inputs), "missing frozen boundary case");
+          probe_case = sample;
+          mj_setState(model.get(), data.get(), context.data(), mjSTATE_INTEGRATION);
+          std::copy_n(values, 2, data->qpos);
+          std::copy_n(values + 2, 2, data->qvel);
+          double control = values[4];
+          data->ctrl[0] = control;
+          mj_forward(model.get(), data.get());
+          int ns = model->nsensordata;
+          auto direct_probe = [&](int coordinate, double delta) {
+            std::unique_ptr<mjData, decltype(&mj_deleteData)> d(
+                mj_makeData(model.get()), mj_deleteData);
+            mj_copyData(d.get(), model.get(), data.get());
+            double* value = coordinate < 2 ? &d->qpos[coordinate] :
+                coordinate < 4 ? &d->qvel[coordinate-2] : &d->ctrl[0];
+            *value += delta;
+            probe_variant = 2;
+            probe_coordinate = coordinate;
+            probe_delta = delta;
+            reference_counted_mj_step(model.get(), d.get());
+            std::vector<double> output = State(model.get(), d.get());
+            output.insert(output.end(), d->sensordata, d->sensordata + ns);
+            return output;
+          };
+          std::vector<double> gold_A(16), gold_B(4), gold_C(4*ns), gold_D(ns);
+          for (int coordinate = 0; coordinate < 5; ++coordinate) {
+            std::vector<double> difference(4 + ns);
+            if (coordinate < 4 || (control + 1e-5 <= 1 && control - 1e-5 >= -1)) {
+              auto plus = direct_probe(coordinate, 1e-5);
+              auto minus = direct_probe(coordinate, -1e-5);
+              for (int row = 0; row < 4 + ns; ++row)
+                difference[row] = (plus[row] - minus[row]) / 2e-5;
+            } else {
+              double direction = control + 2e-5 <= 1 ? 1 : -1;
+              auto base = direct_probe(coordinate, 0);
+              auto one = direct_probe(coordinate, direction * 1e-5);
+              auto two = direct_probe(coordinate, direction * 2e-5);
+              for (int row = 0; row < 4 + ns; ++row)
+                difference[row] = direction * (-3*base[row] + 4*one[row] - two[row]) / 2e-5;
+            }
+            for (int row = 0; row < 4 + ns; ++row) {
+              if (row < 4) {
+                if (coordinate < 4) gold_A[4*row+coordinate] = difference[row];
+                else gold_B[row] = difference[row];
+              } else {
+                if (coordinate < 4) gold_C[4*(row-4)+coordinate] = difference[row];
+                else gold_D[row-4] = difference[row];
+              }
+            }
+          }
+          for (int centered : {0, 1}) {
+            std::vector<double> A(16), B(4), C(4*ns), D(ns);
+            probe_variant = centered;
+            reference_rk4_transitionFD(model.get(), data.get(), 1e-6,
+                                      centered, A.data(), B.data(), C.data(), D.data());
+            double metadata[] = {double(probe_case), double(centered), control,
+                                 data->qpos[0], data->qpos[1], data->qvel[0],
+                                 data->qvel[1]};
+            matrices.write(reinterpret_cast<const char*>(metadata), sizeof(metadata));
+            trace << probe_case << ',' << centered << ',' << control;
+            for (auto pair : {std::pair{&A, &gold_A}, std::pair{&B, &gold_B},
+                              std::pair{&C, &gold_C}, std::pair{&D, &gold_D}}) {
+              matrices.write(reinterpret_cast<const char*>(pair.first->data()),
+                             pair.first->size()*sizeof(double));
+              matrices.write(reinterpret_cast<const char*>(pair.second->data()),
+                             pair.second->size()*sizeof(double));
+              double maximum = 0;
+              for (std::size_t i = 0; i < pair.first->size(); ++i)
+                maximum = std::max(maximum, std::abs((*pair.first)[i]-(*pair.second)[i]));
+              trace << ',' << maximum;
+              Require(maximum <= 1e-4, "range-aware derivative gate failed");
+            }
+            double q0 = data->qpos[0], q01 = q0 + data->qpos[1];
+            double analytic_C[] = {
+                std::sin(q0)+std::sin(q01), std::sin(q01), 0, 0,
+                -std::cos(q0)-std::cos(q01), -std::cos(q01), 0, 0,
+                0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0};
+            double analytic_D[] = {0, 0, 0, 0, 1};
+            matrices.write(reinterpret_cast<const char*>(analytic_C), sizeof(analytic_C));
+            matrices.write(reinterpret_cast<const char*>(analytic_D), sizeof(analytic_D));
+            double c_error = 0, d_error = 0;
+            for (int i = 0; i < 20; ++i)
+              c_error = std::max(c_error, std::abs(C[i] - analytic_C[i]));
+            for (int i = 0; i < 5; ++i)
+              d_error = std::max(d_error, std::abs(D[i] - analytic_D[i]));
+            trace << ',' << c_error << ',' << d_error << '\n';
+            Require(c_error <= 1e-4 && d_error <= 1e-4,
+                    "analytic pre-action sensor Jacobian gate failed");
+          }
+      }
+      Require(gate_inputs.peek() == std::char_traits<char>::eof(), "extra boundary cases");
+      probe_evidence = nullptr;
+    } else if (mode == "validate-derivatives") {
       trace << "case,A_error,B_error,C_error,D_error\n";
       for (int sample = 0; sample < 16; ++sample) {
         for (int j = 0; j < 2; ++j) {

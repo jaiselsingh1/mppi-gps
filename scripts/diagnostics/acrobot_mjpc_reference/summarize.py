@@ -21,7 +21,7 @@ def file_hash(path: Path) -> str:
 def summarize(directory: Path, output: Path) -> None:
     output.mkdir(parents=True, exist_ok=False)
     summaries = []
-    for planner in ("sampling", "ilqg"):
+    for planner in ("sampling", "ilqg", "corrected-historical-ilqg"):
         for context in range(8):
             path = directory / f"{planner}_{context}.csv"
             if not path.exists():

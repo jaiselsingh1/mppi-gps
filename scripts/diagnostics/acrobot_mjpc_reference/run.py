@@ -130,6 +130,9 @@ def execute(
     if Path(bindings_name).name != bindings_name:
         raise ValueError("bindings name must be one file component")
     config = json.loads((directory / bindings_name).read_text())
+    for name, expected in config.get("sdk_file_sha256", {}).items():
+        if sha256(sdk / name) != expected:
+            raise ValueError(f"changed native SDK: {name}")
     for name, expected in config["source_file_sha256"].items():
         if sha256(directory / "source" / name) != expected:
             raise ValueError(f"changed official source: {name}")
@@ -171,14 +174,19 @@ def execute(
     used_steps = 0
     model_directory = config.get("model_directory", "model")
     jobs = [] if config.get("reuse_prerequisites") else [
-        ("stock-rk4-prerequisite", 0), ("validate-derivatives", 0)
+        {"mode": "stock-rk4-prerequisite", "context": 0},
+        {"mode": "validate-derivatives", "context": 0},
     ]
+    if config.get("boundary_gate"):
+        jobs.append({"mode": "validate-boundaries", "context": 0})
     jobs += [
-        (planner, index)
+        {"mode": planner, "context": index}
         for planner in ("sampling", "ilqg")
         for index in range(len(config["starts"]))
     ]
-    for mode, index in jobs:
+    jobs += config.get("extra_jobs", [])
+    for job in jobs:
+        mode, index = job["mode"], job["context"]
         remaining_seconds = config["native_wall_seconds"] - (
             time.monotonic() - native_started
         )
@@ -187,16 +195,20 @@ def execute(
             receipt["stop"] = "frozen native resources exhausted"
             save()
             return
-        name = f"{mode}_{index}"
+        name = job.get("output_prefix", f"{mode}_{index}")
+        job_model_directory = job.get("model_directory", model_directory)
         command = [
             str(output / "build/acrobot_mjpc_reference"), mode,
-            str(directory / model_directory / "instrumented.xml"),
-            str(directory / model_directory / "original.xml"),
-            str(directory / model_directory / f"context_{index}.f64"),
+            str(directory / job_model_directory / "instrumented.xml"),
+            str(directory / job_model_directory / "original.xml"),
+            str(directory / job_model_directory / f"context_{index}.f64"),
             str(output / name), str(remaining_steps),
             str(max(1, int(remaining_seconds))),
-            str(config["planner_recipe"]["control_hold_native_steps"]),
+            str(job.get("control_hold_native_steps",
+                        config["planner_recipe"]["control_hold_native_steps"])),
         ]
+        if mode == "validate-boundaries":
+            command.append(str(directory / config["boundary_gate"]["input_file"]))
         code, elapsed = supervised(
             command, output / f"{name}.log", output, remaining_seconds,
             build_size + config["native_output_bytes"],
@@ -207,7 +219,7 @@ def execute(
         used_steps += steps
         receipt["runs"].append(
             {"mode": mode, "context": index, "exit_code": code,
-             "wall_seconds": elapsed, "steps": steps}
+             "output_prefix": name, "wall_seconds": elapsed, "steps": steps}
         )
         save()
         if mode == "stock-rk4-prerequisite":
