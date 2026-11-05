@@ -94,6 +94,8 @@ def solve_attempt(
     shape: int,
     fine: dict | None = None,
     cost_objective: bool = False,
+    terminal_state: np.ndarray | None = None,
+    strict_torque_bounds: bool = False,
 ) -> dict:
     """Save debug iterates and counts even if IPOPT fails."""
     out.mkdir(exist_ok=False)
@@ -115,7 +117,8 @@ def solve_attempt(
     x = opti.variable(4, n + 1)
     u = opti.variable(1, n + 1 if fine is None else n)
     opti.subject_to(x[:, 0] == np.asarray(config["start"]))
-    opti.subject_to(x[:, -1] == np.zeros(4))
+    terminal = np.zeros(4) if terminal_state is None else np.asarray(terminal_state)
+    opti.subject_to(x[:, -1] == terminal)
     opti.subject_to(opti.bounded(-2, u, 2))
     effort, cost = 0, 0
     for i in range(n):
@@ -143,7 +146,10 @@ def solve_attempt(
     opti.set_initial(x, guess_x)
     opti.set_initial(u, guess_u)
     key = "coarse" if fine is None else "fine"
-    opti.solver("ipopt", solver_options(config[f"{key}_max_iter"], config[f"{key}_cpu_seconds"]))
+    options = solver_options(config[f"{key}_max_iter"], config[f"{key}_cpu_seconds"])
+    if strict_torque_bounds:
+        options["ipopt.bound_relax_factor"] = 0.0
+    opti.solver("ipopt", options)
     error = None
     try:
         sol = opti.solve()

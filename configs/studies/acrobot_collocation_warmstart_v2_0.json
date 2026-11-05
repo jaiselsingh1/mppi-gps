@@ -1,0 +1,55 @@
+{
+  "schema": "acrobot-collocation-warmstart-v2.0",
+  "question": "Can saved executed prefixes initialize an identical-model feasible offline reference?",
+  "model_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+  "physics_timestep": 0.01,
+  "saved_control_timestep": 0.02,
+  "torque_bound_nm": 2.0,
+  "saved_evidence": {
+    "path": "runs/2026-11-05_acrobot_attractor_001/swing-development/evidence.h5",
+    "sha256": "fbcefa80e3274c84da6ca114de868545c151f861c87d373723854768f2794261"
+  },
+  "saved_lqr": {
+    "path": "runs/2026-11-05_acrobot_attractor_001/recovered-lqr/lqr.json",
+    "sha256": "b28bcc27fdfe5aacdd54893f660c8ad3725a6f3debc8c38311b1c5d6b94cd8f2"
+  },
+  "saved_start_config": {
+    "path": "configs/studies/acrobot_attractor_v1_0.json",
+    "sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405"
+  },
+  "reused_native_parity": {
+    "path": "runs/2026-11-05_acrobot_external_reference_001/collocation_v1_0/native/parity.json",
+    "sha256": "307a1e3aa876d388c6515f9a13712cddb45a6f67899cf6d506c8da7bc740af60"
+  },
+  "reused_drake_parity": {
+    "path": "runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/drake_nonlinear_parity_v1_1_1/parity.json",
+    "sha256": "65301566ea684d6ba65ff180423af7b6af374e69bf70d8df75eb34800dbb96c0"
+  },
+  "episodes": [
+    {"group": "trials/variant_0/trial_0", "start_index": 0, "expected_prefix_controls": 569},
+    {"group": "trials/variant_0/trial_1", "start_index": 1, "expected_prefix_controls": 508}
+  ],
+  "selection": "each episode independently: earliest argmin over every saved state of wrapped x-transpose-P-x; retain native unwrapped coordinates",
+  "terminal": "nearest independent 2pi winding to selected endpoint; zero velocities",
+  "fine_max_iter": 1000,
+  "fine_cpu_seconds": 180,
+  "fine_constraint_atol": 0.00000001,
+  "strict_torque_bounds": true,
+  "solver_max_attempts": 2,
+  "solver_total_cpu_seconds": 360,
+  "total_wall_seconds": 600,
+  "native_max_steps": 3000,
+  "hold_seconds": 2.0,
+  "minimum_hold_height": 3.8,
+  "maximum_hold_angle_error": 0.02,
+  "maximum_hold_speed": 0.05,
+  "total_output_bytes": 67108864,
+  "casadi_version": "3.7.2",
+  "native_mujoco_version": "3.6.0",
+  "remote_root": "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/collocation_warmstart_v2_0",
+  "remote_solver_python": "/home/jaisel/mppi-gps-codex-acrobot/external_refs_2026-11-05/casadi_env/bin/python",
+  "remote_native_python": "/home/jaisel/mppi-gps/.venv/bin/python",
+  "nominal_continuous_energy_time_lower_bound_seconds": 1.962,
+  "global_optimality_established": false,
+  "no_followup_attempts": true
+}
