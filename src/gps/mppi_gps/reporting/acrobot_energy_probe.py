@@ -13,7 +13,7 @@ import hashlib
 import json
 import math
 import time
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import numpy as np
@@ -911,6 +911,22 @@ def verify_repeated_prefix(
     return errors
 
 
+def verify_recovery_input_alias(
+    audit: SavedAudit, previous: dict, completion: dict, original_config_path: str
+) -> None:
+    """Accept only the frozen relative path and its exact native-source absolute spelling."""
+    source_root = PurePosixPath(previous["frozen_source_manifest"]["path"]).parent
+    relative = PurePosixPath(original_config_path)
+    audit.check(not relative.is_absolute(), "Frozen original configuration path is relative")
+    audit.check(
+        previous["config_path"] == original_config_path
+        and completion["config_path"] == str(source_root / relative),
+        "Exact relative-to-native-source configuration path alias",
+    )
+    normalized = dict(completion, config_path=previous["config_path"])
+    audit.check(normalized == previous, "Every other original input binding remains exact")
+
+
 def _verify_near(
     audit: SavedAudit,
     spec: dict,
@@ -1013,7 +1029,13 @@ def _verify_near(
         and new["prior_resources"] == old["resources"],
         "Overlay retains completed old cases and preserves the paid failed prefix",
     )
-    for filename in ("inputs.json", "environment.json", "config.json"):
+    verify_recovery_input_alias(
+        audit,
+        audit.load(original_dir / "inputs.json"),
+        audit.load(completion_dir / "inputs.json"),
+        amendment["original_config_path"],
+    )
+    for filename in ("environment.json", "config.json"):
         audit.check(
             audit.load(completion_dir / filename) == audit.load(original_dir / filename),
             "Original native source/runtime bindings unchanged: " + filename,

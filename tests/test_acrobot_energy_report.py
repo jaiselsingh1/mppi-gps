@@ -204,6 +204,39 @@ def test_saved_completion_requires_explicit_frozen_amendment(tmp_path):
         )
 
 
+def test_recovery_accepts_only_exact_frozen_native_path_alias():
+    relative = "configs/studies/acrobot_energy_discovery_v1_1.json"
+    previous = dict(
+        config_path=relative,
+        config_sha256="bound-content",
+        files=[dict(path="/native/source/src/worker.py", sha256="bound-worker")],
+        frozen_source_manifest=dict(path="/native/source/source_manifest.json", sha256="manifest"),
+    )
+    completion = copy.deepcopy(previous)
+    completion["config_path"] = "/native/source/" + relative
+    report.verify_recovery_input_alias(
+        report.SavedAudit(Path("."), 10), previous, completion, relative
+    )
+    for field, value in (
+        ("config_path", "/different/source/" + relative),
+        ("config_path", "/native/source/configs/studies/wrong.json"),
+        ("config_path", relative),
+        ("config_sha256", "changed-content"),
+    ):
+        altered = copy.deepcopy(completion)
+        altered[field] = value
+        with pytest.raises(ValueError, match="path alias|binding remains exact"):
+            report.verify_recovery_input_alias(
+                report.SavedAudit(Path("."), 10), previous, altered, relative
+            )
+    altered_previous = copy.deepcopy(previous)
+    altered_previous["config_path"] = "/native/source/" + relative
+    with pytest.raises(ValueError, match="path alias"):
+        report.verify_recovery_input_alias(
+            report.SavedAudit(Path("."), 10), altered_previous, completion, relative
+        )
+
+
 def roster():
     config = dict(
         parts={
