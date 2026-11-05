@@ -1,0 +1,50 @@
+{
+  "protocol": "acrobot-drake-reference",
+  "version": "2.0",
+  "amends": "Correct external reference faithfulness: restore official balance threshold1000 and strict inequality. Preserve v1.1.1 strict-certificate-join result. No tuning.",
+  "drake_version": "1.51.1",
+  "python": "3.11.16",
+  "official_reference_tag": "v1.51.1",
+  "formula_comparison": "plant.cc, plant params, Spong controller and gains are byte-identical to retained1610676d38df7854153cd04e1ba32e286fd617b1",
+  "model_sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe",
+  "attractor_context_config": "configs/studies/acrobot_attractor_v1_0.json",
+  "attractor_context_config_sha256": "cadb5c1594d4a0977f03d8a0ee8979cd22dd98f6ec28e2ac9da886c006887405",
+  "mechanism_unchanged": {
+    "ke": 5,
+    "kp": 50,
+    "kd": 5,
+    "torque_limit_Nm": 2,
+    "balance_Q": [
+      10,
+      10,
+      1,
+      1
+    ],
+    "balance_R": 1,
+    "join": "official-source balance threshold V<1000; certified local set remains separate and tiny"
+  },
+  "limits": {
+    "native_controls": 1000,
+    "physics_substeps": 2000,
+    "native_seconds": 60,
+    "native_output_bytes": 16777216,
+    "CARE_solves": 0,
+    "SDP_solves": 0
+  },
+  "native_roster": {
+    "swing_up": "the exact2 stages.swing-development.starts; official-source hybrid threshold1000",
+    "duration_seconds_each": 10,
+    "control_dt": 0.02
+  },
+  "stop": "unavailable dependencies, binding mismatch, invalid physics/evidence or exhausted resources; no tuning or new starts",
+  "success": "both historical discovery starts sustain final2s height>=3.8m; report all outcomes, switches, angles and clipping; no global stability claim",
+  "preparation_config_sha256": "dfff1d9d80ff62abdce8620bf8aef716950cba9874c3ca24bfe19ab6af3ec1f2",
+  "preparation_sha256": "18c6df3635367dce13d4bcecb0f7309b820b26672dd58e6f560c5cc8f1bf9983",
+  "balance_switch_level": 1000.0,
+  "strict_balance_switch": true,
+  "native_roster_ids": [
+    "swing_0",
+    "swing_1"
+  ],
+  "native_episode_count": 2
+}

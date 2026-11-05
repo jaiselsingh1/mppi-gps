@@ -55,7 +55,12 @@ def spong_action(
 
 
 def spong_control(
-    full_state: np.ndarray, gain: np.ndarray, value: np.ndarray, balance_level: float
+    full_state: np.ndarray,
+    gain: np.ndarray,
+    value: np.ndarray,
+    balance_level: float,
+    *,
+    strict_join: bool = False,
 ) -> dict:
     """Official Spong equation/gains with our plant, torque cap, certified join.
 
@@ -65,7 +70,7 @@ def spong_control(
     error = np.asarray(full_state, dtype=float)[1:].copy()
     error[:2] = (error[:2] + np.pi) % (2 * np.pi) - np.pi
     local_value = float(error @ value @ error)
-    balanced = local_value <= balance_level
+    balanced = local_value < balance_level if strict_join else local_value <= balance_level
     _, _, energy = mechanics(np.asarray(full_state, dtype=float)[1:])
     if balanced:
         torque = -float((gain @ error).item())

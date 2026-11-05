@@ -56,3 +56,32 @@ v1.1 setup succeeded in10.309wall seconds (634,821,725bytes), then preparation s
 ### Nonlinear same-model prerequisite
 
 Before the frozen six native episodes, `acrobot_drake_parity` evaluates the parameterized Drake plant's continuous EOM on exactly the32already-paid collocation/native parity states and physical torques (`collocation_v1_0/native/parity.json`). Compare to this implementation's mechanical EOM at `rtol=0,atol=1e-9`; preserve every derivative and input hash. This is32zero-time Drake EOM evaluations,32analytical EOM evaluations, zero new integration/physics and no repeated CARE/SDP. Failure prevents native controller execution. The prior native one-RK4-step checks remain unchanged and are reused.
+
+## Executed result (v1.1.1)
+
+Both equation checks passed: upright A/B maximum error **1.42e-14**, and all32 reused nonlinear parity states passed at maximum derivative error **2.84e-14**. Thus the parameterized Drake model agrees with the analytical EOM already checked against native MuJoCo; the stock example's model/torque differences were not carried into this test.
+
+One CARE solve and one CSDP solve produced `K_physical=[-315.9780984,-80.23087395,-116.1332567,-34.52941223]`. CSDP's maximum coefficient residual was **8.73e-11**, minimum Gram eigenvalue **0.85018**. Independent saved-fraction verification passed **22/22** checks. The provable local level is extremely conservative: `r=6.103515625e-6`, `rho=1.6401953694e-12`, torque upper bound **0.00333784Nm**. This is a valid small continuous-feedback positive control, not evidence of a useful recovery basin or a sampled-data certificate.
+
+| Frozen start | Controller | Height hold, final2s | Peak height (m) | Native dense cost | Torque clipped |
+|---|---|---:|---:|---:|---:|
+| 3022000000 | Balance | Fail | 3.9850 | 4877.3526 | 100.0% |
+| 3022000001 | Balance | Pass | 4.0000 | 0.7694 | 0.2% |
+| 3022000002 | Balance | Fail | 3.9957 | 4548.2313 | 99.8% |
+| 3022000003 | Balance | Fail | 3.9983 | 3216.7459 | 99.4% |
+| 3022000100 | Energy/PFL + balance | Fail | 2.0696 | 5488.9055 | 99.6% |
+| 3022000101 | Energy/PFL + balance | Fail | 2.0432 | 5432.6995 | 99.8% |
+
+The adapted official-gain reference therefore **does not supply a working swing-up ground truth under2Nm**: neither discovery episode entered the local certified region, and both failed the unchanged height hold. One of four balance starts succeeded; the other three spent nearly their entire episodes saturated. This establishes persistent actuator saturation in the failed reference, not that the task is infeasible, that no better gain/controller exists, or that the same-model collocation optimum is known. No gain tuning, new starts, physics reruns or learning followed this negative result.
+
+Raw evidence: `runs/2026-11-05_acrobot_external_reference_001/drake_preparation_001/` contains all equations, preparation, native HDF5 traces, outcomes, failed setup/API attempts, source copies, hashes and cost receipts. `drake_certificate_audit_001/` holds the independent fraction audit. Native measurements are being reviewed separately from the continuous proof.
+
+Cost appendix: setup10.309wall seconds and634,821,725bytes; successful preparation0.26process-wall seconds/0.38CPU seconds/143,080KiB peakRSS; nonlinear parity0.19wall/0.24CPU/117,656KiB; six native episodes0.49process-wall/0.54CPU/103,912KiB. Native execution used **3,000 controls/6,000 physics substeps**, versus the6,000-substep frozen allowance. The failed API attempt consumed0.19wall/0.20CPU seconds, zero solves/physics. The earlier unavailable-wheel attempt's exact process timing was not retained and is marked missing. Retained study output is approximately1.15MB, excluding the isolated environment. Full inventory/accounting is `drake_preparation_001/accounting.json`; no claim of zero engineering or transfer overhead.
+
+## Source-faithfulness correction v2.0 — frozen before execution
+
+Independent design review identified a scientific mismatch in v1.1.1: its hybrid used the tiny certified terminal level (`rho=1.64e-12`) as a balance switch, whereas the official source switches at **V<1000**. Thus the old0/2 swing-up result is for a strict-join adaptation, not a faithful official hybrid with the real torque cap. Preserve that result, all traces, proof, costs and audit failures unchanged. This correction is not gain tuning or a new parameter sweep.
+
+v2.0 restores precisely the official threshold1000 and strict inequality. Reuse the saved same-model K/P (no CARE/SDP repeat), official energy/PFL gains, physical2Nm cap, two historical discovery contexts, native runtime,50Hz rate and10-second duration. `configs/acrobot_drake_reference_v2_0.json` binds the old preparation/config hashes and a create-only output. Bound: exactly2episodes, at most1,000controls/2,000physics substeps,60wall seconds and16MiB output. No new starts, optimization, fitting or additional controller variant. Stop for invalid bindings/physics/evidence or exhausted bounds. Height>=3.8m for the final2s remains the success test; all failures remain outcomes. Save every joint angle, action, raw torque, cost, balance mode and handoff. Report clipping counts and switch entries/exits, and compare the first changed actions to the saved strict-join traces.
+
+Switching outside the certified tiny terminal set has **no global Lyapunov guarantee**. The existing SOS proof is unchanged and does not certify the restored threshold or sampled-data hybrid. The earlier native audit's one-ULP cross-host local-value discrepancy remains recorded; no tolerance is changed by this source correction. No follow-up launches automatically.

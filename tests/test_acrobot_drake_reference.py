@@ -13,6 +13,7 @@ from src.gps.mppi_gps.acrobot_drake_reference import (
     local_certificate,
     mechanics,
     spong_action,
+    spong_control,
 )
 from src.gps.mppi_gps.attractor_lqr import upright_continuous_linearization
 
@@ -55,3 +56,11 @@ def test_spong_physical_cap_and_balance_action_units():
     assert spong_action(state, gain, value, 1.0) == pytest.approx(-0.05)
     for state in ([0.0, 0.0, 1.0, 2.0, 9.0], [0.0, 3.0, -1.0, -3.0, -4.0]):
         assert abs(spong_action(np.array(state), gain, value, 0.0)) <= 1.0
+
+
+def test_official_switch_uses_strict_1000_threshold():
+    state = np.array([0.0, 1.0, 0.0, 0.0, 0.0])
+    gain = np.ones((1, 4))
+    value = np.diag([1000.0, 1.0, 1.0, 1.0])
+    assert spong_control(state, gain, value, 1000.0)["balance"]
+    assert not spong_control(state, gain, value, 1000.0, strict_join=True)["balance"]

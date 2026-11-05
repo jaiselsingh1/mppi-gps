@@ -25,8 +25,14 @@ def run(config_path: Path, preparation_path: Path, output: Path) -> None:
     config = json.loads(config_path.read_text())
     preparation = json.loads(preparation_path.read_text())
     config_sha = hashlib.sha256(config_path.read_bytes()).hexdigest()
-    if preparation["config_sha256"] != config_sha:
+    if preparation["config_sha256"] != config.get("preparation_config_sha256", config_sha):
         raise ValueError("Preparation config binding differs")
+    if (
+        "preparation_sha256" in config
+        and hashlib.sha256(preparation_path.read_bytes()).hexdigest()
+        != config["preparation_sha256"]
+    ):
+        raise ValueError("Saved preparation content differs")
     context_path = Path(config["attractor_context_config"])
     if (
         hashlib.sha256(context_path.read_bytes()).hexdigest()
@@ -61,8 +67,11 @@ def run(config_path: Path, preparation_path: Path, output: Path) -> None:
         (f"swing_{i}", "hybrid", row)
         for i, row in enumerate(context_config["stages"]["swing-development"]["starts"])
     ]
-    if len(roster) != 6:
-        raise ValueError("Frozen native roster must contain exactly six starts")
+    if "native_roster_ids" in config:
+        by_id = {row[0]: row for row in roster}
+        roster = [by_id[identifier] for identifier in config["native_roster_ids"]]
+    if len(roster) != config.get("native_episode_count", 6):
+        raise ValueError("Frozen native roster count differs")
     started = time.monotonic()
     completed_controls = 0
     rows = []
@@ -103,8 +112,18 @@ def run(config_path: Path, preparation_path: Path, output: Path) -> None:
                         before = seen["states"][-1]
                         if not np.array_equal(before[1:], env._get_obs()):
                             raise ValueError("Pre-action state/observation mismatch")
-                        level = np.inf if mode == "balance" else certificate["level"]["float"]
-                        detail = spong_control(before, gain, value, level)
+                        level = (
+                            np.inf
+                            if mode == "balance"
+                            else config.get("balance_switch_level", certificate["level"]["float"])
+                        )
+                        detail = spong_control(
+                            before,
+                            gain,
+                            value,
+                            level,
+                            strict_join=config.get("strict_balance_switch", False),
+                        )
                         action = np.array([detail["action"]])
                         if not np.isfinite(action).all() or np.max(np.abs(action)) > 1:
                             raise ValueError("Invalid normalized control")
@@ -149,6 +168,23 @@ def run(config_path: Path, preparation_path: Path, output: Path) -> None:
                         any(d["local_value"] <= certificate["level"]["float"] for d in details)
                     ),
                     "clipped_fraction": float(np.mean([abs(d["raw_torque"]) > 2 for d in details])),
+                    "clipped_controls": int(sum(abs(d["raw_torque"]) > 2 for d in details)),
+                    "balance_controls": int(sum(d["balance"] for d in details)),
+                    "balance_entries": int(
+                        sum(
+                            d["balance"] and (i == 0 or not details[i - 1]["balance"])
+                            for i, d in enumerate(details)
+                        )
+                    ),
+                    "balance_exits": int(
+                        sum(
+                            not d["balance"] and i > 0 and details[i - 1]["balance"]
+                            for i, d in enumerate(details)
+                        )
+                    ),
+                    "first_balance_control": next(
+                        (i for i, d in enumerate(details) if d["balance"]), None
+                    ),
                 }
                 rows.append(row)
                 with (output / "trials.jsonl").open("a") as stream:
