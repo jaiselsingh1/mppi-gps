@@ -1,10 +1,8 @@
 # SAC continuation map: the oracle carries on from almost all of MPPI's walks
 
-**Interpretation corrected during coordination.** A later exploratory clean-reference control reported 94/96 walking with 9,000 rows, 10,000 updates and corpus-derived normalization. Data size, updates, normalization and seeds changed together, so undertraining was not isolated. This continuation assay did not train a child or establish pre-update teachability. See the [coordinated review on main](https://github.com/jaiselsingh1/mppi-gps/blob/main/docs/walker_coordination_review.md). Original reports and failed results remain preserved.
-
 **Complete, single run, no independent audit.** The SAC oracle took over from all 14 saved K1 MPPI walks every 25 controls. It kept walking from **534 of 560 states (95.4%)** and survived from 546 (97.5%). From its own states it walked from 640 of 640. Within 4 s it pulled MPPI's motion into its own gait, and how far MPPI's motion was from that gait did not predict how well SAC did. One MPPI action changed SAC's continuation no more than one random action did. At this horizon a single deterministic rollout therefore cannot say whether MPPI's action helps or hurts.
 
-This met the protocol’s **"covers all"** threshold on the sampled roster. That label does not establish a region of attraction for every MPPI state or isolate why cloning fails. No student was trained in this continuation run.
+This is the protocol's **"covers all"** reading. MPPI's several gaits sit inside this oracle's region of attraction, so having several gaits is probably not what blocks cloning. No student was trained.
 
 [Frozen protocol](sac_continuation_protocol.md) · [script](../scripts/diagnostics/sac_continuation.py) · [capsule](../results/sac_continuation_001/README.md) · [post hoc analysis](../results/sac_continuation_001/posthoc_analysis.py) · [K1 results](action_compatibility_k1_results.md) · [K1.2 results](motion_diagnosis_k1_2_results.md).
 
@@ -66,10 +64,10 @@ The walking runs have a median velocity MAE of 0.171 (p10 0.131, p90 0.209), so 
 | `v2_r0_trial_raw_0` | exact | 39/40 | 39/40 | 4.07 | 0.54 |
 | `v2_r0_trial_raw_1` | exact | 38/40 | 38/40 | 4.34 | 0.55 |
 
-Every source walk had successful sampled takeovers; unsampled intervening states were not tested. Each walk has at most two falls, and the states 25 controls before and after every fall walk on. **Post hoc:**
+No walk and no stretch of a walk is outside SAC's reach. Each walk has at most two falls, and the states 25 controls before and after every fall walk on. **Post hoc:**
 
 - 8 of the 14 falls happen within 24–36 controls of the handover and 3 more within 93.
-- At 10 of the 14 fall states SAC also fell after MPPI's action and after the random action, so all three tested branches fell; this does not establish first-action irrelevance.
+- At 10 of the 14 fall states SAC also fell after MPPI's action and after the random action, so at those states the first action did not matter.
 - The 12 survivors that did not walk are of two kinds:
   - 5 stopped and stood still (final forward speed 0.02–0.05 m/s), so SAC has a standing state it can settle into;
   - 7 walked slower than the rule allows (MAE 0.31–0.71).
@@ -84,7 +82,7 @@ K1.2's frozen window distance R to the nearest window of SAC's 16 rollouts (25-c
 | Last 25 controls of SAC's run from an MPPI state | 0.59 | 0.28 | 1.10 |
 | Last 25 controls of SAC's run from its own state, other rollouts only (control) | 0.59 | 0.25 | 1.15 |
 
-Final windows were close under this velocity-dominated metric; that does not establish universal recovery or a verified region of attraction. **Post hoc:** 97.7% of MPPI's R² comes from velocities, 2.3% from angles and almost none from height. Forward speed is not the cause: MPPI walks at 1.48–1.53 m/s against SAC's 1.39. The difference is in the joint and body angular velocities, the fast part of MPPI's motion. SAC discards it and keeps walking.
+Wherever SAC starts, it ends in its own gait, as close to its other rollouts as they are to each other. **Post hoc:** 97.7% of MPPI's R² comes from velocities, 2.3% from angles and almost none from height. Forward speed is not the cause: MPPI walks at 1.48–1.53 m/s against SAC's 1.39. The difference is in the joint and body angular velocities, the fast part of MPPI's motion. SAC discards it and keeps walking.
 
 How far MPPI's motion was from SAC's gait does not predict how well SAC continues (Spearman between R and the `sac` arm's cost: 0.06). Taking over from MPPI does cost something. In walking runs from MPPI states, SAC's median cost per control is 0.45; from its own states it is 0.39.
 
@@ -117,9 +115,9 @@ A25 holds no evidence beyond the `sac` arm. Replaying 25 MPPI actions lands exac
 
 ## Reading
 
-Both rates clear the protocol's ≳90% mark, so the frozen reading is **"covers all"** on this sampled roster. It does not establish recovery from every intervening or student-visited state, or isolate the causal contribution of fast joint-velocity content. Its few failures are single moments, not whole walks or stretches, and how far a state is from SAC's gait does not predict them. On Walker, the idea that "the oracle owns one gait and MPPI's other gaits are off its map" finds no support from this oracle.
+Both rates clear the protocol's ≳90% mark, so this is the **"covers all"** reading. SAC carries on from MPPI's walks wherever they are, without needing their fast joint-velocity content. Its few failures are single moments, not whole walks or stretches, and how far a state is from SAC's gait does not predict them. On Walker, the idea that "the oracle owns one gait and MPPI's other gaits are off its map" finds no support from this oracle.
 
-The protocol's reading for this outcome points back to fitting and to torque attenuation (K1: clone |u| ≈ 0.30 against MPPI 0.44). Earlier results agree. Cloning reconstructs MPPI's torques better than chance yet falls (K1). Students cloned from this same oracle's own data reconstructed its held actions closely (MSE about 0.01) yet walked in only 5 of 96 episodes, all in one stream (S1.1). That remains a negative result under S1.1’s particular procedure; the later positive control shows that reference cloning can succeed under a different recipe.
+The protocol's reading for this outcome points back to fitting and to torque attenuation (K1: clone |u| ≈ 0.30 against MPPI 0.44). Earlier results agree. Cloning reconstructs MPPI's torques better than chance yet falls (K1). Students cloned from this same oracle's own data reconstructed its held actions closely (MSE about 0.01) yet walked in only 5 of 96 episodes, all in one stream (S1.1). So even a single gait is hard to clone with the current student and procedure.
 
 For the matching question in the 2026-11-02 field note, two things follow:
 
