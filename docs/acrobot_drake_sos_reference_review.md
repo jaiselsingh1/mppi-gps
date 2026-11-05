@@ -52,3 +52,7 @@ The frozen v1.0 install attempt failed because Drake 1.58.0 has no wheel compati
 ### API-only repair v1.1.1
 
 v1.1 setup succeeded in10.309wall seconds (634,821,725bytes), then preparation stopped before CARE/SDP because the Python binding omits `set_l2`. That failed attempt used0.19wall seconds,0.20CPU seconds and119,520KiB peakRSS. v1.1.1 assigns the same1.0m value through documented `AcrobotParamsIndices.kL2=3` using BasicVector; all model/controller/certificate values remain unchanged. Introspection verified all remaining parameter setters, vector round-trip, CSDP availability and program construction without solving. The repaired preparation also checks its Drake upright Jacobian against the already-validated analytic same-model Jacobian at1e-10 before CARE. Failed log and APIreceipt remain preserved.
+
+### Nonlinear same-model prerequisite
+
+Before the frozen six native episodes, `acrobot_drake_parity` evaluates the parameterized Drake plant's continuous EOM on exactly the32already-paid collocation/native parity states and physical torques (`collocation_v1_0/native/parity.json`). Compare to this implementation's mechanical EOM at `rtol=0,atol=1e-9`; preserve every derivative and input hash. This is32zero-time Drake EOM evaluations,32analytical EOM evaluations, zero new integration/physics and no repeated CARE/SDP. Failure prevents native controller execution. The prior native one-RK4-step checks remain unchanged and are reused.
