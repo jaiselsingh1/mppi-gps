@@ -1,5 +1,9 @@
 # Acrobot: teacher prerequisite failed
 
+Subsequent evidence: the [near-upright and energy probes](acrobot_energy_discovery_result.md)
+tested the previously unresolved balance question and three swing-up recipes.
+The original result below remains the historical qualification outcome.
+
 **The selected MPPI controller balanced from 0/10 fresh hanging starts. None of
 all sixteen complete episodes reached the 3.8 m upright threshold.** The specified
 9/10 teacher gate therefore failed. No bank was admitted for learning, no policy

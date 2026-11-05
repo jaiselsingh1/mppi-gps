@@ -1,0 +1,20 @@
+{
+  "protocol": "acrobot-energy-discovery-probe",
+  "version": "1.1",
+  "source_commit": "05fe64d62f1a5b31c9b4d110067c81404f6f7b66",
+  "config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176",
+  "source_manifest_sha256": "1200a7ac79d6008008b3b6e5e66b9d00cbfa8cc45803be5c859e723f452cc202",
+  "remote_root": "/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_energy_discovery_v1_1_001",
+  "worker": "robopil5090",
+  "interpreter": "/home/jaisel/mppi-gps/.venv/bin/python",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "concurrency": {
+    "near_upright_physics_threads": 2,
+    "energy_physics_threads": 4
+  },
+  "preflight_before_controller_execution": true
+}

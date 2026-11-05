@@ -1,5 +1,13 @@
 # Research and development guide
 
+The [Acrobot teacher probe result](acrobot_energy_discovery_result.md) covers the
+near-upright balance check and three energy-shaped discovery recipes. Read its
+[frozen protocol](acrobot_energy_discovery_protocol.md),
+[storage-only completion](acrobot_energy_completion_protocol.md),
+[accounting](acrobot_energy_discovery_accounting.md) and
+[exact capsule](../results/acrobot_energy_discovery_001/README.md). All recipes
+failed the unchanged height test; no Acrobot policy or alternating loop was trained.
+
 The latest [L2.0 end-to-end result](local_coupling_learning_l2_0_result.md) is complete and audited: competent different local MPPI experience improved retention but produced no standalone walking gain. Its [protocol](local_coupling_learning_l2_0_protocol.md), [accounting](local_coupling_learning_l2_0_accounting.md) and [exact capsule](../results/local_coupling_learning_l2_001/README.md) include all controller starts, paired learning and fresh confirmation. The conditional second round was correctly not triggered; nothing else was launched.
 
 Start with the [coordinated Walker investigation map](walker_coordination_review.md): branch questions, reusable evidence, audit status and the next unlaunched decision. The [code map](code_map.md) records the separate cleanup.

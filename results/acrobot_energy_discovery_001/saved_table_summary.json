@@ -1,0 +1,95 @@
+{
+  "recorded_utc": "2026-11-05T06:47:05.556055+00:00",
+  "source_tables": {
+    "planner_passes.csv": {
+      "sha256": "69f50f0be5cf6d5d1d2ce10692516195a87c5b08cbfbc0253014130dc91e954b",
+      "bytes": 670908
+    },
+    "episodes.csv": {
+      "sha256": "4e869f716239bc7df4640a9af48c2edfda3d373f2ac9d63724b265e0748cc9db",
+      "bytes": 4189
+    }
+  },
+  "status": "SAVED_TABLE_SUMMARY_ONLY",
+  "new_physics_controls": 0,
+  "new_network_forwards": 0,
+  "new_fitting_updates": 0,
+  "all_verified_pass_rows": 6051,
+  "canonical_pass_rows": 5620,
+  "excluded_paid_original_partial_pass_rows": 431,
+  "paid_unexecuted_incomplete_bank_not_certified": 1,
+  "summary": [
+    {
+      "variant": "dense_prior_controller",
+      "episodes": 4,
+      "successes": 0,
+      "maximum_executed_height": 3.999996056359042,
+      "canonical_banks": 2008,
+      "banks_with_height_qualified_candidate": 0,
+      "mean_qualified_fraction": 0.0,
+      "maximum_qualified_fraction": 0.0,
+      "mean_weight_on_qualified": 0.0,
+      "maximum_weight_on_qualified": 0.0,
+      "median_effective_sample_size": 1.001761372531345,
+      "minimum_effective_sample_size": 1.0,
+      "maximum_saved_candidate_peak_height": 3.999999999031542,
+      "regenerated_action_bank_exact_hash_matches": 2008
+    },
+    {
+      "variant": "energy_matched_6s",
+      "episodes": 2,
+      "successes": 0,
+      "maximum_executed_height": 3.652124317070562,
+      "canonical_banks": 1204,
+      "banks_with_height_qualified_candidate": 0,
+      "mean_qualified_fraction": 0.0,
+      "maximum_qualified_fraction": 0.0,
+      "mean_weight_on_qualified": 0.0,
+      "maximum_weight_on_qualified": 0.0,
+      "median_effective_sample_size": 1.0,
+      "minimum_effective_sample_size": 1.0,
+      "maximum_saved_candidate_peak_height": 3.9999995452167543,
+      "regenerated_action_bank_exact_hash_matches": 1102
+    },
+    {
+      "variant": "energy_matched_8s",
+      "episodes": 2,
+      "successes": 0,
+      "maximum_executed_height": 3.153652745410477,
+      "canonical_banks": 1204,
+      "banks_with_height_qualified_candidate": 0,
+      "mean_qualified_fraction": 0.0,
+      "maximum_qualified_fraction": 0.0,
+      "mean_weight_on_qualified": 0.0,
+      "maximum_weight_on_qualified": 0.0,
+      "median_effective_sample_size": 1.0,
+      "minimum_effective_sample_size": 1.0,
+      "maximum_saved_candidate_peak_height": 3.696986151291143,
+      "regenerated_action_bank_exact_hash_matches": 1062
+    },
+    {
+      "variant": "energy_double_8s",
+      "episodes": 2,
+      "successes": 0,
+      "maximum_executed_height": 3.195475837340278,
+      "canonical_banks": 1204,
+      "banks_with_height_qualified_candidate": 0,
+      "mean_qualified_fraction": 0.0,
+      "maximum_qualified_fraction": 0.0,
+      "mean_weight_on_qualified": 0.0,
+      "maximum_weight_on_qualified": 0.0,
+      "median_effective_sample_size": 1.0,
+      "minimum_effective_sample_size": 1.0,
+      "maximum_saved_candidate_peak_height": 3.783358448332577,
+      "regenerated_action_bank_exact_hash_matches": 1061
+    }
+  ],
+  "interpretation_limits": [
+    "Candidate height qualification requires the final100 predicted control boundaries, not merely a transient peak.",
+    "No candidate or episode height threshold was modified.",
+    "This summary excludes the original paid partial near-upright prefix from canonical behavior statistics; its work remains charged.",
+    "Exact candidate-bank raw hashes differ in387of3612energy banks, while the independent numerical noise/update contract and RNG endpoint checks passed; no unique numerical cause is assigned.",
+    "No teacher succeeded and no learning loop was tested."
+  ],
+  "cpu_seconds": 0.010769
+}

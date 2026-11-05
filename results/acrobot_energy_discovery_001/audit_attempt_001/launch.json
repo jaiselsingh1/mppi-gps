@@ -1,0 +1,34 @@
+{
+  "started_utc": "2026-11-05T06:42:14.329037+00:00",
+  "command": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-m",
+    "src.gps.mppi_gps.reporting.acrobot_energy_probe",
+    "--base",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001",
+    "--config",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/acrobot_energy_discovery_v1_1.json",
+    "--recovery-config",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/configs/studies/acrobot_energy_completion_v1_1r.json",
+    "--out",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001/independent-audit-attempt-001/report",
+    "--cpu-seconds",
+    "165"
+  ],
+  "cwd": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi",
+  "reviewer_commit": "8058ab701074ad5e8241b71e9753052d2fd9af78",
+  "reviewer_sha256": "054a45570e551bce94274c2ceb00bdd1efb6fe972044d14c78ae632fee18e90f",
+  "original_config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176",
+  "recovery_config_sha256": "2ec71902cd0792fa0cc0dfc3a1ddf0953d24531f165bc2ac06893249e4123be0",
+  "cpu_limit_seconds": 165,
+  "wall_limit_seconds": 600,
+  "new_physics_controls": 0,
+  "new_network_forwards": 0,
+  "new_fitting_updates": 0,
+  "environment_overrides": {
+    "MPLCONFIGDIR": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001/independent-audit-attempt-001/mpl-cache",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  }
+}

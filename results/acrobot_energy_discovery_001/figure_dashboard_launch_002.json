@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+    "-c",
+    "import hashlib,json,sys,time\nfrom pathlib import Path\nfrom src.gps.mppi_gps.reporting.acrobot_energy_figures import _Budget,_load,_dashboard\nb,o=Path(sys.argv[1]),Path(sys.argv[2]);o.mkdir(exist_ok=False)\nbudget=_Budget(o,4.0)\ngroups,inputs=_load(b);budget.check();_dashboard(groups,o,budget);budget.check()\nreceipt=dict(status=\"PASSED\",role=\"format-only dashboard correction; no GIF rerender\",cpu_seconds=time.process_time()-budget.started,inputs=inputs,renderer_source_sha256=sys.argv[3],new_physics_controls=0,new_network_forwards=0,new_optimizer_updates=0)\nreceipt[\"artifacts\"]={p.name:dict(bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in o.iterdir() if p.is_file()}\n(o/\"dashboard_receipt.json\").write_text(json.dumps(receipt,indent=2)+\"\\n\")\nprint(json.dumps({k:receipt[k] for k in [\"status\",\"cpu_seconds\",\"renderer_source_sha256\"]}))\n",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001",
+    "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001/visualizations_dashboard_002",
+    "fc137ec30ad06b704722aeaf080114dba5b397fe4fcfe64cb7016e36e4d2e725"
+  ],
+  "renderer_sha256": "fc137ec30ad06b704722aeaf080114dba5b397fe4fcfe64cb7016e36e4d2e725",
+  "reason": "Legends moved outside data axes; original lower-right legend obscured case0 deep excursion",
+  "total_cpu_ceiling_seconds": 5,
+  "child_cpu_limit_seconds": 4,
+  "automatic_retry": false,
+  "new_physics": 0,
+  "font_cache": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001/visualizations_001/mpl-cache"
+}

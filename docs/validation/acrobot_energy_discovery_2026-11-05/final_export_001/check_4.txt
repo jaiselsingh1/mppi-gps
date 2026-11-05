@@ -1,0 +1,20 @@
+usage: acrobot_energy_completion.py [-h] --frozen-source FROZEN_SOURCE
+                                    --protocol PROTOCOL --previous PREVIOUS
+                                    --preflight PREFLIGHT --out OUT
+                                    --wrapper-sha256 WRAPPER_SHA256
+
+Storage-only completion using the original immutable Acrobot worker source.
+Execute this file directly, outside the frozen export, with --frozen-source.
+Only standard-library modules load before the original source path is
+selected. Complete trials0/1 remain in the failed run; repeat partial trial2,
+compare its paid429-control prefix, then run trial3. No controller
+implementation lives here.
+
+options:
+  -h, --help            show this help message and exit
+  --frozen-source FROZEN_SOURCE
+  --protocol PROTOCOL
+  --previous PREVIOUS
+  --preflight PREFLIGHT
+  --out OUT
+  --wrapper-sha256 WRAPPER_SHA256

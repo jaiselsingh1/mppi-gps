@@ -16,6 +16,19 @@ and a [bounded teacher prerequisite](../src/gps/mppi_gps/acrobot_teacher.py)
 loop is [preserved byte-for-byte](../archive/controller_loop_handoff-2026-11-04/README.md);
 it is not replaced by another optimizer. Teacher qualification precedes any learning launch.
 
+The [energy-discovery probe](acrobot_energy_discovery_protocol.md) adds a
+[pure mechanical-energy objective](../src/gps/mppi_gps/acrobot_energy.py), its
+[native adapter](../src/envs/acrobot_energy.py) and
+[bounded orchestration](../src/gps/mppi_gps/acrobot_energy_probe.py)
+(`study acrobot-energy-probe`). It reuses that same teacher recorder and stock
+MPPI. [Saved verification](../src/gps/mppi_gps/reporting/acrobot_energy_probe.py)
+(`study acrobot-energy-report`) independently reconstructs costs, weights and
+outcomes; [motion rendering](../src/gps/mppi_gps/reporting/acrobot_energy_figures.py)
+uses recorded states only. The [storage completion](acrobot_energy_completion_protocol.md)
+has a separately bound [direct-file wrapper](../src/gps/mppi_gps/acrobot_energy_completion.py):
+it imports the original frozen worker, retains completed episodes and checks the
+interrupted prefix before finishing the roster. It contains no planner implementation.
+
 | Responsibility | Active implementation |
 |---|---|
 | Public CLI and study dispatch | [scripts/train_mppi_gps.py](../scripts/train_mppi_gps.py) |

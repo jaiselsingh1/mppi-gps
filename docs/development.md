@@ -313,3 +313,44 @@ uv run python scripts/train_mppi_gps.py review reweight-local-bank \
 ```
 
 It preserves configuration, exact input/code hashes, supplied original checkpoint identity, C/D/survival/weights and proposed plans in a create-only directory, plus measured arithmetic cost. When the original job is available, its recorded score, weights and update must reproduce first; incompatible importance-correction/adaptive-temperature recipes fail explicitly. Invalid reviews retain a failure record. No checkpoint is loaded and no physics, inference or fitting occurs. This changes weights within one recorded bank/actor; it does not acquire a new trajectory, predict later replanning, establish teachability or select a condition using subsequent fitting outcomes. Native execution of a proposed update remains a separately budgeted test with complete context bindings.
+
+## Acrobot energy-probe evidence
+
+`study acrobot-energy-probe` owns the shared native prerequisite and the separately
+bounded near-upright/energy parts. Its [frozen recipe](acrobot_energy_discovery_protocol.md)
+uses the stock MPPI recorder; energy arithmetic stays in a simulator-free module.
+Workers execute the preserved `05fe64d` export. Updating this checkout does not
+update their source. The [1.1R completion](acrobot_energy_completion_protocol.md)
+is a direct-file wrapper because its first operation must select that original
+export before importing `src`. Its `--help` performs no native work.
+
+Read the compact report and hashes without historical arrays:
+
+```sh
+uv run python scripts/train_mppi_gps.py inspect \
+  --run results/acrobot_energy_discovery_001 --verify
+uv run python scripts/train_mppi_gps.py study acrobot-energy-report --help
+```
+
+The capsule's `run/result.json` is an exact alias of the energy worker result;
+the near-upright failure, completion and combined accounting are separate files.
+Missing generic `manifest.json`/`input_manifest.json` fields are reported, not
+invented: this worker records `inputs.json` and its source manifest instead.
+
+To independently recompute the saved measurements, supply the full raw evidence
+and original source listed in the capsule's external-evidence index. Use a fresh
+output directory; this command never launches physics or learning:
+
+```sh
+uv run python scripts/train_mppi_gps.py study acrobot-energy-report \
+  --base /path/to/2026-11-05_acrobot_energy_discovery_001 \
+  --config configs/studies/acrobot_energy_discovery_v1_1.json \
+  --recovery-config configs/studies/acrobot_energy_completion_v1_1r.json \
+  --out /tmp/acrobot-saved-review-fresh --cpu-seconds 165
+```
+
+The original storage stop remains failed. Canonical outcomes use old complete
+starts 0/1 and completion starts 2/3; accounting also includes the interrupted
+429-control attempt and its final paid query. The saved reviewer verifies the
+repeated prefix before combining outcomes. It cannot certify missing fields in
+the interrupted diagnostic bank or unretained candidate physics.

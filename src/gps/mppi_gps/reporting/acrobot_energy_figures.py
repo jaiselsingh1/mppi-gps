@@ -241,7 +241,6 @@ def _dashboard(groups: list[list[SavedTrial]], out: Path, budget: _Budget) -> No
             f"{_title(trials)}\nFinal-two-second height successes: {successes}/{len(trials)}",
             fontsize=9,
         )
-        axes[0, column].legend(fontsize=5.5, loc="lower right")
         axes[1, column].axhline(58.86, color="#27384e", ls=":", lw=0.8)
         axes[2, column].set_ylim(-0.03, 1.03)
         axes[3, column].set_ylim(-1.05, 1.05)
@@ -264,7 +263,19 @@ def _dashboard(groups: list[list[SavedTrial]], out: Path, budget: _Budget) -> No
         ha="center",
         fontsize=7,
     )
-    figure.tight_layout(rect=(0, 0.025, 1, 0.96))
+    figure.tight_layout(rect=(0, 0.025, 1, 0.875))
+    for column in range(4):
+        handles, labels = axes[0, column].get_legend_handles_labels()
+        position = axes[0, column].get_position()
+        figure.legend(
+            handles,
+            labels,
+            fontsize=6,
+            frameon=False,
+            loc="upper left",
+            bbox_to_anchor=(position.x0, 0.945),
+            bbox_transform=figure.transFigure,
+        )
     for name, kwargs in (("probe_dashboard.png", {"dpi": 110}), ("probe_dashboard.pdf", {})):
         stream = io.BytesIO()
         figure.savefig(stream, format=name.rsplit(".", 1)[1], **kwargs)

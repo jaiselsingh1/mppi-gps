@@ -1,0 +1,194 @@
+{
+  "schema": "acrobot-energy-probe-complete-accounting-v1",
+  "scope": "Both probes, prerequisite, interrupted attempt and completion, saved review, rendering and supporting work",
+  "canonical_complete_episodes": 10,
+  "canonical_executed_controls": 5600,
+  "paid_episode_attempts": 11,
+  "paid_work": {
+    "native_controls_attempted": 6029,
+    "native_controls_completed": 6029,
+    "verification_controls_attempted": 108,
+    "verification_controls_completed": 108,
+    "forecast_controls_attempted": 771788800,
+    "forecast_controls_completed": 771788800,
+    "model_queries_attempted": 6052,
+    "model_queries_completed": 6052,
+    "physics_substeps_attempted": 1543589874,
+    "physics_substeps_completed": 1543589874,
+    "restores_attempted": 4,
+    "restores_completed": 4,
+    "resets": 23,
+    "forwards": 62,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "unknown_partial_physics": 0,
+  "incomplete_diagnostic_banks_preserved": 1,
+  "repeated_partial_work": {
+    "native_controls": 429,
+    "model_queries": 432,
+    "forecast_controls": 16588800,
+    "physics_substeps": 33178458
+  },
+  "original_physics_limit": 1510411416,
+  "amended_physics_limit": 1543589874,
+  "original_stop_preserved": true,
+  "source_commits": {
+    "worker": "05fe64d62f1a5b31c9b4d110067c81404f6f7b66",
+    "completion": "adf1cfcf0fc0a27676fb6d984ad07397fb8546d7",
+    "initial_reviewer": "8058ab701074ad5e8241b71e9753052d2fd9af78",
+    "corrected_reviewer": "0f748a6c18bb5074d3c5317aa6b90b0444bb3e28"
+  },
+  "worker_process_resources": {
+    "near-upright": {
+      "user_cpu_seconds": 558.73,
+      "system_cpu_seconds": 1.28,
+      "maximum_rss_bytes": 216096768,
+      "total_cpu_seconds": 560.01
+    },
+    "completion": {
+      "user_cpu_seconds": 442.2,
+      "system_cpu_seconds": 1.45,
+      "maximum_rss_bytes": 217288704,
+      "total_cpu_seconds": 443.65
+    },
+    "energy": {
+      "user_cpu_seconds": 7141.18,
+      "system_cpu_seconds": 18.95,
+      "maximum_rss_bytes": 352796672,
+      "total_cpu_seconds": 7160.13
+    }
+  },
+  "worker_cpu_seconds_external": 8163.79,
+  "conservative_support_charges_seconds": {
+    "prerequisites_and_pure_tests": 120,
+    "saved_review_and_figures": 180,
+    "engineering_transfers_and_publication": 60
+  },
+  "conservative_total_cpu_seconds": 8523.79,
+  "frozen_total_cpu_limit_seconds": 11160,
+  "frozen_total_output_limit_bytes": 2147483648,
+  "native_running_resources": {
+    "preflight": {
+      "cpu_seconds": 0.274218682,
+      "wall_seconds": 0.3157953969985101,
+      "rss_bytes": 154861568,
+      "output_bytes": 82543
+    },
+    "near-upright": {
+      "cpu_seconds": 559.860394085,
+      "wall_seconds": 300.5236685210002,
+      "rss_bytes": 216096768,
+      "output_bytes": 133955405
+    },
+    "near-upright-completion": {
+      "cpu_seconds": 443.312562201,
+      "wall_seconds": 239.05290720800258,
+      "rss_bytes": 217288704,
+      "output_bytes": 93696841
+    },
+    "energy": {
+      "cpu_seconds": 7159.960024864,
+      "wall_seconds": 2070.067576162999,
+      "rss_bytes": 352796672,
+      "output_bytes": 640019897
+    }
+  },
+  "native_energy_api_calls": {
+    "energy_pos": 32,
+    "energy_vel": 32,
+    "forward_validation": 33
+  },
+  "claim": "No inference, gradients, fitting or policy-loop iterations; height outcomes only. Unknown unretained candidate physics is not certified by saved-array checks.",
+  "saved_review_attempts": {
+    "1": {
+      "exit": {
+        "exit_code": 2,
+        "finished_utc": "2026-11-05T06:42:17.749104+00:00",
+        "wall_seconds": 3.419279915979132,
+        "user_cpu_seconds": 2.999899,
+        "system_cpu_seconds": 0.308315,
+        "reviewer_unchanged": true
+      },
+      "total_child_cpu_seconds": 3.308214,
+      "reviewer_own_cpu_is_nested": true,
+      "full_audit_sha256": "65290d13f04f97a8173bfc78660715e38f7422500fd2225cafd45f8792e2d4fd"
+    },
+    "2": {
+      "exit": {
+        "exit_code": 0,
+        "finished_utc": "2026-11-05T06:45:59.323698+00:00",
+        "wall_seconds": 21.99309641699074,
+        "user_cpu_seconds": 20.505943,
+        "system_cpu_seconds": 1.114955,
+        "reviewer_unchanged": true
+      },
+      "total_child_cpu_seconds": 21.620897999999997,
+      "reviewer_own_cpu_is_nested": true,
+      "full_audit_sha256": "fafda099d12830e4ec3acca5a8c702307b58d6ce880e64b021e36865720eedc3"
+    }
+  },
+  "saved_rendering": {
+    "original": {
+      "returncode": 0,
+      "error": null,
+      "child_cpu_seconds": 10.633198,
+      "controller_cpu_seconds": 0.033051,
+      "wall_seconds": 11.335892874980345,
+      "attempt": 1,
+      "automatic_retry": false,
+      "new_physics_controls": 0,
+      "new_network_forwards": 0,
+      "new_optimizer_updates": 0,
+      "total_cpu_seconds": 10.666249
+    },
+    "format_only_v2": {
+      "returncode": 0,
+      "error": null,
+      "child_cpu_seconds": 1.085423,
+      "controller_cpu_seconds": 0.027929999999999996,
+      "wall_seconds": 1.228384374990128,
+      "attempt": 1,
+      "automatic_retry": false,
+      "new_physics_controls": 0,
+      "new_network_forwards": 0,
+      "new_optimizer_updates": 0,
+      "prior_artifacts_unchanged": true,
+      "total_cpu_seconds": 1.113353
+    }
+  },
+  "native_worker_max_wall_seconds": 2070.22,
+  "transfer": {
+    "energy": {
+      "status": "COPIED_CLOSED_OUTPUT",
+      "compressed_stream_bytes": 471405446,
+      "compressed_stream_sha256": "1d09e3200aeab56fc5d1e21a4f3074454c19a06b4750e2f49737e41eb0ad49f0",
+      "compressed_archive_retained": false,
+      "local_cpu_seconds": 1.378752,
+      "child_cpu_seconds": 1.35445,
+      "wall_seconds": 33.959988499991596,
+      "new_physics_controls": 0
+    },
+    "energy_remote_compression_cpu_seconds": 16.43,
+    "other_streams": "Original near-upright/completion/source transfers preserved; small unmeasured engineering operations charged inside60-second reserve."
+  },
+  "audit_result": {
+    "status": "PASSED",
+    "checks": 667386,
+    "scientific_decision": "TEACHER_PROBLEM_STOP",
+    "first_failed_audit_preserved": true,
+    "maximum_running_cost_error": 1.4210854715202004e-14,
+    "maximum_error_in_predeclared_bound": 0.024804597339683803
+  },
+  "storage": {
+    "local_run_bytes_observed_before_final_publication": 921964000,
+    "remote_run_bytes_observed": 873533218,
+    "capsule_bytes_observed_before_accounting_and_seal": 2296918,
+    "initial_compressed_source_packet_bytes": 1275589,
+    "additional_publication_and_buffer_reservation_bytes": 8388608,
+    "third_raw_archive_retained": false,
+    "raw_evidence_mirrored": true,
+    "accounted_upper_bytes": 1807458333
+  }
+}

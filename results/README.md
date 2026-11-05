@@ -4,6 +4,7 @@ These small evidence capsules make the completed Walker studies and explicitly u
 
 | Study | Capsule | Outcome |
 |---|---|---|
+| Acrobot near-upright and energy-shaped discovery | [evidence and accounting](acrobot_energy_discovery_001/README.md) | 0/4 near-upright holds; three energy recipes each 0/2, no executed 3.8 m crossing. Saved review passed 667,386 checks; recording/checker failures retained. Teacher problem, no learning loop tested. |
 | Acrobot controller-loop teacher prerequisite | [evidence and accounting](acrobot_controller_teacher_001/README.md) | All 16 episodes completed; selected MPPI balanced from 0/10 fresh starts, maximum sampled height 2.107 m against 3.8 m required. Saved review passed; no learning or alternating loop ran. |
 | Same-actor coupling calibration and four-state controller check | [evidence and accounting](coupling_calibration_t1_t0_001/README.md) | Saved-bank target .3 selected alpha31.7349; all16 native conditions completed. Effective action changes but one paired teacher fall; no fitting/T3 or L3 audit closure. |
 | Eight-round local MPPI–policy loop | [completed result](local_coupling_multiround_l3_1_001/completion_001/README.md) | All eight rounds completed; final walking 0/192 and coupled survival 2/96. Final audit failed; original failures and exact curves preserved. Alpha zero is static refitting. |

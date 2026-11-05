@@ -1,0 +1,96 @@
+{
+  "status": "PASSED",
+  "commands": [
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_acrobot_controller_task.py",
+        "tests/test_acrobot_teacher.py",
+        "tests/test_acrobot_teacher_report.py",
+        "tests/test_acrobot_energy.py",
+        "tests/test_acrobot_energy_probe.py",
+        "tests/test_acrobot_energy_report.py",
+        "tests/test_research_cli.py",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_model_geometry_and_control_contract",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_reset_seed_is_private_and_state_restore_exact",
+        "--deselect=tests/test_acrobot_controller_task.py::test_native_sequential_and_batch_post_costs_agree",
+        "tests/test_acrobot_energy_completion.py",
+        "tests/test_preserved_capsule_schema.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/check_repository.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "inspect",
+        "--run",
+        "results/acrobot_energy_discovery_001",
+        "--verify"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "scripts/train_mppi_gps.py",
+        "study",
+        "acrobot-energy-report",
+        "--help"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/python",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "--help"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "check",
+        "src/gps/mppi_gps/reporting/acrobot_energy_probe.py",
+        "src/gps/mppi_gps/reporting/acrobot_energy_figures.py",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "tests/test_acrobot_energy_report.py",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/Users/jaisel/Documents/mppi-gps/.venv/bin/ruff",
+        "format",
+        "--check",
+        "src/gps/mppi_gps/reporting/acrobot_energy_probe.py",
+        "src/gps/mppi_gps/reporting/acrobot_energy_figures.py",
+        "src/gps/mppi_gps/acrobot_energy_completion.py",
+        "tests/test_acrobot_energy_report.py",
+        "tests/test_acrobot_energy_completion.py"
+      ],
+      "returncode": 0
+    }
+  ],
+  "cpu_seconds": 2.181747,
+  "wall_seconds": 2.7654112089658156,
+  "export": "/private/tmp/acrobot-clean-export-2026-11-05-001",
+  "tracked_files": 9196,
+  "ignored_raw_directories_present": false,
+  "export_storage_method": "Hard links to tracked payloads; no third raw copy or duplicate payload allocation",
+  "new_physics_controls": 0,
+  "new_fitting_updates": 0,
+  "capsule_manifest_sha256": "02ffa92258f13e01dbd82e04c6da5fe1593dfdd39cc71f6dcea5c3cce824d938"
+}

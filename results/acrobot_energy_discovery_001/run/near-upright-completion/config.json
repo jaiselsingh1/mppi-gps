@@ -1,0 +1,506 @@
+{
+  "protocol": "acrobot-energy-discovery-probe",
+  "version": "1.1",
+  "task": {
+    "frame_skip": 2,
+    "dt": 0.02,
+    "reset_std": 0.05,
+    "balance_height": 3.8,
+    "balance_seconds": 2.0
+  },
+  "math_threads": 1,
+  "parts": {
+    "near-upright": {
+      "threads": 2,
+      "controls": 500,
+      "starts": [
+        {
+          "reset_seed": 3022000000,
+          "planner_seed": 3022010000,
+          "initial_state": [
+            0.0,
+            0.062143394476914096,
+            0.09584055023906225,
+            0.03851238629141512,
+            -0.017933166139770525
+          ]
+        },
+        {
+          "reset_seed": 3022000001,
+          "planner_seed": 3022010001,
+          "initial_state": [
+            0.0,
+            -0.004636631530719969,
+            -0.02561005188824252,
+            0.0003560468250879351,
+            0.01828223345584171
+          ]
+        },
+        {
+          "reset_seed": 3022000002,
+          "planner_seed": 3022010002,
+          "initial_state": [
+            0.0,
+            -0.08544375933069705,
+            0.04866972206303771,
+            0.01177305504521027,
+            -0.04280017611270967
+          ]
+        },
+        {
+          "reset_seed": 3022000003,
+          "planner_seed": 3022010003,
+          "initial_state": [
+            0.0,
+            0.06403037597239514,
+            -0.07338293126629013,
+            0.05958441395590334,
+            -0.049032420637468446
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "name": "dense_prior_controller",
+          "kind": "dense",
+          "planner": {
+            "K": 256,
+            "lam": 3.0,
+            "noise_sigma": 0.6,
+            "use_is_correction": false,
+            "initial_iterations": 3,
+            "H": 150
+          }
+        }
+      ],
+      "limits": {
+        "cpu_seconds": 1200,
+        "wall_seconds": 1800,
+        "output_bytes": 134217728,
+        "rss_bytes": 4294967296,
+        "native_controls": 2000,
+        "forecast_controls": 77107200,
+        "physics_substeps": 154218400
+      }
+    },
+    "energy": {
+      "threads": 4,
+      "controls": 600,
+      "starts": [
+        {
+          "reset_seed": 3022000100,
+          "planner_seed": 3022010100,
+          "initial_state": [
+            0.0,
+            3.2257948695764043,
+            -0.09251443475083108,
+            0.02172122998889181,
+            -0.04503542171923169
+          ]
+        },
+        {
+          "reset_seed": 3022000101,
+          "planner_seed": 3022010101,
+          "initial_state": [
+            0.0,
+            3.141382926292449,
+            0.0516627017317627,
+            -0.026715386927412984,
+            -0.12418384212385553
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "name": "energy_matched_6s",
+          "kind": "energy",
+          "energy_weight": 17.77777777777778,
+          "planner": {
+            "K": 512,
+            "lam": 0.15,
+            "noise_sigma": 0.18553280373949055,
+            "use_is_correction": false,
+            "initial_iterations": 3,
+            "H": 300
+          }
+        },
+        {
+          "name": "energy_matched_8s",
+          "kind": "energy",
+          "energy_weight": 17.77777777777778,
+          "planner": {
+            "K": 512,
+            "lam": 0.15,
+            "noise_sigma": 0.18553280373949055,
+            "use_is_correction": false,
+            "initial_iterations": 3,
+            "H": 400
+          }
+        },
+        {
+          "name": "energy_double_8s",
+          "kind": "energy",
+          "energy_weight": 35.55555555555556,
+          "planner": {
+            "K": 512,
+            "lam": 0.15,
+            "noise_sigma": 0.18553280373949055,
+            "use_is_correction": false,
+            "initial_iterations": 3,
+            "H": 400
+          }
+        }
+      ],
+      "limits": {
+        "cpu_seconds": 9600,
+        "wall_seconds": 5400,
+        "output_bytes": 671088640,
+        "rss_bytes": 4294967296,
+        "native_controls": 3600,
+        "forecast_controls": 678092800,
+        "physics_substeps": 1356192800
+      }
+    }
+  },
+  "preflight": {
+    "seed": 3022000999,
+    "controls": 12,
+    "atol": 1e-10,
+    "threads": 2,
+    "energy_validation_seed": 3022001999,
+    "energy_validation_random_states": 28,
+    "profiles": [
+      {
+        "name": "dense",
+        "kind": "dense",
+        "threads": 2
+      },
+      {
+        "name": "energy_matched",
+        "kind": "energy",
+        "energy_weight": 17.77777777777778,
+        "threads": 4
+      },
+      {
+        "name": "energy_double",
+        "kind": "energy",
+        "energy_weight": 35.55555555555556,
+        "threads": 4
+      }
+    ],
+    "limits": {
+      "cpu_seconds": 120,
+      "wall_seconds": 600,
+      "output_bytes": 16777216,
+      "rss_bytes": 4294967296,
+      "native_controls": 108,
+      "forecast_controls": 1,
+      "physics_substeps": 216
+    },
+    "energy_validation_states": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        3.141592653589793,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        3.141592653589793,
+        3.141592653589793,
+        0.0,
+        13.055981915131353
+      ],
+      [
+        0.0,
+        0.6,
+        -1.2,
+        0.3,
+        -0.2
+      ],
+      [
+        0.0,
+        1.66420686819585,
+        -4.251744578539063,
+        10.63346744450178,
+        11.626244080798495
+      ],
+      [
+        0.0,
+        -4.0693595350269565,
+        -4.046183481029152,
+        -5.580554216947499,
+        7.482154142015144
+      ],
+      [
+        0.0,
+        0.110416917666892,
+        6.164061075712056,
+        4.660191472992661,
+        -8.786331291811978
+      ],
+      [
+        0.0,
+        4.531112747015994,
+        2.7199173590263674,
+        -1.5992702440537954,
+        -12.638022382538972
+      ],
+      [
+        0.0,
+        -2.2963048601242546,
+        -3.0454468601910256,
+        -11.541877946576882,
+        0.6943225805731901
+      ],
+      [
+        0.0,
+        4.777495778360116,
+        -3.6621235731284494,
+        14.061148783776137,
+        12.605759560350364
+      ],
+      [
+        0.0,
+        1.98487144271436,
+        -4.9719447049632945,
+        1.870197455713014,
+        -8.969736838642403
+      ],
+      [
+        0.0,
+        1.0106527574941875,
+        -1.7097278532262512,
+        4.183074982641848,
+        -4.619444003937011
+      ],
+      [
+        0.0,
+        4.44169366034325,
+        -2.527059407505198,
+        -3.646820292070138,
+        -6.107653701150274
+      ],
+      [
+        0.0,
+        2.4778490880609327,
+        4.76893912970452,
+        10.376459544963705,
+        -6.337008984037203
+      ],
+      [
+        0.0,
+        -0.8773259049694396,
+        1.1644342600567172,
+        5.175823981415421,
+        10.438921993925579
+      ],
+      [
+        0.0,
+        -2.0985124013387617,
+        1.7607867490768416,
+        3.0642838375194072,
+        14.873267979680184
+      ],
+      [
+        0.0,
+        -4.510062212851383,
+        4.216895790270604,
+        -12.372260190575627,
+        -12.119378238934605
+      ],
+      [
+        0.0,
+        -5.087570610819414,
+        -5.282508005225391,
+        -9.608053972515568,
+        14.44215553030439
+      ],
+      [
+        0.0,
+        -5.805186095679682,
+        0.9232379925146782,
+        0.708413771322064,
+        9.88027007983883
+      ],
+      [
+        0.0,
+        5.9826039512717415,
+        -3.3562897031036165,
+        -5.992551793682239,
+        14.687092813914525
+      ],
+      [
+        0.0,
+        -4.555626248388794,
+        -4.55597024579853,
+        -8.263240987979785,
+        -2.20180966729583
+      ],
+      [
+        0.0,
+        0.07607215915125923,
+        -2.40074432709665,
+        -14.35964760699233,
+        -10.319536333569902
+      ],
+      [
+        0.0,
+        -1.212007358614376,
+        5.826798795321672,
+        -10.395979931992326,
+        -8.522467650734548
+      ],
+      [
+        0.0,
+        5.6638233699711105,
+        -4.917706675893232,
+        11.440872749651383,
+        4.184118906677909
+      ],
+      [
+        0.0,
+        -0.6430835440126399,
+        -5.701983141547247,
+        -1.5046966470107859,
+        5.96327246427704
+      ],
+      [
+        0.0,
+        2.934875616092181,
+        -4.263742083325627,
+        -12.030430364773709,
+        -2.906718499638189
+      ],
+      [
+        0.0,
+        5.740287432425272,
+        -3.7525901461846973,
+        -2.8544673944748555,
+        -4.261121842624793
+      ],
+      [
+        0.0,
+        -2.2315689720036227,
+        2.6747980356641055,
+        14.23929340801799,
+        -6.704256946579225
+      ],
+      [
+        0.0,
+        -0.7416817429799379,
+        -0.3750065518476581,
+        12.841521230385911,
+        7.389141141237943
+      ],
+      [
+        0.0,
+        -4.895165949348789,
+        -1.824607258989,
+        -8.80326937769053,
+        7.922585289124326
+      ],
+      [
+        0.0,
+        -1.1054864395643496,
+        -5.979501997801679,
+        -9.471448577758197,
+        7.074855497132848
+      ],
+      [
+        0.0,
+        -0.11315180047580413,
+        1.7136118248921963,
+        11.576032724676523,
+        -9.064785836706498
+      ]
+    ]
+  },
+  "energy_cost": {
+    "energy_upright": 58.86,
+    "energy_hanging": 19.62,
+    "energy_scale": 39.24,
+    "energy_error": "signed squared normalized error",
+    "energy_gate": "1 - proximity_reward**2",
+    "pose": "1-clip(z/4,0,1)+0.05*x**2",
+    "proximity": {
+      "target_radius": 0.2,
+      "margin": 2.0,
+      "value_at_margin": 0.1
+    },
+    "balance_weight": 0.15,
+    "velocity_scale": [
+      2.5,
+      5.0
+    ],
+    "excess_weight": 0.05,
+    "excess_threshold": 8.0,
+    "control_weight": 0.0,
+    "terminal_pose_weight": 100.0,
+    "terminal_velocity_weight": 25.0
+  },
+  "diagnostics": {
+    "energy_match_normalized_error": 0.05,
+    "low_height": 3.0,
+    "saved_candidate_traces": [
+      "minimum_task_cost",
+      "maximum_height"
+    ],
+    "all_candidate_components": true
+  },
+  "kill_rule": "If no energy variant succeeds on both complete hanging-start episodes, stop and report a teacher problem; no learning loop result.",
+  "admission": "Two-of-two is exploratory only; original nine-of-ten fresh teacher qualification remains required before bank/loop.",
+  "expected_environment": {
+    "python": "3.11.16",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "mujoco": "3.6.0",
+    "h5py": "3.16.0"
+  },
+  "bindings": [
+    {
+      "path": "assets/acrobot.xml",
+      "sha256": "324c8a6bf3bfea0b7faf72395dd3ac7a75cc9c2047159d1f1cd212aeee203cbe"
+    },
+    {
+      "path": "assets/common/visual.xml",
+      "sha256": "1e338ca511de35b902c4ca944d857c23fe4e7a5aea46a475cdc317dd454245b0"
+    },
+    {
+      "path": "assets/common/materials.xml",
+      "sha256": "83ee4f7d3f0c9b3003ad121c2c35169a32a922c437321278f27db60d577ccfac"
+    },
+    {
+      "path": "assets/common/skybox.xml",
+      "sha256": "71db77c7c88dd4e1b54eb394deecfba673bbf539d110de68aa229dee00abf107"
+    }
+  ],
+  "shared_limits": {
+    "cpu_seconds": 11160,
+    "output_bytes": 2147483648,
+    "physics_substeps": 1510411416,
+    "network_forwards": 0,
+    "optimizer_updates": 0,
+    "audit_reporting_cpu_seconds": 180,
+    "engineering_publication_cpu_seconds": 60
+  },
+  "historical_reference": {
+    "commit": "d0f5e0ab2f60ab6f0d462f7da4207d9293314c72",
+    "manifest_sha256": "bdddeabbd52ed7d53963bedb5912a58e74198973ae27743afdec424cb2887928"
+  },
+  "selection_rule": "first energy variant in declared roster with both successes; no cross-objective cost selection",
+  "numerics": {
+    "replay_rtol": 0.0,
+    "replay_atol": 1e-10,
+    "cost_absolute_floor": 1e-10,
+    "cost_relative_fp64_ulps": 64
+  }
+}

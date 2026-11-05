@@ -2,6 +2,16 @@
 
 A clean checkout contains active source, tests, recipes, historical source archives, reports and exact evidence capsules, including interrupted studies and the separate C1 fault/recovery records. Raw arrays, checkpoints, ledgers, NPZ training inputs, videos and most full frozen run trees remain outside Git. K1.1 includes its entire new metadata-only run; K1.2 includes its new run except the compact raw archive and work journal. No historical evidence was deleted.
 
+The [Acrobot energy-probe capsule](../results/acrobot_energy_discovery_001/README.md)
+contains exact compact results for both probes, the original storage stop,
+completion, both audit versions and recorded-state figures. Full H5 arrays are
+mirrored at `runs/2026-11-05_acrobot_energy_discovery_001` in the research worktree
+and `/home/jaisel/mppi-gps-codex-acrobot/2026-11-05_energy_discovery_v1_1_001` on
+`robopil5090`. [Per-file locations, bytes and checksums](../results/acrobot_energy_discovery_001/external_evidence.json)
+distinguish worker evidence from local-only full audits and motion GIFs. A clean
+checkout can inspect compact hashes and read the report; rerunning the full saved
+audit requires the indexed raw arrays and original source, and repeats no physics.
+
 ## What a clean checkout can do
 
 The [capsule index](../results/README.md) links all study configurations, original source/input manifests, launch metadata, curves, figures, accounting and audit summaries. Completed studies retain their original result JSON. S1 instead retains its closed fit result and an explicitly derived interruption summary; its missing final worker result is not fabricated. Earlier fitting capsules have per-update learning curves; W1/W2/S1 publish source-bound 100-update bins and keep full per-update JSON external. K1, D1/D2 and K1.1 have diagnostic curves and no new learning. Every copied file has its source path, byte size and SHA-256 in `capsule.json`.

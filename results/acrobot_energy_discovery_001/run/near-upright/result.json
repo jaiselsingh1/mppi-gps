@@ -1,0 +1,140 @@
+{
+  "protocol": "acrobot-energy-discovery-probe",
+  "version": "1.1",
+  "part": "near-upright",
+  "status": "STOPPED_RESOURCES",
+  "trials": [
+    {
+      "stage": "near-upright",
+      "recipe_index": 0,
+      "recipe": "dense_prior_controller",
+      "trial_index": 0,
+      "reset_seed": 3022000000,
+      "planner_seed": 3022010000,
+      "controls": 500,
+      "success": false,
+      "task_cost": 1149.530936512714,
+      "native_running_cost_sum": 1149.530936512714,
+      "episode_terminal_cost": 0.0,
+      "original_dense_cost_sum": 1149.530936512714,
+      "maximum_tip_height": 3.9999283123901126,
+      "final_window_minimum_height": 0.041990126373198655,
+      "first_tip_above_threshold_seconds": 0.02,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 3.02,
+      "longest_height_interval_seconds": 0.66,
+      "final_window_velocity_rms": 6.188090028703303,
+      "terminal_angles_raw": [
+        0.21428408035743604,
+        -20.01337453442254
+      ],
+      "terminal_winding": [
+        0,
+        -3
+      ],
+      "terminal_potential": 56.473463888011224,
+      "terminal_kinetic": 2.2695319530872062,
+      "terminal_total_energy": 58.742995841098434,
+      "energy_matched_low_height_controls": 181,
+      "energy_matched_controls": 493,
+      "seconds_before_first_below_height": 0.28
+    },
+    {
+      "stage": "near-upright",
+      "recipe_index": 0,
+      "recipe": "dense_prior_controller",
+      "trial_index": 1,
+      "reset_seed": 3022000001,
+      "planner_seed": 3022010001,
+      "controls": 500,
+      "success": false,
+      "task_cost": 570.2395298847048,
+      "native_running_cost_sum": 570.2395298847048,
+      "episode_terminal_cost": 0.0,
+      "original_dense_cost_sum": 570.2395298847048,
+      "maximum_tip_height": 3.999996056359042,
+      "final_window_minimum_height": 2.000046058028959,
+      "first_tip_above_threshold_seconds": 0.02,
+      "first_complete_hold_start_seconds": null,
+      "time_balanced_seconds": 4.8,
+      "longest_height_interval_seconds": 1.28,
+      "final_window_velocity_rms": 2.8941836712010787,
+      "terminal_angles_raw": [
+        -0.0012320554684922497,
+        -12.809050023047085
+      ],
+      "terminal_winding": [
+        0,
+        -2
+      ],
+      "terminal_potential": 58.714804664428286,
+      "terminal_kinetic": 0.010642448024527802,
+      "terminal_total_energy": 58.72544711245281,
+      "energy_matched_low_height_controls": 121,
+      "energy_matched_controls": 500,
+      "seconds_before_first_below_height": 1.28
+    }
+  ],
+  "preflight_binding": {
+    "result_sha256": "f9ad6a2f5b84db23cd8f7905e42c70787f5b3e4c81350ececba13e1db6b40435",
+    "evidence_sha256": "a4ecdffc514dc0d8eeb3f1aed45d7c8ceaba3c31734e81bfe2d14c0d2c81613a",
+    "config_sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176",
+    "new_physics_repeated": 0
+  },
+  "error": "ResourceLimit: Frozen output_bytes budget exhausted: 134227501 >= 134217728.",
+  "work": {
+    "native_controls_attempted": 1429,
+    "native_controls_completed": 1429,
+    "verification_controls_attempted": 0,
+    "verification_controls_completed": 0,
+    "forecast_controls_attempted": 55142400,
+    "forecast_controls_completed": 55142400,
+    "model_queries_attempted": 1436,
+    "model_queries_completed": 1436,
+    "physics_substeps_attempted": 110287658,
+    "physics_substeps_completed": 110287658,
+    "restores_attempted": 0,
+    "restores_completed": 0,
+    "resets": 3,
+    "forwards": 3,
+    "network_forwards": 0,
+    "backward_calls": 0,
+    "optimizer_updates": 0
+  },
+  "unknown_partial_work": {
+    "native_controls": 0,
+    "verification_controls": 0,
+    "forecast_controls": 0,
+    "model_queries": 0,
+    "physics_substeps": 0,
+    "restores": 0
+  },
+  "evidence": {
+    "evidence.h5": {
+      "sha256": "964086110c008603f183082b7928ab6bc8d769424321afd6772418683009560a",
+      "bytes": 133937936
+    },
+    "config.json": {
+      "sha256": "d14cb4197ba06a19a1885ef786fd203a1bd560b7f67c05a56461d5f00c849176",
+      "bytes": 11794
+    },
+    "trials.jsonl": {
+      "sha256": "34c36544dc6c46cade36104f577c080b9c206d02bbe84a71a8b947beaf621e02",
+      "bytes": 1967
+    },
+    "environment.json": {
+      "sha256": "969353fce64294c9e5cfb9a09ec84e90403ef763e70c2ea89b43d98740217d41",
+      "bytes": 395
+    },
+    "inputs.json": {
+      "sha256": "95a633ba36edaadae6d16af8d653d643fe4da5356b71c6efc56894e840ebe91d",
+      "bytes": 3313
+    }
+  },
+  "resources": {
+    "cpu_seconds": 559.860394085,
+    "wall_seconds": 300.5236685210002,
+    "rss_bytes": 216096768,
+    "output_bytes": 133955405
+  }
+}

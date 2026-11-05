@@ -1,0 +1,30 @@
+{
+  "status": "FAILED_OR_INCOMPLETE",
+  "error": "ValueError: Original native source/runtime bindings unchanged: inputs.json",
+  "check_count": 269565,
+  "new_physics_controls": 0,
+  "new_network_forwards": 0,
+  "new_fitting_updates": 0,
+  "limitations": [
+    "Saved-array verification only; no physics or neural inference was repeated.",
+    "Two seeds per energy recipe are exploratory; they do not qualify a nine-of-ten teacher or a learning loop.",
+    "Height-based success is unchanged and is not a hidden velocity criterion.",
+    "All candidate scalar summaries are recorded, but only two complete candidate trajectories per bank are retained; unretained physics cannot be independently replayed.",
+    "Cross-host RNG hashes are reported separately from declared numerical update comparisons; no byte identity is inferred from a tolerance pass.",
+    "The near-upright diagnostic keeps the previous planner; energy recipes also change planner settings and duration, so this is not an isolated cost-only causal comparison."
+  ],
+  "maximum_numeric_error": 5.4569682106375694e-12,
+  "maximum_error_in_declared_bound": 0.024804597339683803,
+  "white_regeneration_cpu_seconds": 0.6825420000000029,
+  "white_regeneration_cpu_limit_seconds": 60,
+  "report_cpu_seconds": 3.20884,
+  "cost_roundoff_contract": "1e-10 + 64*eps64*max(1,abs(expected)); replay remains rtol0/atol1e-10",
+  "schema": "acrobot-energy-audit-summary-v1",
+  "complete": false,
+  "full_audit": {
+    "path": "/Users/jaisel/Documents/workbench/mppi-full-trajectory-pi/runs/2026-11-05_acrobot_energy_discovery_001/independent-audit-attempt-001/report/independent_audit.json",
+    "bytes": 12893773,
+    "sha256": "65290d13f04f97a8173bfc78660715e38f7422500fd2225cafd45f8792e2d4fd"
+  },
+  "note": "Incomplete first attempt; preserved, not certification. Full saved checks remain external."
+}
