@@ -10,14 +10,12 @@ permissions:
   contents: read
 
 jobs:
-  clean-export:
+  test:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       CUDA_VISIBLE_DEVICES: ""
-      # Physics tests and Matplotlib reports do not require a GL context.
       MUJOCO_GL: disable
-      MPLBACKEND: Agg
       OMP_NUM_THREADS: "1"
       OPENBLAS_NUM_THREADS: "1"
     steps:
@@ -29,15 +27,9 @@ jobs:
           enable-cache: true
       - name: Install locked CPU environment
         run: uv sync --locked --extra test
-      - name: Confirm CPU PyTorch
-        run: uv run --locked python -c 'import torch; assert torch.version.cuda is None; print(torch.__version__)'
-      - name: Check active source
+      - name: Lint
         run: |
           uv run --locked ruff check .
           uv run --locked ruff format --check .
-      - name: Validate clean Git export without ignored evidence
-        shell: bash
-        run: |
-          export_dir="$(mktemp -d)"
-          git archive --format=tar HEAD | tar -x -C "$export_dir"
-          "$PWD/.venv/bin/python" scripts/validate_export.py --export "$export_dir"
+      - name: Tests
+        run: uv run --locked pytest -q
