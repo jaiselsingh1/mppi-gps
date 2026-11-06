@@ -532,6 +532,64 @@ own walks); every seed was adopted (first at rounds 8-19; seed 1 refused twice
 and seed 4 once, each time for a fall from 1 of the 6 starts). Held-out
 mid-walk recovery is unchanged (13.5 of 51): the data is still one start-up
 into one cycle.
+
+Next, side by side, 6 seeds each, otherwise as the --adopt runs. (1) Recovery:
+--adopt plus --visit-every 2 (Kendall's "init new traj from states the policy
+visits"; the visited-state runs under the old accept rule were confounded by the
+lock-in). Reading fixed before the runs: "visited states teach recovery" if the
+mean held-out mid-walk recovery of the walking seeds at round 30 is at least
+twice --adopt's (>= 27 of 51) with "MPPI and the policy converge" still holding
+(6 of 6 walk, learner competent in >= 5, mean gap <= 0.0128). (2) Necessity:
+--adopt without --mix. Reading fixed before the runs: "--mix is still needed"
+if the learner is competent in at most 4 seeds or the mean gap is above twice
+--adopt's (0.0186); otherwise --adopt alone keeps the learner. Kill rule for
+both: stop an arm at round 15 if fewer than 4 of its seeds walk.
+
+Changed before those finished (the user, 2026-11-05: the method must not depend
+on a limit cycle; it is meant for systems like a humanoid). The cycle mode
+builds every walk as a transient into one locked attractor; that is general
+structure, but the method may not require it. The failure it prevented is
+general: targets that mix different behaviours (six MPPI walks with six gaits,
+or MPPI's gait and the policy's) walk with neither. --adopt removes it once the
+policy walks, in any mode; before then, something must make MPPI's walks
+consistent with each other and with what the policy can represent, which is
+the similarity score's job (with the cycle forcing one gait, the pull measured
+as adding nothing). --adopt now also works without --cycle (plain mode: the
+six trajectories become the deployed policy's own walks; checked in quick mode:
+adopted at rounds 4-6, the rounds after ran). The no --mix cycle arm was
+stopped to make room. Runs, plain mode (no --cycle, no shared start-up, 4
+nearby starts), --learner --mix --adopt --save-fit, seeds 1-3 each: --pull none
+and --pull carry-on. Readings fixed before the runs, per arm: "plain mode
+works" if at least 2 of 3 seeds walk from standing (>= 16 of 32 in >= 9 of
+rounds 21-30) with a competent learner (>= half the deployed score in >= 8 of
+them); "the pull does what the cycle did" if carry-on has at least 2 walking
+seeds and no pull none. Kill rule: stop an arm at round 20 if none of its seeds
+has walked.
+
+The --visit-every arm (cycle mode) was stopped at round 14: 1 of 6 seeds walked
+(seed 5, 28 of 32, its learner falling 0.38 -> 0.13, so never adopted) against
+4-5 of 6 by the same round without visits, and its held-out recovery (19 of 51)
+was not doubled; the round-15 rule could no longer be met. Seeds that could not
+start walking still continued from 19-24 of 51 held-out mid-walk states: the
+visited states teach some recovery at the cost of starting. The plain arms at
+rounds 5-8: no seed walks, scores at the floor (0.090-0.097), but the gap
+before the fit falls every round in all six (0.155 -> 0.087 without pull by
+round 8, 0.155 -> 0.105 with carry-on by round 5), the convergence Kendall
+expects before walking; walking appeared in cycle mode at gaps of 0.01-0.03.
+Added kill rule, fixed now: stop a plain arm early if, before any of its seeds
+walks, its mean gap before the fit makes no new low for 3 rounds in a row.
+
+Plain readings (the runs went on to round 30: the round-20 rule was missed
+while the local watcher had lapsed): 0 of 3 seeds walked in either arm (best 6
+of 32, carry-on), scores 0.097-0.116, the policy alone stays up 1.3-2.5 s
+(median); the gap before the fit fell every round, 0.155 -> 0.036-0.045, while
+the spread between the six trajectories (mode_count's B) stayed flat for all 30
+rounds (-4% to +22%). "Plain mode works" and "the pull does what the cycle did"
+do not hold. The policy fit an unchanged spread of MPPI behaviours four times
+more closely and still fell: before the policy walks, something must make the
+trajectories agree on one core behaviour. Seeding from the untrained policy
+cannot (seed_repair_probe: 0 of 6 repaired in 64 iterations); per-step pulls do
+not; that is the similarity term's job, at the level of the core behaviour.
 """
 
 from __future__ import annotations
@@ -1589,11 +1647,15 @@ def walker_task(args, out):
             speed.append(x[:, 10])
         return float((alive & (np.mean(speed, 0) >= 0.5 * 1.5)).mean())
 
-    def own_cost(p, x, length):
-        """Task cost of the policy alone from states x for `length` controls (falling keeps costing)."""
+    def own_cost(p, x, length, noise=0.0, rng=None):
+        """Task cost of the policy alone from states x for `length` controls (falling keeps costing);
+        noise > 0 adds Gaussian noise of that sd to every executed action (draws from rng)."""
         seen, used = [], []
         for _ in range(length):
-            u = np.clip(p.predict(observation(x).astype(np.float32)).astype(np.float64), -1, 1)
+            u = p.predict(observation(x).astype(np.float32)).astype(np.float64)
+            if noise:
+                u = u + noise * rng.standard_normal(u.shape)
+            u = np.clip(u, -1, 1)
             x = step(env, x, u)
             seen.append(x)
             used.append(u)
@@ -1616,9 +1678,15 @@ def walker_task(args, out):
         accept_starts.append(env.get_state())
     accept_starts = np.array(accept_starts)
 
-    def task_score(p):
+    def task_score(p, noise=0.0, draws=2):
         """The policy's task score: MPPI's mean walk cost over the policy's own mean cost for 8 s
         from 32 fixed standing starts (the 6 training starts and 26 draws), at most 1."""
+        if noise:  # the same fixed draws for every policy, so two policies compare paired
+            cost = np.mean([
+                own_cost(p, accept_starts.copy(), 1000, noise, np.random.default_rng(1000 + d)).mean()
+                for d in range(draws)
+            ])  # fmt: skip
+            return float(min(1.0, np.mean(c0) / cost))
         return float(min(1.0, np.mean(c0) / own_cost(p, accept_starts.copy(), 1000).mean()))
 
     def mppi_from(x0, length, seed):
@@ -1824,8 +1892,8 @@ def main() -> int:
         parser.error("--learner modifies --accept-if-better")
     if args.mix and not args.learner:
         parser.error("--mix modifies --learner")
-    if args.adopt and not (args.learner and args.cycle):
-        parser.error("--adopt needs --learner and --cycle")
+    if args.adopt and not args.learner:
+        parser.error("--adopt needs --learner")
     gate = (score if args.score else competence) if args.gate else None
     PULL["kind"] = args.pull
     SEED["s"] = args.seed
@@ -2161,11 +2229,17 @@ def main() -> int:
             ),
         )
         if args.adopt and accepted_policy and deployed_score >= 1.0 / args.budget:
-            # MPPI adopts the new deployed policy's gait: its own walks replace MPPI's, and the
-            # cycle, continuations and carrier are rebuilt from them as at the start
+            # MPPI adopts the new deployed policy's gait: its own walks replace MPPI's (with
+            # --cycle the cycle, continuations and carrier are rebuilt from them as at the start)
             got = own_walks(env, spec, deployed, starts, len(current[0][0]), budgets)
-            built = build_cycle(got, cycle_scale) if isinstance(got, list) else got
-            if isinstance(built, tuple):
+            built = got
+            if args.cycle and isinstance(got, list):
+                built = build_cycle(got, cycle_scale)
+            if not args.cycle and isinstance(got, list):  # plain: the six walks are replaced
+                current = got
+                alphas[:] = [None] * len(alphas)
+                adopted = dict(round=r, adopted=True)
+            elif isinstance(built, tuple):
                 current = got
                 cycle, transients, source = built
                 cycle_budget = args.budget * mppi_per_control * len(cycle["u"])

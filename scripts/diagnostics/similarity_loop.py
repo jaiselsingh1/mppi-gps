@@ -244,6 +244,34 @@ TAKEOVERS = tuple(range(100, 901, 50))
 COPIES = 8
 CHUNK = 32
 TOWARD_SHARE = 0.5
+ADAPT_BOUNDS = (1e-3, 1.0)  # noise size limits with adapt
+
+
+def knot_basis(length, knots):
+    """(length, knots) linear interpolation weights from evenly spaced knots to every control."""
+    positions = np.linspace(0.0, length - 1, knots)
+    spacing = positions[1] - positions[0] if knots > 1 else float(length)
+    t = np.arange(length)[:, None]
+    return np.maximum(0.0, 1.0 - np.abs(t - positions[None]) / spacing)
+
+
+def windowed_search(
+    env, start, xbar, ubar, scale, policy, alpha, budget, width, shift, per_window, seed, **kwargs
+):
+    """Sweep search's window along the trajectory from the start (MPPI's receding structure, but
+    producing a whole trajectory): windows [t, t + width) for t = 0, shift, 2 shift, ..., each
+    searched for per_window iterations from the trajectory the previous windows left. xbar: the
+    states before each control of ubar (as for search). kwargs go to search. Returns the controls,
+    the states and the joined logs."""
+    controls, logs, length = ubar.copy(), [], len(ubar)
+    for j, t0 in enumerate(range(0, length, shift)):
+        controls, states, _, _, log = search(
+            env, start, xbar, controls, scale, policy, alpha, budget, per_window,
+            seed + 7919 * j, window=(t0, min(t0 + width, length)), **kwargs,
+        )  # fmt: skip
+        xbar = np.concatenate([start[None], states[:-1]])
+        logs += log
+    return controls, states, logs
 
 
 def pre_states(start, states):
@@ -308,6 +336,12 @@ def search(
     extra_length=250,
     extra_tube=1.0,
     similarity=None,
+    repair=False,
+    adapt=None,
+    noise_start=None,
+    feedback_scale=1.0,
+    knots=None,
+    window=None,
 ):
     """Returns the final controls, states, their LQR gains (with eps), the start's task cost and a log.
 
@@ -317,7 +351,28 @@ def search(
     stabilizer(x_bar, u_bar) -> K replaces the LQR feedback around each nominal when given.
     extra_starts (M, nstate): a sample is admissible only if its controller, run from each of
     these for extra_length controls, stays healthy and ends within extra_tube sd (observed
-    coordinates) of where it is from start; a robust candidate replaces a fragile nominal."""
+    coordinates) of where it is from start; a robust candidate replaces a fragile nominal.
+
+    repair: while the nominal does not do the task within budget (a policy rollout that falls),
+    every sample weighs in and any candidate that lowers the cost is taken (falling keeps costing,
+    so lasting longer is lower cost); once a taken candidate does the task within budget, the usual
+    rules apply (Kendall, 2026-11-05: seeding the whole-trajectory search with the policy "should
+    work, even if the policy isn't trained", the improvement working hard to fix the seed).
+
+    adapt: target share of samples that beat the current trajectory (e.g. 0.2). Instead of the
+    fixed NOISE_START -> NOISE_END schedule the noise size starts at noise_start (default
+    NOISE_START) and after each iteration is multiplied by exp((share - adapt) / (1 - adapt)),
+    within ADAPT_BOUNDS: grown when many samples improve (the noise is too small to tell good from
+    bad), shrunk when few do (Rechenberg's 1/5 success rule; Kendall, 2026-11-05: keep "some good
+    some bad" among the sample scores for the path integral math).
+    feedback_scale: the LQR feedback toward the nominal is scaled by this while sampling (1: as
+    before), so exploration is not cancelled; the returned trajectory and gains are unchanged.
+    knots: each sample perturbs this many evenly spaced knots (per control dimension, standard
+    normal times the noise size), linearly interpolated over the whole trajectory, instead of the
+    sampler's per-step noise (low-passed over ~5 controls): coordinated changes over long stretches
+    with far fewer numbers to search (as MuJoCo MPC's predictive sampling perturbs spline knots).
+    window: (t0, t1): the noise is zero outside controls t0..t1-1, so an iteration searches that
+    stretch only (windowed_search sweeps it along the trajectory)."""
     sampler = MPPI(
         env,
         MPPIConfig(**dict(json.loads(CONFIG.read_text()), H=len(ubar), K=SAMPLES, noise_sigma=1.0)),
@@ -366,14 +421,28 @@ def search(
     start_task = float(task.sum())
     current = float(task.sum() + sim.sum())
     current_robust = bool(robust(controls[None], states[None])[0])
+    feasible = bool(ok[0])  # the nominal does the task within budget
     stale, stall, log = False, 0, []
+    sd_adapt = NOISE_START if noise_start is None else noise_start
     for k in range(iterations):
-        sd = NOISE_START * (NOISE_END / NOISE_START) ** (k / max(iterations - 1, 1))
+        if adapt is None:
+            sd = NOISE_START * (NOISE_END / NOISE_START) ** (k / max(iterations - 1, 1))
+        else:
+            sd = sd_adapt
         if stale:
             xbar = np.concatenate([start[None], states[:-1]])
             K = gains(xbar, controls)
             stale = False
-        noise = sampler._sample_noise() * sd
+        if knots is None:
+            noise = sampler._sample_noise() * sd
+        else:
+            z = np.random.default_rng([seed, k, 11]).standard_normal(
+                (SAMPLES, knots, ubar.shape[1])
+            )
+            noise = np.einsum("tj,kja->kta", knot_basis(len(ubar), knots), z) * sd
+        if window is not None:
+            noise[:, : window[0]] = 0.0
+            noise[:, window[1] :] = 0.0
         noise[0] = 0.0
         beta = np.zeros(SAMPLES)
         if toward:
@@ -382,11 +451,21 @@ def search(
             direction = policy.predict(spec.observation(xbar).astype(np.float32)) - controls
             noise = noise + beta[:, None, None] * direction[None]
         ff = np.clip(controls[None] + noise, -1.0, 1.0)
-        s, c = closed_loop(env, start, xbar, controls, K, scale, ff)
+        K_sample = K if feedback_scale == 1.0 else K * feedback_scale
+        s, c = closed_loop(env, start, xbar, controls, K_sample, scale, ff)
         task, sim, ok = objective(s, c)
+        if adapt is not None:  # share of samples better than the current trajectory
+            better = (task + sim).sum(1)[1:] < current
+            if not (repair and not feasible):
+                better &= ok[1:]
+            share = float(better.mean())
+            sd_adapt = float(np.clip(sd * np.exp((share - adapt) / (1.0 - adapt)), *ADAPT_BOUNDS))
         main_ok = ok.copy()
-        if extra_starts is not None:
+        repairing = repair and not feasible
+        if extra_starts is not None and not repairing:
             ok &= robust(ff, s)
+        if repairing:
+            ok = np.ones_like(ok)
         if not ok.any():
             stall += 1
             log.append(
@@ -405,23 +484,29 @@ def search(
         mean_ff = np.clip(controls + np.einsum("kt,kta->ta", w, ff - controls[None]), -1.0, 1.0)
         ms, mc = closed_loop(env, start, xbar, controls, K, scale, mean_ff[None])
         m_task, m_sim, m_ok = objective(ms, mc)
-        if extra_starts is not None and m_ok[0]:
+        m_feasible = bool(m_ok[0])
+        if extra_starts is not None and m_ok[0] and not repairing:
             m_ok &= robust(mean_ff[None], ms)
+        if repairing:
+            m_ok = np.ones_like(m_ok)
         candidates = []
         if m_ok[0]:
             effective = float(np.einsum("kt,k->t", w, beta).mean())
-            candidates.append((float(m_task.sum() + m_sim.sum()), ms[0], mc[0], effective))
+            candidates.append(
+                (float(m_task.sum() + m_sim.sum()), ms[0], mc[0], effective, m_feasible)
+            )
         totals = np.where(ok, cost.sum(1), np.inf)
         totals[0] = np.inf
         if np.isfinite(totals).any():
             b = int(np.argmin(totals))
-            candidates.append((float(totals[b]), s[b], c[b], float(beta[b])))
+            candidates.append((float(totals[b]), s[b], c[b], float(beta[b]), bool(main_ok[b])))
         best = min(candidates, key=lambda x: x[0]) if candidates else None
         taken = None
         if best is not None and (best[0] < current or not current_robust):
             gain = (current - best[0]) / max(abs(current), 1e-9) if current_robust else 1.0
             current, states, controls = best[0], best[1].copy(), best[2].copy()
             current_robust = True
+            feasible = feasible or best[4]
             taken = best[3]
             stale = True
             stall = 0 if gain >= MIN_GAIN else stall + 1
@@ -435,6 +520,9 @@ def search(
                 beta_taken=taken,
                 robust_share=float(ok[main_ok].mean()) if main_ok.any() else 0.0,
                 robust_nominal=current_robust,
+                feasible=feasible,
+                sd=sd,
+                share_better=share if adapt is not None else None,
             )
         )
         if stall >= PATIENCE:

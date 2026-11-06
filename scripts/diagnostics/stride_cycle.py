@@ -38,16 +38,19 @@ MIN_STRIDES = 5
 
 
 class Section:
-    def __init__(self, walks):
-        """walks: list of (T, 19) walking state arrays (the bank) that fix level, speed and scale."""
+    def __init__(self, walks, thigh=THIGH, thigh_vel=THIGH_VEL):
+        """walks: list of (T, n) walking state arrays (the bank) that fix level, speed and scale;
+        thigh, thigh_vel: state indices of the leg joint the section watches (Walker's right thigh
+        by default; Hopper's thigh is 4 and 10)."""
+        self.thigh, self.thigh_vel = thigh, thigh_vel
         pooled = np.concatenate([w[SKIP:] for w in walks])
         self.sd = np.concatenate(walks)[:, 2:].std(0) + 1e-6
-        self.level = float(np.median(pooled[:, THIGH]))
-        self.vmin = 0.5 * float(np.percentile(pooled[:, THIGH_VEL], 90))
+        self.level = float(np.median(pooled[:, thigh]))
+        self.vmin = 0.5 * float(np.percentile(pooled[:, thigh_vel], 90))
 
     def points(self, traj):
         """Section states and crossing times (controls) along one run."""
-        a, v = traj[:, THIGH], traj[:, THIGH_VEL]
+        a, v = traj[:, self.thigh], traj[:, self.thigh_vel]
         out, times, last = [], [], -(10**9)
         for t in range(SKIP, len(traj) - 1):
             if a[t] < self.level <= a[t + 1] and v[t] > self.vmin and t - last >= GAP:
