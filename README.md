@@ -7,8 +7,9 @@ the task the reference is mostly one shared walk, so MPPI's many valid solutions
 learnable family; as the policy improves the reference shifts to the states the policy itself
 reaches. Nothing from the policy seeds or samples MPPI's plans.
 
-This branch holds only the method, its baseline and the probes behind the current findings. The
-full research history (diagnostics, earlier loops, results) is on `sac-continuation` and `main`.
+This repository holds only the method, its baseline and the probes behind the current findings.
+The full research history (diagnostics, earlier loops, results) is kept at the git tags
+`archive/sac-continuation` and `archive/main-20261107`.
 
 ## How a round works
 
