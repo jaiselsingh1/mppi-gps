@@ -27,6 +27,8 @@ include = ["src*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# The tests import the checkout's `src` package; make it importable under the pytest entry point.
+pythonpath = ["."]
 
 # Keep the scientific environment locked while CI installs the Linux CPU wheel.
 [dependency-groups]
