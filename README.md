@@ -8,8 +8,8 @@ learnable family; as the policy improves the reference shifts to the states the 
 reaches. Nothing from the policy seeds or samples MPPI's plans.
 
 This repository holds only the method, its baseline and the probes behind the current findings.
-The full research history (diagnostics, earlier loops, results) is kept at the git tags
-`archive/sac-continuation` and `archive/main-20261107`.
+Earlier experiments and their results are logged in [history/](history/README.md); their code is
+kept at `archive/*` git tags.
 
 ## How a round works
 
