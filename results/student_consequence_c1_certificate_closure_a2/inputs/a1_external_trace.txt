@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "<stdin>", line 12, in <module>
-  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/proposal_launch.py", line 83, in bounded_process
-    observed_rss = max(observed_rss, _rss_bytes(process.pid))
-                                     ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jaisel/mppi-gps-workspace/runs/2026-11-02_c1_audit_recovery_001/source/src/gps/mppi_gps/proposal_launch.py", line 39, in _rss_bytes
-    raise RuntimeError("Pinned Linux worker RSS could not be measured")
-RuntimeError: Pinned Linux worker RSS could not be measured

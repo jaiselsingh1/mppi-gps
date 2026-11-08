@@ -32,11 +32,12 @@ class Walker2d(MuJoCoEnv):
         ctrl_cost_weight: float = 1e-3,
         terminal_unhealthy_weight: float = 20.0,
         apply_terminal_cost_on_done: bool = True,
+        model_path: str = _XML,
         **kwargs,
     ):
         if not np.isfinite(vertical_velocity_cost_weight) or vertical_velocity_cost_weight < 0:
             raise ValueError("vertical_velocity_cost_weight must be finite and nonnegative.")
-        super().__init__(model_path=_XML, frame_skip=frame_skip, **kwargs)
+        super().__init__(model_path=model_path, frame_skip=frame_skip, **kwargs)
         self._nq = self.model.nq  # 9
         self._nv = self.model.nv  # 9
         self._cost_style = cost_style
