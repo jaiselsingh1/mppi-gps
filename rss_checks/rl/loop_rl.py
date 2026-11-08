@@ -26,6 +26,8 @@ def main():
     ap.add_argument("--mppi_len", type=int, default=375)
     ap.add_argument("--buffer", type=int, default=20000)
     ap.add_argument("--no_critic", action="store_true", help="alpha forced to 0 (ablation)")
+    ap.add_argument("--pool", type=Path, default=None, help="fixed practice-start pool: states of MPPI runs from the task's starts; skips steps 2-4")
+    ap.add_argument("--self_pool", action="store_true", help="control: practice starts are the policy's own recorded states from the task's starts; skips steps 2-4")
     ap.add_argument("--small", action="store_true", help="plumbing only")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
@@ -126,6 +128,8 @@ def main():
 
     ck = a.out / "state.pkl"; log_f = a.out / "rounds.jsonl"
     S = pickle.load(open(ck, "rb")) if ck.exists() else dict(round=0, steps=0, wall=0.0, params=None, buffer=None, last_mppi=None)
+    if a.pool is not None and S["buffer"] is None:
+        S["buffer"] = np.load(a.pool)["x"]
     while S["round"] < a.rounds:
         k = S["round"]; t0 = time.perf_counter(); row = dict(round=k)
         if S["params"] is not None:
@@ -142,36 +146,39 @@ def main():
             row.update(walks=walks, survived=int(alive.sum()), median_s=float(np.median(lasted)) * 0.008,
                        critic_rank_own=float(spearmanr(V, G).statistic) if len(set(np.round(G, 6))) > 1 else None)
             P, rel = export_critic(S["params"], obs19(X)); row["critic_export_max_rel_err"] = rel
-            # 2. trust the critic on MPPI's states (measured policy continuations, 4 s)
-            alpha = 0.0
-            if S["last_mppi"] is not None and len(S["last_mppi"]):
-                L = S["last_mppi"]; idx = np.random.default_rng(10_000 + 100 * a.seed + k).choice(len(L), min(16, len(L)), replace=False)
-                Xc = L[idx]; Rc, _, ac, lc, _ = run_policy(act, Xc, 500)
-                Gc = [ret_from(Rc[i], 0, ac[i]) for i in range(len(Xc))]
-                Vc = np.asarray(vjit(S["params"], jnp.asarray(obs19(Xc).astype(np.float32)))).reshape(-1) / RS
-                trust = float(spearmanr(Vc, Gc).statistic) if len(set(np.round(Gc, 6))) > 1 else float("nan")
-                row.update(critic_rank_mppi_states=trust, mastered_share=float(ac.mean()))
-                if not a.no_critic and trust >= 0.5:
-                    alpha = s
-            row["alpha"] = alpha
-            # 3. explore: MPPI from recorded policy states
-            pick = np.random.default_rng(20_000 + 100 * a.seed + k).choice(len(X), min(a.mppi_states, len(X)), replace=False)
-            inp, outp = a.out / f"mppi_in_{k}.npz", a.out / f"mppi_out_{k}.npz"
-            np.savez(inp, x=X[pick], length=a.mppi_len, beta=alpha, gamma=GAMMA, seed0=30_000_000 + 1000 * a.seed + 50 * k, **P)
-            t1 = time.perf_counter()
-            res = subprocess.run([str(Path.home() / "mppi-gps/.venv/bin/python"), str(ROOT / "rss_checks/loop_mppi.py"), str(inp), str(outp)],
-                                 capture_output=True, text=True, env={**__import__("os").environ, "OMP_NUM_THREADS": "1"})
-            if res.returncode != 0:
-                raise RuntimeError("MPPI step failed: " + res.stderr[-2000:])
-            M = np.load(outp); fell = M["fell"]
-            up_states = [M[f"states_{j}"][::2] for j in range(len(fell)) if not fell[j]]
-            row.update(mppi_given=int(len(fell)), mppi_up=int((~fell).sum()), mppi_s=round(time.perf_counter() - t1))
-            # 4. collect
-            if up_states:
-                new = np.concatenate(up_states)
-                S["buffer"] = new if S["buffer"] is None else np.concatenate([S["buffer"], new])[-a.buffer:]
-                S["last_mppi"] = new
-            inp.unlink(missing_ok=True)
+            if a.self_pool:
+                S["buffer"] = X.copy()
+            if a.pool is None and not a.self_pool:  # the fixed-pool arm (PREREG_loop.md addendum ~01:55) skips steps 2-4
+                # 2. trust the critic on MPPI's states (measured policy continuations, 4 s)
+                alpha = 0.0
+                if S["last_mppi"] is not None and len(S["last_mppi"]):
+                    L = S["last_mppi"]; idx = np.random.default_rng(10_000 + 100 * a.seed + k).choice(len(L), min(16, len(L)), replace=False)
+                    Xc = L[idx]; Rc, _, ac, lc, _ = run_policy(act, Xc, 500)
+                    Gc = [ret_from(Rc[i], 0, ac[i]) for i in range(len(Xc))]
+                    Vc = np.asarray(vjit(S["params"], jnp.asarray(obs19(Xc).astype(np.float32)))).reshape(-1) / RS
+                    trust = float(spearmanr(Vc, Gc).statistic) if len(set(np.round(Gc, 6))) > 1 else float("nan")
+                    row.update(critic_rank_mppi_states=trust, mastered_share=float(ac.mean()))
+                    if not a.no_critic and trust >= 0.5:
+                        alpha = s
+                row["alpha"] = alpha
+                # 3. explore: MPPI from recorded policy states
+                pick = np.random.default_rng(20_000 + 100 * a.seed + k).choice(len(X), min(a.mppi_states, len(X)), replace=False)
+                inp, outp = a.out / f"mppi_in_{k}.npz", a.out / f"mppi_out_{k}.npz"
+                np.savez(inp, x=X[pick], length=a.mppi_len, beta=alpha, gamma=GAMMA, seed0=30_000_000 + 1000 * a.seed + 50 * k, **P)
+                t1 = time.perf_counter()
+                res = subprocess.run([str(Path.home() / "mppi-gps/.venv/bin/python"), str(ROOT / "rss_checks/loop_mppi.py"), str(inp), str(outp)],
+                                     capture_output=True, text=True, env={**__import__("os").environ, "OMP_NUM_THREADS": "1"})
+                if res.returncode != 0:
+                    raise RuntimeError("MPPI step failed: " + res.stderr[-2000:])
+                M = np.load(outp); fell = M["fell"]
+                up_states = [M[f"states_{j}"][::2] for j in range(len(fell)) if not fell[j]]
+                row.update(mppi_given=int(len(fell)), mppi_up=int((~fell).sum()), mppi_s=round(time.perf_counter() - t1))
+                # 4. collect
+                if up_states:
+                    new = np.concatenate(up_states)
+                    S["buffer"] = new if S["buffer"] is None else np.concatenate([S["buffer"], new])[-a.buffer:]
+                    S["last_mppi"] = new
+                inp.unlink(missing_ok=True)
         row["buffer"] = 0 if S["buffer"] is None else int(len(S["buffer"]))
         # 5. learn
         B = S["buffer"]
