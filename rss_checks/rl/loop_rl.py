@@ -7,7 +7,10 @@
 3. explore: MPPI (loop_mppi.py, mppi-gps venv) 3 s from up to 16 recorded policy states, terminal cost
    -alpha gamma^H V. 4. collect: states along MPPI runs that stay up, every 2 controls, into a 20k buffer.
 5. learn: one PPO chunk (Playground WalkerWalk config, 2 training steps); each env reset draws a buffer
-   state with probability 0.5. Round 0 is a plain chunk (no policy states yet). Resumable per round."""
+   state with probability 0.5. Round 0 is a plain chunk (no policy states yet). Resumable per round.
+--fresh_mppi W (PREREG_pull.md) replaces steps 2-4: each round MPPI runs 1,000 controls from 32 fresh standing starts
+with w * sum ||u - pi(s)||^2 toward the current policy in its cost (w = 0 at round 0, before any policy); the states
+of the walks that stay up are that round's practice-start set (kept from the last round if none stay up)."""
 import argparse, json, pickle, subprocess, sys, time
 from pathlib import Path
 
@@ -28,6 +31,9 @@ def main():
     ap.add_argument("--no_critic", action="store_true", help="alpha forced to 0 (ablation)")
     ap.add_argument("--pool", type=Path, default=None, help="fixed practice-start pool: states of MPPI runs from the task's starts; skips steps 2-4")
     ap.add_argument("--self_pool", action="store_true", help="control: practice starts are the policy's own recorded states from the task's starts; skips steps 2-4")
+    ap.add_argument("--fresh_mppi", type=float, default=None, help="pull weight w toward the policy for MPPI from fresh standing starts (0 = unpulled control); skips steps 2-4")
+    ap.add_argument("--n_walks", type=int, default=32)
+    ap.add_argument("--walk_len", type=int, default=1000)
     ap.add_argument("--small", action="store_true", help="plumbing only")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
@@ -41,6 +47,7 @@ def main():
 
     from brax_ppo import our_env
     from our_walker import STARTS, XML, cost_terms, healthy_of, obs_of
+    from policy_export import export_policy, standing_starts
 
     cfg = dict(dm_control_suite_params.brax_ppo_config("WalkerWalk")); cfg.pop("network_factory", None)
     RS = float(cfg["reward_scaling"])
@@ -131,6 +138,8 @@ def main():
     if a.pool is not None and S["buffer"] is None:
         S["buffer"] = np.load(a.pool)["x"]
     while S["round"] < a.rounds:
+        if (a.out / "stop").exists():  # graceful stop between rounds (safe for MPS clients)
+            print("stop file found; exiting", flush=True); return
         k = S["round"]; t0 = time.perf_counter(); row = dict(round=k)
         if S["params"] is not None:
             pol = jax.jit(make_inf(S["params"], deterministic=True)); key = jax.random.PRNGKey(0)
@@ -148,7 +157,7 @@ def main():
             P, rel = export_critic(S["params"], obs19(X)); row["critic_export_max_rel_err"] = rel
             if a.self_pool:
                 S["buffer"] = X.copy()
-            if a.pool is None and not a.self_pool:  # the fixed-pool arm (PREREG_loop.md addendum ~01:55) skips steps 2-4
+            if a.pool is None and not a.self_pool and a.fresh_mppi is None:  # the fixed-pool arm (PREREG_loop.md addendum ~01:55) skips steps 2-4
                 # 2. trust the critic on MPPI's states (measured policy continuations, 4 s)
                 alpha = 0.0
                 if S["last_mppi"] is not None and len(S["last_mppi"]):
@@ -179,6 +188,34 @@ def main():
                     S["buffer"] = new if S["buffer"] is None else np.concatenate([S["buffer"], new])[-a.buffer:]
                     S["last_mppi"] = new
                 inp.unlink(missing_ok=True)
+        if a.fresh_mppi is not None:  # PREREG_pull.md: MPPI from fresh standing starts, pulled toward the policy
+            w = a.fresh_mppi if S["params"] is not None else 0.0
+            X0 = standing_starts(80_000_000 + 100_000 * a.seed + 100 * k + np.arange(a.n_walks))
+            extra = dict(w_pull=w)
+            if S["params"] is not None:
+                PP, perr = export_policy(S["params"], obs19(X), make_inf, jax, jnp); row["policy_export_max_abs_err"] = perr
+                if perr > 1e-4:
+                    raise RuntimeError(f"policy export check failed: {perr}")
+                extra.update(PP)
+            inp, outp = a.out / f"mppi_in_{k}.npz", a.out / f"mppi_out_{k}.npz"
+            np.savez(inp, x=X0, length=a.walk_len, beta=0.0, gamma=GAMMA, seed0=42_000_000 + 10_000 * a.seed + 100 * k, **extra)
+            t1 = time.perf_counter()
+            res = subprocess.run([str(Path.home() / "mppi-gps/.venv/bin/python"), str(ROOT / "rss_checks/loop_mppi.py"), str(inp), str(outp)],
+                                 capture_output=True, text=True, env={**__import__("os").environ, "OMP_NUM_THREADS": "2"})
+            if res.returncode != 0:
+                raise RuntimeError("MPPI step failed: " + res.stderr[-2000:])
+            M = np.load(outp); fell = M["fell"]
+            kept = [M[f"states_{j}"] for j in range(len(fell)) if not fell[j]]
+            row.update(w=w, mppi_up=int((~fell).sum()), mppi_s=round(time.perf_counter() - t1),
+                       mppi_vx=float(np.mean([x[100:, 10].mean() for x in kept])) if kept else None,
+                       mppi_gap=float(M["gap"].mean()) if "gap" in M.files else None)
+            if kept:
+                S["buffer"] = np.concatenate(kept); S["zero_rounds"] = 0
+            else:
+                row["mppi_reused"] = True; S["zero_rounds"] = S.get("zero_rounds", 0) + 1
+            inp.unlink(missing_ok=True)
+            if S.get("zero_rounds", 0) >= 3:
+                (a.out / "stopped_pull_breaks_mppi").write_text(json.dumps(row) + "\n"); return
         row["buffer"] = 0 if S["buffer"] is None else int(len(S["buffer"]))
         # 5. learn
         B = S["buffer"]
